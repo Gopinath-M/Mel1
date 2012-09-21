@@ -11,7 +11,7 @@ gem 'thin'
 gem 'devise'
 gem 'kaminari'
 gem 'carrierwave'
-
+gem 'mysql2', '~>0.2.6'
 # Use unicorn as the web server
 # gem 'unicorn'
 

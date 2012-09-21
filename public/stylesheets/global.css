@@ -1,0 +1,113 @@
+
+
+/*
+	Slideshow
+*/
+
+#slides {
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:1000;
+}
+
+/*
+	Slides container
+	Important:
+	Set the width of your slides container
+	Set to display none, prevents content flash
+*/
+
+.slides_container {
+	 width:390px;
+	overflow:hidden;
+	position:relative;
+	display:none;
+	z-index:1001;
+}
+
+/*
+	Each slide
+	Important:
+	Set the width of your slides
+	If height not specified height will be set by the slide content
+	Set to display block
+*/
+
+.slides_container div.slide {
+	 width:390px;
+	height:340px;
+	display:block;
+}
+
+
+/*
+	Next/prev buttons
+*/
+
+#slides .next,#slides .prev {
+	position:absolute;
+	top:107px;
+	left:-39px;
+	width:24px;
+	height:43px;
+	display:block;
+	z-index:101;
+}
+
+#slides .next {
+	left:585px;
+}
+
+/*
+	Pagination
+*/
+
+.pagination {
+	margin:-20px 15px 0 0; float:right;
+	width:60px; height:7px; background: url(../public/images/bg_slide_indicator.png) no-repeat 0 0;  padding:0 0px 0 0px; position:relative; z-index:2222;
+}
+
+.pagination li {
+	float:left;
+	margin:0 0 0 4px;
+	list-style:none;
+	outline:none;
+}
+
+.pagination li a {
+	display:block;
+	width:7px;
+	height:7px;
+	background-image:url(../public/images/bullet1.png);
+	background-position:0 0;
+	float:left;
+	overflow:hidden;
+	text-indent:-999px;
+	outline:none;
+}
+
+.pagination li.current a {
+	background-image:url(../public/images/bullet2.png);
+}
+
+/*
+	Caption
+*/
+
+.caption {
+	z-index:5000;
+	position:absolute;
+	top:45px;
+	right:0;
+	height:30px;
+	padding:10px 20px 0;
+	background:#000;
+	background:rgba(0,0,0,.5);
+	width:370px;
+	color:#fff;
+	height:110px;
+	text-shadow:none;
+}
+.caption h1{ font-size:20px; text-transform:uppercase; line-height:35px; color:#fff;}
+.caption p{ font-size:13px; color:#fff; padding-bottom:10px;}

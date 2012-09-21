@@ -1,0 +1,11 @@
+/* RESET */
+.box {height:1%;}
+
+#Header .iHeader .globe-links {width: 185px; clear:left;}
+#Header .iHeader .profName-con{ clear:left;}
+#Header .iHeader .language{width: 48px; clear:left;}
+.CenterNav{ padding-top:0; margin-top:10px;}
+ul.dropdown ul li					{ display: inline; width: 100%; } 
+.leftNav{left:-180px;}
+.toIE7 .profInfo,.toIE7 .leftNav-links{display:none;}
+
