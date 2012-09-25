@@ -45,6 +45,9 @@ ActiveRecord::Schema.define(:version => 20120925120120) do
     t.boolean  "is_admin"
     t.date     "date_of_join"
     t.date     "date_of_birth"
+    t.integer  "department_id"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

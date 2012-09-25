@@ -18,6 +18,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.boolean :is_admin
       t.date :date_of_join
       t.date :date_of_birth
+      t.references :department
+      t.integer :created_by
+      t.integer :updated_by
       # t.encryptable
       # t.confirmable
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
