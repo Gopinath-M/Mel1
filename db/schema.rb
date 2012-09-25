@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120919111125) do
+ActiveRecord::Schema.define(:version => 20120925120120) do
+
+  create_table "departments", :force => true do |t|
+    t.string   "name"
+    t.boolean  "is_active"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -23,6 +32,19 @@ ActiveRecord::Schema.define(:version => 20120919111125) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "ic_number"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "gender"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "contact_phone"
+    t.string   "contact_mobile"
+    t.boolean  "is_admin"
+    t.date     "date_of_join"
+    t.date     "date_of_birth"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
