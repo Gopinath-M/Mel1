@@ -18,6 +18,7 @@
     <!--HEADER DROPDOWN-->
     <%= javascript_include_tag 'jquery.dropdownPlain' %>
     <%= stylesheet_link_tag 'style_dropdown' ,:media=>"screen, projection" %>
+     <%if controller_name.to_s == 'sessions' && action_name.to_s == 'new'  %>
     <!--SIDE PANEL-->
     <%= stylesheet_link_tag 'side_panel'%>
     <%= javascript_include_tag 'easing' %>
@@ -48,13 +49,16 @@
         });
       });
     </script>
+    <%end%>
     <%= csrf_meta_tag %>
   </head>
   <body>
     <!--BODY START-->
     <%=render :partial=>'shared/header'%>
-    <%=render :partial=>'shared/right_navigation'%>
-    <%=render :partial=>'shared/left_navigation'%>
+    <%if controller_name.to_s != 'sessions' && action_name.to_s != 'new'  %>
+      <%=render :partial=>'shared/right_navigation'%>
+      <%=render :partial=>'shared/left_navigation'%>
+    <%end%>
     <%= yield %>
     <%=render :partial=>'shared/footer'%>
   </body>
