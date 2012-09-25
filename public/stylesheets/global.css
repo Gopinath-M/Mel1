@@ -65,7 +65,7 @@
 
 .pagination {
 	margin:-20px 15px 0 0; float:right;
-	width:60px; height:7px; background: url(../public/images/bg_slide_indicator.png) no-repeat 0 0;  padding:0 0px 0 0px; position:relative; z-index:2222;
+	width:60px; height:7px; background: url(../images/bg_slide_indicator.png) no-repeat 0 0;  padding:0 0px 0 0px; position:relative; z-index:2222;
 }
 
 .pagination li {
@@ -79,7 +79,7 @@
 	display:block;
 	width:7px;
 	height:7px;
-	background-image:url(../public/images/bullet1.png);
+	background-image:url(../images/bullet1.png);
 	background-position:0 0;
 	float:left;
 	overflow:hidden;
@@ -88,7 +88,7 @@
 }
 
 .pagination li.current a {
-	background-image:url(../public/images/bullet2.png);
+	background-image:url(../images/bullet2.png);
 }
 
 /*

@@ -1,17 +1,75 @@
-<h2>Sign in</h2>
-
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  <% if  flash[:notice] || flash[:alert] %>
+    <div class="error">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+    </div>
+    <div class="clearfix">&nbsp;</div>
+  <%end%>
+  <div class="landing-con">
+    <div class="banner">
+      <span class="cor-tl"></span>
+      <span class="cor-tr"></span>
+      <span class="cor-bl"></span>
+      <span class="cor-br"></span>
+      <div id="slides">
+        <div class="slides_container">
+          <div class="slide">
+            <%=image_tag("banner1.png", :alt=>"Image", :width=>"390", :height=>"340") %>
+          </div>
+          <div class="slide">
+            <%=image_tag("banner2.jpg", :alt=>"Image", :width=>"390", :height=>"340") %>
+          </div>
+          <div class="slide">
+            <%=image_tag("banner3.jpg", :alt=>"Image", :width=>"390", :height=>"340") %>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+          </div>
+          <div class="slide">
+            <%=image_tag("banner4.jpg", :alt=>"Image", :width=>"390", :height=>"340") %>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+          </div>
+          <div class="slide">
+            <%=image_tag("banner5.jpg", :alt=>"Image", :width=>"390", :height=>"340") %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="login-ban">
+      <div class="ban-tr">
+        <div class="ban-tl"></div>
+        <div class="ban-tc"></div>
+      </div>
+      <div class="ban-m">
+        <h1>Welcome to Melaka Intranet Portal</h1>
+        <h3>" The Corridor for Effective Communication "</h3>
 
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+        <div class="footer-land">
+          <p class="formRow t-left">
+            <%= f.label :ic_number, :class=>"ui-watermark-label-pass"%>
+            <span class="shadow-input">
+              <%= f.text_field :ic_number, :class=>"pass"%>
+            </span>
+          </p>
+          <p class="formRow t-left">
+            <%= f.label :password, :class=>"ui-watermark-label-pass"%>
+            <span class="shadow-input">
+              <%= f.password_field :password, :class=>"pass"%>
+            </span>
+          </p>
+          <%= f.submit "Log In", :class => "btn1" %>
+          <div class="clear"></div>
+          <p class="loggedin">
+            <input type="checkbox" id="logged" />
+            <label for="logged">Keep me logged in</label>
+          </p>
+          <p class="forgot-row"><a href="#" title="Forgot your password?">Forgot your password?</a></p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="clear"></div>
+<%end%>

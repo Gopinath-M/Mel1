@@ -11,11 +11,11 @@ a#controlbtn{
 }
 
 a#controlbtn.open {
-	background: transparent url(../public/images/arrow_panel.png) no-repeat 0 0;
+	background: transparent url(../images/arrow_panel.png) no-repeat 0 0;
 }
 
 a#controlbtn.close {
-	background: transparent url(../public/images/arrow_panel.png) no-repeat 0 -20px;
+	background: transparent url(../images/arrow_panel.png) no-repeat 0 -20px;
 }
 
 
