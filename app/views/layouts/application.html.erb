@@ -2,8 +2,6 @@
 <html>
   <head>
     <title>Intranet Portal Melaka State Government</title>
-    <%= stylesheet_link_tag :all %>
-    <%= javascript_include_tag :defaults %>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico"/>
     <%= stylesheet_link_tag 'style' %>
     <%= stylesheet_link_tag 'reset' %>
@@ -20,11 +18,43 @@
     <!--HEADER DROPDOWN-->
     <%= javascript_include_tag 'jquery.dropdownPlain' %>
     <%= stylesheet_link_tag 'style_dropdown' ,:media=>"screen, projection" %>
+    <!--SIDE PANEL-->
+    <%= stylesheet_link_tag 'side_panel'%>
+    <%= javascript_include_tag 'easing' %>
+    <script type="text/javascript">
+      $().ready(function(){
+        $("a#controlbtn").click(function(e) {
+          e.preventDefault();
+          var slidepx=$("div#linkblock").width() + 0;
+          if ( !$("div#maincontent").is(':animated') ) {
+            if (parseInt($("div#maincontent").css('marginLeft'), 10) < slidepx) {
+              $(this).removeClass('close').html('Side Panel');
+              $('.pageContainer').removeClass('bg2');
+              $('.leftNav').removeClass('toIE7');
+              margin = "+=" + slidepx;
+            } else {
+              $(this).addClass('close').html('Side Panel');
+              margin = "-=" + slidepx;
+              $('.pageContainer').addClass('bg2');
+              $('.leftNav').addClass('toIE7');
+            }
+            $("div#maincontent").animate({
+              marginLeft: margin
+            }, {
+              duration: 'slow',
+              easing: 'easeOutQuint'
+            });
+          }
+        });
+      });
+    </script>
     <%= csrf_meta_tag %>
   </head>
   <body>
     <!--BODY START-->
     <%=render :partial=>'shared/header'%>
+    <%=render :partial=>'shared/right_navigation'%>
+    <%=render :partial=>'shared/left_navigation'%>
     <%= yield %>
     <%=render :partial=>'shared/footer'%>
   </body>
