@@ -8,6 +8,13 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :ic_number
       t.string :first_name
       t.string :last_name
+      t.string :gender
+      t.string :address1
+      t.string :address2
+      t.string :city
+      t.string :state
+      t.string :contact_phone
+      t.string :contact_mobile
       # t.encryptable
       # t.confirmable
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
