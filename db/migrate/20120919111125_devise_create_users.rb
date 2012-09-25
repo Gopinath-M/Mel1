@@ -15,6 +15,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :state
       t.string :contact_phone
       t.string :contact_mobile
+      t.boolean :is_admin
+      t.date :date_of_join
+      t.date :date_of_birth
       # t.encryptable
       # t.confirmable
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
