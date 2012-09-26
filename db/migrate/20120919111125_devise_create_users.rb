@@ -6,15 +6,34 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.rememberable
       t.trackable
       t.string :ic_number
+      t.string :other_ic_number
       t.string :first_name
       t.string :last_name
+      t.string :username
+      t.integer :substantive_post_id
+      t.integer :department_id
+      t.integer :service_level_id
+      t.integer :classification_id
+      t.integer :grade_id
+      t.integer :salary_id
+      t.integer :salary_standard_id
+      t.integer :appointment_id
+      t.string :position
+      t.string :official_position
+      t.integer :unit_id
       t.string :gender
-      t.string :address1
-      t.string :address2
+      t.text :address
+      t.text :address
       t.string :city
+      t.integer :zipcode
       t.string :state
       t.string :contact_phone
       t.string :contact_mobile
+      t.string :fax_number
+      t.date :first_appointment_to_public_service
+      t.date :first_appointment_to_present_position
+      t.date :promotion_to_grad_now
+      t.date :confirmation_date_to_post_now
       t.boolean :is_admin
       t.date :date_of_join
       t.date :date_of_birth
