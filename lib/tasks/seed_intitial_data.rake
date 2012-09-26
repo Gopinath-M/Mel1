@@ -6,11 +6,20 @@ namespace :department do
       file = File.open("public/Department.csv", "r")
       file.readlines.each_with_index do |record, i|
         begin
-          Department.create(:name=>record)
+          Department.create(:name=>record, :is_active=>true, :created_by=>1, :updated_by=>1)
         rescue Exception =>e
           p "Exception ocurred due to #{e.to_s} at #{i}"
         end
       end
+    rescue Exception=>e
+      p "Exception due to : #{e.to_s}"
+    end
+  end
+
+  desc 'drop department data in db'
+  task :delete => :environment do
+    begin
+      Department.delete_all
     rescue Exception=>e
       p "Exception due to : #{e.to_s}"
     end
