@@ -21,7 +21,7 @@ Melaka::Application.configure do
   config.active_support.deprecation = :log
   
   #For invalid authenticity token devise
-  config.action_controller.allow_forgery_protection = false
+#  config.action_controller.allow_forgery_protection = false
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
