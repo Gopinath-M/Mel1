@@ -44,7 +44,7 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :zipcode,raw("zipcode"), :class=>"text"%>
+          <%= f.label :zipcode,raw("Zipcode"), :class=>"text"%>
           <span class="in-box">
             <%= f.text_field :zipcode, :size => 30%>
           </span>
@@ -55,6 +55,15 @@
             <%=f.select(:department_id, Department.all.collect {|p| [ p.name, p.id ] }) %>
           </span>
         </div>
+        <div class="form-sec-row">
+          <label class="text">Is Admin</label>
+          <span class="in-box">
+          <span class="ui-watermark-container ui-watermark-input">
+            <label for="" class="ui-watermark-label" style="left: 6px; top: 6px;"></label>
+            <%= f.check_box :is_admin %>
+          </span>
+    </span>
+  </div>
         
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
