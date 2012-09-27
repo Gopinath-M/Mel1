@@ -203,11 +203,11 @@
 .comp-post-row .c2 .PM-des{ font-size:11px; color:#777777; line-height:22px;}
 .comp-post-row .c2 .PM-des a{font-size:11px; line-height:14px;}
 .comp-post-row .c3{ float:right; width:30px; text-align:center; padding:15px 0 0 5px}
-.page-link{ text-align:right; padding-top:40px;}
-.page-link a{ display:inline-block; color:#777777; padding:0 5px 0 5px; font-weight:bold; line-height:28px;}
+.page-link{ text-align:right; padding-top:40px; float:right;}
+.page-link a{ display:inline-block; color:#777777; padding:0 5px 0 5px; font-weight:bold; line-height:28px; float:left; overflow:hidden;}
 .page-link a:hover{color:#2f65a1;}
-.page-link a.prev{ text-indent:-9999px; background:url(../images/prev_icon.jpg); width:20px; height:21px; padding:0; font-size:0px;}
-.page-link a.next{ text-indent:-9999px; background:url(../images/next_icon.jpg); width:20px; height:21px;padding:0; font-size:0px;}
+.page-link a.prev{ text-indent:-9999px; background:url(../images/prev_icon.jpg); width:20px; height:21px; padding:0; font-size:0px; margin-top:5px;}
+.page-link a.next{ text-indent:-9999px; background:url(../images/next_icon.jpg); width:20px; height:21px;padding:0; font-size:0px;margin-top:5px;}
 .page-link a.select{ display:inline-block; color:#2f65a1;}
 .weather{ background:url(../images/weather_icon.jpg) 5px 5px no-repeat #fefff9; border:1px solid #ecd9ae; padding:5px 5px 5px 50px; margin-bottom:10px}
 .weather span{ font-style:italic;}
@@ -274,6 +274,8 @@ h2.b-head a img{ float:left; margin-right:5px; padding-top:5px;}
 .r-btn-sec{ padding:10px 0px 0 0; line-height:20px;}
 .r-btn-sec label{ display:inline-block; padding-right:10px;}
 
+.form-page{ width:980px; margin:15px auto 85px auto; min-height:550px;}
+.form-page .form-sec{ width:60%; margin:0 auto;}
 
 /*error  message page end*/
 .error{ padding:10px 10px 10px 50px; margin:3px 0; border:1px solid #ff4545; font-size:13px; }

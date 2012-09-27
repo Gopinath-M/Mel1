@@ -1,8 +1,11 @@
 Melaka::Application.routes.draw do
-#  devise_for :admins
-  devise_for :users do
-    match '/users/sign_out', :to =>'sessions#destroy'
+  resources :dashboard
+  devise_for :users, :controllers=>{:sessions => "sessions"}, :skip => [:sessions] do
+    get "/login" => "sessions#new", :as => :new_user_session
+    post "/login" => "sessions#create", :as => :user_session
+    get "/logout"=> "sessions#destroy", :as => :destroy_user_session
   end
+
   resources :users do
     collection do
       post 'activate'
@@ -10,7 +13,7 @@ Melaka::Application.routes.draw do
     end
   end
   resources :department_users
-  resources :dashboard 
+  resources :dashboard
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -60,8 +63,7 @@ Melaka::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "users#index"
-
+  root :to => "application#home"
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

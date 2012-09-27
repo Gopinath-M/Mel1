@@ -15,7 +15,7 @@ Melaka::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -37,6 +37,7 @@ Melaka::Application.configure do
     :password             => 'testtest',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
-  
+  APP_URL="http://192.9.200.111:3000"
+  MAIN_SITE_URL="http://192.9.200.111:3000"
 end
 
