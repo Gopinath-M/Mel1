@@ -5,6 +5,7 @@ Melaka::Application.routes.draw do
     post "/login" => "sessions#create", :as => :user_session
     get "/logout"=> "sessions#destroy", :as => :destroy_user_session  
   end
+  resources :departments
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
