@@ -59,7 +59,7 @@
   <body>
     <!--BODY START-->
     <%=render :partial=>'shared/header'%>
-    <%if (controller_name.to_s != 'sessions'  && controller_name.to_s != 'passwords' && controller_name.to_s != 'department_users')  %>
+    <%if (controller_name.to_s != 'sessions'  && controller_name.to_s != 'passwords' && controller_name.to_s != 'department_users' && controller_name.to_s != 'registrations')   %>
       <%=render :partial=>'shared/right_navigation'%>
       <%=render :partial=>'shared/left_navigation'%>
     <%end%>
