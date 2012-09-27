@@ -1,7 +1,9 @@
 Melaka::Application.routes.draw do
   resources :dashboard 
-  devise_for :users do
-    match '/users/sign_out', :to =>'sessions#destroy'
+  devise_for :users, :controllers=>{:sessions => "sessions"}, :skip => [:sessions] do
+    get "/login" => "sessions#new", :as => :new_user_session
+    post "/login" => "sessions#create", :as => :user_session
+    get "/logout"=> "sessions#destroy", :as => :destroy_user_session  
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -52,7 +54,7 @@ Melaka::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "dashboard#index"
+    root :to => "application#home"
 
   # See how all your routes lay out with "rake routes"
 
