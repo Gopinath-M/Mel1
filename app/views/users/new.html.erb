@@ -1,0 +1,66 @@
+
+<%= form_for(@user, :as => :user,  :url => users_path, :method=>:post) do |f| %>
+  <%=f.error_messages%>
+  <%= field_set_tag "User" do %>
+    <table class="nostyle">
+
+      <tr>
+        <td><%= f.label :first_name,raw("First Name:")%></td>
+        <td><%= f.text_field :first_name, :size => 30, :class => 'input-text' %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :last_name, raw("Last Name:")%></td>
+        <td><%= f.text_field :last_name, :size => 30, :class => 'input-text' %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :email,raw("Email:")%></td>
+        <td><%= f.text_field :email, :size => 30, :class => 'input-text' %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :username, raw("Username:")%></td>
+        <td><%= f.text_field :username, :size => 30, :class => 'input-text' %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :gender, raw("Gender:")%></td>
+        <td>
+          <% if @user.gender == 'female' %>
+            <%= f.radio_button :gender, :female, :checked=>"checked" %>
+            <label for="user_gender_female">Female</label> &nbsp;&nbsp;
+          <%  else %>
+            <%= f.radio_button :gender, :female %>
+            <label for="user_gender_female">Female</label> &nbsp;&nbsp;
+          <% end %>
+          <% if @user.gender == 'male' %>
+            <%= f.radio_button :gender, :male, :checked=>"checked" %>
+            <label for="user_gender_male">Male</label> &nbsp;&nbsp;
+          <%  else %>
+            <%= f.radio_button :gender, :male %>
+            <label for="user_gender_male">Male</label> &nbsp;&nbsp;
+          <% end %>
+        </td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :city, raw("City:")%></td>
+        <td><%= f.text_field :city, :size => 30 , :class => 'input-text'%></td>
+      </tr>
+      <tr>
+        <td><%= f.label :state, raw("State:")%></td>
+        <td><%= f.text_field :state, :size => 30, :class => 'input-text'%></td>
+      </tr>
+
+
+    
+
+      <tr>
+        <td><%= f.label :zipcode,raw("Zipcode:")%></td>
+        <td><%= f.text_field :zipcode, :size => 30,:maxlength=>5, :class => 'input-text' %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= f.submit :class=>"btn-submit"%></td>
+      </tr>
+    </table>
+  <% end %>
+<%end%>

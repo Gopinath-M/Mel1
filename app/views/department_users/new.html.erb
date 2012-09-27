@@ -1,0 +1,67 @@
+<%= form_for(@user, :as => :user,  :url => department_users_path, :method=>:post) do |f| %>
+  <!--BODY START-->
+  <div id="Body">
+    <div class="form-page">
+      <div class="form-sec">
+        <%=f.error_messages%>
+        <h2>Create New Department User</h2>
+        <div class="form-sec-row">
+          <%= f.label :first_name,raw("First Name"), :class=>"text"%>
+          <span class="in-box">
+            <%= f.text_field :first_name, :size => 30%>
+          </span>
+        </div>
+        <div class="form-sec-row">
+          <%= f.label :last_name,raw("Last Name"), :class=>"text"%>
+          <span class="in-box">
+            <%= f.text_field :last_name, :size => 30%>
+          </span>
+        </div>
+        <div class="form-sec-row">
+          <%= f.label :email,raw("Email"), :class=>"text"%>
+          <span class="in-box">
+            <%= f.text_field :email, :size => 30%>
+          </span>
+        </div>
+
+        <div class="form-sec-row">
+          <%= f.label :username,raw("User Name"), :class=>"text"%>
+          <span class="in-box">
+            <%= f.text_field :username, :size => 30%>
+          </span>
+        </div>
+
+        <div class="form-sec-row">
+          <%= f.label :city,raw("City"), :class=>"text"%>
+          <span class="in-box">
+            <%= f.text_field :city, :size => 30%>
+          </span>
+        </div>
+
+        <div class="form-sec-row">
+          <%= f.label :state,raw("State"), :class=>"text"%>
+          <span class="in-box">
+            <%= f.text_field :state, :size => 30%>
+          </span>
+        </div>
+
+        <div class="form-sec-row">
+          <%= f.label :zipcode,raw("zipcode"), :class=>"text"%>
+          <span class="in-box">
+            <%= f.text_field :zipcode, :size => 30%>
+          </span>
+        </div>
+
+        <div class="form-sec-row">
+          <label class="text">&nbsp;</label>
+          <span class="in-box">
+            <%= f.submit :class=>"btn2"%>
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <!--BODY END-->
+<%end%>
