@@ -276,6 +276,6 @@ h2.b-head a img{ float:left; margin-right:5px; padding-top:5px;}
 
 
 /*error  message page end*/
-.error{ padding:10px 10px 10px 50px; margin:3px 0; border:1px solid #ff4545; background:url(../images/error.png) 8px 3px no-repeat #fef0f0; font-size:13px; }
+.error{ padding:10px 10px 10px 50px; margin:3px 0; border:1px solid #ff4545; font-size:13px; }
 .succ{ padding:10px 10px 10px 50px;margin:3px 0; border:1px solid #3cb64a; background:url(../images/success.png) 8px 3px no-repeat #e8fdea; font-size:13px; }
-.error_messages{ padding:10px 10px 10px 50px; margin:3px 0; border:1px solid #ff4545; background:url(../images/error.png) 8px 3px no-repeat #fef0f0; font-size:13px; }
+.error_messages{ padding:10px 10px 10px 50px; margin:3px 0; border:1px solid #ff4545; font-size:13px; }
