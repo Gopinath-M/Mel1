@@ -5,11 +5,10 @@ class SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    resource = build_resource(nil, :unsafe => true)
-    clean_up_passwords(resource)
-    respond_with(resource, serialize_options(resource))
-  end
-
+    clean_up_passwords(build_resource)
+    render_with_scope :new
+  end 
+  
   # POST /resource/sign_in
   def create
     resource = warden.authenticate!(auth_options)
