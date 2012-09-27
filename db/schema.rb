@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20120926102810) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                                :default => "", :null => false
-    t.string   "encrypted_password",                    :limit => 128, :default => "", :null => false
+    t.string   "email",                                                :default => "",    :null => false
+    t.string   "encrypted_password",                    :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -101,11 +101,16 @@ ActiveRecord::Schema.define(:version => 20120926102810) do
     t.date     "first_appointment_to_present_position"
     t.date     "promotion_to_grad_now"
     t.date     "confirmation_date_to_post_now"
-    t.boolean  "is_admin"
+    t.boolean  "is_admin",                                             :default => false
     t.date     "date_of_join"
     t.date     "date_of_birth"
     t.integer  "created_by"
     t.integer  "updated_by"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

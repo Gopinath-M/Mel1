@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>iPrints</title>
+  </head>
+  <body>
+    <table align="center" width="610" cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="background-color:#4C4C4C; height:100px; width:610px;">
+          <table cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding: 10px 0 10px 40px;">
+                <%= image_tag("#{APP_URL}/images/img_logo.png", :height => "98",:width=>"462", :alt => "Logo", :style=>"display:block;") %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#DCDCDC;">
+                  <tr>
+                    <td align="center">
+                      <table width="87%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="left" valign="top" style="color:#4B4C4C; font-family:Arial, Helvetica, sans-serif; font-size: 20px; padding: 10px 0 5px; border-bottom: 1px solid #7C7C7C;"> Welcome,
+                            <span style="color:#5692AD; font-family:Arial, Helvetica, sans-serif; font-size: 20px;"> <%= @user.full_name%>!</span></td>
+                        </tr>
+                        <tr>
+                          <td align="left" valign="top" style="color:#4B4C4C; font-family:Arial, Helvetica, sans-serif; font-size: 12px; padding: 40px 0 0 0; font-weight:bold;">You have successfully purchased an iPrint at Appilicious.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="left" valign="top" style="color:#4B4C4C; font-family:Arial, Helvetica, sans-serif; font-size: 12px; padding: 10px 0 0 0; font-weight:bold;">If you would like to create an account in the future, you may login with the below credentials,
+                            click <%=link_to "Here", "#{MAIN_SITE_URL}/users/sign_in "%> to activate your account.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="left" valign="top" style="color:#4B4C4C; font-family:Arial, Helvetica, sans-serif; font-size: 12px; padding: 10px 0 0 0; font-weight:bold;">Login : <%=@user.email%>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="left" valign="top" style="color:#4B4C4C; font-family:Arial, Helvetica, sans-serif; font-size: 12px; padding: 10px 0 0 0; font-weight:bold;">Password : <%=@password%>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="left" valign="top" style="color:#4B4C4C; font-family:Arial, Helvetica, sans-serif; font-size: 12px; padding: 40px 0 40px; font-weight:bold;">Thanks for joining and have a great day!
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td align="right" valign="top" style="background-color:#4C4C4C; height:65px; width:610px; color:#ffffff; font-size: 18px; padding: 10px 40px 10px 0; text-transform:uppercase;"> <h4 style="margin:0;color: #fff; font-family:Arial, Helvetica, sans-serif; padding: 10px 0;"> Thank You. </h4></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

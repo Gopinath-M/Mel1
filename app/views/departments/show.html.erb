@@ -1,0 +1,38 @@
+<br /><br /><div class="CenterNav">
+					<div class="form-sec">
+
+  <h2 class="b-head">Create Department</h2>
+                       
+                   <%= form_for(@department) do |f| %>
+
+                        <div class="form-sec-row">
+                        	<label class="text">Department Name:</label>
+                            <span class="in-box"><span class="ui-watermark-container ui-watermark-input"><label for="" class="ui-watermark-label" style="left: 6px; top: 6px;"></label> <%= f.text_field :name, :required => true %></span></span>
+                        </div>
+                        <div class="form-sec-row">
+                        	<label class="text">Is Active</label>
+                            <span class="in-box"><span class="ui-watermark-container ui-watermark-input"><label for="" class="ui-watermark-label" style="left: 6px; top: 6px;"></label> <%= f.check_box :is_active %></span></span>
+                        </div>
+
+                        <div class="form-sec-row">
+                        	<label class="text">&nbsp;</label>
+                            <span class="in-box">   <%= f.submit %></span>
+                        </div>
+<% end %>
+                    </div></div>
+                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
