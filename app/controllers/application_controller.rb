@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def home
     if user_signed_in?
-      redirect_to :controller => "dashboard", :action => "index"
+      redirect_to :controller => "users", :action => "index"
     else
       redirect_to :controller => "sessions", :action => "new"
     end
