@@ -21,7 +21,7 @@ Melaka::Application.configure do
   config.active_support.deprecation = :log
   
   #For invalid authenticity token devise
-#  config.action_controller.allow_forgery_protection = false
+  #  config.action_controller.allow_forgery_protection = false
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
@@ -37,7 +37,7 @@ Melaka::Application.configure do
     :password             => 'testtest',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
-  APP_URL="http://192.9.200.111:3000"
-  MAIN_SITE_URL="http://192.9.200.111:3000"
+  APP_URL="http://localhost:3000"
+  MAIN_SITE_URL="http://localhost:3000"
 end
 
