@@ -5,7 +5,7 @@ Melaka::Application.routes.draw do
     post "/login" => "sessions#create", :as => :user_session
     get "/logout"=> "sessions#destroy", :as => :destroy_user_session
   end
-
+  resources :departments
   resources :users do
     collection do
       post 'activate'
@@ -13,7 +13,6 @@ Melaka::Application.routes.draw do
     end
   end
   resources :department_users
-  resources :dashboard
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
