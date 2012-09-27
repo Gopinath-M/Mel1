@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  before_filter :authenticate_user!
   def index
     @departments = Department.all
     if params[:del] !=nil
@@ -14,24 +15,33 @@ class DepartmentsController < ApplicationController
         
     end
   end
+
   def show
     @department = Department.new
     if params[:id] == "destroy"
       redirect_to :action=>"destory"
     end
   end
-  def create
-    @department = Department.new(params[:department])
-    @department.created_by = current_user.id
-    @department.save
-    redirect_to :controller=>'departments', :action=>'index'
-   
+
+  def new
+    @department = Department.new
   end
+
+  def create
+    @department = Department.new(params[:department].merge!(:created_by => current_user.id))
+    @department.save
+    if @department.valid?
+      redirect_to :controller=>'departments', :action=>'index'
+    else
+      render :action=>'new'
+    end
+  end
+
   def edit
     @id = params[:id]
     @department = Department.find(@id.to_i)
-    
   end
+
   def update
     @id = params[:id]
     @department = Department.find(@id.to_i)
@@ -45,22 +55,23 @@ class DepartmentsController < ApplicationController
         @department.is_active = 0
       end
       @department.save
-
     end
     if params[:department] != nil
       @department.update_attributes(params[:department])
     end
-    redirect_to :controller=>'departments', :action=>'index'
-
+    if @department.valid?
+      redirect_to :controller=>'departments', :action=>'index'
+    else
+      render :action=>'new'
+    end
   end
  
   def destroy
-    @id = params[:id]
-  
     @department = Department.find(params[:id])
     @department.destroy
     redirect_to :controller=>'departments', :action=>'index'
   end
+  
   def active
     @department = Department.find(params[:id])
     @department.is_active = 0
