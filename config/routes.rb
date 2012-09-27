@@ -1,8 +1,16 @@
 Melaka::Application.routes.draw do
-  resources :dashboard 
+#  devise_for :admins
   devise_for :users do
     match '/users/sign_out', :to =>'sessions#destroy'
   end
+  resources :users do
+    collection do
+      post 'activate'
+      post 'deactivate'
+    end
+  end
+  resources :department_users
+  resources :dashboard 
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -52,7 +60,7 @@ Melaka::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "dashboard#index"
+  root :to => "users#index"
 
   # See how all your routes lay out with "rake routes"
 
