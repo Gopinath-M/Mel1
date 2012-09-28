@@ -24,6 +24,18 @@ class UsersController < ApplicationController
 
   #List all Users
   def index
-    @users=User.all
+    @users=nil
+    p "==========comes to users"
+    p params[:department_id].blank?
+    p params[:department_id].nil?
+    if params[:department_id].blank? || params[:department_id].nil?
+      @users=User.where(:is_admin=>0)
+    else
+      @users=User.where(:department_id=>params[:department_id])
+    end
+    p @users.inspect
+    if request.xhr?
+      render :layout=>false
+    end
   end
 end

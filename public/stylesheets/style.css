@@ -1,10 +1,10 @@
 /*COMMON*/
 
 .container{ width:100%; margin:0 auto;}
-.btn1{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:4px 10px 4px; font-size:11px; color:#fff; overflow:visible; float:left;}
-.btn1:hover{ color:#f2c0b7;}
-.btn2{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:3px 15px 3px; font-size:11px; color:#fff; overflow:visible;}
-.btn2:hover{ color:#f2c0b7;}
+.btn1{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:4px 10px 4px; font-size:12px; color:#fff; overflow:visible; float:left;height:24px; font-weight: bold;}
+.btn1:hover{ color:#f2c0b7; height:24px;}
+.btn2{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:3px 15px 3px; font-size:12px; color:#fff; overflow:visible; height:24px;font-weight: bold;}
+.btn2:hover{ color:#f2c0b7; height:24px;}
 
 /*HEADER*/
 #Header{ min-height:95px;width:980px; margin:0 auto;}
@@ -222,6 +222,7 @@
 .form-sec-row label.text{ float:left; width:150px; font-weight:bold;}
 .form-sec-row span.in-box{ float:left; width:60%;}
 .form-sec-row span.in-box input[type="text"]{ width:80%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
+.form-sec-row span.in-box input[type="password"]{ width:80%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
 .form-sec-row span.in-box select{ width:83%; padding:5px; border:1px solid #96a6c5}
 .form-sec-row span.in-box textarea{ width:80%; padding:5px; border:1px solid #96a6c5}
 
@@ -237,11 +238,12 @@ h2.b-head a:hover{ color:#E62C0C;}
 h2.b-head a img{ float:left; margin-right:5px; padding-top:5px;}
 
 .create-user{ padding:20px 0 5px 0; border-bottom:1px dotted #ccc; overflow:hidden;}
-.create-user .cu-c1{ float:left; width:45%;}
+.create-user .cu-c1{ float:left; width:30%;}
 .create-user .cu-c1 a{ display:inline-block; padding:2px 10px 2px 5px; background:url(../images/add_user_bg.jpg); border:1px solid #c4c4c4}
 .create-user .cu-c1 a img{ float:left; margin-right:5px}
-.create-user .cu-c2{ float:right; width:45%; color:#797979; text-align:right;}
+.create-user .cu-c2{ float:right; width:70%; color:#797979; text-align:right;}
 
+.cu-c2 select{width:200px;}
 .manage-user{}
 .manage-user-row{border-bottom: 1px solid #DFDFDF;padding: 10px 0 10px;}	
 .manage-user-row .mu-c1{ float:left; width:63px;}

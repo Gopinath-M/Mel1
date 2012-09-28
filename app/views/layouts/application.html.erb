@@ -21,7 +21,7 @@
     <%= javascript_include_tag 'jquery.dropdownPlain' %>
     <%= stylesheet_link_tag 'style_dropdown' ,:media=>"screen, projection" %>
     <%= javascript_include_tag 'application' %>
-    <%if controller_name.to_s != 'sessions' && action_name.to_s != 'new'  %>
+    <%if controller_name.to_s != 'sessions'  %>
       <!--SIDE PANEL-->
       <%= stylesheet_link_tag 'side_panel'%>
       <%= javascript_include_tag 'easing' %>
@@ -59,7 +59,7 @@
   <body>
     <!--BODY START-->
     <%=render :partial=>'shared/header'%>
-    <%if (controller_name.to_s != 'sessions'  && controller_name.to_s != 'passwords' && controller_name.to_s != 'department_users' && controller_name.to_s != 'registrations')   %>
+    <%if (controller_name.to_s != 'sessions'  && controller_name.to_s != 'passwords' && controller_name.to_s != 'registrations')   %>
       <%=render :partial=>'shared/right_navigation'%>
       <%=render :partial=>'shared/left_navigation'%>
     <%end%>

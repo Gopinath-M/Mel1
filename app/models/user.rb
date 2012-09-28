@@ -6,8 +6,10 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin
 
+  validates :ic_number , :presence=>true
+#  validates_format_of :ic_number, :with => /d{6}-d{2}-d{4}/
 
   def self.find_for_database_authentication(conditions={})
     self.where("ic_number = ?", conditions[:ic_number]).limit(1).first || self.where("email = ?", conditions[:ic_number]).limit(1).first
@@ -25,9 +27,7 @@ class User < ActiveRecord::Base
   #end
 
   
-  def make_activation_code
-    self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
-  end
+
     
 end
 
