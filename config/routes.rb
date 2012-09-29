@@ -13,6 +13,7 @@ Melaka::Application.routes.draw do
     end
   end
   resources :department_users
+  resources :cms_pages
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

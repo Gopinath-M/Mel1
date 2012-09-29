@@ -1,0 +1,86 @@
+<div class="container">
+  <!--HEADER START-->
+  <div id="Header">
+    <%if controller_name.to_s == 'sessions'  || controller_name.to_s == 'passwords' || controller_name.to_s == 'registrations' %>
+      <div class="header-right">
+        <div class="language">
+          <span href="#" class="eng selected">
+            <%=image_tag("/images/flag_english.png", :alt=>"English" ,:width=>"16", :border=>"0" ,:height=>"11")%>
+          </span>
+          <%=link_to image_tag("/images/flag_melaka.png", :alt=>"Malay" ,:width=>"16", :border=>"0" ,:height=>"11"), "javascript:void(0);", :class=>"mal", :title=>"Malay"%>
+        </div>
+        <ul class="globe-menu1 dropdown">
+          <li><a href="#" title="Melaka Info">Melaka Info</a>
+            <ul>
+              <li><a href="#" title="">Primary link1</a></li>
+              <li><a href="#" title="">Primary link2</a></li>
+              <li><a href="#" title="">Primary link3</a></li>
+              <li><a href="#" title="">Primary link4</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    <%else%>
+      <div class="iHeader">
+        <div class="globe-links-con">
+
+          <ul class="globe-links dropdown">
+            <li class="drop-arrow"><a href="#" title="Click Here"><span></span></a>
+              <ul>
+                <li><a href="#" title="">Account Settings</a></li>
+                <li><a href="#" title="">Privacy Settings</a></li>
+                <% if user_signed_in? %>
+                  <li><%= link_to('Logout', destroy_user_session_path, :method => :get) %></li>
+                <%end%>
+                <li><a href="#" title="">Help</a></li>
+              </ul>
+            </li>
+            <li><a href="#" title="Melaka Info">Home</a></li>
+            <li><a href="#" title="Melaka Info" class="mInfo">Melaka Info</a>
+              <ul>
+                <li><a href="#" title="">Primary link1</a></li>
+                <li><a href="#" title="">Primary link2</a></li>
+                <li><a href="#" title="">Primary link3</a></li>
+                <li><a href="#" title="">Primary link4</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="profName-con">
+            <a href="#" title="Super Admin" class="profName-img"><img src="images/img_event3.jpg" alt="Super Admin" width="30" height="30" /></a>
+            <table cellpadding="0"  cellspacing="0">
+              <tr>
+                <td><a href="#" title="Super Admin" class="profName">Dept User</a></td>
+              </tr>
+            </table>
+          </div>
+          <div class="notification-con">
+            <ul>
+              <li class="globe"><a href="#" title="Notification"><span>12</span></a></li>
+              <li class="msg"><a href="#" title="Messages"></a></li>
+              <li class="member"><a href="#" title="Members"></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="search-con">
+          <div class="language">
+            <span href="#" class="eng selected"><img src="images/flag_english.png" alt="English" width="16" height="11" /></span>
+            <a href="#" title="Malay" class="mal"><img src="images/flag_melaka.png" alt="Malay" width="16" height="11" /></a>
+          </div>
+          <div class="search">
+            <form method="get" name="form2" id="form2" action="">
+              <input name="search" type="submit" class="but-search" value="." />
+              <p class="formRow f-right">
+                <label for="kywd" class="ui-watermark-label-pass">Keyword...</label>
+                <span class="shadow-input"><input name="kywd" id="kywd" type="text" value="" class="pass" /> </span>
+              </p>
+            </form>
+          </div>
+        </div>
+
+
+      </div>
+    <%end%>
+    <div class="logo"><a href="#" title="Intranet Portal Melaka State Government">Intranet Portal Melaka State Government</a></div>
+  </div>
+  <div class="clear"></div>
+  <!--HEADER END-->
