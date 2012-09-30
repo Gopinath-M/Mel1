@@ -6,13 +6,16 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :role_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :avatar_cache, :remove_avatar, :role_id
 
   belongs_to :department
   #Validation For SignUp,Create user, Page Starts Here
   #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}
+  mount_uploader :avatar, ProfileImageUploader  
+  validates_presence_of :avatar
   validates_integrity_of :avatar
   validates_processing_of :avatar
+  #before_save :update_avatar_attributes
   
   validates :first_name,:last_name,:ic_number,:username,:city,:state,:zipcode,:department_id, :presence => true
   validates :first_name,:last_name, :length => { :in => 2..50 },:format => { :with => /\A[a-zA-Z]+\z/, :message => "Only letters allowed" }, :if => Proc.new {|u| !u.first_name.blank? || !u.last_name.blank?}
@@ -32,6 +35,15 @@ class User < ActiveRecord::Base
     return "NA" if first_name.nil? || last_name.nil?
     full_name=first_name+ " "+last_name
     full_name=full_name.titlecase #capitalize
+  end 
+
+  private
+
+  def update_avatar_attributes
+    if avatar.present? && avatar_changed?
+      self.content_type = avatar.file.content_type
+      self.file_size = avatar.file.size
+    end
   end
 
   #I dont think so this method is needed. Becaz, if we are going to do authentication based on two fields we can use this method. Since we are doing authentication based on IC number only, it is not needed. I checked the sign in and sign up. It's working good. Nirmala, IF u think My suggestion is ok, Please remove it. while you are seeing this msg.
