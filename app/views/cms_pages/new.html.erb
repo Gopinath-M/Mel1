@@ -1,0 +1,28 @@
+<%= form_for(@cms_pages, :as => :cms_page,  :url => cms_pages_path, :html => {:multipart => true}, :method=>:post) do |f| %>
+  <!--BODY START--><br />
+  <div id="Body">
+    <div class="form-page">
+      <div class="form-sec">
+        <%=f.error_messages%>
+        <div class="clearfix">&nbsp;</div>
+        <h2>Create New CMS Page</h2>
+       
+
+<div class="form-sec-row">
+          <%= f.label :title,raw("Title"), :class=>"text"%>
+  <span class="in-box">
+<%= f.text_field :title %></span></div>
+        <%#*<div class="form-sec-row">%>
+          <%#= f.label :attachement,raw("Attachement"), :class=>"text"%>
+<%#*<span class="in-box">%>
+<%#= f.file_field :attachement %>
+        <div>
+          <%= f.label :content,raw("Descripton"), :class=>"text"%><br />
+
+<%= tinymce(:cms_page, :content) %></div><br />
+<div align="center"><%= f.submit %></div>
+   </div>
+  </div>
+  </div>
+  <div class="clear"></div>
+<% end %>
