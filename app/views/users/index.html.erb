@@ -7,7 +7,7 @@
         <%=link_to image_tag("../images/add_user.jpg", :width=>"17", :height=>"17", :title=>"Create New User")+"Create New User", new_department_user_path %>
       </div>
       <div class="cu-c2">Select Department:
-        <%= select(:standard,:department_id, Department.all.collect{ |s| [truncate(s.name, :length => 50), s.id] }) %>
+        <%= select(:standard,:department_id, Department.all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:prompt => "SELECT YOUR STATE") %>
       </div>
     </div>
     <div class="manage-user box">

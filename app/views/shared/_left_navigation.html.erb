@@ -2,7 +2,7 @@
   <div id="maincontent">
     <div id="linkblock" class="leftNav">
       <div id="control">
-        <a id="controlbtn" class="open" href="#" alt="Side Panel">Side Panel</a>
+        <a id="controlbtn" class="open" href="javascript:void(0);" alt="Side Panel">Side Panel</a>
       </div>
       <div class="profInfo">
         <div class="profInfo-img box">
@@ -10,33 +10,34 @@
           <p>Private</p>
         </div>
         <ul>
-          <li><a href="#" title="Daily Updates" class="selected"><img src="../images/icn_news.png" alt="Image" width="16" height="16" />Daily Updates</a></li>
-          <li><a href="#" title="Messages"><img src="../images/icn_email.png" alt="Image" width="16" height="16" /><span class="notifiNo">5</span>Messages</a></li>
-          <li><a href="#" title="Events"><img src="../images/icn_calendar.png" alt="Image" width="16" height="16" />Events</a></li>
-          <li><a href="#" title="Find User"><img src="../images/icn_user.png" alt="Image" width="16" height="16" />Find User</a></li>
-          <li><a href="#" title="Uploaded Files"><img src="../images/attach.png" alt="Image" width="16" height="16" />Uploaded Files</a></li>
+          <li><a href="javascript:void(0);" title="Daily Updates" class="selected"><img src="../images/icn_news.png" alt="Image" width="16" height="16" />Daily Updates</a></li>
+          <li><a href="javascript:void(0);" title="Messages"><img src="../images/icn_email.png" alt="Image" width="16" height="16" /><span class="notifiNo">5</span>Messages</a></li>
+          <li><a href="javascript:void(0);" title="Events"><img src="../images/icn_calendar.png" alt="Image" width="16" height="16" />Events</a></li>
+          <li><a href="javascript:void(0);" title="Find User"><img src="../images/icn_user.png" alt="Image" width="16" height="16" />Find User</a></li>
+          <li><a href="javascript:void(0);" title="Uploaded Files"><img src="../images/attach.png" alt="Image" width="16" height="16" />Uploaded Files</a></li>
         </ul>
       </div>
       <div class="clear"></div>
       <div class="leftNav-links box">
         <h2>Alerts</h2>
         <ul>
-          <li><a href="#" title="Admin Activation"><span class="notifiNo">3</span>Admin Activation</a></li>
-          <li><a href="#" title="User Activation">User Activation</a></li>
-          <li><a href="#" title="User Transfer Request">User Transfer Request</a></li>
-          <li><a href="#" title="Resource Booking ">Resource Booking</a></li>
-          <li><a href="#" title="Complaints"><span class="notifiNo">9</span>Complaints</a></li>
-          <li><a href="#" title="Resource Requisition ">Resource Requisition </a></li>
-          <li><a href="#" title="Issue Log">Issue Log </a></li>
-          <li><a href="#" title="Change Requests">Change Requests</a></li>
-          <li><a href="#" title="Cancelled Requests">Cancelled Requests</a></li>
+          <li><a href="javascript:void(0);" title="Admin Activation"><span class="notifiNo">3</span>Admin Activation</a></li>
+          <li><a href="javascript:void(0);" title="User Activation">User Activation</a></li>
+          <li><a href="javascript:void(0);" title="User Transfer Request">User Transfer Request</a></li>
+          <li><a href="javascript:void(0);" title="Resource Booking ">Resource Booking</a></li>
+          <li><a href="javascript:void(0);" title="Complaints"><span class="notifiNo">9</span>Complaints</a></li>
+          <li><a href="javascript:void(0);" title="Resource Requisition ">Resource Requisition </a></li>
+          <li><a href="javascript:void(0);" title="Issue Log">Issue Log </a></li>
+          <li><a href="javascript:void(0);" title="Change Requests">Change Requests</a></li>
+          <li><a href="javascript:void(0);" title="Cancelled Requests">Cancelled Requests</a></li>
         </ul>
       </div>
       <div class="clear"></div>
       <div class="leftNav-links box">
         <h2>Management Tools</h2>
         <ul>
-          <li><a href="#" title="Departments" class="selected">Departments</a>
+          <li><a href="javascript:void(0);" title="Departments" class="" id="selected_department">Departments</a>
+           <div id ="div_selected_department">
             <ul>
               <li>
                 <%=link_to "Create New", new_department_path%>
@@ -45,9 +46,22 @@
                 <%=link_to "List", departments_path%>
               </li>
             </ul>
+              </div>
           </li>
-          <li><a href="#" title="Admin">Admin</a></li>
-          <li><a href="#" title="Users">Users</a>
+          <li><a href="javascript:void(0);" title="Admin" class="" id="selected_admin">Admin</a>
+          <div id ="div_selected_admin">
+            <ul>
+              <li>
+                <%=link_to "Create New", new_department_path%>
+              </li>
+              <li>
+                <%=link_to "List", departments_path%>
+              </li>
+            </ul>
+            </div>
+          </li>
+          <li><a href="javascript:void(0);" title="Users" class="" id="selected_user">Users</a>
+            <div id ="div_selected_user">
             <ul>
               <li>
                 <%=link_to "Create New", new_department_user_path%>
@@ -56,16 +70,17 @@
                 <%=link_to "List", users_path%>
               </li>
             </ul>
+            </div>
           </li>
-          <li><a href="#" title="Vendors">Vendors</a></li>
-          <li><a href="#" title="Resources">Resources</a></li>
-          <li><a href="#" title="Content Management">Content Management</a></li>
-          <li><a href="#" title="Newsletter">Newsletter</a></li>
-          <li><a href="#" title="Email Template">Email Template</a></li>
-          <li><a href="#" title="Events">Events</a></li>
-          <li><a href="#" title="Advertisements">Advertisements</a></li>
-          <li><a href="#" title="Archives">Archives</a></li>
-          <li><a href="#" title="Site Analytics">Site Analytics</a></li>
+          <li><a href="javascript:void(0);" title="Vendors">Vendors</a></li>
+          <li><a href="javascript:void(0);" title="Resources">Resources</a></li>
+          <li><a href="javascript:void(0);" title="Content Management">Content Management</a></li>
+          <li><a href="javascript:void(0);" title="Newsletter">Newsletter</a></li>
+          <li><a href="javascript:void(0);" title="Email Template">Email Template</a></li>
+          <li><a href="javascript:void(0);" title="Events">Events</a></li>
+          <li><a href="javascript:void(0);" title="Advertisements">Advertisements</a></li>
+          <li><a href="javascript:void(0);" title="Archives">Archives</a></li>
+          <li><a href="javascript:void(0);" title="Site Analytics">Site Analytics</a></li>
         </ul>
       </div>
     </div>

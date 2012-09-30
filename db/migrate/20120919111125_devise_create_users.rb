@@ -40,9 +40,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.references :department
       t.integer :created_by
       t.integer :updated_by
-      t.string :avatar_file_name
-      t.string :avatar_content_type
-      t.integer :avatar_file_size
+      t.string :avatar
       t.datetime :avatar_updated_at
       t.string :status
       t.boolean :is_admin, :default=>false

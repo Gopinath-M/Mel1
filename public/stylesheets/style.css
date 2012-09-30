@@ -1,10 +1,13 @@
 /*COMMON*/
 
 .container{ width:100%; margin:0 auto;}
-.btn1{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:4px 10px 4px; font-size:12px; color:#fff; overflow:visible; float:left;height:24px; font-weight: bold;}
+.btn1{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:4px 10px 4px 10px !important; font-size:12px; color:#fff; overflow:visible; float:left;height:24px; font-weight: bold;}
 .btn1:hover{ color:#f2c0b7; height:24px;}
 .btn2{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:3px 15px 3px; font-size:12px; color:#fff; overflow:visible; height:24px;font-weight: bold;}
 .btn2:hover{ color:#f2c0b7; height:24px;}
+
+.in-btn1{ width:55px !important;}
+.in-btn2{ width:60px !important;}
 
 /*HEADER*/
 #Header{ min-height:95px;width:980px; margin:0 auto;}
@@ -60,6 +63,7 @@
 #Footer{ width:100%; margin:0 auto; background:#0e385f; padding:10px 0 10px; position:relative;}
 #Footer .fCity{ position:absolute; top:-120px; left:0; width:100%; height:120px; background: url(../images/bg_footer.png) no-repeat center 0;}
 .footer-in{ padding-top:5px; font-size:11px; color:#7f7f7f; text-align:center; width:980px; margin:0 auto;}
+.footer-in-des{font-size:11px; color:#7f7f7f; display:inline-block; }
 .footer-in a{ font-size:11px; color:#7f7f7f;}
 .footer-in a:hover{color:#E62C0C;}
 .land-footer-l{ float:left; font-size:11px; color:#7f7f7f;}
@@ -117,7 +121,11 @@
 .leftNav-links{ padding-bottom:15px; padding-top:15px; background: url(../images/cross_line.png) repeat-x 0 0;}
 .leftNav-links ul{ margin-right:10px;}
 .leftNav-links li{ background: url(../images/sep_leftnav1.png) repeat-x 0 100%; padding-bottom:1px;}
-.leftNav-links li a{ display:block; padding-left:10px; line-height:22px; background: url(../images/arrow_leftnav.png) no-repeat 0 9px; color:#333;}
+.leftNav-links li a{ display:block; padding-left:10px; line-height:22px; background: url(../images/arrow_leftnav.png) no-repeat 0 8px; color:#333;}
+@media screen and (-webkit-min-device-pixel-ratio:0) {    
+	.leftNav-links li a{ display:block; padding-left:10px; line-height:22px; background: url(../images/arrow_leftnav.png) no-repeat 0 7px; color:#333;}
+   
+}
 .leftNav-links li a:hover{ color:#E62C0C;}
 .leftNav-links li a.selected{ background-position:0 -10px;}
 .leftNav-links li ul{ margin-right:0;}
@@ -249,9 +257,12 @@ h2.b-head a img{ float:left; margin-right:5px; padding-top:5px;}
 .manage-user-row .mu-c1{ float:left; width:63px;}
 .manage-user-row .mu-c2{ float:left; width:50%; margin-left:10px; }
 .manage-user-row .mu-c2 p{line-height:22px;}
-.manage-user-row .mu-c3{ float:right; width:32%; }
+.manage-user-row .mu-c3{ float:right; width:30%; }
 .manage-user-row .mu-c3 a{ float:left; margin-left:12px;}
 .manage-user-row .mu-c3 a img{ float:left; padding-right:5px;}
+.manage-user-row .mu-c3 a[title="Deactive"]{ float:left;}
+.manage-user-row .mu-c3 a[title="Delete"]{ float:right;}
+
 
 .event-details{ padding-top:15px;}
 .ed-img{ float:left; width:180px; padding-bottom:15px;}
@@ -276,8 +287,23 @@ h2.b-head a img{ float:left; margin-right:5px; padding-top:5px;}
 .r-btn-sec{ padding:10px 0px 0 0; line-height:20px;}
 .r-btn-sec label{ display:inline-block; padding-right:10px;}
 
-.form-page{ width:980px; margin:15px auto 85px auto; min-height:550px;}
+.form-page{ width:980px; margin:15px auto 85px auto; min-height:550px; overflow:hidden;}
 .form-page .form-sec{ width:60%; margin:0 auto;}
+
+/*MESSAGE BOXES*/
+.info, .success, .warning, .error { border: 1px solid; margin: 15px 0px; padding:15px 20px 15px 55px; font: bold 12px arial;}
+.info {color: #00529B; background: #BDE5F8 url('../images/icon-info.png') no-repeat 10px center;}
+.success { color: #4F8A10; background: #DFF2BF url('../images/icon-tick.png') no-repeat 10px center;}
+.warning {color: #9F6000; background: #FEEFB3 url('../images/icon-warning.png') no-repeat 10px center;}
+.error { color: #D8000C; background: #FFBABA url('../images/icon-cross.png') no-repeat 10px center;}
+.error h2 { border-bottom: 1px solid #D8000C;  color: #D8000C;}
+.error p { color: #D8000C;}
+.a-right{ text-align:right !important;}
+.a-center{ text-align:center !important;}
+.bor-none{ border:0px !important;}
+.p-top5{ padding-top:5px;}
+
+.PM-cmts-post textarea:focus{height:100px !important; }
 
 /*error  message page end*/
 .error{ padding:10px 10px 10px 50px; margin:3px 0; border:1px solid #ff4545; font-size:13px; }
