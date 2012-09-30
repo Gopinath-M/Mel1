@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :is_admin
 
   #Activate or Deactivate a particular User
   def update_status
@@ -24,9 +25,9 @@ class UsersController < ApplicationController
   def index
     @users=nil
     if params[:department_id].blank? || params[:department_id].nil?
-      @users=User.where(:is_admin=>0)
+       @users=User.where("role_id !=1")
     else
-      @users=User.where(:department_id=>params[:department_id], :is_admin=>0)
+      @users=User.where("role_id !=1 and department_id = ? ", params[:department_id])
       @department_id=params[:department_id]
     end
     if request.xhr?
