@@ -12,14 +12,14 @@ class User < ActiveRecord::Base
   #Validation For SignUp,Create user, Page Starts Here
   #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}
   mount_uploader :avatar, ProfileImageUploader  
-  validates_presence_of :avatar
+ # validates_presence_of :avatar
   validates_integrity_of :avatar
   validates_processing_of :avatar
   #before_save :update_avatar_attributes
   
-  validates :first_name,:last_name,:ic_number,:username,:city,:state,:zipcode,:department_id, :presence => true
-  validates :first_name,:last_name, :length => { :in => 2..50 },:format => { :with => /\A[a-zA-Z]+\z/, :message => "Only letters allowed" }, :if => Proc.new {|u| !u.first_name.blank? || !u.last_name.blank?}
-  validates :ic_number, :format => { :with => /([0-9][0-9])((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\-([0-9][0-9])\-([0-9][0-9][0-9][0-9])/ }, :if => Proc.new {|u| !u.ic_number.blank?}
+ # validates :first_name,:last_name,:ic_number,:username,:city,:state,:zipcode,:department_id, :presence => true
+  validates :first_name,:last_name, :length => { :in => 1..50 },:format => { :with => /\A[a-zA-Z]+\z/, :message => "Only letters allowed" }, :if => Proc.new {|u| !u.first_name.blank? || !u.last_name.blank?}
+ # validates :ic_number, :format => { :with => /([0-9][0-9])((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\-([0-9][0-9])\-([0-9][0-9][0-9][0-9])/ }, :if => Proc.new {|u| !u.ic_number.blank?}
   validates :username, :format => { :with => /^[a-zA-Z0-9][a-zA-Z0-9-_.]{2,8}[a-zA-Z0-9]$/} , :if => Proc.new {|u| !u.username.blank? }
   validates :zipcode, :format =>{ :with => %r{\d{5}},
     :if => Proc.new {|u| !(u.zipcode.blank?) },

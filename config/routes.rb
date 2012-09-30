@@ -1,6 +1,6 @@
 Melaka::Application.routes.draw do
   resources :dashboard
-  devise_for :users, :controllers=>{:sessions => "sessions"}, :skip => [:sessions] do
+  devise_for :users, :controllers=>{:registrations => "registrations", :sessions => "sessions", }, :skip => [:sessions] do
     get "/sign_up", :to => "registrations#new", :as=> :new_user_sign_up
     post "/sign_up", :to => "registrations#create", :as =>  :user_sign_up
     get "/login" => "sessions#new", :as => :new_user_session

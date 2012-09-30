@@ -28,12 +28,13 @@
         <span class="in-box">
           <%= f.text_field :ic_number, :size => 30%>
         </span>
-      </div>
-      
+      </div>      
+
       <div class="form-sec-row">
         <%= f.label :avatar,raw("Avatar"), :class=>"text"%>
         <span class="in-box">
           <%= f.file_field :avatar%>
+          <%= f.hidden_field :avatar_cache %>
         </span>
       </div>
       <div class="form-sec-row">
