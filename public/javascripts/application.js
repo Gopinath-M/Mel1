@@ -35,44 +35,56 @@ $().ready(function(){
 
     /* LEFT NAVIGATION HIDE & SHOW STARTS HERE*/
 
-    $(document).ready(function(){
-        $('#div_selected_department').hide();
-        $('#div_selected_admin').hide();
-        $('#div_selected_user').hide();
-    });
-    $("#selected_department").live('click',function(){
-        if ($("#selected_department").hasClass("selected"))
+//    $(document).ready(function(){
+////        $('#div_department').hide();
+////        $('#div_admin').hide();
+////        $('#div_user').hide();
+//    });
+    $("#lnk_department").live('click',function(){
+        if ($("#lnk_department").hasClass("selected"))
         {
-            $("#selected_department").removeClass("selected")
+            $("#lnk_department").removeClass("selected")
         }
         else
         {
-            $("#selected_department").addClass("selected")
+            $("#lnk_department").addClass("selected")
         }
-        $('#div_selected_department').toggle("fast");
+        $('#div_department').toggle("fast");
     });
-    $("#selected_admin").live('click',function(){
-        if ($("#selected_admin").hasClass("selected"))
+    $("#lnk_admin").live('click',function(){
+        if ($("#lnk_admin").hasClass("selected"))
         {
-            $("#selected_admin").removeClass("selected")
+            $("#lnk_admin").removeClass("selected")
         }
         else
         {
-            $("#selected_admin").addClass("selected")
+            $("#lnk_admin").addClass("selected")
         }
-        $('#div_selected_admin').toggle("fast");
+        $('#div_admin').toggle("fast");
     });
-    $("#selected_user").live('click',function(){
-        if ($("#selected_user").hasClass("selected"))
+    $("#lnk_user").live('click',function(){
+        if ($("#lnk_user").hasClass("selected"))
         {
-            $("#selected_user").removeClass("selected")
+            $("#lnk_user").removeClass("selected")
         }
         else
         {
-            $("#selected_user").addClass("selected")
+            $("#lnk_user").addClass("selected")
         }
         
-        $('#div_selected_user').toggle("fast");
+        $('#div_user').toggle("fast");
+    });
+    $("#lnk_cms").live('click',function(){
+        if ($("#lnk_cms").hasClass("selected"))
+        {
+            $("#lnk_cms").removeClass("selected")
+        }
+        else
+        {
+            $("#lnk_cms").addClass("selected")
+        }
+
+        $('#div_cms').toggle("fast");
     });
 
 /* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/

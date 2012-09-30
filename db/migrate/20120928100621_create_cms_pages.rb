@@ -4,6 +4,7 @@ class CreateCmsPages < ActiveRecord::Migration
       t.string :title
       t.string :attachement
       t.text :content
+      t.string :location
       t.timestamps
     end
   end

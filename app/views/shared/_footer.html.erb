@@ -9,7 +9,7 @@
 <%if controller_name.to_s == 'sessions' && action_name.to_s == 'new'  %>
   <div class="footer-in">
     <div class="land-footer-r">Copyright &copy; 2012 Melaka</div>
-                                  Designed &amp; Developed by <a href="http://www.openwavecomp.com/" title="Openwave Computing" target="_blank">Openwave Computing.</a>
+    Designed &amp; Developed by <a href="http://www.openwavecomp.com/" title="Openwave Computing" target="_blank">Openwave Computing.</a>
     <div class="land-footer-l">
       <ul>
         <li><a href="#" title="Feedback">Feedback</a></li>
@@ -36,9 +36,15 @@
           <li><a href="#" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
           <li>-</li>
           <li><a href="#" title="Help">Help</a></li>
+          <%footers=CmsPage.where(:location=>"footer")%>
+          <%if footers && !footers.empty?%>
+            <%footers.each do |footer|%>
+              <li><%=link_to footer.title, cms_page_path(:id=>footer.id), :title=>footer.title%></li>
+            <%end%>
+          <%end%>
         </ul>
       </div>
-                                  Designed &amp; Developed by <a href="http://www.openwavecomp.com/" title="Openwave Computing" target="_blank">Openwave Computing.</a>
+      Designed &amp; Developed by <a href="http://www.openwavecomp.com/" title="Openwave Computing" target="_blank">Openwave Computing.</a>
     </div>
     <div class="clear"></div>
   </div>

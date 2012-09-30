@@ -1,27 +1,12 @@
 <div class="CenterNav">
   <h2 class="b-head">List CMS Pages</h2>
-  
   <div class="manage-user box">
     <%@cms_pages.each do |cms_page|%>
-
-    <div class="manage-user-row box">
-      
-     <div class="mu-c2">
-        <p class="head1"><%= link_to "#{cms_page.title}", :action=>'edit', :id=>cms_page.id.to_i%></p>
+      <div class="manage-user-row box">
+        <div class="mu-c2">
+          <p class="head1"><%= link_to "#{cms_page.title}", :action=>'edit', :id=>cms_page.id.to_i%></p>
+        </div>
       </div>
-
-     </div>
-
-   <div class="clear"></div>
+      <div class="clear"></div>
     <%end%></div>
-
-
-
-
-
-
-
-
-
-
-  </div>
+</div>

@@ -36,45 +36,60 @@
       <div class="leftNav-links box">
         <h2>Management Tools</h2>
         <ul>
-          <li><a href="javascript:void(0);" title="Departments" class="" id="selected_department">Departments</a>
-           <div id ="div_selected_department">
-            <ul>
-              <li>
-                <%=link_to "Create New", new_department_path%>
-              </li>
-              <li>
-                <%=link_to "List", departments_path%>
-              </li>
-            </ul>
-              </div>
-          </li>
-          <li><a href="javascript:void(0);" title="Admin" class="" id="selected_admin">Admin</a>
-          <div id ="div_selected_admin">
-            <ul>
-              <li>
-                <%=link_to "Create New", new_department_path%>
-              </li>
-              <li>
-                <%=link_to "List", departments_path%>
-              </li>
-            </ul>
+          <li>
+            <%=link_to "Departments", "javascript:void(0);" , :title=>"departments" ,:class=>"", :id=>"lnk_department"%>
+               <div id ="div_department" style="display:none;">
+              <ul>
+                <li>
+                  <%=link_to "Create New", new_department_path%>
+                </li>
+                <li>
+                  <%=link_to "List", departments_path%>
+                </li>
+              </ul>
             </div>
           </li>
-          <li><a href="javascript:void(0);" title="Users" class="" id="selected_user">Users</a>
-            <div id ="div_selected_user">
-            <ul>
-              <li>
-                <%=link_to "Create New", new_department_user_path%>
-              </li>
-              <li>
-                <%=link_to "List", users_path%>
-              </li>
-            </ul>
+          <li>
+            <%=link_to "Admin", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_admin"%>
+            <div id ="div_admin" style="display:none;">
+              <ul>
+                <li>
+                  <%=link_to "Create New", new_department_path%>
+                </li>
+                <li>
+                  <%=link_to "List", departments_path%>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <%=link_to "User", "javascript:void(0);" , :title=>"User" ,:class=>"", :id=>"lnk_user"%>
+            <div id ="div_user" style="display:none;">
+              <ul>
+                <li>
+                  <%=link_to "Create New", new_department_user_path%>
+                </li>
+                <li>
+                  <%=link_to "List", users_path%>
+                </li>
+              </ul>
             </div>
           </li>
           <li><a href="javascript:void(0);" title="Vendors">Vendors</a></li>
           <li><a href="javascript:void(0);" title="Resources">Resources</a></li>
-          <li><a href="javascript:void(0);" title="Content Management">Content Management</a></li>
+          <li>
+            <%=link_to "Content Management", "javascript:void(0);" , :title=>"Content Managemnt" ,:class=>"", :id=>"lnk_cms"%>
+            <div id ="div_cms" style="display:none;">
+              <ul>
+                <li>
+                  <%=link_to "Create New", new_cms_page_path%>
+                </li>
+                <li>
+                  <%=link_to "List", cms_pages_path%>
+                </li>
+              </ul>
+            </div>
+          </li>
           <li><a href="javascript:void(0);" title="Newsletter">Newsletter</a></li>
           <li><a href="javascript:void(0);" title="Email Template">Email Template</a></li>
           <li><a href="javascript:void(0);" title="Events">Events</a></li>
