@@ -31,16 +31,64 @@ $().ready(function(){
             $("#department_id").val($("#standard_department_id").val())
             $("#div_ajax").html(data)
         });
+    })
 
+
+    $("#transfer_department_id").live("change",function(){
+    alert($("#transfer_department_id").val())
+        if ( $("#transfer_department_id").val()=="")
+        {
+            $.get("/department_users/",{
+                department_id: $("#transfer_department_id").val()
+            }, function(data){
+                $("#department_id").val($("#transfer_department_id").val())
+                $("#div_ajax").html(data)
+            });
+        }
+
+    })
+    $("#transfer_department").live("click",function(){
+        var selected = new Array();
+        $('#div_dept_users input:checked').each(function() {
+            var text=$(this).attr('id')
+            text= text.replace("transfer_users_", "")
+            selected.push(text);
+        });
+        if ($("#transfer_department_id").val()!="")
+        {
+            if (selected.length==0)
+            {
+                alert("Please select atleast one user to transfer")
+            }
+            else
+            {
+                $.post("/department_users/transfer",{
+                    department_id: $("#transfer_department_id").val(),
+                    users: selected
+                }, function(data){
+                    if (data && data.to_s!="Error_code1" &&  data.to_s!="Error_code2")
+                    {
+                        $("#div_ajax").html(data)
+                    }
+                    else if (data && data.to_s=="Error_code1")
+                    {
+                        alert("Selected users cannot be transfered")
+                    }
+                    else if (data && data.to_s=="Error_code2")
+                    {
+                        alert("Either department or user is not selected")
+
+                    }
+                });
+            }
+        }
+        else
+        {
+            alert("Please select a Department")
+        }
     })
 
     /* LEFT NAVIGATION HIDE & SHOW STARTS HERE*/
-
-//    $(document).ready(function(){
-////        $('#div_department').hide();
-////        $('#div_admin').hide();
-////        $('#div_user').hide();
-//    });
     $("#lnk_department").live('click',function(){
         if ($("#lnk_department").hasClass("selected"))
         {

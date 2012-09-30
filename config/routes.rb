@@ -10,12 +10,14 @@ Melaka::Application.routes.draw do
   resources :departments
   resources :users do
     collection do
-      post 'activate'
-      post 'deactivate'
       post 'update_status'
     end
   end
-  resources :department_users
+  resources :department_users do
+    collection do
+      post 'transfer'
+    end
+  end
   resources :cms_pages
   # The priority is based upon order of creation:
   # first created -> highest priority.

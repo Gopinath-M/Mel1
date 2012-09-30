@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928100621) do
+ActiveRecord::Schema.define(:version => 20120930093559) do
 
   create_table "appointments", :force => true do |t|
     t.string   "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20120928100621) do
     t.string   "title"
     t.string   "attachement"
     t.text     "content"
+    t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,6 +39,12 @@ ActiveRecord::Schema.define(:version => 20120928100621) do
     t.boolean  "is_active"
     t.integer  "created_by"
     t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -109,16 +116,15 @@ ActiveRecord::Schema.define(:version => 20120928100621) do
     t.date     "first_appointment_to_present_position"
     t.date     "promotion_to_grad_now"
     t.date     "confirmation_date_to_post_now"
-    t.boolean  "is_admin",                                             :default => false
     t.date     "date_of_join"
     t.date     "date_of_birth"
     t.integer  "created_by"
     t.integer  "updated_by"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
+    t.string   "avatar"
     t.datetime "avatar_updated_at"
     t.string   "status"
+    t.boolean  "is_admin",                                             :default => false
+    t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

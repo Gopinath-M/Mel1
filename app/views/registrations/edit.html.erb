@@ -15,11 +15,14 @@
   <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
   <%= f.password_field :current_password %></div>
 
+  <div><%= f.label :avatar %>
+  <%= image_tag(resource.avatar.url) if resource.avatar.url.present?%>
+  <%= f.file_field :avatar %>
+
+  <%= f.check_box :remove_avatar %>
+  <%= f.label :remove_avatar %>
+  <%= f.hidden_field :avatar_cache %>
+  </div>
+
   <div><%= f.submit "Update" %></div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
