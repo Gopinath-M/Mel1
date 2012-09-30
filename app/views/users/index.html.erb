@@ -1,43 +1,47 @@
-<div class="CenterNav">
-  <h2 class="b-head">Manage Users</h2>
-  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-  <div class="create-user">
-    <div class="cu-c1">
-      <%=link_to image_tag("../images/add_user.jpg", :width=>"17", :height=>"17", :title=>"Create New User")+"Create New User", new_department_user_path %>
+<%if !request.xhr?%>
+  <div class="CenterNav">
+    <h2 class="b-head">Manage Users</h2>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+    <div class="create-user">
+      <div class="cu-c1">
+        <%=link_to image_tag("../images/add_user.jpg", :width=>"17", :height=>"17", :title=>"Create New User")+"Create New User", new_department_user_path %>
+      </div>
+      <div class="cu-c2">Select Department:
+        <%= select(:standard,:department_id, Department.all.collect{ |s| [truncate(s.name, :length => 50), s.id] }) %>
+      </div>
     </div>
-    <div class="cu-c2">Select Department:
-      <%= select(:standard,:parent_id, Department.all.collect{ |s| [truncate(s.name, :length => 20), s.id] }) %>
-<%#*<a href="#" title="Social Welfare">Social Welfare <img src="images/down_arrow.jpg" width="7" height="6" alt="img" /></a>%>
-    </div>
-  </div>
-  <div class="manage-user box">
-    <%if @users && !@users.empty?%>
-      <%@users.each do |user|%>
-        <div class="manage-user-row box">
-          <div class="mu-c1">
-            <%=link_to image_tag("../images/img_user1.jpg", :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines"%>
-          </div>
-          <div class="mu-c2">
-            <p class="head1">
-              <%=link_to content_tag(:b, user.full_name), "javascript:void(0);"%><br/>
-              <%=user.ic_number%><br/>
-              <%=link_to content_tag(:b, user.email), "javascript:void(0);", :title=>user.email%>
-            </p>
-          </div>
-          <div class="mu-c3">
-
-            <%if user.status=="Active"%>
-              <%=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+"Deactive" , deactivate_users_path(:id=>user.id), :confirm => 'Do you want to really deactivate this user?', :method=>:post, :title=>"Deactive" %>
-            <%elsif user.status=="Deactive" || user.status.nil?%>
-              <%=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+"Activate" , activate_users_path(:id=>user.id), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate" %>
-            <%end%>
-            <%=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+"Delete", user_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
-          </div>
-        </div>
-      <%end%>
-    <%else%>
-      No User Data Available
+    <div class="manage-user box">
     <%end%>
-  </div>
+    <div id="div_ajax">
+      <%if @users && !@users.empty?%>
+        <%@users.each do |user|%>
+          <div class="manage-user-row box">
+            <div class="mu-c1">
+              <%=link_to image_tag("../images/img_user1.jpg", :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines"%>
+            </div>
+            <div class="mu-c2">
+              <p class="head1">
+                <%=link_to content_tag(:b, user.full_name), "javascript:void(0);"%><br/>
+                <%=user.ic_number%><br/>
+                <%=link_to content_tag(:b, user.email), "javascript:void(0);", :title=>user.email%>
+              </p>
+            </div>
+            <div class="mu-c3">
+              <%if user.status=="Active"%>
+                <%=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+"Deactive" , deactivate_users_path(:id=>user.id), :confirm => 'Do you want to really deactivate this user?', :method=>:post, :title=>"Deactive" %>
+              <%elsif user.status=="Deactive" || user.status.nil?%>
+                <%=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+"Activate" , activate_users_path(:id=>user.id), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate" %>
+              <%end%>
+              <%=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+"Delete", user_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
+            </div>
+          </div>
+        <%end%>
+      <%else%>
+        No User Data Available
+      <%end%>
+    </div>
+    <%if !request.xhr?%>
+    </div>
 
-</div>
+  </div>
+<%end%>

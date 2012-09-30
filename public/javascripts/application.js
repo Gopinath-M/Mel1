@@ -24,4 +24,12 @@ $().ready(function(){
             }
         });
     });
+    $("#standard_department_id").live("change",function(){
+        $.get("/users/",{
+            department_id: $("#standard_department_id").val()
+        }, function(data){
+          $("#div_ajax").html(data)
+        });
+
+    })
 })

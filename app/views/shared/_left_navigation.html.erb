@@ -41,10 +41,22 @@
               <li>
                 <%=link_to "Create New", new_department_path%>
               </li>
+              <li>
+                <%=link_to "List", departments_path%>
+              </li>
             </ul>
           </li>
           <li><a href="#" title="Admin">Admin</a></li>
-          <li><a href="#" title="Users">Users</a></li>
+          <li><a href="#" title="Users">Users</a>
+            <ul>
+              <li>
+                <%=link_to "Create New", new_department_user_path%>
+              </li>
+              <li>
+                <%=link_to "List", users_path%>
+              </li>
+            </ul>
+          </li>
           <li><a href="#" title="Vendors">Vendors</a></li>
           <li><a href="#" title="Resources">Resources</a></li>
           <li><a href="#" title="Content Management">Content Management</a></li>
