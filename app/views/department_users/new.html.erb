@@ -2,7 +2,7 @@
 <div class="CenterNav">
   <div class="form-sec">
     <h2 class="b-head">Create  User</h2>
-    <%= form_for(@user, :as => :user,  :url => department_users_path, :method=>:post) do |f| %>
+    <%= form_for(@user, :as => :user,  :url => department_users_path, :html => { :method => :post, :multipart => true }) do |f| %>
       <%=f.error_messages%>
       <div class="clearfix">&nbsp;</div>
       <div class="form-sec-row">
@@ -29,6 +29,7 @@
           <%= f.text_field :ic_number, :size => 30%>
         </span>
       </div>
+      
       <div class="form-sec-row">
         <%= f.label :avatar,raw("Avatar"), :class=>"text"%>
         <span class="in-box">

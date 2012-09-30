@@ -18,7 +18,7 @@
         <%@users.each do |user|%>
           <div class="manage-user-row box">
             <div class="mu-c1">
-              <%=link_to image_tag("../images/img_user1.jpg", :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines"%>
+              <%=link_to image_tag(user.avatar_url, :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines" if user.avatar?%> 
             </div>
             <div class="mu-c2">
               <p class="head1">
