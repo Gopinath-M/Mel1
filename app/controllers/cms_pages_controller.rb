@@ -1,5 +1,5 @@
 class CmsPagesController < ApplicationController
-  uses_tiny_mce
+#  uses_tiny_mce
   def index
     @cms_pages = CmsPage.all
   end

@@ -50,7 +50,7 @@
         <div class="form-sec-row">
           <%= f.label :state, :class=>"text"%>
           <span class="in-box">
-            <%= f.text_field :state, :size => 30, :autofocus => true%>
+            <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "SELECT YOUR STATE")%>
           </span>
         </div>
         <div class="form-sec-row">
