@@ -1,7 +1,7 @@
 require 'rubygems'
-namespace :roles do
+namespace :create do
   desc 'create roles' 
-  task :create => :environment do
+  task :roles => :environment do
    role = Role.new(:name => 'Super Admin')
    role.save
    role = Role.new(:name => 'Department Admin')
@@ -11,9 +11,19 @@ namespace :roles do
   end
 end
 
-namespace :department do
+namespace :create do
+   desc'create super admin user'
+   task :super_admin => :environment do 
+     user = User.new(:ic_number => "123456-78-1234", :email => 'manivannan.s@openwavecomp.in', :username => "openwave", :password => "password", :first_name => "openwave", :last_name => "superadmin", :role_id => 1)
+     #user.skip_mailers = true
+     user.save!
+     puts "Created Super Admin User with IC-Number 123456-78-1234 & password as password"
+   end
+end     
+
+namespace :create do
   desc 'insert department data in db'
-  task :update => :environment do
+  task :department => :environment do
     begin
       file = File.open("public/Department.csv", "r")
       file.readlines.each_with_index do |record, i|
@@ -38,9 +48,9 @@ namespace :department do
   end
 end
 
-namespace :state do
+namespace :create do
   desc 'insert state data in db'
-  task :update => :environment do
+  task :state => :environment do
     begin
       file = File.open("public/State.csv", "r")
       file.readlines.each_with_index do |record, i|
