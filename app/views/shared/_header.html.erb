@@ -46,15 +46,18 @@
             </li>
           </ul>
           <div class="profName-con">
-            <%if current_user && current_user.is_admin?%>
+            <%if current_user && current_user.role_id==1%>
               <%=link_to image_tag("img_admin_small.jpg", :alt=>"Super Admin", :width=>"30", :height=>"30"), "javscript:void(0);",:title=>"Super Admin", :class=>"profName-img" %>
-            <%else%>
+            <%elsif current_user && current_user.role_id==2%>
+              <%=link_to image_tag("img_event3.jpg", :alt=>"Dept Admin", :width=>"30", :height=>"30"), "javscript:void(0);",:title=>"Dept Admin", :class=>"profName-img" %>
+
+            <%elsif current_user && current_user.role_id==3%>
               <%=link_to image_tag("img_event3.jpg", :alt=>"Dept User", :width=>"30", :height=>"30"), "javscript:void(0);",:title=>"Dept User", :class=>"profName-img" %>
             <%end%>
             <table cellpadding="0"  cellspacing="0">
               <tr>
                 <td>
-                  <%user_title=current_user && current_user.is_admin? ? "Super Admin" : "Dept User"%>
+                  <%user_title=current_user && current_user.role_id==1 ? "Super Admin" : current_user.role_id==2 ? "Dept Admin" : "Dept User"%>
                   <%=link_to user_title, "javascript:void(0);",:title=>user_title, :class=>"profName"%>
                 </td>
               </tr>
