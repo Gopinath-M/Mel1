@@ -20,6 +20,6 @@ class CmsPagesController < ApplicationController
    @cms_pages = CmsPage.find(params[:id])
   end
   def show
-    @cms_pages = CmsPage.find(params[:id])
+    @cms_pages = CmsPage.find(params[:id]) 
   end
 end
