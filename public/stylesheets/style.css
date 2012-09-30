@@ -131,7 +131,7 @@
 .leftNav-links li ul{ margin-right:0;}
 .leftNav-links li li{background: url(../images/sep_leftnav1.png) repeat-x 0 0; padding-top:1px; padding-bottom:0px;}
 .leftNav-links li li a{ padding-left:20px;background:#f1f6fa url(../images/bullet3.jpg) no-repeat 10px 10px;}
-.CenterNav{ float:left; min-width:495px; padding:10px 30px 85px; min-height:600px; max-width:675px;}
+.CenterNav{ float:left; min-width:520px; padding:10px 30px 85px; min-height:600px; max-width:675px;}
 .wallPost-con{ margin-bottom:10px;}
 .wallPost-con .selectRole{ float:left; padding:0px 10px; background-color:#c7dce8;}
 .wallPost-con .selectRole ul{ margin:4px 0;}
@@ -257,7 +257,7 @@ h2.b-head a img{ float:left; margin-right:5px; padding-top:5px;}
 .manage-user-row .mu-c1{ float:left; width:63px;}
 .manage-user-row .mu-c2{ float:left; width:50%; margin-left:10px; }
 .manage-user-row .mu-c2 p{line-height:22px;}
-.manage-user-row .mu-c3{ float:right; width:30%; }
+.manage-user-row .mu-c3{ float:right; width:35%; } 
 .manage-user-row .mu-c3 a{ float:left; margin-left:12px;}
 .manage-user-row .mu-c3 a img{ float:left; padding-right:5px;}
 .manage-user-row .mu-c3 a[title="Deactive"]{ float:left;}
