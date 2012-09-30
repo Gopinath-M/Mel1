@@ -19,6 +19,7 @@
         <li><a href="#" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
         <li>-</li>
         <li><a href="#" title="Help">Help</a></li>
+        <%=render :partial=>"shared/cms_footer_page"%>
       </ul>
     </div>
   </div>
@@ -36,12 +37,7 @@
           <li><a href="#" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
           <li>-</li>
           <li><a href="#" title="Help">Help</a></li>
-          <%footers=CmsPage.where(:location=>"footer")%>
-          <%if footers && !footers.empty?%>
-            <%footers.each do |footer|%>
-              <li><%=link_to footer.title, cms_page_path(:id=>footer.id), :title=>footer.title%></li>
-            <%end%>
-          <%end%>
+          <%=render :partial=>"shared/cms_footer_page"%>
         </ul>
       </div>
       Designed &amp; Developed by <a href="http://www.openwavecomp.com/" title="Openwave Computing" target="_blank">Openwave Computing.</a>

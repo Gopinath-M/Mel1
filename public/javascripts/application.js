@@ -28,6 +28,7 @@ $().ready(function(){
         $.get("/users/",{
             department_id: $("#standard_department_id").val()
         }, function(data){
+            $("#department_id").val($("#standard_department_id").val())
             $("#div_ajax").html(data)
         });
 

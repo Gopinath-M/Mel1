@@ -1,5 +1,7 @@
 class CmsPagesController < ApplicationController
   #  uses_tiny_mce
+  before_filter :authenticate_user! , :except=>[:show]
+   
   def index
     @cms_pages = CmsPage.all
   end

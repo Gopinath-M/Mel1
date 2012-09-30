@@ -1,7 +1,7 @@
 <div class="container">
   <!--HEADER START-->
   <div id="Header">
-    <%if controller_name.to_s == 'sessions'  || controller_name.to_s == 'passwords' || controller_name.to_s == 'registrations' %>
+    <%if current_user.blank?%>
       <div class="header-right">
         <div class="language">
           <span href="#" class="eng selected">

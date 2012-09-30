@@ -10,6 +10,7 @@ Melaka::Application.routes.draw do
     collection do
       post 'activate'
       post 'deactivate'
+      post 'update_status'
     end
   end
   resources :department_users

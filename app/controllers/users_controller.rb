@@ -1,18 +1,16 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
 
-  #Activate a particular User
-  def activate
+  #Activate or Deactivate a particular User
+  def update_status
     @user = User.find(params[:id])
-    @user.update_attribute(:status,"Active")
-    redirect_to(users_path, :notice => 'User Activated successfully.')
-  end
-
-  #Deactivate a particular User
-  def deactivate
-    @user = User.find(params[:id])
-    @user.update_attribute(:status,"Deactive")
-    redirect_to(users_path, :notice => 'User Deactivated successfully.')
+    if params[:status]=="Activate"
+      @user.update_attribute(:status,"Active")
+    elsif params[:status]=="Deactivate"
+      @user.update_attribute(:status,"Deactive")
+    end
+    department_id= !params[:department_id].blank? || !params[:department_id].nil? ?  params[:department_id] : nil
+    redirect_to(users_path(:department_id=>department_id), :notice => 'User Status has been successfully changed.')
   end
 
   #Destroy a particular User
@@ -25,15 +23,12 @@ class UsersController < ApplicationController
   #List all Users
   def index
     @users=nil
-    p "==========comes to users"
-    p params[:department_id].blank?
-    p params[:department_id].nil?
     if params[:department_id].blank? || params[:department_id].nil?
       @users=User.where(:is_admin=>0)
     else
-      @users=User.where(:department_id=>params[:department_id])
+      @users=User.where(:department_id=>params[:department_id], :is_admin=>0)
+      @department_id=params[:department_id]
     end
-    p @users.inspect
     if request.xhr?
       render :layout=>false
     end

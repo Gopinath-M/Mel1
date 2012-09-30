@@ -18,7 +18,7 @@
 
     <%= javascript_include_tag 'ui.core' %>
     <%= javascript_include_tag 'ui.watermark' %>
-    
+
     <!--HEADER DROPDOWN-->
     <%= javascript_include_tag 'jquery.dropdownPlain' %>
     <%= stylesheet_link_tag 'style_dropdown' ,:media=>"screen, projection" %>
@@ -59,21 +59,20 @@
     <%= csrf_meta_tag %>
   </head>
   <body>
-    <!--BODY START--><%if current_user != nil%>
-     <%if current_user.is_admin == false%>
-     <%=render :partial=>'shared/header_user'%>
+    <!--BODY START-->
+    <%if current_user && current_user.is_admin == false%>
+      <%=render :partial=>'shared/header_user'%>
     <%else%>
-    <%=render :partial=>'shared/header'%>
+      <%=render :partial=>'shared/header'%>
     <%end%>
-    <%if (controller_name.to_s != 'sessions'  && controller_name.to_s != 'passwords' && controller_name.to_s != 'department_users' && controller_name.to_s != 'registrations')   %>
+    <%if  current_user && !current_user.blank? %>
       <%=render :partial=>'shared/right_navigation'%>
-    <%if current_user.is_admin == false%>
-   
-     <%=render :partial=>'shared/left_navigation_user'%>
-    <%else%>
-      <%=render :partial=>'shared/left_navigation'%>
+      <%if current_user && current_user.is_admin == false%>
+        <%=render :partial=>'shared/left_navigation_user'%>
+      <%else%>
+        <%=render :partial=>'shared/left_navigation'%>
+      <%end%>
     <%end%>
-    <%end%><%else%><%=render :partial=>'shared/header'%><%end%>
     <%= yield %>
     <%=render :partial=>'shared/footer'%>
   </body>
