@@ -1,0 +1,6 @@
+<%footers=CmsPage.where(:location=>"footer")%>
+<%if footers && !footers.empty?%>
+  <%footers.each do |footer|%>
+    <li><%=link_to footer.title, cms_page_path(:id=>footer.id), :title=>footer.title%></li>
+  <%end%>
+<%end%>

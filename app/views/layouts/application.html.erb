@@ -60,18 +60,10 @@
   </head>
   <body>
     <!--BODY START-->
-    <%if current_user && current_user.is_admin == false%>
-      <%=render :partial=>'shared/header_user'%>
-    <%else%>
-      <%=render :partial=>'shared/header'%>
-    <%end%>
+    <%=render :partial=>'shared/header'%>
     <%if  current_user && !current_user.blank? %>
       <%=render :partial=>'shared/right_navigation'%>
-      <%if current_user && current_user.is_admin == false%>
-        <%=render :partial=>'shared/left_navigation_user'%>
-      <%else%>
-        <%=render :partial=>'shared/left_navigation'%>
-      <%end%>
+      <%=render :partial=>'shared/left_navigation'%>
     <%end%>
     <%= yield %>
     <%=render :partial=>'shared/footer'%>
