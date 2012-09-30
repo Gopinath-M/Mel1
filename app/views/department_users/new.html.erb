@@ -30,6 +30,12 @@
         </span>
       </div>
       <div class="form-sec-row">
+        <%= f.label :avatar,raw("Avatar"), :class=>"text"%>
+        <span class="in-box">
+          <%= f.file_field :avatar%>
+        </span>
+      </div>
+      <div class="form-sec-row">
         <%= f.label :username,raw("User Name"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :username, :size => 30%>
@@ -45,7 +51,7 @@
       <div class="form-sec-row">
         <%= f.label :state,raw("State"), :class=>"text"%>
         <span class="in-box">
-          <%= f.text_field :state, :size => 30%>
+          <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "SELECT YOUR STATE")%>
         </span>
       </div>
       <div class="form-sec-row">
@@ -57,7 +63,7 @@
       <div class="form-sec-row">
         <%= f.label :department_id,raw("Department"), :class=>"text"%>
         <span class="in-box">
-          <%=f.select(:department_id, Department.all.collect {|p| [ p.name, p.id ] }) %>
+          <%=f.select(:department_id, Department.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT YOUR DEPARTMENT ") %>
         </span>
       </div>
       <div class="form-sec-row">
