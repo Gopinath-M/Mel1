@@ -51,7 +51,7 @@
       <div class="form-sec-row">
         <%= f.label :state,raw("State"), :class=>"text"%>
         <span class="in-box">
-          <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "SELECT YOUR STATE")%>
+          <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "PLEASE SELECT")%>
         </span>
       </div>
       <div class="form-sec-row">
@@ -60,19 +60,18 @@
           <%= f.text_field :zipcode, :size => 30%>
         </span>
       </div>
+
+      <div class="form-sec-row">
+        <%= f.label :role_id, raw("Role"), :class=>"text" %>
+        <span class="in-box">
+          <%= f.select(:role_id, Role.limit(2).offset(1).collect {|role| [role.name, role.id]}, :prompt => "PLEASE SELECT") %>
+        </span>
+      </div>
+
       <div class="form-sec-row">
         <%= f.label :department_id,raw("Department"), :class=>"text"%>
         <span class="in-box">
-          <%=f.select(:department_id, Department.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT YOUR DEPARTMENT ") %>
-        </span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text">Is Admin</label>
-        <span class="in-box">
-          <span class="ui-watermark-container ui-watermark-input">
-            <label for="" class="ui-watermark-label" style="left: 6px; top: 6px;"></label>
-            <%= f.check_box :is_admin %>
-          </span>
+          <%=f.select(:department_id, Department.all.collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT") %>
         </span>
       </div>
 

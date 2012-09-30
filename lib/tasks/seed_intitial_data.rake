@@ -1,4 +1,16 @@
 require 'rubygems'
+namespace :roles do
+  desc 'create roles' 
+  task :create => :environment do
+   role = Role.new(:name => 'Super Admin')
+   role.save
+   role = Role.new(:name => 'Department Admin')
+   role.save
+   role = Role.new(:name => 'Department User')
+   role.save
+  end
+end
+
 namespace :department do
   desc 'insert department data in db'
   task :update => :environment do

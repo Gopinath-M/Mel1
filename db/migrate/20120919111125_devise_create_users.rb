@@ -34,7 +34,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.date :first_appointment_to_present_position
       t.date :promotion_to_grad_now
       t.date :confirmation_date_to_post_now
-      t.boolean :is_admin
       t.date :date_of_join
       t.date :date_of_birth
       t.references :department
@@ -44,6 +43,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :avatar_updated_at
       t.string :status
       t.boolean :is_admin, :default=>false
+      t.references :role
 
       # t.encryptable
       # t.confirmable
