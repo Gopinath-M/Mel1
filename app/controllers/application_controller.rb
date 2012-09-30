@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def is_admin
     if current_user.role_id!=1 && current_user.role_id!=2
-      redirect_to :controller => "dashboard", :action => "index", :notice => "You are not autherized to access this page"
+      redirect_to :controller => "dashboard", :action => "index"#, :notice => "You are not autherized to access this page"
     end
   end
 end
