@@ -12,7 +12,7 @@ gem 'devise'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'mysql2', '~>0.2.6'
-gem "rmagick", "~> 2.13.1"
+gem 'mini_magick'
 # Use unicorn as the web server
 # gem 'unicorn'
 
