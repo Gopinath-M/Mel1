@@ -33,6 +33,7 @@ class DepartmentUsersController < ApplicationController
   
   def transfer
     if !params[:users].nil? && !params[:department_id].nil?
+      users=params[:users].join(",").to_s
       @users=User.where("role_id !=1 and department_id = ? ", params[:department_id])
       if User.update_all("department_id=#{params[:department_id]}", "id in (#{users})")
         render :partial=>'transfer'
