@@ -31,9 +31,12 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
     version :thumb do
-      process :resize_to_limit => [50, 50]
+      process :resize_to_limit => [30, 30]
     end
-
+    
+    version :profile do
+      process :resize_to_limit => [120, 120]
+    end
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
     def extension_white_list
