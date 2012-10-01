@@ -295,7 +295,7 @@ h2.b-head a img{ float:left; margin-right:5px; padding-top:5px;}
 .info {color: #00529B; background: #BDE5F8 url('../images/icon-info.png') no-repeat 10px center;}
 .success { color: #4F8A10; background: #DFF2BF url('../images/icon-tick.png') no-repeat 10px center;}
 .warning {color: #9F6000; background: #FEEFB3 url('../images/icon-warning.png') no-repeat 10px center;}
-.error { color: #D8000C; background: #FFBABA url('../images/icon-cross.png') no-repeat 10px center;}
+.error { color: #D8000C; background: #FFBABA url('../images/icon-cross.png') no-repeat 10px 15px;}
 .error h2 { border-bottom: 1px solid #D8000C;  color: #D8000C;}
 .error p { color: #D8000C;}
 .a-right{ text-align:right !important;}

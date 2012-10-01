@@ -6,8 +6,8 @@
       </div>
       <div class="profInfo">
         <div class="profInfo-img box">
-          <%if current_user && current_user.role_id==1%>
-            <%=image_tag "img_profile.jpg", :alt=>"Image", :width=>"120", :height=>"120"%>
+          <%if current_user%>
+            <%= !current_user.avatar.nil? ? (image_tag current_user.avatar.url(:profile), :alt=>"Image", :width=>"120", :height=>"120") : (image_tag "img_profile.jpg", :alt=>"Image", :width=>"120", :height=>"120")  %>
           <%else%>
             <%=image_tag "img_event3.jpg", :alt=>"Image", :width=>"120", :height=>"120"%>
           <%end%>

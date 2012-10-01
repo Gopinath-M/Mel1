@@ -40,7 +40,7 @@ class RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
-    if resource.update_with_password(resource_params)
+    if resource.update_with_password(params[:user])
       if is_navigational_format?
         flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
           :update_needs_confirmation : :updated
@@ -71,5 +71,11 @@ class RegistrationsController < Devise::RegistrationsController
     expire_session_data_after_sign_in!
     redirect_to new_registration_path(resource_name)
   end
- 
+  
+  protected
+  def update_needs_confirmation?(resource, previous)
+    resource.respond_to?(:pending_reconfirmation?) &&
+      resource.pending_reconfirmation? &&
+      previous != resource.unconfirmed_email
+  end
 end
