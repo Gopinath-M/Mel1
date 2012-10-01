@@ -14,6 +14,10 @@ class UsersController < ApplicationController
     redirect_to(users_path(:department_id=>department_id), :notice => 'User Status has been successfully changed.')
   end
 
+  def edit
+    @user=User.find(params[:id])
+
+  end
   #Destroy a particular User
   def destroy
     @user = User.find(params[:id])
