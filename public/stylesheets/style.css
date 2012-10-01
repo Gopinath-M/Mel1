@@ -298,6 +298,7 @@ h2.b-head a img{ float:left; margin-right:5px; padding-top:5px;}
 .error { color: #D8000C; background: #FFBABA url('../images/icon-cross.png') no-repeat 10px 15px;}
 .error h2 { border-bottom: 1px solid #D8000C;  color: #D8000C;}
 .error p { color: #D8000C;}
+.error1 { color: #D8000C; background: #FFBABA url('../images/icon-cross.png') no-repeat 10px center;}
 .a-right{ text-align:right !important;}
 .a-center{ text-align:center !important;}
 .bor-none{ border:0px !important;}
