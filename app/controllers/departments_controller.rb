@@ -3,7 +3,8 @@ class DepartmentsController < ApplicationController
   before_filter :is_admin
   
   def index
-    @departments = Department.all
+    #@departments = Department.all
+    @departments = Department.order("name").page(params[:page]).per(10)
     if params[:del] !=nil
       @id = params[:id]
       @update_dept_status = Department.find(@id.to_i)
