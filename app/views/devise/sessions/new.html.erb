@@ -1,12 +1,5 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <% if  flash[:notice] || flash[:alert] %>
-    <div class="error">
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-      <% end %>
-    </div>
-    <div class="clearfix">&nbsp;</div>
-  <%end%>
+<%#=f.error_message%>
   <div class="landing-con">
     <div class="banner">
       <span class="cor-tl"></span>
@@ -23,11 +16,9 @@
           </div>
           <div class="slide">
             <%=image_tag("banner3.jpg", :alt=>"Image", :width=>"390", :height=>"340") %>
-
           </div>
           <div class="slide">
             <%=image_tag("banner4.jpg", :alt=>"Image", :width=>"390", :height=>"340") %>
-
           </div>
           <div class="slide">
             <%=image_tag("banner5.jpg", :alt=>"Image", :width=>"390", :height=>"340") %>
@@ -59,7 +50,7 @@
           <%= f.submit "Log In", :class => "btn1" %>
           <div class="clear"></div>
           <p class="loggedin">
-             <%= f.check_box :remember_me %><%= f.label :remember_me,"Keep me logged in" %> 
+            <%= f.check_box :remember_me %><%= f.label :remember_me,"Keep me logged in" %>
           </p>
           <p class="forgot-row">
             <%= link_to "Forgot your password?", new_user_password_path,:title=>title="Forgot Your Password?" %>
