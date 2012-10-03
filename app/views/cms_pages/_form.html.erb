@@ -1,5 +1,4 @@
 <%= form_for(@cms_page, :as => :cms_page,  :url => cms_pages_path, :html => {:multipart => true}, :method=>:post) do |f| %>
-
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec-row">
@@ -12,10 +11,9 @@
   <%#= f.label :attachement,raw("Attachement"), :class=>"text"%>
   <%#*<span class="in-box">%>
   <%#= f.file_field :attachement %>
-  <div class=""><br/>
-    
-    <%= f.label :content,raw("Descripton"), :class=>"text"%><br />
-    <%= tinymce(:cms_page, :content) %>
+  <div class="form-sec-row"><br/>
+    <%= f.label :content,raw("Description"), :class=>"text"%><br /><br />
+    <span class="in-box"> <%= tinymce(:cms_page, :content) %></span>
   </div>
     <div class="form-sec-row">
     <label class="text"> <%= f.label :location,raw("Location"), :class=>"text"%></label>

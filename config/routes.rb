@@ -8,6 +8,7 @@ Melaka::Application.routes.draw do
     get "/logout"=> "sessions#destroy", :as => :destroy_user_session
   end
   resources :departments
+  resources :static_pages
   resources :users do
     collection do
       post 'update_status'
