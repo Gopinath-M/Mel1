@@ -30,13 +30,13 @@
       <div class="land-footer-r">Copyright &copy; 2012 Melaka</div>
       <div class="land-footer-l">
         <ul>
-          <li><a href="javascript:void(0);" title="Feedback">Feedback</a></li>
+          <li><%=link_to "Feedback",about_us_static_pages_path, :title=>"Feedback"%></li>
           <li>-</li>
-          <li><a href="javascript:void(0);" title="Privacy">Privacy</a></li>
+          <li><%=link_to "Privacy",privacy_static_pages_path, :title=>"Privacy"%></li>
           <li>-</li>
-          <li><a href="javascript:void(0);" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
+          <li><%=link_to raw("Terms &amp; Conditions"),terms_and_conditions_static_pages_path, :title=>"Terms &amp; Conditions"%></li>
           <li>-</li>
-          <li><a href="javascript:void(0);" title="Help">Help</a></li>
+          <li><%=link_to "Help",help_static_pages_path, :title=>"Help"%></li>
           <%=render :partial=>"shared/cms_footer_page"%>
         </ul>
       </div>
