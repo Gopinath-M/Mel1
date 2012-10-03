@@ -49,8 +49,6 @@
           </ul>
           <div class="profName-con">
             <%if current_user && !current_user.blank?%>
-            <%=p current_user.avatar!=nil%>
-            <%=p current_user.avatar.url(:thumb).nil?%>
               <%image_url= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag(current_user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "img_profile.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
               <%user_role= current_user.role_id==1 ? "Super Admin" : (current_user.role_id==2 ? "Dept Admin" : "Dept User")%>
             <%else%>
