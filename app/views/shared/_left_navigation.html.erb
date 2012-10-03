@@ -79,7 +79,7 @@
             <%end%>
             <%if current_user && (current_user.role_id==1 ||  current_user.role_id==2)%>
               <li>
-                <%=link_to "User", "javascript:void(0);" , :title=>"User" ,:class=>"", :id=>"lnk_user"%>
+                <%=link_to "Users", "javascript:void(0);" , :title=>"User" ,:class=>"", :id=>"lnk_user"%>
                 <div id ="div_user" style="display:none;">
                   <ul>
                     <li>
