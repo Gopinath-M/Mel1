@@ -65,7 +65,7 @@
 
 .pagination {
 	margin:0px 15px 0 0; float:right;
-	width:190px; height:57px; /*background: url(../images/bg_slide_indicator.png) no-repeat 0 0;*/  padding:0 0px 0 0px; position:relative; z-index:2222;
+	width:220px; height:57px; /*background: url(../images/bg_slide_indicator.png) no-repeat 0 0;*/  padding:0 0px 0 0px; position:relative; z-index:2222;
 }
 
 .pagination li {
