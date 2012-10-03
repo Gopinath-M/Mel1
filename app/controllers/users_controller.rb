@@ -29,9 +29,9 @@ class UsersController < ApplicationController
   def index
     @users=nil
     if params[:department_id].blank? || params[:department_id].nil?
-       @users=User.where("role_id !=1")
+       @users=User.order.page(params[:page]).per(15).where("role_id !=1")
     else
-      @users=User.where("role_id !=1 and department_id = ? ", params[:department_id])
+      @users=User.order.page(params[:page]).per(15).where("role_id !=1 and department_id = ? ", params[:department_id])
       @department_id=params[:department_id]
     end
     if request.xhr?
