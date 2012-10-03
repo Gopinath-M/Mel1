@@ -1,7 +1,6 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2 class="b-head">Create  User</h2>
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true }) do |f| %>
       <!--BODY START-->
       <div id="Body">
@@ -9,7 +8,7 @@
           <div class="form-sec">
             <%=f.error_messages%>
             <div class="clearfix">&nbsp;</div>
-            <h2>Edit User</h2>
+            <h2>Edit My Profile</h2>
             <div class="form-sec-row">
               <%= f.label :first_name,raw("First Name"), :class=>"text"%>
               <span class="in-box">
