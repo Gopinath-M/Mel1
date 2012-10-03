@@ -5,7 +5,6 @@
 .btn1:hover{ color:#f2c0b7; height:24px;}
 .btn2{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:3px 15px 3px; font-size:12px; color:#fff; overflow:visible; height:24px;font-weight: bold;}
 .btn2:hover{ color:#f2c0b7; height:24px;}
-
 .in-btn1{ width:55px !important;}
 .in-btn2{ width:60px !important;}
 
@@ -91,6 +90,8 @@
 .login-ban .footer-land .forgot-row{ text-align:left; float:left; margin:10px 0 0 0;}
 .login-ban .footer-land .forgot-row a{ font-size:11px; color:#9fafbf;line-height: 14px;}
 .login-ban .footer-land .forgot-row a:hover{ color:#fff;}
+.login-ban .footer-land .newuser{ cursor:pointer; border:0 none; color:#DD2B0E; padding:4px 10px 4px 10px !important; font-size:12px; margin-top:5px; margin-left:8px; color:#fff; overflow:visible; float:left;height:12px; font-weight: bold;}
+.login-ban .footer-land .reguser{ text-align:left; color:#9fafbf; float:left; margin-left: 12px; margin-top: 9px;}
 .loggedin{ float:left; margin:10px 10px 0 0; width:150px; text-align:left;}
 .login-ban .footer-land .loggedin label{ font-size:11px; color:#9fafbf;line-height: 14px; display:block !important;}
 .login-ban .footer-land .loggedin input{ float:left; margin-right:8px;}
