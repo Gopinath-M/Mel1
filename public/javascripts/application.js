@@ -35,7 +35,6 @@ $().ready(function(){
 
 
     $("#transfer_department_id").live("change",function(){
-    alert($("#transfer_department_id").val())
         if ( $("#transfer_department_id").val()=="")
         {
             $.get("/department_users/",{
