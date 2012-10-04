@@ -64,8 +64,8 @@
 */
 
 .pagination {
-	margin:0px 15px 0 0; float:right;
-	width:220px; height:57px; /*background: url(../images/bg_slide_indicator.png) no-repeat 0 0;*/  padding:0 0px 0 0px; position:relative; z-index:2222;
+	margin:-20px 15px 0 0; float:right;
+	height:7px; background: url(../images/bg_slide_indicator.png) no-repeat 0 0;  padding:0 0px 0 0px; position:relative; z-index:2222;
 }
 
 .pagination li {
@@ -111,3 +111,4 @@
 }
 .caption h1{ font-size:20px; text-transform:uppercase; line-height:35px; color:#fff;}
 .caption p{ font-size:13px; color:#fff; padding-bottom:10px;}
+
