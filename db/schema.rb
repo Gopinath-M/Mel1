@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(:version => 20120930093559) do
   end
 
   create_table "units", :force => true do |t|
-    t.integer  "office_id"
     t.string   "name"
+    t.integer  "department_id"
     t.integer  "order_by"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -89,7 +89,6 @@ ActiveRecord::Schema.define(:version => 20120930093559) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "ic_number"
-    t.string   "other_ic_number"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "username"
@@ -124,7 +123,6 @@ ActiveRecord::Schema.define(:version => 20120930093559) do
     t.datetime "avatar_updated_at"
     t.string   "status"
     t.boolean  "is_admin",                                             :default => false
-    t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
