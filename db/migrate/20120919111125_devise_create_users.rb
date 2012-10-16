@@ -43,8 +43,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :avatar_updated_at
       t.string :status
       t.boolean :is_admin, :default=>false
-      t.references :role
-
       # t.encryptable
       # t.confirmable
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
