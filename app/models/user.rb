@@ -16,16 +16,6 @@ class User < ActiveRecord::Base
   validates_integrity_of :avatar
   validates_processing_of :avatar
   #before_save :update_avatar_attributes
-  
- # validates :first_name,:last_name,:ic_number,:username,:city,:state,:zipcode,:department_id, :presence => true
-  validates :first_name,:last_name, :length => { :in => 1..50 },:format => { :with => /\A[a-zA-Z]+\z/, :message => "Only letters allowed" }, :if => Proc.new {|u| !u.first_name.blank? || !u.last_name.blank?}
- # validates :ic_number, :format => { :with => /([0-9][0-9])((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))\-([0-9][0-9])\-([0-9][0-9][0-9][0-9])/ }, :if => Proc.new {|u| !u.ic_number.blank?}
-  validates :username, :format => { :with => /^[a-zA-Z0-9][a-zA-Z0-9-_.]{2,8}[a-zA-Z0-9]$/} , :if => Proc.new {|u| !u.username.blank? }
-  validates :zipcode, :format =>{ :with => %r{\d{5}},
-    :if => Proc.new {|u| !(u.zipcode.blank?) },
-    :message => "should be a 5 digit number"}
-  #Validation For SignUp,Create user Page Ends Here
-
 
   def self.find_for_database_authentication(conditions={})
     self.where("ic_number = ?", conditions[:ic_number]).limit(1).first || self.where("email = ?", conditions[:ic_number]).limit(1).first
