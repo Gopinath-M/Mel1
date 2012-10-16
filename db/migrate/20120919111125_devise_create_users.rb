@@ -6,7 +6,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.rememberable
       t.trackable
       t.string :ic_number
-      t.string :other_ic_number
       t.string :first_name
       t.string :last_name
       t.string :username
