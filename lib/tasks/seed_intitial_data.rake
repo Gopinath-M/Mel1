@@ -8,6 +8,8 @@ namespace :create do
    role.save
    role = Role.new(:name => 'Department User')
    role.save
+   role = Role.new(:name => 'Unit Admin')
+   role.save
   end
 end
 
