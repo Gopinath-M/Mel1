@@ -1,9 +1,9 @@
 class DepartmentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :is_admin
+  before_filter :is_admin, :except=>'depart_user_list'
   
   def index
-    #@departments = Department.all
+
     @departments = Department.order("name").page(params[:page]).per(10)
     if params[:del] !=nil
       @id = params[:id]
@@ -20,10 +20,8 @@ class DepartmentsController < ApplicationController
   end
 
   def show
-    @department = Department.new
-    if params[:id] == "destroy"
-      redirect_to :action=>"destory"
-    end
+    
+    
   end
 
   def new
@@ -41,8 +39,7 @@ class DepartmentsController < ApplicationController
   end
 
   def edit
-    @id = params[:id]
-    @department = Department.find(@id.to_i)
+    @department = Department.find(params[:id])
   end
 
   def update
@@ -79,5 +76,15 @@ class DepartmentsController < ApplicationController
     @department = Department.find(params[:id])
     @department.is_active = 0
     @department.save
+  end
+
+  def depart_list
+    @department = User.find(:all, :conditions => ["role_id = 2"])
+  end
+
+  def depart_user_list
+
+   @users = User.find(:all, :conditions => ["department_id = ? and role_id = 3", current_user.department_id])
+
   end
 end
