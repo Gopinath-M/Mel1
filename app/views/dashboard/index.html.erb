@@ -1,25 +1,56 @@
-<div class="CenterNav">
-  <h2 style="text-decoration:blink">Messages Coming Soon....</h2>
-  <div class="postedMsg-con">
-    <div class="postedMsg-row box">
-      <div class="postedMsg-img">
-        <a href="#" title="The Melaka  State Office of Land and Mines"><img src="images/img_user1.jpg" alt="Image" width="60" height="60" /></a>
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <%= javascript_include_tag 'jquery_uii.js'%>
+    <%#*<link rel="stylesheet" href="/resources/demos/style.css" />%>
+    <script>
+      $(function() {
+        $( "#tabs" ).tabs();
+      });
+    </script>
+
+  </head>
+
+  <body><h1 class="bhead">
+<%#*Change Department <%= collection_select :department, :department_id, Department.all, :id, :name, :prompt => "PLEASE SELECT", :onchange=>"window.location='http://www.domain.com/mypage?id=' + this.value;" %>
+      <br /><br /><h3 class="b-head">Today's News</h3><marquee behavior="scroll" direction="left">     Melaka State adopts Red Hat’s virtualization and Linux operating system; security, reliability and cost key factors in win
+        Opens Center of Excellence in a bid to train more open source professionals, boosting skill sets for future
+      </marquee><br /><br /><h3 class="b-head">Dashboard</h3>
+      <div id="tabs">
+        <ul>
+          <li><%if current_user.role_id == 1%><a href="#tabs-1">Admin Activation</a><%elsif current_user.role_id == 2%><a href="#tabs-1">User Activation</a><%else%><a href="#tabs-1">Messages</a><%end%></li>
+          <li><a href="#tabs-2">User Transfer Request</a></li>
+          <li><a href="#tabs-3">Resource Booking</a></li>
+
+        </ul>
+        <div id="tabs-1"><%if current_user.role_id != 3 %><%@users.each do |user|%>
+            <div class="mu-c1">
+  <%#=link_to image_tag(user.avatar_url, :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines" if user.avatar?%>
+            </div>
+          <table><tr><td width="300px;" line-height="17px"><%=link_to (user.full_name), department_user_path(user), :title=>user.username%></td><td><%if user.status=="Active"%>
+                <%=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+"Deactive" , update_status_users_path(:id=>user.id,:status=>"Deactivate",:department_id=>params[:department_id]), :confirm => 'Do you want to really deactivate this user?', :method=>:post, :title=>"Deactive" %>
+              <%elsif user.status=="Deactive" || user.status.nil?%>
+                <%=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+"Activate" , update_status_users_path(:id=>user.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate" %>
+              <%end%></td></tr></table>
+           <%end%>
+          <%else%>
+          User Messages Comes Here...
+<%end%>
+        </div>
+        <div id="tabs-2">
+          <p>User Transfer Request Pending list.</p>
+        </div>
+        <div id="tabs-3">
+
+          <p>Resource Booking Status.</p>
+        </div>
+
+
       </div>
-      <div class="postedMsg-txt">
-        <p class="head1"><a href="#" title="The Melaka  State Office of Land and Mines"><b>The Melaka  State Office of Land and Mines</b></a> <br />Transfered <a href="#" title="Jaleel Rahman">Jaleel Rahman</a> to <a href="#" title="The Melaka Syariah Court">The Melaka Syariah Court</a> </p>
-        <div class=""></div>
-        <p class="PM-des"><a href="#" title="Comment">Comment</a> &nbsp; - &nbsp; 12 hours ago</p>
-      </div>
-    </div>
-    <div class="postedMsg-row box">
-      <div class="postedMsg-img">
-        <a href="#" title="Social Welfare Department of Melaka"><img src="images/img_user2.jpg" alt="Image" width="60" height="60" /></a>
-      </div>
-      <div class="postedMsg-txt">
-        <p class="head1"><a href="#" title="Social Welfare Department of Melaka"><b>Social Welfare Department of Melaka</b></a> <br />Merged with <a href="#" title="The Melaka Syariah Court">The Melaka Syariah Court</a> </p>
-        <div class=""></div>
-        <p class="PM-des"><a href="#" title="Comment">Comment</a> &nbsp; - &nbsp; 12 hours ago</p>
-      </div>
-    </div>
-  </div>
-</div>
+
+
+  </body>
+</html>
