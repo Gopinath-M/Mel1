@@ -4,6 +4,7 @@ class CreateUnits < ActiveRecord::Migration
       t.string :name
       t.references :department
       t.integer :order_by
+      t.string :status
       t.timestamps
     end
   end
