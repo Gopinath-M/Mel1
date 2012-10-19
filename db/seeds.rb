@@ -7,12 +7,17 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 puts "All right! I have started seeding, now please be patient."
+
+puts "Creating Agencies"
+agency1 = Agency.create(:name => 'Agency_one', :status => 'A')
+agency2 = Agency.create(:name => 'Agency_two', :status => 'A')
+
 puts "Creating Departments"
 begin
       file = File.open("public/Department.csv", "r")
       file.readlines.each_with_index do |record, i|
         begin
-          Department.create(:name=>record, :is_active=>true, :created_by=>1, :updated_by=>1)
+          Department.create(:agency_id => 1, :name=>record, :is_active=>true, :created_by=>1, :updated_by=>1)
         rescue Exception =>e
           p "Exception ocurred due to #{e.to_s} at #{i}"
         end

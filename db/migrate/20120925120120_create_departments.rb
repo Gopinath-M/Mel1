@@ -1,6 +1,7 @@
 class CreateDepartments < ActiveRecord::Migration
   def self.up
     create_table :departments do |t|
+      t.references :agency
       t.string :name
       t.boolean :is_active
       t.integer :created_by
