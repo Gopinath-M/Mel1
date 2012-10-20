@@ -1,6 +1,12 @@
 class Department < ActiveRecord::Base
-  has_many :role_memberships
-  has_many :roles
-  has_many :users, :through => :role_memberships, :uniq => true
+  #Associations come here
+  has_many :role_memberships 
+  has_many :roles 
+  has_many :users, :through => :role_memberships
+
+  #Validations comes here
   validates :name, :presence => true
+  
+  #named_scopes comes here
+  scope :active, where(:deleted => false)
 end

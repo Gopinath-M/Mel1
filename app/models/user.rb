@@ -6,9 +6,12 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :avatar_cache, :remove_avatar, :role_id
+                  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :avatar_cache, :remove_avatar, :role_id
+  has_many :role_memberships
+  has_many :roles, :through => :role_memberships
+  has_many :departments, :through => :role_memberships
 
-  belongs_to :department
+  scope :active, where(:deleted => false)
   #Validation For SignUp,Create user, Page Starts Here
   #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}
   mount_uploader :avatar, ProfileImageUploader  
@@ -26,6 +29,21 @@ class User < ActiveRecord::Base
     full_name=first_name+ " "+last_name
     full_name=full_name.titlecase #capitalize
   end 
+
+  def is_super_admin?
+    role = Role.where(:name => "Super Admin").first || Role.new
+    role.users.include?(self)
+  end
+
+  def is_department_admin?
+      role = Role.where(:name => "Department Admin").first || Role.new
+      role.users.include?(self)
+  end
+
+   def is_department_user?
+      role = Role.where(:name => "Department User").first || Role.new
+      role.users.include?(self)
+  end
 
   private
 
