@@ -50,16 +50,21 @@
           <div class="profName-con">
             <%if current_user && !current_user.blank?%>
               <%image_url= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag(current_user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "img_profile.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
-              <%user_role= current_user.role_id==1 ? "Super Admin" : (current_user.role_id==2 ? "Dept Admin" : "Dept User")%>
+              <% if current_user.is_super_admin? %>
+                  <% user_title = DISP_USER_ROLE_SUPER_ADMIN %>
+              <% elsif current_user.is_department_admin? %>
+                  <% user_title = DISP_USER_ROLE_DEPT_ADMIN %>
+              <% else %>
+                  <% user_title = DISP_USER_ROLE_DEPT_USER %>
+              <% end %>
             <%else%>
               <%image_url=image_tag "img_event3.jpg", :alt=>"Image", :width=>"30", :height=>"30"%>
-              <%user_role= "Guest User"%>
+              <%user_title= "Guest User"%>
             <%end%>
-            <%=link_to image_url, "javscript:void(0);",:title=>user_role, :class=>"profName-img" %>
+            <%=link_to image_url, "javscript:void(0);",:title=>user_title, :class=>"profName-img" %>
             <table cellpadding="0"  cellspacing="0">
               <tr>
-                <td>
-                  <%user_title=current_user && current_user.role_id==1 ? "Super Admin" : current_user.role_id==2 ? "Dept Admin" : "Dept User"%>
+                <td>            
                   <%=link_to user_title, "javascript:void(0);",:title=>user_title, :class=>"profName"%>
                 </td>
               </tr>

@@ -18,7 +18,7 @@
           <li><a href="javascript:void(0);" title="Messages"><%=image_tag "icn_email.png" , :width=>"16", :height=>"16", :alt=>"Email"%><span class="notifiNo">5</span>Messages</a></li>
           <li><a href="javascript:void(0);" title="Events"><%=image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%>Events</a></li>
           <li><a href="javascript:void(0);" title="Find User"><%=image_tag "icn_user.png" , :width=>"16", :height=>"16", :alt=>"Find User"%>Find User</a></li>
-          <%if current_user && current_user.role_id==1%>
+          <%if current_user && current_user.is_super_admin?%>
             <li><a href="javascript:void(0);" title="Uploaded Files"><%=image_tag "attach.png" , :width=>"16", :height=>"16", :alt=>"Upload Files"%>Uploaded Files</a></li>
           <%end%>
         </ul>
@@ -27,10 +27,10 @@
       <div class="leftNav-links box">
         <h2>Alerts</h2>
         <ul>
-          <%if current_user && current_user.role_id==1%>
+          <%if current_user && current_user.is_super_admin?%>
             <li><a href="javascript:void(0);" title="Admin Activation"><span class="notifiNo">3</span>Admin Activation</a></li>
           <%end%>
-          <%if current_user && (current_user.role_id==1 ||  current_user.role_id==2)%>
+          <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
             <li><a href="javascript:void(0);" title="User Activation">User Activation</a></li>
             <li><a href="javascript:void(0);" title="User Transfer Request">User Transfer Request</a></li>
             <li><a href="javascript:void(0);" title="Resource Booking ">Resource Booking</a></li>
@@ -46,10 +46,10 @@
       </div>
       <div class="clear"></div>
       <div class="leftNav-links box">
-        <%if current_user && (current_user.role_id==1 || current_user.role_id==2)%>
+        <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
           <h2>Management Tools</h2>
           <ul>
-            <%if current_user && current_user.role_id==1%>
+            <%if current_user && current_user.is_super_admin? %>
               <li>
                 <%=link_to "Departments", "javascript:void(0);" , :title=>"departments" ,:class=>"", :id=>"lnk_department"%>
                 <div id ="div_department" style="display:none;">
@@ -77,7 +77,7 @@
                 </div>
               </li>
             <%end%>
-            <%if current_user && (current_user.role_id==1 ||  current_user.role_id==2)%>
+             <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
               <li>
                 <%=link_to "Users", "javascript:void(0);" , :title=>"User" ,:class=>"", :id=>"lnk_user"%>
                 <div id ="div_user" style="display:none;">
@@ -88,7 +88,7 @@
                     <li>
                       <%=link_to "List", users_path%>
                     </li>
-                    <%if current_user && current_user.role_id==1 %>
+                    <%if current_user && current_user.is_super_admin? %>
                       <li>
                         <%=link_to "Transfer Department", department_users_path%>
                       </li>

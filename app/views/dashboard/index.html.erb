@@ -21,12 +21,12 @@
       </marquee><br /><br /><h3 class="b-head">Dashboard</h3>
       <div id="tabs">
         <ul>
-          <li><%if current_user.role_id == 1%><a href="#tabs-1">Admin Activation</a><%elsif current_user.role_id == 2%><a href="#tabs-1">User Activation</a><%else%><a href="#tabs-1">Messages</a><%end%></li>
+          <li><%if current_user.is_super_admin?%><a href="#tabs-1">Admin Activation</a><%elsif current_user.is_department_admin? %><a href="#tabs-1">User Activation</a><%else%><a href="#tabs-1">Messages</a><%end%></li>
           <li><a href="#tabs-2">User Transfer Request</a></li>
           <li><a href="#tabs-3">Resource Booking</a></li>
 
         </ul>
-        <div id="tabs-1"><%if current_user.role_id != 3 %><%@users.each do |user|%>
+        <div id="tabs-1"><%if current_user.is_super_admin? || current_user.is_department_admin? %><%@users.each do |user|%>
             <div class="mu-c1">
   <%#=link_to image_tag(user.avatar_url, :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines" if user.avatar?%>
             </div>
