@@ -7,7 +7,6 @@
         <%=f.error_messages%>
         <div class="clearfix">&nbsp;</div>
         <h2>Sign up</h2>
-        <%= f.hidden_field :is_admin,:value=> true%>
   <%#=f.text_field :admin_signup, :value=>true%>
         <div class="form-sec-row">
           <%= f.label :first_name,raw("First Name"), :class=>"text"%>
@@ -59,12 +58,30 @@
             <%= f.text_field :zipcode, :size => 6, :autofocus => true%>
           </span>
         </div>
-        <div class="form-sec-row">
-          <%= f.label :department_id,raw("Department"), :class=>"text"%>
-          <span class="in-box">
-            <%=f.select(:department_id, Department.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT YOUR DEPARTMENT ") %>
-          </span>
-        </div>
+      <div class="form-sec-row">
+        <%= label_tag :role_id, raw("Role"), :class=>"text" %>
+        <span class="in-box">
+          <%= select("role", "id", Role.where("name != 'Super Admin'").collect {|role| [role.name, role.id]},:prompt=>"PLEASE SELECT A ROLE") %>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= label_tag "users_agency", raw("Agency"), :class=>"text" %>
+        <span class="in-box">
+          <%= select("users","agency",  Agency.where(:status=>"A").collect {|role| [role.name, role.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :department_id,raw("Department"), :class=>"text"%>
+        <span class="in-box">
+          <%=f.select(:department_id, Department.where("agency_id =? and is_active=?",1,1).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT") %>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :unit_id,raw("Unit"), :class=>"text"%>
+        <span class="in-box">
+          <%=f.select( :unit_id, Unit.where("department_id=? and status=?", 1,"A").collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT") %>
+        </span>
+      </div>
         <div class="form-sec-row">
           <%= f.label :password, :class=>"text"%>
           <span class="in-box">
