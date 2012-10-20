@@ -11,6 +11,7 @@ class DepartmentUsersController < ApplicationController
     @user = User.create(params[:user].merge!({:password => password_token}))
     @user.save
     if @user.valid?
+      @user.role_memberships.create(:role_id=>params[:role][:id], :department_id=>@user.department_id,:status=>"A")
       UserMailer.welcomemail_department_user(@user,password_token).deliver
       redirect_to(users_path, :notice => 'User was added successfully.')
     else
