@@ -34,6 +34,11 @@ Melaka::Application.routes.draw do
     end
   end
   resources :cms_pages
+
+  #Error routes
+  get '/not_authorized' => 'errors#not_authorized', :as => 'not_authorized'   
+  get '/blocked' => 'errors#blocked', :as => 'blocked'  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
