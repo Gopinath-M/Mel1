@@ -147,6 +147,8 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#user_department_id').find('option').remove().end()
+                    $('#user_unit_id').find('option').remove().end()
+                    $('#user_unit_id').append($("<option></option>").attr("value","").text("PLEASE SELECT UNIT"));
                     $('#user_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
@@ -156,4 +158,25 @@ $().ready(function(){
             })
         }
     });
+    /*Update Unit based on  Department*/
+    $("#user_department_id").live("change", function(){
+        if($("#user_department_id").val()!="")
+        {
+            $.get("/department_users/get_units",{
+                department_id : $("#user_department_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#user_unit_id').find('option').remove().end()
+                    $('#user_unit_id').append($("<option></option>").attr("value","").text("PLEASE SELECT UNIT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#user_unit_id').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
+                    }
+                }
+            })
+        }
+    });
+    
+
 })

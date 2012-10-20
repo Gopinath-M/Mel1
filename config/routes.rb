@@ -30,6 +30,7 @@ Melaka::Application.routes.draw do
     collection do
       post 'transfer'
       get 'get_departments'
+      get 'get_units'
     end
   end
   resources :cms_pages
