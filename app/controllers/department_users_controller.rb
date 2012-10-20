@@ -45,8 +45,15 @@ class DepartmentUsersController < ApplicationController
     end
   end
 
+  def get_departments
+    departments=params[:agency_id] ? Department.where("agency_id =? and is_active=?",params[:agency_id],1) : nil
+    render :json=>[departments] if departments
+  end
+  
   private
   def password_friendly_token
     SecureRandom.base64(8).tr('+/=lIO0', 'pqrsxyz')
   end
+
+
 end

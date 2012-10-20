@@ -16,8 +16,8 @@ class UsersController < ApplicationController
 
   def edit
     @user=User.find(params[:id])
-
   end
+  
   #Destroy a particular User
   def destroy
     @user = User.find(params[:id])

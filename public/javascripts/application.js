@@ -135,7 +135,25 @@ $().ready(function(){
         $('#div_cms').toggle("fast");
     });
 
-/* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/
-
-
+    /* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/
+    
+    /*Update Department based on agency*/
+    $("#users_agency").live("change", function(){
+        if($("#users_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#users_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#user_department_id').find('option').remove().end()
+                    $('#user_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#user_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }             
+            })
+        }
+    });
 })
