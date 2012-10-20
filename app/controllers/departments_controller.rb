@@ -1,90 +1,66 @@
 class DepartmentsController < ApplicationController
   before_filter :authenticate_user!
-#  before_filter :is_admin, :except=>'depart_user_list'
-  
+  before_filter :is_admin#, :except=>'depart_user_list'
+
+  #List all Department
   def index
-
     @departments = Department.order("name").page(params[:page]).per(10)
-    if params[:del] !=nil
-      @id = params[:id]
-      @update_dept_status = Department.find(@id.to_i)
-      if params[:del] == "A"
-        @update_dept_status.is_active = 0
-        @update_dept_status.save
-      elsif params[:del] == "DA"
-        @update_dept_status.is_active = 1
-        @update_dept_status.save
-      end
-        
-    end
   end
 
-  def show
-    
-    
-  end
-
+  #new Department
   def new
     @department = Department.new
   end
 
+  #Create a new Department
   def create
     @department = Department.new(params[:department].merge!(:created_by => current_user.id))
     @department.save
     if @department.valid?
-      redirect_to :controller=>'departments', :action=>'index'
+      redirect_to(departments_path, :notice => 'Department has been successfully created.')
     else
       render :action=>'new'
     end
   end
 
+  #Edit an Department
   def edit
     @department = Department.find(params[:id])
   end
 
+  #update a Department
   def update
-    @id = params[:id]
-    @department = Department.find(@id.to_i)
-    if params[:del] != nil
-      @department = Department.find(@id.to_i)
-      if params[:del] == "DA"
-        @department.is_active = 0
-      elsif params[:del] == "A"
-        @department.is_active = 1
-      else
-        @department.is_active = 0
-      end
-      @department.save
-    end
-    if params[:department] != nil
-      @department.update_attributes(params[:department])
-    end
-    if @department.valid?
-      redirect_to :controller=>'departments', :action=>'index'
+    @department = Department.find(params[:id]) if params[:id]
+    if @department.update_attributes(params[:department])
+      redirect_to(departments_path, :notice => 'Department has been successfully updated.')
     else
       render :action=>'new'
     end
   end
- 
+
+  #Delete a Department
   def destroy
     @department = Department.find(params[:id])
     @department.destroy
-    redirect_to :controller=>'departments', :action=>'index'
+    redirect_to(departments_path, :notice => 'Department has been successfully deleted.')
   end
   
-  def active
-    @department = Department.find(params[:id])
-    @department.is_active = 0
-    @department.save
+  #Activate or Deactivate a particular Department
+  def update_status
+    department = Department.find(params[:id])
+    if department && params[:status]=="Activate"
+      department.update_attribute(:is_active,1)
+    elsif department && params[:status]=="Deactivate"
+      department.update_attribute(:is_active,0)
+    end
+    redirect_to(departments_path, :notice => 'Department Status has been successfully changed.')
   end
 
-  def depart_list
-    @department = User.find(:all, :conditions => ["role_id = 2"])
-  end
-
-  def depart_user_list
-
-   @users = User.find(:all, :conditions => ["department_id = ? and role_id = 3", current_user.department_id])
-
-  end
+  #  def depart_list
+  #    @department = User.find(:all, :conditions => ["role_id = 2"])
+  #  end
+  #
+  #  def depart_user_list
+  #    @users = User.find(:all, :conditions => ["department_id = ? and role_id = 3", current_user.department_id])
+  #  end
 end

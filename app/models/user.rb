@@ -1,12 +1,12 @@
 class User < ActiveRecord::Base
-#  mount_uploader :avatar, AvatarUploader
+  #  mount_uploader :avatar, AvatarUploader
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-                  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :avatar_cache, :remove_avatar, :role_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :avatar_cache, :remove_avatar, :role_id
   has_many :role_memberships
   has_many :roles, :through => :role_memberships
   has_many :departments, :through => :role_memberships
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   #Validation For SignUp,Create user, Page Starts Here
   #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}
   mount_uploader :avatar, ProfileImageUploader  
- # validates_presence_of :avatar
+  # validates_presence_of :avatar
   validates_integrity_of :avatar
   validates_processing_of :avatar
   #before_save :update_avatar_attributes
@@ -36,13 +36,13 @@ class User < ActiveRecord::Base
   end
 
   def is_department_admin?
-      role = Role.where(:name => "Department Admin").first || Role.new
-      role.users.include?(self)
+    role = Role.where(:name => "Department Admin").first || Role.new
+    role.users.include?(self)
   end
 
-   def is_department_user?
-      role = Role.where(:name => "Department User").first || Role.new
-      role.users.include?(self)
+  def is_department_user?
+    role = Role.where(:name => "Department User").first || Role.new
+    role.users.include?(self)
   end
 
   private

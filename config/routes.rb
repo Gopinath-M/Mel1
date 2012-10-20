@@ -7,7 +7,11 @@ Melaka::Application.routes.draw do
     post "/login" => "sessions#create", :as => :user_session
     get "/logout"=> "sessions#destroy", :as => :destroy_user_session
   end
-  resources :departments
+  resources :departments do
+    collection do
+      post 'update_status'
+    end
+  end
   resources :static_pages do
     collection do
       get 'about_us'
