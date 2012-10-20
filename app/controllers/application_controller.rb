@@ -3,15 +3,10 @@ class ApplicationController < ActionController::Base
 
   def home
     if user_signed_in?
-      redirect_to :controller => "dashboard", :action => "index"
+      redirect_to dashboard_index_path
     else
-      redirect_to :controller => "sessions", :action => "new"
+      redirect_to new_user_session_path
     end
   end
 
-  def is_admin
-    if current_user.role_id!=1
-      redirect_to :controller => "dashboard", :action => "index"#, :notice => "You are not autherized to access this page"
-    end
-  end
 end
