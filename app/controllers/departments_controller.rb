@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :is_admin, :except=>'depart_user_list'
+#  before_filter :is_admin, :except=>'depart_user_list'
   
   def index
 
