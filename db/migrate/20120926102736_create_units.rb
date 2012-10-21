@@ -4,7 +4,10 @@ class CreateUnits < ActiveRecord::Migration
       t.string :name
       t.references :department
       t.integer :order_by
-      t.string :status
+      t.boolean :is_active
+      t.boolean :deleted, :default => false
+      t.integer :created_by
+      t.integer :updated_by
       t.timestamps
     end
   end

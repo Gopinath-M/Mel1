@@ -42,9 +42,11 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
   end
 
   create_table "departments", :force => true do |t|
-    t.integer  "agency_id"
     t.string   "name"
+    t.integer  "agency_id"
+    t.integer  "order_by"
     t.boolean  "is_active"
+    t.boolean  "deleted",    :default => false
     t.integer  "created_by"
     t.integer  "updated_by"
     t.datetime "created_at"
@@ -56,13 +58,18 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
     t.integer  "user_id"
     t.integer  "department_id"
     t.string   "designation"
+    t.boolean  "default_dept",  :default => false
     t.string   "status"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
+    t.boolean  "is_active"
+    t.boolean  "deleted",    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -91,7 +98,10 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
     t.string   "name"
     t.integer  "department_id"
     t.integer  "order_by"
-    t.string   "status"
+    t.boolean  "is_active"
+    t.boolean  "deleted",       :default => false
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -112,7 +122,6 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
     t.string   "last_name"
     t.string   "username"
     t.integer  "substantive_post_id"
-    t.integer  "department_id"
     t.integer  "service_level_id"
     t.integer  "classification_id"
     t.integer  "grade_id"
@@ -121,7 +130,6 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
     t.integer  "appointment_id"
     t.string   "position"
     t.string   "official_position"
-    t.integer  "unit_id"
     t.string   "gender"
     t.text     "address"
     t.string   "city"
@@ -136,12 +144,13 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
     t.date     "confirmation_date_to_post_now"
     t.date     "date_of_join"
     t.date     "date_of_birth"
+    t.integer  "department_id"
     t.integer  "created_by"
     t.integer  "updated_by"
     t.string   "avatar"
     t.datetime "avatar_updated_at"
     t.string   "status"
-    t.boolean  "is_admin",                                             :default => false
+    t.boolean  "deleted",                                              :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

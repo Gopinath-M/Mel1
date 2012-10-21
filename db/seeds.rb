@@ -82,15 +82,15 @@ department_user4 = User.create(:ic_number => "123456-78-2555", :email => 'gopina
 rm_department_user4 = RoleMembership.create(:user_id => department_user4.id, :department_id => 4, :role_id => 3, :status => 'A')
 
 puts "Creating Sample Units for the department JABATAN KETUA MENTERI MELAKA"
-unit_user1 = Unit.create(:department_id => 1, :name => 'BAHAGIAN AUDIT DALAM & SIASATAN AWAM (BADSA)', :status => "A")
-unit_user2 = Unit.create(:department_id => 1, :name => 'BAHAGIAN DEWAN DAN MMKN', :status => "A")
-unit_user3 = Unit.create(:department_id => 1, :name => 'UNIT KEWANGAN', :status => "A")
-unit_user4 = Unit.create(:department_id => 1, :name => 'UNIT KERAJAAN TEMPATAN (KT)', :status => "A")
+unit_user1 = Unit.create(:department_id => 1, :name => 'BAHAGIAN AUDIT DALAM & SIASATAN AWAM (BADSA)', :is_active => 1)
+unit_user2 = Unit.create(:department_id => 1, :name => 'BAHAGIAN DEWAN DAN MMKN',:is_active => 1)
+unit_user3 = Unit.create(:department_id => 1, :name => 'UNIT KEWANGAN', :is_active => 1)
+unit_user4 = Unit.create(:department_id => 1, :name => 'UNIT KERAJAAN TEMPATAN (KT)', :is_active => 1)
 
 puts "Creating Sample Units for the department JABATAN AGAMA ISLAM MELAKA"
-unit_user1 = Unit.create(:department_id => 4, :name => 'UNIT KEWANGAN', :status => "A")
-unit_user2 = Unit.create(:department_id => 4, :name => 'BAHAGIAN PERBADANAN KETUA MENTERI (CMI)', :status => "A")
-unit_user3 = Unit.create(:department_id => 4, :name => 'BAHAGIAN PERKHIDMATAN TEKNOLOGI MAKLUMAT (BPTM)', :status => "A")
-unit_user4 = Unit.create(:department_id => 4, :name => 'UNIT INTEGRITI', :status => "A")
+unit_user1 = Unit.create(:department_id => 4, :name => 'UNIT KEWANGAN', :is_active => 1)
+unit_user2 = Unit.create(:department_id => 4, :name => 'BAHAGIAN PERBADANAN KETUA MENTERI (CMI)', :is_active => 1)
+unit_user3 = Unit.create(:department_id => 4, :name => 'BAHAGIAN PERKHIDMATAN TEKNOLOGI MAKLUMAT (BPTM)', :is_active => 1)
+unit_user4 = Unit.create(:department_id => 4, :name => 'UNIT INTEGRITI', :is_active => 1)
 
 puts "Whoa, im done! Now you can run the server and see the application"
