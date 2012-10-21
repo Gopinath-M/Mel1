@@ -32,8 +32,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.date :promotion_to_grad_now
       t.date :confirmation_date_to_post_now
       t.date :date_of_join
-      t.date :date_of_birth
-      t.references :department
+      t.date :date_of_birth    
       t.integer :created_by
       t.integer :updated_by
       t.string :avatar
