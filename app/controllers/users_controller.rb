@@ -21,17 +21,19 @@ class UsersController < ApplicationController
   #Destroy a particular User
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    redirect_to(users_path, :notice => 'User deleted successfully.')
+    @user.deleted = true
+    if @user.save
+      redirect_to(users_path, :notice => 'User deleted successfully.')
+    end
   end
 
   #List all Users
   def index
     @users=nil
     if params[:department_id].blank? || params[:department_id].nil?
-       @users=User.order.page(params[:page]).per(15)#.where("role_id !=1")
+       @users=User.active.order.page(params[:page]).per(15)#.where("role_id !=1")
     else
-      @users=User.order.page(params[:page]).per(15)#.where("role_id !=1 and department_id = ? ", params[:department_id])
+      @users=User.active.order.page(params[:page]).per(15)#.where("role_id !=1 and department_id = ? ", params[:department_id])
       @department_id=params[:department_id]
     end
     if request.xhr?

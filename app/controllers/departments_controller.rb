@@ -4,7 +4,7 @@ class DepartmentsController < ApplicationController
 
   #List all Department
   def index
-    @departments = Department.order("name").page(params[:page]).per(10)
+    @departments = Department.active.order("name").page(params[:page]).per(10)
   end
 
   #new Department
@@ -41,8 +41,10 @@ class DepartmentsController < ApplicationController
   #Delete a Department
   def destroy
     @department = Department.find(params[:id])
-    @department.destroy
-    redirect_to(departments_path, :notice => 'Department has been successfully deleted.')
+    @department.deleted = true
+    if @department.save
+      redirect_to(departments_path, :notice => 'Department has been successfully deleted.')
+    end
   end
   
   #Activate or Deactivate a particular Department
