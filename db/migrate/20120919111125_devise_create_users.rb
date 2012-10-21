@@ -9,8 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :username
-      t.integer :substantive_post_id
-      t.integer :department_id
+      t.integer :substantive_post_id      
       t.integer :service_level_id
       t.integer :classification_id
       t.integer :grade_id
@@ -18,8 +17,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :salary_standard_id
       t.integer :appointment_id
       t.string :position
-      t.string :official_position
-      t.integer :unit_id
+      t.string :official_position     
       t.string :gender
       t.text :address
       t.text :address
