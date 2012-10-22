@@ -1,6 +1,6 @@
 /*COMMON*/
 
-.container{ width:100%; margin:0 auto;}
+.container{ width:100%; margin:0 auto;min-height:1200px;}
 .btn1{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:4px 10px 4px 10px !important; font-size:11px; color:#fff; overflow:visible; float:left; height:24px;}
 .btn1:hover{ color:#f2c0b7;}
 .btn2{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:3px 15px 3px; font-size:11px; color:#fff; overflow:visible; height:24px;}
@@ -99,7 +99,7 @@
 .ui-watermark-label, .cpass {	position: absolute;}
 .search .ui-watermark-label{ font-size:12px; color:#bbbbbb;}
 .formRow{ position:relative;float:left;}
-.login-ban .footer-land .forgot-row_lab{ text-align:left; float:left; margin:10px 0 0 10px; font-size: 11px; color:#ffe}
+
 
 /*BODY*/
 #Body{ width:100%; margin:0 auto; background-color:#fff;}
@@ -305,8 +305,8 @@ input[type="text"] { border: 1px solid #96A6C5;padding: 5px;}
 .r-btn-sec{ padding:10px 0px 0 0; line-height:20px;}
 .r-btn-sec label{ display:inline-block; padding-right:10px;}
 
-.form-page{ width:980px; margin:15px auto 85px auto; min-height:550px; overflow:hidden;}
-.form-page .form-sec{ width:60%; margin:0 auto;}
+.form-page{ width:550px; margin:15px auto 85px auto; min-height:550px; overflow:hidden;}
+.form-page .form-sec{margin:0 auto;}
 
 /*MESSAGE BOXES*/
 .info, .success, .warning, .error { border: 1px solid; margin: 15px 0px; padding:15px 20px 15px 55px; font: bold 12px arial;}
