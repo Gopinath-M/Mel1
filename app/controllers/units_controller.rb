@@ -5,9 +5,9 @@ class UnitsController < ApplicationController
   def index
     @units=nil
     if params[:department_id].blank? || params[:department_id].nil?
-      @units=Unit.active.order.page(params[:page]).per(15)
+      @units=Unit.where(:deleted=> false).order.page(params[:page]).per(15)
     else
-      @units=Unit.active.order.page(params[:page]).per(15).where("department_id = ? ", params[:department_id])
+      @units=Unit.where(:deleted => false).order.page(params[:page]).per(15).where("department_id = ? ", params[:department_id])
       @department_id=params[:department_id]
     end
     if request.xhr?

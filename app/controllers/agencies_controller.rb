@@ -3,7 +3,7 @@ class AgenciesController < ApplicationController
   def index
     @agencies=nil
     if params[:id].blank? || params[:id].nil?
-      @agencies=Agency.active.order.page(params[:page]).per(15)
+      @agencies=Agency.where(:deleted => false).order.page(params[:page]).per(15)
     end
   end
 

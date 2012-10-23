@@ -4,7 +4,7 @@ class DepartmentsController < ApplicationController
 
   #List all Department
   def index
-    @departments = Department.active.order("name").page(params[:page]).per(10)
+    @departments = Department.where(:deleted => false).order("name").page(params[:page]).per(10)
   end
 
   #new Department
