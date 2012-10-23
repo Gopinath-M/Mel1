@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   def activate_user
     self.activated_at = Time.now.utc
     self.activation_code = nil
+    self.save
   end
 
   # Activates the user in the database.
@@ -58,6 +59,7 @@ class User < ActiveRecord::Base
     @activated = true
     self.activated_at = Time.now.utc
     self.activation_code = nil
+    self.save
   end
 
   def account_active?

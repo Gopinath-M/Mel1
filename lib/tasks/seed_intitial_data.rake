@@ -2,25 +2,26 @@ require 'rubygems'
 namespace :create do
   desc 'create roles' 
   task :roles => :environment do
-   role = Role.new(:name => 'Super Admin')
-   role.save
-   role = Role.new(:name => 'Department Admin')
-   role.save
-   role = Role.new(:name => 'Department User')
-   role.save
-   role = Role.new(:name => 'Unit Admin')
-   role.save
+    role = Role.new(:name => 'Super Admin')
+    role.save
+    role = Role.new(:name => 'Department Admin')
+    role.save
+    role = Role.new(:name => 'Department User')
+    role.save
+    role = Role.new(:name => 'Unit Admin')
+    role.save
   end
 end
 
 namespace :create do
-   desc'create super admin user'
-   task :super_admin => :environment do 
-     user = User.new(:ic_number => "123456-78-1234", :email => 'manivannan.s@openwavecomp.in', :username => "openwave", :password => "password", :first_name => "openwave", :last_name => "superadmin", :role_id => 1)
-     #user.skip_mailers = true
-     user.save!
-     puts "Created Super Admin User with IC-Number 123456-78-1234 & password as password"
-   end
+  desc'create super admin user'
+  task :super_admin => :environment do
+    user = User.new(:ic_number => "123456-78-1234", :email => 'manivannan.s@openwavecomp.in', :username => "openwave", :password => "password", :first_name => "openwave", :last_name => "superadmin", :role_id => 1)
+    #user.skip_mailers = true
+    user.activate_user
+    user.save!
+    puts "Created Super Admin User with IC-Number 123456-78-1234 & password as password"
+  end
 end     
 
 namespace :create do
