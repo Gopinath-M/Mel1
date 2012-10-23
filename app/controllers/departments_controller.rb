@@ -64,7 +64,7 @@ class DepartmentsController < ApplicationController
   end
   
   def depart_user_list
-    role = Role.where(:name => "Department User").first# || Role.new
-    @users = role.users
+    admin_departments=current_user.departments.collect(&:id)
+    @users=User.joins(:departments, :roles).where("role_memberships.department_id in (?) and roles.name in (?)", admin_departments,DISP_USER_ROLE_DEPT_USER)
   end
 end
