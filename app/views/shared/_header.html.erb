@@ -12,7 +12,7 @@
         <ul class="globe-menu1 dropdown">
           <li><a href="javascript:void(0);" title="Melaka Info">Melaka Info</a>
             <ul>
-               <%=render :partial=>'shared/cms_header_page'%>
+              <%=render :partial=>'shared/cms_header_page'%>
             </ul>
           </li>
         </ul>
@@ -37,7 +37,7 @@
             <li><a href="javascript:void(0);" title="Melaka Info">Home</a></li>
             <li><a href="javascript:void(0);" title="Melaka Info" class="mInfo">Melaka Info</a>
               <ul>
-               <%=render :partial=>'shared/cms_header_page'%>
+                <%=render :partial=>'shared/cms_header_page'%>
               </ul>
             </li>
           </ul>
@@ -45,11 +45,11 @@
             <%if current_user && !current_user.blank?%>
               <%image_url= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag(current_user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "img_profile.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
               <% if current_user.is_super_admin? %>
-                  <% user_title = DISP_USER_ROLE_SUPER_ADMIN %>
+                <% user_title = DISP_USER_ROLE_SUPER_ADMIN %>
               <% elsif current_user.is_department_admin? %>
-                  <% user_title = DISP_USER_ROLE_DEPT_ADMIN %>
+                <% user_title = DISP_USER_ROLE_DEPT_ADMIN %>
               <% else %>
-                  <% user_title = DISP_USER_ROLE_DEPT_USER %>
+                <% user_title = DISP_USER_ROLE_DEPT_USER %>
               <% end %>
             <%else%>
               <%image_url=image_tag "img_event3.jpg", :alt=>"Image", :width=>"30", :height=>"30"%>
@@ -58,7 +58,7 @@
             <%=link_to image_url, "javscript:void(0);",:title=>user_title, :class=>"profName-img" %>
             <table cellpadding="0"  cellspacing="0">
               <tr>
-                <td>            
+                <td>
                   <%=link_to user_title, "javascript:void(0);",:title=>user_title, :class=>"profName"%>
                 </td>
               </tr>

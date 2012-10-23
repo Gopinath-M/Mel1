@@ -3,115 +3,117 @@
   <div class="form-sec">
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true }) do |f| %>
       <!--BODY START-->
-      <div id="Body">
-        <div class="form-page">
-          <div class="form-sec">
-            <%=f.error_messages%>
-            <div class="clearfix">&nbsp;</div>
-            <h2>Edit My Profile</h2>
-            <div class="form-sec-row">
-              <%= f.label :first_name,raw("First Name"), :class=>"text"%>
-              <span class="in-box">
-                <%= f.text_field :first_name, :size => 30, :autofocus => true%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <%= f.label :last_name,raw("Last Name"), :class=>"text"%>
-              <span class="in-box">
-                <%= f.text_field :last_name, :size => 30, :autofocus => true%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <%= f.label :email, :class=>"text"%>
-              <span class="in-box">
-                <%= f.text_field :email, :size => 30, :autofocus => true%>
-              </span>
-            </div>
-
-            <div class="form-sec-row">
-              <%= f.label :username,raw("User Name"), :class=>"text"%>
-              <span class="in-box">
-                <%= f.text_field :username, :size => 30, :autofocus => true%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <%= f.label :ic_number,raw("IC Number"), :class=>"text"%>
-              <span class="in-box">
-                <%= f.text_field :ic_number, :size => 30, :autofocus => true%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <%= f.label :city, :class=>"text"%>
-              <span class="in-box">
-                <%= f.text_field :city, :size => 30, :autofocus => true%>
-              </span>
-            </div>
-
-            <div class="form-sec-row">
-              <%= f.label :state, :class=>"text"%>
-              <span class="in-box">
-                <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "SELECT YOUR STATE")%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <%= f.label :zipcode, :class=>"text"%>
-              <span class="in-box">
-                <%= f.text_field :zipcode, :size => 6, :autofocus => true%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <%= f.label :department_id,raw("Department"), :class=>"text"%>
-              <span class="in-box">
-                <%=f.select(:department_id, Department.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT YOUR DEPARTMENT ") %>
-              </span>
-            </div>
-            <div  class="form-sec-row">
-              <%= f.label :avatar , :class=>"text"%>
-              <span class="in-box">
-                <%#= image_tag(resource.avatar.url) if resource.avatar.url.present?%>
-                <%= f.file_field :avatar, :class=>'passfiled'%>
-                <%= f.hidden_field :avatar_cache %>
-                <br/>
-                <%= f.check_box :remove_avatar %>
-                <%= f.label :remove_avatar %>
-              </span>
-            </div>
-
-            <div class="form-sec-row">
-              <%= f.label :password,raw("New password"), :class=>"text"%>
-              <span class="in-box">
-                <%= f.password_field :password, :size => 30, :autofocus => true, :class=>'passfiled'%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <%= f.label :password_confirmation, :class=>"text"%>
-              <span class="in-box">
-                <%= f.password_field :password_confirmation, :size => 30, :autofocus => true, :class=>'passfiled'%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <%= f.label :current_password, :class=>"text"%>
-              <span class="in-box">
-                <%= f.password_field :current_password, :size => 30, :autofocus => true, :class=>'passfiled'%><br/>
-                <i>(we need your current password to confirm your changes)</i>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text">&nbsp;</label>
-              <span class="in-box">
-                <%= f.submit "Update Profile" ,:class=>"btn2"%>
-              </span>
-            </div>
-          </div>
-        </div>
+  <%#*<div id="Body">%>
+  <%#*<div class="form-page">%>
+  <%#*<div class="">%>
+      <%=f.error_messages%>
+      <div class="clearfix">&nbsp;</div>
+      <h2>Edit My Profile</h2>
+      <div class="form-sec-row">
+        <%= f.label :first_name,raw("First Name"), :class=>"text"%>
+        <span class="in-box">
+          <%= f.text_field :first_name, :size => 30, :autofocus => true%>
+        </span>
       </div>
-      <div class="clear"></div>
-      <!--BODY END-->
-    <%end%>
+      <div class="form-sec-row">
+        <%= f.label :last_name,raw("Last Name"), :class=>"text"%>
+        <span class="in-box">
+          <%= f.text_field :last_name, :size => 30, :autofocus => true%>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :email, :class=>"text"%>
+        <span class="in-box">
+          <%= f.text_field :email, :size => 30, :autofocus => true%>
+        </span>
+      </div>
 
+      <div class="form-sec-row">
+        <%= f.label :username,raw("User Name"), :class=>"text"%>
+        <span class="in-box">
+          <%= f.text_field :username, :size => 30, :autofocus => true%>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :ic_number,raw("IC Number"), :class=>"text"%>
+        <span class="in-box">
+          <%= f.text_field :ic_number, :size => 30, :autofocus => true%>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :city, :class=>"text"%>
+        <span class="in-box">
+          <%= f.text_field :city, :size => 30, :autofocus => true%>
+        </span>
+      </div>
 
+      <div class="form-sec-row">
+        <%= f.label :state, :class=>"text"%>
+        <span class="in-box">
+          <%= f.select(:state, options_for_select(State.all.collect {|p| [p.name.upcase, p.id]},resource.state) ,:prompt => "SELECT YOUR STATE")%>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :zipcode, :class=>"text"%>
+        <span class="in-box">
+          <%= f.text_field :zipcode, :size => 6, :autofocus => true%>
+        </span>
+      </div>
 
+      <div class="form-sec-row">
+        <%= f.label :department_id,raw("Department"), :class=>"text"%>
+        <span class="in-box">
+          <%=resource.departments.first.name%>
+        </span>
+      </div>
 
+      <div  class="form-sec-row">
+        <%= f.label :avatar , :class=>"text"%>
+        <span class="in-box">
+  <%#= image_tag(resource.avatar.url) if resource.avatar.url.present?%>
+          <%= f.file_field :avatar, :class=>'passfiled'%>
+          <%= f.hidden_field :avatar_cache %>
+          <br/>
+          <%= f.check_box :remove_avatar %>
+          <%= f.label :remove_avatar %>
+        </span>
+      </div>
+
+      <div class="form-sec-row">
+        <%= f.label :password,raw("New password"), :class=>"text"%>
+        <span class="in-box">
+          <%= f.password_field :password, :size => 30, :autofocus => true, :class=>'passfiled'%>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :password_confirmation, :class=>"text"%>
+        <span class="in-box">
+          <%= f.password_field :password_confirmation, :size => 30, :autofocus => true, :class=>'passfiled'%>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :current_password, :class=>"text"%>
+        <span class="in-box">
+          <%= f.password_field :current_password, :size => 30, :autofocus => true, :class=>'passfiled'%><br/>
+          <i>(we need your current password to confirm your changes)</i>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">&nbsp;</label>
+        <span class="in-box">
+          <%= f.submit "Update Profile" ,:class=>"btn2"%>
+        </span>
+      </div>
+    </div>
   </div>
-</div>
+  <%#*</div>%>
+  <div class="clear"></div>
+  <!--BODY END-->
+<%end%>
+
+
+
+
+<%#*</div>%>
+<%#*</div>%>
 <div class="clearfix"></div>

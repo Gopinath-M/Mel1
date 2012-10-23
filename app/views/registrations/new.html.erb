@@ -7,7 +7,7 @@
         <%=f.error_messages%>
         <div class="clearfix">&nbsp;</div>
         <h2>Sign up</h2>
-        <%#= f.hidden_field :is_admin,:value=> true%>
+  <%#= f.hidden_field :is_admin,:value=> true%>
   <%#=f.text_field :admin_signup, :value=>true%>
         <div class="form-sec-row">
           <%= f.label :first_name,raw("First Name"), :class=>"text"%>
@@ -21,22 +21,22 @@
             <%= f.text_field :last_name, :size => 30, :autofocus => true%>
           </span>
         </div>
-         <div class="form-sec-row">
-      <label class="text">User Name<span style=color:red>*</span></label>
+        <div class="form-sec-row">
+          <label class="text">User Name<span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.text_field :username, :size => 30, :autofocus => true , :type=>"text"%>
-        </span>
-      </div>
+          </span>
+        </div>
         <div class="form-sec-row">
-        <label class="text">Email <span style=color:red>*</span></label>
+          <label class="text">Email <span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.text_field :email, :size => 30, :autofocus => true, :type=>"text"%>
           </span>
         </div>
 
-        
+
         <div class="form-sec-row">
-        <label class="text">IC Number<span style=color:red>*</span></label>
+          <label class="text">IC Number<span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.text_field :ic_number, :size => 30, :autofocus => true, :type=>"text"%>
           </span>
@@ -49,7 +49,7 @@
         </div>
 
         <div class="form-sec-row">
-         <label class="text">State<span style=color:red>*</span></label>
+          <label class="text">State<span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "SELECT YOUR STATE")%>
           </span>
@@ -60,24 +60,24 @@
             <%= f.text_field :zipcode, :size => 6, :autofocus => true%>
           </span>
         </div>
-         <div class="form-sec-row">
-        <%= label_tag "users_agency", raw("Agency"), :class=>"text" %>
-        <span class="in-box">
-          <%= select("users","agency",  Agency.where(:status=>1).collect {|agency| [agency.name, agency.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
-        </span>
-      </div>
-      <div class="form-sec-row">
-        <%= label_tag "users_department", raw("Department"), :class=>"text"%>
-        <span class="in-box">
-          <%= select("users","department", Department.where("agency_id =? and is_active=?", 1, 1).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT") %>
-        </span>
-      </div>
-      <div class="form-sec-row">
-        <%= label_tag "users_unit",raw("Unit"), :class=>"text"%>
-        <span class="in-box">
-          <%= select("users","unit", Unit.where("department_id=? and is_active=?", 1, 1).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT") %>
-        </span>
-      </div>
+        <div class="form-sec-row">
+          <%= label_tag "users_agency", raw("Agency"), :class=>"text" %>
+          <span class="in-box">
+            <%= select("users","agency",  Agency.where(:status=>1).collect {|agency| [agency.name, agency.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
+          </span>
+        </div>
+        <div class="form-sec-row">
+          <%= label_tag "users_department", raw("Department"), :class=>"text"%>
+          <span class="in-box">
+            <%= select("users","department", Department.where("agency_id =? and is_active=?", 1, 1).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT") %>
+          </span>
+        </div>
+        <div class="form-sec-row">
+          <%= label_tag "users_unit",raw("Unit"), :class=>"text"%>
+          <span class="in-box">
+            <%= select("users","unit", Unit.where("department_id=? and is_active=?", 1, 1).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT") %>
+          </span>
+        </div>
         <div class="form-sec-row">
           <label class="text">Password <span style=color:red>*</span></label>
           <span class="in-box">
