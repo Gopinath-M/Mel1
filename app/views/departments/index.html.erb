@@ -15,9 +15,10 @@
         <div class="mu-c1">
         </div>
         <div class="mu-c2">
-          <p class="head1"><%= link_to "#{department.name}", :action=>'edit', :id=>department.id.to_i%></p>
+          <p class="head1"><%= department.name%></p>
         </div>
         <div class="mu-c3">
+          <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>department.id.to_i%>
           <%if department.is_active %>
             <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_departments_path(:id=>department.id,:status=>"Deactivate") , :method=>:post%>
           <%else%>

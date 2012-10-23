@@ -40,4 +40,28 @@ class UsersController < ApplicationController
       render :layout=>false
     end
   end
+  ## Transfer Department Function begins here
+  def transfer
+    if params[:department_id].blank? || params[:department_id].nil?
+      @users=User.order.page(params[:page]).per(15).where("role_id !=1")
+    else
+      @users=User.order.page(params[:page]).per(15).where("role_id !=1 and department_id = ? ", params[:department_id])
+
+      users= Department.find_by_id(params[:department_id]).users.where("role_id !=2")
+      render :json=>[users] if users
+
+      @department_id=params[:department_id]
+    end
+  end
+
+  def update_transfer
+    @user = User.find_by_ic_number(params[:transfer][:username])
+    @role = RoleMembership.find_by_user_id(@user.id)
+    @role.update_attribute(:department_id, params[:department_id])
+    @department = Department.find_by_id(params[:department_id])
+    UserMailer.intimate_user(@user,@department).deliver
+    redirect_to(users_path, :notice => 'User has been transfer to Department.')
+  end
+  ### Transfer Dept ends here
+
 end

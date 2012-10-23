@@ -27,14 +27,14 @@
       <div class="land-footer-r">Copyright &copy; 2012 Melaka</div>
       <div class="land-footer-l">
         <ul>
-          <li><%=link_to "Feedback",about_us_static_pages_path, :title=>"Feedback"%></li>
-          <li>-</li>
-          <li><%=link_to "Privacy",privacy_static_pages_path, :title=>"Privacy"%></li>
-          <li>-</li>
-          <li><%=link_to raw("Terms &amp; Conditions"),terms_and_conditions_static_pages_path, :title=>"Terms &amp; Conditions"%></li>
-          <li>-</li>
-          <li><%=link_to "Help",help_static_pages_path, :title=>"Help"%></li>
-          <%=render :partial=>"shared/cms_footer_page"%>
+          <li><%= link_to 'Feedback',{:controller=>'cms_pages', :action=>'edit' ,:id=>'2'},  :title => 'feedback' %></li>
+        <li>-</li>
+        <li><%= link_to 'Privacy',{:controller=>'cms_pages', :action=>'edit',:id=>'1'}, :title => 'privacy' %></li>
+        <li>-</li>
+        <li><%= link_to 'Terms & Conditions',{:controller=>'cms_pages', :action=>'edit',:id=>'4'}, :title => 'conditions' %></li>
+        <li>-</li>
+        <li><%= link_to 'Help',{:controller=>'cms_pages', :action=>'edit',:id=>'5'}, :title => 'help'%></li>
+       
         </ul>
       </div>
       Designed &amp; Developed by <a href="http://www.openwavecomp.com/" title="Openwave Computing" target="_blank">Openwave Computing.</a>

@@ -50,7 +50,20 @@
           <h2>Management Tools</h2>
           <ul>
             <%if current_user && current_user.is_super_admin? %>
-              <li>
+             <li>
+                <%=link_to "Agencies", "javascript:void(0);" , :title=>"agencies" ,:class=>"", :id=>"lnk_agency"%>
+                <div id ="div_agency" style="display:none;">
+                  <ul>
+                    <li>
+                      <%=link_to "Create New", new_agency_path%>
+                    </li>
+                    <li>
+                      <%=link_to "List", agencies_path%>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+               <li>
                 <%=link_to "Departments", "javascript:void(0);" , :title=>"departments" ,:class=>"", :id=>"lnk_department"%>
                 <div id ="div_department" style="display:none;">
                   <ul>
@@ -64,6 +77,20 @@
                 </div>
               </li>
               <li>
+                <%=link_to "Units", "javascript:void(0);" , :title=>"units" ,:class=>"", :id=>"lnk_unit"%>
+                <div id ="div_unit" style="display:none;">
+                  <ul>
+                    <li>
+                      <%=link_to "Create New", new_unit_path%>
+                    </li>
+                    <li>
+                      <%=link_to "List", units_path%>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+          
+              <li>
                 <%=link_to "Admin", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_admin"%>
                 <div id ="div_admin" style="display:none;">
                   <ul>
@@ -71,7 +98,7 @@
                       <%=link_to "Create New", new_department_path%>
                     </li>
                     <li>
-                      <%=link_to "List", departments_path%>
+                      <%=link_to "List", depart_list_departments_path%>
                     </li>
                   </ul>
                 </div>
@@ -86,11 +113,11 @@
                       <%=link_to "Create New", new_department_user_path%>
                     </li>
                     <li>
-                      <%=link_to "List", users_path%>
+                      <%=link_to "List",  depart_user_list_departments_path%>
                     </li>
                     <%if current_user && current_user.is_super_admin? %>
                       <li>
-                        <%=link_to "Transfer Department", department_users_path%>
+                        <%=link_to "Transfer Department", transfer_users_path%>
                       </li>
                     <%end%>
                   </ul>

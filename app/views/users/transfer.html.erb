@@ -1,0 +1,33 @@
+<%= form_for(@user, :as => :user,  :url => update_transfer_users_path(:id => @department_id), :method=>:post) do |f| %>
+  <%if !request.xhr?%>
+
+    <div class="CenterNav">
+      <h2 class="b-head">Transfer Department</h2>
+
+      <div class="create-user">From Department :
+        <%=hidden_field_tag :department_id, ""%>
+        <div class="cu-c2">
+          <%= select(:from_department,:id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
+        </div>
+      </div>
+
+      <div class="create-user">List of Existing Users :<br/><br/>
+        <%=hidden_field_tag :username %>
+        <div class="cu-c2">
+          <%= select(:transfer, :username, User.order('first_name').all.collect{ |s| [truncate(s.username, :length => 50), s.id] },:selected => @username ,:prompt => "PLEASE SELECT") %>
+        </div>
+      </div>
+
+      <div class="create-user">To Department :<br/><br/>
+        <div class="cu-c2">
+          <%= select(:to_department, :id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
+        </div>
+      </div>
+
+
+      <span>
+        <%= f.submit raw('Transfer'), :class=>"btn2"%>
+      </span>
+    </div>
+  <%end%>
+<%end%>

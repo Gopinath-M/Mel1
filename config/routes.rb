@@ -10,6 +10,8 @@ Melaka::Application.routes.draw do
   resources :departments do
     collection do
       post 'update_status'
+      get 'depart_list'
+      get 'depart_user_list'
     end
   end
   resources :static_pages do
@@ -21,9 +23,11 @@ Melaka::Application.routes.draw do
       get 'terms_and_conditions'
     end
   end
-  resources :users do
+ resources :users do
     collection do
       post 'update_status'
+      get 'transfer'
+      post 'update_transfer'
     end
   end
   resources :department_users do
@@ -34,7 +38,17 @@ Melaka::Application.routes.draw do
     end
   end
   resources :cms_pages
+   resources :agencies do
+    collection do
+      post 'update_status'
+    end
+  end
 
+  resources :units do
+    collection do
+      post 'update_status'
+    end
+  end
   #Error routes
   get '/not_authorized' => 'errors#not_authorized', :as => 'not_authorized'   
   get '/blocked' => 'errors#blocked', :as => 'blocked'  

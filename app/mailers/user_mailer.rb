@@ -12,5 +12,10 @@ class UserMailer < ActionMailer::Base
      p "===========#{e.to_s}"
    end
   end
-  
+  # Transfer Dept email to user
+  def intimate_user(user,department)
+    @user=user
+    @department=department
+    mail(:to=>@user.email,:subject =>"Transfer User to Department")
+  end
 end
