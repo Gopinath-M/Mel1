@@ -50,7 +50,8 @@ roles.each do | role |
 
 puts "Creating Super Admin"
 super_admin = User.new(:ic_number => "123456-78-1234", :email => 'manivannan.s@openwavecomp.in', :password => "password", :first_name => "openwave", :last_name => "superadmin", :status => 'A')
-    if super_admin.save
+super_admin.activate_user
+if super_admin.save
       role_membership = RoleMembership.create(:user_id => super_admin.id, :role_id => 1, :status => 'A')
     end
 

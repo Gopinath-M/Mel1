@@ -16,10 +16,8 @@ end
 namespace :create do
   desc'create super admin user'
   task :super_admin => :environment do
-    user = User.new(:ic_number => "123456-78-1234", :email => 'manivannan.s@openwavecomp.in', :username => "openwave", :password => "password", :first_name => "openwave", :last_name => "superadmin", :role_id => 1)
-    #user.skip_mailers = true
+    user = User.create!(:ic_number => "123456-78-1234", :email => 'manivannan.s@openwavecomp.in', :username => "openwave", :password => "password", :first_name => "openwave", :last_name => "superadmin", :role_id => 1)
     user.activate_user
-    user.save!
     puts "Created Super Admin User with IC-Number 123456-78-1234 & password as password"
   end
 end     
