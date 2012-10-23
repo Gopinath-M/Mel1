@@ -18,10 +18,7 @@ class CmsPagesController < ApplicationController
 
   def update
     @cms_page = CmsPage.find(params[:id])
-   if params[:cms_page]
-    @cms_page.update_attributes(params[:cms_page])
-    end
-    if @cms_page.valid?
+    if @cms_page.update_attributes(params[:cms_page])
       redirect_to :controller=>'cms_pages', :action=>'index'
     else
       render :action=>'new'

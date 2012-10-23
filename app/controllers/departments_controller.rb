@@ -58,13 +58,13 @@ class DepartmentsController < ApplicationController
     redirect_to(departments_path, :notice => 'Department Status has been successfully changed.')
   end
 
-    def depart_list
-      role = Role.where(:name => "Department Admin").first || Role.new   
-      @users = role.users
-    end
+  def depart_list
+    role = Role.where(:name => "Department Admin").first# || Role.new
+    @users = role.users
+  end
   
-    def depart_user_list
-      role = Role.where(:name => "Department User").first || Role.new
-      @users = role.users
-    end
+  def depart_user_list
+    role = Role.where(:name => "Department User").first# || Role.new
+    @users = role.users
+  end
 end

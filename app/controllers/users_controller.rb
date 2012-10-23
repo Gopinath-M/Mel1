@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   def index
     @users=nil
     if params[:department_id].blank? || params[:department_id].nil?
-       @users=User.active.order.page(params[:page]).per(15)#.where("role_id !=1")
+      @users=User.active.order.page(params[:page]).per(15)#.where("role_id !=1")
     else
       @users=User.active.order.page(params[:page]).per(15)#.where("role_id !=1 and department_id = ? ", params[:department_id])
       @department_id=params[:department_id]
@@ -63,5 +63,15 @@ class UsersController < ApplicationController
     redirect_to(users_path, :notice => 'User has been transfer to Department.')
   end
   ### Transfer Dept ends here
+
+  def activate
+    self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
+    if !user_signed_in? && !current_user.active?
+      current_user.activate
+      current_user.save_ip(request.remote_ip)
+      flash[:notice] = "Congratulations! Your account has now been activated!"
+    end
+    redirect_back_or_default('/')
+  end
 
 end

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  before_create :make_activation_code
+  
   #  mount_uploader :avatar, AvatarUploader
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -44,6 +47,29 @@ class User < ActiveRecord::Base
     role = Role.where(:name => "Department User").first || Role.new
     role.users.include?(self)
   end
+  # Activates the user in the database.
+  def activate
+    @activated = true
+    self.activated_at = Time.now.utc
+    self.activation_code = nil
+    save(false)
+  end
+
+  def account_active?
+    # the existence of an activation code means they have not activated yet
+    activation_code.nil?
+  end
+
+  #Overrirde basic authentication to check if  user is activated or not before login
+  def active_for_authentication?
+    super && account_active?
+  end
+
+  def save_ip(ip)
+    existing = self.ips ? self.ips.split(", ") : []
+    new = (ip.to_a + existing).uniq.compact[0..9]
+    self.update_attribute(:ips, new.join(", ")) unless new == existing
+  end
 
   private
 
@@ -52,6 +78,12 @@ class User < ActiveRecord::Base
       self.content_type = avatar.file.content_type
       self.file_size = avatar.file.size
     end
+  end
+  
+  protected
+
+  def make_activation_code
+    self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
   end
 
   #I dont think so this method is needed. Becaz, if we are going to do authentication based on two fields we can use this method. Since we are doing authentication based on IC number only, it is not needed. I checked the sign in and sign up. It's working good. Nirmala, IF u think My suggestion is ok, Please remove it. while you are seeing this msg.
