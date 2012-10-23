@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   before_create :make_activation_code
-#  validates :email,:ic_number, :presence=>true
+  #  validates :email,:ic_number, :presence=>true
   #  mount_uploader :avatar, AvatarUploader
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -23,9 +23,9 @@ class User < ActiveRecord::Base
   validates_processing_of :avatar
   #before_save :update_avatar_attributes
 
-#  def self.find_for_database_authentication(conditions={})
-#    self.where("ic_number = ?", conditions[:ic_number]).limit(1).first || self.where("email = ?", conditions[:ic_number]).limit(1).first
-#  end
+  #  def self.find_for_database_authentication(conditions={})
+  #    self.where("ic_number = ?", conditions[:ic_number]).limit(1).first || self.where("email = ?", conditions[:ic_number]).limit(1).first
+  #  end
 
   def full_name
     return "NA" if first_name.nil? || last_name.nil?
@@ -34,18 +34,19 @@ class User < ActiveRecord::Base
   end 
 
   def is_super_admin?
-    role = Role.where(:name => "Super Admin").first || Role.new
+    p role = Role.where(:name => "Super Admin").first || Role.new
+
     role.users.include?(self)
   end
 
   def is_department_admin?
-    role = Role.where(:name => "Department Admin").first || Role.new
-    role.users.include?(self)
+    p role = Role.where(:name => "Department Admin").first || Role.new
+    return role.users.include?(self)
   end
 
   def is_department_user?
-    role = Role.where(:name => "Department User").first || Role.new
-    role.users.include?(self)
+    p role = Role.where(:name => "Department User").first || Role.new
+    return role.users.include?(self)
   end
 
   def activate_user
