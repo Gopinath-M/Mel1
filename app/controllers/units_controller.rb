@@ -5,9 +5,9 @@ class UnitsController < ApplicationController
   def index
     @units=nil
     if params[:department_id].blank? || params[:department_id].nil?
-      @units=Unit.order.page(params[:page]).per(15)
+      @units=Unit.active.order.page(params[:page]).per(15)
     else
-      @units=Unit.order.page(params[:page]).per(15).where("department_id = ? ", params[:department_id])
+      @units=Unit.active.order.page(params[:page]).per(15).where("department_id = ? ", params[:department_id])
       @department_id=params[:department_id]
     end
     if request.xhr?
@@ -58,8 +58,11 @@ class UnitsController < ApplicationController
 
   def destroy
     @unit = Unit.find(params[:id])
-    @unit.destroy
-    department_id= !params[:department_id].blank? || !params[:department_id].nil? ?  params[:department_id] : nil
-    redirect_to(units_path(:department_id=>department_id), :notice => 'Unit has been Deleted.')
+    @unit.deleted = true
+    if @unit.save
+      department_id= !params[:department_id].blank? || !params[:department_id].nil? ?  params[:department_id] : nil
+      redirect_to(units_path(:department_id=>department_id), :notice => 'Unit has been Deleted.')
+    end
   end
+
 end

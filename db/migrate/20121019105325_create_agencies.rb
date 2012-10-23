@@ -2,7 +2,8 @@ class CreateAgencies < ActiveRecord::Migration
   def self.up
     create_table :agencies do |t|
       t.string :name
-      t.string :status
+      t.boolean :is_active
+      t.boolean :deleted, :default => false
       t.timestamps
     end
   end

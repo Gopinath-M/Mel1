@@ -49,12 +49,12 @@ class DepartmentUsersController < ApplicationController
   end
 
   def get_departments
-    departments=params[:agency_id] ? Department.where("agency_id =? and is_active=?",params[:agency_id], 1) : nil
+    departments=params[:agency_id] ? Department.active.where("agency_id =?",params[:agency_id]) : nil
     render :json=>[departments] if departments
   end
 
   def get_units
-    units=params[:department_id] ? Unit.where("department_id =? and is_active=?",params[:department_id], 1) : nil
+    units=params[:department_id] ? Unit.active.where("department_id =?",params[:department_id]) : nil
     render :json=>[units] if units
   end
   

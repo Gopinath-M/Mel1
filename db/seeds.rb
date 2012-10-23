@@ -9,8 +9,8 @@
 puts "All right! I have started seeding, now please be patient."
 
 puts "Creating Agencies"
-agency1 = Agency.create(:name => 'Agency_one', :status => 'A')
-agency2 = Agency.create(:name => 'Agency_two', :status => 'A')
+agency1 = Agency.create(:name => 'Agency_one', :is_active => true)
+agency2 = Agency.create(:name => 'Agency_two', :is_active => false)
 
 puts "Creating Departments"
 begin

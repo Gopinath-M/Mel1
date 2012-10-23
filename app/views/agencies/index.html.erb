@@ -19,10 +19,10 @@
               </div>
               <div class="mu-c3">
                 <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>agency.id.to_i%>
-                <%if agency.status == "A" %>
-                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_agencies_path(:id=>agency.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this user?', :method=>:post, :title=>"Deactive" %>
+                <%if agency.is_active %>
+                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_agencies_path(:id=>agency.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this agency?', :method=>:post, :title=>"Deactive" %>
                 <%else%>
-                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_agencies_path(:id=>agency.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate"%>
+                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_agencies_path(:id=>agency.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this agency?', :method=>:post, :title=>"Activate"%>
                 <%end%>
                 <%= link_to image_tag("../images/delete.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Delete", agency_path(:id=>agency.id), :method=>:delete, :confirm => "Are you sure want to delete?" %>
               </div>

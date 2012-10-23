@@ -14,7 +14,8 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
 
   create_table "agencies", :force => true do |t|
     t.string   "name"
-    t.string   "status"
+    t.boolean  "is_active"
+    t.boolean  "deleted",    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -144,13 +145,14 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
     t.date     "confirmation_date_to_post_now"
     t.date     "date_of_join"
     t.date     "date_of_birth"
-    t.integer  "department_id"
     t.integer  "created_by"
     t.integer  "updated_by"
     t.string   "avatar"
     t.datetime "avatar_updated_at"
     t.string   "status"
     t.boolean  "deleted",                                              :default => false
+    t.string   "activation_code",                       :limit => 40
+    t.datetime "activated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

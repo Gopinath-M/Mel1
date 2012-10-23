@@ -9,21 +9,17 @@
     <div class="form-sec-row">
       <%= label_tag "id_agency", raw("Agency"), :class=>"text" %>
       <span class="in-box">
-        <%= select("id","agency",  Agency.where(:status=>1).collect {|role| [role.name, role.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
+        <%= select("id","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
       </span>
     </div>
 
     <div class="form-sec-row">
       <%= label_tag :department_id,raw("Department"), :class=>"text"%>
       <span class="in-box">
-        <%=select(:standard1,:department_id, Department.where("agency_id =? and is_active=?",1,1).collect {|p| [ p.name, p.id ] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
+        <%=select(:standard1,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
       </span>
     </div>
-
     <%=hidden_field_tag :department_id, ""%>
-  <%#*<div class="cu-c2">Select Department:%>
-  <%#= select(:standard1,:department_id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
-  <%#*</div>%>
   <%end%>
   <div id="div_ajax" >
     <%if @units && !@units.empty?%>
