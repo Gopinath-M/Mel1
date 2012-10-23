@@ -10,8 +10,9 @@ class DepartmentUsersController < ApplicationController
     password_token=password_friendly_token
     @user = User.create(params[:user].merge!({:password => password_token}))
     @user.save
+    @user.activate_user
     if @user.valid?
-      @user.role_memberships.create(:role_id=>params[:role][:id], :department_id=>@user.department_id,:status=>"A")
+      @user.role_memberships.create(:status=>STATUS_ACTIVE)
       UserMailer.welcomemail_department_user(@user,password_token).deliver
       redirect_to(users_path, :notice => 'User was added successfully.')
     else
@@ -22,9 +23,9 @@ class DepartmentUsersController < ApplicationController
   def index
     @users=nil
     if params[:department_id].blank? || params[:department_id].nil?
-      @users=User.where("role_id !=1")
+      @users=User.joins(:roles).where("roles.name!='Super Admin'")
     else
-      @users=User.where("role_id !=1 and department_id = ? ", params[:department_id])
+      @users=Department.find(params[:department_id]).users
       @department_id=params[:department_id]
     end
     if request.xhr?
@@ -35,7 +36,8 @@ class DepartmentUsersController < ApplicationController
   def transfer
     if !params[:users].nil? && !params[:department_id].nil?
       users=params[:users].join(",").to_s
-      @users=User.where("role_id !=1 and department_id = ? ", params[:department_id])
+      @users=Department.find(params[:department_id]).users
+      #@users=User.where("role_id !=1 and department_id = ? ", params[:department_id])
       if User.update_all("department_id=#{params[:department_id]}", "id in (#{users})")
         render :partial=>'transfer'
       else
