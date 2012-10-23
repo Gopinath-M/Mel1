@@ -3,8 +3,6 @@ class UserMailer < ActionMailer::Base
   
   def welcomemail_department_user(user,password)
    begin
-    p "=========conmes to user mailer"
-    p "======#{user.inspect} :: #{password.inspect}"
     @user=user
     @password=password
     mail(:to=>@user.email,:subject =>"Welcome to Melaka")

@@ -3,6 +3,7 @@
 
 $().ready(function(){
     $(function() {
+        $("#tabs").tabs();
         $("input").watermark({
             placeholder: function() {
                 return $(".formRow label[for=" + this.id + "]").hide().text();
@@ -134,7 +135,7 @@ $().ready(function(){
 
         $('#div_cms').toggle("fast");
     });
-$("#lnk_agency").live('click',function(){
+    $("#lnk_agency").live('click',function(){
         if ($("#lnk_agency").hasClass("selected"))
         {
             $("#lnk_agency").removeClass("selected")
@@ -199,7 +200,7 @@ $("#lnk_agency").live('click',function(){
         }
     });
     /* UNIT Master Screen index page list */
- $("#id_agency").live("change", function(){
+    $("#id_agency").live("change", function(){
         if($("#id_agency").val()!="")
         {
             $.get("/department_users/get_departments",{
@@ -218,7 +219,7 @@ $("#lnk_agency").live('click',function(){
             })
         }
     });
- $("#standard1_department_id").live("change",function(){
+    $("#standard1_department_id").live("change",function(){
         $.get("/units/",{
             department_id: $("#standard1_department_id").val()
         }, function(data){
@@ -227,7 +228,7 @@ $("#lnk_agency").live('click',function(){
         });
     })
 
-/* create */
+    /* create */
     $("#units_agency").live("change", function(){
         if($("#units_agency").val()!="")
         {
@@ -247,9 +248,9 @@ $("#lnk_agency").live('click',function(){
         }
     });
 
-/*units Master screen end */
-/* Transfer Department */
-$("#from_department_id").live("change",function(){
+    /*units Master screen end */
+    /* Transfer Department */
+    $("#from_department_id").live("change",function(){
         if($("#from_department_id").val()!="")
         {
             $.get("/users/transfer/",{
@@ -268,7 +269,7 @@ $("#from_department_id").live("change",function(){
         }
     });
 
-   $("#from_department_id").live("change",function(){
+    $("#from_department_id").live("change",function(){
         if($("#from_department_id").val()!="")
         {
             $.get("/users/transfer/",{
@@ -287,7 +288,7 @@ $("#from_department_id").live("change",function(){
         }
     });
 
-$("#to_department_id").live("change",function(){
+    $("#to_department_id").live("change",function(){
 
         $.get("/users/update_transfer/",{
             depart_id: $("#to_department_id").val()

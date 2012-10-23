@@ -1,21 +1,12 @@
-<%#if controller_name.to_s != 'sessions' && action_name.to_s != 'new'  %>
-  
-<%#end%>
 <div class="clear"></div></div></div></div>
 <!--BODY END-->
 <%if controller_name.to_s == 'sessions' && action_name.to_s == 'new'  %>
   <div class="footer-in">
     <div class="land-footer-r">Copyright &copy; 2012 Melaka</div>
-     <a href="http://www.openwavecomp.com/" title="Openwave Computing" target="_blank">Designed &amp; Developed by Openwave Computing.</a>
+      Designed &amp; Developed by
+      <%=link_to "Openwave Computing.","http://www.openwavecomp.com/", :title=>"Openwave Computing", :target=>"_blank"%>
     <div class="land-footer-l">
       <ul>
-        <li><a href="javascript:void(0);" title="Feedback">Feedback</a></li>
-        <li>-</li>
-        <li><a href="javascript:void(0);" title="Privacy">Privacy</a></li>
-        <li>-</li>
-        <li><a href="javascript:void(0);" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
-        <li>-</li>
-        <li><a href="javascript:void(0);" title="Help">Help</a></li>
         <%=render :partial=>"shared/cms_footer_page"%>
       </ul>
     </div>
@@ -27,17 +18,11 @@
       <div class="land-footer-r">Copyright &copy; 2012 Melaka</div>
       <div class="land-footer-l">
         <ul>
-          <li><%= link_to 'Feedback',{:controller=>'cms_pages', :action=>'edit' ,:id=>'2'},  :title => 'feedback' %></li>
-        <li>-</li>
-        <li><%= link_to 'Privacy',{:controller=>'cms_pages', :action=>'edit',:id=>'1'}, :title => 'privacy' %></li>
-        <li>-</li>
-        <li><%= link_to 'Terms & Conditions',{:controller=>'cms_pages', :action=>'edit',:id=>'4'}, :title => 'conditions' %></li>
-        <li>-</li>
-        <li><%= link_to 'Help',{:controller=>'cms_pages', :action=>'edit',:id=>'5'}, :title => 'help'%></li>
-       
+        <%=render :partial=>"shared/cms_footer_page"%>
         </ul>
       </div>
-      Designed &amp; Developed by <a href="http://www.openwavecomp.com/" title="Openwave Computing" target="_blank">Openwave Computing.</a>
+      Designed &amp; Developed by
+      <%=link_to "Openwave Computing.","http://www.openwavecomp.com/", :title=>"Openwave Computing", :target=>"_blank"%>
     </div>
     <div class="clear"></div>
   </div>
