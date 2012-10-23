@@ -57,14 +57,14 @@
           <%= f.submit "Log In", :class => "btn1" %>
           <div class="clear"></div>
           <p class="loggedin">
-             <%= f.check_box :remember_me %><%= f.label :remember_me,"Keep me logged in" %> 
+            <%= f.check_box :remember_me %><%= f.label :remember_me,"Keep me logged in" %>
           </p>
           <p class="forgot-row">
             <%= link_to "Forgot your password?", new_user_password_path,:title=>title="Forgot Your Password?" %>
           </p>
-            <p class="forgot-row_lab">New User</p>
-             <p class="forgot-row_lab"><%= link_to "Register", new_user_sign_up_path,:title=>"Register"%></p>
-          
+          <p class="forgot-row_lab">New User</p>
+          <p class="forgot-row_lab"><%= link_to "Register", new_user_sign_up_path,:title=>"Register"%></p>
+
         </div>
       </div>
     </div>

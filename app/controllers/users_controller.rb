@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except=>[:activate]
   before_filter :is_admin
 
   #Activate or Deactivate a particular User
@@ -65,13 +65,14 @@ class UsersController < ApplicationController
   ### Transfer Dept ends here
 
   def activate
-    self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
-    if !user_signed_in? && !current_user.active?
+    current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
+    if current_user && !user_signed_in? && !current_user.account_active?
       current_user.activate
-      current_user.save_ip(request.remote_ip)
-      flash[:notice] = "Congratulations! Your account has now been activated!"
+      #      current_user.save_ip(request.remote_ip)
+      redirect_to new_user_session_path,:notice => "Congratulations! Your account has now been activated!"
+    else
+      redirect_to :root
     end
-    redirect_back_or_default('/')
   end
 
 end

@@ -7,6 +7,7 @@ Melaka::Application.routes.draw do
     post "/login" => "sessions#create", :as => :user_session
     get "/logout"=> "sessions#destroy", :as => :destroy_user_session
   end
+  match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
   resources :departments do
     collection do
       post 'update_status'
@@ -23,7 +24,7 @@ Melaka::Application.routes.draw do
       get 'terms_and_conditions'
     end
   end
- resources :users do
+  resources :users do
     collection do
       post 'update_status'
       get 'transfer'
@@ -38,7 +39,7 @@ Melaka::Application.routes.draw do
     end
   end
   resources :cms_pages
-   resources :agencies do
+  resources :agencies do
     collection do
       post 'update_status'
     end
