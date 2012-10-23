@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   before_create :make_activation_code
-  
+#  validates :email,:ic_number, :presence=>true
   #  mount_uploader :avatar, AvatarUploader
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -23,9 +23,9 @@ class User < ActiveRecord::Base
   validates_processing_of :avatar
   #before_save :update_avatar_attributes
 
-  def self.find_for_database_authentication(conditions={})
-    self.where("ic_number = ?", conditions[:ic_number]).limit(1).first || self.where("email = ?", conditions[:ic_number]).limit(1).first
-  end
+#  def self.find_for_database_authentication(conditions={})
+#    self.where("ic_number = ?", conditions[:ic_number]).limit(1).first || self.where("email = ?", conditions[:ic_number]).limit(1).first
+#  end
 
   def full_name
     return "NA" if first_name.nil? || last_name.nil?
@@ -47,12 +47,17 @@ class User < ActiveRecord::Base
     role = Role.where(:name => "Department User").first || Role.new
     role.users.include?(self)
   end
+
+  def activate_user
+    self.activated_at = Time.now.utc
+    self.activation_code = nil
+  end
+
   # Activates the user in the database.
   def activate
     @activated = true
     self.activated_at = Time.now.utc
     self.activation_code = nil
-    save(false)
   end
 
   def account_active?
