@@ -237,7 +237,7 @@
 .form-sec-row{ overflow:hidden; padding:5px 0}
 .form-sec-row label.text{ float:left; width:150px; font-weight:bold;}
 .form-sec-row span.in-box{ float:left; width:60%;}
-.form-sec-row span.in-box input[type="text"]{ width:81%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
+.form-sec-row span.in-box input[type="text"],.form-sec-row span.in-box input[type="password"]{ width:81%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
 .form-sec-row span.in-box select{ width:85%; padding:5px; border:1px solid #96a6c5}
 .form-sec-row span.in-box textarea{ width:81%; padding:5px; border:1px solid #96a6c5}
 .passfiled{ width:80%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
