@@ -59,13 +59,15 @@
           <%= f.text_field :zipcode, :size => 6, :autofocus => true%>
         </span>
       </div>
-
+     
+      <% if !resource.departments.empty? %>
       <div class="form-sec-row">
         <%= f.label :department_id,raw("Department"), :class=>"text"%>
-        <span class="in-box">
-          <%=resource.departments.first.name%>
+        <span class="in-box">       
+          <%=resource.departments.first.name%>       
         </span>
       </div>
+      <% end %>
 
       <div  class="form-sec-row">
         <%= f.label :avatar , :class=>"text"%>

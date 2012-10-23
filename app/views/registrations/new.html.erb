@@ -63,19 +63,19 @@
         <div class="form-sec-row">
           <%= label_tag "users_agency", raw("Agency"), :class=>"text" %>
           <span class="in-box">
-            <%= select("users","agency",  Agency.where(:status=>1).collect {|agency| [agency.name, agency.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
+            <%= select("users","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
           </span>
         </div>
         <div class="form-sec-row">
           <%= label_tag "users_department", raw("Department"), :class=>"text"%>
           <span class="in-box">
-            <%= select("users","department", Department.where("agency_id =? and is_active=?", 1, 1).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT") %>
+            <%= select("users","department", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT DEPARTMENT") %>
           </span>
         </div>
         <div class="form-sec-row">
           <%= label_tag "users_unit",raw("Unit"), :class=>"text"%>
           <span class="in-box">
-            <%= select("users","unit", Unit.where("department_id=? and is_active=?", 1, 1).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT") %>
+            <%= select("users","unit", Unit.active.where("department_id=?", params[:department]).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT UNIT") %>
           </span>
         </div>
         <div class="form-sec-row">

@@ -8,5 +8,5 @@ class Department < ActiveRecord::Base
   validates :name, :presence => true
   
   #named_scopes comes here
-  scope :active, where(:deleted => false)
+  scope :active, where(:is_active => true, :deleted => false)
 end
