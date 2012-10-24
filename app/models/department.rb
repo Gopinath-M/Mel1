@@ -5,7 +5,7 @@ class Department < ActiveRecord::Base
   has_many :users, :through => :role_memberships
 
   #Validations comes here
-  validates :name, :presence => true
+  validates :name,:agency_id, :presence => true
   
   #named_scopes comes here
   scope :active, where(:is_active => true, :deleted => false)
