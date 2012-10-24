@@ -64,7 +64,7 @@
     <!--BODY START-->
     <%=render :partial=>'shared/header'%>
     <%if  current_user && !current_user.blank? %>
-      <!--<%=render :partial=>'shared/right_navigation'%>-->
+      <%=render :partial=>'shared/right_navigation'%>
       <%=render :partial=>'shared/left_navigation'%>
     <% if notice %>
     <div class="success"><%= flash[:notice] %></div>
