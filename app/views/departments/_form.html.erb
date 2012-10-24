@@ -1,7 +1,7 @@
 <%= form_for(@department) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
-    <div class="form-sec-row">
+  <div class="form-sec-row">
     <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
     <span class="in-box">
       <%= f.select(:agency_id,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
@@ -10,19 +10,13 @@
   <div class="form-sec-row">
     <label class="text">Department Name:</label>
     <span class="in-box">
-      <span class="ui-watermark-container ui-watermark-input">
-        <label for="" class="ui-watermark-label" style="left: 6px; top: 6px;"></label>
-        <%= f.text_field :name%>
-      </span>
+      <%= f.text_field :name%>
     </span>
   </div>
   <div class="form-sec-row">
     <label class="text">Is Active</label>
     <span class="in-box">
-      <span class="ui-watermark-container ui-watermark-input">
-        <label for="" class="ui-watermark-label" style="left: 6px; top: 6px;"></label>
-        <%= f.check_box :is_active %>
-      </span>
+      <%= f.check_box :is_active %>
     </span>
   </div>
   <div class="form-sec-row">
