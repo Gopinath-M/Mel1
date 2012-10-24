@@ -1,0 +1,33 @@
+<%if !request.xhr?%>
+  <%= form_for(@user, :as => :user,  :url => update_assign_users_path(:id => @department_id), :method=>:post) do |f| %>
+
+    <div class="CenterNav">
+      <h2 class="b-head">Assign Department</h2>
+      <div class="create-user">
+        <b>Select User</b>
+       <div class="cu-c2">
+          <%= select(:standard,:user_id,  @user.collect {|role| [role.first_name, role.id]},:prompt=>"PLEASE SELECT A USER") %>
+        </div>
+      </div> <br /><br /><div class="clear"></div>
+      <div id="div_dept_name" >
+        
+      </div>
+
+      <div class="create-user"><b>To Department :</b><br/><br/>
+        <div class="cu-c3">
+          <%= select(:assign_department, :id, Department.where(:is_active => '1').order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
+        </div>
+      </div>
+
+         <div class="form-sec-row">
+              <label class="text">&nbsp;</label>
+              <span class="in-box"><br/>
+                <%= f.submit raw('Assign'), :class=>"btn2"%>
+
+              </span>
+            </div>
+
+
+    </div>
+  <%end%>
+<%end%>
