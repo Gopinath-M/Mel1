@@ -4,5 +4,6 @@ class Unit < ActiveRecord::Base
   
   #named Scopes comes here
   scope :active, where(:is_active => true, :deleted => false)
+  validates :department_id ,:presence=>true
   
 end
