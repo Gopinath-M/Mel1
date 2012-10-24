@@ -50,7 +50,7 @@
           <h2>Management Tools</h2>
           <ul>
             <%if current_user && current_user.is_super_admin? %>
-             <li>
+              <li>
                 <%=link_to "Agencies", "javascript:void(0);" , :title=>"agencies" ,:class=>"", :id=>"lnk_agency"%>
                 <div id ="div_agency" style="display:none;">
                   <ul>
@@ -63,7 +63,7 @@
                   </ul>
                 </div>
               </li>
-               <li>
+              <li>
                 <%=link_to "Departments", "javascript:void(0);" , :title=>"departments" ,:class=>"", :id=>"lnk_department"%>
                 <div id ="div_department" style="display:none;">
                   <ul>
@@ -89,7 +89,7 @@
                   </ul>
                 </div>
               </li>
-          
+
               <li>
                 <%=link_to "Admin", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_admin"%>
                 <div id ="div_admin" style="display:none;">
@@ -104,7 +104,7 @@
                 </div>
               </li>
             <%end%>
-             <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
+            <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
               <li>
                 <%=link_to "Users", "javascript:void(0);" , :title=>"User" ,:class=>"", :id=>"lnk_user"%>
                 <div id ="div_user" style="display:none;">
@@ -118,6 +118,9 @@
                     <%if current_user && current_user.is_super_admin? %>
                       <li>
                         <%=link_to "Transfer Department", transfer_users_path%>
+                      </li>
+                      <li>
+                        <%=link_to "Assign Department", assign_department_users_path , :title=>"Assign Department" ,:class=>""%>
                       </li>
                     <%end%>
                   </ul>
