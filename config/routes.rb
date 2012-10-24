@@ -29,6 +29,7 @@ Melaka::Application.routes.draw do
       post 'update_status'
       get 'transfer'
       post 'update_transfer'
+      get 'assign_department'
     end
   end
   resources :department_users do
@@ -36,6 +37,7 @@ Melaka::Application.routes.draw do
       post 'transfer'
       get 'get_departments'
       get 'get_units'
+      get 'get_departments_for_user'
     end
   end
   resources :cms_pages

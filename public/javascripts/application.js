@@ -179,6 +179,13 @@ $().ready(function(){
                 }             
             })
         }
+        else
+        {
+            $('#users_department').find('option').remove().end()
+            $('#users_unit').find('option').remove().end()
+            $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT UNIT"));
+            $('#users_department').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+        }
     });
     /*Update Unit based on  Department*/
     $("#users_department").live("change", function(){
@@ -305,6 +312,48 @@ $().ready(function(){
             department_id: $("#user_list_department_id").val()
         }, function(data){
             $("#department_id").val($("#user_list_department_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
+     /* Assign Depart starts*/
+    $("#standard_user_id").live("change",function(){
+        $.get("/department_users/get_departments_for_user/",{
+            user_id: $("#standard_user_id").val()
+        }, function(data){
+            if(data[0]!=null)
+            {
+                $("#user_id").val($("#standard_user_id").val())
+               var content="<table><tr><td><u><b>List of Existing Departments :</b></u></td></tr><tr><td><br/></td></tr>";
+                content+=""
+                for(i=0; i<data[0].length; i++)
+                {
+                    content+="<tr><td>"+data[0][i]+"</td></tr>"
+                }
+                content+="</table>"
+                $("#div_dept_name").html(content)
+            }
+            else
+                {
+                    content+="No Departments Found"
+                $("#div_dept_name").html(content)
+                }
+
+        });
+    })
+    $("#assign_department_id").live("change",function(){
+        $.post("/users/update_assign/",{
+            department_id: $("#assign_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#assign_department_id").val())
+            $("#depart_name").html(data)
+        });
+    })
+    /* Assign Depart ends*/
+    $("#standard4_department_id").live("change",function(){
+        $.get("/users/",{
+            department_id: $("#standard4_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#standard4_department_id").val())
             $("#div_ajax").html(data)
         });
     })
