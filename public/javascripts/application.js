@@ -33,8 +33,6 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
-
-
     $("#transfer_department_id").live("change",function(){
         if ( $("#transfer_department_id").val()=="")
         {
@@ -354,6 +352,15 @@ $().ready(function(){
             department_id: $("#standard4_department_id").val()
         }, function(data){
             $("#department_id").val($("#standard4_department_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
+    /* Dept list page select box */
+    $("#agency_list_depart").live("change",function(){
+        $.get("/departments/",{
+            agency_id: $("#agency_list_depart").val()
+        }, function(data){
+            $("#department_id").val($("#agency_list_depart").val())
             $("#div_ajax").html(data)
         });
     })
