@@ -76,7 +76,7 @@ end
   ### Transfer Dept ends here
   def assign_department
     role = Role.where(:name => "Department User").first || Role.new
-    @user = role.users.uniq!
+    @user = role.users
   end
 
   def update_assign
@@ -88,7 +88,7 @@ end
       redirect_to(assign_department_users_path, :notice => "You cant Assign the User to Already exist department")
     else
       role.save
-      UserMailer.intimate_user_assign(user,department).deliver
+      #UserMailer.intimate_user_assign(user,department).deliver
       redirect_to(users_path, :notice => "#{user.first_name} has been assigned to #{department.name}. ")
     end
     else

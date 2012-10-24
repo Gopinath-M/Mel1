@@ -28,6 +28,7 @@ Melaka::Application.routes.draw do
   resources :users do
     collection do
       post 'update_status'
+      post 'update_assign'
       get 'transfer'
       post 'update_transfer'
       get 'assign_department'
