@@ -53,6 +53,12 @@ class DepartmentUsersController < ApplicationController
     render :json=>[departments] if departments
   end
 
+  def get_departments_for_user
+    user=params[:user_id] ? User.find(params[:user_id]) : nil
+    departments=user.departments.active.collect(&:name)
+    render :json=>[departments] if departments
+  end
+
   def get_units
     units=params[:department_id] ? Unit.active.where("department_id =?",params[:department_id]) : nil
     render :json=>[units] if units
