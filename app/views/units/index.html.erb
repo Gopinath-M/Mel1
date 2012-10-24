@@ -16,7 +16,7 @@
     <div class="form-sec-row">
       <%= label_tag :department_id,raw("Department"), :class=>"text"%>
       <span class="in-box">
-        <%=select(:standard1,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
+        <%=select(:standard1,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT A DEPARTMENT") %>
       </span>
     </div>
     <%=hidden_field_tag :department_id, ""%>
