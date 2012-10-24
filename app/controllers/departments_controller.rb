@@ -67,4 +67,16 @@ class DepartmentsController < ApplicationController
     admin_departments=current_user.departments.collect(&:id)
     @users=User.joins(:departments, :roles).where("role_memberships.department_id in (?) and roles.name in (?)", admin_departments,DISP_USER_ROLE_DEPT_USER)
   end
+
+  #Activate or Deactivate a particular User
+  def update_user_status
+    @user = User.find(params[:id])
+    if params[:status]=="Activate"
+      @user.update_attribute(:status,"Active")
+    elsif params[:status]=="Deactivate"
+      @user.update_attribute(:status,"Deactive")
+    end
+    department_id= !params[:department_id].blank? || !params[:department_id].nil? ?  params[:department_id] : nil
+    redirect_to(depart_list_departments_path(:department_id=>department_id), :notice => 'User Status has been successfully changed.')
+  end
 end
