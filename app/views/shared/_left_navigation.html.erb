@@ -113,7 +113,7 @@
                       <%=link_to "Create New", new_department_user_path%>
                     </li>
                     <li>
-                      <%=link_to "List",  depart_user_list_departments_path%>
+                      <%=link_to "List", users_path %>
                     </li>
                     <%if current_user && current_user.is_super_admin? %>
                       <li>
