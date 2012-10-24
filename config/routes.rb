@@ -11,6 +11,7 @@ Melaka::Application.routes.draw do
   resources :departments do
     collection do
       post 'update_status'
+      post 'update_user_status'
       get 'depart_list'
       get 'depart_user_list'
     end
