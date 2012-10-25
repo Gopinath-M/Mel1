@@ -43,35 +43,35 @@ class UsersController < ApplicationController
   end
   ## Transfer Department Function begins here
   def transfer
-if !params[:department_id].nil? || !params[:department_id].blank?
+    if !params[:department_id].nil? || !params[:department_id].blank?
 
       users= Department.find_by_id(params[:department_id]).users.where("role_id !=2")
       render :json=>[users] if users
-end     
+    end
   end
 
- def update_transfer
-   if params[:transfer][:username] != ""
-    user = User.find_by_ic_number(params[:transfer][:username])
-    departments = user.departments
-    if params[:from_department][:id] != "" && params[:to_department][:id]!= ""
-      s = Department.find_by_id(params[:department_id])
-      if user.departments.include?(s)
-        redirect_to(transfer_users_path, :notice => "You Cant transfer the User to Already exist department")
+  def update_transfer
+    if params[:transfer][:username] != ""
+      user = User.find_by_ic_number(params[:transfer][:username])
+      departments = user.departments
+      if params[:from_department][:id] != "" && params[:to_department][:id]!= ""
+        s = Department.find_by_id(params[:department_id])
+        if user.departments.include?(s)
+          redirect_to(transfer_users_path, :notice => "You Cant transfer the User to Already exist department")
+        else
+          role = RoleMembership.find_by_user_id(user.id)
+          role.update_attribute(:department_id, params[:department_id])
+          department = Department.find_by_id(params[:department_id])
+          UserMailer.intimate_user(user,department).deliver
+          redirect_to(users_path, :notice => "#{user.first_name} has been transfer to #{department.name}.")
+        end
       else
-        role = RoleMembership.find_by_user_id(user.id)
-        role.update_attribute(:department_id, params[:department_id])
-        department = Department.find_by_id(params[:department_id])
-        UserMailer.intimate_user(user,department).deliver
-        redirect_to(users_path, :notice => "#{user.first_name} has been transfer to #{department.name}.")
+        redirect_to(transfer_users_path, :notice => "Please Select the Drop Box listed")
       end
     else
       redirect_to(transfer_users_path, :notice => "Please Select the Drop Box listed")
-    end
-   else
-           redirect_to(transfer_users_path, :notice => "Please Select the Drop Box listed")
 
-   end
+    end
   end
   ### Transfer Dept ends here
   def assign_department
@@ -84,13 +84,13 @@ end
     department = Department.find_by_id(params[:assign_department][:id])
     user = User.find_by_id(params[:standard][:user_id])
     if params[:standard][:user_d] != "" && params[:assign_department][:id] != ""
-    if user.departments.include?(department)
-      redirect_to(assign_department_users_path, :notice => "You cant Assign the User to Already exist department")
-    else
-      role.save
-      #UserMailer.intimate_user_assign(user,department).deliver
-      redirect_to(users_path, :notice => "#{user.first_name} has been assigned to #{department.name}. ")
-    end
+      if user.departments.include?(department)
+        redirect_to(assign_department_users_path, :notice => "You cant Assign the User to Already exist department")
+      else
+        role.save
+        #UserMailer.intimate_user_assign(user,department).deliver
+        redirect_to(users_path, :notice => "#{user.first_name} has been assigned to #{department.name}. ")
+      end
     else
       redirect_to(assign_department_users_path, :notice => "Please Select the Drop box listed")
     end
@@ -107,7 +107,30 @@ end
     end
   end
 
-  def department_details
-    
+  def admin_activation
+    @users=User.joins(:roles).where("roles.name='#{DISP_USER_ROLE_DEPT_ADMIN}'").page(params[:page]).per(10)
   end
+
+  def user_activation
+    @users=User.joins(:roles).where("roles.name='#{DISP_USER_ROLE_DEPT_USER}'").page(params[:page]).per(10)
+  end
+
+  def activate_department_admin
+    user=User.find(params[:id]) if params[:id]
+    if user
+      user.activate_user
+      UserMailer.activation_mail_to_department_admin(user).deliver
+      redirect_to :action=>"admin_activation"
+    end
+  end
+  
+  def activate_department_user
+    user=User.find(params[:id]) if params[:id]
+    if user
+      user.activate_user
+      UserMailer.activation_mail_to_department_admin(user).deliver
+      redirect_to :action=>"user_activation"
+    end
+  end
+
 end
