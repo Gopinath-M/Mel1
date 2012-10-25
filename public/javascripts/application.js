@@ -3,7 +3,10 @@
 
 $().ready(function(){
     $(function() {
-        $("#tabs").tabs();
+        if ($("#tabs").length==1)
+        {
+            $("#tabs").tabs();
+        }
         $("input").watermark({
             placeholder: function() {
                 return $(".formRow label[for=" + this.id + "]").hide().text();
@@ -313,7 +316,7 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
-     /* Assign Depart starts*/
+    /* Assign Depart starts*/
     $("#standard_user_id").live("change",function(){
         $.get("/department_users/get_departments_for_user/",{
             user_id: $("#standard_user_id").val()
@@ -321,7 +324,7 @@ $().ready(function(){
             if(data[0]!=null)
             {
                 $("#user_id").val($("#standard_user_id").val())
-               var content="<table><tr><td><u><b>List of Existing Departments :</b></u></td></tr><tr><td><br/></td></tr>";
+                var content="<table><tr><td><u><b>List of Existing Departments :</b></u></td></tr><tr><td><br/></td></tr>";
                 content+=""
                 for(i=0; i<data[0].length; i++)
                 {
@@ -331,10 +334,10 @@ $().ready(function(){
                 $("#div_dept_name").html(content)
             }
             else
-                {
-                    content+="No Departments Found"
+            {
+                content+="No Departments Found"
                 $("#div_dept_name").html(content)
-                }
+            }
 
         });
     })
