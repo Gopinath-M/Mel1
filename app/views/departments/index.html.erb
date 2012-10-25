@@ -34,8 +34,8 @@
             </div>
           </div>
           <div class="clear"></div>
-        <%end%>
-        <div><%= paginate @departments %></div>
+        <%end%><%= paginate @departments %>
+        <div></div>
         <%else%>
         <%= "Select the Agency to list out the Department" %>
       <%end%>

@@ -4,8 +4,12 @@ class DepartmentsController < ApplicationController
 
   #List all Department
     def index
-    @departments=nil
-    if !params[:agency_id].nil?
+      @departments=nil
+    agencyid = params[:agency_id].to_i # while selecting Please Select returns string params
+    if agencyid == 0
+      @departments = Department.page(10).per(10)
+      #@departments = departments.page(params[:page]).per(10)
+    else
       agency = Agency.find_by_id(params[:agency_id])
       @departments = agency.departments.page(params[:page]).per(10)
     end

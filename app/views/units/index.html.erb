@@ -45,13 +45,31 @@
             <div class="clear"></div>
           </div>
         <%end%>
-      <%#else%>
-        <%#*<div class="center_page">%>
-          <%#=   "Select the Particular Department to list out the user" %>
-        <%#*</div>%>
+      <%else%>
+       <%@units.each do |unit|%>
+          <div class="manage-user box">
+            <div class="manage-user-row box">
+              <div class="mu-c1">
+              </div>
+              <div class="mu-c2">
+                <p class="head1"><%= unit.name%></p>
+              </div>
+              <div class="mu-c3">
+                  <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>unit.id.to_i%>
+                <%if unit.is_active?%>
+                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_units_path(:id=>unit.id, :status=>"Deactivate",:department_id=>params[:department_id]), :confirm => 'Do you want to really deactivate this unit?', :method=>:post, :title=>"Deactive" %>
+                <%else%>
+                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_units_path(:id=>unit.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => 'Do you want to really Activate this unit?', :method=>:post, :title=>"Activate"%>
+                <%end%>
+                <%= link_to image_tag("../images/delete.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Delete", unit_path(:id=>unit.id,:department_id=>params[:department_id]), :method=>:delete, :confirm => "Are you sure want to delete?" %>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+        <%end%>
       <%end%>
     <%else%>
-      No User Data Available
+      No Units Available
     <%end%>
 <%#*<div><%= paginate @units %>
   </div>
