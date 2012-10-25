@@ -120,7 +120,8 @@ class UsersController < ApplicationController
   end
 
   def user_activation
-    @users=User.joins(:roles).where("roles.name='#{DISP_USER_ROLE_DEPT_USER}'").page(params[:page]).per(10)
+    departments=RoleMembership.joins(:role).where("roles.name='#{DISP_USER_ROLE_DEPT_ADMIN}' and user_id=#{current_user.id}").collect(&:department_id)
+    @users=User.joins(:roles).where("roles.name='#{DISP_USER_ROLE_DEPT_USER}' and role_memberships.department_id in (?) ", departments).page(params[:page]).per(10)
   end
 
   def activate_department_admin
