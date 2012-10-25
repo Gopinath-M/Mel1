@@ -6,6 +6,7 @@ class Department < ActiveRecord::Base
   belongs_to :agency
   #Validations comes here
   validates :name,:agency_id, :presence => true
+  validate_uniqueness_of :name, :case_sensitive=>false, :if=>Proc.new {|u| !u.name.blank?}
   
   #named_scopes comes here
   scope :active, where(:is_active => true, :deleted => false)
