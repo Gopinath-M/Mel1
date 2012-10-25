@@ -3,8 +3,19 @@ class DepartmentsController < ApplicationController
   before_filter :is_admin#, :except=>'depart_user_list'
 
   #List all Department
-  def index
-    @departments = Department.where(:deleted => false).order("name").page(params[:page]).per(10)
+    def index
+      @departments=nil
+    agencyid = params[:agency_id].to_i # while selecting Please Select returns string params
+    if agencyid == 0
+      @departments = Department.page(10).per(10)
+      #@departments = departments.page(params[:page]).per(10)
+    else
+      agency = Agency.find_by_id(params[:agency_id])
+      @departments = agency.departments.page(params[:page]).per(10)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
   end
 
   #new Department

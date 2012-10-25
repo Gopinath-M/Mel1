@@ -1,4 +1,5 @@
 class Agency < ActiveRecord::Base
+  has_many :departments
   #validations comes here
   validates :name, :presence => true
   validates :name, :uniqueness => true

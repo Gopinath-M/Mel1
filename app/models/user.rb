@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   validates_integrity_of :avatar
   validates_processing_of :avatar
   #before_save :update_avatar_attributes
-
+  validates_uniqueness_of :ic_number
   #  def self.find_for_database_authentication(conditions={})
   #    self.where("ic_number = ?", conditions[:ic_number]).limit(1).first || self.where("email = ?", conditions[:ic_number]).limit(1).first
   #  end
