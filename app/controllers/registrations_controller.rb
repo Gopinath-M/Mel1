@@ -9,11 +9,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
-  def create  
+  def create
     build_resource
     if resource.save
-      resource.role_memberships.create(:role_id=> 3, :department_id=>params[:user][:department_id],:status=>STATUS_INACTIVE)
+      resource.role_memberships.create(:role_id=> params[:users][:role], :department_id=>params[:users][:department],:status=>STATUS_INACTIVE)
       if resource.active_for_authentication?
+        
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
         respond_with resource, :location => after_sign_up_path_for(resource)
@@ -71,11 +72,17 @@ class RegistrationsController < Devise::RegistrationsController
     expire_session_data_after_sign_in!
     redirect_to new_registration_path(resource_name)
   end
-  
+
   protected
   def update_needs_confirmation?(resource, previous)
     resource.respond_to?(:pending_reconfirmation?) &&
       resource.pending_reconfirmation? &&
       previous != resource.unconfirmed_email
   end
+
+  def after_sign_up_path_for(resource)
+    flash[:notice]="Your request has been sent to Admin. Once approved you get mail!"
+    root_path
+  end
+  
 end

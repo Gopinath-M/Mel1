@@ -16,4 +16,9 @@ class UserMailer < ActionMailer::Base
     @department=department
     mail(:to=>@user.email,:subject =>"Transfer User to Department")
   end
+
+  def activation_mail_to_department_admin(user)
+        @user=user
+    mail(:to=>@user.email,:subject =>"#{@user.full_name}! Your Account has been Activated Successfully ")
+  end
 end
