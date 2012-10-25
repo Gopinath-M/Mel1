@@ -3,35 +3,59 @@
 
     <div class="CenterNav">
       <h2 class="b-head">Transfer Department</h2>
-
-      <div class="create-user">From Department :
-        <%=hidden_field_tag :department_id, ""%>
-        <div class="cu-c3">
-          <%= select(:from_department,:id, Department.where(:is_active => '1').order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
-        </div>
-      </div>
-
-      <div class="create-user">List of Existing Users :<br/><br/>
-        <%=hidden_field_tag :username %>
-        <div class="cu-c3">
-          <%= select(:transfer, :username, User.order('first_name').all.collect{ |s| [truncate(s.username, :length => 50), s.id] },:selected => @username ,:prompt => "PLEASE SELECT") %>
-        </div>
-      </div>
-
-      <div class="create-user">To Department :<br/><br/>
-        <div class="cu-c3">
-          <%= select(:to_department, :id, Department.where(:is_active => '1').order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
-        </div>
-      </div>
-
-
+      <div class="create-user">
+        <h2 class="b-head">From</h2>
         <div class="form-sec-row">
-              <label class="text">&nbsp;</label>
-              <span class="in-box"><br/>
-                <%= f.submit raw('Transfer'), :class=>"btn2"%>
+          <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+          <span class="in-box">
+            <%= select(:transfer_from,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
+          </span>
+        </div>
+        <div class="form-sec-row">
+          <%= label_tag :department_id, raw("Department"), :class=>"text"%>
+          <span class="in-box">
+            <%= select(:from_department,:id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT DEPARTMENT") %>
+          </span>
+        </div>
+      </div>
 
-              </span>
-            </div>
+      <div class="create-user">
+        <div class="form-sec-row">
+          List of Existing Users :<br/><br/>
+          <%=hidden_field_tag :username %>
+          <span class="in-box">
+            <%= select(:transfer, :username, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT USERS") %>
+          </span>
+        </div>
+
+        <div id="div_dept_transfer" >
+
+        </div>
+      </div>
+
+      <div class="create-user">
+        <h2 class="b-head">To</h2>
+        <div class="form-sec-row">
+          <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+          <span class="in-box">
+            <%= select(:transfer_to,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
+          </span>
+        </div>
+        <div class="form-sec-row">
+          <%= label_tag :department_id, raw("Department"), :class=>"text"%>
+          <span class="in-box">
+            <%= select(:to_department, :id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT DEPARTMENT") %>
+          </span>
+        </div>
+      </div>
+
+
+      <div class="form-sec-row">
+        <label class="text">&nbsp;</label>
+        <span class="in-box"><br/>
+          <%= f.submit raw('Transfer'), :class=>"btn2"%>
+        </span>
+      </div>
     </div>
   <%end%>
 <%end%>
