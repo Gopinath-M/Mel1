@@ -32,6 +32,10 @@ Melaka::Application.routes.draw do
       get 'transfer'
       post 'update_transfer'
       get 'assign_department'
+      get 'admin_activation'
+      get 'user_activation'
+      post 'activate_department_admin'
+      post 'activate_department_user'
     end
   end
   resources :department_users do

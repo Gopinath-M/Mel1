@@ -28,10 +28,15 @@
         <h2>Alerts</h2>
         <ul>
           <%if current_user && current_user.is_super_admin?%>
-            <li><a href="javascript:void(0);" title="Admin Activation"><span class="notifiNo">3</span>Admin Activation</a></li>
+            <li>
+              <%=link_to content_tag(:span,activate_admin_users_count>0 ? activate_admin_users_count : "",:class=>activate_admin_users_count>0 ? "notifiNo" : "" )+"Admin Activation", admin_activation_users_path,:title=>"Admin Activation"%>
+            </li>
           <%end%>
           <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
-            <li><a href="javascript:void(0);" title="User Activation">User Activation</a></li>
+            <li>
+
+              <%=link_to content_tag(:span,activate_department_users_count>0 ? activate_department_users_count : "",:class=>activate_department_users_count>0 ? "notifiNo" : "" )+"User Activation", user_activation_users_path,:title=>"User Activation"%>
+            </li>
             <li><a href="javascript:void(0);" title="User Transfer Request">User Transfer Request</a></li>
             <li><a href="javascript:void(0);" title="Resource Booking ">Resource Booking</a></li>
             <li><a href="javascript:void(0);" title="Complaints"><span class="notifiNo">9</span>Complaints</a></li>
