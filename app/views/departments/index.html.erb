@@ -10,7 +10,7 @@
   <div class="create-user">
     <div class="cu-c1"><a href="/departments/new" title="Create Department"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Department</a></div>
     <div class="cu-c2">Select Agency:
-      <%= select("agency","list_depart",  Agency.active.collect {|role| [role.name, role.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
+      <%= select("agency","list_depart",  Agency.active.collect {|role| [role.name, role.id]},:prompt=>"SELECT AN AGENCY") %>
     </div>
   </div>
   <div class="manage-user box">
