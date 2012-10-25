@@ -42,58 +42,67 @@ class UsersController < ApplicationController
     end
   end
   ## Transfer Department Function begins here
-  def transfer
-if !params[:department_id].nil? || !params[:department_id].blank?
 
+  def transfer
+    if !params[:department_id].nil? || !params[:department_id].blank?
       users= Department.find_by_id(params[:department_id]).users.where("role_id !=2")
       render :json=>[users] if users
-end     
+    end
   end
 
- def update_transfer
-   if params[:transfer][:username] != ""
-    user = User.find_by_ic_number(params[:transfer][:username])
-    departments = user.departments
-    if params[:from_department][:id] != "" && params[:to_department][:id]!= ""
-      s = Department.find_by_id(params[:department_id])
+  def get_dept_for_users
+    user = User.find_by_ic_number(params[:ic_number])
+    departments=user.departments.active.collect(&:name)
+    render :json=>[departments] if departments
+  end
+
+  def update_transfer
+    if params[:transfer][:username] != "" && params[:from_department][:id] != "" && params[:to_department][:id]!= "" && params[:transfer_from_agency] != "" && params[:transfer_to_agency] != ""
+      user = User.find_by_ic_number(params[:transfer][:username])
+      departments = user.departments
+      s = Department.find_by_id(params[:to_department][:id])
       if user.departments.include?(s)
         redirect_to(transfer_users_path, :notice => "You Cant transfer the User to Already exist department")
       else
         role = RoleMembership.find_by_user_id(user.id)
-        role.update_attribute(:department_id, params[:department_id])
-        department = Department.find_by_id(params[:department_id])
-        UserMailer.intimate_user(user,department).deliver
+        role.update_attribute(:department_id, params[:to_department][:id])
+        department = Department.find_by_id(params[:to_department][:id])
+        #UserMailer.intimate_user(user,department).deliver
         redirect_to(users_path, :notice => "#{user.first_name} has been transfer to #{department.name}.")
       end
     else
       redirect_to(transfer_users_path, :notice => "Please Select the Drop Box listed")
     end
-   else
-           redirect_to(transfer_users_path, :notice => "Please Select the Drop Box listed")
-
-   end
   end
+
   ### Transfer Dept ends here
   def assign_department
-    role = Role.where(:name => "Department User").first || Role.new
-    @user = role.users
-  end
+  if !params[:department_id].nil? || !params[:department_id].blank?
+      users= Department.find_by_id(params[:department_id]).users.where("role_id !=2")
+      render :json=>[users] if users
+    end
+end  
+  
 
   def update_assign
-    role = RoleMembership.new(:department_id => params[:assign_department][:id], :user_id=> params[:standard][:user_id], :role_id => '3', :status => 'A')
-    department = Department.find_by_id(params[:assign_department][:id])
-    user = User.find_by_id(params[:standard][:user_id])
-    if params[:standard][:user_d] != "" && params[:assign_department][:id] != ""
-    if user.departments.include?(department)
+   if params[:transfer][:username] != "" && params[:from_department][:id] != "" && params[:to_department][:id]!= "" && params[:transfer_from_agency] != "" && params[:transfer_to_agency] != ""
+      user = User.find_by_ic_number(params[:transfer][:username])
+      departments = user.departments
+      s = Department.find_by_id(params[:to_department][:id])
+      if user.departments.include?(s)
       redirect_to(assign_department_users_path, :notice => "You cant Assign the User to Already exist department")
     else
+     from_user =  User.find_by_ic_number(params[:transfer][:username])
+      role = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '3', :status => 'A')
       role.save
+      department = Department.find_by_id(params[:to_department][:id])
       #UserMailer.intimate_user_assign(user,department).deliver
       redirect_to(users_path, :notice => "#{user.first_name} has been assigned to #{department.name}. ")
     end
     else
       redirect_to(assign_department_users_path, :notice => "Please Select the Drop box listed")
     end
+
   end
 
   def activate

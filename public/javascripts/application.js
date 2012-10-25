@@ -171,8 +171,8 @@ $().ready(function(){
                 {
                     $('#users_department').find('option').remove().end()
                     $('#users_unit').find('option').remove().end()
-                    $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT UNIT"));
-                    $('#users_department').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+                    $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT A UNIT"));
+                    $('#users_department').append($("<option></option>").attr("value","").text("PLEASE SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_department').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -184,8 +184,8 @@ $().ready(function(){
         {
             $('#users_department').find('option').remove().end()
             $('#users_unit').find('option').remove().end()
-            $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT UNIT"));
-            $('#users_department').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+            $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT A UNIT"));
+            $('#users_department').append($("<option></option>").attr("value","").text("PLEASE SELECT A DEPARTMENT"));
         }
     });
     /*Update Unit based on  Department*/
@@ -198,7 +198,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#users_unit').find('option').remove().end()
-                    $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT UNIT"));
+                    $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT A UNIT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
@@ -217,7 +217,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#standard1_department_id').find('option').remove().end()
-                    $('#standard1_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+                    $('#standard1_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
 
@@ -246,7 +246,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#unit_department_id').find('option').remove().end()
-                    $('#unit_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+                    $('#unit_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#unit_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -258,26 +258,9 @@ $().ready(function(){
 
     /*units Master screen end */
     /* Transfer Department */
-    $("#from_department_id").live("change",function(){
-        if($("#from_department_id").val()!="")
-        {
-            $.get("/users/transfer/",{
-                department_id: $("#from_department_id").val()
-            }, function(data){
-                if (data[0]!=null)
-                {
-                    $('#transfer_username').find('option').remove().end()
-                    $('#transfer_username').append($("<option></option>").attr("value","").text("PLEASE SELECT USERS"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#transfer_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
-                    }
-                }
-            })
-        }
-    });
+    /*Transfer Departmnet Js Starts*/
 
-    $("#from_department_id").live("change",function(){
+   $("#from_department_id").live("change",function(){
         if($("#from_department_id").val()!="")
         {
             $.get("/users/transfer/",{
@@ -306,7 +289,75 @@ $().ready(function(){
         });
     })
 
-    /*ends here */
+    $("#transfer_from_agency").live("change", function(){
+        if($("#transfer_from_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#transfer_from_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#from_department_id').find('option').remove().end()
+                    $('#from_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#from_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+    });
+
+    $("#transfer_to_agency").live("change", function(){
+        if($("#transfer_to_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#transfer_to_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#to_department_id').find('option').remove().end()
+                    $('#to_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#to_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+    });
+
+$("#transfer_username").live("change",function(){
+        $.get("/users/get_dept_for_users/",{
+            ic_number: $("#transfer_username").val()
+        }, function(data){
+            if(data[0]!=null)
+            {
+                $("#user_id").val($("#transfer_username").val())
+                var content="<table><tr><td><u><b>List of Existing Departments :</b></u></td></tr><tr><td><br/></td></tr>";
+                content+=""
+                for(i=0; i<data[0].length; i++)
+                {
+                    content+="<tr><td>"+data[0][i]+"</td></tr>"
+                }
+                content+="</table>"
+                $("#div_dept_transfer").html(content)
+            }
+            else
+            {
+                content+="No Departments Found"
+                $("#div_dept_transfer").html(content)
+            }
+
+        });
+    })
+
+
+/*Transfer Departmnet Js Ends*/
+
+
+
+    /* Transfer ends here */
     /* User list left navigation link */
     $("#user_list_department_id").live("change",function(){
         $.get("/departments/depart_user_list/",{

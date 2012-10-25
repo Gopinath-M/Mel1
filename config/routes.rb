@@ -32,6 +32,7 @@ Melaka::Application.routes.draw do
       get 'transfer'
       post 'update_transfer'
       get 'assign_department'
+      get 'get_dept_for_users' #transfer dept to get users for selected dept
     end
   end
   resources :department_users do
