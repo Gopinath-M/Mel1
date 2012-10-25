@@ -24,7 +24,7 @@
           List of Existing Users :<br/><br/>
           <%=hidden_field_tag :username %>
           <span class="in-box">
-            <%= select(:transfer, :username, User.active.collect{ |s| [truncate(s.username, :length => 50), s.id] },:selected => @username ,:prompt => "PLEASE SELECT USERS") %>
+            <%= select(:transfer, :username, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "PLEASE SELECT USERS") %>
           </span>
         </div>
 
