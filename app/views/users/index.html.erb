@@ -8,7 +8,7 @@
       </div>
       <%=hidden_field_tag :department_id, ""%>
       <div class="cu-c2">Select Department:
-        <%= select(:standard4,:department_id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "PLEASE SELECT") %>
+        <%= select(:standard4,:department_id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "SELECT A DEPARTMENT") %>
       </div>
     </div>
     <div class="manage-user box">
@@ -18,13 +18,13 @@
         <%@users.each do |user|%>
           <div class="manage-user-row box">
             <div class="mu-c1">
-              <%=link_to image_tag(user.avatar_url, :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines" if user.avatar?%> 
+              <%=link_to image_tag(user.avatar_url, :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines" if user.avatar?%>
             </div>
             <div class="mu-c2">
               <p class="head1">
-                <%=link_to content_tag(:b, user.full_name),"javascript:void(0);" %><br/>
+                <b><%=user.full_name%></b><br/>
                 <%=user.ic_number%><br/>
-                <%=link_to content_tag(:b, user.email), "javascript:void(0);", :title=>user.email%>
+                <b><%=user.email%></b>
               </p>
             </div>
             <div class="mu-c3">

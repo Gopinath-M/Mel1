@@ -10,7 +10,7 @@
   <div class="create-user">
     <div class="cu-c1"><a href="/departments/new" title="Create Department"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Department</a></div>
     <div class="cu-c2">Select Agency:
-      <%= select("agency","list_depart",  Agency.active.collect {|role| [role.name, role.id]},:prompt=>"PLEASE SELECT A AGENCY") %>
+      <%= select("agency","list_depart",  Agency.active.collect {|role| [role.name, role.id]},:prompt=>"SELECT AN AGENCY") %>
     </div>
   </div>
   <div class="manage-user box">
@@ -26,9 +26,9 @@
             </div>
             <div class="mu-c3">
               <%if department.is_active %>
-                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_departments_path(:id=>department.id,:status=>"Deactivate") , :method=>:post%>
+                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_departments_path(:id=>department.id,:status=>"Deactivate") , :confirm => "Are you sure want to Deactivate this Department?" , :method=>:post%>
               <%else%>
-                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_departments_path(:id=>department.id,:status=>"Activate"), :method=>:post%>
+                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_departments_path(:id=>department.id,:status=>"Activate"), :confirm => "Are you sure want to Activate this Department?" , :method=>:post%>
               <%end%>
               <%= link_to image_tag("../images/delete.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Delete", department_path(department), :method=>:delete, :confirm => "Are you sure want to delete?" %>
             </div>
