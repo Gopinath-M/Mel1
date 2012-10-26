@@ -7,7 +7,7 @@ class DepartmentsController < ApplicationController
       @departments=nil
     agencyid = params[:agency_id].to_i # while selecting Please Select returns string params
     if agencyid == 0
-      @departments = Department.page(10).per(10)
+      @departments = Department.page(params[:page]).per(10)
       #@departments = departments.page(params[:page]).per(10)
     else
       agency = Agency.find_by_id(params[:agency_id])
