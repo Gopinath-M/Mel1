@@ -29,16 +29,15 @@
       </div>
 
       <div class="form-sec-row">
-        <%= f.label :username,raw("Display Name"), :class=>"text"%>
+        <%= f.label :username,raw("User Name"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :username, :size => 30, :autofocus => true%>
-           <i>(This name will be used through out the site)</i>
         </span>
       </div>
       <div class="form-sec-row">
         <%= f.label :ic_number,raw("IC Number"), :class=>"text"%>
         <span class="in-box">
-          <%= resource.ic_number %>
+          <%= f.text_field :ic_number, :size => 30, :autofocus => true%>
         </span>
       </div>
       <div class="form-sec-row">
@@ -81,31 +80,27 @@
           <%= f.label :remove_avatar %>
         </span>
       </div>
-      <div class="form-sec-row">
-<%= f.check_box :widget_one %>
-          <%= f.label :widget_one, raw('Weather Widget') %>
-      </div>
-        <div class="form-sec-row">
-<%= f.check_box :widget_two %>
-          <%= f.label :widget_two, raw('Prayer Widget') %>
-      </div>
+
       <div class="form-sec-row">
         <%= f.label :current_password, :class=>"text"%>
+        <%= f.label :password,raw("New password"), :class=>"text"%>
         <span class="in-box">
           <%= f.password_field :current_password, :size => 30, :autofocus => true, :class=>'passfiled'%>
-          <i>(We need your current password to confirm your changes)</i>
+          <i>We need your current password to confirm your changes)</i>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :password, raw("New password"), :class=>"text"%>
+        <%= f.label :password, raw("New password, :class=>"text"%>
+        <%= f.label :password_confirmation, :class=>"text"%>
         <span class="in-box">
           <%= f.password_field :password, :size => 30, :autofocus => true, :class=>'passfiled'%>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :password_confirmation, :class=>"text"%>
+        <%= f.label :current_password, :class=>"text"%>
         <span class="in-box">
-          <%= f.password_field :password_confirmation, :size => 30, :autofocus => true, :class=>'passfiled'%><br/>
+          <%= f.password_field :current_password, :size => 30, :autofocus => true, :class=>'passfiled'%><br/>
+          <i>(we need your current password to confirm your changes)</i>
         </span>
       </div>
       <div class="form-sec-row">

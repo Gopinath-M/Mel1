@@ -66,7 +66,7 @@
     <div class="form-sec-row">
       <%= label_tag "users_unit",raw("Unit"), :class=>"text"%>
       <span class="in-box">
-        <%= select("users","unit", Unit.active.where("department_id=?", params[:department]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A UNIT") %>
+        <%= select("users","unit", Unit.active.where("department_id=?", params[:department]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT AN UNIT") %>
       </span>
     </div>
 

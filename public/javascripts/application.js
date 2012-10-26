@@ -59,7 +59,7 @@ $().ready(function(){
         {
             if (selected.length==0)
             {
-                alert("Please select atleast one user to transfer")
+                alert("Select atleast one user to transfer")
             }
             else
             {
@@ -85,7 +85,7 @@ $().ready(function(){
         }
         else
         {
-            alert("Please select a Department")
+            alert("Select A Department")
         }
     })
 
@@ -171,8 +171,8 @@ $().ready(function(){
                 {
                     $('#users_department').find('option').remove().end()
                     $('#users_unit').find('option').remove().end()
-                    $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT A UNIT"));
-                    $('#users_department').append($("<option></option>").attr("value","").text("PLEASE SELECT A DEPARTMENT"));
+                    $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    $('#users_department').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_department').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -184,8 +184,8 @@ $().ready(function(){
         {
             $('#users_department').find('option').remove().end()
             $('#users_unit').find('option').remove().end()
-            $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT A UNIT"));
-            $('#users_department').append($("<option></option>").attr("value","").text("PLEASE SELECT A DEPARTMENT"));
+            $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+            $('#users_department').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
         }
     });
     /*Update Unit based on  Department*/
@@ -198,7 +198,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#users_unit').find('option').remove().end()
-                    $('#users_unit').append($("<option></option>").attr("value","").text("PLEASE SELECT A UNIT"));
+                    $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
@@ -217,7 +217,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#standard1_department_id').find('option').remove().end()
-                    $('#standard1_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT A DEPARTMENT"));
+                    $('#standard1_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
 
@@ -246,7 +246,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#unit_department_id').find('option').remove().end()
-                    $('#unit_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT A DEPARTMENT"));
+                    $('#unit_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#unit_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -269,7 +269,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transfer_username').find('option').remove().end()
-                    $('#transfer_username').append($("<option></option>").attr("value","").text("PLEASE SELECT USERS"));
+                    $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transfer_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -298,7 +298,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#from_department_id').find('option').remove().end()
-                    $('#from_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+                    $('#from_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#from_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -317,7 +317,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#to_department_id').find('option').remove().end()
-                    $('#to_department_id').append($("<option></option>").attr("value","").text("PLEASE SELECT DEPARTMENT"));
+                    $('#to_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#to_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));

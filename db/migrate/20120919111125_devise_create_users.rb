@@ -41,6 +41,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.boolean :deleted, :default => false
       t.column :activation_code, :string, :limit => 40
       t.column :activated_at, :datetime
+      t.boolean :widget_one
+      t.boolean :widget_two
       # t.encryptable
       # t.confirmable
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both

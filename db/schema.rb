@@ -153,6 +153,8 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
     t.boolean  "deleted",                                              :default => false
     t.string   "activation_code",                       :limit => 40
     t.datetime "activated_at"
+    t.boolean  "widget_one"
+    t.boolean  "widget_two"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
