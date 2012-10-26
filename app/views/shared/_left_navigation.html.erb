@@ -11,7 +11,11 @@
           <%else%>
             <%=image_tag "img_event3.jpg", :alt=>"Image", :width=>"120", :height=>"120"%>
           <%end%>
+          <%if current_user.profile_status%>
           <p>Private</p>
+          <%else%>
+          <p>Public</p>
+          <%end%>
         </div>
         <ul>
           <li><a href="javascript:void(0);" title="Daily Updates" class="selected"><%=image_tag "icn_news.png" , :width=>"16", :height=>"16", :alt=>"Daily Updates"%>Daily Updates</a></li>

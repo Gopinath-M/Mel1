@@ -141,5 +141,13 @@ class UsersController < ApplicationController
       redirect_to :action=>"user_activation"
     end
   end
+def account_setting
+    @user = User.find(current_user.id)
+  end
 
+  def update_account_setting
+    user = User.find_by_id(params[:user_id])
+    user.update_attributes(:profile_status => params[:user][:profile_status], :widget_one => params[:user][:widget_one], :widget_two => params[:user][:widget_two])
+    redirect_to(users_path, :notice => "Your Account Settings Updated successfully")
+  end
 end

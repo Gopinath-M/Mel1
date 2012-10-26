@@ -25,9 +25,9 @@
             <li class="drop-arrow"><a href="javascript:void(0);" title="Click Here"><span></span></a>
               <ul>
                 <li>
-                  <%=link_to "My Profile", edit_user_registration_path(:id=>current_user.id)%>
+                  <%= link_to "Account Settings", account_setting_users_path %>
                 </li>
-                <li> <%= link_to "Account Settings" %></li>
+                <li> <%=link_to "My Profile", edit_user_registration_path(:id=>current_user.id)%></li>
                 <% if user_signed_in? %>
                   <li><%= link_to('Logout', destroy_user_session_path, :method => :get) %></li>
                 <%end%>
@@ -59,7 +59,7 @@
             <table cellpadding="0"  cellspacing="0">
               <tr>
                 <td>
-                  <%=link_to user_title, "javascript:void(0);",:title=>user_title, :class=>"profName"%><br /><font color="#FFFFFF">Welcome <%=current_user.first_name%>,</font>
+                  <%=link_to user_title, "javascript:void(0);",:title=>user_title, :class=>"profName"%><br /><font color="#FFFFFF">Welcome <%=current_user.username%>,</font>
                 </td>
               </tr>
             </table>
