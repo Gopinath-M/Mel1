@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+   #this will work if the user belongs to one department. We need to do for multiple departments #manivannan
+  def current_department  
+    @current_department ||= current_user.departments.first
+  end
   
   #Get count for unactivated dept admin accounts
   def activate_admin_users_count

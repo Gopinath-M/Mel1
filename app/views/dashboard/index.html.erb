@@ -16,7 +16,7 @@
   <div id="tabs">
     <ul>  
       <%if current_user && (current_user.is_super_admin? || current_user.is_department_admin?)%>
-        <li><a href="#tabs-1"><%=current_user.is_department_admin? ? "Admin Activation" : "User Activation"%> </a></li>
+        <li><a href="#tabs-1"><%=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li>
         <li><a href="#tabs-2">User Transfer Request</a></li>
         <li><a href="#tabs-3">Resource Booking</a></li>
       <%else%>
