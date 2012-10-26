@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :avatar_cache, :remove_avatar, :role_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :avatar_cache, :remove_avatar, :role_id, :widget_one, :widget_two
   has_many :role_memberships
   has_many :roles, :through => :role_memberships
   has_many :departments, :through => :role_memberships
@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   validates_integrity_of :avatar
   validates_processing_of :avatar
   #before_save :update_avatar_attributes
-  validates_uniqueness_of :ic_number
+  #validates_uniqueness_of :ic_number
   #  def self.find_for_database_authentication(conditions={})
   #    self.where("ic_number = ?", conditions[:ic_number]).limit(1).first || self.where("email = ?", conditions[:ic_number]).limit(1).first
   #  end

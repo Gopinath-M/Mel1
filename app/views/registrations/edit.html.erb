@@ -81,7 +81,14 @@
           <%= f.label :remove_avatar %>
         </span>
       </div>
-
+      <div class="form-sec-row">
+<%= f.check_box :widget_one %>
+          <%= f.label :widget_one, raw('Weather Widget') %>
+      </div>
+        <div class="form-sec-row">
+<%= f.check_box :widget_two %>
+          <%= f.label :widget_two, raw('Prayer Widget') %>
+      </div>
       <div class="form-sec-row">
         <%= f.label :current_password, :class=>"text"%>
         <span class="in-box">
