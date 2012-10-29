@@ -11,6 +11,8 @@ class RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     build_resource
+    ic_number = params[:num1] + params[:num2] + params[:num3] # to get ic number as 3 parts
+    resource.ic_number = ic_number
     if resource.save
       resource.role_memberships.create(:role_id=> params[:users][:role], :department_id=>params[:users][:department],:status=>STATUS_INACTIVE)
       if resource.active_for_authentication?
