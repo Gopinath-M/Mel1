@@ -22,7 +22,7 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text">Display Name<span style=color:red>*</span></label>
+          <label class="text">Display Name</label>
           <span class="in-box">
             <%= f.text_field :username, :size => 30, :autofocus => true , :type=>"text"%>
             <i>(This name will be used through out the site)</i>
@@ -38,8 +38,10 @@
         <div class="form-sec-row">
           <label class="text">IC Number<span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.text_field :ic_number, :size => 30, :autofocus => true, :type=>"text"%>
-            <i>(eg.,123456-78-1234)</i>
+           <input class="icnumber" type="number"  maxlength="6" size="6" name="num1">&nbsp;-
+           <input class="icnumber1" type="number"  maxlength="2" size="2" name="num2">&nbsp;-
+           <input class="icnumber2" type="number"  maxlength="4" size="4" name="num3">
+          
           </span>
         </div>
         <div class="form-sec-row">
