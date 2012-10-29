@@ -18,9 +18,13 @@ class User < ActiveRecord::Base
   #Validation For SignUp,Create user, Page Starts Here
   #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}
   mount_uploader :avatar, ProfileImageUploader  
-  # validates_presence_of :avatar
+  validates_presence_of :ic_number
   validates_integrity_of :avatar
   validates_processing_of :avatar
+  validates :ic_number, :length => { :is => 12 }
+  validates_numericality_of :ic_number
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_presence_of :state
   #before_save :update_avatar_attributes
   #validates_uniqueness_of :ic_number
   #  def self.find_for_database_authentication(conditions={})

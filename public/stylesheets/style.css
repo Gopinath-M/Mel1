@@ -338,4 +338,7 @@ label.file input[type="file"]{-moz-opacity:0; -webkit-opacity:0;opacity:0; filte
 
 /*Developer Styles*/
 .lnk_blue{color:#0172C4;}
+.icnumber{ width:17%; padding:5px; border:1px solid #96a6c5} /*for ic number 3 parts */
+.icnumber1{ width:6%; padding:5px; border:1px solid #96a6c5} /*for ic number 3 parts */
+.icnumber2{ width:12%; padding:5px; border:1px solid #96a6c5} /*for ic number 3 parts */
 /*.login-ban .footer-land .forgot-row_lab{ text-align:left; float:left; margin:10px 0 0 10px; font-size: 11px; color:#ffe}*/
