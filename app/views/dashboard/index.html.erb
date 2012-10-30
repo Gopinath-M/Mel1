@@ -1,15 +1,15 @@
 <div class="CenterNav">
   <br /><br />
-  <%if !current_user.is_super_admin?%>
-    <%@department=current_user.departments.collect(&:id)%>
-    <%if @department.length!=1%>
-      <div class="create-user">Change Department :
-        <div class="cu-c4">
-          <%=select "dashboard", "user_department", options_for_select(current_user.departments.collect{|p|[p.name,p.id]},current_user.departments.first.id )%>
-        </div>
-      </div>
-    <%end%>
-  <%end%>
+  <%#if !current_user.is_super_admin?%>
+    <%#@department=current_user.departments.collect(&:id)%>
+    <%#if @department.length!=1%>
+      <%#*<div class="create-user">Change Department :%>
+        <%#*<div class="cu-c4">%>
+          <%#=select "dashboard", "user_department", options_for_select(current_user.departments.collect{|p|[p.name,p.id]},current_user.departments.first.id )%>
+        <%#*</div>%>
+      <%#*</div>%>
+    <%#end%>
+  <%#end%>
   <h3 class="b-head">Today's News</h3><marquee behavior="scroll" direction="left">     Melaka State adopts Red Hat’s virtualization and Linux operating system; security, reliability and cost key factors in win
     Opens Center of Excellence in a bid to train more open source professionals, boosting skill sets for future
   </marquee><br /><br /><br /><br /><h3 class="b-head">Dashboard</h3>
