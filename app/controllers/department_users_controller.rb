@@ -14,7 +14,7 @@ class DepartmentUsersController < ApplicationController
     @user.save
     @user.activate_user
     if @user.valid?
-      @user.role_memberships.create(:status=>STATUS_ACTIVE)
+      @user.role_memberships.create(:role_id=> params[:role], :department_id=>params[:users][:department],:status=>STATUS_ACTIVE)
       UserMailer.welcomemail_department_user(@user,password_token).deliver
       redirect_to(users_path, :notice => 'User was added successfully.')
     else
