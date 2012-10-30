@@ -65,6 +65,9 @@
     <%if  current_user && !current_user.blank? %>
       <%=render :partial=>'shared/right_navigation'%>
       <%=render :partial=>'shared/left_navigation'%>
+     <%if flash[:alert]%>
+      <div class="error"><%= flash[:alert]%></div>
+      <%end%>
       <% if notice %>
         <div class="success"><%= flash[:notice] %></div>
       <%end%>
