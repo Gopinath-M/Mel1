@@ -3,12 +3,15 @@ class ApplicationController < ActionController::Base
 
   def home
     if user_signed_in?
-      redirect_to dashboard_index_path
+     if !current_user.is_super_admin? && current_user.sign_in_count == 1
+       redirect_to :controller => "registrations", :action => "privacy_setting"
+      else
+        redirect_to :controller => "dashboard", :action => "index"
+      end
     else
       redirect_to new_user_session_path
     end
   end
-
   #this will work if the user belongs to one department. We need to do for multiple departments #manivannan
   def current_department  
     @current_department ||= current_user.departments.first
