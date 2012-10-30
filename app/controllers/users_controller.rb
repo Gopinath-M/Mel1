@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.deleted = true
     if @user.save
-      redirect_to(users_path, :notice => 'User deleted successfully.')
+      redirect_to(users_path, :alert => 'User deleted successfully.')
     end
   end
 
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       department = Department.find_by_id(params[:department_id])
       @users = department.users.all
     else
-      @users=User.order.page(params[:page]).per(15)
+      @users=User.all
       @department_id=params[:department_id]
     end
     if request.xhr?
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
       departments = user.departments
       s = Department.find_by_id(params[:to_department][:id])
       if user.departments.include?(s)
-        redirect_to(transfer_users_path, :notice => "You Cant transfer the User to Already exist department")
+        redirect_to(transfer_users_path, :alert => "You Cant transfer the User to Already exist department")
       else
         role = RoleMembership.find_by_user_id(user.id)
         role.update_attribute(:department_id, params[:to_department][:id])
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
         redirect_to(users_path, :notice => "#{user.first_name} has been transfer to #{department.name}.")
       end
     else
-      redirect_to(transfer_users_path, :notice => "Please Select the Drop Box listed")
+      redirect_to(transfer_users_path, :alert => "Please Select the Drop Box listed")
     end
   end
 
@@ -89,7 +89,7 @@ class UsersController < ApplicationController
       departments = user.departments
       s = Department.find_by_id(params[:to_department][:id])
       if user.departments.include?(s)
-        redirect_to(assign_department_users_path, :notice => "You cant Assign the User to Already exist department")
+        redirect_to(assign_department_users_path, :alert => "You cant Assign the User to Already exist department")
       else
         from_user =  User.find_by_ic_number(params[:transfer][:username])
         role = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '3', :status => 'A')
@@ -99,7 +99,7 @@ class UsersController < ApplicationController
         redirect_to(users_path, :notice => "#{user.first_name} has been assigned to #{department.name}. ")
       end
     else
-      redirect_to(assign_department_users_path, :notice => "Please Select the Drop box listed")
+      redirect_to(assign_department_users_path, :alert => "Please Select the Drop box listed")
     end
 
   end
