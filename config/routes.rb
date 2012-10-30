@@ -6,6 +6,7 @@ Melaka::Application.routes.draw do
     get "/login" => "sessions#new", :as => :new_user_session
     post "/login" => "sessions#create", :as => :user_session
     get "/logout"=> "sessions#destroy", :as => :destroy_user_session
+    get "/privacy_setting", :to => "registrations#privacy_setting", :as=> :privacy_setting_registrations
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
   resources :departments do
