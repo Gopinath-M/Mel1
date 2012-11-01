@@ -158,6 +158,18 @@ $().ready(function(){
         }
         $('#div_unit').toggle("fast");
     });
+     $("#lnk_resources").live('click',function(){
+        if ($("#lnk_resources").hasClass("selected"))
+        {
+            $("#lnk_resources").removeClass("selected")
+        }
+        else
+        {
+            $("#lnk_resources").addClass("selected")
+        }
+        $('#div_resources').toggle("fast");
+    });
+
     /* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/
     
     /*Update Department based on agency*/
@@ -415,6 +427,15 @@ $("#transfer_username").live("change",function(){
             agency_id: $("#agency_list_depart").val()
         }, function(data){
             $("#department_id").val($("#agency_list_depart").val())
+            $("#div_ajax").html(data)
+        });
+    })
+
+     $("#admin_user_department_id").live("change",function(){
+        $.get("/users/admin",{
+            department_id: $("#admin_user_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#admin_user_department_id").val())
             $("#div_ajax").html(data)
         });
     })
