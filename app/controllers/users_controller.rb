@@ -30,11 +30,12 @@ class UsersController < ApplicationController
   #List all Users
   def index
     @users=nil
-    if !params[:department_id].nil?
+    department_id = params[:department_id].to_i
+    if department_id != 0
       department = Department.find_by_id(params[:department_id])
-      @users = department.users.all
+      @users = department.users.page(params[:page]).per(10)
     else
-      @users=User.all
+      @users=User.page(params[:page]).per(10)
       @department_id=params[:department_id]
     end
     if request.xhr?
