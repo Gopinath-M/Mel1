@@ -40,6 +40,7 @@ Melaka::Application.routes.draw do
       get 'get_dept_for_users' #transfer dept to get users for selected dept
       get 'account_setting'
       put 'update_account_setting'
+      get 'admin'
     end
   end
   resources :department_users do
@@ -61,6 +62,16 @@ Melaka::Application.routes.draw do
     collection do
       post 'update_status'
     end
+  end
+  resources :resource_categories  do
+  collection do
+     post 'update_status'
+  end
+  end
+  resources :resource_sub_categories do
+  collection do
+     post 'update_status'
+  end
   end
   #Error routes
   get '/not_authorized' => 'errors#not_authorized', :as => 'not_authorized'   
