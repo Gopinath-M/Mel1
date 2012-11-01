@@ -2,6 +2,9 @@ require 'securerandom'
 class DepartmentUsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:get_departments,:get_units]
   def new
+    if params[:admin]
+      @admin = params[:admin]
+    end
     @user=User.new
   end
 
