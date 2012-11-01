@@ -102,10 +102,10 @@
                 <div id ="div_admin" style="display:none;">
                   <ul>
                     <li>
-                      <%=link_to "Create New", new_department_user_path%>
+                      <%=link_to "Create New", new_department_user_path(:admin=>'admin')%>
                     </li>
                     <li>
-                      <%=link_to "List", users_path%>
+                      <%=link_to "List", admin_users_path(:admin=>'admin')%>
                     </li>
                   </ul>
                 </div>
@@ -134,7 +134,25 @@
                 </div>
               </li>
               <li><a href="javascript:void(0);" title="Vendors">Vendors</a></li>
-              <li><a href="javascript:void(0);" title="Resources">Resources</a></li>
+              <li>
+                <%=link_to "Resources", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_resources"%>
+                <div id ="div_resources" style="display:none;">
+                  <ul>
+                    <li>
+                      <%=link_to "Create New Category", new_resource_category_path%>
+                    </li>
+                    <li>
+                      <%=link_to "List Category", resource_categories_path%>
+                    </li>
+                    <li>
+                      <%=link_to "Create Sub Category", new_resource_sub_category_path%>
+                    </li>
+                    <li>
+                      <%=link_to "List Sub Category", resource_sub_categories_path%>
+                    </li>
+                  </ul>
+                </div>
+              </li>
               <li>
                 <%=link_to "Content Management", "javascript:void(0);" , :title=>"Content Managemnt" ,:class=>"", :id=>"lnk_cms"%>
                 <div id ="div_cms" style="display:none;">
