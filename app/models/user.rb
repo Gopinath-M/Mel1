@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
   def activate_user
     self.activated_at = Time.now.utc
     self.activation_code = nil
+    self.status = 'Active'  # By default new user will get active on create user page
     self.save
   end
 
