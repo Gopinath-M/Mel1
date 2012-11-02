@@ -1,0 +1,38 @@
+<%= form_for(@resource) do |f| %>
+  <%=f.error_messages%>
+  <div class="clearfix">&nbsp;</div>
+  <div class="form-sec">
+   
+     
+       <div class="form-sec-row">
+          <label class="text">Select Category Name</label>
+      <span class="in-box">
+         <%if @resource && @resource.name != ""%>
+      <%category_name = ResourceCategory.find(@resource.resource_category_id)%>
+      <%=category_name.name%>
+      <%else%>
+            <%= select("resource_sub_category","resource_category_id",  ResourceCategory.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A CATEGORY") %>
+        <%end%>
+      </span>
+       </div>
+       <div class="form-sec-row">
+          <label class="text">Sub Category Name</label>
+      <span class="in-box">
+        <%= f.text_field :name%>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Is Active</label>
+      <span class="in-box">
+        <%= f.check_box :is_active%>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+        <%= f.submit :class=>"btn2"%>
+      </span>
+    </div>
+  </div>
+
+<%end%>
