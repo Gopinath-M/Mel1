@@ -7,10 +7,31 @@
         <%=link_to image_tag("../images/add_user.jpg", :width=>"17", :height=>"17", :title=>"Create New User")+"Create New User", new_department_user_path %>
       </div>
       <%=hidden_field_tag :department_id, ""%>
-      <div class="cu-c2">Select Department:
-        <%= select(:standard4,:department_id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "SELECT A DEPARTMENT") %>
-      </div>
+  <%#*<div class="cu-c2">Select Department:%>
+  <%#= select(:standard4,:department_id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "SELECT A DEPARTMENT") %>
+  <%#*</div>%>
     </div>
+<%if current_user.is_super_admin? %>
+    <div class="form-sec-row">
+      <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+      <span class="in-box">
+        <%= select(:transfer,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"SELECT AN AGENCY") %>
+      </span>
+    </div>
+    <%end%>
+    <div class="form-sec-row">
+      <%= label_tag :department_id, raw("Department"), :class=>"text"%>
+      <span class="in-box">
+        <%if current_user.is_super_admin? %>
+          <%= select(:standard4,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+        <%else%>
+          <%= select(:standard4,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+    <%#= current_user.departments.collect(&:name)  %>
+        <%end%>
+      </span>
+    </div>
+
+
     <div class="manage-user box">
     <%end%>
     <div id="div_ajax">
