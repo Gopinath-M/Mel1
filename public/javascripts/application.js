@@ -201,20 +201,25 @@ $().ready(function(){
         }
     });
     /*Update Unit based on  Department*/
-    $("#users_department").live("change", function(){
+     $("#users_department").live("change", function(){
         if($("#users_department").val()!="")
         {
             $.get("/department_users/get_units",{
                 department_id : $("#users_department").val()
             }, function(data){
-                if (data[0]!=null)
+                if (data[0]!="")
                 {
+                    $("#unit_display").show();
                     $('#users_unit').find('option').remove().end()
                     $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
                     }
+                }
+                else
+                {
+                    $("#unit_display").hide();
                 }
             })
         }
@@ -459,5 +464,99 @@ $("#transfer_username").live("change",function(){
         }
     });
 /* User List based on Depart & Agency Ends */
+/* For create user form validation */
+    $("#sub_user_link").live("click",function(){
+        if ($("#user_first_name").val() == ""){
+            alert("Please Enter First Name");
+            return false;
+        }
+        else if ($("#user_last_name").val() == ""){
+            alert("Please Enter Last Name");
+            return false;
+        }
+        else if ($("#user_email").val() == ""){
+            alert("Please Enter Email");
+            return false;
+        }
+        else if ($("#num1").val() == ""){
+            alert("Enter Ic Number in Box1");
+            return false;
+        }
+        else if ($("#num1").val().length != "6"){
+            alert("Enter 6 digits in box1");
+            return false;
+        }
+        else if ($("#num2").val() == ""){
+            alert("Enter Ic Number in Box2");
+            return false;
+        }
+        else if ($("#num2").val().length != "2"){
+            alert("Enter 2 digits in box2");
+            return false;
+        }
+        else if ($("#num3").val() == ""){
+            alert("Enter Ic Number in Box3");
+            return false;
+        }
+        else if ($("#num3").val().length != "4"){
+            alert("Enter 4 digits in box3");
+            return false;
+        }
+        else if ($("#user_username").val() == ""){
+            alert("Please Enter Display Name");
+            return false;
+        }
+        else if ($("#user_state").val() == ""){
+            alert("Please Enter State");
+            return false;
+        }
+        else if ($("#role_id").val() == ""){
+            alert("Please Choose Role Value");
+            return false;
+        }
+        else if ($("#users_agency").val() == ""){
+            alert("Please Choose Agency Value" );
+            return false;
+        }
+        else if ($("#users_department").val() == ""){
+            alert("Please Choose Department Name");
+            return false;
+        }
 
+//        if ($("#users_unit").val() == true){
+//            if ($("#users_unit").val() == ""){
+//                alert("Please Choose Unit Name");
+//                return false;
+//            }
+//        }
+    });
+    /*user validation ends */
 })
+
+/*Javascripts Starts*/
+
+/*Number Validation*/
+function isNumberKey(evt)   {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if ((charCode >= 48 &&  charCode <= 57) ||  charCode == 8  || charCode==9 || charCode==46)
+        return true;
+    return false;
+}
+
+/*Auto tab functionality in create user*/
+function autoTab(e, element, nextElement)
+{
+    var code;
+    if (!e) var e = window.event;
+    if (e.which) code = e.which;
+    else if (e.keyCode) code = e.keyCode;
+    if ((code > 47 && code < 91) || (code > 95 && code < 105))
+    {
+        if (element.value.length == element.maxLength && nextElement != null)
+        {
+            nextElement.focus();
+        }
+    }
+}
+
+/*Javascripts Ends*/
