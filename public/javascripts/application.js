@@ -439,4 +439,25 @@ $("#transfer_username").live("change",function(){
             $("#div_ajax").html(data)
         });
     })
+    /* User List based on Depart & Agency Starts */
+    $("#transfer_agency").live("change", function(){
+        if($("#transfer_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#transfer_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#standard4_department_id').find('option').remove().end()
+                    $('#standard4_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#standard4_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+    });
+/* User List based on Depart & Agency Ends */
+
 })
