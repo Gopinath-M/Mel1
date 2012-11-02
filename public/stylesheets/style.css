@@ -341,4 +341,5 @@ label.file input[type="file"]{-moz-opacity:0; -webkit-opacity:0;opacity:0; filte
 .icnumber{ width:10%; padding:5px; border:1px solid #96a6c5} /*for ic number 3 parts */
 .icnumber1{ width:4%; padding:5px; border:1px solid #96a6c5} /*for ic number 3 parts */
 .icnumber2{ width:7%; padding:5px; border:1px solid #96a6c5} /*for ic number 3 parts */
+h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-bottom:15px; font-size:15px; display:block;}
 /*.login-ban .footer-land .forgot-row_lab{ text-align:left; float:left; margin:10px 0 0 10px; font-size: 11px; color:#ffe}*/
