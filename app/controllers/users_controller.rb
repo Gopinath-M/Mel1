@@ -28,15 +28,27 @@ class UsersController < ApplicationController
   end
 
   #List all Users
-  def index
+   def index
     @users=nil
+    if !current_user.is_super_admin?
+       department_id = params[:department_id].to_i
+    if department_id != 0
+      department = Department.find_by_id(params[:department_id])
+      @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+    else
+
+     @users=User.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+    end
+    else
+
     department_id = params[:department_id].to_i
     if department_id != 0
       department = Department.find_by_id(params[:department_id])
-      @users = department.users.joins(:roles).where("roles.name ='Department User'").page(params[:page]).per(10)
+      @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
     else
-      @users=User.joins(:roles).where("roles.name ='Department User'").page(params[:page]).per(10)
+      @users=User.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
       @department_id=params[:department_id]
+    end
     end
     if request.xhr?
       render :layout=>false
@@ -155,9 +167,9 @@ def account_setting
      department_id = params[:department_id].to_i
     if department_id != 0
       department = Department.find_by_id(params[:department_id])
-      @users = department.users.joins(:roles).where("roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10)
+      @users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10)
     else
-      @users = User.joins(:roles).where("roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10)
+      @users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10)
       @department_id=params[:department_id]
     end
     if request.xhr?
