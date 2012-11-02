@@ -70,7 +70,7 @@
           <%if @admin%>
         <%= select("role", "id", Role.where("name != 'Super Admin' && name != 'Department User'").collect {|role| [role.name, role.id]},:prompt=>"SELECT A ROLE") %>
           <%else%>
-          <%= select("role", "id", Role.where("name != 'Super Admin'").collect {|role| [role.name, role.id]},:prompt=>"SELECT A ROLE") %>
+          <%= select("role", "id", Role.where("name != 'Super Admin' && name != 'Department Admin'").collect {|role| [role.name, role.id]},:prompt=>"SELECT A ROLE") %>
           <%end%>
         </span>
       </div>
@@ -96,20 +96,20 @@
         <div class="form-sec-row">
         <%= label_tag :role_id, raw("Role"), :class=>"text" %>
         <span class="in-box">       
-          <%= "Department Admin" %>
+           <%= select("role", "id", Role.where("name != 'Super Admin' && name != 'Department Admin'").collect {|role| [role.name, role.id]},:prompt=>"SELECT A ROLE") %>
         </span>
       </div>
       <div class="form-sec-row">
         <%= label_tag "users_agency", raw("Agency"), :class=>"text" %>
         <span class="in-box">         
           <%agency = Agency.find(current_department.agency_id) %>
-          <%= agency.name %>
+          <%= select("users","agency_user",  Agency.find_all_by_id(current_department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
         </span>
       </div>
       <div class="form-sec-row">
         <%= label_tag "users_department", raw("Department"), :class=>"text"%>
-        <span class="in-box">          
-        <%= current_department.name %>
+        <span class="in-box">
+          <%= select("users","department", current_user.departments.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
         </span>
       </div>
       <div class="form-sec-row">
