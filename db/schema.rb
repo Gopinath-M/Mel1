@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019105325) do
+ActiveRecord::Schema.define(:version => 20121031044942) do
 
   create_table "agencies", :force => true do |t|
     t.string   "name"
@@ -50,6 +50,23 @@ ActiveRecord::Schema.define(:version => 20121019105325) do
     t.boolean  "deleted",    :default => false
     t.integer  "created_by"
     t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resource_categories", :force => true do |t|
+    t.string   "name"
+    t.boolean  "is_active"
+    t.boolean  "deleted",    :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resource_sub_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "resource_category_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted",              :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
