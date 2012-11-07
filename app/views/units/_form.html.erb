@@ -3,7 +3,7 @@
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
     <label for="" class="ui-watermark-label" style="left: 6px; top: 6px;"></label>
-   <%if @unit.name%>
+   <%if @unit.department_id != nil%>
      <div class="form-sec-row">
           <%department_name = Department.find_by_id(@unit.department_id)%>
           <%agency_name = Agency.find(department_name.agency_id)%>
