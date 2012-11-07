@@ -2,19 +2,23 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $().ready(function(){
-    var date = new Date(); // today
-    //var times = prayTime.getPrayerTimes(date, 43, -80, -5);
-    var times = prayTime.getPrayerTimes(date, 2.20568, 102.25616, +8);
-    var str = '<table id="timetable">';
-    str += '<tr><th colspan="2">'+ date.toLocaleDateString()+ '</th></tr>';
-    for(var i = 0; i < times.length; i++)
+    if ($("#pr-time"))
     {
-        str += '<tr><td>'+ prayTime.timeNames[i]+ '</td>';
-        str += '<td>'+ times[i]+ '</td></tr>';
+        var date = new Date(); // today
+
+        //var times = prayTime.getPrayerTimes(date, 43, -80, -5);
+        var times = prayTime.getPrayerTimes(date, 2.20568, 102.25616, +8);
+        //var times = prayTime.getPrayerTimes(date, 13.04, 80.17, +5.30);
+        var str = '<table id="timetable">';
+        str += '<tr><th colspan="2">'+ date.toLocaleDateString()+ '</th></tr>';
+        for(var i = 0; i < times.length; i++)
+        {
+            str += '<tr><td>'+ prayTime.timeNames[i]+ '</td>';
+            str += '<td>'+ times[i]+ '</td></tr>';
+        }
+        str += '</table>';
+        $('#pr-time').html(str);
     }
-    str += '</table>';
-    document.getElementById('pr-time').innerHTML = str;
-            
     $(function() {
         if ($("#tabs").length==1)
         {
