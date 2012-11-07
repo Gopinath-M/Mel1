@@ -15,12 +15,19 @@ class DepartmentUsersController < ApplicationController
     @user.ic_number = params[:num1] + params[:num2] + params[:num3]  # to get ic number as 3 parts
     @user.save
     @user.activate_user
+    if params[:user_role]=="admin"
+      @admin='admin'
+    end
     if @user.valid?
-      @user.role_memberships.create(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:status=>STATUS_ACTIVE)
+      @user.role_memberships.create(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
       UserMailer.welcomemail_department_user(@user,password_token).deliver
-      redirect_to(users_path, :notice => 'User was added successfully.')
+      if @user.roles.first.name==DISP_USER_ROLE_DEPT_ADMIN
+        redirect_to(admin_users_path, :notice => 'Department Admin was added successfully.')
+      else
+        redirect_to(users_path, :notice => 'User was added successfully.')
+      end
     else
-      render :action=>'new'
+      render :action=>'new',:admin=>'admin'
     end
   end
 
