@@ -2,6 +2,7 @@
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
+      <%= hidden_field_tag  :created_by, (current_user.id)%>
     <div class="form-sec-row">
       <label class="text">Category Name</label>
       <span class="in-box">
@@ -17,7 +18,7 @@
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :class=>"btn2"%>
+        <%= f.submit :value=>'Save',:class=>"btn2"%>
       </span>
     </div>
   </div>
