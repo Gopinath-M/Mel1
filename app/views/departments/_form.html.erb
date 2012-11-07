@@ -4,7 +4,7 @@
   <div class="form-sec-row">
     <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
     <span class="in-box">
-      <%if @department.name%>
+      <%if @department.agency_id%>
       <%agency_name = Agency.find(@department.agency_id)%>
       <%=agency_name.name%>
       <%else%>
