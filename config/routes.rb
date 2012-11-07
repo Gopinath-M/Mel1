@@ -56,6 +56,16 @@ Melaka::Application.routes.draw do
       get 'get_units_for_transfer'
     end
   end
+  resources :messages do
+    collection do
+      get 'autocomplete_user_icnumber'
+      get 'get_agencies'
+      get 'get_departments'
+      get 'get_department_admin'
+      get 'post_messages'
+      get 'post_comments'
+    end
+  end
   resources :cms_pages
   resources :agencies do
     collection do
