@@ -4,6 +4,7 @@ class CreateResourceCategory < ActiveRecord::Migration
       t.string :name
       t.boolean :is_active
       t.boolean :deleted, :default => false
+      t.integer :created_by
       t.timestamps
     end
   end
