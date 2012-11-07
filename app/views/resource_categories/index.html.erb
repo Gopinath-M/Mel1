@@ -4,11 +4,12 @@
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
       <div class="cu-c1"><a href="/resource_categories/new" title="Create Category"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Category</a></div>
-
+      
     </div>
   <%end%>
-  <div id="div_ajax" >
-    <%if @resources && !@resources.empty?%>
+
+    <div id="div_ajax" >
+      <%if @resources && !@resources.empty?%>
         <%@resources.each do |category|%>
           <div class="manage-user box">
             <div class="manage-user-row box">
@@ -24,15 +25,16 @@
                 <%else%>
                   <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_resource_categories_path(:id=>category.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this category?', :method=>:post, :title=>"Activate"%>
                 <%end%>
-               
+
               </div>
             </div>
             <div class="clear"></div>
           </div>
         <%end%>
-    <%else%>
-      No Resource Categories Available
-    <%end%>
-<%#*<div><%= paginate @units %>
-  </div>
+      <%else%>
+        No Resource Categories Available
+      <%end%>
+  <%#*<div><%= paginate @units %>
+    </div>
+
 </div>

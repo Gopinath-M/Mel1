@@ -3,7 +3,11 @@ class ResourceCategoriesController < ApplicationController
   before_filter :is_admin
   def index
     if params[:id].blank? || params[:id].nil?
-      @resources=ResourceCategory.where(:deleted => false).order.page(params[:page]).per(15)
+     if current_user.is_super_admin?
+        @resources=ResourceCategory.where(:deleted => false).order.page(params[:page]).per(15)
+      else
+        @resources=ResourceCategory.find_all_by_department_id(current_department.id)
+      end
     end
   end
 
@@ -17,6 +21,7 @@ class ResourceCategoriesController < ApplicationController
 
   def create
     @resource = ResourceCategory.create(params[:resource_category])
+    @resource.created_by = params[:created_by]
     @resource.save
     if @resource.valid?
       redirect_to :controller=>'resource_categories', :action=>'index'
@@ -50,5 +55,17 @@ class ResourceCategoriesController < ApplicationController
     if @resource.save
       redirect_to(resource_categories_path, :notice => 'Resource Category has been Deleted.')
     end
+  end
+  def assign_category
+     @resource = ResourceCategory.new
+  end
+  def update_category
+    @resource = DeptCategory.new
+    @resource.created_by = params[:created_by]
+    @resource.department_id = params[:resource_category] [:department_id]
+    @resource.resource_category_id = params[:resource_category][:resource_category_id]
+#    @resource.resource_sub_category_id = params[:resource_sub_category][:resource_sub_category_id]
+    @resource.save
+    redirect_to(resource_categories_path, :notice => 'Resource Category has been sucessfully updated.')
   end
 end

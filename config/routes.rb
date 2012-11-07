@@ -66,6 +66,9 @@ Melaka::Application.routes.draw do
   resources :resource_categories  do
   collection do
      post 'update_status'
+     get 'assign_category'
+     post 'update_category'
+     get 'update_category'
   end
   end
   resources :resource_sub_categories do
@@ -73,6 +76,23 @@ Melaka::Application.routes.draw do
      post 'update_status'
   end
   end
+  resources :vendors do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :resources do
+    collection do
+      get 'get_subcategory'
+      post 'update_status'
+    end
+  end
+  resources :resource_managers do
+    collection do
+    post 'update_status'
+    end
+  end
+  resources :agency_store 
   #Error routes
   get '/not_authorized' => 'errors#not_authorized', :as => 'not_authorized'   
   get '/blocked' => 'errors#blocked', :as => 'blocked'  
