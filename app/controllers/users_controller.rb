@@ -28,28 +28,28 @@ class UsersController < ApplicationController
   end
 
   #List all Users
-   def index
+  def index
     @users=nil
     if !current_user.is_super_admin?
-       department_id = params[:department_id].to_i
-    if department_id != 0
-      department = Department.find_by_id(params[:department_id])
-      @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
-    else
-    default_department ||= current_user.role_memberships.first.default_dept
+      department_id = params[:department_id].to_i
+      if department_id != 0
+        department = Department.find_by_id(params[:department_id])
+        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+      else
+        default_department ||= current_user.role_memberships.first.default_dept
         @dept = Department.find_by_id(default_department)
         @users = @dept.users.where("role_id != 2").page(params[:page]).per(10)
-    end
+      end
     else
 
-    department_id = params[:department_id].to_i
-    if department_id != 0
-      department = Department.find_by_id(params[:department_id])
-      @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
-    else
-      @users=User.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
-      @department_id=params[:department_id]
-    end
+      department_id = params[:department_id].to_i
+      if department_id != 0
+        department = Department.find_by_id(params[:department_id])
+        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+      else
+        @users=User.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+        @department_id=params[:department_id]
+      end
     end
     if request.xhr?
       render :layout=>false
@@ -155,7 +155,8 @@ class UsersController < ApplicationController
       redirect_to :action=>"user_activation"
     end
   end
-def account_setting
+  
+  def account_setting
     @user = User.find(current_user.id)
   end
 
@@ -164,8 +165,9 @@ def account_setting
     user.update_attributes(:profile_status => params[:user][:profile_status], :widget_one => params[:user][:widget_one], :widget_two => params[:user][:widget_two])
     redirect_to(users_path, :notice => "Your Account Settings Updated successfully")
   end
+
   def admin
-     department_id = params[:department_id].to_i
+    department_id = params[:department_id].to_i
     if department_id != 0
       department = Department.find_by_id(params[:department_id])
       @users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10)

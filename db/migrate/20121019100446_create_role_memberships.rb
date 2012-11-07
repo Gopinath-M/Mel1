@@ -1,7 +1,7 @@
 class CreateRoleMemberships < ActiveRecord::Migration
   def self.up
     create_table :role_memberships do |t|
-      t.references :role, :user, :department
+      t.references :role, :user, :department,:unit
       t.string :designation
       t.integer :default_dept, :default => false
       t.string :status
