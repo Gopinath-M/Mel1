@@ -92,7 +92,11 @@ Melaka::Application.routes.draw do
     post 'update_status'
     end
   end
-  resources :agency_store 
+  resources :agency_stores do
+    collection do
+      get 'get_resource'
+    end
+  end
   #Error routes
   get '/not_authorized' => 'errors#not_authorized', :as => 'not_authorized'   
   get '/blocked' => 'errors#blocked', :as => 'blocked'  
