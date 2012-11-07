@@ -2,8 +2,8 @@ class CreateResources < ActiveRecord::Migration
   def self.up
     create_table :resources do |t|
       t.string :name
-      t.references :resource_category
-      t.references :resource_sub_category
+      t.references :category
+      t.references :sub_category
       t.references :vendor
       t.string :status
       t.text :description

@@ -5,13 +5,13 @@
     <div class="form-sec-row">
       <label class="text">Resource Category</label>
       <span class="in-box">
-       <%= select("resource_category","resource_category_id",  ResourceCategory.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A CATEGORY") %>
+       <%= f.select(:category_id,  Category.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A CATEGORY") %>
       </span>
     </div>
       <div class="form-sec-row">
       <label class="text">Resource Sub Category</label>
       <span class="in-box">
-       <%= select("resource_sub_category","resource_category_id",  ResourceSubCategory.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+       <%= f.select(:sub_category_id,  SubCategory.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
       </span>
     </div>
     <div class="form-sec-row">

@@ -63,7 +63,7 @@ Melaka::Application.routes.draw do
       post 'update_status'
     end
   end
-  resources :resource_categories  do
+  resources :categories  do
   collection do
      post 'update_status'
      get 'assign_category'
@@ -71,7 +71,7 @@ Melaka::Application.routes.draw do
      get 'update_category'
   end
   end
-  resources :resource_sub_categories do
+  resources :sub_categories do
   collection do
      post 'update_status'
   end
