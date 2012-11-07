@@ -249,8 +249,20 @@ $().ready(function(){
                     {
 
                         $('#standard1_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
-                    }
+                        }
                 }
+            })
+        }
+        else
+        {
+
+            $('#standard1_department_id').find('option').remove().end()
+            $('#standard1_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $.get("/units/",{
+                department_id: $("#standard1_department_id").val()
+            }, function(data){
+                $("#department_id").val($("#standard1_department_id").val())
+                $("#div_ajax").html(data)
             })
         }
     });
@@ -489,6 +501,17 @@ $().ready(function(){
                 }
             })
         }
+        else
+        {
+            $('#standard4_department_id').find('option').remove().end()
+            $('#standard4_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $.get("/users/",{
+                department_id: $("#standard4_department_id").val()
+            }, function(data){
+                $("#department_id").val($("#standard4_department_id").val())
+                $("#div_ajax").html(data)
+            })
+        }
     });
     /* User List based on Depart & Agency Ends */
     /* For create user form validation */
@@ -581,7 +604,18 @@ $().ready(function(){
             })
         }
     });
-
+    $("#department_submit").live("click",function(){
+        if ($("#department_agency_id").val() == "")
+        {
+            alert("Please select an agency");
+            return false;
+        }
+        else if($("#department_name").val()== "")
+        {
+            alert("Please Enter the Department Name");
+            return false;
+        }
+    });
 })
 
 /*Javascripts Starts*/
