@@ -158,7 +158,7 @@ $().ready(function(){
         }
         $('#div_unit').toggle("fast");
     });
-     $("#lnk_resources").live('click',function(){
+    $("#lnk_resources").live('click',function(){
         if ($("#lnk_resources").hasClass("selected"))
         {
             $("#lnk_resources").removeClass("selected")
@@ -169,7 +169,17 @@ $().ready(function(){
         }
         $('#div_resources').toggle("fast");
     });
-
+    $("#lnk_vendors").live('click',function(){
+        if ($("#lnk_vendors").hasClass("selected"))
+        {
+            $("#lnk_vendors").removeClass("selected")
+        }
+        else
+        {
+            $("#lnk_vendors").addClass("selected")
+        }
+        $('#div_vendors').toggle("fast");
+    });
     /* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/
     
     /*Update Department based on agency*/
@@ -201,7 +211,7 @@ $().ready(function(){
         }
     });
     /*Update Unit based on  Department*/
-     $("#users_department").live("change", function(){
+    $("#users_department").live("change", function(){
         if($("#users_department").val()!="")
         {
             $.get("/department_users/get_units",{
@@ -239,8 +249,20 @@ $().ready(function(){
                     {
 
                         $('#standard1_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
-                    }
+                        }
                 }
+            })
+        }
+        else
+        {
+
+            $('#standard1_department_id').find('option').remove().end()
+            $('#standard1_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $.get("/units/",{
+                department_id: $("#standard1_department_id").val()
+            }, function(data){
+                $("#department_id").val($("#standard1_department_id").val())
+                $("#div_ajax").html(data)
             })
         }
     });
@@ -271,13 +293,18 @@ $().ready(function(){
                 }
             })
         }
+        else{
+            $('#unit_department_id').find('option').remove().end()
+            $('#unit_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+        }
+
     });
 
     /*units Master screen end */
     /* Transfer Department */
     /*Transfer Departmnet Js Starts*/
 
-   $("#from_department_id").live("change",function(){
+    $("#from_department_id").live("change",function(){
         if($("#from_department_id").val()!="")
         {
             $.get("/users/transfer/",{
@@ -323,6 +350,13 @@ $().ready(function(){
                 }
             })
         }
+        else
+        {
+            $('#from_department_id').find('option').remove().end()
+            $('#transfer_username').find('option').remove().end()
+            $('#from_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+        }
     });
 
     $("#transfer_to_agency").live("change", function(){
@@ -342,9 +376,14 @@ $().ready(function(){
                 }
             })
         }
+        else
+        {
+            $('#to_department_id').find('option').remove().end()
+            $('#to_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+        }
     });
 
-$("#transfer_username").live("change",function(){
+    $("#transfer_username").live("change",function(){
         $.get("/users/get_dept_for_users/",{
             ic_number: $("#transfer_username").val()
         }, function(data){
@@ -370,7 +409,7 @@ $("#transfer_username").live("change",function(){
     })
 
 
-/*Transfer Departmnet Js Ends*/
+    /*Transfer Departmnet Js Ends*/
 
 
 
@@ -436,7 +475,7 @@ $("#transfer_username").live("change",function(){
         });
     })
 
-     $("#admin_user_department_id").live("change",function(){
+    $("#admin_user_department_id").live("change",function(){
         $.get("/users/admin",{
             department_id: $("#admin_user_department_id").val()
         }, function(data){
@@ -462,9 +501,20 @@ $("#transfer_username").live("change",function(){
                 }
             })
         }
+        else
+        {
+            $('#standard4_department_id').find('option').remove().end()
+            $('#standard4_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $.get("/users/",{
+                department_id: $("#standard4_department_id").val()
+            }, function(data){
+                $("#department_id").val($("#standard4_department_id").val())
+                $("#div_ajax").html(data)
+            })
+        }
     });
-/* User List based on Depart & Agency Ends */
-/* For create user form validation */
+    /* User List based on Depart & Agency Ends */
+    /* For create user form validation */
     $("#sub_user_link").live("click",function(){
         if ($("#user_first_name").val() == ""){
             alert("Please Enter First Name");
@@ -518,19 +568,54 @@ $("#transfer_username").live("change",function(){
             alert("Please Choose Agency Value" );
             return false;
         }
+        else if ($("#users_agency_id").val() == ""){
+            alert("Please Choose Agency Value" );
+            return false;
+        }
         else if ($("#users_department").val() == ""){
             alert("Please Choose Department Name");
             return false;
         }
 
-//        if ($("#users_unit").val() == true){
-//            if ($("#users_unit").val() == ""){
-//                alert("Please Choose Unit Name");
-//                return false;
-//            }
-//        }
+    //        if ($("#users_unit").val() == true){
+    //            if ($("#users_unit").val() == ""){
+    //                alert("Please Choose Unit Name");
+    //                return false;
+    //            }
+    //        }
     });
     /*user validation ends */
+    /*Department basen on Agency in Resource Booking page*/
+    $("#users_agency").live("change", function(){
+        if($("#users_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#users_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_category_department_id').find('option').remove().end()
+                    $('#resource_category_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_category_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+    });
+    $("#department_submit").live("click",function(){
+        if ($("#department_agency_id").val() == "")
+        {
+            alert("Please select an agency");
+            return false;
+        }
+        else if($("#department_name").val()== "")
+        {
+            alert("Please Enter the Department Name");
+            return false;
+        }
+    });
 })
 
 /*Javascripts Starts*/
