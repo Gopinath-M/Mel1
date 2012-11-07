@@ -1,5 +1,5 @@
 class AgenciesController < ApplicationController
-
+  before_filter :authenticate_user!
   def index
     @agencies=nil
     if params[:id].blank? || params[:id].nil?
