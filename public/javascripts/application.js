@@ -616,6 +616,33 @@ $().ready(function(){
             return false;
         }
     });
+
+
+    $("#resource_category_resource_category_id").live("change", function(){
+        if($("#resource_category_resource_category_id").val()!="")
+        {
+            $.get("/resources/get_subcategory",{
+                agency_id : $("#resource_category_resource_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_sub_category_resource_category_id').find('option').remove().end()
+                    $('#resource_sub_category_resource_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_sub_category_resource_category_id').append($("<option></option>").attr("value",data[0][i].resource_sub_category.id).text(data[0][i].resource_sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_sub_category_resource_category_id').find('option').remove().end()
+            $('#resource_sub_category_resource_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+
+    });
+
+
 })
 
 /*Javascripts Starts*/
