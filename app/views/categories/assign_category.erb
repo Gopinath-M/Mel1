@@ -1,12 +1,12 @@
-<%= form_for(@resource, :as => :user,  :url => update_category_resource_categories_path(:id => @department_id), :method=>:post) do |f| %>
+<%= form_for(@category, :as => :user,  :url => update_category_resource_categories_path(:id => @department_id), :method=>:post) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div> 
   <h2 class="b-head"> Resource Category Mapping</h2>
   <div class="form-sec">
       <%= hidden_field_tag  :created_by, (current_user.id)%>
-    <%if @resource.name%>
+    <%if @category.name%>
       <div class="form-sec-row">
-        <%department_name = Department.find_by_id(@resource.department_id)%>
+        <%department_name = Department.find_by_id(@category.department_id)%>
         <%agency_name = Agency.find(department_name.agency_id)%>
         <label class="text">Agency Name</label>
         <span class="in-box">

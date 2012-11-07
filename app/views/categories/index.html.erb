@@ -9,8 +9,8 @@
   <%end%>
 
     <div id="div_ajax" >
-      <%if @resources && !@resources.empty?%>
-        <%@resources.each do |category|%>
+      <%if @categories && !@categories.empty?%>
+        <%@categories.each do |category|%>
           <div class="manage-user box">
             <div class="manage-user-row box">
               <div class="mu-c1">
@@ -21,9 +21,9 @@
               <div class="mu-c3">
                 <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>category.id.to_i%>
                 <%if category.is_active %>
-                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_resource_categories_path(:id=>category.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this category?', :method=>:post, :title=>"Deactive" %>
+                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_categories_path(:id=>category.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this category?', :method=>:post, :title=>"Deactive" %>
                 <%else%>
-                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_resource_categories_path(:id=>category.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this category?', :method=>:post, :title=>"Activate"%>
+                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_categories_path(:id=>category.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this category?', :method=>:post, :title=>"Activate"%>
                 <%end%>
 
               </div>
@@ -32,7 +32,7 @@
           </div>
         <%end%>
       <%else%>
-        No Resource Categories Available
+        No Categories Available
       <%end%>
   <%#*<div><%= paginate @units %>
     </div>

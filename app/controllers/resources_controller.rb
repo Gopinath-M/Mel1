@@ -4,7 +4,7 @@ class ResourcesController < ApplicationController
   def index
     if params[:id].blank? || params[:id].nil?
      if current_user.is_super_admin?
-        @resources=Resource.order.page(params[:page]).per(15)
+        @resources=Resource.order.page(params[:page]).per(10)
       else
         @resources=Resource.find_all_by_department_id(current_department.id)
       end
