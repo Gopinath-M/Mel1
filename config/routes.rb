@@ -33,6 +33,10 @@ Melaka::Application.routes.draw do
       get 'transfer'
       post 'update_transfer'
       get 'assign_department'
+      get 'transfer_unit'
+      post 'transfer_update_unit'
+      get 'assign_unit'
+      post 'assign_update_unit'
       get 'admin_activation'
       get 'user_activation'
       post 'activate_department_admin'
@@ -49,6 +53,7 @@ Melaka::Application.routes.draw do
       get 'get_departments'
       get 'get_units'
       get 'get_departments_for_user'
+      get 'get_units_for_transfer'
     end
   end
   resources :cms_pages

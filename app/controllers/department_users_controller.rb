@@ -74,6 +74,11 @@ class DepartmentUsersController < ApplicationController
     units=params[:department_id] ? Unit.active.where("department_id =?",params[:department_id]) : nil
     render :json=>[units] if units
   end
+
+  def get_units_for_transfer
+    units = params[:department_id] ? Unit.active.where("department_id =?",params[:department_id]) : nil
+    render :json=>[units] if units
+  end
   
   private
   def password_friendly_token
