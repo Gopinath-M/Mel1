@@ -102,10 +102,10 @@
                 <div id ="div_admin" style="display:none;">
                   <ul>
                     <li>
-                      <%=link_to "Create New", new_department_user_path%>
+                      <%=link_to "Create New", new_department_user_path(:admin=>'admin')%>
                     </li>
                     <li>
-                      <%=link_to "List", users_path%>
+                      <%=link_to "List", admin_users_path(:admin=>'admin')%>
                     </li>
                   </ul>
                 </div>
@@ -129,12 +129,50 @@
                       <li>
                         <%=link_to "Assign Department", assign_department_users_path , :title=>"Assign Department" ,:class=>""%>
                       </li>
+                      <li>
+                        <%=link_to "Transfer Unit", transfer_unit_users_path , :title=>"Transfer Unit" ,:class=>""%>
+                      </li>
+                      <li>
+                        <%=link_to "Assign Unit", assign_unit_users_path , :title=>"Assign Unit" ,:class=>""%>
+                      </li>
                     <%end%>
                   </ul>
                 </div>
               </li>
-              <li><a href="javascript:void(0);" title="Vendors">Vendors</a></li>
-              <li><a href="javascript:void(0);" title="Resources">Resources</a></li>
+              <li> <%=link_to "Vendors", "javascript:void(0);" , :title=>"Vendors" ,:class=>"", :id=>"lnk_vendors"%>
+                <div id ="div_vendors" style="display:none;">
+                  <ul>
+                    <li>
+                      <%=link_to "Create New Vendor", new_vendor_path%>
+                    </li>
+                    <li>
+                      <%=link_to "List Vendors", vendors_path%>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <%=link_to "Resources", "javascript:void(0);" , :title=>"Resources" ,:class=>"", :id=>"lnk_resources"%>
+                <div id ="div_resources" style="display:none;">
+                  <ul>
+                    <li>
+                      <%=link_to "Create New Category", new_category_path%>
+                    </li>
+                    <li>
+                      <%=link_to "List Category", categories_path%>
+                    </li>
+                    <li>
+                      <%=link_to "Create Sub Category", new_sub_category_path%>
+                    </li>
+                    <li>
+                      <%=link_to "List Sub Category", sub_categories_path%>
+                    </li>
+                      <li>
+                      <%=link_to "Create Resource", new_resource_path%>
+                    </li>
+                  </ul>
+                </div>
+              </li>
               <li>
                 <%=link_to "Content Management", "javascript:void(0);" , :title=>"Content Managemnt" ,:class=>"", :id=>"lnk_cms"%>
                 <div id ="div_cms" style="display:none;">

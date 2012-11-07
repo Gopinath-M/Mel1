@@ -3,6 +3,22 @@
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
     <label for="" class="ui-watermark-label" style="left: 6px; top: 6px;"></label>
+   <%if @unit.department_id != nil%>
+     <div class="form-sec-row">
+          <%department_name = Department.find_by_id(@unit.department_id)%>
+          <%agency_name = Agency.find(department_name.agency_id)%>
+          <label class="text">Agency Name</label>
+          <span class="in-box">
+          <%=agency_name.name%>
+          </span>
+     </div>
+    <div class="form-sec-row">
+          <label class="text">Department Name</label>
+          <span class="in-box">
+          <%=department_name.name%>
+          </span>
+     </div>
+   <%else%>
     <div class="form-sec-row">
       <%= label_tag "id_agency", raw("Agency"), :class=>"text" %>
       <span class="in-box">
@@ -15,6 +31,7 @@
         <%=f.select(:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
       </span>
     </div>
+   <%end%>
     <div class="form-sec-row">
       <label class="text">Unit Name</label>
       <span class="in-box">

@@ -2,23 +2,32 @@ require 'securerandom'
 class DepartmentUsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:get_departments,:get_units]
   def new
+    if params[:admin]
+      @admin = params[:admin]
+    end
     @user=User.new
   end
 
   #Create new Department User
   def create
     password_token=password_friendly_token
-    ic_number = params[:num1] + params[:num2] + params[:num3] # to get ic number as 3 parts
     @user = User.create(params[:user].merge!({:password => password_token}))
-    @user.ic_number = ic_number
+    @user.ic_number = params[:num1] + params[:num2] + params[:num3]  # to get ic number as 3 parts
     @user.save
     @user.activate_user
+    if params[:user_role]=="admin"
+      @admin='admin'
+    end
     if @user.valid?
-      @user.role_memberships.create(:status=>STATUS_ACTIVE)
+      @user.role_memberships.create(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
       UserMailer.welcomemail_department_user(@user,password_token).deliver
-      redirect_to(users_path, :notice => 'User was added successfully.')
+      if @user.roles.first.name==DISP_USER_ROLE_DEPT_ADMIN
+        redirect_to(admin_users_path, :notice => 'Department Admin was added successfully.')
+      else
+        redirect_to(users_path, :notice => 'User was added successfully.')
+      end
     else
-      render :action=>'new'
+      render :action=>'new',:admin=>'admin'
     end
   end
 
@@ -63,6 +72,11 @@ class DepartmentUsersController < ApplicationController
 
   def get_units
     units=params[:department_id] ? Unit.active.where("department_id =?",params[:department_id]) : nil
+    render :json=>[units] if units
+  end
+
+  def get_units_for_transfer
+    units = params[:department_id] ? Unit.active.where("department_id =?",params[:department_id]) : nil
     render :json=>[units] if units
   end
   

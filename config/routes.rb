@@ -6,6 +6,7 @@ Melaka::Application.routes.draw do
     get "/login" => "sessions#new", :as => :new_user_session
     post "/login" => "sessions#create", :as => :user_session
     get "/logout"=> "sessions#destroy", :as => :destroy_user_session
+    get "/privacy_setting", :to => "registrations#privacy_setting", :as=> :privacy_setting_registrations
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
   resources :departments do
@@ -32,6 +33,10 @@ Melaka::Application.routes.draw do
       get 'transfer'
       post 'update_transfer'
       get 'assign_department'
+      get 'transfer_unit'
+      post 'transfer_update_unit'
+      get 'assign_unit'
+      post 'assign_update_unit'
       get 'admin_activation'
       get 'user_activation'
       post 'activate_department_admin'
@@ -39,6 +44,7 @@ Melaka::Application.routes.draw do
       get 'get_dept_for_users' #transfer dept to get users for selected dept
       get 'account_setting'
       put 'update_account_setting'
+      get 'admin'
     end
   end
   resources :department_users do
@@ -47,6 +53,17 @@ Melaka::Application.routes.draw do
       get 'get_departments'
       get 'get_units'
       get 'get_departments_for_user'
+      get 'get_units_for_transfer'
+    end
+  end
+  resources :messages do
+    collection do
+      get 'autocomplete_user_icnumber'
+      get 'get_agencies'
+      get 'get_departments'
+      get 'get_department_admin'
+      get 'post_messages'
+      get 'post_comments'
     end
   end
   resources :cms_pages
@@ -59,6 +76,40 @@ Melaka::Application.routes.draw do
   resources :units do
     collection do
       post 'update_status'
+    end
+  end
+  resources :categories  do
+  collection do
+     post 'update_status'
+     get 'assign_category'
+     post 'update_category'
+     get 'update_category'
+  end
+  end
+  resources :sub_categories do
+  collection do
+     post 'update_status'
+  end
+  end
+  resources :vendors do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :resources do
+    collection do
+      get 'get_subcategory'
+      post 'update_status'
+    end
+  end
+  resources :resource_managers do
+    collection do
+    post 'update_status'
+    end
+  end
+  resources :agency_stores do
+    collection do
+      get 'get_resource'
     end
   end
   #Error routes

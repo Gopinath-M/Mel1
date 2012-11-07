@@ -2,6 +2,23 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $().ready(function(){
+    if ($("#pr-time"))
+    {
+        var date = new Date(); // today
+
+        //var times = prayTime.getPrayerTimes(date, 43, -80, -5);
+        var times = prayTime.getPrayerTimes(date, 2.20568, 102.25616, +8);
+        //var times = prayTime.getPrayerTimes(date, 13.04, 80.17, +5.30);
+        var str = '<table id="timetable">';
+        str += '<tr><th colspan="2">'+ date.toLocaleDateString()+ '</th></tr>';
+        for(var i = 0; i < times.length; i++)
+        {
+            str += '<tr><td>'+ prayTime.timeNames[i]+ '</td>';
+            str += '<td>'+ times[i]+ '</td></tr>';
+        }
+        str += '</table>';
+        $('#pr-time').html(str);
+    }
     $(function() {
         if ($("#tabs").length==1)
         {
@@ -158,6 +175,28 @@ $().ready(function(){
         }
         $('#div_unit').toggle("fast");
     });
+    $("#lnk_resources").live('click',function(){
+        if ($("#lnk_resources").hasClass("selected"))
+        {
+            $("#lnk_resources").removeClass("selected")
+        }
+        else
+        {
+            $("#lnk_resources").addClass("selected")
+        }
+        $('#div_resources').toggle("fast");
+    });
+    $("#lnk_vendors").live('click',function(){
+        if ($("#lnk_vendors").hasClass("selected"))
+        {
+            $("#lnk_vendors").removeClass("selected")
+        }
+        else
+        {
+            $("#lnk_vendors").addClass("selected")
+        }
+        $('#div_vendors').toggle("fast");
+    });
     /* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/
     
     /*Update Department based on agency*/
@@ -195,14 +234,19 @@ $().ready(function(){
             $.get("/department_users/get_units",{
                 department_id : $("#users_department").val()
             }, function(data){
-                if (data[0]!=null)
+                if (data[0]!="")
                 {
+                    $("#unit_display").show();
                     $('#users_unit').find('option').remove().end()
                     $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
                     }
+                }
+                else
+                {
+                    $("#unit_display").hide();
                 }
             })
         }
@@ -224,6 +268,18 @@ $().ready(function(){
                         $('#standard1_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
                     }
                 }
+            })
+        }
+        else
+        {
+
+            $('#standard1_department_id').find('option').remove().end()
+            $('#standard1_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $.get("/units/",{
+                department_id: $("#standard1_department_id").val()
+            }, function(data){
+                $("#department_id").val($("#standard1_department_id").val())
+                $("#div_ajax").html(data)
             })
         }
     });
@@ -254,13 +310,18 @@ $().ready(function(){
                 }
             })
         }
+        else{
+            $('#unit_department_id').find('option').remove().end()
+            $('#unit_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+        }
+
     });
 
     /*units Master screen end */
     /* Transfer Department */
     /*Transfer Departmnet Js Starts*/
 
-   $("#from_department_id").live("change",function(){
+    $("#from_department_id").live("change",function(){
         if($("#from_department_id").val()!="")
         {
             $.get("/users/transfer/",{
@@ -306,6 +367,13 @@ $().ready(function(){
                 }
             })
         }
+        else
+        {
+            $('#from_department_id').find('option').remove().end()
+            $('#transfer_username').find('option').remove().end()
+            $('#from_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+        }
     });
 
     $("#transfer_to_agency").live("change", function(){
@@ -325,9 +393,14 @@ $().ready(function(){
                 }
             })
         }
+        else
+        {
+            $('#to_department_id').find('option').remove().end()
+            $('#to_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+        }
     });
 
-$("#transfer_username").live("change",function(){
+    $("#transfer_username").live("change",function(){
         $.get("/users/get_dept_for_users/",{
             ic_number: $("#transfer_username").val()
         }, function(data){
@@ -353,7 +426,7 @@ $("#transfer_username").live("change",function(){
     })
 
 
-/*Transfer Departmnet Js Ends*/
+    /*Transfer Departmnet Js Ends*/
 
 
 
@@ -418,4 +491,333 @@ $("#transfer_username").live("change",function(){
             $("#div_ajax").html(data)
         });
     })
+
+    $("#admin_user_department_id").live("change",function(){
+        $.get("/users/admin",{
+            department_id: $("#admin_user_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#admin_user_department_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
+    /* User List based on Depart & Agency Starts */
+    $("#transfer_agency").live("change", function(){
+        if($("#transfer_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#transfer_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#standard4_department_id').find('option').remove().end()
+                    $('#standard4_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#standard4_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $('#standard4_department_id').find('option').remove().end()
+            $('#standard4_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $.get("/users/",{
+                department_id: $("#standard4_department_id").val()
+            }, function(data){
+                $("#department_id").val($("#standard4_department_id").val())
+                $("#div_ajax").html(data)
+            })
+        }
+    });
+    /* User List based on Depart & Agency Ends */
+    /* For create user form validation */
+    $("#sub_user_link").live("click",function(){
+        if ($("#user_first_name").val() == ""){
+            alert("Please Enter First Name");
+            return false;
+        }
+        else if ($("#user_last_name").val() == ""){
+            alert("Please Enter Last Name");
+            return false;
+        }
+        else if ($("#user_email").val() == ""){
+            alert("Please Enter Email");
+            return false;
+        }
+        else if ($("#num1").val() == ""){
+            alert("Enter Ic Number in Box1");
+            return false;
+        }
+        else if ($("#num1").val().length != "6"){
+            alert("Enter 6 digits in box1");
+            return false;
+        }
+        else if ($("#num2").val() == ""){
+            alert("Enter Ic Number in Box2");
+            return false;
+        }
+        else if ($("#num2").val().length != "2"){
+            alert("Enter 2 digits in box2");
+            return false;
+        }
+        else if ($("#num3").val() == ""){
+            alert("Enter Ic Number in Box3");
+            return false;
+        }
+        else if ($("#num3").val().length != "4"){
+            alert("Enter 4 digits in box3");
+            return false;
+        }
+        else if ($("#user_username").val() == ""){
+            alert("Please Enter Display Name");
+            return false;
+        }
+        else if ($("#user_state").val() == ""){
+            alert("Please Enter State");
+            return false;
+        }
+        else if ($("#role_id").val() == ""){
+            alert("Please Choose Role Value");
+            return false;
+        }
+        else if ($("#users_agency").val() == ""){
+            alert("Please Choose Agency Value" );
+            return false;
+        }
+        else if ($("#users_agency_id").val() == ""){
+            alert("Please Choose Agency Value" );
+            return false;
+        }
+        else if ($("#users_department").val() == ""){
+            alert("Please Choose Department Name");
+            return false;
+        }
+
+    //        if ($("#users_unit").val() == true){
+    //            if ($("#users_unit").val() == ""){
+    //                alert("Please Choose Unit Name");
+    //                return false;
+    //            }
+    //        }
+    });
+    /*user validation ends */
+    /*Department basen on Agency in Resource Booking page*/
+    $("#users_agency").live("change", function(){
+        if($("#users_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#users_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_category_department_id').find('option').remove().end()
+                    $('#resource_category_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_category_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+    });
+    $("#department_submit").live("click",function(){
+        if ($("#department_agency_id").val() == "")
+        {
+            alert("Please select an agency");
+            return false;
+        }
+        else if($("#department_name").val()== "")
+        {
+            alert("Please Enter the Department Name");
+            return false;
+        }
+    });
+
+
+    $("#resource_category_id").live("change", function(){
+        if($("#resource_category_id").val()!="")
+        {
+            $.get("/resources/get_subcategory",{
+                agency_id : $("#resource_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_sub_category_id').find('option').remove().end()
+                    $('#resource_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_sub_category_id').find('option').remove().end()
+            $('#resource_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+
+    });
+    
+    /*Transfer Unit Fn Starts*/
+    $("#users_unit").live("change",function(){
+        if($("#users_unit").val()!="")
+        {
+            $.get("/users/transfer/",{
+                unit_id: $("#users_unit").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#transfer_unit_username').find('option').remove().end()
+                    $('#transfer_unit_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#transfer_unit_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+    });
+
+
+
+    $("#transfer_unit_username").live("change",function(){
+        $.get("/users/transfer_unit/",{
+            ic_number: $("#transfer_unit_username").val()
+        }, function(data){
+            if(data[0]!=null)
+            {
+                $("#user_id").val($("#transfer_unit_username").val())
+                var content="<table><tr><td><u><b>List of Existing Units :</b></u></td></tr><tr><td><br/></td></tr>";
+                content+=""
+                for(i=0; i<data[0].length; i++)
+                {
+                    content+="<tr><td>"+data[0][i]+"</td></tr>"
+                }
+                content+="</table>"
+                $("#div_unit_transfer").html(content)
+            }
+            else
+            {
+                content+="No Departments Found"
+                $("#div_unit_transfer").html(content)
+            }
+
+        });
+    })
+    /*Transfer Unit Fn Ends*/
+       /* Dated Oct 31 transfer unit starts*/
+
+    $("#from_department_id").live("change", function(){
+        if($("#from_department_id").val()!="")
+        {
+            $.get("/department_users/get_units_for_transfer",{
+                department_id : $("#from_department_id").val()
+            }, function(data){
+                if (data[0] != null)
+                {
+                    $('#users_unit').find('option').remove().end()
+                    $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#users_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
+                    }
+                }
+            })
+        }
+    });
+
+    $("#to_department_id").live("change", function(){
+        if($("#to_department_id").val()!="")
+        {
+            $.get("/department_users/get_units_for_transfer",{
+                department_id : $("#to_department_id").val()
+            }, function(data){
+                if (data[0]!= "")
+                {
+                    $('#to_unit_id').find('option').remove().end()
+                    $('#to_unit_id').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#to_unit_id').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
+                    }
+                }
+            })
+        }
+    });
+
+
+    $("#users_unit").live("change",function(){
+        if($("#users_unit").val()!="")
+        {
+            $.get("/users/transfer/",{
+                unit_id: $("#users_unit").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#transfer_username').find('option').remove().end()
+                    $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#transfer_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+    });
+    /* Dated Oct 31 transfer unit ends*/
+
+
+    $("#agency_store_agency_id").live("change", function(){
+        if($("#agency_store_agency_id").val()!="")
+        {
+            $.get("/agency_stores/get_resource",{
+                agency_id : $("#agency_store_agency_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_resource_id').find('option').remove().end()
+                    $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_resource_id').find('option').remove().end()
+            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+
+    });
+
 })
+
+/*Javascripts Starts*/
+
+/*Number Validation*/
+function isNumberKey(evt)   {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if ((charCode >= 48 &&  charCode <= 57) ||  charCode == 8  || charCode==9 || charCode==46)
+        return true;
+    return false;
+}
+
+/*Auto tab functionality in create user*/
+function autoTab(e, element, nextElement)
+{
+    var code;
+    if (!e) var e = window.event;
+    if (e.which) code = e.which;
+    else if (e.keyCode) code = e.keyCode;
+    if ((code > 47 && code < 91) || (code > 95 && code < 105))
+    {
+        if (element.value.length == element.maxLength && nextElement != null)
+        {
+            nextElement.focus();
+        }
+    }
+}
+
+/*Javascripts Ends*/

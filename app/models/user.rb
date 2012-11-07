@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :role_memberships
   has_many :roles, :through => :role_memberships
   has_many :departments, :through => :role_memberships
+  has_many :units, :through => :role_memberships
 
   scope :active, where(:deleted => false)
   #Validation For SignUp,Create user, Page Starts Here
@@ -56,6 +57,7 @@ class User < ActiveRecord::Base
   def activate_user
     self.activated_at = Time.now.utc
     self.activation_code = nil
+    self.status = 'Active'  # By default new user will get active on create user page
     self.save
   end
 

@@ -23,19 +23,33 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.deleted = true
     if @user.save
-      redirect_to(users_path, :notice => 'User deleted successfully.')
+      redirect_to(users_path, :alert => 'User deleted successfully.')
     end
   end
 
   #List all Users
   def index
     @users=nil
-    if !params[:department_id].nil?
-      department = Department.find_by_id(params[:department_id])
-      @users = department.users.all
+    if !current_user.is_super_admin?
+      department_id = params[:department_id].to_i
+      if department_id != 0
+        department = Department.find_by_id(params[:department_id])
+        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+      else
+        default_department ||= current_user.role_memberships.first.default_dept
+        @dept = Department.find_by_id(default_department)
+        @users = @dept.users.where("role_id != 2").page(params[:page]).per(10)
+      end
     else
-      @users=User.order.page(params[:page]).per(15)
-      @department_id=params[:department_id]
+
+      department_id = params[:department_id].to_i
+      if department_id != 0
+        department = Department.find_by_id(params[:department_id])
+        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+      else
+        @users=User.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+        @department_id=params[:department_id]
+      end
     end
     if request.xhr?
       render :layout=>false
@@ -44,8 +58,12 @@ class UsersController < ApplicationController
   
   ## Transfer Department Function begins here
   def transfer
-    if !params[:department_id].nil? || !params[:department_id].blank?
+   if !params[:department_id].nil? || !params[:department_id].blank?
       users= Department.find_by_id(params[:department_id]).users.where("role_id !=2")
+      render :json=>[users] if users
+    end
+    if !params[:unit_id].nil?
+      users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2")
       render :json=>[users] if users
     end
   end
@@ -62,7 +80,7 @@ class UsersController < ApplicationController
       departments = user.departments
       s = Department.find_by_id(params[:to_department][:id])
       if user.departments.include?(s)
-        redirect_to(transfer_users_path, :notice => "You Cant transfer the User to Already exist department")
+        redirect_to(transfer_users_path, :alert => "You Cant transfer the User to Already exist department")
       else
         role = RoleMembership.find_by_user_id(user.id)
         role.update_attribute(:department_id, params[:to_department][:id])
@@ -71,7 +89,7 @@ class UsersController < ApplicationController
         redirect_to(users_path, :notice => "#{user.first_name} has been transfer to #{department.name}.")
       end
     else
-      redirect_to(transfer_users_path, :notice => "Please Select the Drop Box listed")
+      redirect_to(transfer_users_path, :alert => "Please Select the Drop Box listed")
     end
   end
 
@@ -89,7 +107,7 @@ class UsersController < ApplicationController
       departments = user.departments
       s = Department.find_by_id(params[:to_department][:id])
       if user.departments.include?(s)
-        redirect_to(assign_department_users_path, :notice => "You cant Assign the User to Already exist department")
+        redirect_to(assign_department_users_path, :alert => "You cant Assign the User to Already exist department")
       else
         from_user =  User.find_by_ic_number(params[:transfer][:username])
         role = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '3', :status => 'A')
@@ -99,10 +117,82 @@ class UsersController < ApplicationController
         redirect_to(users_path, :notice => "#{user.first_name} has been assigned to #{department.name}. ")
       end
     else
-      redirect_to(assign_department_users_path, :notice => "Please Select the Drop box listed")
+      redirect_to(assign_department_users_path, :alert => "Please Select the Drop box listed")
     end
 
   end
+  
+  ## Transfer Unit Function begins here
+
+  def transfer_unit
+    if !params[:ic_number].nil?
+      user = User.find_by_ic_number(params[:ic_number])
+      departments = user.units.active.collect(&:name)
+      render :json=>[departments] if departments
+    end
+  end
+
+  def transfer_update_unit
+    if params[:transfer_unit][:username] != "" && params[:from_department][:id] != "" && params[:to_department][:id]!= "" && params[:transfer_from_agency] != "" && params[:transfer_to_agency] != "" && params[:to_unit][:id] != "" && params[:users][:unit] != ""
+      if params[:from_department][:id] == params[:to_department][:id] && params[:transfer_from_agency] == params[:transfer_to_agency]
+        user = User.find_by_ic_number(params[:transfer_unit][:username])
+        units = user.units
+        s = Unit.find_by_id(params[:to_unit][:id])
+        if user.units.include?(s)
+          redirect_to(transfer_unit_users_path, :alert => "You Cant transfer the User to Already exist Unit")
+        else
+          role = RoleMembership.find_by_user_id(user.id)
+          role.update_attributes(:unit_id => params[:to_unit][:id])
+          unit = Unit.find_by_id(params[:to_unit][:id])
+          #UserMailer.intimate_user(user,department).deliver
+          redirect_to(users_path, :notice => "#{user.first_name} has been transfer to #{unit.name}.")
+        end
+      else
+        redirect_to(transfer_unit_users_path, :alert => "Transfer across the Department has been restricted")
+      end
+    else
+      redirect_to(transfer_unit_users_path, :alert => "Please Select the Drop Box listed")
+    end
+  end
+  ## Transfer Unit Function ends here
+
+
+  ## Assign Unit Starts here
+  def assign_unit    
+    if !params[:ic_number].nil?
+      @val = params[:transfer_from][:agency]
+      user = User.find_by_ic_number(params[:ic_number])
+      departments = user.units.active.collect(&:name)
+      render :json=>[departments] if departments
+    end
+  end
+
+  def assign_update_unit
+    p params[:transfer_from][:agency]
+    @val = params[:transfer_from][:agency]
+    if params[:transfer_unit][:username] != "" && params[:from_department][:id] != "" && params[:to_department][:id]!= "" && params[:transfer_from][:agency] != "" && params[:transfer_to][:agency] != "" && params[:to_unit][:id] != "" && params[:users][:unit] != ""
+      if params[:from_department][:id] == params[:to_department][:id] && params[:transfer_from][:agency] == params[:transfer_to][:agency]
+        user = User.find_by_ic_number(params[:transfer_unit][:username])
+        units = user.units
+        s = Unit.find_by_id(params[:to_unit][:id])
+        if user.units.include?(s)
+          redirect_to(assign_unit_users_path, :alert => "You cant Assign the User to Already exist department")
+        else
+          from_user =  User.find_by_ic_number(params[:transfer_unit][:username])
+          role = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '3', :unit_id => params[:to_unit][:id],:status => 'A')
+          role.save
+          unit = Unit.find_by_id(params[:to_unit][:id])
+          #UserMailer.intimate_user_assign(user,department).deliver
+          redirect_to(users_path, :notice => "#{user.first_name} has been assigned to #{unit.name}. ")
+        end
+      else
+        redirect_to(assign_unit_users_path, :alert => "Assign across the Department has been restricted")
+      end
+    else
+      redirect_to(assign_unit_users_path, :alert => "Please Select the Drop box listed")
+    end
+  end
+  ## Assign Unit Ends here
 
   def activate
     current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
@@ -141,7 +231,8 @@ class UsersController < ApplicationController
       redirect_to :action=>"user_activation"
     end
   end
-def account_setting
+  
+  def account_setting
     @user = User.find(current_user.id)
   end
 
@@ -149,5 +240,19 @@ def account_setting
     user = User.find_by_id(params[:user_id])
     user.update_attributes(:profile_status => params[:user][:profile_status], :widget_one => params[:user][:widget_one], :widget_two => params[:user][:widget_two])
     redirect_to(users_path, :notice => "Your Account Settings Updated successfully")
+  end
+
+  def admin
+    department_id = params[:department_id].to_i
+    if department_id != 0
+      department = Department.find_by_id(params[:department_id])
+      @users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10)
+    else
+      @users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10)
+      @department_id=params[:department_id]
+    end
+    if request.xhr?
+      render :layout=>false
+    end
   end
 end

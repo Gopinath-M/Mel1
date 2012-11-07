@@ -18,6 +18,7 @@
     <%= javascript_include_tag 'rails' %>
     <%= javascript_include_tag 'slides.min.jquery' %>
     <%= javascript_include_tag 'slide' %>
+     <%= javascript_include_tag 'prayTimes' %>
     <!--WATERMARK--> <%= init_tinymce_hammer_if_required %>
     <%= javascript_include_tag 'ui.core' %>
     <%= javascript_include_tag 'ui.watermark' %>
@@ -25,6 +26,7 @@
     <%= javascript_include_tag 'jquery.dropdownPlain' %>
     <%= stylesheet_link_tag 'style_dropdown' ,:media=>"screen, projection" %>
     <%= javascript_include_tag 'application' %>
+    <!--Messages--> <%= javascript_include_tag 'message' %>
     <%if controller_name.to_s != 'sessions'  %>
       <!--SIDE PANEL-->
       <%= stylesheet_link_tag 'side_panel'%>
@@ -65,6 +67,9 @@
     <%if  current_user && !current_user.blank? %>
       <%=render :partial=>'shared/right_navigation'%>
       <%=render :partial=>'shared/left_navigation'%>
+     <%if flash[:alert]%>
+      <div class="error"><%= flash[:alert]%></div>
+      <%end%>
       <% if notice %>
         <div class="success"><%= flash[:notice] %></div>
       <%end%>
