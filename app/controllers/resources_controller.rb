@@ -32,7 +32,7 @@ class ResourcesController < ApplicationController
 
   def update
     @resource = Resource.find(params[:id]) if params[:id]
-    if @resource.update_attributes(params[:resource_category])
+    if @resource.update_attributes(params[:resource])
       redirect_to(resources_path, :notice => 'Resource has been successfully updated.')
     else
       render :action=>'new'
@@ -57,8 +57,8 @@ class ResourcesController < ApplicationController
     end
   end
 def get_subcategory
- resource_sub_categories= ResourceSubCategory.where("resource_category_id =?",params[:agency_id]) 
-    render :json=>[resource_sub_categories] if resource_sub_categories
+ sub_categories= SubCategory.where("category_id =?",params[:agency_id]) 
+    render :json=>[sub_categories] if sub_categories
 end
 
 end
