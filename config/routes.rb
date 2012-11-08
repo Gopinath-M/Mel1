@@ -80,17 +80,18 @@ Melaka::Application.routes.draw do
     end
   end
   resources :categories  do
-  collection do
-     post 'update_status'
-     get 'assign_category'
-     post 'update_category'
-     get 'update_category'
-  end
+    collection do
+      post 'update_status'
+      get 'assign_category'
+      post 'update_category'
+      get 'update_category'
+    end
   end
   resources :sub_categories do
-  collection do
-     post 'update_status'
-  end
+    collection do
+      post 'update_status'
+      get 'get_sub_categories'
+    end
   end
   resources :vendors do
     collection do
@@ -101,18 +102,19 @@ Melaka::Application.routes.draw do
     collection do
       get 'get_subcategory'
       post 'update_status'
+      get 'get_resources'
     end
   end
   resources :resource_managers do
     collection do
-    post 'update_status'
+      post 'update_status'
     end
   end
   resources :agency_stores do
     collection do
-     get 'get_categories'
-     get 'get_sub_categories'
-     get 'get_resource'
+      get 'get_categories'
+      get 'get_sub_categories'
+      get 'get_resource'
     end
   end
   #Error routes

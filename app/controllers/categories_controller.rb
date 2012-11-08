@@ -1,9 +1,10 @@
 class CategoriesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :is_admin
+
   def index
     if params[:id].blank? || params[:id].nil?
-     if current_user.is_super_admin?
+      if current_user.is_super_admin?
         @categories=Category.where(:deleted => false).order.page(params[:page]).per(15)
       else
         @categories=Category.find_all_by_department_id(current_department.id)
@@ -56,16 +57,20 @@ class CategoriesController < ApplicationController
       redirect_to(categories_path, :notice => 'Resource Category has been Deleted.')
     end
   end
+
   def assign_category
-     @category = CategoriesDepartment.new
+    @category = CategoriesDepartment.new
   end
+
   def update_category
     @category = CategoriesDepartment.new
     @category.created_by = params[:created_by]
     @category.department_id = params[:resource_category] [:department_id]
     @category.category_id = params[:resource_category][:resource_category_id]
-#    @category.resource_sub_category_id = params[:resource_sub_category][:resource_sub_category_id]
+    #    @category.resource_sub_category_id = params[:resource_sub_category][:resource_sub_category_id]
     @category.save
     redirect_to(categories_path, :notice => 'Resource Category has been sucessfully assigned  to Department.')
   end
+
+
 end

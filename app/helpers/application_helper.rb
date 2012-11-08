@@ -18,4 +18,8 @@ module ApplicationHelper
     return user_count
   end
 
+  def current_departments
+    departments=current_user.departments.where(:deleted => false)
+    return departments
+  end
 end

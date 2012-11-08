@@ -1,6 +1,7 @@
 class SubCategoriesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :is_admin
+  before_filter :is_admin, :except=>[:get_sub_categories]
+  
   def index
     if params[:id].blank? || params[:id].nil?
       @sub_categories=SubCategory.where(:deleted => false).order.page(params[:page]).per(10)
@@ -50,5 +51,10 @@ class SubCategoriesController < ApplicationController
     if @sub_category.save
       redirect_to(sub_categories_path, :notice => 'Sub Category has been Deleted.')
     end
+  end
+
+  def get_sub_categories
+    sub_category=SubCategory.where("category_id=? and deleted=false",params[:category_id])
+    render :json=>[sub_category]
   end
 end

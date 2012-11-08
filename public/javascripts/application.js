@@ -879,42 +879,90 @@ $().ready(function(){
 
     });
 
-        /*Validation for Agency Store Starts*/
-$("#agency_store_submit").live("click",function(){
+    /*Validation for Agency Store Starts*/
+    $("#agency_store_submit").live("click",function(){
         if ($("#transfer_from_agency").val() == ""){
             alert("Select Agency value");
             return false;
         }
-       else if ($("#from_department_id").val() == ""){
+        else if ($("#from_department_id").val() == ""){
             alert("Select Department value");
             return false;
         }
-       else if ($("#categories_department_id").val() == ""){
+        else if ($("#categories_department_id").val() == ""){
             alert("Select Category");
             return false;
         }
-       else if ($("#sub_categories_id").val() == ""){
+        else if ($("#sub_categories_id").val() == ""){
             alert("Select Sub Cateogory");
             return false;
         }
-       else if ($("#resource_resource_id").val() == ""){
+        else if ($("#resource_resource_id").val() == ""){
             alert("Select Resource");
             return false;
         }
-      else if ($("#agency_store_quantity").val() == ""){
+        else if ($("#agency_store_quantity").val() == ""){
             alert("Enter Quantity value");
             return false;
         }
-      else  if ($("#agency_store_serial_no").val() == ""){
+        else  if ($("#agency_store_serial_no").val() == ""){
             alert("Enter Serial No");
             return false;
         }
-       else  if ($("#agency_store_uom").val() == ""){
+        else  if ($("#agency_store_uom").val() == ""){
             alert("Enter UOM value");
             return false;
         }
     });
     /*Validation for Agency Store Ends*/
+    $("#category_id").live("change", function(){
+        if($("#category_id").val()!="")
+        {
+            $.get("/sub_categories/get_sub_categories",{
+                category_id : $("#category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#sub_category_id').find('option').remove().end()
+                    $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#sub_category_id').find('option').remove().end()
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+    })
+    $("#sub_category_id").live("change", function(){
+        if($("#sub_category_id").val()!="")
+        {
+            $.get("/resources/get_resources",{
+                sub_category_id : $("#sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#resource_booking_resource_id').find('option').remove().end()
+                    $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_booking_resource_id').find('option').remove().end()
+            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+
+    
 
 })
 

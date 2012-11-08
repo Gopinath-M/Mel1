@@ -19,7 +19,7 @@
         </div>
         <ul>
           <li><a href="javascript:void(0);" title="Daily Updates" class="selected"><%=image_tag "icn_news.png" , :width=>"16", :height=>"16", :alt=>"Daily Updates"%>Daily Updates</a></li>
-             <li><a href="/messages" title="Messages"><%=image_tag "icn_email.png" , :width=>"16", :height=>"16", :alt=>"Email"%><span class="notifiNo"></span>Messages</a></li>
+          <li><a href="/messages" title="Messages"><%=image_tag "icn_email.png" , :width=>"16", :height=>"16", :alt=>"Email"%><span class="notifiNo"></span>Messages</a></li>
           <li><a href="javascript:void(0);" title="Events"><%=image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%>Events</a></li>
           <li><a href="javascript:void(0);" title="Find User"><%=image_tag "icn_user.png" , :width=>"16", :height=>"16", :alt=>"Find User"%>Find User</a></li>
           <%if current_user && current_user.is_super_admin?%>
@@ -220,6 +220,20 @@
         <%else%>
           <h2>Department Info</h2>
           <ul>
+            <li>
+              <%=link_to "Resources Bookings", "javascript:void(0);" , :title=>"Resource Bookings" ,:class=>"", :id=>"lnk_resource_bookings"%>
+              <div id ="div_resource_bookings" style="display:none;">
+                <ul>
+                  <li>
+                    <%=link_to "Create Resource Booking", new_resource_booking_path%>
+                  </li>
+                  <li>
+                    <%=link_to "List Resource Bookings", resource_bookings_path%>
+                  </li>
+                </ul>
+
+              </div>
+            </li>
             <li><a href="javascript:void(0);" title="Department details">Department details</a></li>
             <li><a href="javascript:void(0);" title="View Vendors">View Vendors</a></li>
             <li><a href="javascript:void(0);" title="Resources">Resources</a></li>
