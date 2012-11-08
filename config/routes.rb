@@ -94,7 +94,9 @@ Melaka::Application.routes.draw do
   end
   resources :agency_stores do
     collection do
-      get 'get_resource'
+     get 'get_categories'
+     get 'get_sub_categories'
+     get 'get_resource'
     end
   end
   #Error routes
