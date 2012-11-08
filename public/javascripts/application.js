@@ -186,6 +186,17 @@ $().ready(function(){
         }
         $('#div_resources').toggle("fast");
     });
+    $("#lnk_resource_bookings").live('click',function(){
+        if ($("#lnk_resource_bookings").hasClass("selected"))
+        {
+            $("#lnk_resource_bookings").removeClass("selected")
+        }
+        else
+        {
+            $("#lnk_resource_bookings").addClass("selected")
+        }
+        $('#div_resource_bookings').toggle("fast");
+    });
     $("#lnk_vendors").live('click',function(){
         if ($("#lnk_vendors").hasClass("selected"))
         {
@@ -706,7 +717,7 @@ $().ready(function(){
         });
     })
     /*Transfer Unit Fn Ends*/
-       /* Dated Oct 31 transfer unit starts*/
+    /* Dated Oct 31 transfer unit starts*/
 
     $("#from_department_id").live("change", function(){
         if($("#from_department_id").val()!="")
@@ -793,7 +804,7 @@ $().ready(function(){
     });
 
 
-     $("#from_department_id").live("change", function(){
+    $("#from_department_id").live("change", function(){
         if($("#from_department_id").val()!="")
         {
             $.get("/agency_stores/get_categories",{
@@ -818,7 +829,7 @@ $().ready(function(){
 
     });
 
-     $("#categories_department_id").live("change", function(){
+    $("#categories_department_id").live("change", function(){
         if($("#categories_department_id").val()!="")
         {
             $.get("/agency_stores/get_sub_categories",{
@@ -843,7 +854,7 @@ $().ready(function(){
 
     });
 
-         $("#sub_categories_id").live("change", function(){
+    $("#sub_categories_id").live("change", function(){
         if($("#sub_categories_id").val()!="")
         {
             $.get("/agency_stores/get_resource",{
