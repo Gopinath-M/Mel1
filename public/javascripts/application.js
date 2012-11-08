@@ -658,7 +658,114 @@ $().ready(function(){
         }
 
     });
+    
+    /*Transfer Unit Fn Starts*/
+    $("#users_unit").live("change",function(){
+        if($("#users_unit").val()!="")
+        {
+            $.get("/users/transfer/",{
+                unit_id: $("#users_unit").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#transfer_unit_username').find('option').remove().end()
+                    $('#transfer_unit_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#transfer_unit_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+    });
 
+
+
+    $("#transfer_unit_username").live("change",function(){
+        $.get("/users/transfer_unit/",{
+            ic_number: $("#transfer_unit_username").val()
+        }, function(data){
+            if(data[0]!=null)
+            {
+                $("#user_id").val($("#transfer_unit_username").val())
+                var content="<table><tr><td><u><b>List of Existing Units :</b></u></td></tr><tr><td><br/></td></tr>";
+                content+=""
+                for(i=0; i<data[0].length; i++)
+                {
+                    content+="<tr><td>"+data[0][i]+"</td></tr>"
+                }
+                content+="</table>"
+                $("#div_unit_transfer").html(content)
+            }
+            else
+            {
+                content+="No Departments Found"
+                $("#div_unit_transfer").html(content)
+            }
+
+        });
+    })
+    /*Transfer Unit Fn Ends*/
+       /* Dated Oct 31 transfer unit starts*/
+
+    $("#from_department_id").live("change", function(){
+        if($("#from_department_id").val()!="")
+        {
+            $.get("/department_users/get_units_for_transfer",{
+                department_id : $("#from_department_id").val()
+            }, function(data){
+                if (data[0] != null)
+                {
+                    $('#users_unit').find('option').remove().end()
+                    $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#users_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
+                    }
+                }
+            })
+        }
+    });
+
+    $("#to_department_id").live("change", function(){
+        if($("#to_department_id").val()!="")
+        {
+            $.get("/department_users/get_units_for_transfer",{
+                department_id : $("#to_department_id").val()
+            }, function(data){
+                if (data[0]!= "")
+                {
+                    $('#to_unit_id').find('option').remove().end()
+                    $('#to_unit_id').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#to_unit_id').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
+                    }
+                }
+            })
+        }
+    });
+
+
+    $("#users_unit").live("change",function(){
+        if($("#users_unit").val()!="")
+        {
+            $.get("/users/transfer/",{
+                unit_id: $("#users_unit").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#transfer_username').find('option').remove().end()
+                    $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#transfer_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+    });
+    /* Dated Oct 31 transfer unit ends*/
 
 
     $("#agency_store_agency_id").live("change", function(){

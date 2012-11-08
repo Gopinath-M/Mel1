@@ -3,6 +3,7 @@ class RoleMembership < ActiveRecord::Base
   belongs_to :role
   belongs_to :user
   belongs_to :department
+  belongs_to :unit
   validates_associated :user,
     :if => Proc.new { |a| a.user.present? }
   validates :role_id, :presence=>true

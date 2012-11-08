@@ -12,9 +12,9 @@
             <%=image_tag "img_event3.jpg", :alt=>"Image", :width=>"120", :height=>"120"%>
           <%end%>
           <%if current_user.profile_status%>
-          <p>Private</p>
+            <p>Private</p>
           <%else%>
-          <p>Public</p>
+            <p>Public</p>
           <%end%>
         </div>
         <ul>
@@ -129,6 +129,12 @@
                       <li>
                         <%=link_to "Assign Department", assign_department_users_path , :title=>"Assign Department" ,:class=>""%>
                       </li>
+                      <li>
+                        <%=link_to "Transfer Unit", transfer_unit_users_path , :title=>"Transfer Unit" ,:class=>""%>
+                      </li>
+                      <li>
+                        <%=link_to "Assign Unit", assign_unit_users_path , :title=>"Assign Unit" ,:class=>""%>
+                      </li>
                     <%end%>
                   </ul>
                 </div>
@@ -164,12 +170,15 @@
                     <li>
                       <%=link_to "Category Mapping", assign_category_categories_path%>
                     </li>
-                      <li>
+                    <li>
                       <%=link_to "Create Resource", new_resource_path%>
                     </li>
                     <li>
-                      <%=link_to "Create Agency Store", new_agency_store_path%>
+                      <%=link_to "List Resource", resources_path%>
                     </li>
+                    <li>
+                      <%=link_to "Create Agency Store", new_agency_store_path%>
+                    </li>                    
                   </ul>
                 </div>
               </li>

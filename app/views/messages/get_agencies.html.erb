@@ -1,0 +1,1 @@
+  <%= select(:std,:agency, Agency.where(:deleted => false).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A AGENCY") %>
