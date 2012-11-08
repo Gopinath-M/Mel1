@@ -63,7 +63,7 @@ class CategoriesController < ApplicationController
   end
 
   def update_category
-    @category = CategoriesDepartment.new
+    @category = CategoryDepartment.new
     @category.created_by = params[:created_by]
     @category.department_id = params[:resource_category] [:department_id]
     @category.category_id = params[:resource_category][:resource_category_id]

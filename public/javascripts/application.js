@@ -915,6 +915,7 @@ $().ready(function(){
         }
     });
     /*Validation for Agency Store Ends*/
+
     $("#category_id").live("change", function(){
         if($("#category_id").val()!="")
         {
@@ -938,6 +939,7 @@ $().ready(function(){
             $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
         }
     })
+    
     $("#sub_category_id").live("change", function(){
         if($("#sub_category_id").val()!="")
         {
@@ -961,8 +963,23 @@ $().ready(function(){
             $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
         }
     })
-
     
+    /*Validation for Category Mapping Starts*/
+    $("#user_submit").live("click",function(){
+        if ($("#users_agency").val() == ""){
+            alert("Select Agency value");
+            return false;
+        }
+        else if ($("#resource_category_department_id").val() == ""){
+            alert("Select Department value");
+            return false;
+        }
+        else if ($("#resource_category_resource_category_id").val() == ""){
+            alert("Select Category value");
+            return false;
+        }
+    });
+/*Validation for Category Mapping Ends*/
 
 })
 
