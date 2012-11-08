@@ -1,5 +1,6 @@
 class ResourceBookingsController < ApplicationController
   before_filter :authenticate_user!
+  
   def new
     @resource_booking=ResourceBooking.new
   end
@@ -15,9 +16,6 @@ class ResourceBookingsController < ApplicationController
     end
   end
 
-  def index
-    @resource_bookings=ResourceBooking.where(:user_id=>current_user.id)
-  end
 
   def edit
     @resource_booking=ResourceBooking.find(params[:id])
@@ -32,6 +30,15 @@ class ResourceBookingsController < ApplicationController
     else
       render :action=>'new'
     end    
+  end
+
+  def index
+    @resource_bookings=ResourceBooking.where(:user_id=>current_user.id)
+  end
+
+  def show
+    @resource_booking=ResourceBooking.find(params[:id])
+    @resource=Resource.find(@resource_booking.resource_id)
   end
 
 end

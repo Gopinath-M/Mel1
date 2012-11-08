@@ -17,6 +17,7 @@
             </div>
             <div class="mu-c3">
               <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>resource.id.to_i%>
+              <%= link_to image_tag("../images/icon-view.gif",:width=>"14",:height=>"14",:alt=>"img") +"Show", :action=>'show', :id=>resource.id.to_i%>
               <%#if resource.is_active %>
                 <%#= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_resources_path(:id=>resource.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this resource?', :method=>:post, :title=>"Deactive" %>
               <%#else%>
