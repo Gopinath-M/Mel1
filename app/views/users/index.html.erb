@@ -26,13 +26,22 @@
         <%if current_user.is_super_admin? %>
           <%= select(:standard4,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
         <%else%>
-          <%= select(:standard4,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+          <%= select(:standard4,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
     <%#= current_user.departments.collect(&:name)  %>
         <%end%>
       </span>
     </div>
 
-
+   <%if current_user.is_super_admin? %>
+      <div id ="unit_from_hide" style="display:none">
+        <div class="form-sec-row">
+          <%= label_tag "users_unit",raw("Unit"), :class=>"text"%>
+          <span class="in-box">
+            <%= select("users_id","unit", Unit.active.where("department_id=?", params[:department]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT AN UNIT") %>
+          </span>
+        </div>
+      </div>
+    <%end%>
     <div class="manage-user box">
     <%end%>
     <div id="div_ajax">
