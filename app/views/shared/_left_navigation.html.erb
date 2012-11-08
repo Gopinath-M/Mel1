@@ -12,9 +12,9 @@
             <%=image_tag "img_event3.jpg", :alt=>"Image", :width=>"120", :height=>"120"%>
           <%end%>
           <%if current_user.profile_status%>
-          <p>Private</p>
+            <p>Private</p>
           <%else%>
-          <p>Public</p>
+            <p>Public</p>
           <%end%>
         </div>
         <ul>
@@ -167,8 +167,11 @@
                     <li>
                       <%=link_to "List Sub Category", sub_categories_path%>
                     </li>
-                      <li>
+                    <li>
                       <%=link_to "Create Resource", new_resource_path%>
+                    </li>
+                    <li>
+                      <%=link_to "List Resource", resources_path%>
                     </li>
                   </ul>
                 </div>
