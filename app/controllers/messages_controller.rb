@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
     if current_user && current_user.is_department_user?
       dept_id = current_user.departments.collect(&:id)
       agency_id = current_user.departments.collect(&:agency_id)
-      @messages = Message.find(:all,:conditions=>["(agency_id = 0 and department_id = 0 and sent_to_all_dept_admins = 0) || (department_id in (#{dept_id}) and sent_to_all_dept_admins = 0) || (agency_id in (#{agency_id}) and sent_to_all_dept_admins = 0)"],:order => "updated_at desc")
+      @messages = Message.find(:all,:conditions=>["((agency_id = 0 and department_id = 0 and sent_to_all_dept_admins = 0) || (department_id in (#{dept_id}) and sent_to_all_dept_admins = 0) || (agency_id in (#{agency_id}) and sent_to_all_dept_admins = 0))"],:order => "updated_at desc")
 
     elsif current_user && current_user.is_super_admin?
       @messages = Message.where(:sender=>current_user.id).order("updated_at desc")
@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
     elsif current_user && current_user.is_department_admin?
       dept_id = current_user.departments.collect(&:id)
       agency_id = current_user.departments.collect(&:agency_id)
-      @messages = Message.find(:all,:conditions=>["(agency_id = 0 and department_id = 0 and sent_to_all_dept_admins = 1) || (department_id in (#{dept_id}) || (agency_id in (#{agency_id})) )"],:order => "updated_at desc")
+      @messages = Message.find(:all,:conditions=>["(((agency_id = 0 and department_id = 0) or sent_to_all_dept_admins = 1) || (department_id in (#{dept_id}) || (agency_id in (#{agency_id})) ))"],:order => "updated_at desc")
     end
     
   end
