@@ -1,8 +1,8 @@
 class CreateCategoriesDepartments < ActiveRecord::Migration
   def self.up
-    create_table :categories_departments do |t|
-      t.references :category
-      t.references :department
+    create_table :categories_departments, :id => false do |t|
+      t.integer :category_id
+      t.integer :department_id
       t.integer :created_by
       t.timestamps
     end
