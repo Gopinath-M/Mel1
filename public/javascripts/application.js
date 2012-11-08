@@ -186,6 +186,17 @@ $().ready(function(){
         }
         $('#div_resources').toggle("fast");
     });
+    $("#lnk_resource_bookings").live('click',function(){
+        if ($("#lnk_resource_bookings").hasClass("selected"))
+        {
+            $("#lnk_resource_bookings").removeClass("selected")
+        }
+        else
+        {
+            $("#lnk_resource_bookings").addClass("selected")
+        }
+        $('#div_resource_bookings').toggle("fast");
+    });
     $("#lnk_vendors").live('click',function(){
         if ($("#lnk_vendors").hasClass("selected"))
         {
@@ -742,7 +753,7 @@ $().ready(function(){
         });
     })
     /*Transfer Unit Fn Ends*/
-       /* Dated Oct 31 transfer unit starts*/
+    /* Dated Oct 31 transfer unit starts*/
 
     $("#from_department_id").live("change", function(){
         if($("#from_department_id").val()!="")
@@ -803,6 +814,145 @@ $().ready(function(){
     });
     /* Dated Oct 31 transfer unit ends*/
 
+
+
+
+    $("#agency_store_agency_id").live("change", function(){
+        if($("#agency_store_agency_id").val()!="")
+        {
+            $.get("/agency_stores/get_resource",{
+                agency_id : $("#agency_store_agency_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_resource_id').find('option').remove().end()
+                    $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_resource_id').find('option').remove().end()
+            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+
+    });
+
+
+    $("#from_department_id").live("change", function(){
+        if($("#from_department_id").val()!="")
+        {
+            $.get("/agency_stores/get_categories",{
+                agency_id : $("#from_department_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    
+                    $('#categories_department_id').find('option').remove().end()
+                    $('#categories_department_id').append($("<option></option>").attr("value","").text("SELECT A CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#categories_department_id').append($("<option></option>").attr("value",data[0][i].category.id).text(data[0][i].category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_resource_id').find('option').remove().end()
+            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+
+    });
+
+    $("#categories_department_id").live("change", function(){
+        if($("#categories_department_id").val()!="")
+        {
+            $.get("/agency_stores/get_sub_categories",{
+                agency_id : $("#categories_department_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#sub_categories_id').find('option').remove().end()
+                    $('#sub_categories_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#sub_categories_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_resource_id').find('option').remove().end()
+            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+
+    });
+
+    $("#sub_categories_id").live("change", function(){
+        if($("#sub_categories_id").val()!="")
+        {
+            $.get("/agency_stores/get_resource",{
+                agency_id : $("#sub_categories_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#resource_resource_id').find('option').remove().end()
+                    $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_resource_id').find('option').remove().end()
+            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+
+    });
+
+        /*Validation for Agency Store Starts*/
+$("#agency_store_submit").live("click",function(){
+        if ($("#transfer_from_agency").val() == ""){
+            alert("Select Agency value");
+            return false;
+        }
+       else if ($("#from_department_id").val() == ""){
+            alert("Select Department value");
+            return false;
+        }
+       else if ($("#categories_department_id").val() == ""){
+            alert("Select Category");
+            return false;
+        }
+       else if ($("#sub_categories_id").val() == ""){
+            alert("Select Sub Cateogory");
+            return false;
+        }
+       else if ($("#resource_resource_id").val() == ""){
+            alert("Select Resource");
+            return false;
+        }
+      else if ($("#agency_store_quantity").val() == ""){
+            alert("Enter Quantity value");
+            return false;
+        }
+      else  if ($("#agency_store_serial_no").val() == ""){
+            alert("Enter Serial No");
+            return false;
+        }
+       else  if ($("#agency_store_uom").val() == ""){
+            alert("Enter UOM value");
+            return false;
+        }
+    });
+    /*Validation for Agency Store Ends*/
 })
 
 /*Javascripts Starts*/

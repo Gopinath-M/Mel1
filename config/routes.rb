@@ -9,6 +9,7 @@ Melaka::Application.routes.draw do
     get "/privacy_setting", :to => "registrations#privacy_setting", :as=> :privacy_setting_registrations
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
+  resources :resource_bookings
   resources :departments do
     collection do
       post 'update_status'
@@ -109,7 +110,9 @@ Melaka::Application.routes.draw do
   end
   resources :agency_stores do
     collection do
-      get 'get_resource'
+     get 'get_categories'
+     get 'get_sub_categories'
+     get 'get_resource'
     end
   end
   #Error routes

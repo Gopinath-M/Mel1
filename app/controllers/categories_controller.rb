@@ -57,15 +57,15 @@ class CategoriesController < ApplicationController
     end
   end
   def assign_category
-     @category = Category.new
+     @category = CategoriesDepartment.new
   end
   def update_category
-    @category = DeptCategory.new
+    @category = CategoriesDepartment.new
     @category.created_by = params[:created_by]
-    @category.department_id = params[:category] [:department_id]
-    @category.resource_category_id = params[:resource_category][:category_id]
+    @category.department_id = params[:resource_category] [:department_id]
+    @category.category_id = params[:resource_category][:resource_category_id]
 #    @category.resource_sub_category_id = params[:resource_sub_category][:resource_sub_category_id]
     @category.save
-    redirect_to(categories_path, :notice => 'Resource Category has been sucessfully updated.')
+    redirect_to(categories_path, :notice => 'Resource Category has been sucessfully assigned  to Department.')
   end
 end
