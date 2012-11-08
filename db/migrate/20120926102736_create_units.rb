@@ -3,6 +3,9 @@ class CreateUnits < ActiveRecord::Migration
     create_table :units do |t|
       t.string :name
       t.references :department
+      t.string :address
+      t.string :telephone_number
+      t.integer :fax_number
       t.integer :order_by
       t.boolean :is_active
       t.boolean :deleted, :default => false

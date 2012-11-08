@@ -2,7 +2,10 @@ class CreateDepartments < ActiveRecord::Migration
   def self.up
     create_table :departments do |t|
       t.string :name
-      t.references :agency      
+      t.references :agency  
+      t.string :address
+      t.string :telephone_number
+      t.integer :fax_number    
       t.integer :order_by
       t.boolean :is_active
       t.boolean :deleted, :default => false

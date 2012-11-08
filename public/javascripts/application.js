@@ -411,7 +411,7 @@ $().ready(function(){
                 content+=""
                 for(i=0; i<data[0].length; i++)
                 {
-                    content+="<tr><td>"+data[0][i]+"</td></tr>"
+                    content+="<tr><td><font color='#369'><b>"+data[0][i]+"</b></font></td></tr>"
                 }
                 content+="</table>"
                 $("#div_dept_transfer").html(content)
@@ -692,7 +692,7 @@ $().ready(function(){
                 content+=""
                 for(i=0; i<data[0].length; i++)
                 {
-                    content+="<tr><td>"+data[0][i]+"</td></tr>"
+                    content+="<tr><td><font color='#369'><b>"+data[0][i]+"</b></font></td></tr>"
                 }
                 content+="</table>"
                 $("#div_unit_transfer").html(content)
@@ -766,31 +766,6 @@ $().ready(function(){
         }
     });
     /* Dated Oct 31 transfer unit ends*/
-
-
-    $("#agency_store_agency_id").live("change", function(){
-        if($("#agency_store_agency_id").val()!="")
-        {
-            $.get("/agency_stores/get_resource",{
-                agency_id : $("#agency_store_agency_id").val()
-            }, function(data){
-                if (data[0]!=null)
-                {
-                    $('#resource_resource_id').find('option').remove().end()
-                    $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#resource_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
-                    }
-                }
-            })
-        }
-        else{
-            $('#resource_resource_id').find('option').remove().end()
-            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-        }
-
-    });
 
 })
 
