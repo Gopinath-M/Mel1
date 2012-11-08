@@ -28,7 +28,7 @@
     <div class="form-sec-row">
       <%= f.label :department_id,raw("Department"), :class=>"text"%>
       <span class="in-box">
-        <%=f.select(:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+        <%=  select("department", "department_id", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
       </span>
     </div>
    <%end%>
