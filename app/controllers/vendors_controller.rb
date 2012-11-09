@@ -52,5 +52,7 @@ class VendorsController < ApplicationController
       redirect_to(vendors_path, :notice => 'Vendor has been Deleted.')
     end
   end
-
+def vendor_store
+  @vendor_store  = VendorStore.new
+end
 end
