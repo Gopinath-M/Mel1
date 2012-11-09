@@ -11,5 +11,5 @@ class Department < ActiveRecord::Base
   
   #named_scopes comes here
   scope :active, where(:is_active=>true,:deleted => false).order("name asc")
-  scope :all_undeleted, where(:deleted => false)
+  scope :all_undeleted, where(:deleted => false).order("name asc")
 end
