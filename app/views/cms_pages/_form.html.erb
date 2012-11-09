@@ -19,7 +19,7 @@
     <label class="text"> <%= f.label :location,raw("Location"), :class=>"text"%></label>
     <span class="in-box">
       <%footer_options=["header","footer"]%>
-      <%=f.select(:location, options_for_select(footer_options))%>
+      <%=f.select(:location, options_for_select(footer_options,@cms_page.location))%>
     </span>
   </div>
 

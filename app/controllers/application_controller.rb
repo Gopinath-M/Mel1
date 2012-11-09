@@ -37,6 +37,5 @@ class ApplicationController < ActionController::Base
   end
  def default_department
     default_department ||= current_user.role_memberships.first.default_dept
-    @dept = Department.find_by_id(default_department)
   end
 end

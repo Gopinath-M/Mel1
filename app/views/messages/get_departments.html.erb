@@ -1,2 +1,10 @@
-  <%= select(:std,:agency, Agency.where(:deleted => false).collect {|p| [ p.name, p.id ] },:selected=>@type,:prompt => "SELECT A AGENCY") %>
-  <%= select(:std,:departments, Department.active.where(:agency_id => "#{@type}").collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+<div class="form-sec-row">
+  <span class="in-box">
+    <%= select(:std,:agency, Agency.where(:deleted => false).collect {|p| [ p.name, p.id ] },:selected=>@type,:prompt => "SELECT A AGENCY") %>
+  </span>
+</div>
+<div class="form-sec-row">
+  <span class="in-box">
+    <%= select(:std,:departments, Department.active.where(:agency_id => "#{@type}").collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+  </span>
+</div>

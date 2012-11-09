@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031044942) do
+ActiveRecord::Schema.define(:version => 20121109085904) do
 
   create_table "agencies", :force => true do |t|
     t.string   "name"
@@ -20,8 +20,37 @@ ActiveRecord::Schema.define(:version => 20121031044942) do
     t.datetime "updated_at"
   end
 
+  create_table "agency_stores", :force => true do |t|
+    t.integer  "agency_id"
+    t.integer  "resources"
+    t.integer  "quantity"
+    t.string   "serial_no"
+    t.integer  "uom"
+    t.boolean  "is_active"
+    t.boolean  "deleted",    :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "appointments", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.boolean  "is_active"
+    t.boolean  "deleted",    :default => false
+    t.integer  "created_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories_departments", :id => false, :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "department_id"
+    t.integer  "created_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -54,19 +83,80 @@ ActiveRecord::Schema.define(:version => 20121031044942) do
     t.datetime "updated_at"
   end
 
-  create_table "resource_categories", :force => true do |t|
-    t.string   "name"
-    t.boolean  "is_active"
-    t.boolean  "deleted",    :default => false
+  create_table "message_comments", :force => true do |t|
+    t.text     "comments"
+    t.integer  "message_id"
+    t.string   "commenter_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "resource_sub_categories", :force => true do |t|
+  create_table "messages", :force => true do |t|
+    t.text     "subject"
+    t.text     "message"
+    t.string   "sender"
+    t.string   "message_type"
+    t.string   "agency_id"
+    t.string   "department_id"
+    t.boolean  "send_to_dept_admins",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "sent_to_all_dept_admins", :default => false
+  end
+
+  create_table "resource_bookings", :force => true do |t|
     t.string   "name"
-    t.integer  "resource_category_id"
+    t.integer  "user_id"
+    t.integer  "department_id"
+    t.integer  "resource_id"
+    t.string   "attachment"
+    t.string   "purpose"
+    t.string   "description"
+    t.integer  "quantity"
+    t.datetime "requested_from_date"
+    t.datetime "requested_to_date"
+    t.datetime "request_processed_date"
+    t.datetime "return_date"
+    t.string   "status"
+    t.boolean  "priority_booking",       :default => false
+    t.integer  "created_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resource_managers", :force => true do |t|
+    t.integer  "agency_id"
+    t.integer  "resource_id"
+    t.integer  "quantity"
+    t.string   "serial_no"
+    t.integer  "uom"
     t.boolean  "is_active"
-    t.boolean  "deleted",              :default => false
+    t.boolean  "deleted",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resource_vendors", :force => true do |t|
+    t.integer  "resource_id"
+    t.integer  "vendor_id"
+    t.integer  "created_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resources", :force => true do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.integer  "sub_category_id"
+    t.integer  "vendor_id"
+    t.string   "status"
+    t.text     "description"
+    t.string   "serial_no"
+    t.integer  "quantity"
+    t.boolean  "is_returnable"
+    t.integer  "created_by"
+    t.boolean  "is_active"
+    t.boolean  "deleted",         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -75,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20121031044942) do
     t.integer  "role_id"
     t.integer  "user_id"
     t.integer  "department_id"
+    t.integer  "unit_id"
     t.string   "designation"
     t.boolean  "default_dept",  :default => false
     t.string   "status"
@@ -108,6 +199,15 @@ ActiveRecord::Schema.define(:version => 20121031044942) do
     t.string   "name"
     t.integer  "code"
     t.string   "tel_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sub_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -179,5 +279,27 @@ ActiveRecord::Schema.define(:version => 20121031044942) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "vendor_stores", :force => true do |t|
+    t.integer  "vendor_id"
+    t.integer  "resources"
+    t.integer  "quantity"
+    t.string   "serial_no"
+    t.integer  "uom"
+    t.boolean  "is_active"
+    t.boolean  "deleted",    :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vendors", :force => true do |t|
+    t.string   "name"
+    t.string   "remarks"
+    t.boolean  "is_active"
+    t.text     "address"
+    t.string   "contact_no"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -96,6 +96,7 @@ Melaka::Application.routes.draw do
   resources :vendors do
     collection do
       post 'update_status'
+      get 'vendor_store'
     end
   end
   resources :resources do
