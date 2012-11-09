@@ -1,9 +1,9 @@
 class ResourcesController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin
+  before_filter :is_admin, :except=>[:get_resources]
   def index
     if params[:id].blank? || params[:id].nil?
-     if current_user.is_super_admin?
+      if current_user.is_super_admin?
         @resources=Resource.order.page(params[:page]).per(10)
       else
         @resources=Resource.find_all_by_department_id(current_department.id)
@@ -56,9 +56,16 @@ class ResourcesController < ApplicationController
       redirect_to(resources_path, :notice => 'Resource has been deleted.')
     end
   end
-def get_subcategory
- sub_categories= SubCategory.where("category_id =?",params[:agency_id]) 
+
+  def get_subcategory
+    sub_categories= SubCategory.where("category_id =?",params[:agency_id])
     render :json=>[sub_categories] if sub_categories
-end
+  end
+
+
+  def get_resources
+    resources=Resource.where("sub_category_id= ? and deleted=false", params[:sub_category_id])
+    render :json=>[resources] if resources
+  end
 
 end

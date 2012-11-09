@@ -18,8 +18,4 @@ module ApplicationHelper
     return user_count
   end
 
-  def default_department
-    default_department ||= current_user.role_memberships.first.department_id
-  end
-
 end
