@@ -725,9 +725,9 @@ body .ui-tooltip {
     color: #222222;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    background: url("../images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #FFEDEB;
-    border:1px solid #FEC2C0;
-    color: #FEC2C0;
+    background: url("../images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #ccc;
+    border:1px solid #BB0802;
+    color: #000000;
     font-weight: normal;
 }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
@@ -756,7 +756,7 @@ body .ui-tooltip {
 }
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
     background: url("../images/ui-bg_glass_55_fbf9ee_1x400.png") repeat-x scroll 50% 50% #FBF9EE;
-    border: 1px solid #FCEFA1;
+    border: 1px solid #BB0802;
     color: #363636;
 }
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a {
@@ -1355,3 +1355,6 @@ body .ui-tooltip {
     opacity: 0.3;
     padding: 8px;
 }
+
+.ui-datepicker{background-color: #FEC2C0;}
+.uii-datepicker .ui-helper-clearfix:after{background-color: #FEC2C0;}
