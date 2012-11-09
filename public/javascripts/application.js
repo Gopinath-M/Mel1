@@ -823,8 +823,8 @@ $().ready(function(){
             })
         }
         else{
-            $('#resource_resource_id').find('option').remove().end()
-            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#categories_department_id').find('option').remove().end()
+            $('#categories_department_id').append($("<option></option>").attr("value","").text("SELECT A CATEGORY"));
         }
 
     });
@@ -848,8 +848,8 @@ $().ready(function(){
             })
         }
         else{
-            $('#resource_resource_id').find('option').remove().end()
-            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#sub_categories_id').find('option').remove().end()
+            $('#sub_categories_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
         }
 
     });
