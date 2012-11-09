@@ -10,5 +10,5 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :name, :case_sensitive=>false, :if=>Proc.new {|u| !u.name.blank?}
   
   #named_scopes comes here
-  scope :active, where(:deleted => false)
+  scope :active, where(:is_active=>true,:deleted => false)
 end
