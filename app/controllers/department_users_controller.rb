@@ -13,12 +13,12 @@ class DepartmentUsersController < ApplicationController
     password_token=password_friendly_token
     @user = User.create(params[:user].merge!({:password => password_token}))
     @user.ic_number = params[:num1] + params[:num2] + params[:num3]  # to get ic number as 3 parts
-    @user.save
     @user.activate_user
     if params[:user_role]=="admin"
       @admin='admin'
     end
     if @user.valid?
+      @user.save
       @user.role_memberships.create(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
       UserMailer.welcomemail_department_user(@user,password_token).deliver
       if @user.roles.first.name==DISP_USER_ROLE_DEPT_ADMIN

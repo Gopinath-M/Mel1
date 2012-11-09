@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
 
+  #Filters
   before_create :make_activation_code
-  #  validates :email,:ic_number, :presence=>true
-  #  mount_uploader :avatar, AvatarUploader
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,28 +10,31 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :avatar_cache, :remove_avatar, :role_id, :widget_one, :widget_two, :profile_status
+
+  #Associations
   has_many :role_memberships
   has_many :roles, :through => :role_memberships
   has_many :departments, :through => :role_memberships
   has_many :units, :through => :role_memberships
 
-  scope :active, where(:deleted => false)
-  #Validation For SignUp,Create user, Page Starts Here
-  #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}
-  mount_uploader :avatar, ProfileImageUploader  
-  validates_presence_of :ic_number
+  #helper for carrier wave
+  mount_uploader :avatar, ProfileImageUploader
+
+  #Validations
+  validates :ic_number, :state, :presence=>true
   validates_integrity_of :avatar
   validates_processing_of :avatar
-  validates :ic_number, :length => { :is => 12 }
-  validates_numericality_of :ic_number
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
-  validates_presence_of :state
-  #before_save :update_avatar_attributes
-  #validates_uniqueness_of :ic_number
-  #  def self.find_for_database_authentication(conditions={})
-  #    self.where("ic_number = ?", conditions[:ic_number]).limit(1).first || self.where("email = ?", conditions[:ic_number]).limit(1).first
-  #  end
+  validates_uniqueness_of :username , :if=>Proc.new {|u| !u.username.blank?}
+  validates :ic_number, :length => { :is => 12 }, :if=>Proc.new {|u| !u.ic_number.blank?}
+  validates_uniqueness_of :ic_number , :if=>Proc.new {|u| !u.ic_number.blank?}
+  validates_numericality_of :ic_number, :if=>Proc.new {|u| !u.ic_number.blank?}
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>Proc.new {|u| !u.email.blank?}
+  #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}
 
+  #Scopes
+  scope :active, where(:deleted => false)
+
+  
   def full_name
     return "NA" if first_name.nil? || last_name.nil?
     full_name=first_name+ " "+last_name
@@ -39,18 +42,17 @@ class User < ActiveRecord::Base
   end 
 
   def is_super_admin?
-    p role = Role.where(:name => "Super Admin").first || Role.new
-
+    role = Role.where(:name => "Super Admin").first || Role.new
     role.users.include?(self)
   end
 
   def is_department_admin?
-    p role = Role.where(:name => "Department Admin").first || Role.new
+    role = Role.where(:name => "Department Admin").first || Role.new
     return role.users.include?(self)
   end
 
   def is_department_user?
-    p role = Role.where(:name => "Department User").first || Role.new
+    role = Role.where(:name => "Department User").first || Role.new
     return role.users.include?(self)
   end
 
@@ -68,13 +70,13 @@ class User < ActiveRecord::Base
     self.activation_code = nil
     self.save
   end
-
+  
+  # the existence of an activation code means they have not activated yet
   def account_active?
-    # the existence of an activation code means they have not activated yet
     activation_code.nil?
   end
 
-  #Overrirde basic authentication to check if  user is activated or not before login
+  #Override basic authentication to check if  user is activated or not before login
   def active_for_authentication?
     super && account_active?
   end
