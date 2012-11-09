@@ -1,1 +1,5 @@
-  <%= select(:std,:agency, Agency.where(:deleted => false).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A AGENCY") %>
+<div class="form-sec-row">
+  <span class="in-box">
+    <%= select(:std,:agency, Agency.where(:deleted => false).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A AGENCY") %>
+  </span>
+</div>

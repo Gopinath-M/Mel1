@@ -1,7 +1,5 @@
 <% if request.xhr? %>
-  <!--[if IE 7]><%= stylesheet_link_tag 'ie7' %><![endif]-->
-  <!--[if IE 8]><%= stylesheet_link_tag 'ie8' %><![endif]-->
-  <%= javascript_include_tag 'application' %>
+  <%#= javascript_include_tag 'application' %>
 <%end%>
 
 <div class="wallPost-con">
@@ -25,14 +23,11 @@
     </div>
 
     <% if current_user && current_user.is_super_admin? %>
-      <select name="sort" id ="message_user_select" >
-        <option selected="selected">Sort by</option>
-        <option>All Users</option>
-        <option>All Admins</option>
-        <option>Select Agency</option>
-        <option>Select Department</option>
-        <option>Select Dept Admin</option>
-      </select>
+      <div class="form-sec-row">
+        <span class="in-box">
+          <%= select_tag :message_user_select,"<option>Please Select</option><option>All Users</option><option>All Admins</option><option>Select Agency</option><option>Select Department</option><option>Select Dept Admin</option>".html_safe %>
+        </span>
+      </div>
     <%elsif current_user && current_user.is_department_admin? %>
       <%= 'The Message will be posted to all the users in this Department' %>
     <%end%>
@@ -56,8 +51,8 @@
   </div>
 </div>
 <div class="postedMsg-con">
-  <div class="sortRow box">
-  </div>
+  <!--<div class="sortRow box">
+  </div>-->
 
   <% if @messages && !@messages.empty? %>
     <% @messages.each do |message| %>
