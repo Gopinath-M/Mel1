@@ -3,35 +3,35 @@
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
     <label for="" class="ui-watermark-label" style="left: 6px; top: 6px;"></label>
-   <%if @unit.name%>
-     <div class="form-sec-row">
-          <%department_name = Department.find_by_id(@unit.department_id)%>
-          <%agency_name = Agency.find(department_name.agency_id)%>
-          <label class="text">Agency Name</label>
-          <span class="in-box">
-          <%=agency_name.name%>
-          </span>
-     </div>
-    <div class="form-sec-row">
-          <label class="text">Department Name</label>
-          <span class="in-box">
-          <%=department_name.name%>
-          </span>
-     </div>
-   <%else%>
-    <div class="form-sec-row">
-      <%= label_tag "id_agency", raw("Agency"), :class=>"text" %>
-      <span class="in-box">
-        <%= select("units","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= f.label :department_id,raw("Department"), :class=>"text"%>
-      <span class="in-box">
-        <%=  select("department", "department_id", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
-      </span>
-    </div>
-   <%end%>
+    <%if !@unit.new_record?%>
+      <div class="form-sec-row">
+        <%department_name = Department.find_by_id(@unit.department_id)%>
+        <%agency_name = Agency.find(department_name.agency_id) if department_name%>
+        <label class="text">Agency Name</label>
+        <span class="in-box">
+          <%=agency_name.name if agency_name%>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Department Name</label>
+        <span class="in-box">
+          <%=department_name.name if department_name%>
+        </span>
+      </div>
+    <%else%>
+      <div class="form-sec-row">
+        <%= label_tag "id_agency", raw("Agency"), :class=>"text" %>
+        <span class="in-box">
+          <%= select("units","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :department_id,raw("Department"), :class=>"text"%>
+        <span class="in-box">
+          <%=  select("unit", "department_id", Department.active.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+        </span>
+      </div>
+    <%end%>
 
     <div class="form-sec-row">
       <label class="text">Unit Name</label>
@@ -45,13 +45,13 @@
         <%= f.text_field :address %>
       </span>
     </div>
-     <div class="form-sec-row">
+    <div class="form-sec-row">
       <label class="text">Telephone Number</label>
       <span class="in-box">
         <%= f.text_field :telephone_number%>
       </span>
     </div>
-     <div class="form-sec-row">
+    <div class="form-sec-row">
       <label class="text">Fax Number</label>
       <span class="in-box">
         <%= f.text_field :fax_number%>
