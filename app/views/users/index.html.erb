@@ -63,7 +63,7 @@
               <%elsif user.status=="Deactive" || user.status.nil?%>
                 <%=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+"Activate" , update_status_users_path(:id=>user.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate" %>
               <%end%>
-              <%=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+"Delete", user_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
+              <%#=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+"Delete", user_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
             </div>
           </div><%end%>
         <div class="manage-user-rows box"><br/><br/>
