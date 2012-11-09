@@ -953,6 +953,25 @@ $("#agency_store_submit").live("click",function(){
         }
     });
     /*Validation for Agency Store Ends*/
+<<<<<<< HEAD
+=======
+    /*Validation for Category Mapping Starts*/
+    $("#user_submit").live("click",function(){
+        if ($("#users_agency").val() == ""){
+            alert("Select Agency value");
+            return false;
+        }
+        else if ($("#resource_category_department_id").val() == ""){
+            alert("Select Department value");
+            return false;
+        }
+        else if ($("#resource_category_resource_category_id").val() == ""){
+            alert("Select Category value");
+            return false;
+        }
+    });
+/*Validation for Category Mapping Ends*/
+>>>>>>> development
 })
 
 /*Javascripts Starts*/
