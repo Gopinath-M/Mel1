@@ -36,9 +36,10 @@ class UsersController < ApplicationController
         department = Department.find_by_id(params[:department_id])
         @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
       else
+        p current_user.role_memberships.first.default_dept
         default_department ||= current_user.role_memberships.first.default_dept
         @dept = Department.find_by_id(default_department)
-        @users = @dept.users.where("role_id != 2").page(params[:page]).per(10)
+        @users = @dept.users.where("role_id != 2").page(params[:page]).per(10) if @dept
       end
     else
 
