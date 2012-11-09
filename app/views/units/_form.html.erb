@@ -6,7 +6,7 @@
    <%if @unit.name%>
      <div class="form-sec-row">
           <%department_name = Department.find_by_id(@unit.department_id)%>
-          <%#agency_name = Agency.find(department_name.agency_id)%>
+          <%agency_name = Agency.find(department_name.agency_id)%>
           <label class="text">Agency Name</label>
           <span class="in-box">
           <%=agency_name.name%>
