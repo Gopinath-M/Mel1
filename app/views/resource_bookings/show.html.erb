@@ -22,12 +22,14 @@
         <%=@resource_booking.resource.name  %>
       </span>
     </div>
-    <div class="form-sec-row">
-      <label class="text">Department</label>
-      <span class="in-box">
-        <%=@resource_booking.department.name %>
-      </span>
-    </div>
+    <%if @resource_booking.department!=nil%>
+      <div class="form-sec-row">
+        <label class="text">Department</label>
+        <span class="in-box">
+          <%=@resource_booking.department.name %>
+        </span>
+      </div>
+    <%end%>
     <div class="form-sec-row">
       <label class="text">Purpose</label>
       <span class="in-box">
