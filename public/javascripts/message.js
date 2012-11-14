@@ -101,9 +101,15 @@ $().ready(function(){
                 value:$("#message_user_select").val()
             },
             function(data){
+                $("#user_type_select_div").show();
                 $("#user_type_select_div").html(data);
             });
         }
+        else
+            {
+                $("#user_type_select_div").hide();
+
+            }
     });
 
     /* Message Agency Type Select Combo Box */
