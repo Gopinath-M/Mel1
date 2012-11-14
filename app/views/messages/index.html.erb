@@ -3,7 +3,13 @@
     <div class="selectRole">
       <ul class="box">
         <li>
-          <span>Change Role: </span> <a href="#" title="Super Admin">Super Admin</a>
+          <% if current_user && current_user.is_super_admin? %>
+            <span>Change Role: </span> <a title="Super Admin">Super Admin</a>
+          <% elsif current_user && current_user.is_department_admin? %>
+            <span>Change Role: </span> <a title="Department Admin">Department Admin</a>
+          <%else%>
+            <span>Change Role: </span> <a title="Department User">Department User</a>
+          <%end%>
         </li>
       </ul>
     </div>
@@ -43,14 +49,7 @@
           <li class="allUser f-left">
             <!--<a href="#" title="All Users"><img src="images/arrow_d2.png" alt="Image" width="7" height="7" /> All Users</a>-->
           </li>          
-          <!--<li class="upload-file">
-            <a href="#" title="Upload Files">Upload Files</a>
-          </li>          
-          <li class="url-link">
-            <a href="#" title="Link URL"> Link URL</a>
-          </li>-->
         </ul>
-<%#= file_field_tag :attachment %>
       </div>
     </div>
   </div>
