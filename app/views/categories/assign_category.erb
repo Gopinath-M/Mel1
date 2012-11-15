@@ -26,7 +26,9 @@
           <% if current_user.is_super_admin? %>
             <%= select("users","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
           <%else%>
-            <%= select("users","agency_id", Agency.find_all_by_id(current_user.departments).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A AGENCY") %>
+           <%agency = Agency.find(current_department.agency_id) %>
+            <%= select("users","agency_id",  Agency.find_all_by_id(current_department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+        
           <%end%>
         </span>
       </div>
