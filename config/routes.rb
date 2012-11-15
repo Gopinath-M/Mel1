@@ -85,6 +85,8 @@ Melaka::Application.routes.draw do
       get 'assign_category'
       post 'update_category'
       get 'update_category'
+      get 'list_category_mapping'
+      post 'update_category_mapping'
     end
   end
   resources :sub_categories do
@@ -96,6 +98,7 @@ Melaka::Application.routes.draw do
   resources :vendors do
     collection do
       post 'update_status'
+      get 'vendor_store'
     end
   end
   resources :resources do
@@ -115,6 +118,7 @@ Melaka::Application.routes.draw do
       get 'get_categories'
       get 'get_sub_categories'
       get 'get_resource'
+      post 'update_status'
     end
   end
   #Error routes
