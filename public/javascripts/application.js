@@ -422,7 +422,7 @@ $().ready(function(){
                 content+=""
                 for(i=0; i<data[0].length; i++)
                 {
-                    content+="<tr><td>"+data[0][i]+"</td></tr>"
+                    content+="<tr><td><font color='#369'><b>"+data[0][i]+"</b></font></td></tr>"
                 }
                 content+="</table>"
                 $("#div_dept_transfer").html(content)
@@ -493,6 +493,42 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
+
+
+    $("#standard4_department_id").live("change", function(){
+        if($("#standard4_department_id").val()!="")
+        {
+            $.get("/department_users/get_units_for_transfer",{
+                department_id : $("#standard4_department_id").val()
+            }, function(data){
+                if (data[0] != "")
+                {
+                    $("#unit_from_hide").show();
+                    $('#users_id_unit').find('option').remove().end()
+                    $('#users_id_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#users_id_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
+                    }
+                }
+                else
+                {
+                    $("#unit_from_hide").hide();
+                }
+            })
+        }
+     });
+
+     $("#users_id_unit").live("change",function(){
+        $.get("/users/",{
+            unit_id: $("#users_id_unit").val()
+        }, function(data){
+            $("#department_id").val($("#users_id_unit").val())
+            $("#div_ajax").html(data)
+        });
+     })
+
+
     /* Dept list page select box */
     $("#agency_list_depart").live("change",function(){
         $.get("/departments/",{
@@ -703,7 +739,7 @@ $().ready(function(){
                 content+=""
                 for(i=0; i<data[0].length; i++)
                 {
-                    content+="<tr><td>"+data[0][i]+"</td></tr>"
+                    content+="<tr><td><font color='#369'><b>"+data[0][i]+"</b></font></td></tr>"
                 }
                 content+="</table>"
                 $("#div_unit_transfer").html(content)
@@ -744,7 +780,7 @@ $().ready(function(){
             $.get("/department_users/get_units_for_transfer",{
                 department_id : $("#to_department_id").val()
             }, function(data){
-                if (data[0]!= "")
+                if (data[0]!= null)
                 {
                     $('#to_unit_id').find('option').remove().end()
                     $('#to_unit_id').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
@@ -777,6 +813,8 @@ $().ready(function(){
         }
     });
     /* Dated Oct 31 transfer unit ends*/
+
+
 
 
     $("#agency_store_agency_id").live("change", function(){
@@ -981,6 +1019,14 @@ $().ready(function(){
     });
 /*Validation for Category Mapping Ends*/
 
+ $("#category_id").live("change",function(){
+        $.get("/sub_categories/",{
+            category_id: $("#category_id").val()
+        }, function(data){
+            $("#department_id").val($("#category_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
 })
 
 /*Javascripts Starts*/
