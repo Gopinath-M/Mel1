@@ -5,9 +5,9 @@ class CategoriesController < ApplicationController
   def index
     if params[:id].blank? || params[:id].nil?
       if current_user.is_super_admin?
-        @categories=Category.where(:deleted => false).order.page(params[:page]).per(15)
+        @categories=Category.where(:deleted => false).order.page(params[:page]).per(10)
       else
-        @categories=Category.find_all_by_department_id(current_department.id)
+        @categories=Category.where(:created_by => current_user.id).order.page(params[:page]).per(10)
       end
     end
   end
@@ -71,6 +71,22 @@ class CategoriesController < ApplicationController
     @category.save
     redirect_to(categories_path, :notice => 'Resource Category has been sucessfully assigned  to Department.')
   end
-
-
+  def list_category_mapping
+    categories = Category.all
+    categories.each do |category|
+      @category_mapping = CategoriesDepartment.find_all_by_category_id(category.id)
+      @category_mapping.each do |category|
+        @categories = Category.find_all_by_id(category.category_id)
+      end
+    end
+  end
+def update_category_mapping
+    category = CategoriesDepartment.find_by_category_id(params[:id])
+    if category && params[:status]=="Activate"
+      category.update_attribute(:is_active,true)
+    elsif category && params[:status]=="Deactivate"
+      category.update_attribute(:is_active, false)
+    end
+    redirect_to(list_category_mapping_categories_path, :notice => 'Category Mapping has been successfully changed.')
+  end
 end

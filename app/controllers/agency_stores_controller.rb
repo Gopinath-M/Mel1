@@ -21,6 +21,7 @@ class AgencyStoresController < ApplicationController
 
   def create
     @store = AgencyStore.create(params[:agency_store])
+    w
     @store.save
     if @store.valid?
       redirect_to :controller=>'agency_stores', :action=>'index'
@@ -58,7 +59,6 @@ class AgencyStoresController < ApplicationController
 def get_resource
 
     resources = Resource.find_all_by_sub_category_id(params[:agency_id])
-    p'kkkkkkkkkkkkkkkkkkkkkk',resources
     render :json=>[resources] if resources
 end
 def get_categories

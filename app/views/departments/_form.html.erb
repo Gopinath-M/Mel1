@@ -4,7 +4,7 @@
   <div class="form-sec-row">
     <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
     <span class="in-box">
-      <%if @department.agency_id%>
+      <%if @department.name%>
       <%agency_name = Agency.find(@department.agency_id)%>
       <%=agency_name.name%>
       <%else%>
@@ -18,6 +18,25 @@
       <%= f.text_field :name%>
     </span>
   </div>
+
+  <div class="form-sec-row">
+      <label class="text">Address</label>
+      <span class="in-box">
+        <%= f.text_field :address %>
+      </span>
+    </div>
+     <div class="form-sec-row">
+      <label class="text">Telephone Number</label>
+      <span class="in-box">
+        <%= f.text_field :telephone_number%>
+      </span>
+    </div>
+     <div class="form-sec-row">
+      <label class="text">Fax Number</label>
+      <span class="in-box">
+        <%= f.text_field :fax_number%>
+      </span>
+    </div>
   <div class="form-sec-row">
     <label class="text">Is Active</label>
     <span class="in-box">

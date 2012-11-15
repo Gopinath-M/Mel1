@@ -5,5 +5,5 @@ class SubCategory < ActiveRecord::Base
   has_many :resources
   belongs_to :category
 
-  scope :active, where(:deleted => false)
+  scope :active, where(:is_active => true, :deleted => false)
 end

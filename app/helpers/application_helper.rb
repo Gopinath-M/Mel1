@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-   #this will work if the user belongs to one department. We need to do for multiple departments #manivannan
+  #this will work if the user belongs to one department. We need to do for multiple departments #manivannan
   def current_department  
     @current_department ||= current_user.departments.first
   end
@@ -18,8 +18,7 @@ module ApplicationHelper
     return user_count
   end
 
-  def current_departments
-    departments=current_user.departments.where(:deleted => false)
-    return departments
+  def default_department
+    default_department ||= current_user.role_memberships.first.default_dept
   end
 end

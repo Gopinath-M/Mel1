@@ -101,9 +101,15 @@ $().ready(function(){
                 value:$("#message_user_select").val()
             },
             function(data){
+                $("#user_type_select_div").show();
                 $("#user_type_select_div").html(data);
             });
         }
+        else
+            {
+                $("#user_type_select_div").hide();
+
+            }
     });
 
     /* Message Agency Type Select Combo Box */
@@ -138,34 +144,19 @@ $().ready(function(){
 })
 
 
-function insert_text_field(val){
+function insert_text_field(val){    
     var tbl = document.getElementById("comments_section_"+val);
-    s = val.split("_")
-    tbl.innerHTML = '<input type="text"  size = "50" maxlength= "50" name= "post_comments" id= comments_section_'+ s[1]  + '>' + '<input type="submit" name="Go" value="Go" onclick=submit_post('+s[1]+'); >'
+    s = val.split("_")    
+    tbl.innerHTML = '<div class="PM-cmts box"><div class="PM-cmts-post">\n\
+                     <p class="formRow">\n\
+                     <label for="cmts" class="ui-watermark-label-pass"></label>\n\
+                     <textarea class="" name="" rows="" cols="" id= "post_comment_'+s[1]+'"></textarea>  <p>  </div>'+ '<input type="submit" class="btn2 in-btn2" name="Post" value="Post" onclick=submit_post_comment('+s[1]+'); ></div>'
 }
 
 
-function submit_post(val)
-{
-    s = $("#comments_section_"+val).val();
-    if (s != ""){
-        $.get("/messages/post_comments",{
-            id : val,
-            msg : s
-        },
-        function(data){
-            $("#post_message_"+val).html(data);
-        });
-    }
-    else
-    {
-        alert("Enter something");
-    }
-}
 
 function submit_post_comment(val){
-    s = $("#post_comment_"+val).val();
-
+    s = $("#post_comment_"+val).val();    
     if (s != ""){
         $.get("/messages/post_comments",{
             id : val,
@@ -180,3 +171,4 @@ function submit_post_comment(val){
         alert("Enter something");
     }
 }
+

@@ -7,11 +7,11 @@ class DepartmentsController < ApplicationController
       @departments=nil
     agencyid = params[:agency_id].to_i # while selecting Please Select returns string params
     if agencyid == 0
-      @departments = Department.where(:deleted => false).page(params[:page]).per(10)
+      @departments = Department.all_undeleted.page(params[:page]).per(10)
       #@departments = departments.page(params[:page]).per(10)
     else
       agency = Agency.find_by_id(params[:agency_id])
-      @departments = agency.departments.page(params[:page]).per(10)
+      @departments = agency.departments.all_undeleted.page(params[:page]).per(10)
     end
     if request.xhr?
       render :layout=>false

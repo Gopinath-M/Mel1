@@ -27,11 +27,11 @@
           <div class="clear"></div>
           <div class="PM-cmts-row box">
             <div class="PM-cmts-img">
-              <a href="#" title="Melaka"><img src="images/img_user3.jpg" alt="Image" width="30" height="30" /></a>
+              <a title="Melaka"><img src="images/img_user3.jpg" alt="Image" width="30" height="30" /></a>
             </div>
             <div class="PM-cmts-txt">
               <p><%= comment.comments %></p>
-              <p class="PM-des">by <a href="#" title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> ago</p>
+              <p class="PM-des">by <a title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> ago</p>
             </div>
           </div>
         <%end%>

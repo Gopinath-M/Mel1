@@ -56,7 +56,7 @@
         <div class="form-sec-row">
           <%= f.label :zipcode, :class=>"text"%>
           <span class="in-box">
-            <%= f.text_field :zipcode, :size => 6, :autofocus => true%>
+            <%= f.text_field :zipcode, :size => 5, :maxlength=>5, :autofocus => true%>
           </span>
         </div>
         <div class="form-sec-row">

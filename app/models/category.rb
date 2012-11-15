@@ -4,8 +4,9 @@ class Category < ActiveRecord::Base
   validates :name, :presence => true
 
   
-  scope :active, where(:deleted => false)
+  scope :active, where(:is_active => true, :deleted => false)
 
   #Association
   has_many :sub_categories
+  has_many :categories_departments
 end

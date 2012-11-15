@@ -10,10 +10,9 @@
       <%= label_tag "id_agency", raw("Agency"), :class=>"text" %>
       <span class="in-box">
         <%= select("id","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+      <br/><br/>
       </span>
-    </div>
-
-    <div class="form-sec-row">
+   
       <%= label_tag :department_id,raw("Department"), :class=>"text"%>
       <span class="in-box">
         <%=select(:standard1,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
@@ -61,16 +60,16 @@
                 <%else%>
                   <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_units_path(:id=>unit.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => 'Do you want to really Activate this unit?', :method=>:post, :title=>"Activate"%>
                 <%end%>
-                <%= link_to image_tag("../images/delete.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Delete", unit_path(:id=>unit.id,:department_id=>params[:department_id]), :method=>:delete, :confirm => "Are you sure want to delete?" %>
+                <%#= link_to image_tag("../images/delete.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Delete", unit_path(:id=>unit.id,:department_id=>params[:department_id]), :method=>:delete, :confirm => "Are you sure want to delete?" %>
               </div>
-            </div>
-            <div class="clear"></div>
-          </div>
+            </div>             
+          </div>  
         <%end%>
       <%end%>
     <%else%>
       No Units Available
     <%end%>
 <%#*<div><%= paginate @units %>
-  </div>
+  </div><div class="manage-user-rows box"><br/><br/>
+<%= paginate @units %></div>
 </div>

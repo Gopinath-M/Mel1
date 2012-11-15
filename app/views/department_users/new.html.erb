@@ -60,7 +60,7 @@
       <div class="form-sec-row">
         <%= f.label :zipcode,raw("Zipcode"), :class=>"text"%>
         <span class="in-box">
-          <%= f.text_field :zipcode, :size => 30%>
+          <%= f.text_field :zipcode, :size => 5, :maxlength=>5%>
         </span>
       </div>
       <%if current_user.is_super_admin? %>

@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
 
   def home
     if user_signed_in?
-     if !current_user.is_super_admin? && current_user.sign_in_count == 1
-       redirect_to :controller => "registrations", :action => "privacy_setting"
+      if !current_user.is_super_admin? && current_user.sign_in_count == 1
+        redirect_to :controller => "registrations", :action => "privacy_setting"
       else
         redirect_to :controller => "dashboard", :action => "index"
       end
@@ -19,15 +19,15 @@ class ApplicationController < ActionController::Base
 
   # this method is for restricting user from login before super admin approves him. Since it has to be needed some tweaks, i am commenting this for timebeing #manivannan
   #def validate_user_role_membership  
-     # if (current_user.present? && current_department.present?)
-        #rm = current_user.role_memberships.where(:department_id => current_department.id).first
-        #if not rm.nil?      
-         # if rm.status == STATUS_INACTIVE        
-            #sign_out(current_user)
-            #render :template => "errors/blocked.html.erb" 
-          #end
-        #end
-      #end  
+  # if (current_user.present? && current_department.present?)
+  #rm = current_user.role_memberships.where(:department_id => current_department.id).first
+  #if not rm.nil?
+  # if rm.status == STATUS_INACTIVE
+  #sign_out(current_user)
+  #render :template => "errors/blocked.html.erb"
+  #end
+  #end
+  #end
   #end    
 
   def is_admin
@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
       redirect_to dashboard_index_path
     end
   end
- def default_department
+  
+  def default_department
     default_department ||= current_user.role_memberships.first.default_dept
-    @dept = Department.find_by_id(default_department)
   end
 end

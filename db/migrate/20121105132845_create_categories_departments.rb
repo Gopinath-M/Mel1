@@ -4,6 +4,7 @@ class CreateCategoriesDepartments < ActiveRecord::Migration
       t.integer :category_id
       t.integer :department_id
       t.integer :created_by
+      t.boolean :is_active
       t.timestamps
     end
   end

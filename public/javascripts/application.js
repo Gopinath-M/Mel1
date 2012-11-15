@@ -1004,7 +1004,7 @@ $().ready(function(){
     
     /*Validation for Category Mapping Starts*/
     $("#user_submit").live("click",function(){
-        if ($("#users_agency").val() == ""){
+        if (($("#users_agency").val() == "") || ($("#users_agency_id").val() == "")) {
             alert("Select Agency value");
             return false;
         }
@@ -1027,6 +1027,52 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
+
+
+
+/* adding dynamic text box in agency store fomr */
+	var i = $('input').size() + 1;
+
+	$('#add').click(function() {
+		$('<div class="mu-c2"><input type="text" class="field" size=30  name="text' + i + '" /></div>').fadeIn('slow').appendTo('.inputs');
+		i++;
+	});
+//<input type="text" class="field" size=30 name="dynamic[]" value="' + i + '" />
+	$('#remove').click(function() {
+	if(i > 1) {
+		$('.field:last').remove();
+		i--;
+	}
+	});
+
+	$('#reset').click(function() {
+	while(i > 2) {
+		$('.field:last').remove();
+		i--;
+	}
+	});
+
+
+// here's our click function for when the forms submitted
+
+	$('.submit').click(function(){
+
+
+	var answers = [];
+    $.each($('.field'), function() {
+        answers.push($(this).val());
+    });
+
+    if(answers.length == 0) {
+        answers = "none";
+    }
+
+	alert(answers);
+
+	return false;
+
+	});
+/* dynamic text box ends */
 })
 
 /*Javascripts Starts*/

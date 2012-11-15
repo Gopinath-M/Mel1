@@ -1,24 +1,25 @@
 <div class="CenterNav">
   <br /><br />
-  <%#if !current_user.is_super_admin?%>
-    <%#@department=current_user.departments.collect(&:id)%>
-    <%#if @department.length!=1%>
-      <%#*<div class="create-user">Change Department :%>
-        <%#*<div class="cu-c4">%>
-          <%#=select "dashboard", "user_department", options_for_select(current_user.departments.collect{|p|[p.name,p.id]},current_user.departments.first.id )%>
-        <%#*</div>%>
-      <%#*</div>%>
-    <%#end%>
-  <%#end%>
+<%#if !current_user.is_super_admin?%>
+<%#@department=current_user.departments.collect(&:id)%>
+<%#if @department.length!=1%>
+<%#*<div class="create-user">Change Department :%>
+<%#*<div class="cu-c4">%>
+<%#=select "dashboard", "user_department", options_for_select(current_user.departments.collect{|p|[p.name,p.id]},current_user.departments.first.id )%>
+<%#*</div>%>
+<%#*</div>%>
+<%#end%>
+<%#end%>
   <h3 class="b-head">Today's News</h3><marquee behavior="scroll" direction="left">     Melaka State adopts Red Hat’s virtualization and Linux operating system; security, reliability and cost key factors in win
     Opens Center of Excellence in a bid to train more open source professionals, boosting skill sets for future
   </marquee><br /><br /><br /><br /><h3 class="b-head">Dashboard</h3>
   <div id="tabs">
     <ul>  
       <%if current_user && (current_user.is_super_admin? || current_user.is_department_admin?)%>
-        <li><a href="#tabs-1"><%=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li>
+                <!--li><a href="#tabs-1"><%#=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li-->
+        <li><a href="#tabs-1">Messages</a></li>
         <li><a href="#tabs-2">User Transfer Request</a></li>
-        <li><a href="#tabs-3">Resource Booking</a></li>
+        <li><a href="#tabs-3">Complaints</a></li>
       <%else%>
         <li><a href="#tabs-1">Messages</a></li>
         <li><a href="#tabs-2">Vendors</a></li>
@@ -27,57 +28,69 @@
         <li><a href="#tabs-3">Events</a></li>
       <%end%>
     </ul>
-    <div id="tabs-1"><%if current_user && current_user.is_super_admin? %>
-        <%@users.each do |user|%>
-          <div class="manage-user-row box">
-            <div class="mu-c1">
-              <%=link_to image_tag(user.avatar_url, :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines" if user.avatar?%>
-            </div>
-            <div class="mu-c2">
-              <p class="head1">
-                <%=link_to content_tag(:b, user.full_name), "javascript:void(0);", :title=>user.full_name ,:class=>"lnk_blue"%><br/>
-                <%=user.ic_number%><br/>
-                <%=link_to content_tag(:b, user.email), "javascript:void(0);", :title=>user.email,:class=>"lnk_blue"%>
-              </p>
-            </div>
-            <div class="mu-c3">
-              <%if user.status=="Active"%>
-                <%=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+"Deactive" , update_user_status_departments_path(:id=>user.id,:status=>"Deactivate",:department_id=>params[:department_id]), :confirm => 'Do you want to really deactivate this user?', :method=>:post, :title=>"Deactive" %>
-              <%elsif user.status=="Deactive" || user.status.nil?%>
-                <%=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+"Activate" , update_user_status_departments_path(:id=>user.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate" %>
-              <%end%>
-              <%=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+"Delete", department_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
-            </div>
-          </div>
-        <%end%>
-      <%elsif current_user && current_user.is_department_admin?%>
-        <%@users.each do |user|%>
-          <div class="manage-user-row box">
-            <div class="mu-c1">
-              <%=link_to image_tag(user.avatar_url, :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines" if user.avatar?%>
-            </div>
-            <div class="mu-c2">
-              <p class="head1">
-                <font color="#0172C4"> <b><%= user.full_name %></b></font><br/>
-                <%=user.ic_number%><br/>
-                <font color="#0172C4"> <b> <%=user.email%></b></font>
-              </p>
-            </div>
-            <div class="mu-c3">
-              <%if user.status=="Active"%>
-                <%=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+"Deactive" , update_user_status_departments_path(:id=>user.id,:status=>"Deactivate",:department_id=>params[:department_id]), :confirm => 'Do you want to really deactivate this user?', :method=>:post, :title=>"Deactive" %>
-              <%elsif user.status=="Deactive" || user.status.nil?%>
-                <%=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+"Activate" , update_user_status_departments_path(:id=>user.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate" %>
-              <%end%>
-              <%=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+"Delete", department_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
-            </div>
-          </div><%end%>
-      <%else%>
-        User Messages will comes here<br />
-        <%if current_user.departments && current_user.departments.first%>
-        Department Logged  <%=current_user && current_user.departments.first.name%>
-        <%end%>
-      <%end%>
+<%#*<div id="tabs-1">%>
+<%#if current_user && current_user.is_super_admin? %>
+<%#@users.each do |user|%>
+<%#*<div class="manage-user-row box">%>
+<%#*<div class="mu-c1">%>
+<%#=link_to image_tag(user.avatar_url, :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines" if user.avatar?%>
+<%#*</div>%>
+<%#*<div class="mu-c2">%>
+<%#*<p class="head1">%>
+<%#=link_to content_tag(:b, user.full_name), "javascript:void(0);", :title=>user.full_name ,:class=>"lnk_blue"%>
+<%#*<br/>%>
+<%#=user.ic_number%>
+<%#*<br/>%>
+<%#=link_to content_tag(:b, user.email), "javascript:void(0);", :title=>user.email,:class=>"lnk_blue"%>
+<%#*</p>%>
+<%#*</div>%>
+<%#*<div class="mu-c3">%>
+<%#if user.status=="Active"%>
+<%#=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+"Deactive" , update_user_status_departments_path(:id=>user.id,:status=>"Deactivate",:department_id=>params[:department_id]), :confirm => 'Do you want to really deactivate this user?', :method=>:post, :title=>"Deactive" %>
+<%#elsif user.status=="Deactive" || user.status.nil?%>
+<%#=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+"Activate" , update_user_status_departments_path(:id=>user.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate" %>
+<%#end%>
+<%#=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+"Delete", department_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
+<%#*</div>%>
+<%#*</div>%>
+<%#end%>
+<%#elsif current_user && current_user.is_department_admin?%>
+<%#@users.each do |user|%>
+<%#*<div class="manage-user-row box">%>
+<%#*<div class="mu-c1">%>
+<%#=link_to image_tag(user.avatar_url, :width=>"60", :height=>"60"), user_path(:id=>user.id), :title=>"The Melaka  State Office of Land and Mines" if user.avatar?%>
+<%#*</div>%>
+<%#*<div class="mu-c2">%>
+<%#*<p class="head1">%>
+<%#*<font color="#0172C4"> <b>%>
+<%#= user.full_name %>
+<%#*</b></font><br/>%>
+<%#=user.ic_number%><br/>
+<%#*<font color="#0172C4"> <b>%>
+<%#=user.email%>
+<%#*</b></font>%>
+<%#*</p>%>
+<%#*</div>%>
+<%#*<div class="mu-c3">%>
+<%#if user.status=="Active"%>
+<%#=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+"Deactive" , update_user_status_departments_path(:id=>user.id,:status=>"Deactivate",:department_id=>params[:department_id]), :confirm => 'Do you want to really deactivate this user?', :method=>:post, :title=>"Deactive" %>
+<%#elsif user.status=="Deactive" || user.status.nil?%>
+<%#=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+"Activate" , update_user_status_departments_path(:id=>user.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate" %>
+<%#end%>
+<%#=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+"Delete", department_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
+<%#*</div>%>
+<%#*</div>%>
+<%#end%>
+<%#else%>
+<%#*User Messages will comes here<br />%>
+<%#if current_user.departments && current_user.departments.first%>
+<%#*Department Logged%>  
+<%#=current_user && current_user.departments.first.name%>
+<%#end%>
+<%#end%>
+<%#*</div>%>
+    <div id="tabs-1">
+      User Messages will comes here
     </div>
     <div id="tabs-2">
       <%if current_user && current_user.is_super_admin? %>
@@ -89,13 +102,14 @@
       <%end%>
     </div>
     <div id="tabs-3">
-      <%if current_user && current_user.is_super_admin? %>
-        <p>Resource Booking.</p>
-      <%elsif current_user && current_user.is_department_admin?%>
-        <p>Resource booking for Dept Admin.</p>
-      <%else%>
-        User can book resources
-      <%end%>
+      <%#if current_user && current_user.is_super_admin? %>
+        <%#*<p>Resource Booking.</p>%>
+      <%#elsif current_user && current_user.is_department_admin?%>
+        <%#*<p>Resource booking for Dept Admin.</p>%>
+      <%#else%>
+        <%#*User can book resources%>
+      <%#end%>
+      Complaints will come here
     </div>
   </div>
 </div>
