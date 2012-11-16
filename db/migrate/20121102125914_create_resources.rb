@@ -12,7 +12,7 @@ class CreateResources < ActiveRecord::Migration
       t.string :status
       t.boolean :is_returnable
       t.integer :created_by
-      t.boolean :is_active
+      t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false
       t.timestamps
     end
