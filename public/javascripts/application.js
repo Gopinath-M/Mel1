@@ -1073,6 +1073,16 @@ $().ready(function(){
 
 	});
 /* dynamic text box ends */
+/* category mapping list page will show based on dept selection */
+$("#cat_department_id").live("change",function(){
+        $.get("/categories/list_category_mapping/",{
+            category_id: $("#cat_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#cat_department_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
+/* category mapping list ends */
 })
 
 /*Javascripts Starts*/
