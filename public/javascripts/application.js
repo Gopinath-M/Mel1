@@ -1034,7 +1034,7 @@ $().ready(function(){
 	var i = $('input').size() + 1;
 
 	$('#add').click(function() {
-		$('<div class="mu-c2"><input type="text" class="field" size=30  name="text' + i + '" /></div>').fadeIn('slow').appendTo('.inputs');
+		$('<div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
 		i++;
 	});
 //<input type="text" class="field" size=30 name="dynamic[]" value="' + i + '" />
