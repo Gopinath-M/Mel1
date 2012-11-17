@@ -9,6 +9,7 @@ class CreateResources < ActiveRecord::Migration
       t.text :description
       t.string :serial_no
       t.integer :quantity
+      t.string :resource_type
       t.string :status
       t.boolean :is_returnable
       t.integer :created_by
