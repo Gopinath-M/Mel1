@@ -99,6 +99,7 @@ Melaka::Application.routes.draw do
     collection do
       post 'update_status'
       get 'vendor_store'
+      post 'vendor_store'
     end
   end
   resources :resources do

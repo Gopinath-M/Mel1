@@ -2,11 +2,12 @@ class CreateAgencyStores < ActiveRecord::Migration
   def self.up
     create_table :agency_stores do |t|
       t.references :agency
-      t.integer :resources
+      t.references :department
+      t.references :resources
       t.integer :quantity
-      t.string :serial_no
+      t.text :serial_no
       t.integer :uom
-      t.boolean :is_active
+      t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false
       t.timestamps
     end

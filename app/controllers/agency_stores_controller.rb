@@ -20,10 +20,13 @@ class AgencyStoresController < ApplicationController
   end
 
   def create
-    @store = AgencyStore.create(params[:agency_store])
-    w
-    @store.save
-    if @store.valid?
+    store = AgencyStore.create(params[:agency_store])
+    store.department_id = params[:from_department][:id]
+    store.serial_no = params[:dynamic]
+    store.agency_id = params[:transfer_from][:agency]
+    store.resources_id = params[:resource][:resource_id]
+    store.save
+    if store.valid?
       redirect_to :controller=>'agency_stores', :action=>'index'
     else
       render :action=>'new'
@@ -62,8 +65,12 @@ def get_resource
     render :json=>[resources] if resources
 end
 def get_categories
-   dept = CategoriesDepartment.find_all_by_category_id(params[:agency_id])
+   dept = CategoriesDepartment.find_all_by_department_id(params[:agency_id])
+if dept == nil || dept.blank?
+  categories = nil
+else
    categories = Category.find_all_by_id(dept[0].category_id)
+end
    render :json=>[ categories] if  categories
 end
 def get_sub_categories
