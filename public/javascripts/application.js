@@ -1157,6 +1157,22 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
+ /*Assign Resource Manager Validation Starts*/
+    $("#agency_submit").live("click",function(){
+        if ($("#transfer_from_agency").val() == ""){
+            alert("Select Agency value");
+            return false;
+        }
+        else if ($("#from_department_id").val() == ""){
+            alert("Select Department");
+            return false;
+        }
+        else if ($("#transfer_username").val() == ""){
+            alert("Select User");
+            return false;
+        }
+    });
+/*Assign Resource Manager Validation Ends*/
 })
 
 /*Javascripts Starts*/

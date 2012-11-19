@@ -1,10 +1,12 @@
 Melaka::Application.routes.draw do
+
   resources :dashboard do
     collection do
       get 'def_dept'
       post 'change_default_department'
     end
   end
+
   devise_for :users, :controllers=>{:registrations => "registrations", :sessions => "sessions", }, :skip => [:sessions] do
     get "/sign_up", :to => "registrations#new", :as=> :new_user_sign_up
     post "/sign_up", :to => "registrations#create", :as =>  :user_sign_up
@@ -76,6 +78,8 @@ Melaka::Application.routes.draw do
   resources :agencies do
     collection do
       post 'update_status'
+      get 'assign_resource_manager'
+      post 'update_assign_resource_manager'
     end
   end
 

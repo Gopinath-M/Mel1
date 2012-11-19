@@ -42,23 +42,32 @@ class User < ActiveRecord::Base
   end 
 
   def is_super_admin?
-    role = Role.where(:name => "Super Admin").first || Role.new
-    role.users.include?(self)
+    role = Role.where(:name => "Super Admin").first
+    roles=RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    roles && roles.first ? true : false
+    #    role.role_memberships.where(:default_dept=>true)
+    #    role.users.include?(self)
   end
 
   def is_department_admin?
-    role = Role.where(:name => "Department Admin").first || Role.new
-    return role.users.include?(self)
+    role = Role.where(:name => "Department Admin").first
+    roles=RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    return roles && roles.first ? true : false
+    #    return role.users.include?(self)
   end
 
   def is_department_user?
-    role = Role.where(:name => "Department User").first || Role.new
-    return role.users.include?(self)
+    role = Role.where(:name => "Department User").first
+    roles=RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    return roles && roles.first ? true : false
+    #    return role.users.include?(self)
   end
 
   def is_unit_admin?
-    role = Role.where(:name => "Unit Admin").first || Role.new
-    return role.users.include?(self)
+    role = Role.where(:name => "Unit Admin").first
+    roles=RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    return roles && roles.first ? true : false
+    #    return role.users.include?(self)
   end
 
   def activate_user

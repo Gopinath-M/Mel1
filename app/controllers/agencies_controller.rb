@@ -51,5 +51,18 @@ class AgenciesController < ApplicationController
       redirect_to(agencies_path, :notice => 'Agency has been Deleted.')
     end
   end
+# assign resource manager
+def assign_resource_manager
+    @agency = Agency.new
+  end
 
+  def update_assign_resource_manager
+    from_user =  User.find_by_ic_number(params[:transfer][:username])
+    agency = Agency.find_by_id(params[:transfer_from][:agency])
+    role = RoleMembership.new(:department_id => 0, :user_id=> from_user.id, :role_id => '5', :status => 'A')
+    agency.update_attribute(:user_id, from_user.id)
+    role.save
+    redirect_to(assign_resource_manager_agencies_path, :notice => 'Resource Manager has been Successfully Assigned.')
+  end
+# assign resource manager ends here
 end

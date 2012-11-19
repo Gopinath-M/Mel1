@@ -14,7 +14,7 @@ development:
   database: melaka_development
   pool: 5
   username: root
-  password: root
+  password: openwave
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -40,7 +40,7 @@ test:
   database: melaka_test
   pool: 5
   username: root
-  password: root
+  password: openwave
 
 production:
   adapter: mysql2
@@ -48,4 +48,4 @@ production:
   database: melaka_production
   pool: 5
   username: root
-  password: root
+  password: openwave
