@@ -1,7 +1,8 @@
 Melaka::Application.routes.draw do
-    resources :dashboard do
+  resources :dashboard do
     collection do
       get 'def_dept'
+      post 'change_default_department'
     end
   end
   devise_for :users, :controllers=>{:registrations => "registrations", :sessions => "sessions", }, :skip => [:sessions] do
