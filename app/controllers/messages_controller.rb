@@ -1,8 +1,10 @@
 class MessagesController < ApplicationController
+  include MessagesHelper
   
   #Listing out the Messages of logged-in user
   def index
     collect_messages
+    @message = Message.new
   end
 
   #Collecting Messages
