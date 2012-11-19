@@ -22,7 +22,11 @@ class AgencyStoresController < ApplicationController
   def create
     store = AgencyStore.create(params[:agency_store])
     store.department_id = params[:from_department][:id]
-    store.serial_no = params[:dynamic]
+    if params[:dynamic]
+    store.serial_no =  params[:text1] + params[:dynamic].to_s
+    else
+    store.serial_no =  params[:text1]
+    end
     store.agency_id = params[:transfer_from][:agency]
     store.resources_id = params[:resource][:resource_id]
     store.save
