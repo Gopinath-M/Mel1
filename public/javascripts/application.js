@@ -1083,6 +1083,65 @@ $("#cat_department_id").live("change",function(){
         });
     })
 /* category mapping list ends */
+/* get sub categories for vendor store */
+
+$("#categories_id").live("change", function(){
+        if($("#categories_id").val()!="")
+        {
+            $.get("/vendors/get_sub_categories",{
+                category_id : $("#categories_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#sub_category_id').find('option').remove().end()
+                    $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#sub_category_id').find('option').remove().end()
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+    })
+
+ $("#sub_category_id").live("change", function(){
+        if($("#sub_category_id").val()!="")
+        {
+            $.get("/vendors/get_resources",{
+                sub_category_id : $("#sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#resource_id').find('option').remove().end()
+                    $('#resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_booking_resource_id').find('option').remove().end()
+            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+    /* vendor store ends*/
+
+        $("#default_department_id").live("change",function(){
+        $.get("/dashboard/def_dept/",{
+            department_id: $("#default_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#default_department_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
 })
 
 /*Javascripts Starts*/
