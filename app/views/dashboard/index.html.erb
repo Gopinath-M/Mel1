@@ -10,20 +10,21 @@
 <%#*</div>%>
 <%#end%>
 <%#end%>
-
-  <div class="wallPost-con">
-    <div class="selectRole">
-      <ul class="box">
-        <li>
-          <%department=Department.find(@current_department) %>
-          <span>Change Department: </span>
-          <%departments=current_user.departments%>
-          <%=select(:default, :department_name,  options_from_collection_for_select(departments, 'id', 'name', department.id)) %>
-        </li>
-      </ul>
+  <%if !current_user.is_super_admin?%>
+    <div class="wallPost-con">
+      <div class="selectRole">
+        <ul class="box">
+          <li>
+            <%department=Department.find(@current_department) %>
+            <span>Change Department: </span>
+            <%departments=current_user.departments%>
+            <%=select(:default, :department_name,  options_from_collection_for_select(departments, 'id', 'name', department.id)) %>
+          </li>
+        </ul>
+      </div>
+      <div class="clear"></div>
     </div>
-    <div class="clear"></div>
-  </div>
+  <%end%>
 
   <h3 class="b-head">Today's News</h3><marquee behavior="scroll" direction="left">     Melaka State adopts Red Hat’s virtualization and Linux operating system; security, reliability and cost key factors in win
     Opens Center of Excellence in a bid to train more open source professionals, boosting skill sets for future
@@ -31,7 +32,7 @@
   <div id="tabs">
     <ul>  
       <%if current_user && (current_user.is_super_admin? || current_user.is_department_admin?)%>
-                      <!--li><a href="#tabs-1"><%#=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li-->
+                        <!--li><a href="#tabs-1"><%#=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li-->
         <li><a href="#tabs-1">Messages</a></li>
         <li><a href="#tabs-2">User Transfer Request</a></li>
         <li><a href="#tabs-3">Complaints</a></li>
