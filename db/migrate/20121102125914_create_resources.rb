@@ -4,11 +4,9 @@ class CreateResources < ActiveRecord::Migration
       t.string :name
       t.references :category
       t.references :sub_category
-      t.references :vendor
+      t.references :department 
       t.string :status
       t.text :description
-      t.string :serial_no
-      t.integer :quantity
       t.string :resource_type
       t.string :status
       t.boolean :is_returnable
