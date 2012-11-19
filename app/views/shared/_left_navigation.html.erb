@@ -204,8 +204,23 @@
                     <li>
                       <%=link_to "List Resource Bookings", resource_bookings_path%>
                     </li>
+                    <li>
+                      <%=link_to "Create Resource Transport Booking", new_resource_transportation_booking_path %>
+                    </li>
+                    <li>
+                      <%=link_to "List Resource Transport Bookings", resource_transportation_bookings_path %>
+                    </li>
                   </ul>
-
+                </div>
+              </li>
+              <li>
+                <%=link_to "Approve Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
+                <div id ="div_approve_requests" style="display:none;">
+                  <ul>
+                    <li>
+                      <%=link_to "Travel Request", approve_request_resource_transportation_bookings_path %>
+                    </li>
+                  </ul>
                 </div>
               </li>
               <li>

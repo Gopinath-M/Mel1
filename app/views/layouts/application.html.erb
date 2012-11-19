@@ -20,13 +20,15 @@
     <%= javascript_include_tag 'slide' %>
     <%= javascript_include_tag 'prayTimes' %>
 <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
-    <%if controller_name.to_s=="resource_bookings"%>
+    <%if controller_name.to_s=="resource_bookings" || controller_name.to_s=="resource_transportation_bookings" %>
       <%= javascript_include_tag 'jquery.ui.datepicker' %>
       <%= stylesheet_link_tag 'jquery.ui.datepicker' %>
       <script type="text/javascript">
         $().ready(function(){
           $("#resource_booking_requested_to_date").datepicker();
           $("#resource_booking_requested_from_date").datepicker();
+          $("#resource_transportation_booking_requested_to_date").datepicker();
+          $("#resource_transportation_booking_requested_from_date").datepicker();
         });
       </script>
     <%end%>
