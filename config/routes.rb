@@ -1,5 +1,9 @@
 Melaka::Application.routes.draw do
-  resources :dashboard
+    resources :dashboard do
+    collection do
+      get 'def_dept'
+    end
+  end
   devise_for :users, :controllers=>{:registrations => "registrations", :sessions => "sessions", }, :skip => [:sessions] do
     get "/sign_up", :to => "registrations#new", :as=> :new_user_sign_up
     post "/sign_up", :to => "registrations#create", :as =>  :user_sign_up
@@ -100,6 +104,9 @@ Melaka::Application.routes.draw do
       post 'update_status'
       get 'vendor_store'
       post 'vendor_store'
+      get 'get_sub_categories'
+      get 'get_resources'
+      get 'vendorstore_list'
     end
   end
   resources :resources do
