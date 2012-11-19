@@ -4,7 +4,14 @@ class SubCategoriesController < ApplicationController
   
   def index
     if params[:id].blank? || params[:id].nil?
+      if params[:category_id]
+      @sub_categories=SubCategory.where("category_id=? and deleted=false",params[:category_id]).order.page(params[:page]).per(10)
+      else
       @sub_categories=SubCategory.where(:deleted => false).order.page(params[:page]).per(10)
+      end
+    end
+     if request.xhr?
+      render :layout=>false
     end
   end
 

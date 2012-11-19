@@ -1,31 +1,31 @@
+<div class="CenterNav">
 <%= form_for(@vendor_store, :url => vendor_store_vendors_path) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
   <h2 class="b-head">Create Vendor Store</h2>
   <div class="form-sec">
-   <div class="form-sec-row">
-          <%= label_tag :vendor_id, raw("Vendor"), :class=>"text" %>
-          <span class="in-box">
-            <%= select(:name,:vendor,  Vendor.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"SELECT A VENDOR") %>
-          </span>
-        </div>
-       
-       <div class="form-sec-row">
-          <%= label_tag :category_id, raw("Category"), :class=>"text"%>
-          <span class="in-box">
-            <%= select(:categories_department,:id, CategoriesDepartment.where("category_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A CATEGORY") %>
-          </span>
-        </div>
-     <div class="form-sec-row">
-          <%= label_tag :sub_category, raw("Sub Category"), :class=>"text"%>
-          <span class="in-box">
-            <%= select(:sub_categories,:id, SubCategory.where("category_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A SUB CATEGORY") %>
-          </span>
-        </div>
-      <div class="form-sec-row">
+    <div class="form-sec-row">
+        <%= label_tag :vendor_id, raw("Vendor"), :class=>"text" %>
+        <span class="in-box">
+          <%= select(:vendor_store,:id,  Vendor.active.collect {|vendor| [vendor.name, vendor.id]},:selected=>@user,:prompt=>"SELECT A VENDOR") %>
+        </span>
+      </div>
+    <div class="form-sec-row">
+      <%= label_tag :category_id, raw("Category"), :class=>"text"%>
+      <span class="in-box">
+        <%= select(:categories,:id, Category.active.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A CATEGORY") %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <%= label_tag :sub_category, raw("Sub Category"), :class=>"text"%>
+      <span class="in-box">
+        <%= select(:sub_category,:id, SubCategory.where("category_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A SUB CATEGORY") %>
+      </span>
+    </div>
+    <div class="form-sec-row">
       <label class="text">Resource </label>
       <span class="in-box">
-       <%= select("resource","resource_id",  Resource.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A RESOURCE") %>
+        <%= select("resource","id",  Resource.where("sub_category_id =?", params[:resources]).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A RESOURCE") %>
       </span>
     </div>
     <div class="form-sec-row">
@@ -34,13 +34,16 @@
         <%= f.text_field :quantity%>
       </span>
     </div>
-    <div class="form-sec-row">
-      <label class="text">Serial No</label>
-      <span class="in-box">
-        <%= f.text_field :serial_no%>
-      </span>
-    </div>
-    
+
+<div class="dynamic-form">
+  <div class="form-sec-row"><a href="#" id="add">Add</a> | <a href="#" id="remove">Remove</a> | <a href="#" id="reset">Reset</a></div>
+<%#*<form>%>
+<div class="inputs"><div class="mu-c1"></div>
+<div class="form-sec-row-center"><input type="text" name1 ="text" name=text1 size ="29" class="field"/></div>
+</div>
+<%#*<input name="submit" type="button" class="submit" value="Submit"/>%>
+<%#*</form>%>
+</div>
     <div class="form-sec-row">
       <label class="text">UOM</label>
       <span class="in-box">
@@ -56,3 +59,4 @@
   </div>
 
 <%end%>
+  </div>

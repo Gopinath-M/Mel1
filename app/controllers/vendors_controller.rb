@@ -52,7 +52,30 @@ class VendorsController < ApplicationController
       redirect_to(vendors_path, :notice => 'Vendor has been Deleted.')
     end
   end
-def vendor_store
-  @vendor_store  = VendorStore.new
-end
+  def vendor_store
+    @vendor_store  = VendorStore.new
+    if params[:vendor_store]
+    vendor_store  = VendorStore.new(params[:vendor_store])
+    vendor_store.vendor_id = params[:vendor_store][:id]
+    vendor_store.serial_no = params[:dynamic]
+    vendor_store.resources_id = params[:resource][:id]
+    vendor_store.save
+    if vendor_store.valid?
+      redirect_to :controller=>'vendors', :action=>'index'
+    else
+      render :action=>'new'
+    end
+    end
+  end
+  def vendorstore_list
+  end
+
+   def get_sub_categories
+    sub_category=SubCategory.where("category_id=? and deleted=false",params[:category_id])
+    render :json=>[sub_category]
+  end
+  def get_resources
+    resources=Resource.where("sub_category_id= ? and deleted=false", params[:sub_category_id])
+    render :json=>[resources] if resources
+  end
 end

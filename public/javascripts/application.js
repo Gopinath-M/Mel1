@@ -1004,7 +1004,7 @@ $().ready(function(){
     
     /*Validation for Category Mapping Starts*/
     $("#user_submit").live("click",function(){
-        if ($("#users_agency").val() == ""){
+        if (($("#users_agency").val() == "") || ($("#users_agency_id").val() == "")) {
             alert("Select Agency value");
             return false;
         }
@@ -1018,6 +1018,130 @@ $().ready(function(){
         }
     });
 /*Validation for Category Mapping Ends*/
+
+ $("#category_id").live("change",function(){
+        $.get("/sub_categories/",{
+            category_id: $("#category_id").val()
+        }, function(data){
+            $("#department_id").val($("#category_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
+
+
+
+/* adding dynamic text box in agency store fomr */
+	var i = $('input').size() + 1;
+
+	$('#add').click(function() {
+		$('<div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
+		i++;
+	});
+//<input type="text" class="field" size=30 name="dynamic[]" value="' + i + '" />
+	$('#remove').click(function() {
+	if(i > 1) {
+		$('.field:last').remove();
+		i--;
+	}
+	});
+
+	$('#reset').click(function() {
+	while(i > 2) {
+		$('.field:last').remove();
+		i--;
+	}
+	});
+
+
+// here's our click function for when the forms submitted
+
+	$('.submit').click(function(){
+
+
+	var answers = [];
+    $.each($('.field'), function() {
+        answers.push($(this).val());
+    });
+
+    if(answers.length == 0) {
+        answers = "none";
+    }
+
+	alert(answers);
+
+	return false;
+
+	});
+/* dynamic text box ends */
+/* category mapping list page will show based on dept selection */
+$("#cat_department_id").live("change",function(){
+        $.get("/categories/list_category_mapping/",{
+            category_id: $("#cat_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#cat_department_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
+/* category mapping list ends */
+/* get sub categories for vendor store */
+
+$("#categories_id").live("change", function(){
+        if($("#categories_id").val()!="")
+        {
+            $.get("/vendors/get_sub_categories",{
+                category_id : $("#categories_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#sub_category_id').find('option').remove().end()
+                    $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#sub_category_id').find('option').remove().end()
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+    })
+
+ $("#sub_category_id").live("change", function(){
+        if($("#sub_category_id").val()!="")
+        {
+            $.get("/vendors/get_resources",{
+                sub_category_id : $("#sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#resource_id').find('option').remove().end()
+                    $('#resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_booking_resource_id').find('option').remove().end()
+            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+    /* vendor store ends*/
+
+        $("#default_department_id").live("change",function(){
+        $.get("/dashboard/def_dept/",{
+            department_id: $("#default_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#default_department_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
 })
 
 /*Javascripts Starts*/

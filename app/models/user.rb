@@ -56,6 +56,11 @@ class User < ActiveRecord::Base
     return role.users.include?(self)
   end
 
+  def is_unit_admin?
+    role = Role.where(:name => "Unit Admin").first || Role.new
+    return role.users.include?(self)
+  end
+
   def activate_user
     self.activated_at = Time.now.utc
     self.activation_code = nil

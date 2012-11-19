@@ -1,3 +1,4 @@
+<div class="CenterNav">
 <%= form_for(@category, :as => :user,  :url =>  update_category_categories_path(:id => @department_id), :method=>:post) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div> <br />
@@ -26,7 +27,9 @@
           <% if current_user.is_super_admin? %>
             <%= select("users","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
           <%else%>
-            <%= select("users","agency_id", Agency.find_all_by_id(current_user.departments).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A AGENCY") %>
+           <%agency = Agency.find(current_department.agency_id) %>
+            <%= select("users","agency_id",  Agency.find_all_by_id(current_department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+        
           <%end%>
         </span>
       </div>
@@ -47,12 +50,7 @@
         <%= select("resource_category","resource_category_id",Category.active.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A CATEGORY") %>
       </span>
     </div>
-   <%#*<div class="form-sec-row">%>
-      <%#*<label class="text">Sub Category Name</label>%>
-      <%#*<span class="in-box">%>
-         <%#= select("resource_sub_category","resource_sub_category_id",ResourceSubCategory.active.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A SUB CATEGORY") %>
-      <%#*</span>%>
-    <%#*</div>%>
+
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
@@ -62,3 +60,4 @@
   </div>
 
 <%end%>
+</div>

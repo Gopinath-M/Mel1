@@ -22,6 +22,9 @@ class ResourcesController < ApplicationController
   def create
     @resource = Resource.create(params[:resource])
     @resource.created_by = params[:created_by]
+    if current_user.is_super_admin?
+    @resource.department_id = 0
+    end
     @resource.save
     if @resource.valid?
       redirect_to :controller=>'resources', :action=>'index'

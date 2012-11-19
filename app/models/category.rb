@@ -1,11 +1,13 @@
 class Category < ActiveRecord::Base
-  has_and_belongs_to_many :departments
+#  has_and_belongs_to_many :departments
   #Validation
   validates :name, :presence => true
 
   
-  scope :active, where(:deleted => false)
+  scope :active, where(:is_active => true, :deleted => false)
 
   #Association
   has_many :sub_categories
+  has_many :departments, :through=>:categories_departments
+  has_many :categories_departments
 end

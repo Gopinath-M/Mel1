@@ -5,9 +5,9 @@ class CategoriesController < ApplicationController
   def index
     if params[:id].blank? || params[:id].nil?
       if current_user.is_super_admin?
-        @categories=Category.where(:deleted => false).order.page(params[:page]).per(15)
+        @categories=Category.where(:deleted => false).order.page(params[:page]).per(10)
       else
-        @categories=Category.find_all_by_department_id(current_department.id)
+        @categories=Category.where(:created_by => current_user.id).order.page(params[:page]).per(10)
       end
     end
   end
@@ -63,14 +63,43 @@ class CategoriesController < ApplicationController
   end
 
   def update_category
-    @category = CategoriesDepartment.new
-    @category.created_by = params[:created_by]
-    @category.department_id = params[:resource_category] [:department_id]
-    @category.category_id = params[:resource_category][:resource_category_id]
-    #    @category.resource_sub_category_id = params[:resource_sub_category][:resource_sub_category_id]
-    @category.save
-    redirect_to(categories_path, :notice => 'Resource Category has been sucessfully assigned  to Department.')
+    category = CategoriesDepartment.new
+    category.created_by = params[:created_by]
+    category.department_id = params[:resource_category] [:department_id]
+    category.category_id = params[:resource_category][:resource_category_id]
+    cat_dept = CategoriesDepartment.where(:category_id => category.category_id, :department_id => category.department_id)
+    if cat_dept == nil || cat_dept.blank?
+       category.save
+        redirect_to(list_category_mapping_categories_path, :notice => 'Resource Category has been sucessfully assigned  to Department.')
+    else
+        redirect_to(assign_category_categories_path, :notice => 'Resource Category has been already assigned to this Department.')
+    end
   end
 
-
+  def list_category_mapping
+    if params[:category_id] != nil
+     @department = params[:category_id].to_i
+    else
+    categories = Category.all
+    categories.each do |category|
+      @category_mapping = CategoriesDepartment.find_all_by_category_id(category.id)
+      @category_mapping.each do |category|
+        @categories = Category.find_all_by_id(category.category_id)
+      end
+    end
+    end
+     if request.xhr?
+      render :layout=>false
+    end
+  end
+  
+def update_category_mapping
+    category = CategoriesDepartment.find_by_category_id(params[:id])
+    if category && params[:status]=="Activate"
+      category.update_attribute(:is_active,true)
+    elsif category && params[:status]=="Deactivate"
+      category.update_attribute(:is_active, false)
+    end
+    redirect_to(list_category_mapping_categories_path, :notice => 'Category Mapping has been successfully changed.')
+  end
 end

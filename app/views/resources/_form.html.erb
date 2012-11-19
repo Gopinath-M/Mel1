@@ -3,6 +3,7 @@
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
     <div class="form-sec-row">
+      <%= hidden_field_tag  :created_by, (current_user.id)%>
       <label class="text">Resource Category</label>
       <span class="in-box">
        <%= f.select(:category_id,  Category.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A CATEGORY") %>
@@ -12,6 +13,14 @@
       <label class="text">Resource Sub Category</label>
       <span class="in-box">
        <%= f.select(:sub_category_id,  SubCategory.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+      </span>
+    </div>
+     <div class="form-sec-row">
+      <label class="text">Resource Type</label>
+      <span class="in-box">
+       <%= f.radio_button :resource_type, 'ict' %> <%= f.label :resource_type, "ICT" %>
+        <%= f.radio_button :resource_type, 'transport' %> <%= f.label :resource_type, "Transport" %>
+        <%= f.radio_button :resource_type, 'room_booking' %> <%= f.label :resource_type, "Room Booking" %>
       </span>
     </div>
     <div class="form-sec-row">
@@ -26,19 +35,6 @@
         <%= f.text_field :description%>
       </span>
     </div>
-    <div class="form-sec-row">
-      <label class="text">Serial No</label>
-      <span class="in-box">
-        <%= f.text_field :serial_no%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text">Quantity</label>
-      <span class="in-box">
-        <%= f.text_field :quantity%>
-      </span>
-    </div>
-    
     <div class="form-sec-row">
       <label class="text">Is Returnable</label>
       <span class="in-box">

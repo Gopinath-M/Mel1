@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def home
     if user_signed_in?
-      if !current_user.is_super_admin? && current_user.sign_in_count == 1
+      if !current_user.is_super_admin? && current_user.sign_in_count == 1 && current_user.created_by != 0 #User records which are created by super admin or dept admin has to change the password while they are logged in first time
         redirect_to :controller => "registrations", :action => "privacy_setting"
       else
         redirect_to :controller => "dashboard", :action => "index"
@@ -12,9 +12,17 @@ class ApplicationController < ActionController::Base
       redirect_to new_user_session_path
     end
   end
-  #this will work if the user belongs to one department. We need to do for multiple departments #manivannan
-  def current_department  
-    @current_department ||= current_user.departments.first
+  
+  #This method will keep the current_department object through out the application. If the user exist more than one department, then the selected department will be the current department object.
+  #While the user first logged in, his default department will be the current department object. Hope this will works! but one thing we need to clear the session somewhere... #Manivannan
+  def current_department
+    if !is_super_admin?
+      if !session[:department_id].nil?
+        @current_department ||= session[:department_id]
+      else
+        @current_department ||= current_user.default_department
+      end
+    end
   end
 
   # this method is for restricting user from login before super admin approves him. Since it has to be needed some tweaks, i am commenting this for timebeing #manivannan
@@ -36,7 +44,9 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  #This method will work if the user himself change his default department. For Future use #Manivannan
   def default_department
-    default_department ||= current_user.role_memberships.first.default_dept
+    default_department ||= current_user.role_memberships.where(:default_dept => true).first.department.id
   end
+
 end
