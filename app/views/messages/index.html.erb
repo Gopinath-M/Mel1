@@ -7,6 +7,8 @@
             <span>Change Role: </span> <a title="Super Admin">Super Admin</a>
           <% elsif current_user && current_user.is_department_admin? %>
             <span>Change Role: </span> <a title="Department Admin">Department Admin</a>
+          <%elsif current_user && current_user.is_unit_admin? %>
+            <span>Change Role: </span> <a title="User Admin">Unit Admin</a>
           <%else%>
             <span>Change Role: </span> <a title="Department User">Department User</a>
           <%end%>
