@@ -168,6 +168,18 @@ $().ready(function(){
 
         $('#div_cms').toggle("fast");
     });
+    $("#lnk_approve_requests").live('click',function(){
+        if ($("#lnk_approve_requests").hasClass("selected"))
+        {
+            $("#lnk_approve_requests").removeClass("selected")
+        }
+        else
+        {
+            $("#lnk_approve_requests").addClass("selected")
+        }
+
+        $('#div_approve_requests').toggle("fast");
+    });
     $("#lnk_agency").live('click',function(){
         if ($("#lnk_agency").hasClass("selected"))
         {
