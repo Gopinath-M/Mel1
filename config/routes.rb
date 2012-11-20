@@ -129,6 +129,7 @@ Melaka::Application.routes.draw do
       get 'get_subcategory'
       post 'update_status'
       get 'get_resources'
+      get 'get_resource_type'
     end
   end
   resources :resource_managers do
