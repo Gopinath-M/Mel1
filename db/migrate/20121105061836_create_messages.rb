@@ -6,8 +6,12 @@ class CreateMessages < ActiveRecord::Migration
       t.string :sender
       t.string :message_type
       t.string :agency_id
-      t.string :department_id 
-      t.boolean :send_to_dept_admins, :default => false     
+      t.string :department_id
+      t.string :unit_id
+      t.string :attachment
+      t.boolean :deleted, :default => false
+      t.boolean :send_to_dept_admins, :default => false
+      t.boolean :send_to_unit_admins, :default => false
       t.timestamps
     end
   end

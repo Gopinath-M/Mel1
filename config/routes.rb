@@ -1,5 +1,12 @@
 Melaka::Application.routes.draw do
-    resources :dashboard 
+
+  resources :dashboard do
+    collection do
+      get 'def_dept'
+      post 'change_default_department'
+    end
+  end
+
   devise_for :users, :controllers=>{:registrations => "registrations", :sessions => "sessions", }, :skip => [:sessions] do
     get "/sign_up", :to => "registrations#new", :as=> :new_user_sign_up
     post "/sign_up", :to => "registrations#create", :as =>  :user_sign_up
@@ -10,6 +17,13 @@ Melaka::Application.routes.draw do
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
   resources :resource_bookings
+  resources :resource_transportation_bookings do
+    collection do
+      get 'approve_request'
+      post 'change_resource_status'
+    end
+  end
+  
   resources :departments do
     collection do
       post 'update_status'
@@ -62,11 +76,14 @@ Melaka::Application.routes.draw do
       get 'autocomplete_user_icnumber'
       get 'get_agencies'
       get 'get_departments'
+      get 'get_units'
       get 'get_department_admin'
+      get 'get_unit_admin'
       get 'post_messages'
       get 'post_comments'
     end
   end
+    
   resources :cms_pages
   resources :agencies do
     collection do

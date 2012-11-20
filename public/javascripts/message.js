@@ -95,7 +95,7 @@ $().ready(function(){
 
     $("#message_user_select").live("change", function(){
 
-        if($("#message_user_select").val() == "Select Agency" || $("#message_user_select").val() == "Select Department" || $("#message_user_select").val() == "Select Dept Admin")
+        if($("#message_user_select").val() == "Select Agency" || $("#message_user_select").val() == "Select Department" || $("#message_user_select").val() == "Select Dept Admin" || $("#message_user_select").val() == "Select Unit" || $("#message_user_select").val() == "Select Unit Admin")
         {
             $.get("/messages/get_agencies",{
                 value:$("#message_user_select").val()
@@ -106,10 +106,10 @@ $().ready(function(){
             });
         }
         else
-            {
-                $("#user_type_select_div").hide();
+        {
+            $("#user_type_select_div").hide();
 
-            }
+        }
     });
 
     /* Message Agency Type Select Combo Box */
@@ -139,7 +139,33 @@ $().ready(function(){
                 $("#user_type_select_div").html(data);
             });
         }
+        else if($("#message_user_select").val() == "Select Unit" || $("#message_user_select").val() == "Select Unit Admin")
+        {
+            $.get("/messages/get_units",{
+                agency:$("#std_agency").val(),
+                dept:$("#std_departments").val()
+            },
+            function(data){
+                $("#user_type_select_div").html(data);
+            });
+        }
+
     });
+
+    $("#std_units").live("change",function(){
+
+        if($("#message_user_select").val() == "Select Unit Admin"){
+            $.get("/messages/get_unit_admin",{
+                agency:$("#std_agency").val(),
+                dept:$("#std_departments").val(),
+                unit:$("#std_units").val()
+            },
+            function(data){
+                $("#user_type_select_div").html(data);
+            });
+        }
+    });
+    
 
 })
 
@@ -171,4 +197,34 @@ function submit_post_comment(val){
         alert("Enter something");
     }
 }
+
+function validateMessageForm(e){    
+
+    if ($("#message_message").val() == ""){
+        alert("Looks like you didn't write anything in the message area.");
+        return false;
+    }
+    else if ($("#message_user_select").val() == "Please Select")
+    {
+        alert("Select User Level");
+        return false;
+    }
+    else if ($("std_agency").val() == "SELECT AN AGENCY"){
+        alert("Select Agency Level");
+        return false;
+    }
+    else if ($("std_departments").val() == "SELECT A DEPARTMENT"){
+        alert("Select Department Level");
+        return false
+    }
+    else if ($("std_units").val() == "SELECT AN UNIT"){
+        alert("Select Unit Level");
+        return false
+    }
+    else
+    {
+        return true;
+    }    
+}
+
 

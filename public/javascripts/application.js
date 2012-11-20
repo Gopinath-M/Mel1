@@ -105,7 +105,22 @@ $().ready(function(){
             alert("Select A Department")
         }
     })
-
+    $("#default_department_name").live("change", function(){
+        $.post("/dashboard/change_default_department",{
+            department_id : $("#default_department_name").val()
+        }, function(data){
+            if (data[0]=="success")
+            {
+                $("#img_default_department_user_role").attr("title",data[1])
+                $("#lnk_default_department_user_role").attr("title",data[1])
+                $("#lnk_default_department_user_role").html(data[1])
+            }
+            else if (data[0]=="error")
+            {
+                alert("Default department cannot be changed")
+            }
+        })
+    });
     /* LEFT NAVIGATION HIDE & SHOW STARTS HERE*/
     $("#lnk_department").live('click',function(){
         if ($("#lnk_department").hasClass("selected"))
@@ -152,6 +167,18 @@ $().ready(function(){
         }
 
         $('#div_cms').toggle("fast");
+    });
+    $("#lnk_approve_requests").live('click',function(){
+        if ($("#lnk_approve_requests").hasClass("selected"))
+        {
+            $("#lnk_approve_requests").removeClass("selected")
+        }
+        else
+        {
+            $("#lnk_approve_requests").addClass("selected")
+        }
+
+        $('#div_approve_requests').toggle("fast");
     });
     $("#lnk_agency").live('click',function(){
         if ($("#lnk_agency").hasClass("selected"))
@@ -517,16 +544,16 @@ $().ready(function(){
                 }
             })
         }
-     });
+    });
 
-     $("#users_id_unit").live("change",function(){
+    $("#users_id_unit").live("change",function(){
         $.get("/users/",{
             unit_id: $("#users_id_unit").val()
         }, function(data){
             $("#department_id").val($("#users_id_unit").val())
             $("#div_ajax").html(data)
         });
-     })
+    })
 
 
     /* Dept list page select box */
@@ -1017,9 +1044,9 @@ $().ready(function(){
             return false;
         }
     });
-/*Validation for Category Mapping Ends*/
+    /*Validation for Category Mapping Ends*/
 
- $("#category_id").live("change",function(){
+    $("#category_id").live("change",function(){
         $.get("/sub_categories/",{
             category_id: $("#category_id").val()
         }, function(data){
@@ -1030,51 +1057,51 @@ $().ready(function(){
 
 
 
-/* adding dynamic text box in agency store fomr */
-	var i = $('input').size() + 1;
+    /* adding dynamic text box in agency store fomr */
+    var i = $('input').size() + 1;
 
-	$('#add').click(function() {
-		$('<div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
-		i++;
-	});
-//<input type="text" class="field" size=30 name="dynamic[]" value="' + i + '" />
-	$('#remove').click(function() {
-	if(i > 1) {
-		$('.field:last').remove();
-		i--;
-	}
-	});
-
-	$('#reset').click(function() {
-	while(i > 2) {
-		$('.field:last').remove();
-		i--;
-	}
-	});
-
-
-// here's our click function for when the forms submitted
-
-	$('.submit').click(function(){
-
-
-	var answers = [];
-    $.each($('.field'), function() {
-        answers.push($(this).val());
+    $('#add').click(function() {
+        $('<div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
+        i++;
+    });
+    //<input type="text" class="field" size=30 name="dynamic[]" value="' + i + '" />
+    $('#remove').click(function() {
+        if(i > 1) {
+            $('.field:last').remove();
+            i--;
+        }
     });
 
-    if(answers.length == 0) {
-        answers = "none";
-    }
+    $('#reset').click(function() {
+        while(i > 2) {
+            $('.field:last').remove();
+            i--;
+        }
+    });
 
-	alert(answers);
 
-	return false;
+    // here's our click function for when the forms submitted
 
-	});
-/* dynamic text box ends */
-/* category mapping list page will show based on dept selection */
-$("#cat_department_id").live("change",function(){
+    $('.submit').click(function(){
+
+
+        var answers = [];
+        $.each($('.field'), function() {
+            answers.push($(this).val());
+        });
+
+        if(answers.length == 0) {
+            answers = "none";
+        }
+
+        alert(answers);
+
+        return false;
+
+    });
+    /* dynamic text box ends */
+    /* category mapping list page will show based on dept selection */
+    $("#cat_department_id").live("change",function(){
         $.get("/categories/list_category_mapping/",{
             category_id: $("#cat_department_id").val()
         }, function(data){
@@ -1082,10 +1109,10 @@ $("#cat_department_id").live("change",function(){
             $("#div_ajax").html(data)
         });
     })
-/* category mapping list ends */
-/* get sub categories for vendor store */
+    /* category mapping list ends */
+    /* get sub categories for vendor store */
 
-$("#categories_id").live("change", function(){
+    $("#categories_id").live("change", function(){
         if($("#categories_id").val()!="")
         {
             $.get("/vendors/get_sub_categories",{
@@ -1109,7 +1136,7 @@ $("#categories_id").live("change", function(){
         }
     })
 
- $("#sub_category_id").live("change", function(){
+    $("#sub_category_id").live("change", function(){
         if($("#sub_category_id").val()!="")
         {
             $.get("/vendors/get_resources",{
@@ -1134,7 +1161,7 @@ $("#categories_id").live("change", function(){
     })
     /* vendor store ends*/
 
-        $("#default_department_id").live("change",function(){
+    $("#default_department_id").live("change",function(){
         $.get("/dashboard/def_dept/",{
             department_id: $("#default_department_id").val()
         }, function(data){
