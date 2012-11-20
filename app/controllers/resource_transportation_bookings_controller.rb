@@ -12,7 +12,7 @@ class ResourceTransportationBookingsController < ApplicationController
     @resource_transportation_booking = ResourceTransportationBooking.new(params[:resource_transportation_booking])
     if @resource_transportation_booking.valid?
       @resource_transportation_booking.status = "New"
-      @resource_transportation_booking.requester_id=current_user.id
+      @resource_transportation_booking.requester_id = current_user.id
       @resource_transportation_booking.save
       redirect_to resource_transportation_bookings_path
     else
