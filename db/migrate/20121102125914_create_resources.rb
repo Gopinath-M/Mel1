@@ -10,6 +10,7 @@ class CreateResources < ActiveRecord::Migration
       t.string :resource_type
       t.string :status
       t.boolean :is_returnable
+      t.boolean :is_facilty_avail, :default => false
       t.integer :created_by
       t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false
