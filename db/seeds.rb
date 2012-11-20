@@ -43,6 +43,51 @@ rescue Exception=>e
   p "Exception due to : #{e.to_s}"
 end
 
+puts "Creating Drivers"
+begin
+  file = File.open("public/Driver.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      record_split = record.split(",")
+      Driver.create(:registration_id=>record_split[0],:name=>record_split[1], :telephone_number=>record_split[2])
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+puts "Creating VehicleTypes"
+begin
+  file = File.open("public/VehicleType.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      record_split = record.split(",")
+      VehicleType.create(:name=>record_split[0])
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+puts "Creating Vehicles"
+begin
+  file = File.open("public/Vehicle.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      record_split = record.split(",")
+      Vehicle.create(:registration_id=>record_split[0],:registration_number=>record_split[1],:vehicle_type_id=>record_split[2],:driver_id=>i,:model=>record_split[3],:registration_date=>record_split[4])
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
 puts "Creating Roles"
 roles = ["Super Admin", "Department Admin", "Department User", "Unit Admin"]
 roles.each do | role |
@@ -217,6 +262,7 @@ resource_categories3 = Category.create(:name => 'Computer Software')
 resource_categories4 = Category.create( :name => 'Communications')
 #resource_categories1 = Category.create(:category_id => 6, :name => 'first aid kit')
 resource_categories5 = Category.create( :name => 'Office Furniture and Equipment')
+resource_categories6 = Category.create( :name => 'Transportation')
 
 puts "Creating Sample sub resource category for a stationery item resource category"
 resource_sub_categories1 = SubCategory.create(:category_id => 1, :name => 'Pencil')
@@ -311,5 +357,9 @@ resource_sub_categories15 = SubCategory.create(:category_id => 5, :name => 'Recy
 resource_sub_categories16 = SubCategory.create(:category_id => 5, :name => 'Alarm System')
 resource_sub_categories17 = SubCategory.create(:category_id => 5, :name => 'Fire Extinguisher')
 resource_sub_categories18 = SubCategory.create(:category_id => 5, :name => 'First-aid Kit')
+
+puts "Creating Sample sub resource category for a transportation category"
+resource_sub_categories1 = SubCategory.create(:category_id => 6, :name => "Heavyvehicles")
+resource_sub_categories2 = SubCategory.create(:category_id => 6, :name => "Lightvehicles")
 
 puts "Whoa, im done! Now you can run the server and see the application"

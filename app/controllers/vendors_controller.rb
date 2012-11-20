@@ -68,6 +68,7 @@ class VendorsController < ApplicationController
     end
   end
   def vendorstore_list
+    @vendor_store = VendorStore.all
   end
 
    def get_sub_categories

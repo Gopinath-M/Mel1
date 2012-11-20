@@ -1,5 +1,6 @@
 class ResourceTransportationBookingsController < ApplicationController
-
+  before_filter :authenticate_user!
+  
   def index
     @resource_transportation_bookings = ResourceTransportationBooking.all#where("requester_id = #{current_user.id}")
   end
