@@ -31,15 +31,15 @@
       <div class="leftNav-links box">
         <h2>Alerts</h2>
         <ul>
-          <%#if current_user && current_user.is_super_admin?%>
-            <%#*<li>%>
-              <%#=link_to content_tag(:span,activate_admin_users_count!=nil && activate_admin_users_count>0 ? activate_admin_users_count : "",:class=>activate_admin_users_count!=nil && activate_admin_users_count>0 ? "notifiNo" : "" )+"Admin Activation", admin_activation_users_path,:title=>"Admin Activation"%>
-            <%#*</li>%>
-          <%#end%>
+<%#if current_user && current_user.is_super_admin?%>
+<%#*<li>%>
+<%#=link_to content_tag(:span,activate_admin_users_count!=nil && activate_admin_users_count>0 ? activate_admin_users_count : "",:class=>activate_admin_users_count!=nil && activate_admin_users_count>0 ? "notifiNo" : "" )+"Admin Activation", admin_activation_users_path,:title=>"Admin Activation"%>
+<%#*</li>%>
+<%#end%>
           <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
-            <%#*<li>%>
-              <%#=link_to content_tag(:span,activate_department_users_count!=nil && activate_department_users_count>0 ? activate_department_users_count : "",:class=>activate_department_users_count!=nil && activate_department_users_count>0 ? "notifiNo" : "" )+"User Activation", user_activation_users_path,:title=>"User Activation"%>
-            <%#*</li>%>
+  <%#*<li>%>
+  <%#=link_to content_tag(:span,activate_department_users_count!=nil && activate_department_users_count>0 ? activate_department_users_count : "",:class=>activate_department_users_count!=nil && activate_department_users_count>0 ? "notifiNo" : "" )+"User Activation", user_activation_users_path,:title=>"User Activation"%>
+  <%#*</li>%>
             <li><a href="javascript:void(0);" title="User Transfer Request">User Transfer Request</a></li>
             <li><a href="javascript:void(0);" title="Resource Booking ">Resource Booking</a></li>
             <li><a href="javascript:void(0);" title="Complaints"><span class="notifiNo">9</span>Complaints</a></li>
@@ -142,24 +142,24 @@
                   </ul>
                 </div>
               </li> <%if current_user && current_user.is_super_admin? %>
-              <li> <%=link_to "Vendors", "javascript:void(0);" , :title=>"Vendors" ,:class=>"", :id=>"lnk_vendors"%>
-                <div id ="div_vendors" style="display:none;">
-                  <ul>
-                    <li>
-                      <%=link_to "Create New Vendor", new_vendor_path%>
-                    </li>
-                    <li>
-                      <%=link_to "List Vendors", vendors_path%>
-                    </li>
-                     <li>
-                      <%=link_to "Vendor Store", vendor_store_vendors_path%>
-                    </li>
-                    <li>
-                      <%=link_to "List Vendor Store", vendorstore_list_vendors_path%>
-                    </li>
-                  </ul>
-                </div>
-              </li><%end%>
+                <li> <%=link_to "Vendors", "javascript:void(0);" , :title=>"Vendors" ,:class=>"", :id=>"lnk_vendors"%>
+                  <div id ="div_vendors" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create New Vendor", new_vendor_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List Vendors", vendors_path%>
+                      </li>
+                      <li>
+                        <%=link_to "Vendor Store", vendor_store_vendors_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List Vendor Store", vendorstore_list_vendors_path%>
+                      </li>
+                    </ul>
+                  </div>
+                </li><%end%>
               <li>
                 <%=link_to "Resources", "javascript:void(0);" , :title=>"Resources" ,:class=>"", :id=>"lnk_resources"%>
                 <div id ="div_resources" style="display:none;">
@@ -188,9 +188,27 @@
                     <li>
                       <%=link_to "List Resource", resources_path%>
                     </li><%if current_user && current_user.is_super_admin? %>
-                    <li>
-                      <%=link_to "Create Agency Store", new_agency_store_path%>
-                    </li><%end%>
+                      <li>
+                        <%=link_to "Create Agency Store", new_agency_store_path%>
+                      </li>
+                      <li>
+                        <%= link_to "Create Driver", new_driver_path %>
+                      </li>
+                      <li>
+                        <%= link_to "List  Drivers", drivers_path %>
+                      </li>
+                      <li>
+                        <%= link_to "Create Vehicle Type", new_vehicle_type_path %>
+                      </li>
+                      <li>
+                        <%= link_to "List  Vehicle Types", vehicle_types_path %>
+                      </li>
+                      <li>
+                        <%= link_to "Create Vehicle", new_vehicle_path %>
+                      </li>
+                      <li>
+                        <%= link_to "List  Vehicles", vehicles_path %>
+                      </li><%end%>
                   </ul>
                 </div>
               </li>

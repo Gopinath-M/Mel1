@@ -23,6 +23,10 @@ Melaka::Application.routes.draw do
       post 'change_resource_status'
     end
   end
+
+  resources :drivers
+  resources :vehicles
+  resources :vehicle_types
   
   resources :departments do
     collection do

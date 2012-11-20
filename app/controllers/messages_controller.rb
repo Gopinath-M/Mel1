@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   include MessagesHelper
-  
+  before_filter :authenticate_user!
   #Listing out the Messages of logged-in user
   def index
     collect_messages
