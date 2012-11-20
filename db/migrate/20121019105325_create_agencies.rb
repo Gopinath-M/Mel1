@@ -2,6 +2,7 @@ class CreateAgencies < ActiveRecord::Migration
   def self.up
     create_table :agencies do |t|
       t.string :name
+      t.references :user
       t.string :address
       t.string :telephone_number
       t.integer :fax_number
