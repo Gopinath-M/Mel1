@@ -88,6 +88,11 @@ class User < ActiveRecord::Base
   # the existence of an activation code means they have not activated yet
   def account_active?
     activation_code.nil?
+#    if  self.id==1
+#      activation_code.nil? && self.status=="Active"
+#    elsif self.departments && self.departments.first
+#      activation_code.nil? && self.status=="Active" &&  self.departments.first.is_active?
+#    end
   end
 
   #Override basic authentication to check if  user is activated or not before login

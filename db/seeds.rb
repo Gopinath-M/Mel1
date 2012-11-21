@@ -48,8 +48,8 @@ begin
   file = File.open("public/Driver.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      record_split = record.split(",")
-      Driver.create(:registration_id=>record_split[0],:name=>record_split[1], :telephone_number=>record_split[2])
+      record_split = record.split(",")      
+      Driver.create(:registration_id=>record_split[0],:name=>record_split[1],:telephone_number=>record_split[2])
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
@@ -79,7 +79,7 @@ begin
   file.readlines.each_with_index do |record, i|
     begin
       record_split = record.split(",")
-      Vehicle.create(:registration_id=>record_split[0],:registration_number=>record_split[1],:vehicle_type_id=>record_split[2],:driver_id=>i,:model=>record_split[3],:registration_date=>record_split[4])
+      Vehicle.create(:registration_id=>record_split[0],:registration_number=>record_split[1],:vehicle_type_id=>record_split[2],:driver_id=>i,:model_name=>record_split[3],:registration_date=>record_split[4])
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end

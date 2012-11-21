@@ -1,4 +1,6 @@
 class VehicleTypesController < ApplicationController
+  before_filter :authenticate_user!
+  
   def index
     @vehicle_types = VehicleType.all
   end

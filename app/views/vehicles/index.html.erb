@@ -13,9 +13,9 @@
             </div>
             <div class="mu-c2">
               <p class="head1">
-                <b><%= vehicle.model %></b><br/>
+                <b><%= vehicle.model_name %></b><br/>
                    <%= vehicle.registration_number %><br/>
-                   <%= vehicle.driver.name %><br/>
+                   <%= vehicle.driver.name if !vehicle.driver.blank? %><br/>
                    <%= vehicle.vehicle_type.name %></p>
             </div>
           </div>

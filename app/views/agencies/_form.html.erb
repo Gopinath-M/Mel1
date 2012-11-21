@@ -3,25 +3,25 @@
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
     <div class="form-sec-row">
-      <label class="text">Agency Name</label>
+      <label class="text">Agency Name <span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :name%>
       </span>
     </div>
      <div class="form-sec-row">
-      <label class="text">Address</label>
+      <label class="text">Address <span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_area :address, :rows => 5 %>
       </span>
     </div>
      <div class="form-sec-row">
-      <label class="text">Telephone Number</label>
+      <label class="text">Telephone Number <span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :telephone_number%>
       </span>
     </div>
      <div class="form-sec-row">
-      <label class="text">Fax Number</label>
+      <label class="text">Fax Number <span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :fax_number%>
       </span>

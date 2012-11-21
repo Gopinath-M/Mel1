@@ -1,12 +1,16 @@
 class VehiclesController < ApplicationController
+  before_filter :authenticate_user!
+  
   def index
     @vehicles = Vehicle.all
   end
 
   def show
+    
   end
 
   def edit
+    
   end
 
   def new
