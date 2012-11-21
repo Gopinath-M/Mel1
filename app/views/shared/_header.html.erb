@@ -44,13 +44,7 @@
           <div class="profName-con">
             <%if current_user && !current_user.blank?%>
               <%image_url= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag(current_user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "img_profile.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
-              <% if current_user.is_super_admin? %>
-                <% user_title = DISP_USER_ROLE_SUPER_ADMIN %>
-              <% elsif current_user.is_department_admin? %>
-                <% user_title = DISP_USER_ROLE_DEPT_ADMIN %>
-              <% else %>
-                <% user_title = DISP_USER_ROLE_DEPT_USER %>
-              <% end %>
+              <%user_title=current_role%> 
             <%else%>
               <%image_url=image_tag "img_event3.jpg", :alt=>"Image", :width=>"30", :height=>"30"%>
               <%user_title= "Guest User"%>

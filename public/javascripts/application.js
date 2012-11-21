@@ -111,9 +111,11 @@ $().ready(function(){
         }, function(data){
             if (data[0]=="success")
             {
+                alert("Now you can view details which are related to this department only")
                 $("#img_default_department_user_role").attr("title",data[1])
                 $("#lnk_default_department_user_role").attr("title",data[1])
                 $("#lnk_default_department_user_role").html(data[1])
+                window.location.href="/dashboard"
             }
             else if (data[0]=="error")
             {
@@ -1169,7 +1171,7 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
- /*Assign Resource Manager Validation Starts*/
+    /*Assign Resource Manager Validation Starts*/
     $("#agency_submit").live("click",function(){
         if ($("#transfer_from_agency").val() == ""){
             alert("Select Agency value");

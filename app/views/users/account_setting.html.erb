@@ -62,10 +62,16 @@
       <%if current_user.departments && current_user.departments.length > 1%>
         <h2 class="b-head-acc-set">Change Default Department</h2>
         <div class="form-sec-row">
-          <%= fff.label :department_id, raw('Default Department'), :class=>"text" %>
+          <%= fff.label :department_id, raw('Select Department'), :class=>"text" %>
           <%=select(:default,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
-          <br/> <%= fff.check_box :default_dept %>
         </div>
+                <div class="form-sec-row">
+          <label class="text">Set as default</label>
+          <span class="in-box">
+           <%= fff.check_box :default_dept, :checked=>true %>
+          </span>
+        </div>
+        
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">

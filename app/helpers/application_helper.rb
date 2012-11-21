@@ -18,7 +18,17 @@ module ApplicationHelper
     return user_count
   end
 
+#  def default_department
+#    default_department ||= current_user.role_memberships.first.default_dept
+#  end
   def default_department
-    default_department ||= current_user.role_memberships.first.default_dept
+    default_department ||= current_user.role_memberships.where(:default_dept => true).first.department.id
   end
+
+  def current_role
+      department=Department.find(@current_department) if @current_department
+      current_role=RoleMembership.find_by_user_id_and_department_id(current_user.id,department.id) if department
+      current_role.role.name if current_role
+  end
+
 end
