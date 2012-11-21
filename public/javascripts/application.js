@@ -1162,7 +1162,7 @@ $().ready(function(){
     /* vendor store ends*/
 
     $("#default_department_id").live("change",function(){
-        $.get("/dashboard/def_dept/",{
+        $.get("/dashboard/def_dept",{
             department_id: $("#default_department_id").val()
         }, function(data){
             $("#department_id").val($("#default_department_id").val())
@@ -1185,6 +1185,14 @@ $().ready(function(){
         }
     });
 /*Assign Resource Manager Validation Ends*/
+ $("#resource_resource_type_room_booking").live("change",function(){
+        $.get("/resources/get_resource_type",{
+            department_id: $("#resource_resource_type_room_booking").val()
+        }, function(data){
+            $("#department_id").val($("#resource_resource_type_room_booking").val())
+            $("#div_ajax").html(data)
+        });
+    })
 })
 
 /*Javascripts Starts*/
