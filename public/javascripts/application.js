@@ -331,11 +331,11 @@ $().ready(function(){
     })
 
     /* create */
-    $("#units_agency").live("change", function(){
-        if($("#units_agency").val()!="")
+    $("#unit_agency").live("change", function(){
+        if($("#unit_agency").val()!="")
         {
             $.get("/department_users/get_departments",{
-                agency_id : $("#units_agency").val()
+                agency_id : $("#unit_agency").val()
             }, function(data){
                 if (data[0]!=null)
                 {
