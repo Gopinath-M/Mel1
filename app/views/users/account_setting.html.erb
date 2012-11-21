@@ -3,7 +3,7 @@
 <div class="CenterNav">
   <h2 class="b-head">Account Settings</h2></br>
   <div class="form-sec">
-    <%= form_for(@user, :as => :user, :url => registration_path(:user), :html => { :method => :put, :multipart => true }) do |f| %>
+    <%= form_for(@user, :as => :user, :url => registration_path(:user), :html => { :method => :put}) do |f| %>
       <%=  f.error_messages %>
       <!--BODY START-->
       <div class="change_password">
@@ -57,6 +57,22 @@
           <%= ff.submit :class=>"btn2"%>
         </span>
       </div>
+    <%end%>
+    <%= form_for(@role_membership, :as => :role_membership, :url => update_default_department_users_path(:role_membership), :html => { :method => :post}) do |fff| %>
+      <%if current_user.departments && current_user.departments.length > 1%>
+        <h2 class="b-head-acc-set">Change Default Department</h2>
+        <div class="form-sec-row">
+          <%= fff.label :department_id, raw('Default Department'), :class=>"text" %>
+          <%=select(:default,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
+          <br/> <%= fff.check_box :default_dept %>
+        </div>
+        <div class="form-sec-row">
+          <label class="text">&nbsp;</label>
+          <span class="in-box">
+            <br/> <%= fff.submit "Save Changes", :class=>"btn2"%>
+          </span>
+        </div>
+      <%end%>
     <%end%>
   </div>
 </div>

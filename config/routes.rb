@@ -63,6 +63,7 @@ Melaka::Application.routes.draw do
       get 'get_dept_for_users' #transfer dept to get users for selected dept
       get 'account_setting'
       post 'update_account_setting'
+      post 'update_default_department'
       get 'admin'
     end
   end
