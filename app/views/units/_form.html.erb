@@ -20,9 +20,10 @@
       </div>
     <%else%>
       <div class="form-sec-row">
+
         <%= label_tag "id_agency", raw("Agency"), :class=>"text" %>
         <span class="in-box">
-          <%= select("units","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+          <%=select(:unit,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
         </span>
       </div>
       <div class="form-sec-row">
