@@ -7,8 +7,7 @@ class Resource < ActiveRecord::Base
   has_many :resource_managers
   has_many :resource_boookings
   has_many :resource_transport_bookings
-  validates :category_id, :presence=>true
-  validates :sub_category_id, :presence=>true
-  validates :name, :presence => true
+  
+  validates :category_id,:sub_category_id,:resource_type,:name,:description, :presence=>true
   scope :active, where(:deleted => false)
 end
