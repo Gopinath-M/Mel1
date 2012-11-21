@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin
+  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department]
 
   #Activate or Deactivate a particular User
   def update_status
