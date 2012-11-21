@@ -4,7 +4,7 @@
   <div class="form-sec">
       <%= hidden_field_tag  :created_by, (current_user.id)%>
     <div class="form-sec-row">
-      <label class="text">Category Name</label>
+      <label class="text">Category Name <span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :name%>
       </span>
