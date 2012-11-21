@@ -249,6 +249,17 @@ class UsersController < ApplicationController
     redirect_to(users_path, :notice => "Your Account Settings Updated successfully")
   end
 
+  def update_default_department
+    department=Department.find(params[:default][:department_id]) if params[:default][:department_id]
+    if department && department!=nil
+      role=current_user.role_memberships.where(:default_dept => true)
+      role.first.update_attribute(:default_dept, false) if role && !role.empty? && role.first
+      new_role=current_user.role_memberships.where(:default_dept => false,:department_id=>department.id)
+      new_role.first.update_attribute(:default_dept, true)  if new_role && !new_role.empty? && new_role.first
+    end
+    redirect_to(users_path, :notice => "Your Account Settings Updated successfully")
+  end
+
   def admin
     department_id = params[:department_id].to_i
     if department_id != 0

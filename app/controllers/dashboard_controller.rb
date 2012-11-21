@@ -19,7 +19,7 @@ class DashboardController < ApplicationController
       current_department
       #      role=current_user.role_memberships.where(:default_dept => true)
       #      role.first.update_attribute(:default_dept, false)
-      new_role=current_user.role_memberships.where(:default_dept => false,:department_id=>department.id)
+      new_role=current_user.role_memberships.where(:department_id=>department.id)
       #      new_role.first.update_attribute(:default_dept, true)
       render :json=>["success",new_role.first.role.name]
     else
