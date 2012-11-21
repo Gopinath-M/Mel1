@@ -89,7 +89,7 @@ rescue Exception=>e
 end
 
 puts "Creating Roles"
-roles = ["Super Admin", "Department Admin", "Department User", "Unit Admin"]
+roles = ["Super Admin", "Department Admin", "Department User", "Unit Admin", "Resource Manager"]
 roles.each do | role |
   role = Role.new(:name => role)
   role.save
