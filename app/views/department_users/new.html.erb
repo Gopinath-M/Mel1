@@ -7,13 +7,13 @@
       <%=f.error_messages%>
       <div class="clearfix">&nbsp;</div>
       <div class="form-sec-row">
-        <%= f.label :first_name,raw("First Name"), :class=>"text"%>
+        <%= f.label :first_name,raw("First Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :first_name, :size => 30%>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :last_name,raw("Last Name"), :class=>"text"%>
+        <%= f.label :last_name,raw("Last Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :last_name, :size => 30%>
         </span>
@@ -39,7 +39,7 @@
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :username,raw("Display Name"), :class=>"text"%>
+        <%= f.label :username,raw("Display Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :username, :size => 30%>
           <i>(This name will be used through out the site)</i>
@@ -52,13 +52,13 @@
         </span>
       </div>
       <div class="form-sec-row">
-        <label class="text">State<span style=color:red>*</span></label>
+        <label class="text">State <span style=color:red>*</span></label>
         <span class="in-box">
           <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "SELECT A STATE")%>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :zipcode,raw("Zipcode"), :class=>"text"%>
+        <%= f.label :zipcode,raw("Zipcode <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :zipcode, :size => 5, :maxlength=>5%>
         </span>
@@ -78,13 +78,13 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <%= label_tag "users_agency", raw("Agency"), :class=>"text" %>
+          <%= label_tag "users_agency", raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
           <span class="in-box">
             <%= select("users","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= label_tag "users_department", raw("Department"), :class=>"text"%>
+          <%= label_tag "users_department", raw("Department <span style=color:red>*</span>"), :class=>"text"%>
           <span class="in-box">
             <%= select("users","department",Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
           </span>
@@ -105,14 +105,14 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <%= label_tag "users_agency", raw("Agency"), :class=>"text" %>
+          <%= label_tag "users_agency", raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
           <span class="in-box">
             <%agency = Agency.find(current_department.agency_id) %>
             <%= select("users","agency_id",  Agency.find_all_by_id(current_department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= label_tag "users_department", raw("Department"), :class=>"text"%>
+          <%= label_tag "users_department", raw("Department <span style=color:red>*</span>"), :class=>"text"%>
           <span class="in-box">
             <%= select("users","department", current_user.departments.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
           </span>

@@ -18,14 +18,14 @@
     </div>
 
     <div class="form-sec-row">
-      <%= f.label :model_name,raw("Model"), :class=>"text"%>
+      <%= f.label :model_name,raw("Model <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= f.text_field :model_name, :rows=>2, :autofocus => true%>
       </span>
     </div>
 
     <div class="form-sec-row">
-      <%= f.label :registration_number,raw("Registration Number"), :class=>"text"%>
+      <%= f.label :registration_number,raw("Registration Number <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= f.text_field :registration_number, :rows=>2, :autofocus => true%>
       </span>
