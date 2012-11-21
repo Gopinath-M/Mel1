@@ -5,7 +5,7 @@ class CreateVehicles < ActiveRecord::Migration
       t.string :registration_number
       t.references :vehicle_type
       t.references :driver
-      t.string :model
+      t.string :model_name
       t.string :registration_date
       t.timestamps
     end
