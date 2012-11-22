@@ -9,6 +9,12 @@
       </span>
     </div>
     <div class="form-sec-row">
+      <label class="text">Email</label>
+      <span class="in-box">
+        <%= f.text_field :email%>
+      </span>
+    </div>
+    <div class="form-sec-row">
       <label class="text">Address</label>
       <span class="in-box">
         <%= f.text_field :address%>
@@ -26,13 +32,6 @@
         <%= f.text_field :remarks%>
       </span>
     </div>
-    <%#*<div class="form-sec-row">%>
-      <%#*<label class="text">Type</label>%>
-      <%#*<span class="in-box">%>
-        <%#vendor_type=["Internal","External"]%>
-        <%#=f.select(:vendor_type, options_for_select(vendor_type))%>
-      <%#*</span>%>
-    <%#*</div>%>
     <div class="form-sec-row">
       <label class="text">Is Active</label>
       <span class="in-box">
