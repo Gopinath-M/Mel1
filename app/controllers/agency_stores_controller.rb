@@ -84,16 +84,6 @@ def get_sub_categories
    render :json=>[ subcategories] if  subcategories
 end
 
-def transport_store
-   store = AgencyStore.create(params[:agency_store])
-   store.vehicle_id = params[:vehicle][:id]
-    store.save
-    if store.valid?
-      redirect_to :controller=>'agency_stores', :action=>'index'
-    else
-      render :action=>'new'
-    end
-end
 def get_vehicles
   vehicles = Vehicle.find_all_by_vehicle_type_id(params[:vehicle_id])
    render :json=>[ vehicles] if  vehicles
