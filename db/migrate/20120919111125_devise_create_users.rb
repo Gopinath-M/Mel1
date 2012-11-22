@@ -38,6 +38,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :avatar
       t.datetime :avatar_updated_at
       t.string :status
+      t.boolean :login_status, :default => false
       t.boolean :deleted, :default => false
       t.column :activation_code, :string, :limit => 40
       t.column :activated_at, :datetime
