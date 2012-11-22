@@ -273,4 +273,11 @@ class UsersController < ApplicationController
       render :layout=>false
     end
   end
+
+  def online_users
+    @users = User.find(:all, :conditions => ["username != ?", current_user.username])
+  end
+
+  
+
 end
