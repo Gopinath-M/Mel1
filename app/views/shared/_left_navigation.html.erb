@@ -22,7 +22,7 @@
           <li><a href="/messages" title="Messages"><%=image_tag "icn_email.png" , :width=>"16", :height=>"16", :alt=>"Email"%><span class="notifiNo"></span>Messages</a></li>
           <li><a href="javascript:void(0);" title="Events"><%=image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%>Events</a></li>
           <li><a href="javascript:void(0);" title="Find User"><%=image_tag "icn_user.png" , :width=>"16", :height=>"16", :alt=>"Find User"%>Find User</a></li>
-          <%if current_user && current_user.is_super_admin?%>
+          <%if current_user && current_role && current_role==DISP_USER_ROLE_SUPER_ADMIN%>
             <li><a href="javascript:void(0);" title="Uploaded Files"><%=image_tag "attach.png" , :width=>"16", :height=>"16", :alt=>"Upload Files"%>Uploaded Files</a></li>
           <%end%>
         </ul>
@@ -36,7 +36,7 @@
 <%#=link_to content_tag(:span,activate_admin_users_count!=nil && activate_admin_users_count>0 ? activate_admin_users_count : "",:class=>activate_admin_users_count!=nil && activate_admin_users_count>0 ? "notifiNo" : "" )+"Admin Activation", admin_activation_users_path,:title=>"Admin Activation"%>
 <%#*</li>%>
 <%#end%>
-          <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
+         <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
   <%#*<li>%>
   <%#=link_to content_tag(:span,activate_department_users_count!=nil && activate_department_users_count>0 ? activate_department_users_count : "",:class=>activate_department_users_count!=nil && activate_department_users_count>0 ? "notifiNo" : "" )+"User Activation", user_activation_users_path,:title=>"User Activation"%>
   <%#*</li>%>
@@ -54,10 +54,10 @@
       </div>
       <div class="clear"></div>
       <div class="leftNav-links box">
-        <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
+        <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
           <h2>Management Tools</h2>
           <ul>
-            <%if current_user && current_user.is_super_admin? %>
+            <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
               <li>
                 <%=link_to "Agencies", "javascript:void(0);" , :title=>"agencies" ,:class=>"", :id=>"lnk_agency"%>
                 <div id ="div_agency" style="display:none;">
@@ -114,7 +114,7 @@
                 </div>
               </li>
             <%end%>
-            <%if current_user && (current_user.is_super_admin? ||  current_user.is_department_admin?)%>
+            <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
               <li>
                 <%=link_to "Users", "javascript:void(0);" , :title=>"User" ,:class=>"", :id=>"lnk_user"%>
                 <div id ="div_user" style="display:none;">
@@ -125,7 +125,7 @@
                     <li>
                       <%=link_to "List", users_path %>
                     </li>
-                    <%if current_user && current_user.is_super_admin? %>
+                    <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN) %>
                       <li>
                         <%=link_to "Transfer Department", transfer_users_path%>
                       </li>
@@ -141,7 +141,7 @@
                     <%end%>
                   </ul>
                 </div>
-              </li> <%if current_user && current_user.is_super_admin? %>
+              </li> <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
                 <li> <%=link_to "Vendors", "javascript:void(0);" , :title=>"Vendors" ,:class=>"", :id=>"lnk_vendors"%>
                   <div id ="div_vendors" style="display:none;">
                     <ul>
@@ -174,7 +174,7 @@
                     <li>
                       <%=link_to "Map Category", assign_category_categories_path%>
                     </li>
-                    <li>                   
+                    <li>
                       <%=link_to "List Map Category", list_category_mapping_categories_path%>
                     </li>
                     <li>
@@ -182,7 +182,7 @@
                     </li>
                     <li>
                       <%=link_to "List Resource", resources_path%>
-                    </li><%if current_user && current_user.is_super_admin? %>
+                    </li><%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
                       <li>
                         <%=link_to "Create Stock Detail", new_agency_store_path%>
                       </li>

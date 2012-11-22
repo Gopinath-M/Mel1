@@ -1,8 +1,13 @@
 module ApplicationHelper
 
-  #this will work if the user belongs to one department. We need to do for multiple departments #manivannan
-  def current_department  
-    @current_department ||= current_user.departments.first
+  def current_department
+    if !current_user.is_super_admin?
+      if !session[:department_id].nil?
+        @current_department ||= session[:department_id]
+      else
+        @current_department ||= default_department
+      end
+    end
   end
   
   #Get count for unactivated dept admin accounts
@@ -18,7 +23,22 @@ module ApplicationHelper
     return user_count
   end
 
+#  def default_department
+#    default_department ||= current_user.role_memberships.first.default_dept
+#  end
   def default_department
-    default_department ||= current_user.role_memberships.first.default_dept
+    default_department ||= current_user.role_memberships.where(:default_dept => true).first.department.id
   end
+
+  def current_role
+     if !current_user.is_super_admin?
+      department=Department.find(@current_department) if @current_department
+      current_role=RoleMembership.find_by_user_id_and_department_id(current_user.id,department.id) if department
+      current_role.role.name if current_role
+     else
+       current_role=Role.where(:name => "Super Admin").first
+       return current_role.name if current_role
+     end
+  end
+
 end

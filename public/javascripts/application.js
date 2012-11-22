@@ -111,9 +111,11 @@ $().ready(function(){
         }, function(data){
             if (data[0]=="success")
             {
+                alert("Now you can view details which are related to this department only")
                 $("#img_default_department_user_role").attr("title",data[1])
                 $("#lnk_default_department_user_role").attr("title",data[1])
                 $("#lnk_default_department_user_role").html(data[1])
+                window.location.href="/dashboard"
             }
             else if (data[0]=="error")
             {
@@ -331,11 +333,11 @@ $().ready(function(){
     })
 
     /* create */
-    $("#units_agency").live("change", function(){
-        if($("#units_agency").val()!="")
+    $("#unit_agency").live("change", function(){
+        if($("#unit_agency").val()!="")
         {
             $.get("/department_users/get_departments",{
-                agency_id : $("#units_agency").val()
+                agency_id : $("#unit_agency").val()
             }, function(data){
                 if (data[0]!=null)
                 {
@@ -1169,7 +1171,7 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
- /*Assign Resource Manager Validation Starts*/
+    /*Assign Resource Manager Validation Starts*/
     $("#agency_submit").live("click",function(){
         if ($("#transfer_from_agency").val() == ""){
             alert("Select Agency value");
@@ -1191,6 +1193,43 @@ $().ready(function(){
         }, function(data){
             $("#department_id").val($("#resource_resource_type_room_booking").val())
             $("#div_ajax").html(data)
+        });
+    })
+    $("#agency_store_resource_type_others").live("change",function(){
+         if($("#agency_store_resource_type_others").val()!="")
+        $.get("/agency_stores/get_others",{
+            department_id: $("#agency_store_resource_type_others").val()
+        }, function(data){
+            $("#department_id").val($("#agency_store_resource_type_others").val())
+            $("#div_others").html(data)
+        });
+        else{
+            $('#agency_store_resource_type_others').append()
+
+        }
+    })
+     $("#agency_store_resource_type_room_booking").live("change",function(){
+        $.get("/agency_stores/get_booking",{
+            department_id: $("#agency_store_resource_type_room_booking").val()
+        }, function(data){
+            $("#department_id").val($("#agency_store_resource_type_room_booking").val())
+            $("#div_booking").html(data)
+        });
+    })
+     $("#agency_store_resource_type_transport").live("change",function(){
+        $.get("/agency_stores/get_transport",{
+            department_id: $("#agency_store_resource_type_transport").val()
+        }, function(data){
+            $("#department_id").val($("#agency_store_resource_type_transport").val())
+            $("#div_transport").html(data)
+        });
+    })
+    $("#agency_store_resource_type_ict").live("change",function(){
+        $.get("/agency_stores/get_ict",{
+            department_id: $("#agency_store_resource_type_ict").val()
+        }, function(data){
+            $("#department_id").val($("#agency_store_resource_type_ict").val())
+            $("#div_ict").html(data)
         });
     })
 })

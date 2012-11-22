@@ -3,13 +3,13 @@
     <%=f.error_messages%>
     <div class="clearfix">&nbsp;</div>
     <div class="form-sec-row">
-      <%= f.label :name,raw("Name"), :class=>"text"%>
+      <%= f.label :name,raw("Name <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= f.text_field :name, :rows=>2, :autofocus => true%>
       </span>
     </div>
     <div class="form-sec-row">
-      <%= f.label :telephone_number,raw("Telephone Number"), :class=>"text"%>
+      <%= f.label :telephone_number,raw("Telephone Number <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= f.text_field :telephone_number, :rows=>2, :autofocus => true%>
       </span>

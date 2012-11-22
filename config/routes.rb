@@ -63,6 +63,7 @@ Melaka::Application.routes.draw do
       get 'get_dept_for_users' #transfer dept to get users for selected dept
       get 'account_setting'
       post 'update_account_setting'
+      post 'update_default_department'
       get 'admin'
     end
   end
@@ -147,6 +148,10 @@ Melaka::Application.routes.draw do
       get 'get_sub_categories'
       get 'get_resource'
       post 'update_status'
+      get 'get_others'
+      get 'get_booking'
+      get 'get_ict'
+      get 'get_transport'
     end
   end
   #Error routes

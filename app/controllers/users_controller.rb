@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin
+  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department]
 
   #Activate or Deactivate a particular User
   def update_status
@@ -246,6 +246,17 @@ class UsersController < ApplicationController
   def update_account_setting
     user = User.find_by_id(params[:user_id])
     user.update_attributes(:profile_status => params[:user][:profile_status], :widget_one => params[:user][:widget_one], :widget_two => params[:user][:widget_two])
+    redirect_to(users_path, :notice => "Your Account Settings Updated successfully")
+  end
+
+  def update_default_department
+    department=Department.find(params[:default][:department_id]) if params[:default][:department_id]
+    if department && department!=nil
+      role=current_user.role_memberships.where(:default_dept => true)
+      role.first.update_attribute(:default_dept, false) if role && !role.empty? && role.first
+      new_role=current_user.role_memberships.where(:default_dept => false,:department_id=>department.id)
+      new_role.first.update_attribute(:default_dept, true)  if new_role && !new_role.empty? && new_role.first
+    end
     redirect_to(users_path, :notice => "Your Account Settings Updated successfully")
   end
 

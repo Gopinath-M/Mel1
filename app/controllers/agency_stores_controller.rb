@@ -99,4 +99,24 @@ def transport_store
       render :action=>'new'
     end
 end
+def get_others
+  @store = "others"
+  agency_stores = AgencyStore.new
+       render :json=>[agency_stores] if agency_stores
+end
+def get_booking
+   @store = "booking"
+  agency_stores = AgencyStore.new
+       render :json=>[agency_stores] if agency_stores
+end
+def get_transport
+   @store = "transport"
+  agency_stores = AgencyStore.new
+       render :json=>[agency_stores] if agency_stores
+end
+def get_ict
+   @store = "ict"
+  agency_stores = AgencyStore.new
+       render :json=>[agency_stores] if agency_stores
+end
 end

@@ -7,6 +7,7 @@
        <div class="cu-c2">Select Department:
       <%= select("cat_department","id",  Department.active.collect {|dept| [dept.name, dept.id]},:prompt=>"SELECT A DEPARTMENT") %>
     </div>
+
     </div>
   <%end%>
 
@@ -34,7 +35,7 @@
                   <p class="head1"><%=department.name%></p>
                 </div>
                 <div class="mu-c3">
-                  
+
                   <%if category_map.is_active%>
                     <%if category.is_active %>
 

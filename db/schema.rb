@@ -10,24 +10,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109085904) do
+ActiveRecord::Schema.define(:version => 20121120065148) do
 
   create_table "agencies", :force => true do |t|
     t.string   "name"
+    t.integer  "user_id"
+    t.string   "address"
+    t.string   "telephone_number"
+    t.integer  "fax_number"
     t.boolean  "is_active"
-    t.boolean  "deleted",    :default => false
+    t.boolean  "deleted",          :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "agency_stores", :force => true do |t|
     t.integer  "agency_id"
-    t.integer  "resources"
+    t.integer  "department_id"
+    t.integer  "resources_id"
     t.integer  "quantity"
-    t.string   "serial_no"
+    t.text     "serial_no"
     t.integer  "uom"
-    t.boolean  "is_active"
-    t.boolean  "deleted",    :default => false
+    t.boolean  "is_active",     :default => true
+    t.boolean  "deleted",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,10 +52,11 @@ ActiveRecord::Schema.define(:version => 20121109085904) do
     t.datetime "updated_at"
   end
 
-  create_table "categories_departments", :id => false, :force => true do |t|
+  create_table "categories_departments", :force => true do |t|
     t.integer  "category_id"
     t.integer  "department_id"
     t.integer  "created_by"
+    t.boolean  "is_active",     :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -74,11 +80,24 @@ ActiveRecord::Schema.define(:version => 20121109085904) do
   create_table "departments", :force => true do |t|
     t.string   "name"
     t.integer  "agency_id"
+    t.string   "address"
+    t.string   "telephone_number"
+    t.integer  "fax_number"
     t.integer  "order_by"
     t.boolean  "is_active"
-    t.boolean  "deleted",    :default => false
+    t.boolean  "deleted",          :default => false
     t.integer  "created_by"
     t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "drivers", :force => true do |t|
+    t.integer  "registration_id"
+    t.string   "name"
+    t.string   "telephone_number"
+    t.boolean  "informed",         :default => false
+    t.boolean  "already_assigned", :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -98,7 +117,11 @@ ActiveRecord::Schema.define(:version => 20121109085904) do
     t.string   "message_type"
     t.string   "agency_id"
     t.string   "department_id"
+    t.string   "unit_id"
+    t.string   "attachment"
+    t.boolean  "deleted",                 :default => false
     t.boolean  "send_to_dept_admins",     :default => false
+    t.boolean  "send_to_unit_admins",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "sent_to_all_dept_admins", :default => false
@@ -124,6 +147,19 @@ ActiveRecord::Schema.define(:version => 20121109085904) do
     t.datetime "updated_at"
   end
 
+  create_table "resource_ict_bookings", :force => true do |t|
+    t.string   "type"
+    t.text     "purpose"
+    t.string   "location"
+    t.datetime "booking_date"
+    t.datetime "return_date"
+    t.boolean  "need_officer", :default => false
+    t.integer  "officer_id"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "resource_managers", :force => true do |t|
     t.integer  "agency_id"
     t.integer  "resource_id"
@@ -132,6 +168,28 @@ ActiveRecord::Schema.define(:version => 20121109085904) do
     t.integer  "uom"
     t.boolean  "is_active"
     t.boolean  "deleted",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resource_transportation_bookings", :force => true do |t|
+    t.text     "purpose"
+    t.string   "state"
+    t.string   "city"
+    t.text     "location"
+    t.integer  "number_of_passengers"
+    t.string   "pick_up_place"
+    t.integer  "resource_id"
+    t.text     "remarks"
+    t.datetime "requested_from_date"
+    t.datetime "requested_to_date"
+    t.datetime "request_processed_date"
+    t.datetime "return_date"
+    t.string   "requester_id"
+    t.string   "transport_avatar"
+    t.string   "status"
+    t.string   "approver_id"
+    t.boolean  "send_sms_to_driver",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -148,15 +206,15 @@ ActiveRecord::Schema.define(:version => 20121109085904) do
     t.string   "name"
     t.integer  "category_id"
     t.integer  "sub_category_id"
-    t.integer  "vendor_id"
+    t.integer  "department_id"
     t.string   "status"
     t.text     "description"
-    t.string   "serial_no"
-    t.integer  "quantity"
+    t.string   "resource_type"
     t.boolean  "is_returnable"
+    t.boolean  "is_facilty_avail", :default => false
     t.integer  "created_by"
-    t.boolean  "is_active"
-    t.boolean  "deleted",         :default => false
+    t.boolean  "is_active",        :default => true
+    t.boolean  "deleted",          :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -215,9 +273,12 @@ ActiveRecord::Schema.define(:version => 20121109085904) do
   create_table "units", :force => true do |t|
     t.string   "name"
     t.integer  "department_id"
+    t.string   "address"
+    t.string   "telephone_number"
+    t.integer  "fax_number"
     t.integer  "order_by"
     t.boolean  "is_active"
-    t.boolean  "deleted",       :default => false
+    t.boolean  "deleted",          :default => false
     t.integer  "created_by"
     t.integer  "updated_by"
     t.datetime "created_at"
@@ -280,14 +341,31 @@ ActiveRecord::Schema.define(:version => 20121109085904) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  create_table "vehicle_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vehicles", :force => true do |t|
+    t.integer  "registration_id"
+    t.string   "registration_number"
+    t.integer  "vehicle_type_id"
+    t.integer  "driver_id"
+    t.string   "model"
+    t.string   "registration_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "vendor_stores", :force => true do |t|
     t.integer  "vendor_id"
-    t.integer  "resources"
+    t.integer  "resources_id"
     t.integer  "quantity"
-    t.string   "serial_no"
+    t.text     "serial_no"
     t.integer  "uom"
     t.boolean  "is_active"
-    t.boolean  "deleted",    :default => false
+    t.boolean  "deleted",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
