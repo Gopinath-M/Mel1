@@ -19,6 +19,7 @@ class SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
+    current_user.update_attribute(:login_status,false) if current_user
     redirect_path = after_sign_out_path_for(resource_name)
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
     set_flash_message :notice, :signed_out if signed_out && is_navigational_format?
