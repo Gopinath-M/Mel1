@@ -70,5 +70,9 @@ class ResourcesController < ApplicationController
     resources=Resource.where("sub_category_id= ? and deleted=false", params[:sub_category_id])
     render :json=>[resources] if resources
   end
-
+  def get_resource_type
+    @resource = Resource.new
+    
+   render :partial => 'form' , :department_id => 'room_booking'
+  end
 end
