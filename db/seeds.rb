@@ -37,7 +37,13 @@ begin
   file = File.open("public/Department.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      Department.create(:agency_id => 1, :name=>record, :is_active=>true, :created_by=>1, :updated_by=>1)
+      agency_id=rand(i)
+      if agency_id && agency_id.to_i==0
+        agency_id=agency_id+1
+      end
+      p agency_id
+      record_split = record.split(",")
+      Department.create!(:agency_id => agency_id, :name=>record_split[0],:address=>record_split[1],:telephone_number=>record_split[2], :is_active=>true, :created_by=>1, :updated_by=>1)
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
@@ -158,13 +164,13 @@ puts "Creating Sample Department Admins for the departments JABATAN KETUA MENTER
 department_admin1 = User.create(:ic_number => "123456781111", :email => 'sathish.t@openwavecomp.in', :password => "password", :first_name => "DeptAdmin",  :last_name => "JKMM", :username=>'Sathish', :status => 'A', :state => 7, :sign_in_count => 1)
 department_admin1.activate_user
 rm_department_admin1 = RoleMembership.create(:user_id => department_admin1.id, :department_id => 1, :role_id => 2, :status => 'A', :default_dept=>true)
-department_admin2 = User.create(:ic_number => "123456784444", :email => 'sheikdawood.a@openwavecomp.in', :password => "password", :first_name => "DeptAdmin", :last_name => "JAIM",:username=>'Sheik', :status => 'A', :state => 7, :sign_in_count => 1)
+department_admin2 = User.create(:ic_number => "123456784444", :email => 'sheikdawood.a@openwavecomp.in', :password => "password", :first_name => "DeptAdmin", :last_name => "JAIM",:username=>'Sheik1', :status => 'A', :state => 7, :sign_in_count => 1)
 department_admin2.activate_user
 rm_department_admin2 = RoleMembership.create(:user_id => department_admin2.id, :department_id => 4, :role_id => 2, :status => 'A', :default_dept=>true)
-department_admin3 = User.create(:ic_number => "123456786666", :email => 'sheikdawooda.a@openwavecomp.in', :password => "password", :first_name => "DeptAdmin", :last_name => "JKRM",:username=>'Sheik', :status => 'A', :state => 7, :sign_in_count => 1)
+department_admin3 = User.create(:ic_number => "123456786666", :email => 'sheikdawooda.a@openwavecomp.in', :password => "password", :first_name => "DeptAdmin", :last_name => "JKRM",:username=>'Sheik2', :status => 'A', :state => 7, :sign_in_count => 1)
 department_admin3.activate_user
 rm_department_admin3 = RoleMembership.create(:user_id => department_admin3.id, :department_id => 6, :role_id => 2, :status => 'A', :default_dept=>true)
-department_admin4 = User.create(:ic_number => "123456788888", :email => 'sheikdawoodb.a@openwavecomp.in', :password => "password", :first_name => "DeptAdmin", :last_name => "JMNM",:username=>'Sheik', :status => 'A', :state => 7, :sign_in_count => 1)
+department_admin4 = User.create(:ic_number => "123456788888", :email => 'sheikdawoodb.a@openwavecomp.in', :password => "password", :first_name => "DeptAdmin", :last_name => "JMNM",:username=>'Sheik3', :status => 'A', :state => 7, :sign_in_count => 1)
 department_admin4.activate_user
 rm_department_admin4 = RoleMembership.create(:user_id => department_admin4.id, :department_id => 8, :role_id => 2, :status => 'A', :default_dept=>true)
 
@@ -182,68 +188,68 @@ rm_department_user3 = RoleMembership.create(:user_id => department_user3.id, :de
 department_user4 = User.create(:ic_number => "123456781555", :email => 'abuthahir.a.h@openwavecomp.in', :password => "password", :first_name => "DeptUserFour", :last_name => "JKMM", :username=>'Abu',:status => 'A', :state => 7, :sign_in_count => 1)
 department_user4.activate_user
 rm_department_user4 = RoleMembership.create(:user_id => department_user4.id, :department_id => 1, :role_id => 4, :unit_id=>4,:status => 'A', :default_dept=>true)
-department_user5 = User.create(:ic_number => "123456781666", :email => 'owcsasitharan.t@openwavecomp.in', :password => "password", :first_name => "DeptUserFive", :last_name => "JKMM",:username=>'Sasi', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user5 = User.create(:ic_number => "123456781666", :email => 'owcsasitharan.t@openwavecomp.in', :password => "password", :first_name => "DeptUserFive", :last_name => "JKMM",:username=>'Sasi1', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user5.activate_user
 rm_department_user5 = RoleMembership.create(:user_id => department_user5.id, :department_id => 1, :role_id => 3,:unit_id=>1, :status => 'A', :default_dept=>true)
-department_user6 = User.create(:ic_number => "123456781777", :email => 'owcnirmala.a.b@openwavecomp.in', :password => "password", :first_name => "DeptUserSix", :last_name => "JKMM",:username=>'Nirmala', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user6 = User.create(:ic_number => "123456781777", :email => 'owcnirmala.a.b@openwavecomp.in', :password => "password", :first_name => "DeptUserSix", :last_name => "JKMM",:username=>'Nirmala1', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user6.activate_user
 rm_department_user6 = RoleMembership.create(:user_id => department_user6.id, :department_id => 1, :role_id => 3, :unit_id=>2,:status => 'A', :default_dept=>true)
-department_user7 = User.create(:ic_number => "123456781888", :email => 'owcprakashkumar.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JKMM",:username=>'Prakash', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user7 = User.create(:ic_number => "123456781888", :email => 'owcprakashkumar.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JKMM",:username=>'Prakash1', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user7.activate_user
 rm_department_user7= RoleMembership.create(:user_id => department_user7.id, :department_id => 1, :role_id => 3, :unit_id=>3,:status => 'A', :default_dept=>true)
-department_user8 = User.create(:ic_number => "123456781999", :email => 'owcabuthahir.a.h@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JKMM",:username=>'Abu', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user8 = User.create(:ic_number => "123456781999", :email => 'owcabuthahir.a.h@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JKMM",:username=>'Abu1', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user8.activate_user
 rm_department_user8 = RoleMembership.create(:user_id => department_user8.id, :department_id => 1, :role_id => 3, :unit_id=>4,:status => 'A', :default_dept=>true)
 
 
 puts "Creating Sample Department Users for JABATAN AGAMA ISLAM MELAKA"
-department_user1 = User.create(:ic_number => "123456784111", :email => 'anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserfirst", :last_name => "JAIM",:username=>'Anu', :status => 'A', :state => 7, :sign_in_count => 1)
-department_user1.activate_user
-rm_department_user1 = RoleMembership.create(:user_id => department_user1.id, :department_id => 4, :role_id => 4, :unit_id=>5,:status => 'A', :default_dept=>true)
-department_user2 = User.create(:ic_number => "123456784222", :email => 'latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSecond", :last_name => "JAIM",:username=>'Latha', :status => 'A', :state => 7, :sign_in_count => 1)
-department_user2.activate_user
-rm_department_user2 = RoleMembership.create(:user_id => department_user2.id, :department_id => 4, :role_id => 4, :unit_id=>6, :status => 'A', :default_dept=>true)
-department_user3 = User.create(:ic_number => "123456784333", :email => 'sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserThird", :last_name => "JAIM",:username=>'Sakthi', :status => 'A', :state => 7, :sign_in_count => 1)
-department_user3.activate_user
-rm_department_user3 = RoleMembership.create(:user_id => department_user3.id, :department_id => 4, :role_id => 4, :unit_id=>7, :status => 'A', :default_dept=>true)
-department_user4 = User.create(:ic_number => "123456784555", :email => 'gopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserFour", :last_name => "JAIM",:username=>'Gopi', :status => 'A', :state => 15, :sign_in_count => 1)
-department_user4.activate_user
-rm_department_user4 = RoleMembership.create(:user_id => department_user4.id, :department_id => 4, :role_id => 4, :unit_id=>8, :status => 'A', :default_dept=>true)
-department_user5 = User.create(:ic_number => "123456784666", :email => 'owcanusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFive", :last_name => "JAIM", :username=>'Anu',:status => 'A', :state => 7, :sign_in_count => 1)
-department_user5.activate_user
-rm_department_user5 = RoleMembership.create(:user_id => department_user5.id, :department_id => 4, :role_id => 3, :unit_id=>5,:status => 'A', :default_dept=>true)
-department_user6 = User.create(:ic_number => "123456784777", :email => 'owclatha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSix", :last_name => "JAIM",:username=>'Latha', :status => 'A', :state => 7, :sign_in_count => 1)
-department_user6.activate_user
-rm_department_user6 = RoleMembership.create(:user_id => department_user6.id, :department_id => 4, :role_id => 3, :unit_id=>6, :status => 'A', :default_dept=>true)
-department_user7 = User.create(:ic_number => "123456784888", :email => 'owcsakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JAIM",:username=>'Sakthi', :status => 'A', :state => 7, :sign_in_count => 1)
-department_user7.activate_user
-rm_department_user7 = RoleMembership.create(:user_id => department_user7.id, :department_id => 4, :role_id => 3, :unit_id=>7, :status => 'A', :default_dept=>true)
-department_user8 = User.create(:ic_number => "123456784999", :email => 'owcgopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JAIM",:username=>'Gopi', :status => 'A', :state => 15, :sign_in_count => 1)
-department_user8.activate_user
-rm_department_user8 = RoleMembership.create(:user_id => department_user8.id, :department_id => 4, :role_id => 3, :unit_id=>8, :status => 'A', :default_dept=>true)
+department_user9 = User.create(:ic_number => "123456784111", :email => 'anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserfirst", :last_name => "JAIM",:username=>'Anu', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user9.activate_user
+rm_department_user9 = RoleMembership.create(:user_id => department_user9.id, :department_id => 4, :role_id => 4, :unit_id=>5,:status => 'A', :default_dept=>true)
+department_user10 = User.create(:ic_number => "123456784222", :email => 'latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSecond", :last_name => "JAIM",:username=>'Latha', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user10.activate_user
+rm_department_user10 = RoleMembership.create(:user_id => department_user10.id, :department_id => 4, :role_id => 4, :unit_id=>6, :status => 'A', :default_dept=>true)
+department_user11 = User.create(:ic_number => "123456784333", :email => 'sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserThird", :last_name => "JAIM",:username=>'Sakthi', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user11.activate_user
+rm_department_user11 = RoleMembership.create(:user_id => department_user11.id, :department_id => 4, :role_id => 4, :unit_id=>7, :status => 'A', :default_dept=>true)
+department_user12 = User.create(:ic_number => "123456784555", :email => 'gopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserFour", :last_name => "JAIM",:username=>'Gopi', :status => 'A', :state => 15, :sign_in_count => 1)
+department_user12.activate_user
+rm_department_user12 = RoleMembership.create(:user_id => department_user12.id, :department_id => 4, :role_id => 4, :unit_id=>8, :status => 'A', :default_dept=>true)
+department_user13 = User.create(:ic_number => "123456784666", :email => 'owcanusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFive", :last_name => "JAIM", :username=>'Anu1',:status => 'A', :state => 7, :sign_in_count => 1)
+department_user13.activate_user
+rm_department_user13 = RoleMembership.create(:user_id => department_user13.id, :department_id => 4, :role_id => 3, :unit_id=>5,:status => 'A', :default_dept=>true)
+department_user14 = User.create(:ic_number => "123456784777", :email => 'owclatha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSix", :last_name => "JAIM",:username=>'Latha1', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user14.activate_user
+rm_department_user14= RoleMembership.create(:user_id => department_user14.id, :department_id => 4, :role_id => 3, :unit_id=>6, :status => 'A', :default_dept=>true)
+p department_user15 = User.create!(:ic_number => "123456784888", :email => 'owcsakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JAIM",:username=>'Sakthi1', :status => 'A', :state => 7, :sign_in_count => 1)
+p department_user15.activate_user
+p rm_department_user15= RoleMembership.create!(:user_id => department_user15.id, :department_id => 4, :role_id => 3, :unit_id=>7, :status => 'A', :default_dept=>true)
+p department_user16 = User.create!(:ic_number => "123456784999", :email => 'owcgopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JAIM",:username=>'Gopi1', :status => 'A', :state => 15, :sign_in_count => 1)
+p department_user16.activate_user
+p rm_department_user16 = RoleMembership.create!(:user_id => department_user16.id, :department_id => 4, :role_id => 3, :unit_id=>8, :status => 'A', :default_dept=>true)
 
 
 
 puts "Creating Sample Department Users for JABATAN KERJA RAYA MELAKA"
-department_user1 = User.create(:ic_number => "123456786111", :email => 'owc2anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFirst", :last_name => "JKRM",:username=>'Anu', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user1 = User.create(:ic_number => "123456786111", :email => 'owc2anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFirst", :last_name => "JKRM",:username=>'Anu2', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user1.activate_user
 rm_department_user1 = RoleMembership.create(:user_id => department_user1.id, :department_id => 6, :role_id => 4, :unit_id=>9,:status => 'A', :default_dept=>true)
-department_user2 = User.create(:ic_number => "123456786222", :email => 'owc2latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSecond", :last_name => "JKRM",:username=>'Latha', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user2 = User.create(:ic_number => "123456786222", :email => 'owc2latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSecond", :last_name => "JKRM",:username=>'Latha2', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user2.activate_user
 rm_department_user2 = RoleMembership.create(:user_id => department_user2.id, :department_id => 6, :role_id => 4, :unit_id=>10, :status => 'A', :default_dept=>true)
-department_user3 = User.create(:ic_number => "123456786333", :email => 'owc2sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserThird", :last_name => "JKRM",:username=>'Sakthi', :status => 'A', :state => 15, :sign_in_count => 1)
+department_user3 = User.create(:ic_number => "123456786333", :email => 'owc2sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserThird", :last_name => "JKRM",:username=>'Sakthi2', :status => 'A', :state => 15, :sign_in_count => 1)
 department_user4.activate_user
 rm_department_user4 = RoleMembership.create(:user_id => department_user4.id, :department_id => 6, :role_id => 4, :unit_id=>12, :status => 'A', :default_dept=>true)
-department_user5 = User.create(:ic_number => "123456786555", :email => 'owc1anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFirst", :last_name => "JKRM",:username=>'Anu', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user5 = User.create(:ic_number => "123456786555", :email => 'owc1anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFirst", :last_name => "JKRM",:username=>'Anu3', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user5.activate_user
 rm_department_user5 = RoleMembership.create(:user_id => department_user5.id, :department_id => 6, :role_id => 3, :unit_id=>9,:status => 'A', :default_dept=>true)
-department_user6 = User.create(:ic_number => "123456786777", :email => 'owc1latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSix", :last_name => "JKRM",:username=>'Latha', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user6 = User.create(:ic_number => "123456786777", :email => 'owc1latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSix", :last_name => "JKRM",:username=>'Latha3', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user6.activate_user
 rm_department_user6 = RoleMembership.create(:user_id => department_user6.id, :department_id => 6, :role_id => 3, :unit_id=>10, :status => 'A', :default_dept=>true)
-department_user7 = User.create(:ic_number => "123456786888", :email => 'owc1sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JKRM",:username=>'Sakthi', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user7 = User.create(:ic_number => "123456786888", :email => 'owc1sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JKRM",:username=>'Sakthi3', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user7.activate_user
 rm_department_user7 = RoleMembership.create(:user_id => department_user7.id, :department_id => 6, :role_id => 3, :unit_id=>11, :status => 'A', :default_dept=>true)
-department_user8 = User.create(:ic_number => "123456786999", :email => 'owc1gopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JKRM",:username=>'Gopi', :status => 'A', :state => 15, :sign_in_count => 1)
+department_user8 = User.create(:ic_number => "123456786999", :email => 'owc1gopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JKRM",:username=>'Gopi3', :status => 'A', :state => 15, :sign_in_count => 1)
 department_user8.activate_user
 rm_department_user8 = RoleMembership.create(:user_id => department_user8.id, :department_id => 6, :role_id => 3, :unit_id=>12, :status => 'A', :default_dept=>true)
 
@@ -251,28 +257,28 @@ rm_department_user8 = RoleMembership.create(:user_id => department_user8.id, :de
 
 
 puts "Creating Sample Department Users for JABATAN MUFTI NEGERI MELAKA"
-department_user1 = User.create(:ic_number => "123456788111", :email => 'owc_anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFirst", :last_name => "JKRM",:username=>'Anu', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user1 = User.create(:ic_number => "123456788111", :email => 'owc_anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFirst", :last_name => "JKRM",:username=>'Anu4', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user1.activate_user
 rm_department_user1 = RoleMembership.create(:user_id => department_user1.id, :department_id => 8, :role_id => 4, :unit_id=>13,:status => 'A', :default_dept=>true)
-department_user2 = User.create(:ic_number => "123456788222", :email => 'owc_latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSecond", :last_name => "JKRM",:username=>'Latha', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user2 = User.create(:ic_number => "123456788222", :email => 'owc_latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSecond", :last_name => "JKRM",:username=>'Latha4', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user2.activate_user
 rm_department_user2 = RoleMembership.create(:user_id => department_user2.id, :department_id => 8, :role_id => 4, :unit_id=>14, :status => 'A', :default_dept=>true)
-department_user3 = User.create(:ic_number => "123456788333", :email => 'owc_sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserThird", :last_name => "JKRM",:username=>'Sakthi', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user3 = User.create(:ic_number => "123456788333", :email => 'owc_sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserThird", :last_name => "JKRM",:username=>'Sakthi4', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user3.activate_user
 rm_department_user3 = RoleMembership.create(:user_id => department_user3.id, :department_id => 8, :role_id => 4, :unit_id=>15, :status => 'A', :default_dept=>true)
-department_user4 = User.create(:ic_number => "123456788444", :email => 'owc_gopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserFour", :last_name => "JKRM",:username=>'Gopi', :status => 'A', :state => 15, :sign_in_count => 1)
+department_user4 = User.create(:ic_number => "123456788444", :email => 'owc_gopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserFour", :last_name => "JKRM",:username=>'Gopi4', :status => 'A', :state => 15, :sign_in_count => 1)
 department_user4.activate_user
 rm_department_user4 = RoleMembership.create(:user_id => department_user4.id, :department_id => 8, :role_id => 4, :unit_id=>16, :status => 'A', :default_dept=>true)
-department_user5 = User.create(:ic_number => "123456788555", :email => 'owc1_anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFive", :last_name => "JKRM",:username=>'Anu', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user5 = User.create(:ic_number => "123456788555", :email => 'owc1_anusudha.r@openwavecomp.in', :password => "password", :first_name => "DeptUserFive", :last_name => "JKRM",:username=>'Anu5', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user5.activate_user
 rm_department_user5 = RoleMembership.create(:user_id => department_user5.id, :department_id => 8, :role_id => 3, :unit_id=>13,:status => 'A', :default_dept=>true)
-department_user6 = User.create(:ic_number => "123456788666", :email => 'owc1_latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSix", :last_name => "JKRM",:username=>'Latha', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user6 = User.create(:ic_number => "123456788666", :email => 'owc1_latha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSix", :last_name => "JKRM",:username=>'Latha5', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user6.activate_user
 rm_department_user6 = RoleMembership.create(:user_id => department_user6.id, :department_id => 8, :role_id => 3, :unit_id=>14, :status => 'A', :default_dept=>true)
-department_user7 = User.create(:ic_number => "123456788777", :email => 'owc1_sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JKRM",:username=>'Sakthi', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user7 = User.create(:ic_number => "123456788777", :email => 'owc1_sakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JKRM",:username=>'Sakthi5', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user7.activate_user
 rm_department_user7 = RoleMembership.create(:user_id => department_user7.id, :department_id => 8, :role_id => 3, :unit_id=>15, :status => 'A', :default_dept=>true)
-department_user8 = User.create(:ic_number => "123456788999", :email => 'owc1_gopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JKRM",:username=>'Gopi', :status => 'A', :state => 15, :sign_in_count => 1)
+department_user8 = User.create(:ic_number => "123456788999", :email => 'owc1_gopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JKRM",:username=>'Gopi5', :status => 'A', :state => 15, :sign_in_count => 1)
 department_user8.activate_user
 rm_department_user8 = RoleMembership.create(:user_id => department_user8.id, :department_id => 8, :role_id => 3, :unit_id=>16, :status => 'A', :default_dept=>true)
 
