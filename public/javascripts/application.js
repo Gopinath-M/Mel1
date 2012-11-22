@@ -1232,6 +1232,31 @@ $().ready(function(){
             $("#div_ict").html(data)
         });
     })
+
+     $("#vehicle_type_id").live("change", function(){
+        if($("#vehicle_type_id").val()!="")
+        {
+            $.get("/agency_stores/get_vehicles",{
+                vehicle_id : $("#vehicle_type_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#vehicle_id').find('option').remove().end()
+                    $('#vehicle_id').append($("<option></option>").attr("value","").text("SELECT A VEHICLE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#vehicle_id').append($("<option></option>").attr("value",data[0][i].vehicle.id).text(data[0][i].vehicle.registration_number));
+                    }
+                }
+            })
+        }
+        else{
+            $('#vehicle_id').find('option').remove().end()
+            $('#vehicle_id').append($("<option></option>").attr("value","").text("SELECT A VEHICLE"));
+        }
+    })
+
 })
 
 /*Javascripts Starts*/
