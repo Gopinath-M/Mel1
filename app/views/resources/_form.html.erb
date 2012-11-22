@@ -18,11 +18,13 @@
      <div class="form-sec-row">
       <label class="text">Resource Type</label>
       <span class="in-box">
-       <%= f.radio_button :resource_type, 'ict' %> <%= f.label :resource_type, "ICT" %>
+        <%= f.radio_button :resource_type, 'ict' %> <%= f.label :resource_type, "ICT" %>
         <%= f.radio_button :resource_type, 'transport' %> <%= f.label :resource_type, "Transport" %>
         <%= f.radio_button :resource_type, 'room_booking' %> <%= f.label :resource_type, "Room Booking" %>
+        <%= f.radio_button :resource_type, 'others' %> <%= f.label :resource_type, "Others" %>
       </span>
     </div>
+     <div id="div_ajax" >
     <div class="form-sec-row">
       <label class="text">Name</label>
       <span class="in-box">
@@ -47,6 +49,7 @@
         <%= f.check_box :is_facilty_avail%>
       </span>
     </div>
+     </div>
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
