@@ -54,7 +54,7 @@
               <tr>
                 <td><%=current_role%>
                   <%#=link_to current_role, "javascript:void(0);",:title=>user_title, :class=>"profName", :id=>"lnk_default_department_user_role"%><br />
-                  <font color="#FFFFFF">Welcome,
+                  <font color="#FFFFFF">Welcome 
                     <% if !current_user.username.nil? %>
                       <% if current_user.username.length >= 9 %>
                         <%=h truncate(current_user.username, :length => 8) %></font>
