@@ -20,17 +20,20 @@ class AgencyStoresController < ApplicationController
   end
 
   def create
-    store = AgencyStore.create(params[:agency_store])
-    store.categories_id = params[:categories_department][:id]
-    store.sub_categories_id = params[:sub_categories][:id]
-    if params[:dynamic]
-    store.serial_no =  params[:text1] + params[:dynamic].to_s
-    else
-    store.serial_no =  params[:text1]
-    end
-    store.agency_id = params[:transfer_from][:agency]
-    store.save
-    if store.valid?
+    @store = AgencyStore.create(params[:agency_store])
+    @store.vehicle_type_id = params[:vehicle_type][:id]
+    @store.vehicle_id = params[:vehicle][:id]
+    @store.booked = 1
+#    store.categories_id = params[:categories_department][:id]
+#    store.sub_categories_id = params[:sub_categories][:id]
+#    if params[:dynamic]
+#    store.serial_no =  params[:text1] + params[:dynamic].to_s
+#    else
+#    store.serial_no =  params[:text1]
+#    end
+#    store.agency_id = params[:transfer_from][:agency]
+    @store.save
+    if @store.valid?
       redirect_to :controller=>'agency_stores', :action=>'index'
     else
       render :action=>'new'
@@ -84,14 +87,7 @@ end
 
 def transport_store
    store = AgencyStore.create(params[:agency_store])
-    store.categories_id = params[:categories_department][:id]
-    store.sub_categories_id = params[:sub_categories][:id]
-    if params[:dynamic]
-    store.serial_no =  params[:text1] + params[:dynamic].to_s
-    else
-    store.serial_no =  params[:text1]
-    end
-    store.agency_id = params[:transfer_from][:agency]
+   store.vehicle_id = params[:vehicle][:id]
     store.save
     if store.valid?
       redirect_to :controller=>'agency_stores', :action=>'index'
@@ -99,24 +95,8 @@ def transport_store
       render :action=>'new'
     end
 end
-def get_others
-  @store = "others"
-  agency_stores = AgencyStore.new
-       render :json=>[agency_stores] if agency_stores
-end
-def get_booking
-   @store = "booking"
-  agency_stores = AgencyStore.new
-       render :json=>[agency_stores] if agency_stores
-end
-def get_transport
-   @store = "transport"
-  agency_stores = AgencyStore.new
-       render :json=>[agency_stores] if agency_stores
-end
-def get_ict
-   @store = "ict"
-  agency_stores = AgencyStore.new
-       render :json=>[agency_stores] if agency_stores
+def get_vehicles
+  vehicles = Vehicle.find_all_by_vehicle_type_id(params[:vehicle_id])
+   render :json=>[ vehicles] if  vehicles
 end
 end
