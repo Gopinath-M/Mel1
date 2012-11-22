@@ -5,7 +5,7 @@ class CreateDepartments < ActiveRecord::Migration
       t.references :agency  
       t.string :address
       t.string :telephone_number
-      t.integer :fax_number    
+      t.string :fax_number
       t.integer :order_by
       t.boolean :is_active
       t.boolean :deleted, :default => false

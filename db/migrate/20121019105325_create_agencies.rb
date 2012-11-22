@@ -5,7 +5,7 @@ class CreateAgencies < ActiveRecord::Migration
       t.references :user
       t.string :address
       t.string :telephone_number
-      t.integer :fax_number
+      t.string :fax_number
       t.boolean :is_active
       t.boolean :deleted, :default => false
       t.timestamps
