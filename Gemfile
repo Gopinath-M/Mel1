@@ -13,6 +13,7 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'mysql2', '~>0.2.6'
 gem 'mini_magick'
+gem 'private_pub'  #chat online
 # Use unicorn as the web server
 # gem 'unicorn'
 
