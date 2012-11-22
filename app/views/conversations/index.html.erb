@@ -1,0 +1,9 @@
+<div class="CenterNav">
+    <h2 class="b-head">Online Users</h2>
+  <% @users.each do |user| %>
+    <%=image_tag (user.login_status ? "Online.ico" : "Offline.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;&nbsp;
+        <%= link_to image_tag(user.avatar.url(:thumb).to_s) %>&nbsp;&nbsp;
+        <font color="#369"><b><%=  link_to "#{user.username}", conversation_path(user.id)%></b></font>&nbsp;&nbsp;<br/><br/>
+
+  <% end %>
+   </div>
