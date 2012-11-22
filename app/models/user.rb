@@ -30,8 +30,8 @@ class User < ActiveRecord::Base
   validates_numericality_of :ic_number, :if=>Proc.new {|u| !u.ic_number.blank?}
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>Proc.new {|u| !u.email.blank?}
   #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}
-#  attr_accessor :agency
-#  validates :agency,  :presence => true, :if=>Proc.new{|u| u.id!=1}
+  #  attr_accessor :agency
+  #  validates :agency,  :presence => true, :if=>Proc.new{|u| u.id!=1}
   #Scopes
   scope :active, where(:deleted => false)
 
@@ -88,12 +88,26 @@ class User < ActiveRecord::Base
   
   # the existence of an activation code means they have not activated yet
   def account_active?
-    activation_code.nil?
-    #    if  self.id==1
-    #      activation_code.nil? && self.status=="Active"
-    #    elsif self.departments && self.departments.first
-    #      activation_code.nil? && self.status=="Active" &&  self.departments.first.is_active?
-    #    end
+    if self.is_super_admin?
+      activation_code.nil? && user_status_active?
+    else
+      activation_code.nil? && user_status_active? &&  user_department_active?
+    end
+  end
+
+  #This method checks if a user is active
+  def user_status_active?
+    return self.status=="Active" ? true : false
+  end
+
+  #This method checks if a department is active
+  def user_department_active?
+    return self.departments && self.departments.active && !self.departments.active.empty? ? true : false
+  end
+
+  #This method overrides default error message for the custom user validation for login
+  def inactive_message
+    user_department_active? ? (user_status_active? ? super : "Your account has been deactivated!") : "Your department has been deactivated!"
   end
 
   #Override basic authentication to check if  user is activated or not before login
