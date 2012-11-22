@@ -11,9 +11,15 @@
     </div>
   <div class="form-sec">
     <div class="form-sec-row">
-      <%= label_tag :agency_id, raw("Vehicle Type <span style=color:red>*</span>"), :class=>"text" %>
+      <%= label_tag :name, raw("Vehicle Type <span style=color:red>*</span>"), :class=>"text" %>
       <span class="in-box">
-        <%= select(:transfer_from,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"SELECT AN AGENCY") %>
+        <%= select(:vehicle_type,:id,  VehicleType.order.collect {|vehicle| [vehicle.name, vehicle.id]},:selected=>@user,:prompt=>"SELECT VEHICLE TYPE") %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <%= label_tag :name, raw("Vehicle <span style=color:red>*</span>"), :class=>"text" %>
+      <span class="in-box">
+        <%= select(:vehicle,:id,  Vehicle.order.collect {|vehicle| [vehicle.registration_number, vehicle.id]},:selected=>@user,:prompt=>"SELECT VEHICLE") %>
       </span>
     </div>
   <%#*<div class="form-sec">%>
