@@ -344,3 +344,8 @@ label.file input[type="file"]{-moz-opacity:0; -webkit-opacity:0;opacity:0; filte
 h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-bottom:15px; font-size:15px; display:block;}
 .form-sec-row-center{ overflow:hidden; margin-left:150px;}
 /*.login-ban .footer-land .forgot-row_lab{ text-align:left; float:left; margin:10px 0 0 10px; font-size: 11px; color:#ffe}*/
+
+
+.form-sec-row1 tr, .form-sec-row1 td{border:1px solid #ccc;}
+.form-sec-row1 td{width:100px;}
+.form-sec-row1 tr, .form-sec-row1 table{width:500px !important;}
