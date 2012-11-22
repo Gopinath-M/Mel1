@@ -4,8 +4,14 @@ class ApplicationController < ActionController::Base
   def home
     if user_signed_in?
       if !current_user.is_super_admin? && current_user.sign_in_count == 1 && current_user.created_by != 0 #User records which are created by super admin or dept admin has to change the password while they are logged in first time
+        user = User.find_by_ic_number(current_user.ic_number)
+        user.login_status = 1
+        user.save
         redirect_to :controller => "registrations", :action => "privacy_setting"
       else
+        user = User.find_by_ic_number(current_user.ic_number)
+        user.login_status = 1
+        user.save
         redirect_to :controller => "dashboard", :action => "index"
       end
     else
@@ -17,6 +23,7 @@ class ApplicationController < ActionController::Base
   #While the user first logged in, his default department will be the current department object. Hope this will works! but one thing we need to clear the session somewhere... #Manivannan
   def current_department
     if !current_user.is_super_admin?
+      
       if !session[:department_id].nil?
         @current_department ||= session[:department_id]
       else
