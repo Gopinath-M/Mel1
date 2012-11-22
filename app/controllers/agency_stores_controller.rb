@@ -81,4 +81,22 @@ def get_sub_categories
    subcategories = SubCategory.find_all_by_id(params[:agency_id])
    render :json=>[ subcategories] if  subcategories
 end
+
+def transport_store
+   store = AgencyStore.create(params[:agency_store])
+    store.categories_id = params[:categories_department][:id]
+    store.sub_categories_id = params[:sub_categories][:id]
+    if params[:dynamic]
+    store.serial_no =  params[:text1] + params[:dynamic].to_s
+    else
+    store.serial_no =  params[:text1]
+    end
+    store.agency_id = params[:transfer_from][:agency]
+    store.save
+    if store.valid?
+      redirect_to :controller=>'agency_stores', :action=>'index'
+    else
+      render :action=>'new'
+    end
+end
 end
