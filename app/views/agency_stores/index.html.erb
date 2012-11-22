@@ -1,6 +1,6 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Manage Agency Store</h2>
+    <h2 class="b-head">Manage Transport Store</h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
       <div class="cu-c1"><a href="/agency_stores/new" title="Create Agency Store"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Agency Store</a></div>
@@ -16,14 +16,16 @@
             </div>
             <div class="mu-c2">
               <%vehicle = Vehicle.find_by_id(store.vehicle_id)%>
+              <%if vehicle%>
               <p class="head1"> <%=vehicle.registration_number%></p>
+              <%end%>
             </div>
           </div>
           <div class="clear"></div>
         </div>
       <%end%>
     <%else%>
-      No Agency Store Available
+      No Transport Store Available
     <%end%>
 <%#*<div><%= paginate @units %>
   </div>
