@@ -3,12 +3,14 @@ class CreateAgencyStores < ActiveRecord::Migration
     create_table :agency_stores do |t|
       t.references :agency
       t.references :department
-      t.references :resources
+      t.text :resources
+      t.string :resource_type
+      t.references :vehicle_type
+      t.references :vehicle
       t.integer :quantity
       t.text :serial_no
       t.integer :uom
-      t.boolean :is_active, :default => true
-      t.boolean :deleted, :default => false
+      t.boolean :booked
       t.timestamps
     end
   end

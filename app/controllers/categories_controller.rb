@@ -100,6 +100,6 @@ def update_category_mapping
     elsif category && params[:status]=="Deactivate"
       category.update_attribute(:is_active, false)
     end
-    redirect_to(list_category_mapping_categories_path, :notice => 'Category Mapping has been successfully changed.')
+    redirect_to(list_category_mapping_categories_path, :notice => 'Map Category has been successfully changed.')
   end
 end

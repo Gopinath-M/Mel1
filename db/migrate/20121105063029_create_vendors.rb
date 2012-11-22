@@ -5,6 +5,7 @@ class CreateVendors < ActiveRecord::Migration
       t.string :remarks
       t.boolean :is_active
       t.text :address
+      t.text :email
       t.string :contact_no
 #      t.string :vendor_type
       t.timestamps

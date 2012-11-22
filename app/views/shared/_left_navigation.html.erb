@@ -151,12 +151,7 @@
                       <li>
                         <%=link_to "List Vendors", vendors_path%>
                       </li>
-                      <li>
-                        <%=link_to "Vendor Store", vendor_store_vendors_path%>
-                      </li>
-                      <li>
-                        <%=link_to "List Vendor Store", vendorstore_list_vendors_path%>
-                      </li>
+                     
                     </ul>
                   </div>
                 </li><%end%>
@@ -189,7 +184,7 @@
                       <%=link_to "List Resource", resources_path%>
                     </li><%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
                       <li>
-                        <%=link_to "Create Agency Store", new_agency_store_path%>
+                        <%=link_to "Create Stock Detail", new_agency_store_path%>
                       </li>
                       <li>
                         <%= link_to "Create Driver", new_driver_path %>

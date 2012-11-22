@@ -1164,7 +1164,7 @@ $().ready(function(){
     /* vendor store ends*/
 
     $("#default_department_id").live("change",function(){
-        $.get("/dashboard/def_dept/",{
+        $.get("/dashboard/def_dept",{
             department_id: $("#default_department_id").val()
         }, function(data){
             $("#department_id").val($("#default_department_id").val())
@@ -1187,6 +1187,76 @@ $().ready(function(){
         }
     });
 /*Assign Resource Manager Validation Ends*/
+ $("#resource_resource_type_room_booking").live("change",function(){
+        $.get("/resources/get_resource_type",{
+            department_id: $("#resource_resource_type_room_booking").val()
+        }, function(data){
+            $("#department_id").val($("#resource_resource_type_room_booking").val())
+            $("#div_ajax").html(data)
+        });
+    })
+    $("#agency_store_resource_type_others").live("change",function(){
+         if($("#agency_store_resource_type_others").val()!="")
+        $.get("/agency_stores/get_others",{
+            department_id: $("#agency_store_resource_type_others").val()
+        }, function(data){
+            $("#department_id").val($("#agency_store_resource_type_others").val())
+            $("#div_others").html(data)
+        });
+        else{
+            $('#agency_store_resource_type_others').append()
+
+        }
+    })
+     $("#agency_store_resource_type_room_booking").live("change",function(){
+        $.get("/agency_stores/get_booking",{
+            department_id: $("#agency_store_resource_type_room_booking").val()
+        }, function(data){
+            $("#department_id").val($("#agency_store_resource_type_room_booking").val())
+            $("#div_booking").html(data)
+        });
+    })
+     $("#agency_store_resource_type_transport").live("change",function(){
+        $.get("/agency_stores/get_transport",{
+            department_id: $("#agency_store_resource_type_transport").val()
+        }, function(data){
+            $("#department_id").val($("#agency_store_resource_type_transport").val())
+            $("#div_transport").html(data)
+        });
+    })
+    $("#agency_store_resource_type_ict").live("change",function(){
+        $.get("/agency_stores/get_ict",{
+            department_id: $("#agency_store_resource_type_ict").val()
+        }, function(data){
+            $("#department_id").val($("#agency_store_resource_type_ict").val())
+            $("#div_ict").html(data)
+        });
+    })
+
+     $("#vehicle_type_id").live("change", function(){
+        if($("#vehicle_type_id").val()!="")
+        {
+            $.get("/agency_stores/get_vehicles",{
+                vehicle_id : $("#vehicle_type_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#vehicle_id').find('option').remove().end()
+                    $('#vehicle_id').append($("<option></option>").attr("value","").text("SELECT A VEHICLE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#vehicle_id').append($("<option></option>").attr("value",data[0][i].vehicle.id).text(data[0][i].vehicle.registration_number));
+                    }
+                }
+            })
+        }
+        else{
+            $('#vehicle_id').find('option').remove().end()
+            $('#vehicle_id').append($("<option></option>").attr("value","").text("SELECT A VEHICLE"));
+        }
+    })
+
 })
 
 /*Javascripts Starts*/

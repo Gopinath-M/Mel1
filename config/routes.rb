@@ -148,6 +148,7 @@ Melaka::Application.routes.draw do
       get 'get_sub_categories'
       get 'get_resource'
       post 'update_status'
+      get 'get_vehicles'
     end
   end
   #Error routes

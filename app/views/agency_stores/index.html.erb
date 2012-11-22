@@ -15,7 +15,11 @@
               <div class="mu-c1">
               </div>
               <div class="mu-c2">
-                <p class="head1"><%=store.serial_no%></p>
+                
+                <%vehicle = Vehicle.find_by_id(store.vehicle_id)%>
+                <p class="head1"> <%=vehicle.registration_number%></p>
+                
+              
               </div>
               <div class="mu-c3">
                 <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>store.id.to_i%>

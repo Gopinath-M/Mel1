@@ -9,6 +9,7 @@ class Unit < ActiveRecord::Base
   validates_format_of :telephone_number, :with=>/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, :if=>Proc.new{|u| !u.telephone_number.blank?}
   validates_format_of :fax_number, :with=>/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, :if=>Proc.new{|u| !u.fax_number.blank?}
 
+
   #Named scopes comes here
   scope :active, where(:is_active => true, :deleted => false)
   validates :department_id ,:presence=>true
