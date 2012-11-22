@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :role_memberships
   has_many :departments, :through => :role_memberships
   has_many :units, :through => :role_memberships
-
+  has_many :conversations
   #helper for carrier wave
   mount_uploader :avatar, ProfileImageUploader
 
