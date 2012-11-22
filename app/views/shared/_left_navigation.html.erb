@@ -183,14 +183,10 @@
                     <li>
                       <%=link_to "List Map Category", list_category_mapping_categories_path%>
                     </li>
-                    <li>
-                      <%#=link_to "Create Resource", new_resource_path%>
-                    </li>
-                    <li>
-                      <%#=link_to "List Resource", resources_path%>
+                   
                     </li><%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
                       <li>
-                        <%=link_to "Create Agency Store", new_agency_store_path%>
+                        <%=link_to "Create Transport Store", new_agency_store_path%>
                       </li>
                       <li>
                         <%= link_to "Create Driver", new_driver_path %>
