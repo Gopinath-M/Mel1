@@ -71,6 +71,13 @@ class User < ActiveRecord::Base
     #    return role.users.include?(self)
   end
 
+  def is_resource_manager?
+    role = Role.where(:name => "Resource Manager").first
+    roles = RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    return roles && roles.first ? true : false
+    #    return role.users.include?(self)
+  end
+
   def activate_user
     self.activated_at = Time.now.utc
     self.activation_code = nil
