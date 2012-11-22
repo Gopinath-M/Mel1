@@ -2,7 +2,7 @@
 <%= form_for(@category, :as => :user,  :url =>  update_category_categories_path(:id => @department_id), :method=>:post) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div> <br />
-  <h2 class="b-head"> Resource Category Mapping</h2>
+  <h2 class="b-head"> Map Category</h2>
   <div class="form-sec">
       <%= hidden_field_tag  :created_by, (current_user.id)%>
     <%if @category.department_id%>
@@ -54,7 +54,7 @@
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit raw('Category Mapping'),:class=>"btn2"%>
+        <%= f.submit raw('Map Category'),:class=>"btn2"%>
       </span>
     </div>
   </div>
