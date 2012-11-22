@@ -7,7 +7,6 @@ class UserMailer < ActionMailer::Base
     @password=password
     mail(:to=>@user.email,:subject =>"Welcome to Melaka")
    rescue Exception=>e
-     p "===========#{e.to_s}"
    end
   end
   # Transfer Dept email to user
@@ -21,4 +20,11 @@ class UserMailer < ActionMailer::Base
         @user=user
     mail(:to=>@user.email,:subject =>"#{@user.full_name}! Your Account has been Activated Successfully ")
   end
+  #Chat invitation
+  def welcomemail_chat_user(emailchecking,resource_user)
+    @user=emailchecking
+    @resource_user = resource_user
+    mail(:from=>@resource_user.email,:to=>@user.email,:subject =>"#{@resource_user.username}! has been sent request to join for chat ")
+  end
+
 end
