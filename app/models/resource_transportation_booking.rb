@@ -1,5 +1,27 @@
 class ResourceTransportationBooking < ActiveRecord::Base
-  belongs_to :resource    
-  validates :resource_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location, :presence => true
+  #Associations
+  belongs_to :resource
+  belongs_to :vehicle
+  belongs_to :vehicle_type
+
+  #Validations
+  validates :vehicle_type_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location, :presence => true
+  validates_numericality_of :number_of_passengers
+  validate :validate_end_date_before_start_date
+  validate :validate_start_date
+
+  #Upload 
   mount_uploader :transport_avatar, TransportAvatarUploader
+
+  def validate_end_date_before_start_date
+    if self.requested_from_date && self.requested_to_date
+      errors.add(:Error,"From Date Should be Lesser than To Date") if self.requested_from_date > self.requested_to_date
+    end
+  end
+
+  def validate_start_date
+    if self.requested_from_date
+      errors.add(:Error,"From Date should not be lesser than Today") if self.requested_from_date < Date.today
+    end    
+  end
 end

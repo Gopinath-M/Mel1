@@ -9,31 +9,19 @@
   <%end%>
   <div id="div_ajax" >
     <%if @stores && !@stores.empty?%>
-        <%@stores.each do |store|%>
-          <div class="manage-user box">
-            <div class="manage-user-row box">
-              <div class="mu-c1">
-              </div>
-              <div class="mu-c2">
-                
-                <%vehicle = Vehicle.find_by_id(store.vehicle_id)%>
-                <p class="head1"> <%=vehicle.registration_number%></p>
-                
-              
-              </div>
-              <div class="mu-c3">
-                <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>store.id.to_i%>
-                <%if store.is_active %>
-                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_resource_managers_path(:id=>store.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this agency store?', :method=>:post, :title=>"Deactive" %>
-                <%else%>
-                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_resource_managers_path(:id=>store.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this agency store?', :method=>:post, :title=>"Activate"%>
-                <%end%>
-               
-              </div>
+      <%@stores.each do |store|%>
+        <div class="manage-user box">
+          <div class="manage-user-row box">
+            <div class="mu-c1">
             </div>
-            <div class="clear"></div>
+            <div class="mu-c2">
+              <%vehicle = Vehicle.find_by_id(store.vehicle_id)%>
+              <p class="head1"> <%=vehicle.registration_number%></p>
+            </div>
           </div>
-        <%end%>
+          <div class="clear"></div>
+        </div>
+      <%end%>
     <%else%>
       No Agency Store Available
     <%end%>

@@ -22,8 +22,7 @@ class AgencyStoresController < ApplicationController
   def create
     @store = AgencyStore.create(params[:agency_store])
     @store.vehicle_type_id = params[:vehicle_type][:id]
-    @store.vehicle_id = params[:vehicle][:id]
-    @store.booked = 1
+    @store.vehicle_id = params[:vehicle][:id]    
 #    store.categories_id = params[:categories_department][:id]
 #    store.sub_categories_id = params[:sub_categories][:id]
 #    if params[:dynamic]
