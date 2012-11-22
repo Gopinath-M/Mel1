@@ -41,7 +41,6 @@ begin
       if agency_id && agency_id.to_i==0
         agency_id=agency_id+1
       end
-      p agency_id
       record_split = record.split(",")
       Department.create!(:agency_id => agency_id, :name=>record_split[0],:address=>record_split[1],:telephone_number=>record_split[2], :is_active=>true, :created_by=>1, :updated_by=>1)
     rescue Exception =>e
