@@ -3,52 +3,55 @@
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
     <div class="form-sec-row">
-      <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+      <%= label_tag :agency_id, raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
       <span class="in-box">
         <%= select(:transfer_from,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"SELECT AN AGENCY") %>
       </span>
     </div>
     <div class="form-sec-row">
-      <%= label_tag :department_id, raw("Department"), :class=>"text"%>
-      <span class="in-box">
-        <%= select(:from_department,:id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= label_tag :category_id, raw("Category"), :class=>"text"%>
+      <%= label_tag :category_id, raw("Category <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= select(:categories_department,:id, CategoriesDepartment.where("category_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A CATEGORY") %>
       </span>
     </div>
     <div class="form-sec-row">
-      <%= label_tag :sub_category, raw("Sub Category"), :class=>"text"%>
+      <%= label_tag :sub_category, raw("Sub Category <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= select(:sub_categories,:id, SubCategory.where("category_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A SUB CATEGORY") %>
       </span>
     </div>
+     <div class="form-sec-row">
+      <label class="text">Resource Type</label>
+      <span class="in-box">
+        <%= f.radio_button :resource_type, 'ict' %> <%= f.label :resource_type, "ICT" %>
+        <%= f.radio_button :resource_type, 'transport' %> <%= f.label :resource_type, "Transport" %>
+        <%= f.radio_button :resource_type, 'room_booking' %> <%= f.label :resource_type, "Room Booking" %>
+        <%= f.radio_button :resource_type, 'others' %> <%= f.label :resource_type, "Others" %>
+      </span>
+    </div>
     <div class="form-sec-row">
-      <label class="text">Resource </label>
+      <label class="text">Resource <span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :resource_name%>
        
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Quantity</label>
+      <label class="text">Quantity <span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :quantity%>
       </span>
     </div>
-  
-<div class="dynamic-form">
-  <div class="form-sec-row"><a href="#" id="add">Add</a> | <a href="#" id="remove">Remove</a> | <a href="#" id="reset">Reset</a></div>
-<%#*<form>%>
-<div class="inputs"><div class="form-sec-row"> <label class="text">Serial No</label></div>
-<div class="form-sec-row-center"><input type="text" name=text1 size ="29" class="field"/></div>
-</div>
-</div>
+
+    <div class="dynamic-form">
+      <div class="form-sec-row"><a href="#" id="add">Add</a> | <a href="#" id="remove">Remove</a> | <a href="#" id="reset">Reset</a></div>
+  <%#*<form>%>
+      <div class="inputs"><div class="form-sec-row"> <label class="text">Serial No</label></div>
+        <div class="form-sec-row-center"><input type="text" name=text1 size ="29" class="field"/></div>
+      </div>
+    </div>
     <div class="form-sec-row">
-      <label class="text">UOM</label>
+      <label class="text">UOM <span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :uom%>
       </span>
