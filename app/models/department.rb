@@ -8,8 +8,9 @@ class Department < ActiveRecord::Base
   has_many :categories_departments
   has_many :categories, :through => :categories_departments
   #Validations comes here
-  validates :name,:agency_id, :presence => true
+  validates :agency_id,:name,:address,:telephone_number, :presence => true
   validates_uniqueness_of :name, :case_sensitive=>false, :if=>Proc.new {|u| !u.name.blank?}
+  validates_format_of :telephone_number, :with=>/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
   
   #named_scopes comes here
   scope :active, where(:is_active=>true,:deleted => false).order("name asc")
