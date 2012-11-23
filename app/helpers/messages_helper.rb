@@ -25,7 +25,6 @@ module MessagesHelper
     message.save
   end
 
-  
   def collect_messages
 
     if !current_user.is_super_admin?
@@ -44,7 +43,6 @@ module MessagesHelper
     when current_user.is_department_user?
       @messages = Message.find(:all,:conditions=>["((agency_id = 0 and department_id = 0 and unit_id = 0 and send_to_dept_admins = false and send_to_unit_admins = false) || (unit_id in (#{unit_id}) and send_to_unit_admins = false) || (department_id in (#{dept_id}) and send_to_dept_admins = false) || (agency_id in (#{agency_id}) and send_to_dept_admins = false))"],:order => "updated_at desc")
     end
-
   end
   
 end

@@ -16,43 +16,54 @@
       </ul>
     </div>
     <div class="clear"></div>
-    <div class="wallPost">
-      <h4 class="f-left">Post a note</h4>
-      <div class="clear"></div>
-      <div class="tArea">
-        <span class="arrow"></span>
-        <p class="formRow">
-          <label for="msg" class="ui-watermark-label-pass"></label>
-          <textarea name="msg" id="msg" rows="" cols=""></textarea>
-        </p>
-      </div>
+    <%= form_for @message, :url => {:action=>'create'}, :html=> { :multipart=> true, :onSubmit => "return validateMessageForm(event)" } do |f| %>
 
-      <% if current_user && current_user.is_super_admin? %>
-        <div class="form-sec-row">
-          <span class="in-box">
-            <%= select_tag :message_user_select,"<option>Please Select</option><option>All Users</option><option>All Admins</option><option>Select Agency</option><option>Select Department</option><option>Select Dept Admin</option>".html_safe %>
-          </span>
+      <div class="wallPost">
+        <h4 class="f-left">Post a note</h4>
+        <div class="clear"></div>
+        <div class="tArea">
+          <span class="arrow"></span>
+          <p class="formRow">
+            <label for="msg" class="ui-watermark-label-pass"></label>
+            <!--<textarea name="msg" id="msg" rows="" cols=""></textarea>-->
+            <%= f.text_area :message  %>
+          </p>
+          <%= f.hidden_field :sender,:value=>current_user.id %>
         </div>
 
       <%elsif current_user && current_user.is_department_admin? %>
 
-        <%= 'The Message will be posted to all the users in this Department' %>
-        <input type="hidden" id="std_departments" value="<%= current_user.departments[0].id %>"/>
+        <% if current_user && current_user.is_super_admin? %>
+          <div class="form-sec-row">
+            <span class="in-box">
+              <%= select_tag :message_user_select,"<option>Please Select</option>
+    <option>All Users</option>
+    <option>All Dept Admins</option>
+    <option>All Unit Admins</option>
+    <option>Select Agency</option>
+    <option>Select Department</option>
+    <option>Select Unit</option>
+    <option>Select Dept Admin</option>
+    <option>Select Unit Admin</option>".html_safe %>
+            </span>
+          </div>
+          <div id ="user_type_select_div"></div>
+
+          <%#= f.file_field :attachment %>
+          <div class="botRow box">
+            <%= f.submit "Submit",:class=>"btn2 in-btn2",:id=>"message_submit_button"  %>
+          </div>
+
+
+        <%elsif current_user && current_user.is_department_admin? %>
+
+          <%= 'The Message will be posted to all the users in your Department' %>
+          <input type="hidden" id="std_departments" value="<%= current_user.departments[0].id %>"/>
+
+        <%end%>
 
       <%end%>
-      <div id ="user_type_select_div">
-      </div>
 
-      <div class="botRow box">        
-        <input type="submit" id="post_message" class="btn2 in-btn2" value="Post" title="Post" name="post" />
-
-
-        <ul class="selectUserType">
-          <li class="allUser f-left">
-            <!--<a href="#" title="All Users"><img src="images/arrow_d2.png" alt="Image" width="7" height="7" /> All Users</a>-->
-          </li>          
-        </ul>
-      </div>
     </div>
   </div>
   <div class="postedMsg-con">
@@ -110,6 +121,8 @@
           </div>
         </div>
       <%end%>
+    <%else%>
+      <%= "Messages Not Available" %>
     <%end%>
   </div>
   <div id="old_updates" class="olderRow">

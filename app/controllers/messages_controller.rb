@@ -8,23 +8,23 @@ class MessagesController < ApplicationController
   end
 
   #Collecting Messages
-  def collect_messages
-    
-    if current_user && current_user.is_department_user?
-      dept_id = current_user.departments.collect(&:id).join(',')
-      agency_id = current_user.departments.collect(&:agency_id).join(',')
-      @messages = Message.find(:all,:conditions=>["((agency_id = 0 and department_id = 0 and send_to_dept_admins = false) || (department_id in (#{dept_id}) and send_to_dept_admins = false) || (agency_id in (#{agency_id}) and send_to_dept_admins = false))"],:order => "updated_at desc")
-
-    elsif current_user && current_user.is_super_admin?
-      @messages = Message.where(:sender=>"#{current_user.id}").order("updated_at desc")
-
-    elsif current_user && current_user.is_department_admin?
-      dept_id = current_user.departments.collect(&:id).join(',')
-      agency_id = current_user.departments.collect(&:agency_id).join(',')
-      @messages = Message.find(:all,:conditions=>["((agency_id = 0 and department_id = 0) || (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) || (department_id in (#{dept_id}) and message_type = 'DeptAdmin' and send_to_dept_admins = true) || (agency_id in (#{agency_id})) )"],:order => "updated_at desc")
-    end
-    
-  end
+#  def collect_messages
+#
+#    if current_user && current_user.is_department_user?
+#      dept_id = current_user.departments.collect(&:id).join(',')
+#      agency_id = current_user.departments.collect(&:agency_id).join(',')
+#      @messages = Message.find(:all,:conditions=>["((agency_id = 0 and department_id = 0 and send_to_dept_admins = false) || (department_id in (#{dept_id}) and send_to_dept_admins = false) || (agency_id in (#{agency_id}) and send_to_dept_admins = false))"],:order => "updated_at desc")
+#
+#    elsif current_user && current_user.is_super_admin?
+#      @messages = Message.where(:sender=>current_user.id).order("updated_at desc")
+#
+#    elsif current_user && current_user.is_department_admin?
+#      dept_id = current_user.departments.collect(&:id).join(',')
+#      agency_id = current_user.departments.collect(&:agency_id).join(',')
+#      @messages = Message.find(:all,:conditions=>["((agency_id = 0 and department_id = 0) || (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) || (department_id in (#{dept_id}) and message_type = 'DeptAdmin' and send_to_dept_admins = true) || (agency_id in (#{agency_id})) )"],:order => "updated_at desc")
+#    end
+#
+#  end
 
   #Creating a New Message Instance
   def new
