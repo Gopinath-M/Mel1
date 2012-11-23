@@ -107,8 +107,9 @@
         <div class="form-sec-row">
           <%= label_tag "users_agency", raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
           <span class="in-box">
-            <%agency = Agency.find(current_department.agency_id) %>
-            <%= select("users","agency_id",  Agency.find_all_by_id(current_department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+            <%department=Department.find(current_department)%>
+            <%agency = Agency.find(department.agency_id) %>
+            <%= select("users","agency_id",  Agency.find_all_by_id(department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
           </span>
         </div>
         <div class="form-sec-row">
@@ -121,7 +122,7 @@
           <div class="form-sec-row">
             <%= label_tag "users_unit",raw("Unit"), :class=>"text"%>
             <span class="in-box">
-              <%= select("users","unit", Unit.active.where("department_id=?", current_department.id).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A UNIT") %>
+              <%= select("users","unit", Unit.active.where("department_id=?", department.id).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A UNIT") %>
             </span>
           </div>
         </div>
