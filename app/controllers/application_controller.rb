@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   #This method will keep the current_department object through out the application. If the user exist more than one department, then the selected department will be the current department object.
   #While the user first logged in, his default department will be the current department object. Hope this will works! but one thing we need to clear the session somewhere... #Manivannan
   def current_department
-    if !current_user.is_super_admin?
+    if current_user && !current_user.is_super_admin?
       if !session[:department_id].nil?
         @current_department ||= session[:department_id]
       else
