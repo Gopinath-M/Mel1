@@ -45,8 +45,6 @@ class User < ActiveRecord::Base
   def is_super_admin?
     role = Role.find_by_name(DISP_USER_ROLE_SUPER_ADMIN)
     roles=RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
-    p roles.inspect
-    p roles.first
     return roles && roles.first ? true : false
     #    role.role_memberships.where(:default_dept=>true)
     #    role.users.include?(self)
