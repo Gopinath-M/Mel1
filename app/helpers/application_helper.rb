@@ -23,22 +23,25 @@ module ApplicationHelper
     return user_count
   end
 
-#  def default_department
-#    default_department ||= current_user.role_memberships.first.default_dept
-#  end
+  #  def default_department
+  #    default_department ||= current_user.role_memberships.first.default_dept
+  #  end
   def default_department
     default_department ||= current_user.role_memberships.where(:default_dept => true).first.department.id
   end
 
   def current_role
-     if !current_user.is_super_admin?
+    if current_user && (!current_user.is_super_admin? && !current_user.is_resource_manager?)
       department=Department.find(@current_department) if @current_department
       current_role=RoleMembership.find_by_user_id_and_department_id(current_user.id,department.id) if department
-      current_role.role.name if current_role
-     else
-       current_role=Role.where(:name => "Super Admin").first
-       return current_role.name if current_role
-     end
+      return current_role.role.name if current_role
+    elsif current_user && current_user.is_super_admin?
+      current_role=Role.find_by_name(DISP_USER_ROLE_SUPER_ADMIN)
+      return current_role.name if current_role
+    elsif  current_user && current_user.is_resource_manager?
+      current_role=Role.find_by_name(DISP_USER_ROLE_RESOURCE_MANAGER)
+      return current_role.name if current_role
+    end
   end
 
 end
