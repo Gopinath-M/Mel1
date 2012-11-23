@@ -1,0 +1,43 @@
+<div class="clearfix">&nbsp;</div>
+<div class="CenterNav">
+  <h2 class="b-head">Resource Room Approval List</h2>
+  <div id="div_ajax" >
+    <%if @booking && !@booking.empty?%>
+      <%@booking.each do |resource|%>
+        <div class="manage-user box">
+          <div class="manage-user-row box">
+            <div class="mu-c1">
+            </div>
+            <div class="mu-c2">
+              <% @name = Room.find_by_id(resource.room_type_id)%>
+              <% @user = User.find_by_id(resource.user_id) %>
+              <p class="head1">Name :<%= @user.first_name%></p>
+              <p class="head1">Room Name :<%= @name.name%></p>
+              <p class="head1">Capacity:<%= resource.room_capacity%></p>
+              <p class="head1">From Date:<%= resource.requested_from_date%></p>
+              <p class="head1">To Date:<%= resource.requested_to_date%></p>
+            </div>
+            <div class="form-sec-row">
+              <span class="in-box btn2 in-btn2">
+                <%= "#{resource.status}" %>
+              </span>
+            </div>
+            <div class="form-sec-row">
+              <span class="in-box">
+                <%= link_to "See Request Details",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+              </span>
+            </div>
+            <div class="mu-c3">
+              <%= hidden_field_tag(:id, resource.id) %>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      <%end%>
+      <%= paginate @booking %>
+    <%else%>
+      No Resources Available
+    <%end%>
+  </div>
+
+</div>

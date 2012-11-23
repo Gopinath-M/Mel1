@@ -10,14 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120065148) do
+ActiveRecord::Schema.define(:version => 20121122200738) do
 
   create_table "agencies", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
     t.string   "address"
     t.string   "telephone_number"
-    t.integer  "fax_number"
+    t.string   "fax_number"
     t.boolean  "is_active"
     t.boolean  "deleted",          :default => false
     t.datetime "created_at"
@@ -27,12 +27,14 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
   create_table "agency_stores", :force => true do |t|
     t.integer  "agency_id"
     t.integer  "department_id"
-    t.integer  "resources_id"
+    t.text     "resources"
+    t.string   "resource_type"
+    t.integer  "vehicle_type_id"
+    t.integer  "vehicle_id"
     t.integer  "quantity"
     t.text     "serial_no"
     t.integer  "uom"
-    t.boolean  "is_active",     :default => true
-    t.boolean  "deleted",       :default => false
+    t.boolean  "booked",          :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -77,12 +79,20 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
     t.datetime "updated_at"
   end
 
+  create_table "conversations", :force => true do |t|
+    t.integer  "from_userid"
+    t.integer  "to_userid"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "departments", :force => true do |t|
     t.string   "name"
     t.integer  "agency_id"
     t.string   "address"
     t.string   "telephone_number"
-    t.integer  "fax_number"
+    t.string   "fax_number"
     t.integer  "order_by"
     t.boolean  "is_active"
     t.boolean  "deleted",          :default => false
@@ -98,6 +108,19 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
     t.string   "telephone_number"
     t.boolean  "informed",         :default => false
     t.boolean  "already_assigned", :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "facilities", :force => true do |t|
+    t.string   "resource_type"
+    t.integer  "room_id"
+    t.integer  "vehicle_id"
+    t.integer  "ict_id"
+    t.text     "name"
+    t.integer  "total_qty"
+    t.integer  "booked_qty"
+    t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -172,6 +195,18 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
     t.datetime "updated_at"
   end
 
+  create_table "resource_room_bookings", :force => true do |t|
+    t.integer  "room_type_id"
+    t.integer  "user_id"
+    t.string   "requested_from_date"
+    t.string   "requested_to_date"
+    t.integer  "room_capacity"
+    t.string   "purpose"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "resource_transportation_bookings", :force => true do |t|
     t.text     "purpose"
     t.string   "state"
@@ -179,7 +214,9 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
     t.text     "location"
     t.integer  "number_of_passengers"
     t.string   "pick_up_place"
-    t.integer  "resource_id"
+    t.integer  "transport_store_id"
+    t.integer  "vehicle_type_id"
+    t.integer  "driver_id"
     t.text     "remarks"
     t.datetime "requested_from_date"
     t.datetime "requested_to_date"
@@ -241,6 +278,16 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
     t.datetime "updated_at"
   end
 
+  create_table "rooms", :force => true do |t|
+    t.string   "name"
+    t.string   "location"
+    t.integer  "quantity"
+    t.integer  "extension_no"
+    t.boolean  "is_active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "service_levels", :force => true do |t|
     t.string   "stage"
     t.datetime "created_at"
@@ -275,7 +322,7 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
     t.integer  "department_id"
     t.string   "address"
     t.string   "telephone_number"
-    t.integer  "fax_number"
+    t.string   "fax_number"
     t.integer  "order_by"
     t.boolean  "is_active"
     t.boolean  "deleted",          :default => false
@@ -328,6 +375,7 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
     t.string   "avatar"
     t.datetime "avatar_updated_at"
     t.string   "status"
+    t.boolean  "login_status",                                         :default => false
     t.boolean  "deleted",                                              :default => false
     t.string   "activation_code",                       :limit => 40
     t.datetime "activated_at"
@@ -352,7 +400,7 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
     t.string   "registration_number"
     t.integer  "vehicle_type_id"
     t.integer  "driver_id"
-    t.string   "model"
+    t.string   "model_name"
     t.string   "registration_date"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -375,6 +423,7 @@ ActiveRecord::Schema.define(:version => 20121120065148) do
     t.string   "remarks"
     t.boolean  "is_active"
     t.text     "address"
+    t.text     "email"
     t.string   "contact_no"
     t.datetime "created_at"
     t.datetime "updated_at"

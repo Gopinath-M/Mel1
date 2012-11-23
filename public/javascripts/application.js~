@@ -237,17 +237,6 @@ $().ready(function(){
         }
         $('#div_vendors').toggle("fast");
     });
-    $("#lnk_facility").live('click',function(){
-        if ($("#lnk_facility").hasClass("selected"))
-        {
-            $("#lnk_facility").removeClass("selected")
-        }
-        else
-        {
-            $("#lnk_facility").addClass("selected")
-        }
-        $('#div_facility').toggle("fast");
-    });
     /* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/
     
     /*Update Department based on agency*/
@@ -1268,31 +1257,6 @@ $().ready(function(){
         }
     })
 
-    $("#resource_room_booking_room_type_id").live("change",function(){
-        if($("#resource_room_booking_room_type_id").val()!="")
-        {
-            $.get("/resource_room_bookings/get_list_of_facility",{
-                room_id : $("#resource_room_booking_room_type_id").val()
-            }, function(data){
-                if (data[0] != "")
-                {
-                    $("#list_facility").show();
-                    var content="<table><tr><td><font color='#BB0802'><u><b>List of Facility :</b></font></u></td></tr><tr><td></td></tr>";
-                    content+=""
-                    for(i=0; i<data[0].length; i++)
-                    {
-                        content+="<tr><td><font color='#BB0802'><b>"+data[0][i].facility.name+"-"+data[0][i].facility.total_qty+"</b></font></td></tr>"
-                    }
-                    content+="</table>"
-                    $("#list_facility").html(content)
-                }
-                else
-                {
-                    $("#list_facility").hide();
-                }
-            })
-        }
-    });
 })
 
 

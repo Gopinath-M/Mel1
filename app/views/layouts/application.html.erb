@@ -33,6 +33,17 @@
       </script>
     <%end%>
 
+<%if controller_name.to_s=="resource_room_bookings"%>
+      <%= javascript_include_tag 'jquery.ui.datepicker' %>
+      <%= stylesheet_link_tag 'jquery.ui.datepicker' %>
+      <script type="text/javascript">
+        $().ready(function(){
+          $("#resource_room_booking_requested_to_date").datepicker();
+          $("#resource_room_booking_requested_from_date").datepicker();
+        });
+      </script>
+    <%end%>
+
     <!--WATERMARK--> <%= init_tinymce_hammer_if_required %>
     <%= javascript_include_tag 'ui.core' %>
     <%= javascript_include_tag 'ui.watermark' %>

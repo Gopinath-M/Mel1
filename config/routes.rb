@@ -28,6 +28,16 @@ Melaka::Application.routes.draw do
   resources :drivers
   resources :vehicles
   resources :vehicle_types
+
+resources :resource_room_bookings do
+    collection do
+      get 'get_list_of_facility'
+      get 'list_resource_booking'
+      get 'resource_room_booking_approval'
+      get 'room_booking_approval'
+      put 'update_room_booking'
+    end
+  end
   
   resources :departments do
     collection do
@@ -152,6 +162,11 @@ Melaka::Application.routes.draw do
       get 'get_vehicles'
     end
   end
+   resources :facilities do
+    collection do
+      post 'update_status'
+    end
+  end  
   #Error routes
   get '/not_authorized' => 'errors#not_authorized', :as => 'not_authorized'   
   get '/blocked' => 'errors#blocked', :as => 'blocked' 
@@ -162,6 +177,11 @@ Melaka::Application.routes.draw do
       post 'send_request'
       get 'list_users'
      end
+  end
+  resources :rooms do
+    collection do
+      post 'update_status'
+    end
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

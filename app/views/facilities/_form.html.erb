@@ -1,0 +1,42 @@
+<%= form_for(@facility) do |f| %>
+  <%=f.error_messages%>
+  <div class="clearfix">&nbsp;</div>
+  <div class="CenterNav">
+    <div class="form-sec-row">
+      <label class="text"> <%= f.label :resource_type,raw("Facility Type <span style=color:red>*</span"), :class=>"text"%></label>
+      <span class="in-box">
+        <%=f.select(:resource_type, ["ICT", "ROOM", "TRANSPORT"],:prompt => "SELECT A TYPE")%>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <%= label_tag :room_id, raw("List of Room <span style=color:red>*</span>"), :class=>"text"%>
+      <span class="in-box">
+        <%= f.select(:room_id, Room.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A ROOM") %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Name<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.text_field :name, :size => 10%>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Total Quantity<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.text_field :total_qty, :size => 10%>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Is Active</label>
+      <span class="in-box">
+        <%= f.check_box :is_active %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+        <%= f.submit :value=>'Save', :class=>"btn2"%>
+      </span>
+    </div>
+  </div>
+<%end%>

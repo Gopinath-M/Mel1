@@ -3,7 +3,6 @@ class CreateRooms < ActiveRecord::Migration
     create_table :rooms do |t|
       t.string :name
       t.string :location
-      t.integer :quantity
       t.integer :extension_no
       t.boolean :is_active
       t.timestamps

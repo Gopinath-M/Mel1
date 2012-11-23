@@ -44,7 +44,13 @@
   <%#=link_to content_tag(:span,activate_department_users_count!=nil && activate_department_users_count>0 ? activate_department_users_count : "",:class=>activate_department_users_count!=nil && activate_department_users_count>0 ? "notifiNo" : "" )+"User Activation", user_activation_users_path,:title=>"User Activation"%>
   <%#*</li>%>
             <li><a href="javascript:void(0);" title="User Transfer Request">User Transfer Request</a></li>
-            <li><a href="javascript:void(0);" title="Resource Booking ">Resource Booking</a></li>
+<% if current_user.is_department_admin?  %>
+              <% count = ResourceRoomBooking.find_all_by_status('New').count %>
+              <li>
+                <span class="notifiNo"><%= count %></span>
+                <%=link_to "Resource Booking", list_resource_booking_resource_room_bookings_path%>
+              </li>
+            <%end%>
             <li><a href="javascript:void(0);" title="Complaints"><span class="notifiNo">9</span>Complaints</a></li>
             <li><a href="javascript:void(0);" title="Resource Requisition ">Resource Requisition </a></li>
             <li><a href="javascript:void(0);" title="Issue Log">Issue Log </a></li>
@@ -162,6 +168,19 @@
                   </div>
                 </li><%end%>
               <li>
+                <%=link_to "Facility", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_facility"%>
+                <div id ="div_facility" style="display:none;">
+                  <ul>
+                    <li>
+                      <%=link_to "Create Facility", new_facility_path(:admin=>'admin')%>
+                    </li>
+                    <li>
+                      <%=link_to "List", facilities_path(:admin=>'admin')%>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li>
                 <%=link_to "Resources", "javascript:void(0);" , :title=>"Resources" ,:class=>"", :id=>"lnk_resources"%>
                 <div id ="div_resources" style="display:none;">
                   <ul>
@@ -186,7 +205,13 @@
                    
                     </li><%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
                       <li>
-                        <%=link_to "Create Transport Store", new_agency_store_path%>
+                        <%=link_to "Create Transport Resources", new_agency_store_path%>
+                      </li>
+                      <li>
+                        <%= link_to "Create Room Resources", new_room_path %>
+                      </li>
+                      <li>
+                        <%= link_to "List  Rooms", rooms_path %>
                       </li>
                       <li>
                         <%= link_to "Create Driver", new_driver_path %>
@@ -219,12 +244,19 @@
                     <li>
                       <%=link_to "List Resource Bookings", resource_bookings_path%>
                     </li>
+                     <%if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
+                      <li>
+                        <%=link_to "Create Resource Room Booking", new_resource_room_booking_path %>
+                      </li>
+                      <li>
+                        <%=link_to "List Resource Room Booking", resource_room_bookings_path %>
+                      </li>
                     <li>
                       <%=link_to "Create Resource Transport Booking", new_resource_transportation_booking_path %>
                     </li>
                     <li>
                       <%=link_to "List Resource Transport Bookings", resource_transportation_bookings_path %>
-                    </li>
+                    </li>                    <%end%>
                   </ul>
                 </div>
               </li>
@@ -279,6 +311,12 @@
                     <%=link_to "List Resource Bookings", resource_bookings_path%>
                   </li>
                   <li>
+                    <%=link_to "Create Resource Room Booking", new_resource_room_booking_path %>
+                  </li>
+                  <li>
+                    <%=link_to "List Resource Room Booking", resource_room_bookings_path %>
+                  </li>
+                  <li>
                     <%=link_to "Create Resource Transport Booking", new_resource_transportation_booking_path %>
                   </li>
                   <li>
@@ -298,6 +336,12 @@
                   </ul>
                 </div>
               </li>
+              <li>
+                <% cnt = ResourceRoomBooking.find_all_by_status('Approved').count %>
+                <span class="notifiNo"><%= cnt %></span>
+                <%=link_to "Room Request", list_resource_booking_resource_room_bookings_path %>
+              </li>
+
             <%end%>
             <li><a href="javascript:void(0);" title="Department details">Department details</a></li>
             <li><a href="javascript:void(0);" title="View Vendors">View Vendors</a></li>

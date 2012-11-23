@@ -1,0 +1,49 @@
+<%if !request.xhr?%>
+  <div class="CenterNav">
+    <h2 class="b-head">Manage Resources</h2>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+    <div class="create-user">
+      <div class="cu-c1"><a href="/resource_room_bookings/new" title="Create Resource Room Booking"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Resource Room Booking</a></div>
+
+    </div>
+  <%end%>
+  <div id="div_ajax" >
+    <%if @resource_room_booking && !@resource_room_booking.empty?%>
+      <%@resource_room_booking.each do |resource|%>
+        <div class="manage-user box">
+          <div class="manage-user-row box">
+            <div class="mu-c1">
+            </div>
+            <div class="mu-c2">
+              <% @name = Room.find_by_id(resource.room_type_id)%>
+              <% @user = User.find_by_id(resource.user_id) %>
+              <p class="head1">Name :<%= @user.first_name%></p>
+              <p class="head1">Room Name :<%= @name.name%></p>
+              <p class="head1">Capacity:<%= resource.room_capacity%></p>
+              <p class="head1">From Date:<%= resource.requested_from_date%></p>
+              <p class="head1">To Date:<%= resource.requested_to_date%></p>
+            </div>
+            <div class="form-sec-row">
+              <span class="in-box btn2 in-btn2">
+                <%= "#{resource.status}" %>
+              </span>
+            </div>
+            <div class="form-sec-row">
+              <% if current_user.is_department_admin? || current_user.is_super_admin? %>
+                <span class="in-box">
+                  <%= link_to "See Request Details",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                </span>
+              <%end%>
+            </div>
+            <div class="mu-c3">
+              <%= hidden_field_tag(:id, resource.id) %>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      <%end%>
+    <%else%>
+      No Resources Available
+    <%end%>
+  </div>
+</div>
