@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :current_department
 
   def home
     if user_signed_in?
@@ -23,7 +24,6 @@ class ApplicationController < ActionController::Base
   #While the user first logged in, his default department will be the current department object. Hope this will works! but one thing we need to clear the session somewhere... #Manivannan
   def current_department
     if !current_user.is_super_admin?
-      
       if !session[:department_id].nil?
         @current_department ||= session[:department_id]
       else
