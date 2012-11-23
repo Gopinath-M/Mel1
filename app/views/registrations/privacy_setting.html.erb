@@ -7,7 +7,7 @@
       <div class="form-sec">
         <%=f.error_messages%>
         <div class="clearfix">&nbsp;</div>
-        <%if current_user.sign_in_count >= 1%>
+        <%if current_user.sign_in_count == 1%>
           <h2>Account Settings</h2>
            <h2 class="b-head-acc-set">Change Password</h2>
         <%else%>
