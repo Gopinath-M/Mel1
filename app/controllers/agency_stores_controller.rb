@@ -20,10 +20,11 @@ class AgencyStoresController < ApplicationController
   end
 
   def create
+    @store = AgencyStore.find_by_vehicle_id(params[:vehicle][:id])
+    if @store == nil
     @store = AgencyStore.create(params[:agency_store])
     @store.vehicle_type_id = params[:vehicle_type][:id]
-    @store.vehicle_id = params[:vehicle][:id]
-    @store.booked = 1
+    @store.vehicle_id = params[:vehicle][:id]    
 #    store.categories_id = params[:categories_department][:id]
 #    store.sub_categories_id = params[:sub_categories][:id]
 #    if params[:dynamic]
@@ -33,10 +34,14 @@ class AgencyStoresController < ApplicationController
 #    end
 #    store.agency_id = params[:transfer_from][:agency]
     @store.save
+    
     if @store.valid?
       redirect_to :controller=>'agency_stores', :action=>'index'
     else
-      render :action=>'new'
+      render :action=>'new', :notice =>'Vehicle already added for this Vehicle Type'
+    end
+    else
+      render :action=>'new', :notice =>'Vehicle already added for this Vehicle Type'
     end
   end
 
@@ -85,16 +90,6 @@ def get_sub_categories
    render :json=>[ subcategories] if  subcategories
 end
 
-def transport_store
-   store = AgencyStore.create(params[:agency_store])
-   store.vehicle_id = params[:vehicle][:id]
-    store.save
-    if store.valid?
-      redirect_to :controller=>'agency_stores', :action=>'index'
-    else
-      render :action=>'new'
-    end
-end
 def get_vehicles
   vehicles = Vehicle.find_all_by_vehicle_type_id(params[:vehicle_id])
    render :json=>[ vehicles] if  vehicles

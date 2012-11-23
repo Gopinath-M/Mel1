@@ -2,13 +2,19 @@
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec-row">
-      <span class="in-box">
-        <%= f.radio_button :resource_type, 'ict' %> <%= f.label :resource_type, "ICT" %>
-        <%= f.radio_button :resource_type, 'transport' %> <%= f.label :resource_type, "Transport" %>
-        <%= f.radio_button :resource_type, 'room_booking' %> <%= f.label :resource_type, "Room Booking" %>
-        <%= f.radio_button :resource_type, 'others' %> <%= f.label :resource_type, "Others" %>
-      </span>
+    <%#= label_tag :name, raw("Select Category <span style=color:red>*</span>"), :class=>"text" %>
+      <%#*<span class="in-box">%>
+        <%#= f.radio_button :resource_type, 'ict' %>
+<%#= f.label :resource_type, "ICT" %>
+        <%#= f.radio_button :resource_type, 'transport' %>
+<%#= f.label :resource_type, "Transport" %>
+        <%#= f.radio_button :resource_type, 'room_booking' %>
+<%#= f.label :resource_type, "Room Booking" %>
+        <%#= f.radio_button :resource_type, 'others' %>
+<%#= f.label :resource_type, "Others" %>
+      <%#*</span>%>
     </div>
+  <div id ="div_transport">
   <div class="form-sec">
     <div class="form-sec-row">
       <%= label_tag :name, raw("Vehicle Type <span style=color:red>*</span>"), :class=>"text" %>
@@ -22,6 +28,7 @@
         <%= select(:vehicle,:id,  Vehicle.order.collect {|vehicle| [vehicle.registration_number, vehicle.id]},:selected=>@user,:prompt=>"SELECT VEHICLE") %>
       </span>
     </div>
+  </div>
   <%#*<div class="form-sec">%>
     <%#*<div class="form-sec-row">%>
       <%#= label_tag :agency_id, raw("Agency <span style=color:red>*</span>"), :class=>"text" %>

@@ -20,7 +20,10 @@
         <ul>
           <li><a href="javascript:void(0);" title="Daily Updates" class="selected"><%=image_tag "icn_news.png" , :width=>"16", :height=>"16", :alt=>"Daily Updates"%>Daily Updates</a></li>
           <li><a href="/messages" title="Messages"><%=image_tag "icn_email.png" , :width=>"16", :height=>"16", :alt=>"Email"%><span class="notifiNo"></span>Messages</a></li>
-          <li><a href="javascript:void(0);" title="Events"><%=image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%>Events</a></li>
+          <li><a href="/conversations" title="Chat"><%=image_tag "chat_icon.png" , :width=>"16", :height=>"16", :alt=>"Chat"%><span class="notifiNo"></span>Chat</a></li>
+          <li><a href="javascript:void(0);" title="Chat"><%=image_tag "invite_chat.gif" , :width=>"16", :height=>"16", :alt=>"Chat"%><%=link_to  "Chat Invitation", list_users_conversations_path %>
+</li>
+         <li><a href="javascript:void(0);" title="Events"><%=image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%>Events</a></li>
           <li><a href="javascript:void(0);" title="Find User"><%=image_tag "icn_user.png" , :width=>"16", :height=>"16", :alt=>"Find User"%>Find User</a></li>
           <%if current_user && current_role && current_role==DISP_USER_ROLE_SUPER_ADMIN%>
             <li><a href="javascript:void(0);" title="Uploaded Files"><%=image_tag "attach.png" , :width=>"16", :height=>"16", :alt=>"Upload Files"%>Uploaded Files</a></li>
@@ -36,7 +39,7 @@
 <%#=link_to content_tag(:span,activate_admin_users_count!=nil && activate_admin_users_count>0 ? activate_admin_users_count : "",:class=>activate_admin_users_count!=nil && activate_admin_users_count>0 ? "notifiNo" : "" )+"Admin Activation", admin_activation_users_path,:title=>"Admin Activation"%>
 <%#*</li>%>
 <%#end%>
-         <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
+          <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN || current_role == DISP_USER_ROLE_RESOURCE_MANAGER))%>
   <%#*<li>%>
   <%#=link_to content_tag(:span,activate_department_users_count!=nil && activate_department_users_count>0 ? activate_department_users_count : "",:class=>activate_department_users_count!=nil && activate_department_users_count>0 ? "notifiNo" : "" )+"User Activation", user_activation_users_path,:title=>"User Activation"%>
   <%#*</li>%>
@@ -47,14 +50,12 @@
             <li><a href="javascript:void(0);" title="Issue Log">Issue Log </a></li>
             <li><a href="javascript:void(0);" title="Change Requests">Change Requests</a></li>
             <li><a href="javascript:void(0);" title="Cancelled Requests">Canceled Requests</a></li>
-          <%else%>
-            <li><a href="javascript:void(0);" title="User Activation">Today's Task</a></li>
           <%end%>
         </ul>
       </div>
       <div class="clear"></div>
       <div class="leftNav-links box">
-        <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
+        <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN) || current_role==DISP_USER_ROLE_RESOURCE_MANAGER )%>
           <h2>Management Tools</h2>
           <ul>
             <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
@@ -151,7 +152,12 @@
                       <li>
                         <%=link_to "List Vendors", vendors_path%>
                       </li>
-                     
+                      <li>
+                        <%=link_to "Vendor Store", vendor_store_vendors_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List Vendor Store", vendorstore_list_vendors_path%>
+                      </li>
                     </ul>
                   </div>
                 </li><%end%>
@@ -177,14 +183,10 @@
                     <li>
                       <%=link_to "List Map Category", list_category_mapping_categories_path%>
                     </li>
-                    <li>
-                      <%=link_to "Create Resource", new_resource_path%>
-                    </li>
-                    <li>
-                      <%=link_to "List Resource", resources_path%>
-                    </li><%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
+                   
+                    </li><%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
                       <li>
-                        <%=link_to "Create Stock Detail", new_agency_store_path%>
+                        <%=link_to "Create Transport Store", new_agency_store_path%>
                       </li>
                       <li>
                         <%= link_to "Create Driver", new_driver_path %>
@@ -227,14 +229,20 @@
                 </div>
               </li>
               <li>
-                <%=link_to "Approve Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
-                <div id ="div_approve_requests" style="display:none;">
-                  <ul>
-                    <li>
-                      <%=link_to "Travel Request", approve_request_resource_transportation_bookings_path %>
-                    </li>
-                  </ul>
-                </div>
+                <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
+                  <%=link_to "Approve Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
+                  <div id ="div_approve_requests" style="display:none;">
+                    <ul>
+                      <% if current_user && current_user.is_resource_manager? %>
+                        <% count = ResourceTransportationBooking.find_all_by_status('Approved').count %>
+                        <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
+                      <%else%>
+                        <% count = ResourceTransportationBooking.find_all_by_status('New').count %>
+                        <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
+                      <%end%>
+                    </ul>
+                  </div>
+                <%end%>
               </li>
               <li>
                 <%=link_to "Content Management", "javascript:void(0);" , :title=>"Content Managemnt" ,:class=>"", :id=>"lnk_cms"%>
@@ -270,10 +278,27 @@
                   <li>
                     <%=link_to "List Resource Bookings", resource_bookings_path%>
                   </li>
+                  <li>
+                    <%=link_to "Create Resource Transport Booking", new_resource_transportation_booking_path %>
+                  </li>
+                  <li>
+                    <%=link_to "List Resource Transport Bookings", resource_transportation_bookings_path %>
+                  </li>
                 </ul>
 
               </div>
             </li>
+            <% if current_user && current_user.is_resource_manager? %>
+              <li>
+                <%=link_to "Approve Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
+                <div id ="div_approve_requests" style="display:none;">
+                  <ul>
+                    <% count = ResourceTransportationBooking.find_all_by_status('Approved').count %>
+                    <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
+                  </ul>
+                </div>
+              </li>
+            <%end%>
             <li><a href="javascript:void(0);" title="Department details">Department details</a></li>
             <li><a href="javascript:void(0);" title="View Vendors">View Vendors</a></li>
             <li><a href="javascript:void(0);" title="Resources">Resources</a></li>

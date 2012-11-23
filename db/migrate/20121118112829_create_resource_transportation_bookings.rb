@@ -7,7 +7,9 @@ class CreateResourceTransportationBookings < ActiveRecord::Migration
       t.text :location
       t.integer :number_of_passengers
       t.string :pick_up_place
-      t.references :resource
+      t.references :transport_store
+      t.references :vehicle_type
+      t.references :driver
       t.text :remarks
       t.datetime :requested_from_date
       t.datetime :requested_to_date

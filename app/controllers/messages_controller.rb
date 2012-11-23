@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
       @messages = Message.find(:all,:conditions=>["((agency_id = 0 and department_id = 0 and send_to_dept_admins = false) || (department_id in (#{dept_id}) and send_to_dept_admins = false) || (agency_id in (#{agency_id}) and send_to_dept_admins = false))"],:order => "updated_at desc")
 
     elsif current_user && current_user.is_super_admin?
-      @messages = Message.where(:sender=>current_user.id).order("updated_at desc")
+      @messages = Message.where(:sender=>"#{current_user.id}").order("updated_at desc")
 
     elsif current_user && current_user.is_department_admin?
       dept_id = current_user.departments.collect(&:id).join(',')

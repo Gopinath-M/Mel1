@@ -2,24 +2,23 @@
   <h2 class="b-head">Manage Resource Transportation Bookings</h2> 
   <div class="create-user">
     <div class="cu-c1"><a href="/resource_transportation_bookings/new" title="Create Resource Transportation Booking"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Resource Transportation Booking</a></div>
-
   </div>
 
   <div id="div_ajax" >
-    <%if @resource_transportation_bookings && !@resource_transportation_bookings.empty?%>
+    <%if @resource_transportation_bookings && !@resource_transportation_bookings.blank? %>
       <%  @resource_transportation_bookings.each do |resource_transportation_booking|%>
         <div class="manage-user box">
           <div class="manage-user-row box">
             <div class="mu-c1">
             </div>
             <div class="mu-c2">
-              <p class="head1">Purpose :<%= resource_transportation_booking.purpose%></p>
-              <p class="head1">Pick up :<%= resource_transportation_booking.pick_up_place%></p>
-              <p class="head1">Destination :<%= resource_transportation_booking.location%></p>
-              <p class="head1">Car Type :<%= resource_transportation_booking.resource.name %></p>
-              <p class="head1">No of Passengers:<%= resource_transportation_booking.number_of_passengers%></p>
-              <p class="head1">From Date:<%= resource_transportation_booking.requested_from_date.strftime("%d-%m-%Y")%></p>
-              <p class="head1">To Date:<%= resource_transportation_booking.requested_to_date.strftime("%d-%m-%Y")%></p>
+              <p class="head1"><b>Purpose    :<%= resource_transportation_booking.purpose%></b></p>
+              <p class="head1"><b>Pick up    :<%= resource_transportation_booking.pick_up_place%></b></p>
+              <p class="head1"><b>Destination    :<%= resource_transportation_booking.location%></b></p>
+              <p class="head1"><b>Car Type    :<%= resource_transportation_booking.vehicle_type.name %></b></p>
+              <p class="head1"><b>No of Passengers  :<%= resource_transportation_booking.number_of_passengers%></b></p>
+              <p class="head1"><b>From Date  :<%= resource_transportation_booking.requested_from_date.strftime("%d-%m-%Y")%></b></p>
+              <p class="head1"><b>To Date  :<%= resource_transportation_booking.requested_to_date.strftime("%d-%m-%Y")%></b></p>
             </div>
 
             <div class="form-sec-row">
@@ -28,15 +27,17 @@
               </span>
             </div>
             <div class="form-sec-row">
-              <span class="in-box">
-                <%= link_to "See Request Details",resource_transportation_booking_path(:id=>resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
-              </span>
+              <% if current_user && current_user.is_super_admin? %>
+                <span class="in-box">
+                  <%= link_to "See Request Details",resource_transportation_booking_path(:id=>resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                </span>
+              <%end%>
             </div>
           </div>
 
         </div>
       <%end%><div class="manage-user-rows box"><br/><br/>
-        <%#= paginate @resource_transportation_bookings %></div>
+  <%#= paginate @resource_transportation_bookings %></div>
       <%else%>
       No Resource Transportation Booking Available
     <%end%>

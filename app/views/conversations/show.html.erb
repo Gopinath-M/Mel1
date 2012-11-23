@@ -1,0 +1,63 @@
+<div id="div_ajax" >
+<div class="CenterNav">
+
+<div class="bar" style="overflow: auto; height: 300px;">
+    <%# @users.each do |user| %>
+     <h2 class="b-head">
+        <%=image_tag (@user.login_status ? "Online.ico" : "Offline.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;
+        
+         <%=@user.username%>&nbsp;&nbsp;</h2><div class="clearfix"></div>
+    <%#end%>
+    <%@conversations.each do |convo|%>
+
+      <table width="100%"cellpadding="10" cellspacing="10" align="center" >
+        <tr>
+          <td width="30%" align="left">
+            <%if convo.from_userid==@user.id %>
+              <%=image_tag @user.avatar.url, :alt=>"Image", :width=>"35", :height=>"35"%> <font color="#369"><b><%=@user.username%></b></font>
+
+            <%elsif convo.to_userid==@user.id%>
+
+              <%=image_tag current_user.avatar.url, :alt=>"Image", :width=>"35", :height=>"35"%> <font color="#369"><b><%=current_user.username%></b></font>
+
+            <%end%>
+          </td>
+          <td align="left" width="40%"><%=convo.content %></td>
+          <td width="25%" align="right"><font color="#369"><%= time_ago_in_words(convo.created_at).gsub('about','') + ' ago' %></font></td></tr>
+      </table>
+
+    <%end%>
+
+  </div>
+
+  <center>
+    <%= form_for Conversation.new, :remote => true do |f| %><span class="in-box">
+      <%=f.hidden_field :to_userid, :value=>@user.id%>
+        <br/><br/><label class="text"><b>Message</b></label>&nbsp;&nbsp;&nbsp;
+        <%= f.text_area :content, :id => :content, :rows => 5, :cols => 30%></span><br/><br/>
+
+      <div class="form-sec-row">
+        <label class="text">&nbsp;</label>
+        <span class="in-box">
+          <%= f.submit raw("Send"), :id=>"btn3", :class=>"btn3"%>
+        </span>
+      </div>
+
+      <br/>
+
+    <% end %>
+  </center>
+
+</div>
+</div>
+<script type="text/javascript">
+  var jsUserID = <%= @user.id %>;
+
+<%#*$(document).ready(function() {%>
+ <%#*$('.bar').load('/conversations/'+jsUserID);%>
+<%#*var id = setInterval(function() {%>
+  <%#*$('.bar').load('/conversations/'+jsUserID);%>
+<%#*}, 10000);%>
+<%#*});%>
+
+</script>

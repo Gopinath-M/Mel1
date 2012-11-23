@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :roles, :through => :role_memberships
   has_many :departments, :through => :role_memberships
   has_many :units, :through => :role_memberships
-
+  has_many :conversations
   #helper for carrier wave
   mount_uploader :avatar, ProfileImageUploader
 
@@ -67,6 +67,13 @@ class User < ActiveRecord::Base
   def is_unit_admin?
     role = Role.where(:name => "Unit Admin").first
     roles=RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    return roles && roles.first ? true : false
+    #    return role.users.include?(self)
+  end
+
+  def is_resource_manager?
+    role = Role.where(:name => "Resource Manager").first
+    roles = RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
     return roles && roles.first ? true : false
     #    return role.users.include?(self)
   end

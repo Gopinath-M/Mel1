@@ -1259,6 +1259,35 @@ $().ready(function(){
 
 })
 
+
+/* Chat Apps Code */
+
+$("#btn3").live("click",function(){
+    if ($("#content").val() == ""){
+        alert("Message shouldn't be blank...");
+        $("#content").focus();
+        return false;
+    }
+    else
+    {
+        alert("Message sent...");   
+        $.ajax({
+            beforeSend: function(){
+                $('#div_ajax').load('/conversations/'+jsUserID);
+            // Handle the beforeSend event
+            },
+            complete: function(){
+                $('#div_ajax').load('/conversations/'+jsUserID);
+            // Handle the complete event
+            }
+        // ......
+        });
+           
+
+    }
+  
+});
+
 /*Javascripts Starts*/
 
 /*Number Validation*/

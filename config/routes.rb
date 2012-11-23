@@ -20,6 +20,7 @@ Melaka::Application.routes.draw do
   resources :resource_transportation_bookings do
     collection do
       get 'approve_request'
+      get 'get_vehicles'
       post 'change_resource_status'
     end
   end
@@ -153,8 +154,15 @@ Melaka::Application.routes.draw do
   end
   #Error routes
   get '/not_authorized' => 'errors#not_authorized', :as => 'not_authorized'   
-  get '/blocked' => 'errors#blocked', :as => 'blocked'  
-
+  get '/blocked' => 'errors#blocked', :as => 'blocked' 
+# Online chat 
+  resources :conversations do
+    collection do
+      get 'conversations'
+      post 'send_request'
+      get 'list_users'
+     end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

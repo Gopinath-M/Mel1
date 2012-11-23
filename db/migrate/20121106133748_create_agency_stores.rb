@@ -10,7 +10,7 @@ class CreateAgencyStores < ActiveRecord::Migration
       t.integer :quantity
       t.text :serial_no
       t.integer :uom
-      t.boolean :booked
+      t.boolean :booked,:default=>false
       t.timestamps
     end
   end
