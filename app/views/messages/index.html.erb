@@ -31,8 +31,6 @@
           <%= f.hidden_field :sender,:value=>current_user.id %>
         </div>
 
-      <%elsif current_user && current_user.is_department_admin? %>
-
         <% if current_user && current_user.is_super_admin? %>
           <div class="form-sec-row">
             <span class="in-box">
