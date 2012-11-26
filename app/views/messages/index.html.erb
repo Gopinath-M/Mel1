@@ -47,18 +47,20 @@
           </div>
           <div id ="user_type_select_div"></div>
 
-          <%#= f.file_field :attachment %>
-          <div class="botRow box">
-            <%= f.submit "Submit",:class=>"btn2 in-btn2",:id=>"message_submit_button"  %>
-          </div>
-
+    <%#= f.file_field :attachment %>
+          
 
         <%elsif current_user && current_user.is_department_admin? %>
 
           <%= 'The Message will be posted to all the users in your Department' %>
-          <input type="hidden" id="std_departments" value="<%= current_user.departments[0].id %>"/>
+          <input type="hidden" id="message_user_select" value="Department Admin Message"/>
 
         <%end%>
+
+          <div class="botRow box">
+            <%= f.submit "Submit",:class=>"btn2 in-btn2",:id=>"message_submit_button"  %>
+          </div>
+
 
       <%end%>
 
@@ -84,7 +86,11 @@
               by  <%= message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(message.created_at) %> ago
               <% if message.message_comments.count == 0 %>
                 &nbsp; - &nbsp;
-                <a value="<%= message.id %>" id ="message_<%= message.id %>" title="Comment" onclick= "insert_text_field(id)">Comment    </a>
+                <a value="<%= message.id %>" id ="message_<%= message.id %>" title="Comment" onclick= "insert_text_field(id)">Comment    </a>                
+                <% if message.user.id == current_user.id %>
+                &nbsp; - &nbsp;
+                <%= link_to 'Delete', message_path(:id => message.id),:method=>"delete",:confirm=>"Are are sure ?" %>
+                <%end%>
               <%end%>
             </p>
 
