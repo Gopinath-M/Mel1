@@ -1,5 +1,5 @@
 class ResourceTransportationBookingsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!  
   
   def index
     if current_user && current_user.is_super_admin?
@@ -19,7 +19,7 @@ class ResourceTransportationBookingsController < ApplicationController
     @resource_transportation_booking = ResourceTransportationBooking.new(params[:resource_transportation_booking])
     if @resource_transportation_booking.valid?
       @resource_transportation_booking.status = "New"
-      @resource_transportation_booking.requester_id = current_user.id
+      @resource_transportation_booking.requester_id = current_user.id      
       @resource_transportation_booking.save
       redirect_to resource_transportation_bookings_path
     else

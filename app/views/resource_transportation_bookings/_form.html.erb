@@ -1,29 +1,22 @@
-<%= form_for(@resource_transportation_booking, :as => :resource_transportation_booking,  :url => resource_transportation_bookings_path, :method=>:post) do |f| %>
+<%= form_for(@resource_transportation_booking, :as => :resource_transportation_booking,  :url => resource_transportation_bookings_path, :html => {:multipart => true} ,:method=>:post) do |f| %>
   <div class="form-sec">
     <%=f.error_messages%>
     <div class="clearfix">&nbsp;</div>
-    <% !if current_user.is_super_admin? || !current_user.is_resource_manager? %>
+    <% if (!current_user.is_super_admin? || !current_user.is_resource_manager?) %>
       <div class="form-sec-row">
         <label class="text">Department<span style=color:red></span></label>
         <span class="in-box">
-          <%= current_user.departments[0].name %>
+    <%#= current_user.departments[0].name %>
         </span>
       </div>
     <%end%>
-    
+
     <div class="form-sec-row">
       <label class="text">Resource<span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.select(:vehicle_type_id, VehicleType.all.collect {|vehicle_type| [vehicle_type.name, vehicle_type.id]},:prompt=>"SELECT A VEHICLE TYPE") %>
       </span>
     </div>
-
-    <%#*<div class="form-sec-row">%>
-      <%#*<label class="text">Type<span style=color:red>*</span></label>%>
-      <%#*<span class="in-box">%>
-        <%#= f.select(:vehicle_id, Vehicle.where("vehicle_type_id =?", params[:vehicle_type_id]).collect {|p| [ p.model_name, p.id ] },{:prompt=>"SELECT A VEHICLE"})%>
-      <%#*</span>%>
-    <%#*</div>%>
 
     <div class="form-sec-row">
       <label class="text">Purpose<span style=color:red>*</span></label>
@@ -73,13 +66,13 @@
         <%= f.text_area :remarks, :rows=>2, :autofocus => true%>
       </span>
     </div>
-    <!--<div  class="form-sec-row">
-  <%#= f.label :avatar , :class=>"text"%>
+    <div  class="form-sec-row">
+      <%= f.label :avatar , :class=>"text"%>
       <span class="in-box">
-  <%#= f.file_field :transport_avatar %>
+        <%= f.file_field :attachment %>
         <br/>
       </span>
-    </div>-->
+    </div>
 
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
@@ -90,8 +83,4 @@
   </div>
   <div class="clear"></div>
 <%end%>
-
-
-
-
 

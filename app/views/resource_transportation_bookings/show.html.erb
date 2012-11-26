@@ -62,6 +62,10 @@
                     <td>&nbsp;<b><%=@resource_transportation_booking.number_of_passengers%></b></td>
                   </tr>
                   <tr>
+                    <td><b>Attachment</b></td>
+                    <td>&nbsp;<b><%= image_tag @resource_transportation_booking.attachment_url(:profile) if @resource_transportation_booking.attachment?  %></b></td>
+                  </tr>
+                  <tr>
                     <td><b>Remarks</b></td>
                     <td>&nbsp;<b><%=  @resource_transportation_booking.remarks %></b></td>
                   </tr>
