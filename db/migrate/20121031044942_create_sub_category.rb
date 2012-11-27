@@ -3,7 +3,7 @@ class CreateSubCategory < ActiveRecord::Migration
   create_table :sub_categories do |t|
       t.string :name
       t.references :category
-      t.boolean :is_active
+      t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false
       t.timestamps
     end
