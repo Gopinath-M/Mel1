@@ -2,14 +2,10 @@ class CreateAgencyStores < ActiveRecord::Migration
   def self.up
     create_table :agency_stores do |t|
       t.references :agency
-      t.references :department
-      t.text :resources
+      t.references :category
+      t.references :sub_category
       t.string :resource_type
-      t.references :vehicle_type
-      t.references :vehicle
-      t.integer :quantity
-      t.text :serial_no
-      t.integer :uom
+      t.references :resources
       t.boolean :booked,:default=>false
       t.timestamps
     end
