@@ -8,7 +8,7 @@ class CreateFacilities < ActiveRecord::Migration
       t.text :name
       t.integer :total_qty
       t.integer :booked_qty
-      t.boolean :is_active
+      t.boolean :is_active, :default => true
       t.timestamps
     end
   end
