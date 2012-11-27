@@ -29,7 +29,7 @@ class TransportAvatarUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb, :if => :image?do
+  version :thumb, :if => :image? do
     process :resize_to_limit => [30, 30]
   end
 
