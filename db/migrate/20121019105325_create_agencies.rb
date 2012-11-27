@@ -6,7 +6,7 @@ class CreateAgencies < ActiveRecord::Migration
       t.string :address
       t.string :telephone_number
       t.string :fax_number
-      t.boolean :is_active
+      t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false
       t.timestamps
     end
