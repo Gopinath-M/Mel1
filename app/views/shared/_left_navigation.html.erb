@@ -205,13 +205,16 @@
                    
                     </li><%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
                       <li>
-                        <%=link_to "Create Transport Resources", new_agency_store_path%>
+                        <%=link_to "Create Agency Store", new_agency_store_path%>
                       </li>
                       <li>
-                        <%= link_to "Create Room Resources", new_room_path %>
+                        <%=link_to "List Agency Store", agency_stores_path%>
                       </li>
                       <li>
-                        <%= link_to "List  Rooms", rooms_path %>
+                        <%= link_to "Create Resources", new_resource_path %>
+                      </li>
+                      <li>
+                        <%= link_to "List  Resources", resources_path %>
                       </li>
                       <li>
                         <%= link_to "Create Driver", new_driver_path %>
@@ -225,12 +228,7 @@
                       <li>
                         <%= link_to "List  Vehicle Types", vehicle_types_path %>
                       </li>
-                      <li>
-                        <%= link_to "Create Vehicle", new_vehicle_path %>
-                      </li>
-                      <li>
-                        <%= link_to "List  Vehicles", vehicles_path %>
-                      </li><%end%>
+                     <%end%>
                   </ul>
                 </div>
               </li>
