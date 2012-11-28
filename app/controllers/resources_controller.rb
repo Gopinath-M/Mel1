@@ -19,12 +19,22 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
   end
 
-  def create
-    @resource = Resource.create(params[:resource])
-    @resource.created_by = params[:created_by]
-    if current_user.is_super_admin?
-    @resource.department_id = 0
+def create
+    if params[:resource_type] == "room_booking"
+      @resource = Resource.create(params[:resource])
+      @resource.resource_type = params[:resource_type]
+    elsif  params[:resource_type] =="transport"
+      @resource = Resource.create(params[:resource])
+      @resource.category_id = params[:resource_transport][:category_id]
+      @resource.sub_category_id = params[:resource_transport][:sub_category_id]
+      @resource.resource_type = params[:resource_type]
+    elsif params[:resource_type] =="others"
+      @resource = Resource.create(params[:resource])
+      @resource.category_id = params[:resource_other][:category_id]
+      @resource.sub_category_id = params[:resource_other][:sub_category_id]
+      @resource.resource_type = params[:resource_type]
     end
+    @resource.created_by = params[:created_by]
     @resource.save
     if @resource.valid?
       redirect_to :controller=>'resources', :action=>'index'
