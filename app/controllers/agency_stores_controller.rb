@@ -20,11 +20,11 @@ class AgencyStoresController < ApplicationController
   end
 
   def create
-    @store = AgencyStore.find_by_vehicle_id(params[:vehicle][:id])
+    @store = AgencyStore.find_by_resource_id(params[:agency_store][:resource_id])
     if @store == nil
     @store = AgencyStore.create(params[:agency_store])
-    @store.vehicle_type_id = params[:vehicle_type][:id]
-    @store.vehicle_id = params[:vehicle][:id]    
+    @store.category_id = params[:category][:id]
+    @store.sub_category_id = params[:sub_category][:id]
 #    store.categories_id = params[:categories_department][:id]
 #    store.sub_categories_id = params[:sub_categories][:id]
 #    if params[:dynamic]
@@ -38,10 +38,10 @@ class AgencyStoresController < ApplicationController
     if @store.valid?
       redirect_to :controller=>'agency_stores', :action=>'index'
     else
-      render :action=>'new', :notice =>'Vehicle already added for this Vehicle Type'
+      render :action=>'new', :notice =>'Resource already added for this Sub category'
     end
     else
-      render :action=>'new', :notice =>'Vehicle already added for this Vehicle Type'
+      render :action=>'new', :notice =>'Resource already added for this Sub category'
     end
   end
 
