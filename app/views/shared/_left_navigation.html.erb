@@ -158,12 +158,12 @@
                       <li>
                         <%=link_to "List Vendors", vendors_path%>
                       </li>
-                      <li>
-                        <%=link_to "Vendor Store", vendor_store_vendors_path%>
-                      </li>
-                      <li>
-                        <%=link_to "List Vendor Store", vendorstore_list_vendors_path%>
-                      </li>
+                      <%#*<li>%>
+                        <%#=link_to "Vendor Store", vendor_store_vendors_path%>
+                      <%#*</li>%>
+                      <%#*<li>%>
+                        <%#=link_to "List Vendor Store", vendorstore_list_vendors_path%>
+                      <%#*</li>%>
                     </ul>
                   </div>
                 </li><%end%>
@@ -172,10 +172,10 @@
                 <div id ="div_facility" style="display:none;">
                   <ul>
                     <li>
-                      <%=link_to "Create Facility", new_facility_path(:admin=>'admin')%>
+                      <%=link_to "Create Facility", new_facility_path%>
                     </li>
                     <li>
-                      <%=link_to "List", facilities_path(:admin=>'admin')%>
+                      <%=link_to "List", facilities_path%>
                     </li>
                   </ul>
                 </div>
