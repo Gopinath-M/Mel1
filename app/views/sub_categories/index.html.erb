@@ -5,7 +5,7 @@
     <div class="create-user">
       <div class="cu-c1"><a href="/sub_categories/new" title="Create Sub Category"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Sub Category</a></div>
  <div class="cu-c2">Select Category:
-      <%= select("category","id",  Category.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A CATEGORY") %>
+      <%= select("categories","id",  Category.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A CATEGORY") %>
     </div>
     </div>
   <%end%>
