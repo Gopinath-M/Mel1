@@ -3,7 +3,6 @@ class CreateCategoriesDepartments < ActiveRecord::Migration
     create_table :categories_departments do |t|
       t.integer :category_id
       t.integer :department_id
-      t.integer :created_by
       t.boolean :is_active, :default => true
       t.timestamps
     end
