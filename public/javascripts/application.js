@@ -1027,18 +1027,18 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
 
-                    $('#resource_booking_resource_id').find('option').remove().end()
-                    $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#agency_store_resource_id').find('option').remove().end()
+                    $('#agency_store_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
                     for(var i=0; i<data[0].length;i++)
                     {
-                        $('#resource_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                        $('#agency_store_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
                     }
                 }
             })
         }
         else{
-            $('#resource_booking_resource_id').find('option').remove().end()
-            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#sub_category_id').find('option').remove().end()
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
         }
     })
     
@@ -1059,11 +1059,11 @@ $().ready(function(){
     });
     /*Validation for Category Mapping Ends*/
 
-    $("#category_id").live("change",function(){
+    $("#categories_id").live("change",function(){
         $.get("/sub_categories/",{
-            category_id: $("#category_id").val()
+            category_id: $("#categories_id").val()
         }, function(data){
-            $("#department_id").val($("#category_id").val())
+            $("#department_id").val($("#categories_id").val())
             $("#div_ajax").html(data)
         });
     })
@@ -1123,57 +1123,7 @@ $().ready(function(){
         });
     })
     /* category mapping list ends */
-    /* get sub categories for vendor store */
-
-    $("#categories_id").live("change", function(){
-        if($("#categories_id").val()!="")
-        {
-            $.get("/vendors/get_sub_categories",{
-                category_id : $("#categories_id").val()
-            }, function(data){
-                if (data[0]!=null)
-                {
-
-                    $('#sub_category_id').find('option').remove().end()
-                    $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
-                    }
-                }
-            })
-        }
-        else{
-            $('#sub_category_id').find('option').remove().end()
-            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
-        }
-    })
-
-    $("#sub_category_id").live("change", function(){
-        if($("#sub_category_id").val()!="")
-        {
-            $.get("/vendors/get_resources",{
-                sub_category_id : $("#sub_category_id").val()
-            }, function(data){
-                if (data[0]!=null)
-                {
-
-                    $('#resource_id').find('option').remove().end()
-                    $('#resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
-                    }
-                }
-            })
-        }
-        else{
-            $('#resource_booking_resource_id').find('option').remove().end()
-            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-        }
-    })
-    /* vendor store ends*/
-
+   
     $("#default_department_id").live("change",function(){
         $.get("/dashboard/def_dept",{
             department_id: $("#default_department_id").val()
@@ -1198,14 +1148,14 @@ $().ready(function(){
         }
     });
 /*Assign Resource Manager Validation Ends*/
- $("#resource_resource_type_room_booking").live("change",function(){
-        $.get("/resources/get_resource_type",{
-            department_id: $("#resource_resource_type_room_booking").val()
-        }, function(data){
-            $("#department_id").val($("#resource_resource_type_room_booking").val())
-            $("#div_ajax").html(data)
-        });
-    })
+// $("#resource_resource_type_room_booking").live("change",function(){
+//        $.get("/resources/get_resource_type",{
+//            department_id: $("#resource_resource_type_room_booking").val()
+//        }, function(data){
+//            $("#department_id").val($("#resource_resource_type_room_booking").val())
+//            $("#div_ajax").html(data)
+//        });
+//    })
     $("#agency_store_resource_type_others").live("change",function(){
          if($("#agency_store_resource_type_others").val()!="")
         $.get("/agency_stores/get_others",{
@@ -1293,6 +1243,76 @@ $().ready(function(){
             })
         }
     });
+     $("#resource_resource_type_room_booking").live("click",function(){
+        $("#show_room").show();
+        $("#show_transport").hide();
+        $("#show_others").hide();
+    });
+    $("#resource_resource_type_transport").live("click",function(){
+        $("#show_transport").show();
+        $("#show_room").hide();
+        $("#show_others").hide();
+    });
+    $("#resource_resource_type_others").live("click",function(){
+        $("#show_others").show();
+        $("#show_transport").hide();
+        $("#show_room").hide();
+    });
+
+
+
+      /* create resource  page drop down for others and transport */
+     $("#resource_other_category_id").live("change", function(){
+        if($("#resource_other_category_id").val()!="")
+        {
+            $.get("/resources/get_subcategory",{
+                agency_id : $("#resource_other_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_other_sub_category_id').find('option').remove().end()
+                    $('#resource_other_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_other_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_other_sub_category_id').find('option').remove().end()
+            $('#resource_other_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+
+    });
+
+    $("#resource_transport_category_id").live("change", function(){
+        if($("#resource_transport_category_id").val()!="")
+        {
+            $.get("/resources/get_subcategory",{
+                agency_id : $("#resource_transport_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_transport_sub_category_id').find('option').remove().end()
+                    $('#resource_transport_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_transport_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_transport_sub_category_id').find('option').remove().end()
+            $('#resource_transport_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+
+    });
+    /* resource drop box ends */
+
+
+
 })
 
 
