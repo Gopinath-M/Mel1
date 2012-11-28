@@ -2,60 +2,30 @@
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
+
     <div class="form-sec-row">
-      <%= hidden_field_tag  :created_by, (current_user.id)%>
-      <label class="text">Resource Category <span style=color:red>*</span></label>
-      <span class="in-box">
-       <%= f.select(:category_id,  Category.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A CATEGORY") %>
-      </span>
-    </div>
-      <div class="form-sec-row">
-      <label class="text">Resource Sub Category <span style=color:red>*</span></label>
-      <span class="in-box">
-       <%= f.select(:sub_category_id,  SubCategory.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
-      </span>
-    </div>
-     <div class="form-sec-row">
       <label class="text">Resource Type <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.radio_button :resource_type, 'ict' %> <%= f.label :resource_type, "ICT" %>
-        <%= f.radio_button :resource_type, 'transport' %> <%= f.label :resource_type, "Transport" %>
-        <%= f.radio_button :resource_type, 'room_booking' %> <%= f.label :resource_type, "Room Booking" %>
-        <%= f.radio_button :resource_type, 'others' %> <%= f.label :resource_type, "Others" %>
+        <%= f.radio_button :resource_type, 'ict'%> <%= f.label :resource_type, "ICT" %>
+        <%= f.radio_button :resource_type, 'transport'%> <%= f.label :resource_type, "Transport" %>
+        <%= f.radio_button :resource_type, 'room_booking'%> <%= f.label :resource_type, "Room Booking" %>
+        <%= f.radio_button :resource_type, 'others' ,:checked=>true%> <%= f.label :resource_type, "Others" %>
       </span>
     </div>
-     <div id="div_ajax" >
-    <div class="form-sec-row">
-      <label class="text">Name <span style=color:red>*</span></label>
-      <span class="in-box">
-        <%= f.text_field :name%>
-      </span>
+
+    <div id="show_room" style="display:none;" >
+      <%=render :partial=>'resources/resource_room'%>
     </div>
-    <div class="form-sec-row">
-      <label class="text">Description <span style=color:red>*</span></label>
-      <span class="in-box">
-        <%= f.text_field :description%>
-      </span>
+
+    <div id="show_transport" style="display:none;">
+      <%=render :partial=>'resources/resource_transport'%>
     </div>
-    <div class="form-sec-row">
-      <label class="text">Is Returnable</label>
-      <span class="in-box">
-        <%= f.check_box :is_returnable%>
-      </span>
+
+    <div id="show_others">
+      <%=render :partial=>'resources/resource_others'%>
     </div>
-    <div class="form-sec-row">
-      <label class="text">Avail facility as a resource</label>
-      <span class="in-box">
-        <%= f.check_box :is_facilty_avail%>
-      </span>
-    </div>
-     </div>
-    <div class="form-sec-row">
-      <label class="text">&nbsp;</label>
-      <span class="in-box">
-        <%= f.submit :class=>"btn2"%>
-      </span>
-    </div>
+
+
   </div>
 
 <%end%>
