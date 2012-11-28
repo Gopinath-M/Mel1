@@ -1,9 +1,9 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Manage Transport Resources</h2>
+    <h2 class="b-head">Manage Agency Store</h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/agency_stores/new" title="Create Transport Resource"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Transport Resource</a></div>
+      <div class="cu-c1"><a href="/agency_stores/new" title="Create Transport Resource"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Agency Store</a></div>
 
     </div>
   <%end%>
@@ -15,9 +15,9 @@
             <div class="mu-c1">
             </div>
             <div class="mu-c2">
-              <%vehicle = Vehicle.find_by_id(store.vehicle_id)%>
+              <%vehicle = Resource.find_by_id(store.resource_id)%>
               <%if vehicle%>
-              <p class="head1"> <%=vehicle.registration_number%>-<%=vehicle.model_name%></p>
+              <p class="head1"> <%=vehicle.resource_type%>-<%=vehicle.resource_no%></p>
               <%end%>
             </div>
           </div>
