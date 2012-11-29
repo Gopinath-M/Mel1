@@ -6,6 +6,9 @@ class CreateAgencyStores < ActiveRecord::Migration
       t.references :sub_category
       t.string :resource_type
       t.references :resource
+      t.integer :quantity
+      t.string :serial_no
+      t.integer :uom
       t.boolean :booked,:default=>false
       t.timestamps
     end
