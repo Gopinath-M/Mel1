@@ -97,20 +97,6 @@ rescue Exception=>e
   p "Exception due to : #{e.to_s}"
 end
 
-puts "Creating Vehicles"
-begin
-  file = File.open("public/Vehicle.csv", "r")
-  file.readlines.each_with_index do |record, i|
-    begin
-      record_split = record.split(",")
-      Vehicle.create(:registration_id=>record_split[0],:registration_number=>record_split[1],:vehicle_type_id=>record_split[2],:driver_id=>i,:model_name=>record_split[3],:registration_date=>record_split[4])
-    rescue Exception =>e
-      p "Exception ocurred due to #{e.to_s} at #{i}"
-    end
-  end
-rescue Exception=>e
-  p "Exception due to : #{e.to_s}"
-end
 
 puts "Creating Roles"
 roles = ["Super Admin", "Department Admin", "Department User", "Unit Admin", "Resource Manager"]
@@ -291,7 +277,8 @@ resource_categories3 = Category.create(:name => 'Computer Software')
 resource_categories4 = Category.create( :name => 'Communications')
 #resource_categories1 = Category.create(:category_id => 6, :name => 'first aid kit')
 resource_categories5 = Category.create( :name => 'Office Furniture and Equipment')
-resource_categories6 = Category.create( :name => 'Transportation')
+resource_categories6 = Category.create( :name => 'Room')
+resource_categories7 = Category.create( :name => 'Transportation')
 
 puts "Creating Sample sub resource category for a stationery item resource category"
 resource_sub_categories1 = SubCategory.create(:category_id => 1, :name => 'Pencil')
@@ -388,7 +375,26 @@ resource_sub_categories17 = SubCategory.create(:category_id => 5, :name => 'Fire
 resource_sub_categories18 = SubCategory.create(:category_id => 5, :name => 'First-aid Kit')
 
 puts "Creating Sample sub resource category for a transportation category"
-resource_sub_categories1 = SubCategory.create(:category_id => 6, :name => "Heavyvehicles")
-resource_sub_categories2 = SubCategory.create(:category_id => 6, :name => "Lightvehicles")
+resource_sub_categories1 = SubCategory.create(:category_id => 7, :name => "Kerata")
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Van")
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "MPV")
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "4WD")
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Bas")
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Lori")
+
+puts "Creating Vehicles"
+begin
+  file = File.open("public/Vehicle.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      record_split = record.split(",")
+      Vehicle.create(:registration_id=>record_split[0],:registration_number=>record_split[1],:sub_category_id=>record_split[2],:driver_id=>i+1,:model_name=>record_split[3],:registration_date=>record_split[4])
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
 
 puts "Whoa, im done! Now you can run the server and see the application"
