@@ -1,9 +1,52 @@
-<div class="CenterNav">
-    <h2 class="b-head">Online Users</h2>
-  <% @users.each do |user| %>
-    <%=image_tag (user.login_status ? "Online.ico" : "Offline.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;&nbsp;
-        <%= link_to image_tag(user.avatar.url(:thumb).to_s) %>&nbsp;&nbsp;
-        <font color="#369"><b><%=  link_to "#{user.username}", conversation_path(user.id)%></b></font>&nbsp;&nbsp;<br/><br/>
+<%if !request.xhr?%>
+  <div class="CenterNav">
+    <h2 class="b-head">List of Users&nbsp;&nbsp;[&nbsp;<%=image_tag ("Online.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;Online - &nbsp;<%=image_tag ("Offline.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;Offline&nbsp;]</h2>
+    <br/>
+    <%if current_user.is_super_admin? %>
+      <div class="form-sec-row">
+        <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+        <span class="in-box">
+          <%= select(:transfer,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"SELECT AN AGENCY") %>
+          <br/><br/>
+        </span>
+      </div>
+    <%end%>
+    <div class="form-sec-row">
+      <%= label_tag :department_id, raw("Department"), :class=>"text"%>
+      <span class="in-box">
+        <%if current_user.is_super_admin? %>
+          <%= select(:standard5,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+        <%else%>
+       
+          <%= select(:standard5,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
 
-  <% end %>
-   </div>
+        <%end%>
+      </span>
+    </div>
+  <%end%>
+ 
+  <div id="div_ajax">
+    <%if @users && !@users.empty?%>
+      <%@users.each do |user|%>  
+        <div class="manage-user-row box">
+          <div class="mu-c2">
+            <p class="head1">   
+              <b>  <%=image_tag (user.login_status ? "Online.ico" : "Offline.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;&nbsp;
+                <%= link_to image_tag(user.avatar.url(:thumb).to_s) %>&nbsp;&nbsp;
+                <font color="#369"><b><%=  link_to "#{user.username}", conversation_path(user.id), :id => user.username , :class => "online_users", :target => '_blank'%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;
+              </b><br/>
+              <%=user.ic_number%><br/>
+              <b><%=user.email%></b>
+            </p>
+            <p><b><%=user.departments.first.name%></b></p>
+          </div>
+        </div><%end%>
+      <div class="manage-user-rows box"><br/><br/>
+        <%= paginate @users %></div>
+    <%else%><br/>
+      No User Data Available
+    <%end%>
+  </div>
+    <%if !request.xhr?%>
+</div>
+<%end%>
