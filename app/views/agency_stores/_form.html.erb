@@ -7,7 +7,7 @@
         <%= f.radio_button :resource_type, 'ict'%> <%= f.label :resource_type, "ICT" %>
         <%= f.radio_button :resource_type, 'transport'%> <%= f.label :resource_type, "Transport" %>
         <%= f.radio_button :resource_type, 'room_booking'%> <%= f.label :resource_type, "Room Booking" %>
-        <%= f.radio_button :resource_type, 'others' ,:checked=>true%> <%= f.label :resource_type, "Others" %>
+        <%= f.radio_button :resource_type, 'others', :checked=>true%> <%= f.label :resource_type, "Others" %>
       </span>
     </div>
   <div class="form-sec-row">
@@ -40,6 +40,14 @@
           <%= f.select(:resource_id, Resource.active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE") %>
         </span>
       </div>
+  <div id="agency_transport" style="display:none;">
+     <div class="form-sec-row">
+      <%= f.label :driver_id, :class=>"text"%>
+      <span class="in-box">
+        <%= f.select(:driver_id,options_from_collection_for_select(Driver.all, 'id','name' ), :prompt => "SELECT A DRIVER")%>
+      </span>
+    </div>
+  </div>
   <div id="agency_others">
       <div class="form-sec-row">
       <label class="text">Quantity <span style=color:red>*</span></label>
