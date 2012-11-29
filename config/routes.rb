@@ -19,9 +19,12 @@ Melaka::Application.routes.draw do
   resources :resource_bookings
   resources :resource_transportation_bookings do
     collection do
+      get 'request_view'
       get 'approve_request'
+      get 'get_driver_details'
       get 'get_vehicles'
       post 'change_resource_status'
+      get 'user_return_status'
     end
   end
 
