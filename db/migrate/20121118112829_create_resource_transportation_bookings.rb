@@ -7,18 +7,20 @@ class CreateResourceTransportationBookings < ActiveRecord::Migration
       t.text :location
       t.integer :number_of_passengers
       t.string :pick_up_place
-      t.references :transport_store
-      t.references :vehicle_type
-      t.references :driver
+      t.string :requester_id
+      t.string :attachment
+      t.string :status
       t.text :remarks
+      t.string :approver_id      
       t.datetime :requested_from_date
       t.datetime :requested_to_date
       t.datetime :request_processed_date
       t.datetime :return_date
-      t.string :requester_id
-      t.string :transport_avatar
-      t.string :status
-      t.string :approver_id
+      
+      t.references :agency_store
+      t.references :sub_category
+      t.references :driver
+      t.boolean :resource_returned_from_user, :default => false
       t.boolean :send_sms_to_driver,:default=> false
       t.timestamps
     end
