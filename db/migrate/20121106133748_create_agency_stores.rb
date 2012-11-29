@@ -4,6 +4,7 @@ class CreateAgencyStores < ActiveRecord::Migration
       t.references :agency
       t.references :category
       t.references :sub_category
+      t.references :driver
       t.string :resource_type
       t.references :resource
       t.integer :quantity
