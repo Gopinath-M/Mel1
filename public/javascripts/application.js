@@ -979,18 +979,7 @@ $().ready(function(){
             alert("Select Resource");
             return false;
         }
-        else if ($("#agency_store_quantity").val() == ""){
-            alert("Enter Quantity value");
-            return false;
-        }
-        else  if ($("#agency_store_serial_no").val() == ""){
-            alert("Enter Serial No");
-            return false;
-        }
-        else  if ($("#agency_store_uom").val() == ""){
-            alert("Enter UOM value");
-            return false;
-        }
+       
     });
     /*Validation for Agency Store Ends*/
 
@@ -1259,7 +1248,22 @@ $().ready(function(){
         $("#show_room").hide();
     });
 
-
+ $("#agency_store_resource_type_others").live("click",function(){
+        $("#agency_others").show();
+        $("#agency_transport").hide();
+    });
+ $("#agency_store_resource_type_room_booking").live("click",function(){
+        $("#agency_others").hide();
+         $("#agency_transport").hide();
+    });
+ $("#agency_store_resource_type_transport").live("click",function(){
+        $("#agency_transport").show();
+        $("#agency_others").hide();
+    });
+ $("#agency_store_resource_type_ict").live("click",function(){
+        $("#agency_others").hide();
+         $("#agency_transport").hide();
+    });
 
       /* create resource  page drop down for others and transport */
      $("#resource_other_category_id").live("change", function(){
@@ -1326,19 +1330,14 @@ $("#btn3").live("click",function(){
     }
     else
     {
-        alert("Message sent...");   
-        $.ajax({
-            beforeSend: function(){
-                $('#div_ajax').load('/conversations/'+jsUserID);
-            // Handle the beforeSend event
-            },
-            complete: function(){
-                $('#div_ajax').load('/conversations/'+jsUserID);
+        alert("Message sent...");
+       $.ajax({
+              complete: function(){
+                $('#chat-msg').load('/conversations/'+jsUserID);
             // Handle the complete event
             }
         // ......
-        });
-           
+        });          
 
     }
   
