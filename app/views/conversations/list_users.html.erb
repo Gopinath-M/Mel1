@@ -1,11 +1,19 @@
+<div class="CenterNav">
+    <h2 class="b-head">List of Users</h2>
+  <% @users.each do |user| %>
+    <%=image_tag (user.login_status ? "Online.ico" : "Offline.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;&nbsp;
+        <%= link_to image_tag(user.avatar.url(:thumb).to_s) %>&nbsp;&nbsp;
+        <font color="#369"><b><%=  link_to "#{user.username}", list_users_conversations_path(user.id), :id => user.username , :class => "online_users"%></b></font>&nbsp;&nbsp;<br/><br/>
+  <% end %>
+   </div>
+
 <%= form_tag(send_request_conversations_path) do  %>
 
   <%= flash[:error]  %>
   <%= flash[:notice]  %>
   <div class="clearfix">&nbsp;</div>
   <div class="CenterNav">
-    <div class="form-sec">
-   
+    <div class="form-sec">   
  <h2 class="b-head">Sending Chat Request</h2><br/>
     <div id="MessageDiv" style="display: none; height:20px; width: 500px;"></div>
     <br/>
@@ -14,10 +22,7 @@
         <span class="in-box">
           <%= text_field_tag :email,"", :id=>"email"%>
         </span>
-
       </div>
-
-
       <div class="form-sec-row">
         <label class="text">&nbsp;</label>
         <span class="in-box">
