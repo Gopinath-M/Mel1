@@ -534,6 +534,17 @@ $().ready(function(){
         });
     })
 
+    /* Chat - List of Users */
+
+     $("#standard5_department_id").live("change",function(){
+        $.get("/conversations/",{
+            department_id: $("#standard5_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#standard5_department_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
+
 
     $("#standard4_department_id").live("change", function(){
         if($("#standard4_department_id").val()!="")
@@ -1251,18 +1262,22 @@ $().ready(function(){
  $("#agency_store_resource_type_others").live("click",function(){
         $("#agency_others").show();
         $("#agency_transport").hide();
+        $("#agency_room").hide();
     });
  $("#agency_store_resource_type_room_booking").live("click",function(){
+        $("#agency_room").show();
         $("#agency_others").hide();
          $("#agency_transport").hide();
     });
  $("#agency_store_resource_type_transport").live("click",function(){
         $("#agency_transport").show();
         $("#agency_others").hide();
+        $("#agency_room").hide();
     });
  $("#agency_store_resource_type_ict").live("click",function(){
         $("#agency_others").hide();
          $("#agency_transport").hide();
+         $("#agency_room").hide();
     });
 
       /* create resource  page drop down for others and transport */
@@ -1352,9 +1367,91 @@ $("#btn3").live("click",function(){
         });          
 
     }
-  
+  /* resource room booking script */
+$("#resource_room_booking_sub_category_id").live("change", function(){
+        if($("#resource_room_booking_sub_category_id").val()!="")
+        {
+            $.get("/resource_room_bookings/get_resources",{
+                sub_category_id : $("#resource_room_booking_sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_room_booking_resource_id').find('option').remove().end()
+                    $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_room_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_room_booking_resource_id').find('option').remove().end()
+            $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+
+
+    $("#resource_room_booking_resource_id").live("change",function(){
+        $.get("/resource_room_bookings/get_details_for_resource/",{
+            resource_id: $("#resource_room_booking_resource_id").val()
+        }, function(data){
+            if(data[0]!=null)
+            {
+                $("#dis_col").show();
+                $("#details_resource_id").show();
+                var content="";
+                content+=""
+                content+= "<tr><td><b>Location</b></td><td><font color='#369'><b>"+data[0].resource.location+"</b></font></td></tr>"
+                content+= "<tr><td><b>Capacity</b></td><td><font color='#369'><b>"+data[0].resource.capacity+"</b></font></td></tr>"
+                content+="</table>"
+                $("#details_resource_id").html(content)
+            }
+            else
+            {
+                content+="No Departments Found"
+                $("#details_resource_id").hide();
+                $("#details_resource_id").html(content)
+                $("#dis_col").hide();
+            }
+
+        });
+    })
+    /*room booking script ends */
+
 });
 
+      /* Chat User List based on Depart & Agency Starts */
+    $("#transfer_agency").live("change", function(){
+        if($("#transfer_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#transfer_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#standard5_department_id').find('option').remove().end()
+                    $('#standard5_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#standard5_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $('#standard5_department_id').find('option').remove().end()
+            $('#standard5_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $.get("/conversations/",{
+                department_id: $("#standard5_department_id").val()
+            }, function(data){
+                $("#department_id").val($("#standard5_department_id").val())
+                $("#div_ajax").html(data)
+            })
+        }
+    });
+    /* chat user ends*/
 /*Javascripts Starts*/
 
 /*Number Validation*/
@@ -1431,3 +1528,26 @@ function change_status(id){
         return false;
     }
 }
+
+/* room booking */
+function toreturnroomresource(chbx_id,room_book_id)
+{
+    if(room_book_id!=null && room_book_id!=0)
+    {
+        s = confirm("Do you Want to Return thuis Resource?");
+        if (s==true)
+        {
+            if($("#"+chbx_id).is(':checked'))
+            {
+                document.getElementById('hide_check_box').style.visibility = 'hidden'
+                $.post("/resource_room_bookings/user_return/",
+                {
+                    //                    $("#vehicle_type_id").hide()
+                    room_book_id:room_book_id,
+                    user_returned_status:true
+                });
+            }
+        }
+    }
+}
+/* room booking ends */
