@@ -4,7 +4,6 @@ class CreateResources < ActiveRecord::Migration
       t.string :name
       t.references :category
       t.references :sub_category
-      t.references :driver
       t.string :status
       t.string :resource_type
       t.string :resource_no
