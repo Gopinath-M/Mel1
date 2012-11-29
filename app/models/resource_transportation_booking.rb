@@ -1,16 +1,18 @@
 class ResourceTransportationBooking < ActiveRecord::Base
   #Upload 
   mount_uploader :attachment, TransportAvatarUploader
-
+  
   #Associations
-  belongs_to :resource
+  #belongs_to :resource
   belongs_to :vehicle
-  belongs_to :vehicle_type
+  belongs_to :sub_category
+  belongs_to :agency_store
 
   #Validations
 
-  attr_accessible :remarks,:state,:vehicle_type_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location,:attachment
-  validates :remarks,:vehicle_type_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location,:attachment,:state, :presence => true
+  attr_accessible :status,:agency_store_id,:driver_id,:remarks,:state,:sub_category_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location,:attachment
+  
+  validates :remarks,:sub_category_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location,:state, :presence => true
   validates_numericality_of :number_of_passengers
   validate :validate_end_date_before_start_date
   validate :validate_start_date
