@@ -4,9 +4,15 @@
     <div class="clearfix">&nbsp;</div>
     <% if (!current_user.is_super_admin? || !current_user.is_resource_manager?) %>
       <div class="form-sec-row">
+        <label class="text">Agency<span style=color:red></span></label>
+        <span class="in-box">
+          <b><%= current_user.departments.first.agency.name.upcase %></b>
+        </span>
+      </div>
+      <div class="form-sec-row">
         <label class="text">Department<span style=color:red></span></label>
         <span class="in-box">
-    <%#= current_user.departments[0].name %>
+          <b><%= current_user.departments.first.name %></b>
         </span>
       </div>
     <%end%>
@@ -14,7 +20,7 @@
     <div class="form-sec-row">
       <label class="text">Resource<span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:vehicle_type_id, VehicleType.all.collect {|vehicle_type| [vehicle_type.name, vehicle_type.id]},:prompt=>"SELECT A VEHICLE TYPE") %>
+        <%= f.select(:sub_category_id, SubCategory.where(:category_id=>7,:is_active=>true).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A RESOURCE TYPE") %>
       </span>
     </div>
 
@@ -67,7 +73,7 @@
       </span>
     </div>
     <div  class="form-sec-row">
-      <%= f.label :avatar , :class=>"text"%>
+      <%= f.label :avatar,raw("Attachments"), :class=>"text"%>
       <span class="in-box">
         <%= f.file_field :attachment %>
         <br/>
@@ -83,4 +89,5 @@
   </div>
   <div class="clear"></div>
 <%end%>
+
 
