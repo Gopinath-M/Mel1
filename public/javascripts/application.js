@@ -1319,6 +1319,18 @@ $().ready(function(){
 
 })
 
+$("#vehicle_id").live("change",function(){
+
+    if($("#vehicle_id").val() != "SELECT A VEHICLE"){
+        $.get("/resource_transportation_bookings/get_driver_details",{
+            id : $("#vehicle_id").val()
+        },
+        function(data){
+            $("#driver_details").html(data);
+        });
+    }
+});
+
 
 /* Chat Apps Code */
 
@@ -1370,3 +1382,52 @@ function autoTab(e, element, nextElement)
 }
 
 /*Javascripts Ends*/
+/* Validating Transport Request Approval Form */
+
+function validate_request_approval_form(){
+    if($("#approve_status").val() == "Declined"){
+        var r = confirm("You want to Decline this Request. Continue ?");
+        if (r == false)
+        {
+            return false;
+        }
+    }
+    else if ($("#approve_status").val() == "New"){
+        var r = confirm("You didn't Approve this request. Continue ?");
+        if (r== false)
+        {
+            return false;
+        }
+    }
+    else if ($("#approve_status").val() == "Approved"){
+        if ($("#vehicle_id").val() == ""){
+            alert("Please Select the Vehicle");
+            return false;
+        }
+    }
+    else if ($("#approve_status").val() == "Returned"){
+        var r = confirm("You want to Return this Request. Continue ?")
+        if (r == false)
+        {
+            return false;
+        }
+    }
+}
+
+/*Javascripts Ends*/
+
+function change_status(id){
+    r = confirm("You are going to return the resource. Confirm ?")
+    if (r == true){
+        $.get("/resource_transportation_bookings/user_return_status",{
+            id : id
+        },function(data){
+            $("#user_box_"+id).html(data);
+        });
+    }
+    else
+    {
+        $('#is_returned').attr('checked', false);
+        return false;
+    }
+}
