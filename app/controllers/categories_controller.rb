@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
       if current_user.is_super_admin?
         @categories=Category.where(:deleted => false).order.page(params[:page]).per(10)
       else
-        @categories=Category.where(:created_by => current_user.id).order.page(params[:page]).per(10)
+        @categories=Category.order.page(params[:page]).per(10)
       end
     end
   end
@@ -22,7 +22,6 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.create(params[:category])
-    @category.created_by = params[:created_by]
     @category.save
     if @category.valid?
       redirect_to :controller=>'categories', :action=>'index'
@@ -64,7 +63,6 @@ class CategoriesController < ApplicationController
 
   def update_category
     category = CategoriesDepartment.new
-    category.created_by = params[:created_by]
     category.department_id = params[:resource_category] [:department_id]
     category.category_id = params[:resource_category][:resource_category_id]
     cat_dept = CategoriesDepartment.where(:category_id => category.category_id, :department_id => category.department_id)
