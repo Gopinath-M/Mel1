@@ -45,7 +45,7 @@ module ResourceTransportationBookingsHelper
     elsif current_user && current_user.is_resource_manager?
       @resource_transportation_bookings = ResourceTransportationBooking.find(:all,:conditions=>["status = 'Approved' or status = 'Processed' or status = 'Returned' "])
     else
-      @resource_transportation_bookings = ResourceTransportationBooking.find(:all,:conditions=>[("requester_id = '#{current_user.id}' ")])
+      @resource_transportation_bookings = ResourceTransportationBooking.find(:all,:conditions=>[("requester_id = '#{current_user.id}'")])
     end
   end
 

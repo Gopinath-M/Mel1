@@ -12,10 +12,10 @@ class CreateResourceTransportationBookings < ActiveRecord::Migration
       t.string :status
       t.text :remarks
       t.string :approver_id      
-      t.datetime :requested_from_date
-      t.datetime :requested_to_date
-      t.datetime :request_processed_date
-      t.datetime :return_date
+      t.string :requested_from_date
+      t.string :requested_to_date
+      t.string :request_processed_date
+      t.string :return_date
       
       t.references :agency_store
       t.references :sub_category
