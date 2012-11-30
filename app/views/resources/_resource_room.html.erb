@@ -1,16 +1,10 @@
 <%= form_for(@resource) do |f| %>
 
-  <div class="form-sec-row">
-    <%= hidden_field_tag  :created_by, (current_user.id)%>
-    <label class="text">Resource Category <span style=color:red>*</span></label>
-    <span class="in-box">
-      <%= f.select(:category_id,  Category.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A CATEGORY") %>
-    </span>
-  </div>
+ 
   <div class="form-sec-row">
     <label class="text">Resource Sub Category <span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.select(:sub_category_id,  SubCategory.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+      <%= f.select(:sub_category_id,  SubCategory.where("category_id = 6").active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
     </span>
   </div>
 
