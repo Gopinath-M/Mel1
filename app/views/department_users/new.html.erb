@@ -25,6 +25,12 @@
         </span>
       </div>
       <div class="form-sec-row">
+        <%= f.label :contact_mobile,raw("Contact Number"), :class=>"text"%>
+        <span class="in-box">
+          <%= f.text_field :contact_mobile, :size => 30, :autofocus => true%>
+        </span>
+      </div>
+      <div class="form-sec-row">
         <label class="text">IC Number<span style=color:red>*</span></label>
         <input class="icnumber" id="num1" type="text"  maxlength="6" size="6" name="num1" onkeypress="return isNumberKey(event);" onkeyup="autoTab(event, this, num2);">&nbsp;-
         <input class="icnumber1" id="num2" type="text"  maxlength="2" size="2" name="num2" onkeypress="return isNumberKey(event);" onKeyUp="autoTab(event, this, num3);">&nbsp;-
@@ -70,8 +76,8 @@
             <%if @admin%>
               <%dept_admin=Role.find_by_name(DISP_USER_ROLE_DEPT_ADMIN)%>
               <%= hidden_field_tag "role[id]",dept_admin.id %>
-             <%= hidden_field_tag "user_role","admin" %>
-            <%=label_tag :role,dept_admin.name%>
+              <%= hidden_field_tag "user_role","admin" %>
+              <%=label_tag :role,dept_admin.name%>
             <%else%>
               <%= select("role", "id", Role.where("name != 'Super Admin' && name != 'Department Admin'").collect {|role| [role.name, role.id]},:prompt=>"SELECT A ROLE") %>
             <%end%>

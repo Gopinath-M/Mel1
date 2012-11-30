@@ -32,7 +32,13 @@
         <%= f.label :username,raw("Display Name"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :username, :size => 30, :autofocus => true%>
-           <i>(This name will be used through out the site)</i>
+          <i>(This name will be used through out the site)</i>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <%= f.label :contact_mobile,raw("Contact Number"), :class=>"text"%>
+        <span class="in-box">
+          <%= f.text_field :contact_mobile, :size => 30, :autofocus => true%>
         </span>
       </div>
       <div class="form-sec-row">
@@ -60,14 +66,14 @@
           <%= f.text_field :zipcode, :size => 5,:maxlength=>5, :autofocus => true%>
         </span>
       </div>
-     
+
       <% if !resource.departments.empty? %>
-      <div class="form-sec-row">
-        <%= f.label :department_id,raw("Department"), :class=>"text"%>
-        <span class="in-box">       
-          <%=resource.departments.first.name%>       
-        </span>
-      </div>
+        <div class="form-sec-row">
+          <%= f.label :department_id,raw("Department"), :class=>"text"%>
+          <span class="in-box">
+            <%=resource.departments.first.name%>
+          </span>
+        </div>
       <% end %>
 
       <div  class="form-sec-row">
