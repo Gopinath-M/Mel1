@@ -8,14 +8,14 @@
     </div>
   <%end%>
   <div id="div_ajax" >
-    <%if @resource_room_booking && !@resource_room_booking.empty?%>
-      <%@resource_room_booking.each do |resource|%>
+    <%if @resource_room_bookings && !@resource_room_bookings.empty?%>
+      <%@resource_room_bookings.each do |resource|%>
         <div class="manage-user box">
           <div class="manage-user-row box">
             <div class="mu-c1">
             </div>
             <div class="mu-c2">
-              <% @name = Room.find_by_id(resource.room_type_id)%>
+              <% @name = SubCategory.find_by_id(resource.sub_category_id)%>
               <% @user = User.find_by_id(resource.user_id) %>
               <p class="head1">Name :<%= @user.first_name%></p>
               <p class="head1">Room Name :<%= @name.name%></p>
@@ -28,6 +28,22 @@
                 <%= "#{resource.status}" %>
               </span>
             </div>
+
+            <div class="form-sec-row">
+              <% if resource.status == "Processed" %>
+                <div id="hide_check_box">
+                  <% if !resource.user_returned_status? %>
+                    <label class="text"> Is Returnable?</label>
+                    <span class="in-box">
+        <%#= check_box_tag :user_returned_status, :onclick=> %>
+        <%#=check_box_tag "panel_adhesive[#{panel.id}]" ,"",true,:onchange=>"updateCartPanelAdhesive(this.id,#{panel.id})";%>
+                      <%= check_box_tag "user_returned_status[#{resource.id}]","",false,:onchange=>"toreturnroomresource(this.id,#{resource.id})" %>
+                    </span>
+                  <%end%>
+                </div>
+              <%end%>
+            </div>
+
             <div class="form-sec-row">
               <% if current_user.is_department_admin? || current_user.is_super_admin? %>
                 <span class="in-box">
