@@ -8,7 +8,7 @@ class ResourceTransportationBookingsController < ApplicationController
 
   def new
     @resource_transportation_booking = ResourceTransportationBooking.new    
-    @category = CategoriesDepartment.where(:category_id=>7,:department_id=> current_user.departments.first.id)
+    @category = CategoriesDepartment.where(:category_id=> 7,:department_id=> current_user.departments.first.id)
   end
 
   def create
