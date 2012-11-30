@@ -37,10 +37,8 @@ begin
   file = File.open("public/Department.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      agency_id=rand(i)
-      if agency_id && agency_id.to_i==0
-        agency_id=agency_id+1
-      end
+      n=18
+      agency_id=(1..n).to_a.sample
       record_split = record.split(",")
       Department.create!(:agency_id => agency_id, :name=>record_split[0],:address=>record_split[1],:telephone_number=>record_split[2], :is_active=>true, :created_by=>1, :updated_by=>1)
     rescue Exception =>e
@@ -397,4 +395,19 @@ rescue Exception=>e
   p "Exception due to : #{e.to_s}"
 end
 
+
+p "Creating Equipment Category for Resource ICT Equipment"
+
+begin
+  file = File.open("public/equipment_category.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      EquipmentCategory.create(:name=>record ,:is_active=>true)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
 puts "Whoa, im done! Now you can run the server and see the application"

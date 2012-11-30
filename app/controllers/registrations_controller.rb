@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
   prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy]
-layout 'password'
+  layout 'password'
   # GET /resource/sign_up
   def new
     resource = build_resource({})
@@ -42,18 +42,23 @@ layout 'password'
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-
-    if resource.update_with_password(params[:user])
-      if is_navigational_format?
-        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-          :update_needs_confirmation : :updated
-        set_flash_message :notice, flash_key
+    if params[:user][:password]
+      if resource.update_with_password(params[:user])
+        if is_navigational_format?
+          flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+            :update_needs_confirmation : :updated
+          set_flash_message :notice, flash_key
+        end
+        sign_in resource_name, resource, :bypass => true
+        redirect_to :controller => "users"
+      else
+        clean_up_passwords resource
+        render :action=>"users/account_setting"
       end
-      sign_in resource_name, resource, :bypass => true
-      redirect_to :controller => "users"
     else
-      clean_up_passwords resource
-      render :action=>'privacy_setting'
+      if resource.update_without_password(params[:user])
+        redirect_to :controller => "users"
+      end
     end
   end
 
@@ -86,7 +91,7 @@ layout 'password'
     flash[:notice]="Your request has been sent to Admin. Once approved you get mail!"
     root_path
   end
-   def privacy_setting
-   redirect_to :controller => "registrations", :action => "update"
+  def privacy_setting
+    redirect_to :controller => "registrations", :action => "update"
   end
 end
