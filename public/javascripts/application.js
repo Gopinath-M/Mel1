@@ -1451,7 +1451,6 @@ $().ready(function(){
 
 
     $("#room_sub_category_id").live("change", function(){
-        alert($("#room_sub_category_id").val());
         if($("#room_sub_category_id").val()!="")
         {
             $.get("/resource_room_bookings/get_resources",{
