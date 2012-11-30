@@ -21,9 +21,9 @@ class AgencyStoresController < ApplicationController
 
   def create
     @store = AgencyStore.find_by_resource_id(params[:agency_store][:resource_id])
-    if @store == nil
+#    if @store == nil
     @store = AgencyStore.create(params[:agency_store])
-    @store.category_id = params[:category][:id]
+    @store.resource_type = params[:resource_type]
     @store.sub_category_id = params[:sub_category][:id]
 #    store.categories_id = params[:categories_department][:id]
 #    store.sub_categories_id = params[:sub_categories][:id]
@@ -40,9 +40,9 @@ class AgencyStoresController < ApplicationController
     else
       render :action=>'new', :notice =>'Resource already added for this Sub category'
     end
-    else
-      render :action=>'new', :notice =>'Resource already added for this Sub category'
-    end
+#    else
+#      render :action=>'new', :notice =>'Resource already added for this Sub category'
+#    end
   end
 
   def update
