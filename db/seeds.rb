@@ -206,12 +206,12 @@ rm_department_user13 = RoleMembership.create(:user_id => department_user13.id, :
 department_user14 = User.create(:ic_number => "123456784777", :email => 'owclatha.k@openwavecomp.in', :password => "password", :first_name => "DeptUserSix", :last_name => "JAIM",:username=>'Latha1', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user14.activate_user
 rm_department_user14= RoleMembership.create(:user_id => department_user14.id, :department_id => 4, :role_id => 3, :unit_id=>6, :status => 'A', :default_dept=>true)
-p department_user15 = User.create!(:ic_number => "123456784888", :email => 'owcsakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JAIM",:username=>'Sakthi1', :status => 'A', :state => 7, :sign_in_count => 1)
-p department_user15.activate_user
-p rm_department_user15= RoleMembership.create!(:user_id => department_user15.id, :department_id => 4, :role_id => 3, :unit_id=>7, :status => 'A', :default_dept=>true)
-p department_user16 = User.create!(:ic_number => "123456784999", :email => 'owcgopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JAIM",:username=>'Gopi1', :status => 'A', :state => 15, :sign_in_count => 1)
-p department_user16.activate_user
-p rm_department_user16 = RoleMembership.create!(:user_id => department_user16.id, :department_id => 4, :role_id => 3, :unit_id=>8, :status => 'A', :default_dept=>true)
+department_user15 = User.create!(:ic_number => "123456784888", :email => 'owcsakthivel.m@openwavecomp.in', :password => "password", :first_name => "DeptUserSeven", :last_name => "JAIM",:username=>'Sakthi1', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user15.activate_user
+rm_department_user15= RoleMembership.create!(:user_id => department_user15.id, :department_id => 4, :role_id => 3, :unit_id=>7, :status => 'A', :default_dept=>true)
+department_user16 = User.create!(:ic_number => "123456784999", :email => 'owcgopinath.m@openwavecomp.in', :password => "password", :first_name => "DeptUserEight", :last_name => "JAIM",:username=>'Gopi1', :status => 'A', :state => 15, :sign_in_count => 1)
+department_user16.activate_user
+rm_department_user16 = RoleMembership.create!(:user_id => department_user16.id, :department_id => 4, :role_id => 3, :unit_id=>8, :status => 'A', :default_dept=>true)
 
 
 
@@ -388,7 +388,7 @@ begin
   file.readlines.each_with_index do |record, i|
     begin
       record_split = record.split(",")
-      Vehicle.create(:registration_id=>record_split[0],:registration_number=>record_split[1],:sub_category_id=>record_split[2],:driver_id=>i+1,:model_name=>record_split[3],:registration_date=>record_split[4])
+      Vehicle.create(:registration_id=>record_split[0],:registration_number=>record_split[1],:vehicle_type_id=>record_split[2],:driver_id=>i+1,:model_name=>record_split[3],:registration_date=>record_split[4])
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
