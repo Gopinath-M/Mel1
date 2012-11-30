@@ -57,7 +57,10 @@ class RegistrationsController < Devise::RegistrationsController
       end
     else
       if resource.update_without_password(params[:user])
-        redirect_to :controller => "users"
+        clean_up_passwords resource
+        render :action=>'privacy_setting'
+      else
+        render :action=>"edit"
       end
     end
   end
