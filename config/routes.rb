@@ -39,6 +39,8 @@ resources :resource_room_bookings do
       get 'resource_room_booking_approval'
       get 'room_booking_approval'
       put 'update_room_booking'
+      get 'get_resources'
+      get 'get_details_for_resource'
     end
   end
   
@@ -163,6 +165,7 @@ resources :resource_room_bookings do
       get 'get_resource'
       post 'update_status'
       get 'get_vehicles'
+      get 'get_transport'
     end
   end
    resources :facilities do
