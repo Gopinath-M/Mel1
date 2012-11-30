@@ -1,5 +1,6 @@
 class FacilitiesController < ApplicationController
-
+    before_filter :authenticate_user!
+    before_filter :is_admin
   def index
     if params[:id].blank? || params[:id].nil?
       @facility = Facility.order.page(params[:page]).per(10)
@@ -16,6 +17,20 @@ class FacilitiesController < ApplicationController
 
   def create
     @facility = Facility.create(params[:facility])
+    if params[:resource_type] == "room_booking"
+      @facility.sub_category_id = params[:room][:sub_category_id]
+      @facility.resource_id = params[:room][:resource_id]
+      @facility.resource_type = params[:resource_type]
+    elsif params[:resource_type] == "transport"
+      @facility.sub_category_id = params[:transport][:sub_category_id]
+      @facility.resource_id = params[:transport][:resource_id]
+      @facility.resource_type = params[:resource_type]
+    elsif params[:resource_type] == "others"
+      @facility.sub_category_id = params[:other][:sub_category_id]
+      @facility.resource_id = params[:other][:resource_id]
+      @facility.resource_type = params[:resource_type]
+    end
+    @facility.save
     if @facility.valid?
       redirect_to(facilities_path, :notice => "Resource #{@facility.name} has been created.")
     else
