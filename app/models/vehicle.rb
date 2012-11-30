@@ -4,5 +4,5 @@ class Vehicle < ActiveRecord::Base
   belongs_to :sub_category  
   
   #Validations
-  validates :model_name,:registration_number,:driver_id,:sub_category_id, :presence => true
+  validates :model_name,:registration_number,:driver_id, :presence => true
 end
