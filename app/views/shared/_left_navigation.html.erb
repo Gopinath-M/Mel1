@@ -208,8 +208,6 @@
                       <li>
                         <%=link_to "List Map Category", list_category_mapping_categories_path%>
                       </li>
-
-                      </li>
                       <li>
                         <%= link_to "Create Resources", new_resource_path %>
                       </li>
@@ -250,6 +248,12 @@
                     </li>
                     <%if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
                       <li>
+                        <%=link_to "Create Resource ICT Equipment Booking", new_resource_ict_equipment_booking_path %>
+                      </li>
+                      <li>
+                        <%=link_to "List Resource ICT Equipment Booking", resource_ict_equipment_bookings_path %>
+                      </li>
+                      <li>
                         <%=link_to "Create Resource Room Booking", new_resource_room_booking_path %>
                       </li>
                       <li>
@@ -260,7 +264,8 @@
                       </li>
                       <li>
                         <%=link_to "List Resource Transport Bookings", resource_transportation_bookings_path %>
-                      </li>                    <%end%>
+                      </li>
+                    <%end%>
                   </ul>
                 </div>
               </li>
@@ -313,6 +318,12 @@
                   </li>
                   <li>
                     <%=link_to "List Resource Bookings", resource_bookings_path%>
+                  </li>
+                  <li>
+                    <%=link_to "Create Resource ICT Equipment Booking", new_resource_ict_equipment_booking_path %>
+                  </li>
+                  <li>
+                    <%=link_to "List Resource ICT Equipment Booking", resource_ict_equipment_bookings_path %>
                   </li>
                   <li>
                     <%=link_to "Create Resource Room Booking", new_resource_room_booking_path %>

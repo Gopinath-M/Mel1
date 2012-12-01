@@ -58,14 +58,14 @@ class CategoriesController < ApplicationController
   end
 
   def assign_category
-    @category = CategoriesDepartment.new
+    @category = CategoriesDepartments.new
   end
 
   def update_category
-    category = CategoriesDepartment.new
+    category = CategoriesDepartments.new
     category.department_id = params[:resource_category] [:department_id]
     category.category_id = params[:resource_category][:resource_category_id]
-    cat_dept = CategoriesDepartment.where(:category_id => category.category_id, :department_id => category.department_id)
+    cat_dept = CategoriesDepartments.where(:category_id => category.category_id, :department_id => category.department_id)
     if cat_dept == nil || cat_dept.blank?
        category.save
         redirect_to(list_category_mapping_categories_path, :notice => 'Resource Category has been sucessfully assigned  to Department.')
@@ -80,7 +80,7 @@ class CategoriesController < ApplicationController
     else
     categories = Category.all
     categories.each do |category|
-      @category_mapping = CategoriesDepartment.find_all_by_category_id(category.id)
+      @category_mapping = CategoriesDepartments.find_all_by_category_id(category.id)
       @category_mapping.each do |category|
         @categories = Category.find_all_by_id(category.category_id)
       end

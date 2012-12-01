@@ -17,6 +17,7 @@ Melaka::Application.routes.draw do
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
   resources :resource_bookings
+  resources :resource_ict_equipment_bookings
   resources :resource_transportation_bookings do
     collection do
       get 'request_view'

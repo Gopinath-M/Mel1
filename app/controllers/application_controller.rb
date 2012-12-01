@@ -50,6 +50,12 @@ class ApplicationController < ActionController::Base
       redirect_to dashboard_index_path
     end
   end
+
+    def is_resource_manager
+    if current_user && !((current_user.roles.first.name=="Super Admin" || current_user.roles.first.name=="Resource Manager") && current_user.role_memberships.first.status=="A")
+      redirect_to dashboard_index_path
+    end
+  end
   
   #This method will work if the user himself change his default department. For Future use #Manivannan
   def default_department
