@@ -3,7 +3,7 @@ class AgencyStoresController < ApplicationController
   before_filter :is_admin
   def index
     if params[:id].blank? || params[:id].nil?
-     if current_user.is_super_admin?
+      if current_user.is_super_admin?
         @stores=AgencyStore.order.page(params[:page]).per(15)
       else
         @stores=AgencyStore.find_all_by_department_id(current_department.id)
@@ -20,19 +20,26 @@ class AgencyStoresController < ApplicationController
   end
 
   def create
-    @store = AgencyStore.find_by_resource_id(params[:agency_store][:resource_id])
-#    if @store == nil
     @store = AgencyStore.create(params[:agency_store])
     @store.resource_type = params[:resource_type]
-    @store.sub_category_id = params[:sub_category][:id]
-#    store.categories_id = params[:categories_department][:id]
-#    store.sub_categories_id = params[:sub_categories][:id]
-#    if params[:dynamic]
-#    store.serial_no =  params[:text1] + params[:dynamic].to_s
-#    else
-#    store.serial_no =  params[:text1]
-#    end
-#    store.agency_id = params[:transfer_from][:agency]
+    if params[:room_agency]
+    @store.sub_category_id = params[:room_agency][:sub_category_id]
+    @store.resource_id = params[:room_agency][:resource_id]
+    elsif params[:transport_agency]
+    @store.sub_category_id = params[:transport_agency][:sub_category_id]
+    @store.resource_id = params[:transport_agency][:resource_id]
+    elsif params[:other_agency]
+    @store.sub_category_id = params[:other_agency][:sub_category_id]
+    @store.resource_id = params[:other_agency][:resource_id]
+    end
+    #    store.categories_id = params[:categories_department][:id]
+    #    store.sub_categories_id = params[:sub_categories][:id]
+    #    if params[:dynamic]
+    #    store.serial_no =  params[:text1] + params[:dynamic].to_s
+    #    else
+    #    store.serial_no =  params[:text1]
+    #    end
+    #    store.agency_id = params[:transfer_from][:agency]
     @store.save
     
     if @store.valid?
@@ -40,9 +47,7 @@ class AgencyStoresController < ApplicationController
     else
       render :action=>'new', :notice =>'Resource already added for this Sub category'
     end
-#    else
-#      render :action=>'new', :notice =>'Resource already added for this Sub category'
-#    end
+   
   end
 
   def update
@@ -71,27 +76,27 @@ class AgencyStoresController < ApplicationController
       redirect_to(agency_stores_path, :notice => 'Agency Store has been Deleted.')
     end
   end
-def get_resource
+  def get_resource
 
     resources = Resource.find_all_by_sub_category_id(params[:agency_id])
     render :json=>[resources] if resources
-end
-def get_categories
-   dept = CategoriesDepartment.find_all_by_department_id(params[:agency_id])
-if dept == nil || dept.blank?
-  @categories = nil
-else
-   @categories = Category.find_all_by_id(dept[0].category_id)
-end
-   render :json=>[ @categories] if  @categories
-end
-def get_sub_categories
-   subcategories = SubCategory.find_all_by_id(params[:agency_id])
-   render :json=>[ subcategories] if  subcategories
-end
+  end
+  def get_categories
+    dept = CategoriesDepartment.find_all_by_department_id(params[:agency_id])
+    if dept == nil || dept.blank?
+      @categories = nil
+    else
+      @categories = Category.find_all_by_id(dept[0].category_id)
+    end
+    render :json=>[ @categories] if  @categories
+  end
+  def get_sub_categories
+    subcategories = SubCategory.find_all_by_id(params[:agency_id])
+    render :json=>[ subcategories] if  subcategories
+  end
 
-def get_vehicles
-  vehicles = Vehicle.find_all_by_vehicle_type_id(params[:vehicle_id])
-   render :json=>[ vehicles] if  vehicles
-end
+  def get_vehicles
+    vehicles = Vehicle.find_all_by_vehicle_type_id(params[:vehicle_id])
+    render :json=>[ vehicles] if  vehicles
+  end
 end
