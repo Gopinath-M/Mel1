@@ -19,7 +19,7 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
   end
 
-def create
+  def create
     if params[:resource_type] == "room_booking"
       @resource = Resource.create(params[:resource])
       @resource.resource_type = params[:resource_type]
@@ -59,7 +59,7 @@ def create
     elsif category && params[:status]=="Deactivate"
       category.update_attribute(:is_active, false)
     end
-    redirect_to(resources_path, :notice => 'Resource has been successfully changed.')
+    redirect_to(resources_path, :notice => 'Resource status has been successfully changed.')
   end
 
   def destroy
@@ -75,14 +75,13 @@ def create
     render :json=>[sub_categories] if sub_categories
   end
 
-
   def get_resources
     resources=Resource.where("sub_category_id= ? and deleted=false", params[:sub_category_id])
     render :json=>[resources] if resources
   end
+
   def get_resource_type
-    @resource = Resource.new
-    
-   render :partial => 'form' , :department_id => 'room_booking'
+    @resource = Resource.new    
+    render :partial => 'form' , :department_id => 'room_booking'
   end
 end
