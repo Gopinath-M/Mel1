@@ -2,13 +2,12 @@ class CreateFacilities < ActiveRecord::Migration
   def self.up
     create_table :facilities do |t|
       t.string :resource_type
-      t.integer :sub_category_id
+      t.references :sub_category
       t.integer :vehicle_id
       t.references :resource
       t.integer :ict_id
       t.text :name
       t.integer :total_qty
-      t.integer :booked_qty
       t.boolean :is_active
       t.timestamps
     end
