@@ -12,7 +12,7 @@
         <label class="text">Select Sub Category<span style=color:red>*</span></label>
         <span class="in-box">
 
-            <%=select("sub_category","id", options_from_collection_for_select(SubCategory.where("category_id = 6").active.all, 'id','name'),{:prompt=>"SELECT A SUB CATEGORY"})%>
+            <%=select("room_agency","sub_category_id", options_from_collection_for_select(SubCategory.where("category_id = 6").active.all, 'id','name'),{:prompt=>"SELECT A SUB CATEGORY"})%>
 
         </span>
       </div>
@@ -20,7 +20,7 @@
       <div class="form-sec-row">
         <label class="text">Resource<span style=color:red>*</span></label>
         <span class="in-box">
-          <%= f.select(:resource_id, Resource.active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE") %>
+          <%= select("room_agency","resource_id", Resource.active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE") %>
         </span>
       </div>
  

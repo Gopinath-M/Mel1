@@ -1,11 +1,11 @@
 class CreateResourceRoomBookings < ActiveRecord::Migration
   def self.up
     create_table :resource_room_bookings do |t|
-      t.integer :sub_category_id
-      t.integer :resource_id
-      t.integer :agency_store_id
-      t.integer :user_id
-      t.integer :department_id
+      t.references :sub_category
+      t.references :resource
+      t.references :agency_store
+      t.references :user
+      t.references :department
       t.string :requested_from_date
       t.string :requested_to_date
       t.boolean :user_returned_status

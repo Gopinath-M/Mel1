@@ -700,12 +700,7 @@ $().ready(function(){
     //        }
     });
     /*user validation ends */
-    if ($("#resource_submit").val() == true){
-        if ($("#resource_transport_sub_category_id").val() == ""){
-            alert("Select Sub Category");
-            return false;
-        }
-    }
+   
     /*Department basen on Agency in Resource Booking page*/
     $("#users_agency").live("change", function(){
         if($("#users_agency").val()!="")
@@ -1025,6 +1020,7 @@ $().ready(function(){
     })
     
     $("#sub_category_id").live("change", function(){
+        alert($("#sub_category_id").val());
         if($("#sub_category_id").val()!="")
         {
             $.get("/resources/get_resources",{
@@ -1600,6 +1596,80 @@ $().ready(function(){
             return false;
         }
     });
+
+    /*Agenct store drop box starts*/
+     $("#room_agency_sub_category_id").live("change", function(){
+        if($("#room_agency_sub_category_id").val()!="")
+        {
+            $.get("/resource_room_bookings/get_resources",{
+                sub_category_id : $("#room_agency_sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#room_agency_resource_id').find('option').remove().end()
+                    $('#room_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#room_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                    }
+                }
+            })
+        }
+        else{
+            $('#room_agency_resource_id').find('option').remove().end()
+            $('#room_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+
+
+    $("#transport_agency_sub_category_id").live("change", function(){
+        if($("#transport_agency_sub_category_id").val()!="")
+        {
+            $.get("/resource_room_bookings/get_resources",{
+                sub_category_id : $("#transport_agency_sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#transport_agency_resource_id').find('option').remove().end()
+                    $('#transport_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#transport_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                    }
+                }
+            })
+        }
+        else{
+            $('#transport_agency_resource_id').find('option').remove().end()
+            $('#transport_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+
+
+    $("#other_agency_sub_category_id").live("change", function(){
+        if($("#other_agency_sub_category_id").val()!="")
+        {
+            $.get("/resource_room_bookings/get_resources",{
+                sub_category_id : $("#other_agency_sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#other_agency_resource_id').find('option').remove().end()
+                    $('#other_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#other_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                    }
+                }
+            })
+        }
+        else{
+            $('#other_agency_resource_id').find('option').remove().end()
+            $('#other_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+    /*Agenct store drop box ends*/
+
 
 })
 /* resource room booking validation ends */

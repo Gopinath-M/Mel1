@@ -1,5 +1,5 @@
 class ResourceRoomBookingsController < ApplicationController
-  #  before_filter :authenticate_user!
+  before_filter :authenticate_user!
   #  before_filter :is_admin
   
   def index
@@ -25,32 +25,34 @@ class ResourceRoomBookingsController < ApplicationController
     if !params[:id].nil?
       @resource_room_booking = ResourceRoomBooking.find(params[:id])
       @resource = SubCategory.find_by_id(@resource_room_booking.sub_category_id)
+      @facility = Facility.find_by_id(@resource_room_booking.resource_id)
       @user = User.find_by_id(@resource_room_booking.user_id)
       @dept = Department.find_by_id(default_department)
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id)
-      @agency= Agency.find_by_id(@agencystore.agency_id)
-      @manager= User.find_by_id(@agency.user_id)
+      if @agencystore.present?
+        @agency= Agency.find_by_id(@agencystore.agency_id)
+        @manager= User.find_by_id(@agency.user_id)
+      end
     end
   end
 
   def create
-    p params[:resource_room_booking][:resource_id]
     agency = AgencyStore.find_by_resource_id(params[:resource_room_booking][:resource_id])
     if !agency.nil?
-    if agency.booked == false
-      agency.update_attribute(:booked, true)
-      @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
-      @resource_room_booking.agency_store_id = agency.id
-      @resource_room_booking.status = "New"
-      @resource_room_booking.user_id = params[:user_id]
-      @resource_room_booking.department_id = params[:department_id]
-      @resource_room_booking.save
-      redirect_to(resource_room_bookings_path, :notice => "Resource Room booking has been created.")
+      if agency.booked == false
+        agency.update_attribute(:booked, true)
+        @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
+        @resource_room_booking.agency_store_id = agency.id
+        @resource_room_booking.status = "New"
+        @resource_room_booking.user_id = params[:user_id]
+        @resource_room_booking.department_id = params[:department_id]
+        @resource_room_booking.save
+        redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
+      else
+        redirect_to(new_resource_room_booking_path, :notice => "You cant book the Already Reserved Room, Please try other.")
+      end
     else
-      redirect_to(new_resource_room_booking_path, :notice => "You cant book the Already Reserved Resource.")
-    end
-    else
-      redirect_to(new_resource_room_booking_path, :notice => "Resource selected is not available in your Agency Store, Are you want this as resource requistion.")
+      redirect_to(new_resource_room_booking_path, :notice => "Resource selected is not available in your Store, Are you want this as resource requistion.")
     end
   end
 
@@ -84,18 +86,21 @@ class ResourceRoomBookingsController < ApplicationController
     end
     @resource_room_booking = ResourceRoomBooking.find_by_id(params[:resource_book_id])
     @resource_room_booking.update_attributes(params[:resource_room_booking])
-    redirect_to(list_resource_booking_resource_room_bookings_path, :notice => 'Resource Room Booking Status has been successfully updated.')
+    redirect_to(list_resource_booking_resource_room_bookings_path, :notice => 'Your Room Booking Status has been successfully updated.')
   end
 
   def room_booking_approval
     if !params[:id].nil?
       @resource_room_booking = ResourceRoomBooking.find(params[:id])
       @resource = SubCategory.find_by_id(@resource_room_booking.sub_category_id)
+      @facility = Facility.find_by_id(@resource_room_booking.resource_id)
       @user = User.find_by_id(@resource_room_booking.user_id)
       @dept = Department.find_by_id(default_department)
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id)
-      @agency= Agency.find_by_id(@agencystore.agency_id)
-      @manager= User.find_by_id(@agency.user_id)
+      if @agencystore.present?
+        @agency= Agency.find_by_id(@agencystore.agency_id)
+        @manager= User.find_by_id(@agency.user_id)
+      end
     end
   end
 
@@ -111,13 +116,13 @@ class ResourceRoomBookingsController < ApplicationController
   def get_resources
     if !params[:sub_category_id].nil?
       resoures = Resource.find_all_by_sub_category_id(params[:sub_category_id])
-#      resoures = Resource.find_all_by_sub_category_id(category.sub_category_id)
+      #      resoures = Resource.find_all_by_sub_category_id(category.sub_category_id)
       render :json=>[resoures] if resoures
     end
   end
 
   def get_details_for_resource
-    p  resources = Resource.find(params[:resource_id])
+    resources = Resource.find(params[:resource_id])
     render :json=>[resources] if resources
   end
   

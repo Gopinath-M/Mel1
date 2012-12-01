@@ -372,6 +372,12 @@ resource_sub_categories16 = SubCategory.create(:category_id => 5, :name => 'Alar
 resource_sub_categories17 = SubCategory.create(:category_id => 5, :name => 'Fire Extinguisher')
 resource_sub_categories18 = SubCategory.create(:category_id => 5, :name => 'First-aid Kit')
 
+puts "Creating Sample sub resource category for a Room category"
+resource_sub_categories1 = SubCategory.create(:category_id => 6, :name => "Conference room")
+resource_sub_categories2 = SubCategory.create(:category_id => 6, :name => "Prayer room")
+resource_sub_categories2 = SubCategory.create(:category_id => 6, :name => "Dining room")
+resource_sub_categories2 = SubCategory.create(:category_id => 6, :name => "Party hall")
+
 puts "Creating Sample sub resource category for a transportation category"
 resource_sub_categories1 = SubCategory.create(:category_id => 7, :name => "Kerata")
 resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Van")

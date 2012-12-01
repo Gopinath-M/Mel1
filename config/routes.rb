@@ -42,6 +42,8 @@ resources :resource_room_bookings do
       put 'update_room_booking'
       get 'get_resources'
       get 'get_details_for_resource'
+      post 'user_return'
+
     end
   end
   

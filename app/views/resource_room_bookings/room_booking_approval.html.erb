@@ -98,6 +98,20 @@
               <td><div id="details_resource_id" style="display:none;">
                 </div></td>
             </tr>
+            <% if @facility.present? %>
+              <tr>
+                <td><font color="#369"><b><u>Facility Details:-</u></b></font></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><b> Facility Name</b></td>
+                <td><b>&nbsp;<%=@facility.name%></b></td>
+              </tr>
+              <tr>
+                <td><b> Quantity</b></td>
+                <td><b>&nbsp;<%=@facility.total_qty%></b></td>
+              </tr>
+            <%end%>
       </div>
       <tr>
         <td><font color="#369"><b><u>Status Details:-</u></b></font></td>
