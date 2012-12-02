@@ -12,14 +12,15 @@ class CreateResourceTransportationBookings < ActiveRecord::Migration
       t.string :status
       t.text :remarks
       t.string :approver_id      
-      t.string :requested_from_date
-      t.string :requested_to_date
-      t.string :request_processed_date
-      t.string :return_date
+      t.datetime :requested_from_date
+      t.datetime :requested_to_date
+      t.datetime :request_processed_date
+      t.datetime :request_returned_date
       
       t.references :agency_store
       t.references :sub_category
       t.references :driver
+      t.references :department
       t.boolean :resource_returned_from_user, :default => false
       t.boolean :send_sms_to_driver,:default=> false
       t.timestamps

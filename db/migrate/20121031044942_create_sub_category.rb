@@ -4,6 +4,7 @@ class CreateSubCategory < ActiveRecord::Migration
       t.string :name
       t.references :category
       t.boolean :is_active, :default => true
+      t.boolean :is_available, :default => false
       t.boolean :deleted, :default => false
       t.timestamps
     end

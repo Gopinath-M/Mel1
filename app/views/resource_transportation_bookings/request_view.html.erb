@@ -19,6 +19,7 @@
   $().ready(function() {
     $('#alternate').hide();
     $('#changed_driver').hide();
+    $('#change_vehicle').hide();
   });
 </script>
 
@@ -84,15 +85,15 @@
                   </tr>
                   <tr>
                     <td><b>Destination State</b></td>
-                    <td>&nbsp;<b><%=  State.find(@resource_transportation_booking.state).name %></b></td>
+                    <td>&nbsp;<b><%= State.find(@resource_transportation_booking.state).name %></b></td>
                   </tr>
                   <tr>
                     <td><b>Booking Date</b></td>
-                    <td>&nbsp;<b><%=@resource_transportation_booking.requested_from_date%></b></td>
+                    <td>&nbsp;<b><%=@resource_transportation_booking.requested_from_date.strftime("%d - %m - %Y") %></b></td>
                   </tr>
                   <tr>
                     <td><b>Return Date</b></td>
-                    <td>&nbsp;<b><%=@resource_transportation_booking.requested_to_date%></b></td>
+                    <td>&nbsp;<b><%=@resource_transportation_booking.requested_to_date.strftime("%d - %m - %Y") %></b></td>
                   </tr>
                   <tr>
                     <td><b>Number of Passengers</b></td>
@@ -111,11 +112,11 @@
                     <td><font color="#369"><b><u>Vehicle Details:-</u></b></font></td>
                     <td></td>
                   </tr>
-                  <% if current_user.is_super_admin? %>
+                  <% if (current_user.is_super_admin? || current_user.is_department_admin?) %>
                     <tr>
                       <td><label class="text"> <%= label :location,raw("Status"), :class=>"text"%></label></td>
                       <td>
-                        <%= select_tag :approve_status,"<option>New</option><option>Approved</option><option>Declined</option>".html_safe %>
+                        <%= select_tag :approve_status,"<option>Approved</option><option>Declined</option>".html_safe %>
                       </td>
                     </tr>
                   <%else%>
@@ -154,24 +155,38 @@
                       </tr>
 
                       <tr>
+
+                        <td><b>Change Vehicle</b></td>
+
+                        <% a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'transport',false]).collect(&:resource_id).join(',') %>
+                        <% if !a.blank? %>
+                          <td>
+                            <%= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
+                          </td>
+                        <%end%>
+
+                      </tr>
+
+
+                      <!--<tr>
                         <td><b>Driver</b></td>
                         <td>&nbsp;
                           <div id="normal" >
-                            <% driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
-                            <b><%= driver.name %></b>
+                              <%# driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
+                            <b><%#= driver.name %></b>
                             <input type="button" id="driver_change_button" name="Change" value="Change" />
                           </div>
 
                           <div id="alternate">
-                            <%= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"SELECT A DRIVER"})%>
+                               <%#= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"SELECT A DRIVER"})%>
                           </div>
 
                           <div id="changed_driver">
                           </div>
 
-                          <%= hidden_field_tag "alternate_driver"  %>
+                                <%#= hidden_field_tag "alternate_driver"  %>
                         </td>
-                      </tr>
+                      </tr>-->
                     <%else%>
                       <% vehicle = Resource.find(@resource_transportation_booking.agency_store.resource_id) %>
 
@@ -195,9 +210,11 @@
                     <tr>
                       <td><b>Vehicle</b></td>
                       <% a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'transport',false]).collect(&:resource_id).join(',') %>
-                      <td>
-                        <%= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
-                      </td>
+                      <% if !a.blank? %>
+                        <td>
+                          <%= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
+                        </td>
+                      <%end%>
                       </div>
                     </tr>
                   <%end%>
@@ -220,8 +237,10 @@
             <% if @resource_transportation_booking.status == "New" %>
               <%= submit_tag "Submit", :class=>"btn2",:onclick=>'return validate_request_approval_form();' %>
             <% elsif @resource_transportation_booking.status == "Approved" %>
+              <%= link_to "Back", :back, :class=>"btn2"%>
               <%= submit_tag "Process Request", :class=>"btn2",:onclick=>'return validate_request_approval_form();' %>
             <% elsif @resource_transportation_booking.status == "Processed" %>
+              <%= link_to "Back", :back, :class=>"btn2"%>
               <%= submit_tag "Return Request", :class=>"btn2",:onclick=>'return validate_request_approval_form();' %>
             <%end%>
           </span>

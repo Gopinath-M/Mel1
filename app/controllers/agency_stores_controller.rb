@@ -23,14 +23,15 @@ class AgencyStoresController < ApplicationController
     @store = AgencyStore.create(params[:agency_store])
     @store.resource_type = params[:resource_type]
     if params[:room_agency]
-    @store.sub_category_id = params[:room_agency][:sub_category_id]
-    @store.resource_id = params[:room_agency][:resource_id]
+      @store.sub_category_id = params[:room_agency][:sub_category_id]
+      @store.resource_id = params[:room_agency][:resource_id]
     elsif params[:transport_agency]
-    @store.sub_category_id = params[:transport_agency][:sub_category_id]
-    @store.resource_id = params[:transport_agency][:resource_id]
+      @store.sub_category_id = params[:transport_agency][:sub_category_id]
+      @store.resource_id = params[:transport_agency][:resource_id]
+      SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
     elsif params[:other_agency]
-    @store.sub_category_id = params[:other_agency][:sub_category_id]
-    @store.resource_id = params[:other_agency][:resource_id]
+      @store.sub_category_id = params[:other_agency][:sub_category_id]
+      @store.resource_id = params[:other_agency][:resource_id]
     end
     #    store.categories_id = params[:categories_department][:id]
     #    store.sub_categories_id = params[:sub_categories][:id]

@@ -379,12 +379,12 @@ resource_sub_categories2 = SubCategory.create(:category_id => 6, :name => "Dinin
 resource_sub_categories2 = SubCategory.create(:category_id => 6, :name => "Party hall")
 
 puts "Creating Sample sub resource category for a transportation category"
-resource_sub_categories1 = SubCategory.create(:category_id => 7, :name => "Kerata")
-resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Van")
-resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "MPV")
-resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "4WD")
-resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Bas")
-resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Lori")
+resource_sub_categories1 = SubCategory.create(:category_id => 7, :name => "Kerata", :is_available => false)
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Van",  :is_available => false)
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "MPV",  :is_available => false)
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "4WD", :is_available => false)
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Bas", :is_available => false)
+resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Lori", :is_available => false)
 
 puts "Creating Vehicles"
 begin

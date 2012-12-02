@@ -13,13 +13,11 @@
               <p class="head1"><b>Destination :<%= resource_transportation_booking.location%><b/></p>
               <p class="head1"><b>Car Type :<%= resource_transportation_booking.sub_category.name %><b/></p>
               <p class="head1"><b>No of Passengers:<%= resource_transportation_booking.number_of_passengers%><b/></p>
-              <p class="head1"><b>From Date:<%= resource_transportation_booking.requested_from_date %><b/></p>
-              <p class="head1"><b>To Date:<%= resource_transportation_booking.requested_to_date %><b/></p>
+              <p class="head1"><b>From Date:<%= resource_transportation_booking.requested_from_date.strftime("%d - %m - %Y") %><b/></p>
+              <p class="head1"><b>To Date:<%= resource_transportation_booking.requested_to_date.strftime("%d - %m - %Y") %><b/></p>
             </div>
             <div class="form-sec-row">
-              <span class="in-box btn2 in-btn2">
-                <%= "#{resource_transportation_booking.status}" %>
-              </span>
+              <b><%= "#{resource_transportation_booking.status}" %></b>
             </div>
             <div class="form-sec-row">
               <span class="in-box">
@@ -32,24 +30,32 @@
                     <% elsif (resource_transportation_booking.status == "Processed" && resource_transportation_booking.resource_returned_from_user?) %>
                       <%= link_to "Return Request", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) if current_user.is_resource_manager? %><br/><br/>
                     <%end%>
-                    <%= link_to "Request Details", resource_transportation_booking_path(resource_transportation_booking)%>
+                    <%= link_to "Request Details", resource_transportation_booking_path(resource_transportation_booking) %>
                   <%end%>
                 <%end%>
 
-                <% if (resource_transportation_booking.requester_id.to_i == current_user.id && resource_transportation_booking.status=="Processed" && !resource_transportation_booking.resource_returned_from_user?)%>
-                  <%= check_box_tag("is_returned","is_returned",false,:onclick=> "change_status(#{resource_transportation_booking.id})") %>
-                  <label class="text">If Resource Returned ?</label>
+                <% if (resource_transportation_booking.requester_id.to_i == current_user.id && resource_transportation_booking.status=="Processed") %>
+                  <% if (!resource_transportation_booking.resource_returned_from_user?) %>
+                    <%= check_box_tag("is_returned","is_returned",false,:onclick=> "change_status(#{resource_transportation_booking.id})") %>
+                    <label class="text">If Resource Returned ?</label><br/><br/>
+                  <%else%>
+                    <b><%= 'Resource Returned' %></b><br /><br />
+                  <%end%>
                 <%end%>
+
+                <% if (resource_transportation_booking.requester_id.to_i == current_user.id) %>
+                  <%= link_to "Request Details", resource_transportation_booking_path(resource_transportation_booking) %>
+                <%end%>
+
               </span>
             </div>
           </div>
         </div>
       <%end%>
-    <div class="manage-user-rows box"><br/><br/>
+      <div class="manage-user-rows box"><br/><br/>
       </div>
     <%else%>
       No Resource Booking done
     <%end%>
-
   </div>
 </div>
