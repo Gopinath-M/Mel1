@@ -2,15 +2,24 @@ class ResourcesController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
   before_filter :is_admin, :except=>[:get_resources]
   def index
+     department_id = params[:department_id].to_i # while selecting Please Select returns string params
+    if department_id == 0
     if params[:id].blank? || params[:id].nil?
       if current_user.is_super_admin?
         @resources=Resource.order.page(params[:page]).per(10)
       else
         @resources=Resource.find_all_by_department_id(current_department.id)
       end
+    else
+      @resources=Resource.find_all_by_sub_category_id(params[:department_id])
+    end
+    else
+      @resources=Resource.find_all_by_sub_category_id(params[:department_id])
+  end
+   if request.xhr?
+      render :layout=>false
     end
   end
-
   def new
     @resource = Resource.new
   end
@@ -84,4 +93,10 @@ class ResourcesController < ApplicationController
     @resource = Resource.new    
     render :partial => 'form' , :department_id => 'room_booking'
   end
+
+  def get_sub_category
+    sub_categories= SubCategory.where("category_id =?",params[:sub_category_id])
+    render :json=>[sub_categories] if sub_categories
+  end
+
 end
