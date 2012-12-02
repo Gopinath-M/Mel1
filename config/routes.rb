@@ -29,7 +29,11 @@ Melaka::Application.routes.draw do
     end
   end
 
-  resources :drivers
+  resources :drivers do
+    collection do
+      post 'update_status'
+    end
+  end
   resources :vehicles
   resources :vehicle_types
 
