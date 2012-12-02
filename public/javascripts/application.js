@@ -1396,7 +1396,7 @@ $().ready(function(){
     })
 
 
-    $("#resource_room_booking_resource_id").live("change",function(){
+    $("#resource_room_booking_resource_id").live("click",function(){
         $.get("/resource_room_bookings/get_details_for_resource/",{
             resource_id: $("#resource_room_booking_resource_id").val()
         }, function(data){
@@ -1598,7 +1598,7 @@ $().ready(function(){
     });
 
     /*Agenct store drop box starts*/
-     $("#room_agency_sub_category_id").live("change", function(){
+    $("#room_agency_sub_category_id").live("change", function(){
         if($("#room_agency_sub_category_id").val()!="")
         {
             $.get("/resource_room_bookings/get_resources",{
@@ -1646,6 +1646,30 @@ $().ready(function(){
     })
 
 
+ $("#other_category_id").live("change", function(){
+        if($("#other_category_id").val()!="")
+        {
+            $.get("/agency_stores/get_other_sub_categories",{
+                agency_id : $("#other_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#other_agency_sub_category_id').find('option').remove().end()
+                    $('#other_agency_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#other_agency_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#other_agency_sub_category_id').find('option').remove().end()
+            $('#other_agency_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+    })
+
+
     $("#other_agency_sub_category_id").live("change", function(){
         if($("#other_agency_sub_category_id").val()!="")
         {
@@ -1670,6 +1694,131 @@ $().ready(function(){
     })
     /*Agenct store drop box ends*/
 
+    $("#transport_category_id").live("change", function(){
+        if($("#transport_category_id").val()!="")
+        {
+            $.get("/resources/get_sub_category",{
+                sub_category_id : $("#transport_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#transport_sub_category_id').find('option').remove().end()
+                    $('#transport_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#transport_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#transport_sub_category_id').find('option').remove().end()
+            $('#transport_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+    })
+
+    $("#transport_sub_category_id").live("change",function(){
+        $.get("/resources/",{
+            department_id: $("#transport_sub_category_id").val()
+        }, function(data){
+            $("#department_id").val($("#transport_sub_category_id").val())
+            $("#div_ajax").html(data)
+        });
+    })
+/* agency list page */
+ $("#list_agency").live("change", function(){
+        if($("#list_agency").val()!="")
+        {
+            $.get("/agency_stores/get_resources",{
+                resource_id : $("#list_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#category_allid').find('option').remove().end()
+                    $('#category_allid').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#category_allid').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#category_allid').find('option').remove().end()
+            $('#category_allid').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+ $("#list_agency").live("change",function(){
+        $.get("/agency_stores/",{
+            resource_id: $("#list_agency").val()
+        }, function(data){
+            $("#resource_id").val($("#list_agency").val())
+            $("#div_ajax").html(data)
+        });
+    })
+
+/* agency list page ends */
+    /* Agency Store validation Starts */
+    $("#other_store_submit").live("click",function(){
+        if ($("#other_agency_id").val() == ""){
+            alert("Select Agency Name");
+            return false;
+        }
+        if ($("#category_id").val() == ""){
+            alert("Select Category Name");
+            return false;
+        }
+        else if ($("#other_agency_sub_category_id").val() == ""){
+            alert("Select Sub Category Name");
+            return false;
+        }else if ($("#other_agency_resource_id").val() == ""){
+            alert("Select Resource Name");
+            return false;
+        }else if ($("#agency_store_quantity").val() == ""){
+            alert("Enter Store Quantity");
+            return false;
+        }else if ($("#agency_store_uom").val() == ""){
+            alert("Enter UOM");
+            return false;
+        }
+    });
+
+
+    $("#room_store_submit").live("click",function(){
+        if ($("#room_agency_id").val() == ""){
+            alert("Select Agency Name");
+            return false;
+        }
+        else if ($("#room_agency_sub_category_id").val() == ""){
+            alert("Select Sub Category Name");
+            return false;
+        }
+        else if ($("#room_agency_resource_id").val() == ""){
+            alert("Select Resource Name");
+            return false;
+        }
+    });
+
+
+    $("#transport_store_submit").live("click",function(){
+        if ($("#transport_agency_id").val() == ""){
+            alert("Select Agency Name");
+            return false;
+        }
+        else if ($("#transport_agency_sub_category_id").val() == ""){
+            alert("Select Sub Category Name");
+            return false;
+        }
+        else if ($("#transport_agency_resource_id").val() == ""){
+            alert("Select Resource Name");
+            return false;
+        }
+        else if ($("#agency_store_driver_id").val() == ""){
+            alert("Select Driver Name");
+            return false;
+        }
+    });
+/* Agency Store validation ends */
 
 })
 /* resource room booking validation ends */
@@ -1758,9 +1907,11 @@ function toreturnroomresource(chbx_id,room_book_id)
         s = confirm("Do you Want to Return thuis Resource?");
         if (s==true)
         {
-            if($("#"+chbx_id).is(':checked'))
+            alert(room_book_id);
+            if($("#"+chbx_panel_id).is(':checked'))
             {
-                document.getElementById('hide_check_box').style.visibility = 'hidden'
+                document.getElementById('hide_check_box_'+room_book_id).style.visibility = 'hidden'
+                document.getElementById('room_box_'+room_book_id).style.display='block'
                 $.post("/resource_room_bookings/user_return/",
                 {
                     //                    $("#vehicle_type_id").hide()
@@ -1768,6 +1919,11 @@ function toreturnroomresource(chbx_id,room_book_id)
                     user_returned_status:true
                 });
             }
+        }
+        else
+        {
+            $('#user_returned_status_'+room_book_id).attr('checked', false);
+            return false;
         }
     }
 }
