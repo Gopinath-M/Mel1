@@ -4,6 +4,8 @@ class CreateDrivers < ActiveRecord::Migration
       t.integer :registration_id
       t.string :name
       t.string :telephone_number
+      t.boolean :is_active, :default => true
+      t.boolean :deleted, :default => false
       t.boolean :informed,:default=>false
       t.boolean :already_assigned,:default=> false
       t.timestamps
