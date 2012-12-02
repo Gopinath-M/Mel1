@@ -31,16 +31,16 @@ module ApplicationHelper
   end
 
   def current_role
-    if current_user && (!current_user.is_super_admin? && !current_user.is_resource_manager?)
+    if current_user && (!current_user.is_super_admin?)
       department=Department.find(@current_department) if @current_department
       current_role=RoleMembership.find_by_user_id_and_department_id(current_user.id,department.id) if department
       return current_role.role.name if current_role
     elsif current_user && current_user.is_super_admin?
       current_role=Role.find_by_name(DISP_USER_ROLE_SUPER_ADMIN)
       return current_role.name if current_role
-    elsif  current_user && current_user.is_resource_manager?
-      current_role=Role.find_by_name(DISP_USER_ROLE_RESOURCE_MANAGER)
-      return current_role.name if current_role
+#    elsif  current_user && current_user.is_resource_manager?
+#      current_role=Role.find_by_name(DISP_USER_ROLE_RESOURCE_MANAGER)
+#      return current_role.name if current_role
     end
   end
 

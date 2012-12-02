@@ -1,5 +1,5 @@
 <div class="CenterNav">
-  <h2 class="b-head">Manage Approve Requests</h2>
+  <h2 class="b-head">Resource Car Approval List</h2>
   <div id="div_ajax" >
     <%if @resource_transportation_bookings && !@resource_transportation_bookings.empty?%>
       <%  @resource_transportation_bookings.each do |resource_transportation_booking|%>
@@ -13,17 +13,16 @@
               <p class="head1"><b>Destination :<%= resource_transportation_booking.location%><b/></p>
               <p class="head1"><b>Car Type :<%= resource_transportation_booking.sub_category.name %><b/></p>
               <p class="head1"><b>No of Passengers:<%= resource_transportation_booking.number_of_passengers%><b/></p>
-              <p class="head1"><b>From Date:<%= resource_transportation_booking.requested_from_date %><b/></p>
-              <p class="head1"><b>To Date:<%= resource_transportation_booking.requested_to_date %><b/></p>
+              <p class="head1"><b>From Date:<%= resource_transportation_booking.requested_from_date.strftime(" %d %m %Y") %><b/></p>
+              <p class="head1"><b>To Date:<%= resource_transportation_booking.requested_to_date.strftime(" %d %m %Y") %><b/></p>
             </div>
             <div class="form-sec-row">
-              <span class="in-box btn2 in-btn2">
-                <%= "#{resource_transportation_booking.status}" %>
-              </span>
+              <b><%= "#{resource_transportation_booking.status}" %></b>
             </div>
+
             <div class="form-sec-row">
               <span class="in-box">
-                <% if current_user && (current_user.is_super_admin? || current_user.is_resource_manager?) %>
+                <% if current_user && (current_user.is_department_admin? || current_user.is_super_admin? || current_user.is_resource_manager?) %>
                   <% if resource_transportation_booking.status == "New" %>
                     <%= link_to "Approve Request",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) %>
                   <%else%>
@@ -36,11 +35,9 @@
                   <%end%>
                 <%end%>
 
-
-                <% if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
-
+                <% if current_user && (current_user.is_department_user?) %>
                   <% if (resource_transportation_booking.requester_id == current_user.id) %>
-                    <%= check_box_tag "Checked" %>                    
+                    <%= link_to "Request Details", resource_transportation_booking_path(resource_transportation_booking)%>
                   <%end%>
                 <%end%>
 

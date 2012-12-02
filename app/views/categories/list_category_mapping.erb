@@ -17,9 +17,9 @@
       <%categories = Category.all%>
       <%categories.each do |category|%>
         <% if current_user.is_super_admin? %>
-          <%@category_mapping = CategoriesDepartment.find_all_by_category_id(category.id)%>
+          <%@category_mapping = CategoriesDepartments.find_all_by_category_id(category.id)%>
         <%else%>
-          <%@category_mapping = CategoriesDepartment.find_all_by_category_id(category.id)%>
+          <%@category_mapping = CategoriesDepartments.find_all_by_category_id(category.id)%>
         <%end%>
         <% @category_mapping.each do |category_map|%>
           <%categories = Category.find_all_by_id(category_map.category_id)%>
@@ -56,9 +56,9 @@
       <%end%>
     <%else%>
       <% if current_user.is_super_admin? %>
-        <%category_mapping = CategoriesDepartment.find_by_department_id(@department)%>
+        <%category_mapping = CategoriesDepartments.find_by_department_id(@department)%>
       <%else%>
-        <%category_mapping = CategoriesDepartment.find_by_department_id(@department)%>
+        <%category_mapping = CategoriesDepartments.find_by_department_id(@department)%>
       <%end%>
       <%if category_mapping != nil%>
         <%categories = Category.find_all_by_id(category_mapping.category_id)%>

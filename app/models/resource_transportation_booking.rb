@@ -14,8 +14,8 @@ class ResourceTransportationBooking < ActiveRecord::Base
   
   validates :remarks,:sub_category_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location,:state, :presence => true
   validates_numericality_of :number_of_passengers
-  #validate :validate_end_date_before_start_date
-  #validate :validate_start_date
+  validate :validate_end_date_before_start_date
+  validate :validate_start_date
 
 
   def validate_end_date_before_start_date

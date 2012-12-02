@@ -208,8 +208,6 @@
                       <li>
                         <%=link_to "List Map Category", list_category_mapping_categories_path%>
                       </li>
-
-                      </li>
                       <li>
                         <%= link_to "Create Resources", new_resource_path %>
                       </li>
@@ -250,6 +248,12 @@
                     </li>
                     <%if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
                       <li>
+                        <%=link_to "Create Resource ICT Equipment Booking", new_resource_ict_equipment_booking_path %>
+                      </li>
+                      <li>
+                        <%=link_to "List Resource ICT Equipment Booking", resource_ict_equipment_bookings_path %>
+                      </li>
+                      <li>
                         <%=link_to "Create Resource Room Booking", new_resource_room_booking_path %>
                       </li>
                       <li>
@@ -260,21 +264,22 @@
                       </li>
                       <li>
                         <%=link_to "List Resource Transport Bookings", resource_transportation_bookings_path %>
-                      </li>                    <%end%>
+                      </li>
+                    <%end%>
                   </ul>
                 </div>
               </li>
               <li>
-                <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
+                <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN || current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
                   <%=link_to "Approve Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
                   <div id ="div_approve_requests" style="display:none;">
                     <ul>
                       <% if current_user && current_user.is_resource_manager? %>
                         <% count = ResourceTransportationBooking.find_all_by_status('Approved').count %>
-                        <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
+                        <li><a href="/resource_transportation_bookings/approve_request" title="Approve Request"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
                       <%else%>
                         <% count = ResourceTransportationBooking.find_all_by_status('New').count %>
-                        <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
+                        <li><a href="/resource_transportation_bookings/approve_request" title="Approve Request"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
                       <%end%>
                     </ul>
                   </div>
@@ -313,6 +318,12 @@
                   </li>
                   <li>
                     <%=link_to "List Resource Bookings", resource_bookings_path%>
+                  </li>
+                  <li>
+                    <%=link_to "Create Resource ICT Equipment Booking", new_resource_ict_equipment_booking_path %>
+                  </li>
+                  <li>
+                    <%=link_to "List Resource ICT Equipment Booking", resource_ict_equipment_bookings_path %>
                   </li>
                   <li>
                     <%=link_to "Create Resource Room Booking", new_resource_room_booking_path %>

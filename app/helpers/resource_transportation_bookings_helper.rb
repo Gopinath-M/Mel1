@@ -34,7 +34,7 @@ module ResourceTransportationBookingsHelper
 
     rtb.update_attribute(:status,'Returned')
     agency_store.update_attribute(:booked,false)
-    driver.update_attribute(:already_assigned,false)
+    #driver.update_attribute(:already_assigned,false)
 
     disable_the_sub_category_when_that_sub_category_is_fully_reserved(agency_store.sub_category_id)
   end
@@ -49,17 +49,24 @@ module ResourceTransportationBookingsHelper
     end
   end
 
-  def process_scenario_alternate_driver(id,driver_name)
+  def process_scenario_alternate_driver(id,vehicle_id)
+    
     rtb = ResourceTransportationBooking.find(id)
-    driver = Driver.find_by_name(driver_name)
-    as = AgencyStore.find(rtb.agency_store.resource_id)
-    vehicle_driver = Driver.find(as.driver_id)
+    as = AgencyStore.find(rtb.agency_store_id)
+    as1 = AgencyStore.find_by_resource_id(vehicle_id)
+    
+    #driver = Driver.find_by_name(driver_name)
+    #as = AgencyStore.find(rtb.agency_store.resource_id)
+    #vehicle_driver = Driver.find(as.driver_id)
 
    
-    rtb.update_attributes(:status=>'Processed',:driver_id=>driver.id)
+    rtb.update_attributes(:status=>'Processed', :agency_store_id => as1.id , :driver_id => as1.driver_id )
+    as.update_attribute(:booked,false)
+    as1.update_attribute(:booked,true)
+    
     #vehicle.update_attributes(:alternate_driver_assigned=>true,:alternate_driver_id => driver.id)
-    vehicle_driver.update_attribute(:already_assigned,false)
-    driver.update_attribute(:already_assigned,true)
+    #vehicle_driver.update_attribute(:already_assigned,false)
+    #driver.update_attribute(:already_assigned,true)
 
    # disable_the_sub_category_when_that_sub_category_is_fully_reserved(id)
     
@@ -69,9 +76,9 @@ module ResourceTransportationBookingsHelper
     ag = AgencyStore.find(:all,:conditions=>["booked = false and sub_category_id = ?",id])
     sc = SubCategory.find(id)
     if ag.count > 0      
-      sc.update_attribute(:is_active,true)
+      sc.update_attribute(:is_available,true)
     else
-      sc.update_attribute(:is_active,false)
+      sc.update_attribute(:is_available,false)
     end
   end 
 end

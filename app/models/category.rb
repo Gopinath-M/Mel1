@@ -8,7 +8,8 @@ class Category < ActiveRecord::Base
   scope :active, where(:is_active => true, :deleted => false)
 
   #Association
+  has_many :categories_departments
   has_many :sub_categories
   has_many :departments, :through=>:categories_departments
-  has_many :categories_departments
+  
 end

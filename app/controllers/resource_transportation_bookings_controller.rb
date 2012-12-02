@@ -8,24 +8,35 @@ class ResourceTransportationBookingsController < ApplicationController
 
   def new
     @resource_transportation_booking = ResourceTransportationBooking.new    
-    @category = CategoriesDepartment.where(:category_id=> 7,:department_id=> current_user.departments.first.id)
+    @category = CategoriesDepartments.where( :category_id => 7,:department_id => current_user.role_memberships.where(:default_dept => true).first.department.id)
+    @sub_category = SubCategory.where( :category_id => 7, :is_available => true )
   end
 
   def create
     @resource_transportation_booking = ResourceTransportationBooking.new(params[:resource_transportation_booking])
     if @resource_transportation_booking.valid?
       @resource_transportation_booking.status = "New"
-      @resource_transportation_booking.requester_id = current_user.id      
+      @resource_transportation_booking.requester_id = current_user.id
+      @resource_transportation_booking.department_id = current_user.role_memberships.where(:default_dept => true).first.department.id
+      @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
+      @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
       @resource_transportation_booking.save
       redirect_to resource_transportation_bookings_path
     else
+      @category = CategoriesDepartments.where(:category_id=> 7,:department_id=> current_user.role_memberships.where(:default_dept => true).first.department.id)
+      @sub_category = SubCategory.where( :category_id => 7, :is_available => true)
       render :action=>'new'
     end
   end
 
   # For Approval
   def approve_request
-    get_booking_records
+    #get_booking_records
+    if current_user.is_department_admin?
+      @resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(current_user.departments)
+    else
+      @resource_transportation_bookings = ResourceTransportationBooking.find(:all, :conditions => ["status != 'New'"])
+    end
   end
 
   def show
@@ -38,15 +49,15 @@ class ResourceTransportationBookingsController < ApplicationController
     @requester = User.find("#{@resource_transportation_booking.requester_id}")
   end
 
-  # Changing the status of the Resource Transportation Booking
+  # Resource Transportation Booking Tracking Method
   def change_resource_status
     @resource_transportation_booking = ResourceTransportationBooking.find(params[:id])
 
     if params[:approve_status] == "Approved"
       approve_scenario(params[:id],params[:vehicle][:id])
     elsif params[:approve_status] == "Processed"
-      if params[:driver][:name] && params[:driver][:name] != ''
-        process_scenario_alternate_driver(params[:id],params[:driver][:name])
+      if params[:vehicle][:id] && params[:vehicle][:id] != ''
+        process_scenario_alternate_driver(params[:id],params[:vehicle][:id])
       else
         @resource_transportation_booking.update_attribute(:status,"Processed")
       end
