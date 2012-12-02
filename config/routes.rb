@@ -153,6 +153,7 @@ resources :resource_room_bookings do
       post 'update_status'
       get 'get_resources'
       get 'get_resource_type'
+      get 'get_sub_category'
     end
   end
   resources :resource_managers do
@@ -165,9 +166,11 @@ resources :resource_room_bookings do
       get 'get_categories'
       get 'get_sub_categories'
       get 'get_resource'
+      get 'get_resources'
       post 'update_status'
       get 'get_vehicles'
       get 'get_transport'
+      get 'get_other_sub_categories'
     end
   end
    resources :facilities do
