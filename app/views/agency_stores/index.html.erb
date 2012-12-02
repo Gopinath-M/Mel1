@@ -6,18 +6,39 @@
       <div class="cu-c1"><a href="/agency_stores/new" title="Create Transport Resource"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Agency Store</a></div>
 
     </div>
+    <div class="form-sec-row">
+    <%= label_tag :agency_id, raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
+    <span class="in-box">
+
+        <%= select("list","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+
+    </span>
+  </div>
+  <%#*<div class="form-sec-row">%>
+        <%#*<label class="text">Select Category <span style=color:red>*</span></label>%>
+        <%#*<span class="in-box">%>
+
+            <%#=select("category","allid", options_from_collection_for_select(Category.active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
+
+        <%#*</span>%>
+      <%#*</div>%>
   <%end%>
   <div id="div_ajax" >
     <%if @stores && !@stores.empty?%>
       <%@stores.each do |store|%>
         <div class="manage-user box">
           <div class="manage-user-row box">
-            <div class="mu-c1">
-            </div>
             <div class="mu-c2">
-              <%vehicle = Resource.find_by_id(store.resource_id)%>
+              <%vehicle = Resource.find_all_by_id(store.resource_id)%>
               <%if vehicle%>
-              <p class="head1"> <%=vehicle.resource_type%>-<%=vehicle.resource_no%></p>
+              <p class="head1"> <%=vehicle[0].resource_type.camelize%>-<%=vehicle[0].resource_no%></p>
+              <%end%>
+            </div>
+            <div class="mu-c3">
+              <%if store.booked%>
+              Booked
+              <%else%>
+              Available
               <%end%>
             </div>
           </div>
@@ -25,7 +46,7 @@
         </div>
       <%end%>
     <%else%>
-      No Transport Store Available
+      No Resources Available in selected Agency Store.
     <%end%>
 <%#*<div><%= paginate @units %>
   </div>
