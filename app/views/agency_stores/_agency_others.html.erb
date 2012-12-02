@@ -3,7 +3,7 @@
     <%= label_tag :agency_id, raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
     <span class="in-box">
 
-        <%= f.select(:agency_id,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+        <%= select("other","agency_id",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
 
     </span>
   </div>
@@ -11,7 +11,7 @@
         <label class="text">Select Category <span style=color:red>*</span></label>
         <span class="in-box">
 
-            <%=select("category","id", options_from_collection_for_select(Category.active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
+            <%=select("other_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7").active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
 
         </span>
       </div>
@@ -55,7 +55,7 @@
   <div class="form-sec-row">
     <label class="text">&nbsp;</label>
     <span class="in-box">
-      <%= f.submit :class=>"btn2"%>
+      <%= f.submit :class=>"btn2", :id=>"other_store_submit"%>
     </span>
   </div>
 
