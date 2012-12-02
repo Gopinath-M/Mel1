@@ -25,7 +25,8 @@ class ResourceRoomBookingsController < ApplicationController
     if !params[:id].nil?
       @resource_room_booking = ResourceRoomBooking.find(params[:id])
       @resource = SubCategory.find_by_id(@resource_room_booking.sub_category_id)
-      @facility = Facility.find_by_id(@resource_room_booking.resource_id)
+      @facility = Facility.active.find_all_by_resource_id(@resource_room_booking.resource_id)
+      @details_resource = Resource.active.find_by_id(@resource_room_booking.resource_id)
       @user = User.find_by_id(@resource_room_booking.user_id)
       @dept = Department.find_by_id(default_department)
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id)
@@ -93,7 +94,8 @@ class ResourceRoomBookingsController < ApplicationController
     if !params[:id].nil?
       @resource_room_booking = ResourceRoomBooking.find(params[:id])
       @resource = SubCategory.find_by_id(@resource_room_booking.sub_category_id)
-      @facility = Facility.find_by_id(@resource_room_booking.resource_id)
+      @facility = Facility.active.find_all_by_resource_id(@resource_room_booking.resource_id)
+      @details_resource = Resource.active.find_by_id(@resource_room_booking.resource_id)
       @user = User.find_by_id(@resource_room_booking.user_id)
       @dept = Department.find_by_id(default_department)
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id)
