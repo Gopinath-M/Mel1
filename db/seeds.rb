@@ -96,7 +96,7 @@ end
 
 
 puts "Creating Roles"
-roles = ["Super Admin", "Department Admin", "Department User"]
+roles = ["Super Admin", "Department Admin", "Department User", "Resource Manager"]
 roles.each do | role |
   role = Role.new(:name => role)
   role.save
@@ -150,14 +150,14 @@ if super_admin.save!
   role_membership = RoleMembership.create(:user_id => super_admin.id, :role_id => 1, :status => 'A')
 end
 
-#puts"Creating Sample Resource Manager for agency"
-#resource_manager1 = User.create(:ic_number => "123456781112", :email => 'sathisht@openwavecomp.in', :password => "password", :first_name => "James", :username => "James", :last_name => "Franklin", :status => 'A', :state => 7, :sign_in_count => 1)
-#resource_manager1.activate_user
-#rm_resource_manager1 = RoleMembership.create(:user_id => resource_manager1.id, :department_id => 1, :role_id => 5, :status => 'A', :default_dept=>true)
-#
-#resource_manager2 = User.create(:ic_number => "123456781113", :email => 'sathish@openwavecomp.in', :password => "password", :first_name => "Sheik", :username => "Sheik", :last_name => "Sultan", :status => 'A', :state => 7, :sign_in_count => 1)
-#resource_manager2.activate_user
-#rm_resource_manager2 = RoleMembership.create(:user_id => resource_manager2.id, :department_id => 6, :role_id => 5, :status => 'A', :default_dept=>true)
+puts"Creating Sample Resource Manager for agency"
+resource_manager1 = User.create(:ic_number => "123456780001", :email => 'sathisht@openwavecomp.in', :password => "password", :first_name => "James", :username => "James", :last_name => "Franklin", :status => 'A', :state => 7, :sign_in_count => 1)
+resource_manager1.activate_user
+rm_resource_manager1 = RoleMembership.create(:user_id => resource_manager1.id,:contact_mobile => "9801498404", :department_id => 1, :role_id => 5, :status => 'A', :default_dept=>true)
+
+resource_manager2 = User.create(:ic_number => "123456780002", :contact_mobile => "9801498404", :email => 'sathish@openwavecomp.in', :password => "password", :first_name => "Sheik", :username => "Sheik", :last_name => "Sultan", :status => 'A', :state => 7, :sign_in_count => 1)
+resource_manager2.activate_user
+rm_resource_manager2 = RoleMembership.create(:user_id => resource_manager2.id, :department_id => 3, :role_id => 5, :status => 'A', :default_dept=>true)
 
 puts "Creating Sample Department Admins for the departments JABATAN KETUA MENTERI MELAKA, JABATAN AGAMA ISLAM MELAKA, JABATAN KERJA RAYA MELAKA, JABATAN MUFTI NEGERI MELAKA, JABATAN PERTANIAN NEGERI MELAKA, JABATAN KEBAJIKAN MASYARAKAT"
 department_admin1 = User.create(:ic_number => "123456781111",:contact_mobile => "9801498404", :email => 'sathish.t@openwavecomp.in', :password => "password", :first_name => "Dept1Admin",  :last_name => "JKMM", :username=>'Sathish', :status => 'A', :state => 7, :sign_in_count => 1)
