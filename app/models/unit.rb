@@ -1,5 +1,6 @@
 class Unit < ActiveRecord::Base
   #Association comes here
+  before_validation :strip_whitespace
   has_many :role_memberships
   has_many :users, :through => :role_memberships
 
@@ -13,4 +14,9 @@ class Unit < ActiveRecord::Base
   #Named scopes comes here
   scope :active, where(:is_active => true, :deleted => false)
   validates :department_id ,:presence=>true
+
+   private
+    def strip_whitespace
+    self.name = self.name.strip
+end
 end
