@@ -183,74 +183,74 @@ rm_department_admin6 = RoleMembership.create(:user_id => department_admin6.id, :
 puts "Creating Sample Department Users for JABATAN KETUA MENTERI MELAKA"
 department_user1 = User.create(:ic_number => "123456781110", :email => 'testopen06@gmail.com', :password => "password", :first_name => "Dept1UserFirst", :last_name => "JKMM",:username=>'TestOpen06', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user1.activate_user
-rm_department_user1 = RoleMembership.create(:user_id => department_user1.id, :department_id => 1, :role_id => 4,:status => 'A', :default_dept=>true)
+rm_department_user1 = RoleMembership.create(:user_id => department_user1.id, :department_id => 1, :role_id => 3,:status => 'A', :default_dept=>true)
 department_user2 = User.create(:ic_number => "123456781120", :email => 'abuthahir.a.b@openwavecomp.in', :password => "password", :first_name => "Dept1UserSecond", :last_name => "JKMM",:username=>'Abuthahir', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user2.activate_user
-rm_department_user2 = RoleMembership.create(:user_id => department_user2.id, :department_id => 1, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user2 = RoleMembership.create(:user_id => department_user2.id, :department_id => 1, :role_id => 3, :status => 'A', :default_dept=>true)
 department_user3 = User.create(:ic_number => "123456781130", :email => 'testopen07@gmail.com', :password => "password", :first_name => "Dept1UserThird", :last_name => "JKMM",:username=>'TestOpen07', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user3.activate_user
-rm_department_user3 = RoleMembership.create(:user_id => department_user3.id, :department_id => 1, :role_id => 4,:status => 'A', :default_dept=>true)
+rm_department_user3 = RoleMembership.create(:user_id => department_user3.id, :department_id => 1, :role_id => 3,:status => 'A', :default_dept=>true)
 
 
 puts "Creating Sample Department Users for JABATAN MUFTI NEGERI MELAKA"
 department_user4 = User.create(:ic_number => "123456782210", :email => 'anusudha.r@openwavecomp.in', :password => "password", :first_name => "Dept2Userfirst", :last_name => "JMNM",:username=>'Anu', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user4.activate_user
-rm_department_user4 = RoleMembership.create(:user_id => department_user4.id, :department_id => 2, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user4 = RoleMembership.create(:user_id => department_user4.id, :department_id => 2, :role_id => 3, :status => 'A', :default_dept=>true)
 department_user5 = User.create(:ic_number => "123456782220", :email => 'latha.k@openwavecomp.in', :password => "password", :first_name => "Dept2UserSecond", :last_name => "JMNM",:username=>'Latha', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user5.activate_user
-rm_department_user5 = RoleMembership.create(:user_id => department_user5.id, :department_id => 2, :role_id => 4,  :status => 'A', :default_dept=>true)
+rm_department_user5 = RoleMembership.create(:user_id => department_user5.id, :department_id => 2, :role_id => 3,  :status => 'A', :default_dept=>true)
 department_user6 = User.create(:ic_number => "123456782230", :email => 'sakthivel.m@openwavecomp.in', :password => "password", :first_name => "Dept2UserThird", :last_name => "JMNM",:username=>'Sakthi', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user6.activate_user
-rm_department_user6 = RoleMembership.create(:user_id => department_user6.id, :department_id => 2, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user6 = RoleMembership.create(:user_id => department_user6.id, :department_id => 2, :role_id => 3, :status => 'A', :default_dept=>true)
 
 
 puts "Creating Sample Department Users for JABATAN AGAMA ISLAM MELAKA"
 department_user7 = User.create(:ic_number => "123456783310", :email => 'gopinath.m@openwavecomp.in', :password => "password", :first_name => "Dept3Userfirst", :last_name => "JAIM",:username=>'Gopinath', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user7.activate_user
-rm_department_user7 = RoleMembership.create(:user_id => department_user7.id, :department_id => 3, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user7 = RoleMembership.create(:user_id => department_user7.id, :department_id => 3, :role_id => 3, :status => 'A', :default_dept=>true)
 department_user8 = User.create(:ic_number => "123456783320", :email => 'testopen01@gmail.com', :password => "password", :first_name => "Dept3UserSecond", :last_name => "JAIM",:username=>'TestOpen01', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user8.activate_user
-rm_department_user8 = RoleMembership.create(:user_id => department_user8.id, :department_id => 3, :role_id => 4,  :status => 'A', :default_dept=>true)
+rm_department_user8 = RoleMembership.create(:user_id => department_user8.id, :department_id => 3, :role_id => 3,  :status => 'A', :default_dept=>true)
 department_user9 = User.create(:ic_number => "123456783330", :email => 'testopen02@gmail.com', :password => "password", :first_name => "Dept3UserThird", :last_name => "JAIM",:username=>'TestOpen02', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user9.activate_user
-rm_department_user9 = RoleMembership.create(:user_id => department_user9.id, :department_id => 3, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user9 = RoleMembership.create(:user_id => department_user9.id, :department_id => 3, :role_id => 3, :status => 'A', :default_dept=>true)
 
 
 
 puts "Creating Sample Department Users for JABATAN KERJA RAYA MELAKA"
 department_user10 = User.create(:ic_number => "123456784410", :email => 'testopen03@gmail.com', :password => "password", :first_name => "Dept4Userfirst", :last_name => "JKRM",:username=>'TestOpen03', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user10.activate_user
-rm_department_user10 = RoleMembership.create(:user_id => department_user10.id, :department_id => 4, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user10 = RoleMembership.create(:user_id => department_user10.id, :department_id => 4, :role_id => 3, :status => 'A', :default_dept=>true)
 department_user11 = User.create(:ic_number => "123456784420", :email => 'testopen04@gmail.com', :password => "password", :first_name => "Dept4UserSecond", :last_name => "JKRM",:username=>'TestOpen04', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user11.activate_user
-rm_department_user11 = RoleMembership.create(:user_id => department_user11.id, :department_id => 4, :role_id => 4,  :status => 'A', :default_dept=>true)
+rm_department_user11 = RoleMembership.create(:user_id => department_user11.id, :department_id => 4, :role_id => 3,  :status => 'A', :default_dept=>true)
 department_user12 = User.create(:ic_number => "123456784430", :email => 'testopen05@gmail.com', :password => "password", :first_name => "Dept4UserThird", :last_name => "JKRM",:username=>'TestOpen05', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user12.activate_user
-rm_department_user12 = RoleMembership.create(:user_id => department_user12.id, :department_id => 4, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user12 = RoleMembership.create(:user_id => department_user12.id, :department_id => 4, :role_id => 3, :status => 'A', :default_dept=>true)
 
 
 puts "Creating Sample Department Users for JABATAN PERTANIAN NEGERI MELAKA"
 department_user13 = User.create(:ic_number => "123456785510", :email => 'testopen08@gmail.com', :password => "password", :first_name => "Dept5Userfirst", :last_name => "JPNM",:username=>'TestOpen08', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user13.activate_user
-rm_department_user13 = RoleMembership.create(:user_id => department_user13.id, :department_id => 5, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user13 = RoleMembership.create(:user_id => department_user13.id, :department_id => 5, :role_id => 3, :status => 'A', :default_dept=>true)
 department_user14 = User.create(:ic_number => "123456785520", :email => 'testopen09@gmail.com', :password => "password", :first_name => "Dept5UserSecond", :last_name => "JPNM",:username=>'TestOpen09', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user14.activate_user
-rm_department_user14 = RoleMembership.create(:user_id => department_user14.id, :department_id => 5, :role_id => 4,  :status => 'A', :default_dept=>true)
+rm_department_user14 = RoleMembership.create(:user_id => department_user14.id, :department_id => 5, :role_id => 3,  :status => 'A', :default_dept=>true)
 department_user15 = User.create(:ic_number => "123456785530", :email => 'john.poul01@gmail.com', :password => "password", :first_name => "Dept5UserThird", :last_name => "JPNM",:username=>'JohnPoul01', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user15.activate_user
-rm_department_user15 = RoleMembership.create(:user_id => department_user15.id, :department_id => 5, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user15 = RoleMembership.create(:user_id => department_user15.id, :department_id => 5, :role_id => 3, :status => 'A', :default_dept=>true)
 
 
 puts "Creating Sample Department Users for JABATAN KEBAJIKAN MASYARAKAT"
 department_user16 = User.create(:ic_number => "123456786610", :email => 'john.poul02@gmail.com', :password => "password", :first_name => "Dept6Userfirst", :last_name => "JKM",:username=>'JohnPoul02', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user16.activate_user
-rm_department_user16 = RoleMembership.create(:user_id => department_user16.id, :department_id => 6, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user16 = RoleMembership.create(:user_id => department_user16.id, :department_id => 6, :role_id => 3, :status => 'A', :default_dept=>true)
 department_user17 = User.create(:ic_number => "123456786620", :email => 'john.poul03@gmail.com', :password => "password", :first_name => "Dept6UserSecond", :last_name => "JKM",:username=>'JohnPoul03', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user17.activate_user
-rm_department_user17 = RoleMembership.create(:user_id => department_user17.id, :department_id => 6, :role_id => 4,  :status => 'A', :default_dept=>true)
+rm_department_user17 = RoleMembership.create(:user_id => department_user17.id, :department_id => 6, :role_id => 3,  :status => 'A', :default_dept=>true)
 department_user18 = User.create(:ic_number => "123456786630", :email => 'john.poul04@gmail.com', :password => "password", :first_name => "Dept6UserThird", :last_name => "JKM",:username=>'JohnPoul04', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user18.activate_user
-rm_department_user18 = RoleMembership.create(:user_id => department_user18.id, :department_id => 6, :role_id => 4, :status => 'A', :default_dept=>true)
+rm_department_user18 = RoleMembership.create(:user_id => department_user18.id, :department_id => 6, :role_id => 3, :status => 'A', :default_dept=>true)
 
 
 
