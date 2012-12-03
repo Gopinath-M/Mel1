@@ -1,15 +1,16 @@
 <div class="LCNav-con">
   <div id="maincontent">
     <div id="linkblock" class="leftNav">
+      <%if current_user.sign_in_count>1 || (current_user.sign_in_count==1 && session[:password_changed]=="true")%>
       <div id="control">
         <a id="controlbtn" class="open" href="javascript:void(0);" alt="Side Panel">Side Panel</a>
       </div>
       <div class="profInfo">
         <div class="profInfo-img box">
           <%if current_user%>
-            <%= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag current_user.avatar.url(:profile), :alt=>"Image", :width=>"120", :height=>"120") : (image_tag "img_profile.jpg", :alt=>"Image", :width=>"120", :height=>"120")  %>
+            <%= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag current_user.avatar.url(:profile), :alt=>"Image", :width=>"120", :height=>"120") : (image_tag "no_photo.jpg", :alt=>"Image", :width=>"120", :height=>"120")  %>
           <%else%>
-            <%=image_tag "img_event3.jpg", :alt=>"Image", :width=>"120", :height=>"120"%>
+            <%=image_tag "no_photo.jpg", :alt=>"Image", :width=>"120", :height=>"120"%>
           <%end%>
           <%if current_user.profile_status%>
             <p>Private</p>
@@ -368,4 +369,5 @@
           </ul>
         <%end%>
       </div>
+      <%end%>
     </div>

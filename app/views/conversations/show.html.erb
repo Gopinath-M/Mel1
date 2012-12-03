@@ -1,8 +1,6 @@
 <h2 class="b-head"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chat Room</b></h2><br/><br/>
 <p><h2><b><font color="#369">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=image_tag (@user.login_status ? "Online.ico" : "Offline.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;&nbsp;
-
-<%=@user.username%>&nbsp;&nbsp;&nbsp; <% if current_user.is_super_admin? %>[&nbsp;<%=@user.roles.first.name%>&nbsp;]<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Department Name - <%=@user.departments.first.name%><%end%>
-
+      <%=@user.username%>&nbsp;&nbsp;&nbsp; <% if current_user.is_super_admin? %>[&nbsp;<%=@user.roles.first.name%>&nbsp;]<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Department Name - <%=@user.departments.first.name%><%end%>
     </font></b> </h2></p>
 <!-- CHAT DESIGN -->
 <div class="chat" id="<%=@user.username%>">
@@ -54,7 +52,7 @@
     isScrolling = false;
 
 
-    $("tr:last").css({backgroundColor: 'yellow', fontWeight: 'bolder'});
+    $("tr:last").css({backgroundColor: '#feedeb', fontWeight: 'bolder'});
  
   });
 

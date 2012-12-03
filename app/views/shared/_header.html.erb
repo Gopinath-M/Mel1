@@ -43,10 +43,10 @@
           </ul>
           <div class="profName-con">
             <%if current_user && !current_user.blank?%>
-              <%image_url= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag(current_user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "img_profile.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
+              <%image_url= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag(current_user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
               <%user_title=current_role%> 
             <%else%>
-              <%image_url=image_tag "img_event3.jpg", :alt=>"Image", :width=>"30", :height=>"30"%>
+              <%image_url=image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30"%>
               <%user_title= "Guest User"%>
             <%end%>
             <%=link_to image_url, "javscript:void(0);",:title=>user_title, :class=>"profName-img" , :id=>"img_default_department_user_role"%>

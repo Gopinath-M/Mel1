@@ -32,7 +32,8 @@
           <div class="mu-c2">
             <p class="head1">   
               <b>  <%=image_tag (user.login_status ? "Online.ico" : "Offline.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;&nbsp;
-                <%= link_to image_tag(user.avatar.url(:thumb).to_s) %>&nbsp;&nbsp;
+    <%= !user.avatar.nil? && !user.avatar.url(:thumb).nil? ? (image_tag(user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
+    
                 <font color="#369"><b><%=  link_to "#{user.username}", conversation_path(user.id), :id => user.username , :class => "online_users", :target => '_blank'%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;
               </b><br/>
               <%=user.ic_number%><br/>
