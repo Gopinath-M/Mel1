@@ -1,13 +1,13 @@
+<%if !request.xhr?%>
+  <div class="CenterNav">
+    <h2 class="b-head">Manage Resources</h2>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+    <div class="create-user">
+      <div class="cu-c1"><a href="/resource_room_bookings/new" title="Create Resource Room Booking"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Resource Room Booking</a></div>
 
-<div class="CenterNav">
-  <h2 class="b-head">Manage Resource Bookings</h2>
-  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-  <div class="create-user">
-    <div class="cu-c1">
-      <%=link_to image_tag("../images/add_user.jpg", :width=>"17", :height=>"17", :title=>"Create New User")+"Create New Resource Booking", new_resource_booking_path %>
     </div>
-  </div>
-
+  <%end%>
+  <div id="div_ajax" >
     <%if @resource_bookings && !@resource_bookings.empty?%>
       <%@resource_bookings.each do |resource|%>
         <div class="manage-user box">
@@ -15,17 +15,56 @@
             <div class="mu-c1">
             </div>
             <div class="mu-c2">
-              <p class="head1"><%=resource.name%></p>
+              <% @name = SubCategory.find_by_id(resource.sub_category_id)%>
+              <% @user = User.find_by_id(resource.user_id) %>
+              <p class="head1">Name :<%= @user.first_name%></p>
+              <%#*<p class="head1">Room Name :<%= @name.name%>
+              <%#*<p class="head1">Capacity:<%= resource.room_capacity%>
+              <p class="head1">From Date:<%= resource.requested_from_date%></p>
+              <p class="head1">To Date:<%= resource.requested_to_date%></p>
+            </div>
+            <div class="form-sec-row">
+              <span class="in-box btn2 in-btn2">
+                <%= "#{resource.status}" %>
+              </span>
+            </div>
+
+            <div class="form-sec-row">
+              <% if resource.status == "Processed" && resource.user_id = current_user.id%>
+                <div id="hide_check_box_<%= resource.id %>">
+                  <% if !resource.user_returned_status? %>
+                    <label class="text"> Is Returnable?</label>
+                    <span class="in-box">
+                      <%= check_box_tag "user_returned_status[#{resource.id}]","",false,:onchange=>"toreturnroomresource(this.id,#{resource.id})" %>
+                    </span>
+                  <%end%>
+                </div>
+              <%end%>
+            </div>
+
+            <div id="room_box_<%= resource.id %>" style="display:none;">
+              <font color='#369'> <b><%= "You have successfully returned the Resource" %></b></font>
+            </div>
+
+            <% if resource.status == "Returned" || resource.user_returned_status?%>
+              <font color='#369'> <b><%= "You have successfully returned the Resource " %></b></font>
+            <%end%>
+
+            <div class="form-sec-row">
+              <% if current_user.is_department_admin? || current_user.is_super_admin? %>
+                <span class="in-box">
+                  <%= link_to "See Request Details",resource_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                </span>
+              <%end%>
+            </div>
+
+            <div class="form-sec-row">
+              <span class="in-box">
+                <b><font color="#336699"><%= link_to "Show Request",resource_booking_path(:id => resource.id), :method=>:get%></font></b>
+              </span>
             </div>
             <div class="mu-c3">
-              <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>resource.id.to_i%>
-              <%= link_to image_tag("../images/icon-view.gif",:width=>"14",:height=>"14",:alt=>"img") +"Show", :action=>'show', :id=>resource.id.to_i%>
-              <%#if resource.is_active %>
-                <%#= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_resources_path(:id=>resource.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this resource?', :method=>:post, :title=>"Deactive" %>
-              <%#else%>
-                <%#= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_resources_path(:id=>resource.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this resource?', :method=>:post, :title=>"Activate"%>
-              <%#end%>
-
+              <%= hidden_field_tag(:id, resource.id) %>
             </div>
           </div>
           <div class="clear"></div>
@@ -35,3 +74,4 @@
       No Resources Available
     <%end%>
   </div>
+</div>
