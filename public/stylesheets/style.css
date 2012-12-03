@@ -132,7 +132,7 @@
 .leftNav-links li ul{ margin-right:0;}
 .leftNav-links li li{background: url(../images/sep_leftnav1.png) repeat-x 0 0; padding-top:1px; padding-bottom:0px;}
 .leftNav-links li li a{ padding-left:20px;background:#FEF9F8 url(../images/bullet3.jpg) no-repeat 10px 10px;}
-.CenterNav{ float:left; min-width:495px; padding:10px 30px 85px; min-height:600px; max-width:675px;}
+.CenterNav{ float:left; min-width:495px; padding:10px 30px 120px; min-height:600px; max-width:675px;}
 .wallPost-con{ margin-bottom:10px;}
 .wallPost-con .selectRole{ float:left; padding:0px 10px; background-color:#FEC2C0;}
 .wallPost-con .selectRole ul{ margin:4px 0;}
