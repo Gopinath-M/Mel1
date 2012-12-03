@@ -239,7 +239,7 @@
 .form-sec-row span.in-box{ float:left; width:60%;}
 .form-sec-row span.in-box input[type="text"],.form-sec-row span.in-box input[type="password"]{ width:81%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
 .form-sec-row span.in-box select{ width:85%; padding:5px; border:1px solid #96a6c5}
-.form-sec-row span.in-box textarea{ width:81%; padding:5px; border:1px solid #96a6c5: font-size:13px;}
+.form-sec-row span.in-box textarea{ width:81%; padding:5px; border:1px solid #96a6c5; font-size:13px;}
 .passfiled{ width:80%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
 
 #pr-time{ margin-bottom:10px !important;}

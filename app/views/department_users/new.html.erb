@@ -107,7 +107,7 @@
         <div class="form-sec-row">
           <%= label_tag :role_id, raw("Role"), :class=>"text" %>
           <span class="in-box">
-            <%= select("role", "id", Role.where("name != 'Super Admin' && name != 'Department Admin'" && name != 'Resource Manager').collect {|role| [role.name, role.id]},:prompt=>"SELECT A ROLE") %>
+            <%= select("role", "id", Role.where("name != 'Super Admin' && name != 'Department Admin' && name != 'Resource Manager'").collect {|role| [role.name, role.id]},:prompt=>"SELECT A ROLE") %>
           </span>
         </div>
         <div class="form-sec-row">
