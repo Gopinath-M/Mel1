@@ -245,14 +245,14 @@
           <label class="text">&nbsp;</label>
           <span class="in-box">
             <% if @resource_transportation_booking.status == "New" %>
-              <%= link_to "Back", :back, :class=>"btn2"%>
-              <%= submit_tag "Submit", :class=>"btn2",:onclick=>'return validate_request_approval_form();' %>
+              <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+              <%= submit_tag "Submit", :class=>"btn1",:onclick=>'return validate_request_approval_form();' %>
             <% elsif @resource_transportation_booking.status == "Approved" %>
-              <%= link_to "Back", :back, :class=>"btn2"%>
-              <%= submit_tag "Submit", :class=>"btn2",:onclick=>'return validate_request_approval_form();' %>
+              <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+              <%= submit_tag "Submit", :class=>"btn1",:onclick=>'return validate_request_approval_form();' %>
             <% elsif @resource_transportation_booking.status == "Processed" %>
-              <%= link_to "Back", :back, :class=>"btn2"%>
-              <%= submit_tag "Return Request", :class=>"btn2",:onclick=>'return validate_request_approval_form();' %>
+              <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+              <%= submit_tag "Return Request", :class=>"btn1",:onclick=>'return validate_request_approval_form();' %>
             <%end%>
           </span>
         </div>
