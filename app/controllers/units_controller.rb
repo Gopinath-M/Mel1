@@ -28,7 +28,7 @@ class UnitsController < ApplicationController
     if @unit.save
       flash[:notice] = "Unit #{@unit.name} has been successfully created"
       department_id= !params[:unit][:department_id].blank? || !params[:unit][:department_id].nil? ?  params[:unit][:department_id] : nil
-      redirect_to(units_path(:department_id=>department_id), :notice => "Unit #{@unit.name} has been successfully created.")
+      redirect_to(units_path,:notice => "Unit #{@unit.name} has been successfully created.")
     else
       render :action => 'new'
     end
@@ -58,7 +58,8 @@ class UnitsController < ApplicationController
 
   def destroy
     @unit = Unit.find(params[:id])
-    @unit.deleted = true
+    @unit.delete
+    redirect_to(units_path, :notice => 'Unit has been Deleted.')
     if @unit.save
       department_id= !params[:department_id].blank? || !params[:department_id].nil? ?  params[:department_id] : nil
       redirect_to(units_path(:department_id=>department_id), :notice => 'Unit has been Deleted.')

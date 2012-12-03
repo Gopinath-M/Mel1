@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :ic_number , :if=>Proc.new {|u| !u.ic_number.blank?}
   validates_numericality_of :ic_number, :if=>Proc.new {|u| !u.ic_number.blank?}
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>Proc.new {|u| !u.email.blank?}
+  validates_format_of :contact_mobile, :with=>/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
   #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}
   #  attr_accessor :agency
   #  validates :agency,  :presence => true, :if=>Proc.new{|u| u.id!=1}
