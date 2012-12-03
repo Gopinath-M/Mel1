@@ -72,10 +72,18 @@ class ResourceRoomBookingsController < ApplicationController
   end
 
   def list_resource_booking
-    if current_user.is_department_admin?
-      @booking = ResourceRoomBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(5)
-    else
+    if current_user.is_resource_manager?
       @booking = ResourceRoomBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
+    else
+      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+      @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
+      if @approve.present?
+        @booking = ResourceRoomBooking.find_all_by_department_id(@approve.department_id)
+      elsif @approver_second.present?
+        @booking = ResourceRoomBooking.where(:department_id => @approver_second.department_id)
+      else
+        @booking = ResourceRoomBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(5)
+      end
     end
   end
 
