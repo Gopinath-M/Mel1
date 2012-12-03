@@ -1,0 +1,31 @@
+<div class="CenterNav">
+  <h2 class="b-head">List Resource ICT Equipment</h2>
+  <div id="div_ajax" >
+    <%if @resource_ict_equipment_bookings && !@resource_ict_equipment_bookings.empty?%>
+      <%  @resource_ict_equipment_bookings.each do |resource_ict_equipment_booking|%>
+        <div class="manage-user box">
+          <div id="user_box_<%= resource_ict_equipment_booking.id %>" class="manage-user-row box">
+            <div class="mu-c1">
+            </div>
+            <div class="mu-c2">
+              <p class="head1"><b>Purpose: <%= resource_ict_equipment_booking.purpose%></b></p>
+              <p class="head1"><b>Destination: <%= resource_ict_equipment_booking.location%></b></p>
+              <p class="head1"><b>Equipment Category Type: <%= resource_ict_equipment_booking.equipment_category.name %></b></p>
+              <p class="head1"><b>Requested From Date: <%= resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S ") %></b></p>
+              <p class="head1"><b>Requested To Date: <%= resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %I:%M:%S ") %></b></p>
+              <p class="head1"><b>Officer Needed: <%= resource_ict_equipment_booking.need_officer ? "Yes" : "No"%></b></p>
+              <p class="head1"><b>Meeting To Date: <%= resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %I:%M:%S ") %></b></p>
+              <p class="head1"><b>Meeting From Date: <%= resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S ") %></b></p>
+              <p class="head1"><b>Notes: <%= resource_ict_equipment_booking.notes %></b></p>
+              <p class="head1"><b>Status: <%= resource_ict_equipment_booking.status %></b></p>
+            </div>
+          </div>
+        </div>
+      <%end%>
+      <div class="manage-user-rows box"><br/><br/>
+      </div>
+    <%else%>
+      No Resource Booking done
+    <%end%>
+  </div>
+</div>
