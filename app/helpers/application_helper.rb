@@ -23,9 +23,6 @@ module ApplicationHelper
     return user_count
   end
 
-  #  def default_department
-  #    default_department ||= current_user.role_memberships.first.default_dept
-  #  end
   def default_department
     default_department ||= current_user.role_memberships.where(:default_dept => true).first.department.id
   end
@@ -42,6 +39,10 @@ module ApplicationHelper
 #      current_role=Role.find_by_name(DISP_USER_ROLE_RESOURCE_MANAGER)
 #      return current_role.name if current_role
     end
+  end
+
+  def except_current_user
+    @users = current_department.users - [current_user] #all users except current_user
   end
 
 end

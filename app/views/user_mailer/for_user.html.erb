@@ -15,14 +15,16 @@
         <td><table width="500" border="0" cellspacing="0" cellpadding="0" align="center">
             <tr>
               <td>
-                <h1 style=" font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#0e385f; margin:0; padding:10px 0 0px 0;">Hi <%= @user.username %>!,</h1><br/>
-                <p style=" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333;margin:0; padding:10px 0;">Welcome to Intranet Portal Melaka State Government. <br/> <br/>
-                  <b><%= @resource_user.username%></b> has been sent request to join for chat. <br/> <br/>
+                <h1 style=" font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#0e385f; margin:0; padding:10px 0 0px 0;">Hi <%= @user.full_name%>!,</h1>
+                <p style=" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333;margin:0; padding:10px 0;">Welcome to Intranet Portal Melaka State Government. <br/>
+                  Now you can login into the portal using the following url. <br/>
                   click <%=link_to "Here", "#{MAIN_SITE_URL}/users/login "%> to login into your account.
                 </p>
               </td>
             </tr>
-      
+            <tr>
+              <td style=" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333; border-bottom:1px solid #CCC;border-top:1px solid #CCC; padding:10px 0;"><strong>IC Number:</strong><%=@user.ic_number%> and <strong>Password:</strong> <%=@password%></td>
+            </tr>
             <tr>
               <td>&nbsp;</td>
             </tr>
