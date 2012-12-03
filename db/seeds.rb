@@ -144,7 +144,7 @@ department6 = Department.create(:name=>'Jabatan Kebajikan Masyarakat',:address=>
 
 
 puts "Creating Super Admin"
-super_admin = User.create(:ic_number => "123456781234", :email => 'manivannan.s@openwavecomp.in', :password => "password", :first_name => "openwave", :last_name => "superadmin",:username=>'Mani', :status => 'A', :state => 7, :sign_in_count => 1)
+super_admin = User.create(:ic_number => "123456781234",:contact_mobile => "9801498404", :email => 'manivannan.s@openwavecomp.in', :password => "password", :first_name => "openwave", :last_name => "superadmin",:username=>'Mani', :status => 'A', :state => 7, :sign_in_count => 1)
 super_admin.activate_user
 if super_admin.save!
   role_membership = RoleMembership.create(:user_id => super_admin.id, :role_id => 1, :status => 'A')
