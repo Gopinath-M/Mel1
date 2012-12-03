@@ -1,0 +1,79 @@
+<div class="clearfix">&nbsp;</div>
+<div class="CenterNav">
+  <% if current_user.is_department_admin? %>
+    <h2 class="b-head">Resource Approval List</h2>
+  <%else%>
+    <h2 class="b-head">Resource Process List</h2>
+  <%end%>
+  <div id="div_ajax" >
+    <%if @booking && !@booking.empty?%>
+      <%@booking.each do |resource|%>
+        <div class="manage-user box">
+          <div class="manage-user-row box">
+            <div class="mu-c1">
+            </div>
+            <div class="mu-c2">
+              <% @name = SubCategory.find_by_id(resource.sub_category_id)%>
+              <% @user = User.find_by_id(resource.user_id) %>
+              <p class="head1">Name :<%= @user.first_name%></p>
+              <p class="head1">Room Name :<%= @name.name%></p>
+              <p class="head1">Capacity:<%= resource.room_capacity%></p>
+              <p class="head1">From Date:<%= resource.requested_from_date%></p>
+              <p class="head1">To Date:<%= resource.requested_to_date%></p>
+            </div>
+            <div class="form-sec-row">
+              <span class="in-box btn2 in-btn2">
+              <%= "#{resource.status}" %>
+              </span>
+            </div>
+
+            <div class="form-sec-row">
+              <% if @approve.present?  && @approve.user_id == current_user.id && resource.created_at > (Time.now-24.hours) %>
+                <span class="in-box">
+                  <% if resource.status == "New" %>
+                    <%= link_to "Approve Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                  <%end%>
+                </span>
+              <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && resource.created_at < (Time.now-48.hours)%>
+                <span class="in-box">
+                  <% if resource.status == "New" %>
+                    <%= link_to "Approve Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                  <%end%>
+                </span>
+              <%elsif current_user.is_department_admin? &&  !@approve.present? %>
+                <span class="in-box">
+                  <% if resource.status == "New" %>
+                    <%= link_to "Approve Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                  <%end%>
+                </span>
+              <%elsif current_user.is_resource_manager?%>
+                <span class="in-box">
+                  <% if resource.status == "Approved" %>
+                    <%= link_to "Process Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                  <%elsif resource.user_returned_status? && resource.status != "Returned" && resource.status != "Declined" %>
+                    <%= link_to "Return Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                  <%end%>
+                </span>
+              <%end%>
+            </div>
+
+
+            <div class="form-sec-row">
+              <span class="in-box">
+               <b><font color="#336699"><%= link_to "Show Request",resource_room_booking_path(:id => resource.id), :method=>:get%></font></b>
+              </span>
+            </div>
+            <div class="mu-c3">
+              <%= hidden_field_tag(:id, resource.id) %>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      <%end%>
+  <%#= paginate @booking %>
+    <%else%>
+      No Resources Available
+    <%end%>
+  </div>
+
+</div>

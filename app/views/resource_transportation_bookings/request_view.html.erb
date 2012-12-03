@@ -165,11 +165,11 @@
                         <% a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
                         <% if !a.blank? %>
                           <td>
-                            <%= hidden_field_tag :vehicle_id,'1' %>
+                            <%= hidden_field_tag :alternate_vehicle_id,'1' %>
                             <%= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
                           </td>
                         <%else%>
-                          <td>&nbsp;<b><%= 'No Vehicles Available' %> <%= hidden_field_tag :vehicle_id,'0' %></b></td>
+                          <td>&nbsp;<b><%= 'No Vehicles Available' %> <%= hidden_field_tag :alternate_vehicle_id,'0' %></b></td>
 
 
                         <%end%>

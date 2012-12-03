@@ -259,7 +259,9 @@
                   </div>
                 </li>
                 <li>
-                  <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN || current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
+
+                  <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN  || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
+
                     <%=link_to "Approve Booking Requests", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
                     <div id ="div_approve_requests" style="display:none;">
                       <ul>
@@ -282,6 +284,7 @@
                         <%end%>
                       </ul>
                     </div>
+
                   <li>
                     <%=link_to "Assign Approver", "javascript:void(0);" , :title=>"Assign Approver" ,:class=>"", :id=>"lnk_assign_approver"%>
                     <div id ="div_assign_approver" style="display:none;">
@@ -296,6 +299,7 @@
                     </div>
                   </li>
                 <%end%>
+
                 </li>
                 <li>
                   <%=link_to "Content Management", "javascript:void(0);" , :title=>"Content Managemnt" ,:class=>"", :id=>"lnk_cms"%>
@@ -354,6 +358,7 @@
                   </div>
                 </li>
               <%end%>
+<<<<<<< HEAD
 
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_USER)%>
                 <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
@@ -368,6 +373,7 @@
                   </li>
                 <%end%>
               <%end%>
+
 
               <% if current_user && current_user.is_resource_manager? %>
                 <li>
