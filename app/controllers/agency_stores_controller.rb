@@ -36,16 +36,19 @@ class AgencyStoresController < ApplicationController
     @store.agency_id = params[:room][:agency_id]
     @store.sub_category_id = params[:room_agency][:sub_category_id]
     @store.resource_id = params[:room_agency][:resource_id]
+    @store.save
     elsif params[:transport_agency]
     @store.agency_id = params[:transport][:agency_id]
     @store.sub_category_id = params[:transport_agency][:sub_category_id]
     @store.resource_id = params[:transport_agency][:resource_id]
+    @store.save
     SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
     elsif params[:other_agency]
     @store.agency_id = params[:other][:agency_id]
     @store.category_id = params[:other_category][:id]
     @store.sub_category_id = params[:other_agency][:sub_category_id]
     @store.resource_id = params[:other_agency][:resource_id]
+    @store.save
     end
     #    store.categories_id = params[:categories_department][:id]
     #    store.sub_categories_id = params[:sub_categories][:id]
@@ -55,7 +58,7 @@ class AgencyStoresController < ApplicationController
     #    store.serial_no =  params[:text1]
     #    end
     #    store.agency_id = params[:transfer_from][:agency]
-    @store.save
+    #    @store.save
     
     if @store.valid?
       redirect_to :controller=>'agency_stores', :action=>'index'
