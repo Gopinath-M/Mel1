@@ -1,0 +1,27 @@
+<%if !request.xhr?%>
+  <div class="CenterNav">
+    <h2 class="b-head">List of Approvers</h2>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+    <div class="create-user">
+      <div class="cu-c1"><a href="/resources/resource_approver" title="Create Approvers"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Approvers</a></div>
+
+    </div>
+  <%end%>
+  <div id="div_ajax" >
+    <%if @approve && !@approve.empty?%>
+      <%@approve.each do |approve|%>
+          <div class="manage-user-row box">
+            <div class="mu-c1">
+            </div>
+            <div class="mu-c2">
+              <% @user = User.find_by_id(approve.user_id) %>
+              <p class="head1"><%= @user.first_name%></p>
+            </div>
+          </div>
+        <%end%>
+        <%#= paginate @approve %>
+      <%else%>
+        No Approvers
+      <%end%>
+  </div>
+</div>
