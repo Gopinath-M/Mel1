@@ -151,9 +151,9 @@ if super_admin.save!
 end
 
 puts"Creating Sample Resource Manager for agency"
-resource_manager1 = User.create(:ic_number => "123456780001", :email => 'sathisht@openwavecomp.in', :password => "password", :first_name => "James", :username => "James", :last_name => "Franklin", :status => 'A', :state => 7, :sign_in_count => 1)
+resource_manager1 = User.create(:ic_number => "123456780001", :contact_mobile => "9801498404",:email => 'sathisht@openwavecomp.in', :password => "password", :first_name => "James", :username => "James", :last_name => "Franklin", :status => 'A', :state => 7, :sign_in_count => 1)
 resource_manager1.activate_user
-rm_resource_manager1 = RoleMembership.create(:user_id => resource_manager1.id,:contact_mobile => "9801498404", :department_id => 1, :role_id => 5, :status => 'A', :default_dept=>true)
+rm_resource_manager1 = RoleMembership.create(:user_id => resource_manager1.id, :department_id => 1, :role_id => 5, :status => 'A', :default_dept=>true)
 
 resource_manager2 = User.create(:ic_number => "123456780002", :contact_mobile => "9801498404", :email => 'sathish@openwavecomp.in', :password => "password", :first_name => "Sheik", :username => "Sheik", :last_name => "Sultan", :status => 'A', :state => 7, :sign_in_count => 1)
 resource_manager2.activate_user
