@@ -9,9 +9,9 @@
           <%if !@resource_booking.new_record?%>
             <%resource=@resource if @resource && !@resource.blank?%>
             <%category=resource.category%>
-            <%=select("category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7").active.all, 'id','name',category.id),{:prompt=>"SELECT A CATEGORY"})%>
+            <%=select("other_booking_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7").active.all, 'id','name',category.id),{:prompt=>"SELECT A CATEGORY"})%>
           <%else%>
-            <%=select("category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7").active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
+            <%=select("other_booking_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7").active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
           <%end%>
         </span>
       </div>
@@ -21,9 +21,9 @@
           <%if !@resource_booking.new_record?%>
             <%resource=@resource if @resource && !@resource.blank?%>
             <%sub_category=resource.sub_category%>
-            <%=select("sub_category","id", options_from_collection_for_select(SubCategory.where("id != 6 and id != 7").active.all, 'id','name',sub_category.id),{:prompt=>"SELECT A SUB CATEGORY"})%>
+            <%=select("other_booking_sub_category","id", options_from_collection_for_select(SubCategory.where("id != 6 and id != 7").active.all, 'id','name',sub_category.id),{:prompt=>"SELECT A SUB CATEGORY"})%>
           <%else%>
-            <%=select("sub_category","id", options_from_collection_for_select(SubCategory.all, 'id','name'),{:prompt=>"SELECT A SUB CATEGORY"})%>
+            <%=select("other_booking_sub_category","id", options_from_collection_for_select(SubCategory.all, 'id','name'),{:prompt=>"SELECT A SUB CATEGORY"})%>
           <%end%>
         </span>
       </div>
