@@ -34,10 +34,10 @@ class UsersController < ApplicationController
       department_id = params[:department_id].to_i
       if department_id != 0
         department = Department.find_by_id(params[:department_id])
-        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10).order('created_at DESC')
       else
         if !params[:unit_id].nil?
-          @users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10)
+          @users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
         else
           default_department ||= current_user.role_memberships.first.department_id
           @dept = Department.find_by_id(default_department)
@@ -48,12 +48,12 @@ class UsersController < ApplicationController
       department_id = params[:department_id].to_i
       if department_id != 0
         department = Department.find_by_id(params[:department_id])
-        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10).order('created_at DESC')
       else
         if !params[:unit_id].nil?
-          @users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10)
+          @users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
         else
-          @users=User.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10)
+          @users=User.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10).order('created_at DESC')
         end
         @department_id=params[:department_id]
       end
