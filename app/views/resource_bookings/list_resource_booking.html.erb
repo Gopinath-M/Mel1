@@ -1,9 +1,9 @@
 <div class="clearfix">&nbsp;</div>
 <div class="CenterNav">
   <% if current_user.is_department_admin? %>
-    <h2 class="b-head">Resource Room Approval List</h2>
+    <h2 class="b-head">Resource Approval List</h2>
   <%else%>
-    <h2 class="b-head">Resource Room Process List</h2>
+    <h2 class="b-head">Resource Process List</h2>
   <%end%>
   <div id="div_ajax" >
     <%if @booking && !@booking.empty?%>

@@ -16,7 +16,15 @@ Melaka::Application.routes.draw do
     get "/privacy_setting", :to => "registrations#privacy_setting", :as=> :privacy_setting_registrations
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
-  resources :resource_bookings
+  resources :resource_bookings do
+     collection do
+       get 'get_other_sub_categories'
+       get 'get_resources'
+       get 'resource_booking_approval'
+       put 'update_resource_booking_resource_bookings'
+     end
+  end
+
   resources :resource_ict_equipment_bookings
   resources :resource_transportation_bookings do
     collection do
@@ -145,18 +153,17 @@ resources :resource_room_bookings do
   resources :vendors do
     collection do
       post 'update_status'
-      get 'vendor_store'
-      post 'vendor_store'
-      get 'get_sub_categories'
-      get 'get_resources'
-      get 'vendorstore_list'
     end
   end
   resources :resources do
     collection do
       get 'get_subcategory'
       post 'update_status'
+      get 'list_approver'
       get 'get_resources'
+      post 'update_resource_approver'
+      get 'get_approvers'
+      get 'resource_approver'
       get 'get_resource_type'
       get 'get_sub_category'
     end

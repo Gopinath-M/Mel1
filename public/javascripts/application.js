@@ -123,7 +123,7 @@ $().ready(function(){
             }
         })
     });
-/* LEFT NAVIGATION HIDE & SHOW STARTS HERE*/
+    /* LEFT NAVIGATION HIDE & SHOW STARTS HERE*/
     $("#lnk_department").live('click',function(){
         if ($("#lnk_department").hasClass("selected"))
         {
@@ -139,6 +139,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -154,6 +155,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         $('#div_department').toggle("fast");
     });
@@ -172,6 +174,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -187,6 +190,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         $('#div_admin').toggle("fast");
     });
@@ -205,6 +209,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -220,6 +225,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
 
         $('#div_user').toggle("fast");
@@ -239,6 +245,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -254,6 +261,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
 
         $('#div_cms').toggle("fast");
@@ -273,6 +281,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -288,6 +297,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         $('#div_agency').toggle("fast");
     });
@@ -306,6 +316,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -321,6 +332,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         $('#div_unit').toggle("fast");
     });
@@ -339,6 +351,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -354,6 +367,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         $('#div_resources').toggle("fast");
     });
@@ -372,6 +386,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -387,6 +402,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         $('#div_resource_bookings').toggle("fast");
     });
@@ -405,6 +421,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -420,6 +437,7 @@ $().ready(function(){
             $('#div_facility').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
 
         $('#div_vendors').toggle("fast");
@@ -439,6 +457,7 @@ $().ready(function(){
             $('#div_vendors').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -454,6 +473,7 @@ $().ready(function(){
             $('#div_vendors').hide();
             $('#div_category').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
 
         $('#div_facility').toggle("fast");
@@ -472,6 +492,7 @@ $().ready(function(){
             $('#div_user').hide();
             $('#div_vendors').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -486,6 +507,7 @@ $().ready(function(){
             $('#div_user').hide();
             $('#div_vendors').hide();
             $('#div_approve_requests').hide();
+             $('#div_assign_approver').hide();
         }
 
         $('#div_category').toggle("fast");
@@ -504,6 +526,7 @@ $().ready(function(){
             $('#div_user').hide();
             $('#div_vendors').hide();
             $('#div_category').hide();
+             $('#div_assign_approver').hide();
         }
         else
         {
@@ -518,9 +541,44 @@ $().ready(function(){
             $('#div_user').hide();
             $('#div_vendors').hide();
             $('#div_category').hide();
+            $('#div_assign_approver').hide();
         }
 
         $('#div_approve_requests').toggle("fast");
+    });
+        $("#lnk_assign_approver").live('click',function(){
+        if ($("#lnk_assign_approver").hasClass("selected"))
+        {
+            $("#lnk_assign_approver").removeClass("selected")
+            $('#div_unit').hide();
+            $('#div_cms').hide();
+            $('#div_department').hide();
+            $('#div_admin').hide();
+            $('#div_agency').hide();
+            $('#div_resources').hide();
+            $('#div_resource_bookings').hide();
+            $('#div_user').hide();
+            $('#div_vendors').hide();
+            $('#div_category').hide();
+            $('#div_approve_requests').hide();
+        }
+        else
+        {
+            $("#lnk_assign_approver").addClass("selected")
+            $('#div_unit').hide();
+            $('#div_cms').hide();
+            $('#div_department').hide();
+            $('#div_admin').hide();
+            $('#div_agency').hide();
+            $('#div_resources').hide();
+            $('#div_resource_bookings').hide();
+            $('#div_user').hide();
+            $('#div_vendors').hide();
+            $('#div_category').hide();
+            $('#div_approve_requests').hide();
+        }
+
+        $('#div_assign_approver').toggle("fast");
     });
     /* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/
     
@@ -1680,7 +1738,7 @@ $().ready(function(){
         }
         else
         {
-            alert("Message sent...");
+//            alert("Message sent...");
             $.ajax({
                 complete: function(){
                     $('#chat-msg').load('/conversations/'+jsUserID);
@@ -1967,7 +2025,7 @@ $().ready(function(){
     })
 
 
- $("#other_category_id").live("change", function(){
+    $("#other_category_id").live("change", function(){
         if($("#other_category_id").val()!="")
         {
             $.get("/agency_stores/get_other_sub_categories",{
@@ -2014,7 +2072,54 @@ $().ready(function(){
         }
     })
     /*Agenct store drop box ends*/
+/* resource booking for others */
+    $("#other_booking_category_id").live("change", function(){
+        if($("#other_booking_category_id").val()!="")
+        {
+            $.get("/resource_bookings/get_other_sub_categories",{
+                category_id : $("#other_booking_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#other_booking_sub_category_id').find('option').remove().end()
+                    $('#other_booking_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#other_booking_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#other_booking_sub_category_id').find('option').remove().end()
+            $('#other_booking_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+    })
 
+
+    $("#other_booking_sub_category_id").live("change", function(){
+        if($("#other_booking_sub_category_id").val()!="")
+        {
+            $.get("/resource_bookings/get_resources",{
+                sub_category_id : $("#other_booking_sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_booking_resource_id').find('option').remove().end()
+                    $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                    }
+                }
+            })
+        }
+        else{
+            $('#resource_booking_resource_id').find('option').remove().end()
+            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+    /* resource booking others ends */
     $("#transport_category_id").live("change", function(){
         if($("#transport_category_id").val()!="")
         {
@@ -2046,8 +2151,8 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
-/* agency list page */
- $("#list_agency").live("change", function(){
+    /* agency list page */
+    $("#list_agency").live("change", function(){
         if($("#list_agency").val()!="")
         {
             $.get("/agency_stores/get_resources",{
@@ -2069,7 +2174,7 @@ $().ready(function(){
             $('#category_allid').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
         }
     })
- $("#list_agency").live("change",function(){
+    $("#list_agency").live("change",function(){
         $.get("/agency_stores/",{
             resource_id: $("#list_agency").val()
         }, function(data){
@@ -2078,7 +2183,7 @@ $().ready(function(){
         });
     })
 
-/* agency list page ends */
+    /* agency list page ends */
     /* Agency Store validation Starts */
     $("#other_store_submit").live("click",function(){
         if ($("#other_agency_id").val() == ""){
@@ -2140,6 +2245,102 @@ $().ready(function(){
         }
     });
 /* Agency Store validation ends */
+
+    /* Approver Starts*/
+    $("#approver1_id").live("change", function(){
+        if($("#approver1_id").val()!="")
+        {
+            $.get("/resources/get_approvers",{
+                approver_id : $("#approver1_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#approver2_id').find('option').remove().end()
+                    $('#approver2_id').append($("<option></option>").attr("value","").text("SELECT A USER"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#approver2_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#approver2_id').find('option').remove().end()
+            $('#approver2_id').append($("<option></option>").attr("value","").text("SELECT A USER"));
+        }
+    })
+
+    /* Approver Validation*/
+
+    $("#approver_submit").live("click",function(){
+        if ($("#approver1_id").val() == ""){
+            alert("Select First Approver");
+            return false;
+        }
+        else if ($("#approver2_id").val() == ""){
+            alert("Select Second Approver");
+            return false;
+        }
+    })
+
+    /* Resources validation Starts*/
+    $("#resource_room_submit").live("click",function(){
+        if ($("#resource_sub_category_id").val() == ""){
+            alert("Select Sub Category");
+            return false;
+        }
+        else if ($("#resource_resource_no").val() == ""){
+            alert("Enter Ext No");
+            return false;
+        }
+        else if ($("#resource_location").val() == ""){
+            alert("Enter Location");
+            return false;
+        }
+        else if ($("#resource_capacity").val() == ""){
+            alert("Enter Capacity");
+            return false;
+        }
+    })
+
+    $("#resource_transport_submit").live("click",function(){
+        if ($("#resource_transport_sub_category_id").val() == ""){
+            alert("Select Sub Category");
+            return false;
+        }
+//        else if ($("#resource_resource_no").val() == ""){
+//            alert("Enter Registration No");
+//            return false;
+//        }
+        else if ($("#resource_vehicle_model").val() == ""){
+            alert("Enter Vehicle Model");
+            return false;
+        }
+//        else if ($("#resource_capacity").val() == ""){
+//            alert("Enter No of Passengers");
+//            return false;
+//        }
+    })
+
+    $("#resource_other_submit").live("click",function(){
+        if ($("#resource_other_category_id").val() == ""){
+            alert("Select Category");
+            return false;
+        }
+        else if ($("#resource_other_sub_category_id").val() == ""){
+            alert("Select Sub Category");
+            return false;
+        }
+//        else if ($("#resource_resource_no").val() == ""){
+//            alert("Enter Name");
+//            return false;
+//        }
+        else if ($("#resource_description").val() == ""){
+            alert("Enter Description");
+            return false;
+        }       
+    })
+    /* Resources validation Ends*/
 
 })
 /* resource room booking validation ends */
@@ -2228,7 +2429,7 @@ function toreturnroomresource(chbx_id,room_book_id)
         s = confirm("Do you Want to Return thuis Resource?");
         if (s==true)
         {
-            if($("#"+chbx_panel_id).is(':checked'))
+            if($("#"+chbx_id).is(':checked'))
             {
                 document.getElementById('hide_check_box_'+room_book_id).style.visibility = 'hidden'
                 document.getElementById('room_box_'+room_book_id).style.display='block'

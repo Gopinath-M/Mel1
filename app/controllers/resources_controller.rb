@@ -2,21 +2,21 @@ class ResourcesController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
   before_filter :is_admin, :except=>[:get_resources]
   def index
-     department_id = params[:department_id].to_i # while selecting Please Select returns string params
+    department_id = params[:department_id].to_i # while selecting Please Select returns string params
     if department_id == 0
-    if params[:id].blank? || params[:id].nil?
-      if current_user.is_super_admin?
-        @resources=Resource.order.page(params[:page]).per(10)
+      if params[:id].blank? || params[:id].nil?
+        if current_user.is_super_admin?
+          @resources=Resource.order.page(params[:page]).per(10)
+        else
+          @resources=Resource.find_all_by_department_id(current_department.id)
+        end
       else
-        @resources=Resource.find_all_by_department_id(current_department.id)
+        @resources=Resource.find_all_by_sub_category_id(params[:department_id])
       end
     else
       @resources=Resource.find_all_by_sub_category_id(params[:department_id])
     end
-    else
-      @resources=Resource.find_all_by_sub_category_id(params[:department_id])
-  end
-   if request.xhr?
+    if request.xhr?
       render :layout=>false
     end
   end
@@ -97,6 +97,58 @@ class ResourcesController < ApplicationController
   def get_sub_category
     sub_categories= SubCategory.where("category_id =?",params[:sub_category_id])
     render :json=>[sub_categories] if sub_categories
+  end
+
+  def resource_approver
+    @approve = Approver.new()
+    @dept = Department.find(default_department)
+    @users = @dept.users.where("role_id != ?", 2).page(params[:page]).per(10) if @dept
+    fist_approver = Approver.active.find_all_by_department_id(current_user.departments).first
+    if fist_approver.present?
+      @first = User.find(fist_approver.user_id)
+      second_approver = Approver.active.find_all_by_department_id(current_user.departments).last
+      @second = User.find(second_approver.user_id)
+    end
+  end
+
+  def list_approver
+    if params[:id].blank? || params[:id].nil?
+      if current_user.is_department_admin?
+        @approve = Approver.active.find_all_by_department_id(current_user.departments)
+      end
+    end
+  end
+
+  def update_resource_approver
+    @val = Approver.find_all_by_department_id(params[:department_id]).first
+    @second = Approver.find_all_by_department_id(params[:department_id]).last
+    update = User.find_by_ic_number(params[:approver2][:id])
+    if @val.present? && @second.present?
+      @val.update_attribute(:user_id, params[:approver1][:id])
+      @second.update_attribute(:user_id, update.id)
+      redirect_to(list_approver_resources_path, :notice => 'Approver has been Updated.')
+    else
+      @approve = Approver.create(:is_active => params[:active1][:id])
+      @approve.user_id = params[:approver1][:id]
+      @approve.department_id = params[:department_id]
+      @approve.save
+      @approve = Approver.create(:is_active => params[:active2][:id])
+      if update.present?
+        @approve.user_id = update.id
+        @approve.department_id = params[:department_id]
+        @approve.save
+        redirect_to(list_approver_resources_path, :notice => 'Approver has been Assigned.')
+      else
+        redirect_to(resource_approver_resources_path, :notice => 'You have Selected the Same User as 1st Approver and 2nd Approver')
+      end
+    end
+  end
+
+  def get_approvers
+    @dept = Department.find_by_id(default_department)
+    users = @dept.users.where("user_id != #{params[:approver_id]}")
+    
+    render :json=>[users] if users
   end
 
 end
