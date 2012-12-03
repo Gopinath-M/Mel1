@@ -1316,7 +1316,55 @@ $().ready(function(){
             $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
         }
     })
-    
+    /* drop down others resource booking */
+    $("#category_id").live("change", function(){
+        if($("#category_id").val()!="")
+        {
+            $.get("/sub_categories/get_sub_categories",{
+                category_id : $("#category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#sub_category_id').find('option').remove().end()
+                    $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#sub_category_id').find('option').remove().end()
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+        }
+    })
+
+    $("#sub_category_id").live("change", function(){
+        if($("#sub_category_id").val()!="")
+        {
+            $.get("/resources/get_resources",{
+                sub_category_id : $("#sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#agency_store_resource_id').find('option').remove().end()
+                    $('#agency_store_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#agency_store_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                    }
+                }
+            })
+        }
+        else{
+            $('#sub_category_id').find('option').remove().end()
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+    /* resource booking ends here */
     /*Validation for Category Mapping Starts*/
     $("#user_submit").live("click",function(){
         if (($("#users_agency").val() == "") || ($("#users_agency_id").val() == "")) {
