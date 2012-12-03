@@ -3,6 +3,8 @@ class Agency < ActiveRecord::Base
   has_many :departments
   has_many :resource_managers
   has_one :agency_store
+  before_validation :strip_whitespace
+
   
   #validations comes here
   validates :name,:address,:telephone_number, :presence => true
@@ -14,5 +16,9 @@ class Agency < ActiveRecord::Base
 
   #named Scopes comes here
   scope :active, where(:is_active => true, :deleted => false)
+  private
+    def strip_whitespace
+    self.name = self.name.strip
+end
    
 end

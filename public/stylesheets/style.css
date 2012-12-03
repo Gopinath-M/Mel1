@@ -239,7 +239,7 @@
 .form-sec-row span.in-box{ float:left; width:60%;}
 .form-sec-row span.in-box input[type="text"],.form-sec-row span.in-box input[type="password"]{ width:81%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
 .form-sec-row span.in-box select{ width:85%; padding:5px; border:1px solid #96a6c5}
-.form-sec-row span.in-box textarea{ width:81%; padding:5px; border:1px solid #96a6c5}
+.form-sec-row span.in-box textarea{ width:81%; padding:5px; border:1px solid #96a6c5: font-size:13px;}
 .passfiled{ width:80%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
 
 #pr-time{ margin-bottom:10px !important;}
@@ -373,3 +373,4 @@ h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-
 .chat-tbox{border:1px solid #ccc;border-top:0; margin:0px 0; padding:5px; background:#f2f2f2; overflow:hidden;}
 .chat-tbox textarea{ border:1px solid #CCC; padding:2px; width:82%; margin-right:3px; height:30px; font-size:12px; overflow:auto; float:left;}
 .chat-tbox input[type="submit"]{ padding: 0; width:14%; height:35px;float:left; border:0; font-weight:bold; background:url(/images/chat_btn.jpg); font-size:11px; color:#FFF; cursor:pointer;}
+.mr2{margin-right:30px;margin-left: 10px;}

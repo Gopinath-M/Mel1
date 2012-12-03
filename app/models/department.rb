@@ -1,6 +1,8 @@
 class Department < ActiveRecord::Base
 #  has_and_belongs_to_many :categories
   #Associations come here
+
+  before_validation :strip_whitespace
   has_many :role_memberships 
   has_many :roles 
   has_many :users, :through => :role_memberships
@@ -16,4 +18,9 @@ class Department < ActiveRecord::Base
   #named_scopes comes here
   scope :active, where(:is_active=>true,:deleted => false).order("name asc")
   scope :all_undeleted, where(:deleted => false).order("name asc")
+
+   private
+    def strip_whitespace
+    self.name = self.name.strip
+end
 end

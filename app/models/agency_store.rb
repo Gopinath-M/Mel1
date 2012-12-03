@@ -3,6 +3,6 @@ class AgencyStore < ActiveRecord::Base
   belongs_to :agency  
   has_many :resource_transportation_bookings
 
-#  validates :agency_id, :sub_category_id, :resource_id, :presence=>true
+#  validates_uniqueness_of :agency_id, :sub_category_id, :resource_id, :case_sensitive=>false
   scope :active, where(:is_active => true, :deleted => false)
 end

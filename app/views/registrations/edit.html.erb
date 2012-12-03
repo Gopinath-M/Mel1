@@ -10,33 +10,33 @@
       <div class="clearfix">&nbsp;</div>
       <h2>Edit My Profile</h2>
       <div class="form-sec-row">
-        <%= f.label :first_name,raw("First Name"), :class=>"text"%>
+        <%= f.label :first_name,raw("First Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :first_name, :size => 30, :autofocus => true%>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :last_name,raw("Last Name"), :class=>"text"%>
+        <%= f.label :last_name,raw("Last Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :last_name, :size => 30, :autofocus => true%>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :email, :class=>"text"%>
+        <%= f.label :email,raw("Email <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :email, :size => 30, :autofocus => true%>
         </span>
       </div>
 
       <div class="form-sec-row">
-        <%= f.label :username,raw("Display Name"), :class=>"text"%>
+        <%= f.label :username,raw("Display Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :username, :size => 30, :autofocus => true%>
           <i>(This name will be used through out the site)</i>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :contact_mobile,raw("Contact Number"), :class=>"text"%>
+        <%= f.label :contact_mobile,raw("Contact Number <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :contact_mobile, :size => 30, :autofocus => true%>
         </span>
@@ -55,7 +55,7 @@
       </div>
 
       <div class="form-sec-row">
-        <%= f.label :state, :class=>"text"%>
+        <%= f.label :state,raw("State <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.select(:state, options_for_select(State.all.collect {|p| [p.name.upcase, p.id]},resource.state) ,:prompt => "SELECT YOUR STATE")%>
         </span>
