@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
   prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy]
-  layout 'password'
+#  layout 'password'
   # GET /resource/sign_up
   def new
     resource = build_resource({})
@@ -50,6 +50,7 @@ class RegistrationsController < Devise::RegistrationsController
           set_flash_message :notice, flash_key
         end
         sign_in resource_name, resource, :bypass => true
+        session[:password_changed]="true"
         redirect_to :controller => "users"
       else
         clean_up_passwords resource
@@ -58,7 +59,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       if resource.update_without_password(params[:user])
         clean_up_passwords resource
-        render :action=>'privacy_setting'
+        redirect_to :controller => "users"
       else
         render :action=>"edit"
       end
@@ -94,7 +95,8 @@ class RegistrationsController < Devise::RegistrationsController
     flash[:notice]="Your request has been sent to Admin. Once approved you get mail!"
     root_path
   end
+
   def privacy_setting
-    redirect_to :controller => "registrations", :action => "update"
+#    redirect_to :controller => "registrations", :action => "update"
   end
 end
