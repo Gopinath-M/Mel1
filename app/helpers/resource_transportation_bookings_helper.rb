@@ -72,6 +72,13 @@ module ResourceTransportationBookingsHelper
     
   end
 
+  def decline_scenario(id)
+    rtb = ResourceTransportationBooking.find(id)
+    as = AgencyStore.find(rtb.agency_store_id)
+    as.update_attribute(:booked,false)
+    disable_the_sub_category_when_that_sub_category_is_fully_reserved(rtb.sub_category_id)
+  end
+  
   def disable_the_sub_category_when_that_sub_category_is_fully_reserved(id)
     ag = AgencyStore.find(:all,:conditions=>["booked = false and sub_category_id = ?",id])
     sc = SubCategory.find(id)
