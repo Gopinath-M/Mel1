@@ -96,7 +96,7 @@ end
 
 
 puts "Creating Roles"
-roles = ["Super Admin", "Department Admin", "Department User", "Resource Manager"]
+roles = ["Super Admin", "Department Admin", "Department User", "Unit Admin", "Resource Manager"]
 roles.each do | role |
   role = Role.new(:name => role)
   role.save
