@@ -14,7 +14,7 @@ class ResourceRoomBookingsController < ApplicationController
 
   def new
     @resource_room_booking = ResourceRoomBooking.new()
-    @booking = CategoriesDepartment.where(:category_id=> "6", :department_id=> current_user.departments.first.id)
+    @booking = CategoriesDepartments.where(:category_id=> "6", :department_id=> current_user.departments.first.id)
   end
 
   def edit
