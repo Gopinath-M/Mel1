@@ -2,240 +2,336 @@
   <div id="maincontent">
     <div id="linkblock" class="leftNav">
       <%if current_user.sign_in_count>1 || (current_user.sign_in_count==1 && session[:password_changed]=="true")%>
-      <div id="control">
-        <a id="controlbtn" class="open" href="javascript:void(0);" alt="Side Panel">Side Panel</a>
-      </div>
-      <div class="profInfo">
-        <div class="profInfo-img box">
-          <%if current_user%>
-            <%= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag current_user.avatar.url(:profile), :alt=>"Image", :width=>"120", :height=>"120") : (image_tag "no_photo.jpg", :alt=>"Image", :width=>"120", :height=>"120")  %>
-          <%else%>
-            <%=image_tag "no_photo.jpg", :alt=>"Image", :width=>"120", :height=>"120"%>
-          <%end%>
-          <%if current_user.profile_status%>
-            <p>Private</p>
-          <%else%>
-            <p>Public</p>
-          <%end%>
+        <div id="control">
+          <a id="controlbtn" class="open" href="javascript:void(0);" alt="Side Panel">Side Panel</a>
         </div>
-        <ul>
-          <li><a href="javascript:void(0);" title="Daily Updates" class="selected"><%=image_tag "icn_news.png" , :width=>"16", :height=>"16", :alt=>"Daily Updates"%>Daily Updates</a></li>
-          <li><a href="/messages" title="Messages"><%=image_tag "icn_email.png" , :width=>"16", :height=>"16", :alt=>"Email"%><span class="notifiNo"></span>Messages</a></li>
-          <li>
-            <% count = User.find(:all, :conditions=>["login_status = ? and id !=?", 1, current_user.id]).count %>
-            <a href="/conversations" title="Chat"><%=image_tag "chat_icon.png" , :width=>"16", :height=>"16", :alt=>"Chat"%><span class="notifiNo"><%= count %></span>Chat</a>
-          </li>
-          <li><a href="javascript:void(0);" title="Events"><%=image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%>Events</a></li>
-          <li><a href="javascript:void(0);" title="Find User"><%=image_tag "icn_user.png" , :width=>"16", :height=>"16", :alt=>"Find User"%>Find User</a></li>
-          <%if current_user && current_role && current_role==DISP_USER_ROLE_SUPER_ADMIN%>
-            <li><a href="javascript:void(0);" title="Uploaded Files"><%=image_tag "attach.png" , :width=>"16", :height=>"16", :alt=>"Upload Files"%>Uploaded Files</a></li>
-          <%end%>
-        </ul>
-      </div>
-      <div class="clear"></div>
-      <div class="leftNav-links box">
-        <h2>Alerts</h2>
-        <ul>
-          <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
-            <li><a href="javascript:void(0);" title="User Transfer Request">User Transfer Request</a></li>
-            <% if current_user.is_department_admin?  %>
-              <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
-              <% count = ResourceRoomBooking.find_all_by_status('New').count %>
-              <li>
-                <%if @list.present? %>
-                  <span class="notifiNo"><%= count %></span>
-                <%end%>
-                <%=link_to "Resource Booking", "#"%>
-              </li>
+        <div class="profInfo">
+          <div class="profInfo-img box">
+            <%if current_user%>
+              <%= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag current_user.avatar.url(:profile), :alt=>"Image", :width=>"120", :height=>"120") : (image_tag "no_photo.jpg", :alt=>"Image", :width=>"120", :height=>"120")  %>
+            <%else%>
+              <%=image_tag "no_photo.jpg", :alt=>"Image", :width=>"120", :height=>"120"%>
             <%end%>
-            <li><a href="javascript:void(0);" title="Complaints"><span class="notifiNo"></span>Complaints</a></li>
-            <li><a href="javascript:void(0);" title="Resource Requisition ">Resource Requisition </a></li>
-            <li><a href="javascript:void(0);" title="Issue Log">Issue Log </a></li>
-            <li><a href="javascript:void(0);" title="Change Requests">Change Requests</a></li>
-            <li><a href="javascript:void(0);" title="Cancelled Requests">Canceled Requests</a></li>
-          <%end%>
-        </ul>
-      </div>
-      <div class="clear"></div>
-      <div class="leftNav-links box">
-        <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
-          <h2>Management Tools</h2>
+            <%if current_user.profile_status%>
+              <p>Private</p>
+            <%else%>
+              <p>Public</p>
+            <%end%>
+          </div>
           <ul>
-            <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
-              <li>
-                <%=link_to "Agencies", "javascript:void(0);" , :title=>"agencies" ,:class=>"", :id=>"lnk_agency"%>
-                <div id ="div_agency" style="display:none;">
-                  <ul>
-                    <li>
-                      <%=link_to "Create New", new_agency_path%>
-                    </li>
-                    <li>
-                      <%=link_to "List", agencies_path%>
-                    </li>
-                    <%#*<li>%>
-                      <%#=link_to "Resource Manager", assign_resource_manager_agencies_path%>
-                    <%#*</li>%>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <%=link_to "Departments", "javascript:void(0);" , :title=>"departments" ,:class=>"", :id=>"lnk_department"%>
-                <div id ="div_department" style="display:none;">
-                  <ul>
-                    <li>
-                      <%=link_to "Create New", new_department_path%>
-                    </li>
-                    <li>
-                      <%=link_to "List", departments_path%>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <%=link_to "Units", "javascript:void(0);" , :title=>"units" ,:class=>"", :id=>"lnk_unit"%>
-                <div id ="div_unit" style="display:none;">
-                  <ul>
-                    <li>
-                      <%=link_to "Create New", new_unit_path%>
-                    </li>
-                    <li>
-                      <%=link_to "List", units_path%>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <%=link_to "Admin", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_admin"%>
-                <div id ="div_admin" style="display:none;">
-                  <ul>
-                    <li>
-                      <%=link_to "Create New", new_department_user_path(:admin=>'admin')%>
-                    </li>
-                    <li>
-                      <%=link_to "List", admin_users_path(:admin=>'admin')%>
-                    </li>
-                  </ul>
-                </div>
-              </li>
+            <li><a href="javascript:void(0);" title="Daily Updates" class="selected"><%=image_tag "icn_news.png" , :width=>"16", :height=>"16", :alt=>"Daily Updates"%>Daily Updates</a></li>
+            <li><a href="/messages" title="Messages"><%=image_tag "icn_email.png" , :width=>"16", :height=>"16", :alt=>"Email"%><span class="notifiNo"></span>Messages</a></li>
+            <li>
+              <% count = User.find(:all, :conditions=>["login_status = ? and id !=?", 1, current_user.id]).count %>
+              <a href="/conversations" title="Chat"><%=image_tag "chat_icon.png" , :width=>"16", :height=>"16", :alt=>"Chat"%><span class="notifiNo"><%= count %></span>Chat</a>
+            </li>
+            <li><a href="javascript:void(0);" title="Events"><%=image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%>Events</a></li>
+            <li><a href="javascript:void(0);" title="Find User"><%=image_tag "icn_user.png" , :width=>"16", :height=>"16", :alt=>"Find User"%>Find User</a></li>
+            <%if current_user && current_role && current_role==DISP_USER_ROLE_SUPER_ADMIN%>
+              <li><a href="javascript:void(0);" title="Uploaded Files"><%=image_tag "attach.png" , :width=>"16", :height=>"16", :alt=>"Upload Files"%>Uploaded Files</a></li>
             <%end%>
+          </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="leftNav-links box">
+          <h2>Alerts</h2>
+          <ul>
             <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
-              <li>
-                <%=link_to "Users", "javascript:void(0);" , :title=>"User" ,:class=>"", :id=>"lnk_user"%>
-                <div id ="div_user" style="display:none;">
-                  <ul>
-                    <li>
-                      <%=link_to "Create New", new_department_user_path%>
-                    </li>
-                    <li>
-                      <%=link_to "List", users_path %>
-                    </li>
-                    <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN) %>
-                      <li>
-                        <%=link_to "Transfer Department", transfer_users_path%>
-                      </li>
-                      <li>
-                        <%=link_to "Assign Department", assign_department_users_path , :title=>"Assign Department" ,:class=>""%>
-                      </li>
-                      <li>
-                        <%=link_to "Transfer Unit", transfer_unit_users_path , :title=>"Transfer Unit" ,:class=>""%>
-                      </li>
-                      <li>
-                        <%=link_to "Assign Unit", assign_unit_users_path , :title=>"Assign Unit" ,:class=>""%>
-                      </li>
-                    <%end%>
-                  </ul>
-                </div>
-              </li> <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
-                <li> <%=link_to "Vendors", "javascript:void(0);" , :title=>"Vendors" ,:class=>"", :id=>"lnk_vendors"%>
-                  <div id ="div_vendors" style="display:none;">
+              <li><a href="javascript:void(0);" title="User Transfer Request">User Transfer Request</a></li>
+              <% if current_user.is_department_admin?  %>
+                <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
+                <% count = ResourceRoomBooking.find_all_by_status('New').count %>
+                <li>
+                  <%if @list.present? %>
+                    <span class="notifiNo"><%= count %></span>
+                  <%end%>
+                  <%=link_to "Resource Booking", "#"%>
+                </li>
+              <%end%>
+              <li><a href="javascript:void(0);" title="Complaints"><span class="notifiNo"></span>Complaints</a></li>
+              <li><a href="javascript:void(0);" title="Resource Requisition ">Resource Requisition </a></li>
+              <li><a href="javascript:void(0);" title="Issue Log">Issue Log </a></li>
+              <li><a href="javascript:void(0);" title="Change Requests">Change Requests</a></li>
+              <li><a href="javascript:void(0);" title="Cancelled Requests">Canceled Requests</a></li>
+            <%end%>
+          </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="leftNav-links box">
+          <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
+            <h2>Management Tools</h2>
+            <ul>
+              <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
+                <li>
+                  <%=link_to "Agencies", "javascript:void(0);" , :title=>"agencies" ,:class=>"", :id=>"lnk_agency"%>
+                  <div id ="div_agency" style="display:none;">
                     <ul>
                       <li>
-                        <%=link_to "Create Vendor", new_vendor_path%>
+                        <%=link_to "Create New", new_agency_path%>
                       </li>
                       <li>
-                        <%=link_to "List Vendors", vendors_path%>
+                        <%=link_to "List", agencies_path%>
                       </li>
+      <%#*<li>%>
+      <%#=link_to "Resource Manager", assign_resource_manager_agencies_path%>
+      <%#*</li>%>
                     </ul>
                   </div>
-                </li><%end%><%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
+                </li>
                 <li>
-                  <%=link_to "Facility", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_facility"%>
-                  <div id ="div_facility" style="display:none;">
+                  <%=link_to "Departments", "javascript:void(0);" , :title=>"departments" ,:class=>"", :id=>"lnk_department"%>
+                  <div id ="div_department" style="display:none;">
                     <ul>
                       <li>
-                        <%=link_to "Create Facility", new_facility_path%>
+                        <%=link_to "Create New", new_department_path%>
                       </li>
                       <li>
-                        <%=link_to "List Facility", facilities_path%>
+                        <%=link_to "List", departments_path%>
                       </li>
                     </ul>
                   </div>
                 </li>
                 <li>
-                  <%=link_to "Categories", "javascript:void(0);" , :title=>"Categories" ,:class=>"", :id=>"lnk_category"%>
-                  <div id ="div_category" style="display:none;">
+                  <%=link_to "Units", "javascript:void(0);" , :title=>"units" ,:class=>"", :id=>"lnk_unit"%>
+                  <div id ="div_unit" style="display:none;">
                     <ul>
                       <li>
-                        <%=link_to "Create Category", new_category_path%>
+                        <%=link_to "Create New", new_unit_path%>
                       </li>
                       <li>
-                        <%=link_to "List Category", categories_path%>
+                        <%=link_to "List", units_path%>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <%=link_to "Admin", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_admin"%>
+                  <div id ="div_admin" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create New", new_department_user_path(:admin=>'admin')%>
                       </li>
                       <li>
-                        <%=link_to "Create Sub Category", new_sub_category_path%>
+                        <%=link_to "List", admin_users_path(:admin=>'admin')%>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              <%end%>
+              <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
+                <li>
+                  <%=link_to "Users", "javascript:void(0);" , :title=>"User" ,:class=>"", :id=>"lnk_user"%>
+                  <div id ="div_user" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create New", new_department_user_path%>
                       </li>
                       <li>
-                        <%=link_to "List Sub Category", sub_categories_path%>
+                        <%=link_to "List", users_path %>
                       </li>
-                      <li>
-                        <%=link_to "Map Category", assign_category_categories_path%>
-                      </li>
+                      <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN) %>
+                        <li>
+                          <%=link_to "Transfer Department", transfer_users_path%>
+                        </li>
+                        <li>
+                          <%=link_to "Assign Department", assign_department_users_path , :title=>"Assign Department" ,:class=>""%>
+                        </li>
+                        <li>
+                          <%=link_to "Transfer Unit", transfer_unit_users_path , :title=>"Transfer Unit" ,:class=>""%>
+                        </li>
+                        <li>
+                          <%=link_to "Assign Unit", assign_unit_users_path , :title=>"Assign Unit" ,:class=>""%>
+                        </li>
+                      <%end%>
+                    </ul>
+                  </div>
+                </li> <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
+                  <li> <%=link_to "Vendors", "javascript:void(0);" , :title=>"Vendors" ,:class=>"", :id=>"lnk_vendors"%>
+                    <div id ="div_vendors" style="display:none;">
+                      <ul>
+                        <li>
+                          <%=link_to "Create Vendor", new_vendor_path%>
+                        </li>
+                        <li>
+                          <%=link_to "List Vendors", vendors_path%>
+                        </li>
                       </ul>
+                    </div>
+                  </li><%end%><%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
+                  <li>
+                    <%=link_to "Facility", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_facility"%>
+                    <div id ="div_facility" style="display:none;">
+                      <ul>
+                        <li>
+                          <%=link_to "Create Facility", new_facility_path%>
+                        </li>
+                        <li>
+                          <%=link_to "List Facility", facilities_path%>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <%=link_to "Categories", "javascript:void(0);" , :title=>"Categories" ,:class=>"", :id=>"lnk_category"%>
+                    <div id ="div_category" style="display:none;">
+                      <ul>
+                        <li>
+                          <%=link_to "Create Category", new_category_path%>
+                        </li>
+                        <li>
+                          <%=link_to "List Category", categories_path%>
+                        </li>
+                        <li>
+                          <%=link_to "Create Sub Category", new_sub_category_path%>
+                        </li>
+                        <li>
+                          <%=link_to "List Sub Category", sub_categories_path%>
+                        </li>
+                        <li>
+                          <%=link_to "Map Category", assign_category_categories_path%>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <%=link_to "Resources", "javascript:void(0);" , :title=>"Resources" ,:class=>"", :id=>"lnk_resources"%>
+                    <div id ="div_resources" style="display:none;">
+                      <ul>
+                        <li>
+                          <%= link_to "Create Resource", new_resource_path %>
+                        </li>
+                        <li>
+                          <%= link_to "List  Resources", resources_path %>
+                        </li>
+                        <li>
+                          <%=link_to "Create Agency Store", new_agency_store_path%>
+                        </li>
+                        <li>
+                          <%=link_to "List Agency Stores", agency_stores_path%>
+                        </li>
+                        <li>
+                          <%= link_to "Create Driver", new_driver_path %>
+                        </li>
+                        <li>
+                          <%= link_to "List  Drivers", drivers_path %>
+                        </li>
+                        <li>
+                          <%= link_to "Create Vehicle Type", new_vehicle_type_path %>
+                        </li>
+                        <li>
+                          <%= link_to "List  Vehicle Types", vehicle_types_path %>
+                        </li>
+                      </ul>
+                    </div>
+                  <%end%>
+                </li>
+                <li>
+                  <%=link_to "Resources Bookings", "javascript:void(0);" , :title=>"Resource Bookings" ,:class=>"", :id=>"lnk_resource_bookings"%>
+                  <div id ="div_resource_bookings" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create Resource Booking", new_resource_booking_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List Resource Bookings", resource_bookings_path%>
+                      </li>
+                      <%if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
+                        <li>
+                          <%=link_to "Create Resource ICT Equipment Booking", new_resource_ict_equipment_booking_path %>
+                        </li>
+                        <li>
+                          <%=link_to "List Resource ICT Equipment Booking", resource_ict_equipment_bookings_path %>
+                        </li>
+                        <li>
+                          <%=link_to "Create Resource Room Booking", new_resource_room_booking_path %>
+                        </li>
+                        <li>
+                          <%=link_to "List Resource Room Bookings", resource_room_bookings_path %>
+                        </li>
+                        <li>
+                          <%=link_to "Create Resource Transport Booking", new_resource_transportation_booking_path %>
+                        </li>
+                        <li>
+                          <%=link_to "List Resource Transport Bookings", resource_transportation_bookings_path %>
+                        </li>
+                      <%end%>
+                    </ul>
                   </div>
                 </li>
                 <li>
-                  <%=link_to "Resources", "javascript:void(0);" , :title=>"Resources" ,:class=>"", :id=>"lnk_resources"%>
-                  <div id ="div_resources" style="display:none;">
+                  <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN || current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
+                    <%=link_to "Approve Booking Requests", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
+                    <div id ="div_approve_requests" style="display:none;">
+                      <ul>
+                        <% if current_role && current_role==DISP_USER_ROLE_RESOURCE_MANAGER %>
+                          <% count = ResourceTransportationBooking.find_all_by_status('Approved').count %>
+                          <li><a href="/resource_transportation_bookings/approve_request" title="Approve Request"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
+                        <%else%>
+                          <% count = ResourceTransportationBooking.find_all_by_status('New').count %>
+                          <li><a href="/resource_transportation_bookings/approve_request" title="Approve Request"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
+                        <%end%>
+                        <% if current_user.is_department_admin?  %>
+                          <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
+                          <% count = ResourceRoomBooking.find_all_by_status('New').count %>
+                          <li>
+                            <%if @list.present? %>
+                              <span class="notifiNo"><%= count %></span>
+                            <%end%>
+                            <%=link_to "Resource Booking", list_resource_booking_resource_room_bookings_path%>
+                          </li>
+                        <%end%>
+                      </ul>
+                    </div>
+                  <li>
+                    <%=link_to "Assign Approver", "javascript:void(0);" , :title=>"Assign Approver" ,:class=>"", :id=>"lnk_assign_approver"%>
+                    <div id ="div_assign_approver" style="display:none;">
+                      <ul>
+                        <li>
+                          <%=link_to "Create Approver", resource_approver_resources_path %>
+                        </li>
+                        <li>
+                          <%=link_to "List Approver", list_approver_resources_path %>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                <%end%>
+                </li>
+                <li>
+                  <%=link_to "Content Management", "javascript:void(0);" , :title=>"Content Managemnt" ,:class=>"", :id=>"lnk_cms"%>
+                  <div id ="div_cms" style="display:none;">
                     <ul>
                       <li>
-                        <%= link_to "Create Resource", new_resource_path %>
+                        <%=link_to "Create New", new_cms_page_path%>
                       </li>
                       <li>
-                        <%= link_to "List  Resources", resources_path %>
-                      </li>
-                      <li>
-                        <%=link_to "Create Agency Store", new_agency_store_path%>
-                      </li>
-                      <li>
-                        <%=link_to "List Agency Stores", agency_stores_path%>
-                      </li>
-                      <li>
-                        <%= link_to "Create Driver", new_driver_path %>
-                      </li>
-                      <li>
-                        <%= link_to "List  Drivers", drivers_path %>
-                      </li>
-                      <li>
-                        <%= link_to "Create Vehicle Type", new_vehicle_type_path %>
-                      </li>
-                      <li>
-                        <%= link_to "List  Vehicle Types", vehicle_types_path %>
+                        <%=link_to "List", cms_pages_path%>
                       </li>
                     </ul>
                   </div>
-                <%end%>
-              </li>
-              <li>
-                <%=link_to "Resources Bookings", "javascript:void(0);" , :title=>"Resource Bookings" ,:class=>"", :id=>"lnk_resource_bookings"%>
-                <div id ="div_resource_bookings" style="display:none;">
-                  <ul>
-                    <li>
-                      <%=link_to "Create Resource Booking", new_resource_booking_path%>
-                    </li>
-                    <li>
-                      <%=link_to "List Resource Bookings", resource_bookings_path%>
-                    </li>
-                    <%if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
+                </li>
+                <li><a href="javascript:void(0);" title="Newsletter">Newsletter</a></li>
+                <li><a href="javascript:void(0);" title="Email Template">Email Template</a></li>
+                <li><a href="javascript:void(0);" title="Events">Events</a></li>
+                <li><a href="javascript:void(0);" title="Advertisements">Advertisements</a></li>
+                <li><a href="javascript:void(0);" title="Archives">Archives</a></li>
+                <li><a href="javascript:void(0);" title="Site Analytics">Site Analytics</a></li>
+              <%end%>
+            </ul>
+          <%else%>
+            <h2>Department Info</h2>
+            <ul>
+              <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN || current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_USER)%>
+                <li>
+                  <%=link_to "Resources Bookings", "javascript:void(0);" , :title=>"Resource Bookings" ,:class=>"", :id=>"lnk_resource_bookings"%>
+                  <div id ="div_resource_bookings" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create Resource Booking", new_resource_booking_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List Resource Bookings", resource_bookings_path%>
+                      </li>
                       <li>
                         <%=link_to "Create Resource ICT Equipment Booking", new_resource_ict_equipment_booking_path %>
                       </li>
@@ -246,7 +342,7 @@
                         <%=link_to "Create Resource Room Booking", new_resource_room_booking_path %>
                       </li>
                       <li>
-                        <%=link_to "List Resource Room Bookings", resource_room_bookings_path %>
+                        <%=link_to "List Resource Room Booking", resource_room_bookings_path %>
                       </li>
                       <li>
                         <%=link_to "Create Resource Transport Booking", new_resource_transportation_booking_path %>
@@ -254,123 +350,58 @@
                       <li>
                         <%=link_to "List Resource Transport Bookings", resource_transportation_bookings_path %>
                       </li>
-                    <%end%>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN || current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
-                  <%=link_to "Approve Booking Requests", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
-                  <div id ="div_approve_requests" style="display:none;">
-                    <ul>
-                      <% if current_role && current_role==DISP_USER_ROLE_RESOURCE_MANAGER %>
-                        <% count = ResourceTransportationBooking.find_all_by_status('Approved').count %>
-                        <li><a href="/resource_transportation_bookings/approve_request" title="Approve Request"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
-                      <%else%>
-                        <% count = ResourceTransportationBooking.find_all_by_status('New').count %>
-                        <li><a href="/resource_transportation_bookings/approve_request" title="Approve Request"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
-                      <%end%>
-                        <% if current_user.is_department_admin?  %>
-              <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
-              <% count = ResourceRoomBooking.find_all_by_status('New').count %>
-              <li>
-                <%if @list.present? %>
-                  <span class="notifiNo"><%= count %></span>
-                <%end%>
-                <%=link_to "Resource Booking", list_resource_booking_resource_room_bookings_path%>
-              </li>
-            <%end%>
                     </ul>
                   </div>
-                <%end%>
-              </li>
-              <li>
-                <%=link_to "Content Management", "javascript:void(0);" , :title=>"Content Managemnt" ,:class=>"", :id=>"lnk_cms"%>
-                <div id ="div_cms" style="display:none;">
-                  <ul>
-                    <li>
-                      <%=link_to "Create New", new_cms_page_path%>
-                    </li>
-                    <li>
-                      <%=link_to "List", cms_pages_path%>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li><a href="javascript:void(0);" title="Newsletter">Newsletter</a></li>
-              <li><a href="javascript:void(0);" title="Email Template">Email Template</a></li>
-              <li><a href="javascript:void(0);" title="Events">Events</a></li>
-              <li><a href="javascript:void(0);" title="Advertisements">Advertisements</a></li>
-              <li><a href="javascript:void(0);" title="Archives">Archives</a></li>
-              <li><a href="javascript:void(0);" title="Site Analytics">Site Analytics</a></li>
-            <%end%>
-          </ul>
-        <%else%>
-          <h2>Department Info</h2>
-          <ul>
-            <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN || current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_USER)%>
-            <li>
-              <%=link_to "Resources Bookings", "javascript:void(0);" , :title=>"Resource Bookings" ,:class=>"", :id=>"lnk_resource_bookings"%>
-              <div id ="div_resource_bookings" style="display:none;">
-                <ul>
-                  <li>
-                    <%=link_to "Create Resource Booking", new_resource_booking_path%>
-                  </li>
-                  <li>
-                    <%=link_to "List Resource Bookings", resource_bookings_path%>
-                  </li>
-                  <li>
-                    <%=link_to "Create Resource ICT Equipment Booking", new_resource_ict_equipment_booking_path %>
-                  </li>
-                  <li>
-                    <%=link_to "List Resource ICT Equipment Booking", resource_ict_equipment_bookings_path %>
-                  </li>
-                  <li>
-                    <%=link_to "Create Resource Room Booking", new_resource_room_booking_path %>
-                  </li>
-                  <li>
-                    <%=link_to "List Resource Room Booking", resource_room_bookings_path %>
-                  </li>
-                  <li>
-                    <%=link_to "Create Resource Transport Booking", new_resource_transportation_booking_path %>
-                  </li>
-                  <li>
-                    <%=link_to "List Resource Transport Bookings", resource_transportation_bookings_path %>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <%end%>
-            <% if current_user && current_user.is_resource_manager? %>
-              <li>
-                <%=link_to "Process Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
-                <div id ="div_approve_requests" style="display:none;">
-                  <ul>
-                    <% count = ResourceTransportationBooking.find_all_by_status('Approved').count %>
-                    <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
-                    <li>
+                </li>
+              <%end%>
+
+              <%if current_user && (current_role == DISP_USER_ROLE_DEPT_USER)%>
                 <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
-                <% cnt = ResourceRoomBooking.find_all_by_status('Approved').count %>
-                <% if @list.present? %><span class="notifiNo"><%= cnt %></span><%end%>
-                <%=link_to "Room Request", list_resource_booking_resource_room_bookings_path %>
-              </li>
-                  </ul>
-                </div>
-              </li>             
-            <%end%>
+                <% count = ResourceRoomBooking.find_all_by_status('New').count %>
+                <% @approve = Approver.find_by_department_id(current_user.departments)%>
+                <% if @approve.present? && @approve.user_id == current_user.id %>
+                  <li>
+                    <%if @list.present? %>
+                      <span class="notifiNo"><%= count %></span>
+                    <%end%>
+                    <%=link_to "Room Booking", list_resource_booking_resource_room_bookings_path%>
+                  </li>
+                <%end%>
+              <%end%>
+
+              <% if current_user && current_user.is_resource_manager? %>
+                <li>
+                  <%=link_to "Process Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests"%>
+                  <div id ="div_approve_requests" style="display:none;">
+                    <ul>
+                      <% count = ResourceTransportationBooking.find_all_by_status('Approved').count %>
+                      <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
+                      <% @approve = Approver.find_by_department_id(current_user.departments)%>
+                      <% if @approve.present? && @approve.user_id == current_user.id %>
+                        <li>
+                          <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
+                          <% cnt = ResourceRoomBooking.find_all_by_status('Approved').count %>
+                          <% if !@approve.present? %><span class="notifiNo"><%= cnt %></span><%end%>
+                          <%=link_to "Room Request", list_resource_booking_resource_room_bookings_path %>
+                        </li>
+                      <%end%>
+                    </ul>
+                  </div>
+                </li>
+              <%end%>
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN || current_role==DISP_USER_ROLE_DEPT_USER)%>
-            <li><a href="javascript:void(0);" title="Department details">Department details</a></li>
-            <%end%>
-            <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
-            <li><a href="javascript:void(0);" title="View Vendors">View Vendors</a></li>
-            <li><a href="javascript:void(0);" title="Resources">Resources</a></li>
-            <li><a href="javascript:void(0);" title="View Resources">View Resources</a></li>
-            <%end%>
-            <li><a href="javascript:void(0);" title="My Newsletter">My Newsletter</a></li>
-            <li><a href="javascript:void(0);" title="Email Template">Email Template</a></li>
-            <li><a href="javascript:void(0);" title="View Events">View Events</a></li>
-          </ul>
-        <%end%>
-      </div>
+                <li><a href="javascript:void(0);" title="Department details">Department details</a></li>
+              <%end%>
+              <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
+                <li><a href="javascript:void(0);" title="View Vendors">View Vendors</a></li>
+                <li><a href="javascript:void(0);" title="Resources">Resources</a></li>
+                <li><a href="javascript:void(0);" title="View Resources">View Resources</a></li>
+              <%end%>
+              <li><a href="javascript:void(0);" title="My Newsletter">My Newsletter</a></li>
+              <li><a href="javascript:void(0);" title="Email Template">Email Template</a></li>
+              <li><a href="javascript:void(0);" title="View Events">View Events</a></li>
+            </ul>
+          <%end%>
+        </div>
       <%end%>
     </div>
