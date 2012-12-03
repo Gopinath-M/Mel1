@@ -9,9 +9,9 @@
           <%if !@resource_booking.new_record?%>
             <%resource=@resource if @resource && !@resource.blank?%>
             <%category=resource.category%>
-            <%=select("category","id", options_from_collection_for_select(Category.all, 'id','name',category.id),{:prompt=>"SELECT A CATEGORY"})%>
+            <%=select("category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7").active.all, 'id','name',category.id),{:prompt=>"SELECT A CATEGORY"})%>
           <%else%>
-            <%=select("category","id", options_from_collection_for_select(Category.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
+            <%=select("category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7").active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
           <%end%>
         </span>
       </div>
@@ -21,7 +21,7 @@
           <%if !@resource_booking.new_record?%>
             <%resource=@resource if @resource && !@resource.blank?%>
             <%sub_category=resource.sub_category%>
-            <%=select("sub_category","id", options_from_collection_for_select(SubCategory.all, 'id','name',sub_category.id),{:prompt=>"SELECT A SUB CATEGORY"})%>
+            <%=select("sub_category","id", options_from_collection_for_select(SubCategory.where("id != 6 and id != 7").active.all, 'id','name',sub_category.id),{:prompt=>"SELECT A SUB CATEGORY"})%>
           <%else%>
             <%=select("sub_category","id", options_from_collection_for_select(SubCategory.all, 'id','name'),{:prompt=>"SELECT A SUB CATEGORY"})%>
           <%end%>
@@ -30,7 +30,7 @@
       <div class="form-sec-row">
         <label class="text">Resource<span style=color:red>*</span></label>
         <span class="in-box">
-          <%= f.select(:resource_id, Resource.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A RESOURCE") %>
+          <%= f.select(:resource_id, Resource.active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE") %>
         </span>
       </div>
       <%if !current_user.is_super_admin?%>
@@ -42,12 +42,12 @@
           </span>
         </div>
       <%end%>
-      <div class="form-sec-row">
-        <label class="text">Name <span style=color:red>*</span></label>
-        <span class="in-box">
-          <%= f.text_field :name%>
-        </span>
-      </div>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Name <span style=color:red>*</span></label>%>
+  <%#*<span class="in-box">%>
+  <%#= f.text_field :name%>
+  <%#*</span>%>
+  <%#*</div>%>
       <div class="form-sec-row">
         <label class="text">Purpose <span style=color:red>*</span></label>
         <span class="in-box">
@@ -55,18 +55,18 @@
         </span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Description <span style=color:red>*</span></label>
+        <label class="text">Remarks <span style=color:red>*</span></label>
         <span class="in-box">
           <%= f.text_field :description%>
         </span>
       </div>
-  <%#*<div class="form-sec-row">%>
-  <%#*<label class="text">Attachment</label>%>
-  <%#*<span class="in-box">%>
-  <%#= f.file_field :attachment%>
-  <%#= f.hidden_field :attachment_cache %>
-  <%#*</span>%>
-  <%#*</div>%>
+      <div class="form-sec-row">
+        <label class="text">Attachment</label>
+        <span class="in-box">
+          <%= f.file_field :attachment%>
+          <%= f.hidden_field :attachment_cache %>
+        </span>
+      </div>
       <div class="form-sec-row">
         <label class="text">Quantity</label>
         <span class="in-box">
