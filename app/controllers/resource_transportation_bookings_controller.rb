@@ -59,12 +59,14 @@ class ResourceTransportationBookingsController < ApplicationController
       approve_scenario(params[:id],params[:vehicle][:id])
     elsif params[:approve_status] == "Processed"
 
-      if params[:vehicle_id] && params[:vehicle_id] == '1'
+      if params[:alternate_vehicle_id] && params[:alternate_vehicle_id] == '1'
         if (params[:vehicle][:id] && params[:vehicle][:id] != '')
           process_scenario_alternate_driver(params[:id],params[:vehicle][:id])
         else
           @resource_transportation_booking.update_attribute(:status,"Processed")
         end
+      else
+        @resource_transportation_booking.update_attribute(:status,"Processed")
       end
       
     elsif params[:approve_status] == "Returned"
