@@ -1644,18 +1644,22 @@ $().ready(function(){
         $("#agency_others").show();
         $("#agency_transport").hide();
         $("#agency_room").hide();
+        $("#agency_ict").hide();
     });
     $("#agency_store_resource_type_room_booking").live("click",function(){
         $("#agency_room").show();
         $("#agency_others").hide();
         $("#agency_transport").hide();
+        $("#agency_ict").hide();
     });
     $("#agency_store_resource_type_transport").live("click",function(){
         $("#agency_transport").show();
         $("#agency_others").hide();
         $("#agency_room").hide();
+        $("#agency_ict").hide();
     });
     $("#agency_store_resource_type_ict").live("click",function(){
+        $("#agency_ict").show();
         $("#agency_others").hide();
         $("#agency_transport").hide();
         $("#agency_room").hide();
@@ -2071,6 +2075,29 @@ $().ready(function(){
             $('#other_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
         }
     })
+     $("#ict_agency_sub_category_id").live("change", function(){
+        if($("#ict_agency_sub_category_id").val()!="")
+        {
+            $.get("/resource_room_bookings/get_resources",{
+                sub_category_id : $("#ict_agency_sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#ict_agency_resource_id').find('option').remove().end()
+                    $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                    }
+                }
+            })
+        }
+        else{
+            $('#ict_agency_resource_id').find('option').remove().end()
+            $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
+    })
+
     /*Agenct store drop box ends*/
 /* resource booking for others */
     $("#other_booking_category_id").live("change", function(){
