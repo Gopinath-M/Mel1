@@ -42,6 +42,11 @@ class AgencyStoresController < ApplicationController
     @store.sub_category_id = params[:transport_agency][:sub_category_id]
     @store.resource_id = params[:transport_agency][:resource_id]
     @store.save
+    elsif params[:ict_agency]
+    @store.agency_id = params[:ict_agency][:agency_id]
+    @store.sub_category_id = params[:ict_agency][:sub_category_id]
+    @store.resource_id = params[:ict_agency][:resource_id]
+    @store.save
     SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
     elsif params[:other_agency]
     @store.agency_id = params[:other][:agency_id]
@@ -131,5 +136,11 @@ class AgencyStoresController < ApplicationController
   def get_other_sub_categories
     subcategories = SubCategory.find_all_by_category_id(params[:agency_id])
     render :json=>[ subcategories] if  subcategories
+  end
+
+  def get_resource_ict
+
+    resources = Resource.find_all_by_sub_category_id(params[:sub_category_id])
+    render :json=>[resources] if resources
   end
 end

@@ -7,21 +7,21 @@
 
     </div>
     <div class="form-sec-row">
-    <%= label_tag :agency_id, raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
-    <span class="in-box">
+      <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+      <span class="in-box">
 
         <%= select("list","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
 
-    </span>
-  </div>
+      </span>
+    </div>
   <%#*<div class="form-sec-row">%>
-        <%#*<label class="text">Select Category <span style=color:red>*</span></label>%>
-        <%#*<span class="in-box">%>
+  <%#*<label class="text">Select Category <span style=color:red>*</span></label>%>
+  <%#*<span class="in-box">%>
 
-            <%#=select("category","allid", options_from_collection_for_select(Category.active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
+  <%#=select("category","allid", options_from_collection_for_select(Category.active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
 
-        <%#*</span>%>
-      <%#*</div>%>
+  <%#*</span>%>
+  <%#*</div>%>
   <%end%>
   <div id="div_ajax" >
     <%if @stores && !@stores.empty?%>
@@ -30,24 +30,37 @@
           <div class="manage-user-row box">
             <div class="mu-c2">
               <%vehicle = Resource.find_all_by_id(store.resource_id)%>
-              <%if vehicle%>
-              <p class="head1"> <%=vehicle[0].resource_type.camelize%>-<%=vehicle[0].resource_no%></p>
+              <%sub_category = SubCategory.find_all_by_id(store.sub_category_id)%>
+              <p class="head1">Resource Type :&nbsp;<%=store.resource_type.camelize%></p>
+              <p class="head1">Resource No   :&nbsp;<%=vehicle[0].resource_no%></p>
+              <%if store.category_id?%>
+                <%category = Category.find_all_by_id(store.category_id)%>
+                <p class="head1">Category:&nbsp;<%=category[0].name.camelize%></p>
               <%end%>
+              <p class="head1">Sub Category:&nbsp;<%=sub_category[0].name.camelize%></p>
+              <%if store.quantity?%>
+                <p class="head1">Quantity:&nbsp;<%=store.quantity%></p>
+              <%end%>
+              <%if store.uom?%>
+                <p class="head1">UOM:&nbsp;<%=store.uom%></p>
+              <%end%>
+              <%if store.driver_id?%>
+                <%driver = Driver.find_all_by_id(store.driver_id)%>
+                <p class="head1">Driver Name:&nbsp;<%=driver[0].name.camelize%></p>
+              <%end%>
+              <p class="head1">Status:&nbsp;<%if store.booked%><span style=color:#336699>Booked</span><%else%><span style=color:#336699>Available</span><%end%></p>
+    <%#end%>
             </div>
             <div class="mu-c3">
-              <%if store.booked%>
-              Booked
-              <%else%>
-              Available
-              <%end%>
+
             </div>
           </div>
-          <div class="clear"></div>
-        </div>
-      <%end%>
-    <%else%>
-      No Resources Available in selected Agency Store.
+        <div class="clear"></div>
+      </div>
     <%end%>
+  <%else%>
+    No Resources Available in selected Agency Store.
+  <%end%>
 <%#*<div><%= paginate @units %>
   </div>
 </div>

@@ -20,7 +20,7 @@
     <%= javascript_include_tag 'slide' %>
     <%= javascript_include_tag 'prayTimes' %>
 <%#*<script type="text/javascript" src="jquery-1.3.2.min.js"></script>%>
-    <%if controller_name.to_s=="resource_bookings" || controller_name.to_s=="resource_transportation_bookings" || controller_name.to_s=="resource_ict_equipment_bookings" %>
+    <%if controller_name.to_s=="resource_bookings" || controller_name.to_s=="resource_transportation_bookings" || controller_name.to_s=="resource_room_bookings" || controller_name.to_s=="resource_ict_equipment_bookings" %>
       <%= javascript_include_tag 'time_tracker_add_on' %>
   <%#= javascript_include_tag 'jquery-ui-sliderAccess'%>
   <%#= javascript_include_tag 'jquery.ui.datepicker' %>
@@ -68,19 +68,20 @@
             dateFormat: "D MM d, yy",
             timeFormat: 'hh:mm:ss'
           });
+	  $('#resource_room_booking_requested_to_date').datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'hh:mm:ss'
+          });
+          $('#resource_room_booking_requested_from_date').datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'hh:mm:ss'
+          });
         });
       </script>
     <%end%>
-    <%if controller_name.to_s=="resource_room_bookings"%>
-      <%= javascript_include_tag 'jquery.ui.datepicker' %>
-      <%= stylesheet_link_tag 'jquery.ui.datepicker' %>
-      <script type="text/javascript">
-        $().ready(function(){
-          $("#resource_room_booking_requested_to_date").datepicker();
-          $("#resource_room_booking_requested_from_date").datepicker();
-        });
-      </script>
-    <%end%>
+
 
     <!--WATERMARK--> <%= init_tinymce_hammer_if_required %>
     <%= javascript_include_tag 'ui.core' %>
