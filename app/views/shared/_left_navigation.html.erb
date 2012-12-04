@@ -225,6 +225,7 @@
                     </div>
                   <%end%>
                 </li>
+                <%if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
                 <li>
                   <%=link_to "Resources Bookings", "javascript:void(0);" , :title=>"Resource Bookings" ,:class=>"", :id=>"lnk_resource_bookings"%>
                   <div id ="div_resource_bookings" style="display:none;">
@@ -235,7 +236,6 @@
                       <li>
                         <%=link_to "List Resource Bookings", resource_bookings_path%>
                       </li>
-                      <%if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
                         <li>
                           <%=link_to "Create Resource ICT Equipment Booking", new_resource_ict_equipment_booking_path %>
                         </li>
@@ -254,10 +254,10 @@
                         <li>
                           <%=link_to "List Resource Transport Bookings", resource_transportation_bookings_path %>
                         </li>
-                      <%end%>
                     </ul>
                   </div>
                 </li>
+                <%end%>
                 <li>
 
                   <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN  || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
