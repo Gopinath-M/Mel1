@@ -12,7 +12,9 @@
         <%= f.radio_button :resource_type, 'others' ,:checked=>true%> <%= f.label :resource_type, "Others" %>
       </span>
     </div>
-
+    <div id="show_ict" style="display:none;" >
+      <%=render :partial=>'resources/resource_ict'%>
+    </div>
     <div id="show_room" style="display:none;" >
       <%=render :partial=>'resources/resource_room'%>
     </div>
@@ -24,7 +26,9 @@
     <div id="show_others">
       <%=render :partial=>'resources/resource_others'%>
     </div>
-
+    <div id="show_ict" style="display:none;">
+      <%=render :partial=>'resources/resource_ict'%>
+    </div>
 
   </div>
 

@@ -5,7 +5,7 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
   belongs_to :approver, :class_name => "User", :foreign_key => "approver_id"
 
   validates :equipment_category_id,:purpose,:location, :requested_from_date, :requested_to_date,:meeting_start_time,:meeting_end_time, :presence=>true
-  validates :purpose,:location, :length => { :minimum => 4 }
+  validates :purpose,:location, :length => { :minimum => 4 }, :if=>Proc.new {|u| !u.location.blank? || !u.purpose.blank? }
   validate :validate_booking_time
 
   def validate_booking_time

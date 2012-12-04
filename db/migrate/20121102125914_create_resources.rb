@@ -11,6 +11,7 @@ class CreateResources < ActiveRecord::Migration
       t.string :vehicle_model
       t.integer :capacity
       t.string :description
+      t.string :brand_model
       t.boolean :is_returnable
       t.boolean :is_facilty_avail, :default => false
       t.integer :created_by
