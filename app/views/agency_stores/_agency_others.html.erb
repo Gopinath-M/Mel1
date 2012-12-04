@@ -11,7 +11,7 @@
         <label class="text">Select Category <span style=color:red>*</span></label>
         <span class="in-box">
 
-            <%=select("other_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7").active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
+            <%=select("other_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7 and id !=8").active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
 
         </span>
       </div>

@@ -2097,7 +2097,7 @@ $().ready(function(){
                     $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
                     for(var i=0; i<data[0].length;i++)
                     {
-                        $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                        $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_name));
                     }
                 }
             })
