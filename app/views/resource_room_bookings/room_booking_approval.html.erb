@@ -19,14 +19,18 @@
                     <td><font color='#369'><b><u>User Details:-</u></b></font></td>
                     <td></td>
                   </tr>
-                  <tr>
-                    <td><b>Image</b></td>
-                    <td><%=image_tag(@resource_room_booking.room_attachment.url(:thumb),:title=>@resource_room_booking.room_attachment)%></td>
-                  </tr>
-                  <tr>
-                    <td><b>Agency Name</b></td>
-                    <td><b>&nbsp;<%= @agency.name  %></b></td>
-                  </tr>
+                  <% if @resource_room_booking.room_attachment.present? %>
+                    <tr>
+                      <td><b>Image</b></td>
+                      <td><%=image_tag(@resource_room_booking.room_attachment.url(:thumb),:title=>@resource_room_booking.room_attachment)%></td>
+                    </tr>
+                  <%end%>
+                  <% if @agency.present? %>
+                    <tr>
+                      <td><b>Agency Name</b></td>
+                      <td><b>&nbsp;<%= @agency.name  %></b></td>
+                    </tr>
+                  <%end%>
                   <tr>
                     <td><b>Department Name</b></td>
                     <td><b>&nbsp;<%= @dept.name  %></b></td>
@@ -137,7 +141,12 @@
       </tr>
       <tr>
         <td><label class="text"> <%= f.label :location,raw("Status"), :class=>"text"%></label></td>
-        <% if current_user.is_department_admin? %>
+        <% if @approve.present?  && @approve.user_id == current_user.id %>
+          <td><span class="in-box">
+              <%select_options=["Approved","Declined"]%>
+              <%=f.select(:status, options_for_select(select_options))%>
+            </span></td>
+        <% elsif current_user.is_department_admin? && !@approve.present?%>
           <td><span class="in-box">
               <%select_options=["Approved","Declined"]%>
               <%=f.select(:status, options_for_select(select_options))%>

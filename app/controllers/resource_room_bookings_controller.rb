@@ -103,9 +103,10 @@ class ResourceRoomBookingsController < ApplicationController
       @resource_room_booking = ResourceRoomBooking.find(params[:id])
       @resource = SubCategory.find_by_id(@resource_room_booking.sub_category_id)
       @facility = Facility.active.find_all_by_resource_id(@resource_room_booking.resource_id)
+      @approve = Approver.find_by_department_id(current_user.departments)
       @details_resource = Resource.active.find_by_id(@resource_room_booking.resource_id)
       @user = User.find_by_id(@resource_room_booking.user_id)
-      @dept = Department.find_by_id(default_department)
+      @dept = Department.find_by_id(current_department)
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id)
       if @agencystore.present?
         @agency= Agency.find_by_id(@agencystore.agency_id)

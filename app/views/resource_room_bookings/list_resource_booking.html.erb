@@ -22,9 +22,9 @@
               <p class="head1">To Date:<%= resource.requested_to_date%></p>
             </div>
             <div class="form-sec-row">
-              <span class="in-box btn2 in-btn2">
-              <%= "#{resource.status}" %>
-              </span>
+              <%#*<span class="in-box btn2 in-btn2">%>
+                <b><font color='#329C20'><%= "#{resource.status}" %></font></b>
+              <%#*</span>%>
             </div>
 
             <div class="form-sec-row">
@@ -60,7 +60,7 @@
 
             <div class="form-sec-row">
               <span class="in-box">
-               <b><font color="#336699"><%= link_to "Show Request",resource_room_booking_path(:id => resource.id), :method=>:get%></font></b>
+                <b><font color="#336699"><%= link_to "Show Request",resource_room_booking_path(:id => resource.id), :method=>:get%></font></b>
               </span>
             </div>
             <div class="mu-c3">

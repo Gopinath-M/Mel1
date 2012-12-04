@@ -279,7 +279,7 @@
                             <%if @list.present? %>
                               <span class="notifiNo"><%= count %></span>
                             <%end%>
-                            <%=link_to "Resource Booking", list_resource_booking_resource_room_bookings_path%>
+                            <%=link_to "Room Booking", list_resource_booking_resource_room_bookings_path%>
                           </li>
                         <%end%>
                       </ul>
@@ -358,7 +358,6 @@
                   </div>
                 </li>
               <%end%>
-<<<<<<< HEAD
 
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_USER)%>
                 <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
@@ -382,15 +381,12 @@
                     <ul>
                       <% count = ResourceTransportationBooking.find_all_by_status('Approved').count %>
                       <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
-                      <% @approve = Approver.find_by_department_id(current_user.departments)%>
-                      <% if @approve.present? && @approve.user_id == current_user.id %>
                         <li>
                           <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
                           <% cnt = ResourceRoomBooking.find_all_by_status('Approved').count %>
-                          <% if !@approve.present? %><span class="notifiNo"><%= cnt %></span><%end%>
+                          <% if @list.present? %><span class="notifiNo"><%= cnt %></span><%end%>
                           <%=link_to "Room Request", list_resource_booking_resource_room_bookings_path %>
                         </li>
-                      <%end%>
                     </ul>
                   </div>
                 </li>
