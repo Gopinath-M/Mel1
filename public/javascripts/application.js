@@ -2088,7 +2088,7 @@ $().ready(function(){
      $("#ict_agency_sub_category_id").live("change", function(){
         if($("#ict_agency_sub_category_id").val()!="")
         {
-            $.get("/resource_room_bookings/get_resources",{
+            $.get("/agency_stores/get_resource_ict",{
                 sub_category_id : $("#ict_agency_sub_category_id").val()
             }, function(data){
                 if (data[0]!=null)
@@ -2097,7 +2097,7 @@ $().ready(function(){
                     $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
                     for(var i=0; i<data[0].length;i++)
                     {
-                        $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_name));
+                        $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
                     }
                 }
             })
