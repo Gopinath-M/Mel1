@@ -31,8 +31,21 @@
               <div class="mu-c1">
               </div>
               <div class="mu-c2">
-                <p class="head1"><%=resource.resource_type.camelize%></p>
-                <p class="head1"><%=resource.resource_no%></p>
+
+                <p class="head1">Resource Type :&nbsp;<%=resource.resource_type.camelize%></p>
+                <%if resource.vehicle_model != nil%>
+                <p class="head1">Vehicle Model :&nbsp;<%=resource.vehicle_model%></p>
+                <%end%>
+                <%if resource.location != nil%>
+                <p class="head1">Location : &nbsp;<%=resource.location%></p>
+                <%end%>
+                <%if resource.resource_type == 'room_booking'%>
+                <p class="head1">Ext No :&nbsp;<%=resource.resource_no%></p>
+                <%elsif resource.resource_type == 'transport'%>
+                <p class="head1">Reg No :&nbsp;<%=resource.resource_no%></p>
+                <%elsif resource.resource_type == 'others'%>
+                <p class="head1">Name :&nbsp;<%=resource.resource_no%></p>
+                <%end%>
               </div>
               <div class="mu-c3">
                 <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>resource.id.to_i%>
