@@ -253,17 +253,11 @@ department_user18.activate_user
 rm_department_user18 = RoleMembership.create(:user_id => department_user18.id, :department_id => 6, :role_id => 3, :status => 'A', :default_dept=>true)
 
 
-
 puts "Creating sample resources for a resources category"
-resource_categories1 = Category.create( :name => 'Stationery Item')
-resource_categories2 = Category.create( :name => 'Computer Hardware and Accessories')
-resource_categories3 = Category.create(:name => 'Computer Software')
-#resource_categories4 = Category.create(:category_id => 4, :name => 'canteen')
-resource_categories4 = Category.create( :name => 'Communications')
-#resource_categories1 = Category.create(:category_id => 6, :name => 'first aid kit')
-resource_categories5 = Category.create( :name => 'Office Furniture and Equipment')
-resource_categories6 = Category.create( :name => 'Room')
-resource_categories7 = Category.create( :name => 'Transportation')
+categories=['Stationery Item','Computer Hardware and Accessories','Computer Software', 'Communications','Office Furniture and Equipment','Room','Transportation', 'ICT Equipment']
+categories.each do |category|
+  Category.create(:name=>category)
+end
 
 puts "Creating Sample sub resource category for a stationery item resource category"
 resource_sub_categories1 = SubCategory.create(:category_id => 1, :name => 'Pencil')
@@ -373,6 +367,19 @@ resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "4WD",
 resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Bas", :is_available => false)
 resource_sub_categories2 = SubCategory.create(:category_id => 7, :name => "Lori", :is_available => false)
 
+p "Creating Sample sub category data for ICT Equipment category"
+begin
+  file = File.open("public/equipment_category.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      p SubCategory.create(:category_id => 8 ,:name=>record)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
 puts "Creating Vehicles"
 begin
   file = File.open("public/Vehicle.csv", "r")

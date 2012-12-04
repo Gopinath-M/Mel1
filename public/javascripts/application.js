@@ -1624,18 +1624,28 @@ $().ready(function(){
             })
         }
     });
+    $("#resource_resource_type_ict").live("click",function(){
+        $("#show_ict").show();
+        $("#show_transport").hide();
+        $("#show_room").hide();
+        $("#show_others").hide();
+    });
+
     $("#resource_resource_type_room_booking").live("click",function(){
         $("#show_room").show();
+        $("#show_ict").hide();
         $("#show_transport").hide();
         $("#show_others").hide();
     });
     $("#resource_resource_type_transport").live("click",function(){
         $("#show_transport").show();
+        $("#show_ict").hide();
         $("#show_room").hide();
         $("#show_others").hide();
     });
     $("#resource_resource_type_others").live("click",function(){
         $("#show_others").show();
+        $("#show_ict").hide();
         $("#show_transport").hide();
         $("#show_room").hide();
     });
@@ -2321,7 +2331,23 @@ $().ready(function(){
 //            return false;
 //        }
     })
-
+$("#resource_ict").live("click",function(){
+        if ($("#resource_ict_sub_category_id").val() == ""){
+            alert("Select Sub Category");
+            return false;
+        } else if ($("#resource_name").val() == ""){
+            alert("Enter Name");
+            return false;
+        }
+        else if ($("#resource_description").val() == ""){
+            alert("Enter Description");
+            return false;
+        }
+         else if ($("#resource_brand_model").val() == ""){
+            alert("Enter Brand Model");
+            return false;
+        }
+    })
     $("#resource_other_submit").live("click",function(){
         if ($("#resource_other_category_id").val() == ""){
             alert("Select Category");
