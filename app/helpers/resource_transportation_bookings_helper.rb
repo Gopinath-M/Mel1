@@ -21,7 +21,7 @@ module ResourceTransportationBookingsHelper
   def return_scenario(id)
 
     rtb = ResourceTransportationBooking.find(id)
-    agency_store = AgencyStore.find_by_resource_id(rtb.agency_store_id)    
+    agency_store = AgencyStore.find(rtb.agency_store_id)    
     driver = Driver.find(rtb.driver_id)
 
     #    vehicle = Vehicle.find(agency_store.resource_id)
