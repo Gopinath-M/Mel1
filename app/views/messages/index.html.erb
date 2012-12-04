@@ -76,20 +76,6 @@
             <div class=""></div>
             <div id="message_field_<%= message.id %>" ></div>
 
-            <% if message.attachment? %>
-              <div class="PM-shared">
-                <div class="PM-shared-img">
-                  <%= image_tag message.attachment_url(:profile) if message.attachment? %>
-      <%#= send_file message.attachment, :type => message.file_content_type, :disposition => 'inline' %>
-      <%#= send_file image_tag message.attachment_url(:profile) if message.attachment?  :type => mime, :disposition => disposition %>
-                </div>
-                <div class="PM-shared-txt">
-                  <span></span>
-                  <p></p>
-                </div>
-              </div>
-            <%end%>
-
             <p class="PM-des">
               by  <%= message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(message.created_at) %> ago
               <% if message.message_comments.count == 0 %>
