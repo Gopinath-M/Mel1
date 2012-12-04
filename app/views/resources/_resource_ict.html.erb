@@ -1,12 +1,11 @@
 <%= form_for(@resource) do |f| %>
-
   <div class="form-sec-row">
     <label class="text">Resource Sub Category <span style=color:red>*</span></label>
     <span class="in-box">
       <%= select("resource_ict","sub_category_id",  SubCategory.where("category_id = 8").active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
     </span>
   </div>
-<%= f.hidden_field :category_id, :value=>"8" %>
+  <%= f.hidden_field :category_id, :value=>"8" %>
   <%= hidden_field_tag :resource_type, ("ict") %>
 
   <div class="form-sec-row">
@@ -27,19 +26,6 @@
       <%= f.text_field :brand_model%>
     </span>
   </div>
-
-  <%#*<div class="form-sec-row">%>
-    <%#*<label class="text">Is Returnable</label>%>
-    <%#*<span class="in-box">%>
-      <%#= f.check_box :is_returnable%>
-    <%#*</span>%>
-  <%#*</div>%>
-  <%#*<div class="form-sec-row">%>
-    <%#*<label class="text">Avail facility as a resource</label>%>
-    <%#*<span class="in-box">%>
-      <%#= f.check_box :is_facilty_avail%>
-    <%#*</span>%>
-  <%#*</div>%>
   <div class="form-sec-row">
     <label class="text">&nbsp;</label>
     <span class="in-box">
