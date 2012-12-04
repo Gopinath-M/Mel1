@@ -2,7 +2,7 @@
   <div class="form-sec-row">
     <label class="text">Resource Sub Category <span style=color:red>*</span></label>
     <span class="in-box">
-      <%= select("resource_ict","sub_category_id",  SubCategory.where("category_id = 8").active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+      <%= select("resource_ict","sub_category_id",  options_from_collection_for_select(SubCategory.where("category_id = 8").active, 'id','name',@resource.sub_category_id ),:prompt=>"SELECT A SUB CATEGORY") %>
     </span>
   </div>
   <%= f.hidden_field :category_id, :value=>"8" %>
