@@ -37,13 +37,16 @@ class ResourcesController < ApplicationController
       @resource.category_id = params[:resource_transport][:category_id]
       @resource.sub_category_id = params[:resource_transport][:sub_category_id]
       @resource.resource_type = params[:resource_type]
+      elsif params[:resource_type] =="ict_booking"
+      @resource = Resource.create(params[:resource])
+      @resource.sub_category_id = params[:ict][:sub_category_id]
+      @resource.resource_type = params[:resource_type]
     elsif params[:resource_type] =="others"
       @resource = Resource.create(params[:resource])
       @resource.category_id = params[:resource_other][:category_id]
       @resource.sub_category_id = params[:resource_other][:sub_category_id]
       @resource.resource_type = params[:resource_type]
     end
-    @resource.created_by = params[:created_by]
     @resource.save
     if @resource.valid?
       redirect_to :controller=>'resources', :action=>'index'
