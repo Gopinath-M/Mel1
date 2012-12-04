@@ -15,6 +15,7 @@ gem 'mysql2', '~>0.2.6'
 gem 'mini_magick'
 gem 'private_pub'  #chat online
 gem 'stalker'
+#gem 'thinking-sphinx', '2.0.3'
 # Use unicorn as the web server
 # gem 'unicorn'
 
