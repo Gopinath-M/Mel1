@@ -37,18 +37,16 @@
               <%= select_tag :message_user_select,"<option>Please Select</option>
     <option>All Users</option>
     <option>All Dept Admins</option>
-    <option>All Unit Admins</option>
     <option>Select Agency</option>
     <option>Select Department</option>
-    <option>Select Unit</option>
-    <option>Select Dept Admin</option>
-    <option>Select Unit Admin</option>".html_safe %>
+    <option>Select Dept Admin</option>".html_safe %>
             </span>
+    <%# <option>All Unit Admins</option> <option>Select Unit</option><option>Select Unit Admin</option> %>
           </div>
           <div id ="user_type_select_div"></div>
 
-    <%#= f.file_field :attachment %>
-          
+          <%= f.file_field :attachment %>
+
 
         <%elsif current_user && current_user.is_department_admin? %>
 
@@ -57,19 +55,15 @@
 
         <%end%>
 
-          <div class="botRow box">
-            <%= f.submit "Submit",:class=>"btn2 in-btn2",:id=>"message_submit_button"  %>
-          </div>
-
+        <div class="botRow box">
+          <%= f.submit "Submit",:class=>"btn2 in-btn2",:id=>"message_submit_button"  %>
+        </div>
 
       <%end%>
 
     </div>
   </div>
   <div class="postedMsg-con">
-    <!--<div class="sortRow box">
-    </div>-->
-
     <% if @messages && !@messages.empty? %>
       <% @messages.each do |message| %>
 
@@ -82,14 +76,28 @@
             <div class=""></div>
             <div id="message_field_<%= message.id %>" ></div>
 
+            <% if message.attachment? %>
+              <div class="PM-shared">
+                <div class="PM-shared-img">
+                  <%= image_tag message.attachment_url(:profile) if message.attachment? %>
+      <%#= send_file message.attachment, :type => message.file_content_type, :disposition => 'inline' %>
+      <%#= send_file image_tag message.attachment_url(:profile) if message.attachment?  :type => mime, :disposition => disposition %>
+                </div>
+                <div class="PM-shared-txt">
+                  <span></span>
+                  <p></p>
+                </div>
+              </div>
+            <%end%>
+
             <p class="PM-des">
               by  <%= message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(message.created_at) %> ago
               <% if message.message_comments.count == 0 %>
                 &nbsp; - &nbsp;
-                <a value="<%= message.id %>" id ="message_<%= message.id %>" title="Comment" onclick= "insert_text_field(id)">Comment    </a>                
+                <a value="<%= message.id %>" id ="message_<%= message.id %>" title="Comment" onclick= "insert_text_field(id)">Comment    </a>
                 <% if message.user.id == current_user.id %>
-                &nbsp; - &nbsp;
-                <%= link_to 'Delete', message_path(:id => message.id),:method=>"delete",:confirm=>"Are are sure ?" %>
+                  &nbsp; - &nbsp;
+                  <%= link_to 'Delete', message_path(:id => message.id),:method=>"delete",:confirm=>"Are are sure ?" %>
                 <%end%>
               <%end%>
             </p>
