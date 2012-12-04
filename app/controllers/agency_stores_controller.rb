@@ -137,4 +137,10 @@ class AgencyStoresController < ApplicationController
     subcategories = SubCategory.find_all_by_category_id(params[:agency_id])
     render :json=>[ subcategories] if  subcategories
   end
+
+  def get_resource_ict
+
+    resources = Resource.find_all_by_sub_category_id(params[:sub_category_id])
+    render :json=>[resources] if resources
+  end
 end
