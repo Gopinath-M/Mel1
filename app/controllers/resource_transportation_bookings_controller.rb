@@ -40,7 +40,8 @@ class ResourceTransportationBookingsController < ApplicationController
     #      @resource_transportation_bookings = ResourceTransportationBooking.find(:all, :conditions => ["status != 'New'"])
     #    end
     if current_user.is_resource_manager?
-      @resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
+      @resource_transportation_bookings = ResourceTransportationBooking.find(:all, :conditions => ["status != 'New'"])
+      #@resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
     else
       @approver = Approver.active.find_all_by_department_id(current_user.departments).first
       @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
