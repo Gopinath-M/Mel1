@@ -20,8 +20,8 @@
               <p class="head1">Name :<%= @user.first_name%></p>
               <p class="head1">Room Name :<%= @name.name%></p>
               <b><p class="head1"><b>Ticket No :<font color="#BB0802;">&nbsp;<%=resource.id%>/<%=Time.now.year%></font></b></td></p>
-              <p class="head1">From Date:<%= resource.requested_from_date.to_date.strftime("%d - %m - %Y")%></p>
-              <p class="head1">To Date:<%= resource.requested_to_date.to_date.strftime("%d - %m - %Y")%></p>
+              <p class="head1">From Date:<%= resource.requested_from_date.to_date.strftime("%d-%m-%Y")%></p>
+              <p class="head1">To Date:<%= resource.requested_to_date.to_date.strftime("%d-%m-%Y")%></p>
             </div>
             <div class="form-sec-row">
               <%#*<span class="in-box btn2 in-btn2">%>
