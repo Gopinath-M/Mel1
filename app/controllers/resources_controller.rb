@@ -132,10 +132,14 @@ def update_resource_approver
       @val = Approver.find_all_by_department_id(params[:department_id]).first
       @second = Approver.find_all_by_department_id(params[:department_id]).last
       if @val.present? && @second.present?
-        p  @val.update_attribute(:user_id, params[:approver1][:id])
+          @val.update_attribute(:user_id, params[:approver1][:id])
         val = User.find_by_id(params[:approver2][:id])
+        temp = User.find_by_ic_number(params[:approver2][:id])
         if val.present?
           @second.update_attribute(:user_id, val.id)
+        end
+        if temp.present?
+          @second.update_attribute(:user_id, temp.id)
         end
         redirect_to(list_approver_resources_path, :notice => 'Approver has been Updated.')
       else

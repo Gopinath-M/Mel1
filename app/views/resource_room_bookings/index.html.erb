@@ -53,7 +53,7 @@
             <div class="form-sec-row">
               <% if current_user.is_department_admin? || current_user.is_super_admin? %>
                 <span class="in-box">
-                  <%= link_to "See Request Details",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                  <%#= link_to "See Request Details",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                 </span>
               <%end%>
             </div>
