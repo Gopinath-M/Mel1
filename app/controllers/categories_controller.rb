@@ -92,7 +92,7 @@ class CategoriesController < ApplicationController
   end
   
 def update_category_mapping
-    category = CategoriesDepartment.find(params[:id])
+    category = CategoriesDepartments.find(params[:id])
     if category && params[:status]=="Activate"
       category.update_attribute(:is_active,true)
     elsif category && params[:status]=="Deactivate"
