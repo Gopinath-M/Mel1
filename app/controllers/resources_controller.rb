@@ -130,10 +130,11 @@ class ResourcesController < ApplicationController
   def update_resource_approver
     @val = Approver.find_all_by_department_id(params[:department_id]).first
     @second = Approver.find_all_by_department_id(params[:department_id]).last
+    val = User.find_by_id(@second.user_id)
     update = User.find_by_ic_number(params[:approver2][:id])
     if @val.present? && @second.present?
       @val.update_attribute(:user_id, params[:approver1][:id])
-      @second.update_attribute(:user_id, update.id)
+      @second.update_attribute(:user_id, val.id)
       redirect_to(list_approver_resources_path, :notice => 'Approver has been Updated.')
     else
       @approve = Approver.create(:is_active => params[:active1][:id])
