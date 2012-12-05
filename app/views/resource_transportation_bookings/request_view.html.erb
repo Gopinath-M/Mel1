@@ -119,6 +119,19 @@
                         <%= select_tag :approve_status,"<option>Approved</option><option>Declined</option>".html_safe %>
                       </td>
                     </tr>
+                  <% elsif (current_user.is_department_user?) %>
+                    <% @approver = Approver.active.find_all_by_department_id(current_user.departments).first %>
+                    <% @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last %>
+
+                    <% if (@approver.user_id.to_i == current_user.id || @approver_second.user_id.to_id == current_user.id) %>
+                      <tr>
+                        <td><label class="text"> <%= label :location,raw("Status"), :class=>"text"%></label></td>
+                        <td>
+                          <%= select_tag :approve_status,"<option>Approved</option><option>Declined</option>".html_safe %>
+                        </td>
+                      </tr>
+                    <%end%>
+
                   <%else%>
 
                     <tr>
@@ -127,7 +140,6 @@
                     </tr>
 
                     <% if @resource_transportation_booking.status == "Approved" %>
-                      <%= hidden_field_tag :approve_status,"Processed"  %>
                       <tr>
                         <td>&nbsp;<b>Change Status</b></td>
                         <td><%= select_tag :approve_status,"<option>Processed</option><option>Declined</option>".html_safe %></td>
@@ -157,7 +169,6 @@
                         <% vehicle = Resource.find(@resource_transportation_booking.agency_store.resource_id) %>
                         <td>&nbsp;<b><%= vehicle.vehicle_model+' : '+vehicle.resource_no %></b></td>
                       </tr>
-
                       <tr>
 
                         <td><b>Change Vehicle</b></td>
@@ -170,8 +181,6 @@
                           </td>
                         <%else%>
                           <td>&nbsp;<b><%= 'No Vehicles Available' %> <%= hidden_field_tag :alternate_vehicle_id,'0' %></b></td>
-
-
                         <%end%>
 
                       </tr>
@@ -180,21 +189,21 @@
                       <!--<tr>
                         <td><b>Driver</b></td>
                         <td>&nbsp;
-                          <div id="normal" >
-      <%# driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
-                            <b><%#= driver.name %></b>
-                            <input type="button" id="driver_change_button" name="Change" value="Change" />
-                          </div>
+                                          <div id="normal" >
+                      <%# driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
+                                            <b><%#= driver.name %></b>
+                                            <input type="button" id="driver_change_button" name="Change" value="Change" />
+                                          </div>
 
-                          <div id="alternate">
-      <%#= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"SELECT A DRIVER"})%>
-                          </div>
+                                          <div id="alternate">
+                      <%#= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"SELECT A DRIVER"})%>
+                                          </div>
 
-                          <div id="changed_driver">
-                          </div>
+                                          <div id="changed_driver">
+                                          </div>
 
-      <%#= hidden_field_tag "alternate_driver"  %>
-                        </td>
+                      <%#= hidden_field_tag "alternate_driver"  %>
+                                        </td>
                       </tr>-->
                     <%else%>
                       <% vehicle = Resource.find(@resource_transportation_booking.agency_store.resource_id) %>
