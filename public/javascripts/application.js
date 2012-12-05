@@ -2345,18 +2345,18 @@ $().ready(function(){
             alert("Select Sub Category");
             return false;
         }
-//        else if ($("#resource_resource_no").val() == ""){
-//            alert("Enter Registration No");
-//            return false;
-//        }
+        else if ($("#resource_reg_no_transport").val() == ""){
+            alert("Enter Registration No");
+            return false;
+        }
         else if ($("#resource_vehicle_model").val() == ""){
             alert("Enter Vehicle Model");
             return false;
         }
-//        else if ($("#resource_capacity").val() == ""){
-//            alert("Enter No of Passengers");
-//            return false;
-//        }
+        else if ($("#resource_capacity_transport").val() == ""){
+            alert("Enter No of Passengers");
+            return false;
+        }
     })
 $("#resource_ict").live("click",function(){
         if ($("#resource_ict_sub_category_id").val() == ""){
@@ -2384,14 +2384,14 @@ $("#resource_ict").live("click",function(){
             alert("Select Sub Category");
             return false;
         }
-//        else if ($("#resource_resource_no").val() == ""){
-//            alert("Enter Name");
-//            return false;
-//        }
-        else if ($("#resource_description").val() == ""){
+        else if ($("#resource_name_others").val() == ""){
+            alert("Enter Name");
+            return false;
+        }
+        else if ($("#resource_description_others").val() == ""){
             alert("Enter Description");
             return false;
-        }       
+        }
     })
     /* Resources validation Ends*/
 
