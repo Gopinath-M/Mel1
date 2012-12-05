@@ -264,10 +264,10 @@ class UsersController < ApplicationController
     department_id = params[:department_id].to_i
     if department_id != 0
       department = Department.find_by_id(params[:department_id])
-      #@users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgresql is Used - Mathew      
+      #@users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
       @users = User.where(:deleted=>false).page(params[:page]).per(10)
     else
-      #@users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgresql is Used - Mathew
+      #@users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
       @users = User.where(:deleted=>false).page(params[:page]).per(10)
       @department_id=params[:department_id]
     end
