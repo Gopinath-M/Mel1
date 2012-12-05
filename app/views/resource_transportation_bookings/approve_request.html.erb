@@ -1,8 +1,8 @@
 <div class="CenterNav">
-  <h2 class="b-head">Resource Car Approval List</h2>
+  <h2 class="b-head">Resource Transport Approval List</h2>
   <div id="div_ajax" >
-    <%if @resource_transportation_bookings && !@resource_transportation_bookings.empty?%>
-      <%  @resource_transportation_bookings.each do |resource_transportation_booking|%>
+    <%if @resource_transportation_bookings && !@resource_transportation_bookings.empty? %>
+      <%  @resource_transportation_bookings.each do |resource_transportation_booking| %>
         <div class="manage-user box">
           <div class="manage-user-row box">
             <div class="mu-c1">
@@ -32,6 +32,10 @@
                       <%= link_to "Return Request", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) if current_user.is_resource_manager? %><br/><br/>
                     <%end%>
                     <%= link_to "Request Details", resource_transportation_booking_path(resource_transportation_booking)%>
+                  <%end%>
+                <%else%>
+                  <% if (@approver.user_id.to_i == current_user.id || @approver_second.user_id.to_i == current_user.id)%>
+                    <%= link_to "Approve Request",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) %>
                   <%end%>
                 <%end%>
 

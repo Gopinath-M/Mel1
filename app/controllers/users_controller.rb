@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
   before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department]
-
+  
   #Activate or Deactivate a particular User
   def update_status
     @user = User.find(params[:id])
@@ -264,9 +264,11 @@ class UsersController < ApplicationController
     department_id = params[:department_id].to_i
     if department_id != 0
       department = Department.find_by_id(params[:department_id])
-      @users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10)
+      #@users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgresql is Used - Mathew      
+      @users = User.where(:deleted=>false).page(params[:page]).per(10)
     else
-      @users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10)
+      #@users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgresql is Used - Mathew
+      @users = User.where(:deleted=>false).page(params[:page]).per(10)
       @department_id=params[:department_id]
     end
     if request.xhr?

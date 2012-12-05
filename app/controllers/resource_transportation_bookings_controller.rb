@@ -34,10 +34,23 @@ class ResourceTransportationBookingsController < ApplicationController
   # For Approval
   def approve_request
     #get_booking_records
-    if current_user.is_department_admin?
-      @resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(current_user.departments)
+    #    if current_user.is_department_admin?
+    #      @resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(current_user.departments)
+    #    else
+    #      @resource_transportation_bookings = ResourceTransportationBooking.find(:all, :conditions => ["status != 'New'"])
+    #    end
+    if current_user.is_resource_manager?
+      @resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
     else
-      @resource_transportation_bookings = ResourceTransportationBooking.find(:all, :conditions => ["status != 'New'"])
+      @approver = Approver.active.find_all_by_department_id(current_user.departments).first
+      @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
+      if @approver.present? && @approver.user_id == current_user.id
+        @resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(@approver.department_id)
+      elsif @approver_second.present? && @approver_second.user_id == current_user.id
+        @resource_transportation_bookings = ResourceTransportationBooking.where(:department_id => @approver_second.department_id)
+      else
+        @resource_transportation_bookings = ResourceTransportationBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(5)
+      end
     end
   end
 
@@ -101,6 +114,11 @@ class ResourceTransportationBookingsController < ApplicationController
     @rtb = ResourceTransportationBooking.find(params[:id])
     @rtb.update_attribute(:resource_returned_from_user,true)
     render :layout => false
+  end
+
+  def download_attachments
+    @message = ResourceTransportationBooking.find(params[:id])
+    send_file @message.attachment.path
   end
   
 end

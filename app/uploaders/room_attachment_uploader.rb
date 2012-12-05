@@ -16,11 +16,17 @@ class RoomAttachmentUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  version :thumb do
-    process :resize_to_limit => [130, 130]
-    #process :convert => 'jpg'
+  version :thumb, :if => :image? do
+    process :resize_to_limit => [30, 30]
   end
 
+  version :profile, :if => :image? do
+    process :resize_to_limit => [120, 120]
+  end
+    
+  def extension_white_list
+    %w(jpg jpeg gif png)
+  end
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
@@ -40,14 +46,21 @@ class RoomAttachmentUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  # def extension_white_list
-  #   %w(jpg jpeg gif png)
-  # end
+   def extension_white_list
+    %w(jpg jpeg gif png ppt pdf xls doc txt docx odt)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+  protected
+
+  def image?(new_file)
+    new_file.content_type.include? 'image'
+  end
+
 
 end
