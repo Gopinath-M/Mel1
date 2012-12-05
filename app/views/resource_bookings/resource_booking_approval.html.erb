@@ -21,11 +21,11 @@
                   </tr>
                   <tr>
                     <td><b>Image</b></td>
-                    <td><%=image_tag(@resource_booking.room_attachment.url(:thumb),:title=>@resource_booking.room_attachment)%></td>
+                    <%#*<td><%=image_tag(@resource_booking.room_attachment.url(:thumb),:title=>@resource_booking.room_attachment)%></td>%>
                   </tr>
                   <tr>
                     <td><b>Agency Name</b></td>
-                    <td><b>&nbsp;<%= @agency.name  %></b></td>
+                    <td><b>&nbsp;<%#= @agency.name  %></b></td>
                   </tr>
                   <tr>
                     <td><b>Department Name</b></td>
@@ -67,7 +67,6 @@
             </tr>
             <tr>
               <td><b>Room Name</b></td>
-              <td><b>&nbsp;<%=@resource.name%></b></td>
             </tr>
             <tr>
               <td><b>Booking Date</b></td>
@@ -83,7 +82,7 @@
             </tr>
             <tr>
               <td><b>Remarks</b></td>
-              <td><b>&nbsp;<%=@resource_booking.remarks%></b></td>
+              <td><b>&nbsp;<%#=@resource_booking.remarks%></b></td>
             </tr>
             <% if current_user.is_resource_manager? && @resource_booking.status == "Approved" %>
               <tr>
