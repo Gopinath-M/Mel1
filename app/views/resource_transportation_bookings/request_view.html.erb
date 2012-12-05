@@ -112,14 +112,14 @@
                     <td><font color="#369"><b><u>Vehicle Details:-</u></b></font></td>
                     <td></td>
                   </tr>
-                  <% if (current_user.is_super_admin? || current_user.is_department_admin?) %>
+                  <% if (current_user.is_super_admin? || current_user.is_department_admin? ) %>
                     <tr>
                       <td><label class="text"> <%= label :location,raw("Status"), :class=>"text"%></label></td>
                       <td>
                         <%= select_tag :approve_status,"<option>Approved</option><option>Declined</option>".html_safe %>
                       </td>
                     </tr>
-                  <% elsif (current_user.is_department_user?) %>
+                  <% elsif (current_user.is_department_user? && !current_user.is_resource_manager?) %>
                     <% @approver = Approver.active.find_all_by_department_id(current_user.departments).first %>
                     <% @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last %>
 
