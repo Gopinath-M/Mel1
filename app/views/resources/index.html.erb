@@ -45,8 +45,6 @@
                 <p class="head1">Reg No :&nbsp;<%=resource.resource_no%></p>
                 <%elsif resource.resource_type == 'others'%>
                 <p class="head1">Name :&nbsp;<%=resource.resource_no%></p>
-                <%elsif resource.resource_type == 'ict_booking'%>
-                <p class="head1">Equipment Type :&nbsp;<%=resource.resource_no%></p>
                 <%end%>
               </div>
               <div class="mu-c3">
@@ -61,9 +59,7 @@
             </div>
             <div class="clear"></div>
           </div>
-        <%end%><div class="manage-user-rows box"><br/><br/>
-          <%= paginate @resources %>
-        </div>
+        <%end%>
     <%else%>
       No Resources Available
     <%end%>
