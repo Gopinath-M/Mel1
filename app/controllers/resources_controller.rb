@@ -6,7 +6,7 @@ class ResourcesController < ApplicationController
     if department_id == 0
       if params[:id].blank? || params[:id].nil?
         if current_user.is_super_admin?
-          @resources=Resource.order.page(params[:page]).per(10)
+          @resources=Resource.page(params[:page]).per(10).order('created_at DESC')
         else
           @resources=Resource.find_all_by_department_id(current_department.id)
         end
