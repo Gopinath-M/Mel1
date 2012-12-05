@@ -21,8 +21,14 @@
                   </tr>
                   <% if @resource_room_booking.room_attachment.present? %>
                     <tr>
-                      <td><b>Image</b></td>
-                      <td><%=image_tag(@resource_room_booking.room_attachment.url(:thumb),:title=>@resource_room_booking.room_attachment)%></td>
+                      <td><b>Attachment</b></td>
+                      <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
+                      <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                        <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
+                      <%else%>
+                        <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
+                        <td><b>&nbsp;<%= file %></b></td>
+                      <%end%>
                     </tr>
                   <%end%>
                   <% if @agency.present? %>
@@ -79,7 +85,11 @@
             </tr>
             <tr>
               <td><b>Return Date</b></td>
-              <td><b>&nbsp;<%=@resource_room_booking.requested_to_date%></b></td>
+              <% if @resource_room_booking.status == "Returned" %>
+                <td><b>&nbsp;<%=@resource_room_booking.updated_at.strftime("%a %d %b %Y %I:%M %p")%></b></td>
+              <%else%>
+                <td><b>&nbsp;<%=@resource_room_booking.requested_to_date%></b></td>
+              <%end%>
             </tr>
             <tr>
               <td><b>Purpose</b></td>
