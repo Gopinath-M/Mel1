@@ -81,15 +81,11 @@
             </tr>
             <tr>
               <td><b>Booking Date</b></td>
-              <td><b>&nbsp;<%=@resource_room_booking.requested_from_date%></b></td>
+              <td><b>&nbsp;<%=@resource_room_booking.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
             </tr>
             <tr>
               <td><b>Return Date</b></td>
-              <% if @resource_room_booking.status == "Returned" %>
-                <td><b>&nbsp;<%=@resource_room_booking.updated_at.strftime("%a %d %b %Y %I:%M %p")%></b></td>
-              <%else%>
-                <td><b>&nbsp;<%=@resource_room_booking.requested_to_date%></b></td>
-              <%end%>
+                <td><b>&nbsp;<%=@resource_room_booking.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
             </tr>
             <tr>
               <td><b>Purpose</b></td>
@@ -182,7 +178,11 @@
         <label class="text">&nbsp;</label>
         <span class="in-box">
           <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-          <%= f.submit :class=>"btn2"%>
+          <% if @resource_room_booking.status == "Processed" && @resource_room_booking.user_returned_status? %>
+            <%= f.submit raw('Acknowledge'), :class=>"btn2"%>
+          <%else%>
+            <%= f.submit raw('Submit'), :class=>"btn2"%>
+          <%end%>
         </span>
       </div>
     </div>

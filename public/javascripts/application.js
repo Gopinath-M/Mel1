@@ -1476,23 +1476,23 @@ $().ready(function(){
 
     // here's our click function for when the forms submitted
 
-    $('.submit').click(function(){
-
-
-        var answers = [];
-        $.each($('.field'), function() {
-            answers.push($(this).val());
-        });
-
-        if(answers.length == 0) {
-            answers = "none";
-        }
-
-        alert(answers);
-
-        return false;
-
-    });
+//    $('.submit').click(function(){
+//
+//
+//        var answers = [];
+//        $.each($('.field'), function() {
+//            answers.push($(this).val());
+//        });
+//
+//        if(answers.length == 0) {
+//            answers = "none";
+//        }
+//
+//        alert(answers);
+//
+//        return false;
+//
+//    });
     /* dynamic text box ends */
     /* category mapping list page will show based on dept selection */
     $("#cat_department_id").live("change",function(){
@@ -2479,7 +2479,7 @@ function toreturnroomresource(chbx_id,room_book_id)
 {
     if(room_book_id!=null && room_book_id!=0)
     {
-        s = confirm("Do you Want to Return thuis Resource?");
+        s = confirm("Do you Want to Return this Resource?");
         if (s==true)
         {
             if($("#"+chbx_id).is(':checked'))

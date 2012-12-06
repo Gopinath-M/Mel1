@@ -15,11 +15,12 @@
             <div class="mu-c2">
               <% @name = SubCategory.find_by_id(resource.sub_category_id)%>
               <% @user = User.find_by_id(resource.user_id) %>
-              <p class="head1">Name :<%= @user.first_name%></p>
-              <p class="head1">Room Name :<%= @name.name%></p>
-              <b><p class="head1"><b>Ticket No :<font color="#BB0802;">&nbsp;<%=resource.id%>/<%=Time.now.year%></font></b></td></p>
-              <p class="head1">From Date:<%= resource.requested_from_date.to_date.strftime("%d-%m-%Y")%></p>
-              <p class="head1">To Date:<%= resource.requested_to_date.to_date.strftime("%d-%m-%Y")%></p>
+              <p class="head1"><b>Name :<%= @user.first_name%></b></p>
+              <p class="head1"><b>Room Name :<%= @name.name%></b></p>
+              <p class="head1"><b>Ticket No :<font color="#BB0802;">&nbsp;<%=resource.id%>/<%=Time.now.year%></font></b></p>
+              <p class="head1"><b>From Date:<%= resource.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></p>
+              <p class="head1"><b>To Date:<%= resource.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></p>
+              <p class="head1"><b>Booked Date:<%=resource.created_at.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></p>
             </div>
             <div class="form-sec-row">
               <%#*<span class="in-box btn2 in-btn2">%>
@@ -51,7 +52,7 @@
                   <% if resource.status == "Approved" %>
                     <%= link_to "Process Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                   <%elsif resource.user_returned_status? && resource.status != "Returned" && resource.status != "Declined" %>
-                    <%= link_to "Return Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to "Acknowledge",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                   <%end%>
                 </span>
               <%end%>
