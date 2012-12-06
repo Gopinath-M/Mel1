@@ -73,7 +73,7 @@
             </tr>
             <tr>
               <td><b>Date of Application</b></td>
-              <td><b>&nbsp;<%=@resource_room_booking.created_at.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
+              <td><b>&nbsp;<%=@resource_room_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
             </tr>
             <tr>
               <td><b>Room Name</b></td>
@@ -90,7 +90,7 @@
             <% if @resource_room_booking.status == "Returned" %>
               <tr>
                 <td><b>Return Date</b></td>
-                <td><b>&nbsp;<%=@resource_room_booking.updated_at.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
+                <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
             <%end%>
             <tr>

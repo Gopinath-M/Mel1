@@ -22,7 +22,7 @@
               <p class="head1"><b>Ticket No :<font color="#BB0802;">&nbsp;<%=resource.id%>/<%=Time.now.year%></font></b></p>
               <p class="head1"><b>From Date:<%= resource.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></p>
               <p class="head1"><b>To Date:<%= resource.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></p>
-              <p class="head1"><b>Booked Date:<%=resource.created_at.strftime("%a %d %b %Y %I:%M %p")%></b></p>
+              <p class="head1"><b>Booked Date:<%=resource.created_at.localtime.strftime("%d-%m-%Y %H:%M %p") %></b></p>
             </div>
             <div class="form-sec-row">
               <%#*<span class="in-box btn2 in-btn2">%>
@@ -61,7 +61,7 @@
 
             <div class="form-sec-row">
               <span class="in-box">
-                <b><font color="#336699"><%= link_to "Show Request",resource_room_booking_path(:id => resource.id), :method=>:get%></font></b>
+                <b><font color="#336699"><%= link_to "Show Info",resource_room_booking_path(:id => resource.id), :method=>:get%></font></b>
               </span>
             </div>
             <div class="mu-c3">
