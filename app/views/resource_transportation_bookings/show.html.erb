@@ -26,6 +26,14 @@
                   <td>&nbsp;<b><%= @requester.ic_number %></b></td>
                 </tr>
                 <tr>
+                  <td><b>First Name</b></td>
+                  <td>&nbsp;<b><%= @requester.first_name %></b></td>
+                </tr>
+                <tr>
+                  <td><b>Last Name</b></td>
+                  <td>&nbsp;<b><%= @requester.last_name %></b></td>
+                </tr>
+                <tr>
                   <td><b>Email</b></td>
                   <td>&nbsp;<b><%= @requester.email %></b></td>
                 </tr>
@@ -36,7 +44,7 @@
                 </tr>
                 <tr>
                   <td><b>Date of Application</b></td>
-                  <td>&nbsp;<b><%=@resource_transportation_booking.created_at.localtime.strftime("%dth %B %Y %l:%M:%S %p")%></b></td>
+                  <td>&nbsp;<b><%=@resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
                 </tr>
                 <tr>
                   <td><b>Purpose</b></td>
@@ -55,13 +63,21 @@
                   <td>&nbsp;<b><%=  State.find(@resource_transportation_booking.state).name %></b></td>
                 </tr>
                 <tr>
-                  <td><b>Booking Date</b></td>
-                  <td>&nbsp;<b><%=@resource_transportation_booking.requested_from_date.strftime("%d - %m - %Y") %></b></td>
+                  <td><b>From Date</b></td>
+                  <td>&nbsp;<b><%=@resource_transportation_booking.requested_from_date.strftime("%d-%m-%Y %H:%M %p") %></b></td>
                 </tr>
                 <tr>
-                  <td><b>Return Date</b></td>
-                  <td>&nbsp;<b><%=@resource_transportation_booking.requested_to_date.strftime("%d - %m - %Y") %></b></td>
+                  <td><b>To Date</b></td>
+                  <td>&nbsp;<b><%=@resource_transportation_booking.requested_to_date.strftime("%d-%m-%Y %H:%M %p") %></b></td>
                 </tr>
+                
+                <% if !@resource_transportation_booking.request_returned_date.blank? %>
+                <tr>
+                  <td><b>Return Date</b></td>
+                  <td>&nbsp;<b><%=@resource_transportation_booking.request_returned_date.strftime("%d-%m-%Y %H:%M %p") %></b></td>
+                </tr>
+                <%end%>
+                
                 <tr>
                   <td><b>Number of Passengers</b></td>
                   <td>&nbsp;<b><%=@resource_transportation_booking.number_of_passengers%></b></td>
@@ -115,5 +131,10 @@
       </td>
     </div>
   </div>
-</div>
+    <div class="form-sec-row2">
+      <label class="text">&nbsp;</label>
+      <span class="in-box2">
+        <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+      </span>
+    </div></div>
 <%#end%>
