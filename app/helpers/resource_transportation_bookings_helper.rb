@@ -32,7 +32,7 @@ module ResourceTransportationBookingsHelper
     #      driver = Driver.find(vehicle.driver_id)
     #    end
 
-    rtb.update_attribute(:status,'Returned')
+    rtb.update_attributes(:status=>'Returned',:request_returned_date=>Time.now)
     agency_store.update_attribute(:booked,false)
     #driver.update_attribute(:already_assigned,false)
 
