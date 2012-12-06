@@ -2,17 +2,17 @@
 
 <div class="mu-c1">
 </div>
+<% requester = User.find(resource_transportation_booking.requester_id) %>
 <div class="mu-c2">
-  <p class="head1"><b>Purpose :<%= resource_transportation_booking.purpose%></b></p>
-  <p class="head1"><b>Pick up :<%= resource_transportation_booking.pick_up_place%><b/></p>
-  <p class="head1"><b>Destination :<%= resource_transportation_booking.location%><b/></p>
-  <p class="head1"><b>Car Type :<%= resource_transportation_booking.sub_category.name %><b/></p>
-  <p class="head1"><b>No of Passengers:<%= resource_transportation_booking.number_of_passengers%><b/></p>
-  <p class="head1"><b>From Date:<%= resource_transportation_booking.requested_from_date.strftime("%d - %m - %Y")  %><b/></p>
-  <p class="head1"><b>To Date:<%= resource_transportation_booking.requested_to_date.strftime("%d - %m - %Y")  %><b/></p>
+  <p class="head1"><b>Name : &nbsp; <%= requester.first_name %></b></p>
+  <p class="head1"><b>Car Type : &nbsp;<%= resource_transportation_booking.sub_category.name %><b/></p>
+  <p class="head1"><b>Ticket No : &nbsp; <%= resource_transportation_booking.id.to_s+'/'+Time.now.year.to_s %></b></p>
+  <p class="head1"><b>From Date : &nbsp;<%= resource_transportation_booking.requested_from_date.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
+  <p class="head1"><b>To Date : &nbsp;<%= resource_transportation_booking.requested_to_date.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
+  <p class="head1"><b>Booked Date : &nbsp;<%= resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
 </div>
 <div class="form-sec-row">
-  <b> <%= "#{resource_transportation_booking.status}" %> </b>
+ <b><font color='#329C20'><%= "#{resource_transportation_booking.status}" %> </font></b>
 </div>
 <div class="form-sec-row">
   <span class="in-box">

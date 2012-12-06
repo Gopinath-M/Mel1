@@ -17,7 +17,7 @@
               <p class="head1"><b>Booked Date : &nbsp;<%= resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
             </div>
             <div class="form-sec-row">
-              <b><%= "#{resource_transportation_booking.status}" %></b>
+              <b><font color='#329C20'><%= "#{resource_transportation_booking.status}" %></font></b>
             </div>
             <div class="form-sec-row">
               <span class="in-box">
@@ -39,7 +39,7 @@
                     <%= check_box_tag("is_returned","is_returned",false,:onclick=> "change_status(#{resource_transportation_booking.id})") %>
                     <label class="text">If Resource Returned ?</label><br/><br/>
                   <%else%>
-                    <b><%= 'You have Successfully Returned the Resource' %></b><br /><br />
+                    <font color='#369'> <b><%= "You have successfully returned the Resource" %></b></font><br/><br/>
                   <%end%>
                 <%end%>
 

@@ -17,25 +17,25 @@
               <p class="head1"><b>Booked Date : &nbsp;<%= resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
             </div>
             <div class="form-sec-row">
-              <b><%= "#{resource_transportation_booking.status}" %></b>
+              <b><font color='#329C20'><%= "#{resource_transportation_booking.status}" %></font></b>
             </div>
 
             <div class="form-sec-row">
               <span class="in-box">
                 <% if current_user && (current_user.is_department_admin? || current_user.is_super_admin? || current_user.is_resource_manager?) %>
                   <% if resource_transportation_booking.status == "New" %>
-                    <%= link_to "Approve Request",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) %>
+                    <%= link_to "Approve Request",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id), :class=>"btn2 in-btn2" %>
                   <%else%>
                     <% if resource_transportation_booking.status == "Approved" %>
-                      <%= link_to "Process Request", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) if current_user.is_resource_manager? %><br/><br/>
+                      <%= (link_to "Process Request", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id),:class=>"btn2 in-btn2") if current_user.is_resource_manager? %><br/><br/>
                     <% elsif (resource_transportation_booking.status == "Processed" && resource_transportation_booking.resource_returned_from_user?) %>
-                      <%= link_to "Acknowledge", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) if current_user.is_resource_manager? %><br/><br/>
+                      <%= (link_to "Acknowledge", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id),:class=>"btn2 in-btn2") if current_user.is_resource_manager? %><br/><br/>
                     <%end%>
                     <%= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking)%>
                   <%end%>
                 <%else%>
                   <% if (@approver.user_id.to_i == current_user.id || @approver_second.user_id.to_i == current_user.id)%>
-                    <%= link_to "Approve Request",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) %>
+                    <%= link_to "Approve Request",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id),:class=>"btn2 in-btn2" %>
                   <%end%>
                 <%end%>
 
