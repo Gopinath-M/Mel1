@@ -63,13 +63,18 @@
                     <td><b>Email</b></td>
                     <td><b>&nbsp;<%= @user.email %></b></td>
                   </tr>
+
                   <tr>
-                    <td><font color="#369"><b><u>Room Details:-</u></b></font></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><b>Ticket No</b></td>
-                  <b><td style="color:#BB0802;">&nbsp;<%=@resource_room_booking.id%>/<%=Time.now.year%></td></b>
+                  <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+            </tr>
+
+            <tr>
+              <td><font color="#369"><b><u>Room Details:-</u></b></font></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><b>Ticket No</b></td>
+            <b><td style="color:#BB0802;">&nbsp;<%=@resource_room_booking.id%>/<%=Time.now.year%></td></b>
             </tr>
             <tr>
               <td><b>Date of Application</b></td>
@@ -103,6 +108,11 @@
             </tr>
             <% if current_user.is_department_admin? %>
               <% if @details_resource.present?%>
+
+                <tr>
+                <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+                </tr>
+
                 <tr>
                   <td><font color="#369"><b><u>Resource Details:-</u></b></font></td>
                   <td></td>
@@ -118,6 +128,11 @@
               <%end%>
             <%end%>
             <% if @facility.present? %>
+
+              <tr>
+              <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+              </tr>
+
               <tr>
                 <td><font color="#369"><b><u>Facility Details:-</u></b></font></td>
                 <td></td>
@@ -134,6 +149,11 @@
               <%end%>
             <%end%>
       </div>
+
+      <tr>
+      <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+      </tr>
+
       <tr>
         <td><font color="#369"><b><u>Status Details:-</u></b></font></td>
         <td></td>

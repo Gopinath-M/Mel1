@@ -47,7 +47,7 @@
               <font color='#369'> <b><%= "You have successfully returned the Resource" %></b></font>
             </div>
 
-            <% if resource.status == "Returned" || resource.user_returned_status?%>
+            <% if resource.status == "Returned" || resource.user_returned_status? %>
               <font color='#369'> <b><%= "You have successfully returned the Resource " %></b></font>
             <%end%>
 
@@ -61,7 +61,7 @@
 
             <div class="form-sec-row">
               <span class="in-box">
-                <b><font color="#336699"><%= link_to "Show Info",resource_room_booking_path(:id => resource.id), :method=>:get%></font></b>
+                <font color="#BB0802"><b><%= link_to "Show Info",resource_room_booking_path(:id => resource.id), :method=>:get%></b></font>
               </span>
             </div>
             <div class="mu-c3">
