@@ -3,6 +3,7 @@ class Resource < ActiveRecord::Base
   belongs_to :department
   belongs_to :category
   belongs_to :sub_category
+  belongs_to :agency_store
   has_many :resource_boookings
   has_many :resource_transport_bookings
 
@@ -14,4 +15,9 @@ class Resource < ActiveRecord::Base
   validates :description, :length => { :minimum => 10 }, :if=>Proc.new {|u| !u.description.blank? && u.resource_type=="ict" }
   validates :brand_model,:length => { :minimum => 4 }, :if=>Proc.new {|u| !u.brand_model.blank? && u.resource_type=="ict" }
   scope :active, where(:deleted => false)
+  scope :active_ict, where(:deleted => false, :resource_type=>"ict")
+  scope :active_others, where(:deleted => false, :resource_type=>"others")
+  scope :active_transport, where(:deleted => false, :resource_type=>"transport")
+  scope :active_room, where(:deleted => false, :resource_type=>"room_booking")
+
 end
