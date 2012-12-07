@@ -1,7 +1,8 @@
 class CreateResourceBookings < ActiveRecord::Migration
   def self.up
     create_table :resource_bookings do |t|
-      t.string :name
+      t.references :category
+      t.references :sub_category
       t.references :user
       t.references :department
       t.references :resource
