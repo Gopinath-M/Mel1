@@ -22,7 +22,14 @@ module ResourceTransportationBookingsHelper
 
     rtb = ResourceTransportationBooking.find(id)
     agency_store = AgencyStore.find(rtb.agency_store_id)    
-    driver = Driver.find(rtb.driver_id)
+    driver = Driver.find(agency_store.driver_id)
+
+    if rtb.driver_id != agency_store.driver_id
+      new_agency_store = AgencyStore.find_by_driver_id(rtb.driver_id)
+      new_driver = Driver.find(new_agency_store.driver_id)
+      new_driver.update_attribute(:already_assigned,false)
+      new_agency_store.update_attribute(:booked,false)      
+    end
 
     #    vehicle = Vehicle.find(agency_store.resource_id)
     #    if vehicle.alternate_driver_assigned?
@@ -31,9 +38,10 @@ module ResourceTransportationBookingsHelper
     #    else
     #      driver = Driver.find(vehicle.driver_id)
     #    end
-
-    rtb.update_attributes(:status=>'Returned',:request_returned_date=>Time.now)
+    driver.update_attribute(:already_assigned,false)
     agency_store.update_attribute(:booked,false)
+    rtb.update_attributes(:status=>'Returned',:request_returned_date=>Time.now)
+    
     #driver.update_attribute(:already_assigned,false)
 
     disable_the_sub_category_when_that_sub_category_is_fully_reserved(agency_store.sub_category_id)
@@ -49,26 +57,21 @@ module ResourceTransportationBookingsHelper
     end
   end
 
-  def process_scenario_alternate_driver(id,vehicle_id)
-    
+  def process_scenario_alternate_driver(id,driver_name)
     rtb = ResourceTransportationBooking.find(id)
+    driver = Driver.find_by_name(driver_name)
+    
     as = AgencyStore.find(rtb.agency_store_id)
-    as1 = AgencyStore.find_by_resource_id(vehicle_id)
-    
-    #driver = Driver.find_by_name(driver_name)
-    #as = AgencyStore.find(rtb.agency_store.resource_id)
-    #vehicle_driver = Driver.find(as.driver_id)
+    as1 = AgencyStore.find_by_driver_id(driver.id)
 
-   
-    rtb.update_attributes(:status=>'Processed', :agency_store_id => as1.id , :driver_id => as1.driver_id )
-    as.update_attribute(:booked,false)
-    as1.update_attribute(:booked,true)
-    
-    #vehicle.update_attributes(:alternate_driver_assigned=>true,:alternate_driver_id => driver.id)
+    vehicle_driver = Driver.find(as.driver_id)
+
+    rtb.update_attributes(:status=>'Processed',:request_processed_date=>Time.now,:driver_id=>driver.id)
     #vehicle_driver.update_attribute(:already_assigned,false)
-    #driver.update_attribute(:already_assigned,true)
+    as1.update_attribute(:booked,true)
+    driver.update_attribute(:already_assigned,true)
 
-   # disable_the_sub_category_when_that_sub_category_is_fully_reserved(id)
+    # disable_the_sub_category_when_that_sub_category_is_fully_reserved(id)
     
   end
 

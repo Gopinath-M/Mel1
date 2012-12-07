@@ -34,7 +34,7 @@
         <%= check_box_tag("is_returned","is_returned",false,:onclick=> "change_status(#{resource_transportation_booking.id})") %>
         <label class="text">If Resource Returned ?</label><br /><br />
       <%else%>
-        <b><%= 'You have Successfully Returned the Resource' %></b><br /><br />
+        <font color='#369'> <b><%= 'You have Successfully Returned the Resource' %></b></font><br /><br />
       <%end%>
     <%end%>
 
