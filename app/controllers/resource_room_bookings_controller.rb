@@ -50,10 +50,10 @@ class ResourceRoomBookingsController < ApplicationController
         @resource_room_booking.save
         redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
       else
-        redirect_to(new_resource_room_booking_path, :notice => "You cant book the Already Reserved Room, Please try other.")
+        redirect_to(new_resource_room_booking_path, :alert => "You can't book Reserved Room, Please try other.")
       end
     else
-      redirect_to(new_resource_room_booking_path, :notice => "Resource selected is not available in your Store, Are you want this as resource requistion.")
+      redirect_to(new_resource_room_booking_path, :alert => "Resource selected is not available in your Store.")
     end
   end
 

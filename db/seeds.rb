@@ -372,7 +372,7 @@ begin
   file = File.open("public/equipment_category.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      p SubCategory.create(:category_id => 8 ,:name=>record)
+      SubCategory.create(:category_id => 8 ,:name=>record)
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
@@ -410,4 +410,118 @@ begin
 rescue Exception=>e
   p "Exception due to : #{e.to_s}"
 end
+
+p "Creating Requisition Types"
+
+begin
+  file = File.open("public/Requisition_Types.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      RequisitionType.create(:name=>record,:is_active=>true)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+p "Creating Facility Ict Agencies"
+
+begin
+  file = File.open("public/Facility_Ict_Agencies.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      FacilityIctAgencies.create(:name=>record,:is_active=>true)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+p "Creating Facility Ict Softwares"
+
+begin
+  file = File.open("public/Facility_Ict_Softwares.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      FacilityIctSoftwares.create(:name=>record,:is_active=>true)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+p "Creating Facility Ict Wirings"
+
+begin
+  file = File.open("public/Facility_Ict_Wirings.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      FacilityIctWiring.create(:name=>record,:is_active=>true)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+p "Creating Facility Ict Services"
+
+begin
+  file = File.open("public/Facility_Ict_Services.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      record_split = record.split(",")
+      FacilityIctServices.create(:name=>record_split[0],:port=>record_split[1],:is_active=>true)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+p "Creating Facility Ict Hardwares"
+
+begin
+  file = File.open("public/Facility_Ict_Hardwares.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      FacilityIctHardwares.create(:name=>record,:is_active=>true)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+p "Creating Facility Ict Servers"
+
+FacilityIctServers.create(:name=>'Tun Razak 1',:ip=>'172.10.10.172')
+FacilityIctServers.create(:name=>'Tun Razak 2',:ip=>'172.10.10.173')
+
+p "Creating System Accesses"
+
+begin
+  file = File.open("public/System_Access.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      SystemAccess.create(:name=>record,:is_active=>true)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+
+
 puts "Whoa, im done! Now you can run the server and see the application"

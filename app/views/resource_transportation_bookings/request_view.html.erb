@@ -69,7 +69,11 @@
                   </tr>
                   <tr>
                     <td><b>Date of Application</b></td>
-                    <td>&nbsp;<b><%=@resource_transportation_booking.created_at.strftime("%dth %B %Y %l:%M:%S %p")%></b></td>
+                    <td>&nbsp;<b><%=@resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p") %></b></td>
+                  </tr>
+                  <tr>
+                    <td><b>Ticket Number</b></td>
+                    <td>&nbsp;<b><%=@resource_transportation_booking.id.to_s+'/'+Time.now.year.to_s %></b></td>
                   </tr>
                   <tr>
                     <td><b>Purpose</b></td>
@@ -88,12 +92,12 @@
                     <td>&nbsp;<b><%= State.find(@resource_transportation_booking.state).name %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Booking Date</b></td>
-                    <td>&nbsp;<b><%=@resource_transportation_booking.requested_from_date.strftime("%d - %m - %Y") %></b></td>
+                    <td><b>From Date</b></td>
+                    <td>&nbsp;<b><%=@resource_transportation_booking.requested_from_date.localtime.strftime("%d-%m-%Y %H:%M %p") %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Return Date</b></td>
-                    <td>&nbsp;<b><%=@resource_transportation_booking.requested_to_date.strftime("%d - %m - %Y") %></b></td>
+                    <td><b>To Date</b></td>
+                    <td>&nbsp;<b><%=@resource_transportation_booking.requested_to_date.localtime.strftime("%d-%m-%Y %H:%M %p") %></b></td>
                   </tr>
                   <tr>
                     <td><b>Number of Passengers</b></td>
@@ -101,7 +105,7 @@
                   </tr>
                   <tr>
                     <td><b>Attachment</b></td>
-                    <td>&nbsp;<b><%= image_tag @resource_transportation_booking.attachment_url(:profile) if @resource_transportation_booking.attachment?  %></b></td>
+                    <td>&nbsp;<b><%= link_to @resource_transportation_booking.attachment, download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
                   </tr>
                   <tr>
                     <td><b>Remarks</b></td>
@@ -171,40 +175,41 @@
                       </tr>
                       <tr>
 
-                        <td><b>Change Vehicle</b></td>
-                        <% user = User.find(@resource_transportation_booking.requester_id) %>
-                        <% a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
-                        <% if !a.blank? %>
-                          <td>
-                            <%= hidden_field_tag :alternate_vehicle_id,'1' %>
-                            <%= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
-                          </td>
-                        <%else%>
-                          <td>&nbsp;<b><%= 'No Vehicles Available' %> <%= hidden_field_tag :alternate_vehicle_id,'0' %></b></td>
-                        <%end%>
+                        <%#*<td><b>Change Vehicle</b></td>%>
+                        <%# user = User.find(@resource_transportation_booking.requester_id) %>
+                        <%# a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
+                        <%# if !a.blank? %>
+                          <%#*<td>%>
+                            <%#= hidden_field_tag :alternate_vehicle_id,'1' %>
+                            <%#= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
+                          <%#*</td>%>
+                        <%#else%>
+                          <%#*<td>&nbsp;<b><%= 'No Vehicles Available' %> <%#= hidden_field_tag :alternate_vehicle_id,'0' %>
+                        <!--</b></td>%>-->
+                        <%#end%>
 
-                      </tr>
+                      <%#*</tr>%>
 
 
-                      <!--<tr>
+                      <tr>
                         <td><b>Driver</b></td>
                         <td>&nbsp;
-                                          <div id="normal" >
-                      <%# driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
-                                            <b><%#= driver.name %></b>
-                                            <input type="button" id="driver_change_button" name="Change" value="Change" />
-                                          </div>
+                          <div id="normal" >
+                            <% driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
+                            <b><%= driver.name %></b>
+                            <input type="button" id="driver_change_button" name="Change" value="Change" />
+                          </div>
 
-                                          <div id="alternate">
-                      <%#= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"SELECT A DRIVER"})%>
-                                          </div>
+                          <div id="alternate">
+                            <%= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"SELECT A DRIVER"})%>
+                          </div>
 
-                                          <div id="changed_driver">
-                                          </div>
+                          <div id="changed_driver">
+                          </div>
 
-                      <%#= hidden_field_tag "alternate_driver"  %>
-                                        </td>
-                      </tr>-->
+                          <%= hidden_field_tag "alternate_driver"  %>
+                        </td>
+                      </tr>
                     <%else%>
                       <% vehicle = Resource.find(@resource_transportation_booking.agency_store.resource_id) %>
 
@@ -213,7 +218,7 @@
                         <td>&nbsp;<b><%= vehicle.vehicle_model+' : '+vehicle.resource_no %></b></td>
                       </tr>
 
-                      <% driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
+                      <% driver = Driver.find(@resource_transportation_booking.driver_id) %>
                       <tr>
                         <td><b>Driver Name</b></td>
                         <td>&nbsp;<b><%= driver.name %></b></td>
@@ -261,7 +266,7 @@
               <%= submit_tag "Submit", :class=>"btn1",:onclick=>'return validate_request_approval_form();' %>
             <% elsif @resource_transportation_booking.status == "Processed" %>
               <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-              <%= submit_tag "Return Request", :class=>"btn1",:onclick=>'return validate_request_approval_form();' %>
+              <%= submit_tag "Acknowledge", :class=>"btn1",:onclick=>'return validate_request_approval_form();' %>
             <%end%>
           </span>
         </div>

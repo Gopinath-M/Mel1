@@ -25,7 +25,7 @@ class ResourceTransportationBookingsController < ApplicationController
       redirect_to resource_transportation_bookings_path
     else
       @category = CategoriesDepartments.where(:category_id=> 7,:department_id=> current_user.role_memberships.where(:default_dept => true).first.department.id)
-      @sub_category = SubCategory.where( :category_id => 7, :is_available => true)
+      @sub_category = SubCategory.where(:category_id => 7,:is_available => true)
       #@if_inside_agency = AgencyStore.where(:category_id=> 7,:booked=> false,:agency_id => current_user.departments.collect(&:agency_id).join(','))
       render :action=>'new'
     end
@@ -72,13 +72,8 @@ class ResourceTransportationBookingsController < ApplicationController
     if params[:approve_status] == "Approved"
       approve_scenario(params[:id],params[:vehicle][:id])
     elsif params[:approve_status] == "Processed"
-
-      if params[:alternate_vehicle_id] && params[:alternate_vehicle_id] == '1'
-        if (params[:vehicle][:id] && params[:vehicle][:id] != '')
-          process_scenario_alternate_driver(params[:id],params[:vehicle][:id])
-        else
-          @resource_transportation_booking.update_attribute(:status,"Processed")
-        end
+      if params[:driver][:name] && params[:driver][:name] != ''
+        process_scenario_alternate_driver(params[:id],params[:driver][:name])
       else
         @resource_transportation_booking.update_attribute(:status,"Processed")
       end
@@ -87,8 +82,7 @@ class ResourceTransportationBookingsController < ApplicationController
       return_scenario(params[:id])
     elsif params[:approve_status] == "Declined"
       if @resource_transportation_booking.status == "Approved"
-        decline_scenario(params[:id])
-      else
+        decline_scenario(params[:id])      
       end
       @resource_transportation_booking.update_attribute(:status,'Declined')
     end

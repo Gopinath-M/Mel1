@@ -24,10 +24,10 @@
                       <td><b>Attachment</b></td>
                       <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
                       <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-                      <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
+                        <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
                       <%else%>
-                      <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
-                      <td><b>&nbsp;<%= file %></b></td>
+                        <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
+                        <td><b>&nbsp;<%= file %></b></td>
                       <%end%>
                     </tr>
                   <%end%>
@@ -56,37 +56,48 @@
                     <td><b>&nbsp;<%= @user.last_name %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Ic Number</b></td>
+                    <td><b>IC Number</b></td>
                     <td><b>&nbsp;<%= @user.ic_number %></b></td>
                   </tr>
                   <tr>
                     <td><b>Email</b></td>
                     <td><b>&nbsp;<%= @user.email %></b></td>
                   </tr>
+
                   <tr>
-                    <td><font color="#369"><b><u>Room Details:-</u></b></font></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><b>Ticket No</b></td>
-                  <b><td style="color:#BB0802;">&nbsp;<%=@resource_room_booking.id%>/<%=Time.now.year%></td></b>
+                  <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+            </tr>
+
+            <tr>
+              <td><font color="#369"><b><u>Room Details:-</u></b></font></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><b>Ticket No</b></td>
+            <b><td style="color:#BB0802;">&nbsp;<%=@resource_room_booking.id%>/<%=Time.now.year%></td></b>
             </tr>
             <tr>
               <td><b>Date of Application</b></td>
-              <td><b>&nbsp;<%=@resource_room_booking.created_at.strftime("%a %d %b %Y %I:%M %p")%></b></td>
+              <td><b>&nbsp;<%=@resource_room_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
             </tr>
             <tr>
               <td><b>Room Name</b></td>
               <td><b>&nbsp;<%=@resource.name%></b></td>
             </tr>
             <tr>
-              <td><b>Booking Date</b></td>
-              <td><b>&nbsp;<%=@resource_room_booking.requested_from_date%></b></td>
+              <td><b>From Date</b></td>
+              <td><b>&nbsp;<%=@resource_room_booking.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
             </tr>
             <tr>
-              <td><b>Return Date</b></td>
-              <td><b>&nbsp;<%=@resource_room_booking.requested_to_date%></b></td>
+              <td><b>To Date</b></td>
+              <td><b>&nbsp;<%=@resource_room_booking.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
             </tr>
+            <% if @resource_room_booking.status == "Returned" %>
+              <tr>
+                <td><b>Return Date</b></td>
+                <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
+              </tr>
+            <%end%>
             <tr>
               <td><b>Purpose</b></td>
               <td><b>&nbsp;<%=@resource_room_booking.purpose%></b></td>
@@ -97,6 +108,11 @@
             </tr>
             <% if current_user.is_department_admin? %>
               <% if @details_resource.present?%>
+
+                <tr>
+                <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+                </tr>
+
                 <tr>
                   <td><font color="#369"><b><u>Resource Details:-</u></b></font></td>
                   <td></td>
@@ -112,6 +128,11 @@
               <%end%>
             <%end%>
             <% if @facility.present? %>
+
+              <tr>
+              <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+              </tr>
+
               <tr>
                 <td><font color="#369"><b><u>Facility Details:-</u></b></font></td>
                 <td></td>
@@ -128,6 +149,11 @@
               <%end%>
             <%end%>
       </div>
+
+      <tr>
+      <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+      </tr>
+
       <tr>
         <td><font color="#369"><b><u>Status Details:-</u></b></font></td>
         <td></td>
@@ -142,9 +168,9 @@
       </table>
       </td>
     </div>
-    <div class="form-sec-row">
+    <div class="form-sec-row2">
       <label class="text">&nbsp;</label>
-      <span class="in-box">
+      <span class="in-box2">
         <%= link_to "Back", :back, :class=>"btn1 mr2"%>
       </span>
     </div>

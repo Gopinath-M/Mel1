@@ -1,6 +1,76 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
-
+//function leftNavigation(link_id, div_id)
+//{
+//    $("div.leftNav-links ul li div").hide();
+//    $("div.leftNav-links ul li a").each(function(index) {
+//        if ($(this).attr("id")!=link_id)
+//        {
+//            $(this).removeClass('selected')
+//        }
+//    });
+//    if($("#"+link_id).hasClass('selected'))
+//    {
+//        $("#"+link_id).removeClass("selected")
+//        $("#"+div_id).hide();
+//    }
+//    else
+//    {
+//        $("#"+link_id).addClass("selected")
+//        $("#"+div_id).toggle('fast');
+//    }
+////    $("#"+div_id).toggle();
+//}
+//function getDepartmentforAgency(agency_id, department_id)
+//{
+////    alert("comes to dept")
+//}
+function  getResourceforSubcategory(category_id, resource_id)
+{
+    if($("#"+category_id).val()!="")
+    {
+        $.get("/agency_stores/get_resource_ict",{
+            sub_category_id : $("#"+category_id).val()
+        }, function(data){
+            if (data[0]!=null)
+            {
+                $('#'+resource_id).find('option').remove().end()
+                $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                for(var i=0; i<data[0].length;i++)
+                {
+                    $('#'+resource_id).append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                }
+            }
+        })
+    }
+    else{
+        $('#'+resource_id).find('option').remove().end()
+        $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    }
+}
+function getAgencyforResource(resource_id, agency_id)
+{
+    if($("#"+resource_id).val()!="")
+    {
+        $.get("/agency_stores/get_agency_resource",{
+            resource_id : $("#"+resource_id).val()
+        }, function(data){
+            if (data[0]!=null)
+            {
+                $('#'+agency_id).find('option').remove().end()
+                $('#'+agency_id).append($("<option></option>").attr("value","").text("SELECT A EQUIPMENT CATEGORY TYPE"));
+                for(var i=0; i<data[0].length;i++)
+                {
+                    $('#'+agency_id).append($("<option></option>").attr("value",data[0][i].agency_store.id).text(data[0][i].agency_store.serial_no));
+                }
+            }
+        })
+    }
+    else{
+        $('#'+agency_id).find('option').remove().end()
+        $('#'+agency_id).append($("<option></option>").attr("value","").text("SELECT A EQUIPMENT CATEGORY TYPE"));
+    }
+}
 $().ready(function(){
     if ($("#pr-time"))
     {
@@ -52,6 +122,14 @@ $().ready(function(){
             $("#department_id").val($("#standard_department_id").val())
             $("#div_ajax").html(data)
         });
+    })
+    $("#resource_ict_equipment_booking_sub_category_id").live("change",function(){
+
+        getResourceforSubcategory('resource_ict_equipment_booking_sub_category_id', 'resource_ict_equipment_resource_id')
+    })
+    $("#resource_ict_equipment_resource_id").live("change",function(){
+//alert("resource_ict_equipment_resource_id")
+        getAgencyforResource('resource_ict_equipment_resource_id', 'resource_ict_equipment_booking_agency_store_id')
     })
     $("#transfer_department_id").live("change",function(){
         if ( $("#transfer_department_id").val()=="")
@@ -581,7 +659,7 @@ $().ready(function(){
         $('#div_assign_approver').toggle("fast");
     });
     /* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/
-    
+
     /*Update Department based on agency*/
     $("#users_agency").live("change", function(){
         if($("#users_agency").val()!="")
@@ -599,7 +677,7 @@ $().ready(function(){
                     {
                         $('#users_department').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
                     }
-                }             
+                }
             })
         }
         else
@@ -1032,7 +1110,7 @@ $().ready(function(){
     //        }
     });
     /*user validation ends */
-   
+
     /*Department basen on Agency in Resource Booking page*/
     $("#users_agency").live("change", function(){
         if($("#users_agency").val()!="")
@@ -1089,7 +1167,7 @@ $().ready(function(){
         }
 
     });
-    
+
     /*Transfer Unit Fn Starts*/
     $("#users_unit").live("change",function(){
         if($("#users_unit").val()!="")
@@ -1234,7 +1312,7 @@ $().ready(function(){
             }, function(data){
                 if (data[0]!=null)
                 {
-                    
+
                     $('#categories_department_id').find('option').remove().end()
                     $('#categories_department_id').append($("<option></option>").attr("value","").text("SELECT A CATEGORY"));
                     for(var i=0; i<data[0].length;i++)
@@ -1323,7 +1401,7 @@ $().ready(function(){
             alert("Select Resource");
             return false;
         }
-       
+
     });
     /*Validation for Agency Store Ends*/
 
@@ -1350,7 +1428,7 @@ $().ready(function(){
             $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
         }
     })
-    
+
     $("#sub_category_id").live("change", function(){
         if($("#sub_category_id").val()!="")
         {
@@ -1476,23 +1554,23 @@ $().ready(function(){
 
     // here's our click function for when the forms submitted
 
-    $('.submit').click(function(){
-
-
-        var answers = [];
-        $.each($('.field'), function() {
-            answers.push($(this).val());
-        });
-
-        if(answers.length == 0) {
-            answers = "none";
-        }
-
-        alert(answers);
-
-        return false;
-
-    });
+//    $('.submit').click(function(){
+//
+//
+//        var answers = [];
+//        $.each($('.field'), function() {
+//            answers.push($(this).val());
+//        });
+//
+//        if(answers.length == 0) {
+//            answers = "none";
+//        }
+//
+//        alert(answers);
+//
+//        return false;
+//
+//    });
     /* dynamic text box ends */
     /* category mapping list page will show based on dept selection */
     $("#cat_department_id").live("change",function(){
@@ -1504,7 +1582,7 @@ $().ready(function(){
         });
     })
     /* category mapping list ends */
-   
+
     $("#default_department_id").live("change",function(){
         $.get("/dashboard/def_dept",{
             department_id: $("#default_department_id").val()
@@ -2085,27 +2163,28 @@ $().ready(function(){
             $('#other_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
         }
     })
-     $("#ict_agency_sub_category_id").live("change", function(){
-        if($("#ict_agency_sub_category_id").val()!="")
-        {
-            $.get("/agency_stores/get_resource_ict",{
-                sub_category_id : $("#ict_agency_sub_category_id").val()
-            }, function(data){
-                if (data[0]!=null)
-                {
-                    $('#ict_agency_resource_id').find('option').remove().end()
-                    $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
-                    }
-                }
-            })
-        }
-        else{
-            $('#ict_agency_resource_id').find('option').remove().end()
-            $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-        }
+    $("#ict_agency_sub_category_id").live("change", function(){
+        getResourceforSubcategory('ict_agency_sub_category_id', 'ict_agency_resource_id')
+    //        if($("#ict_agency_sub_category_id").val()!="")
+    //        {
+    //            $.get("/agency_stores/get_resource_ict",{
+    //                sub_category_id : $("#ict_agency_sub_category_id").val()
+    //            }, function(data){
+    //                if (data[0]!=null)
+    //                {
+    //                    $('#ict_agency_resource_id').find('option').remove().end()
+    //                    $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //                    for(var i=0; i<data[0].length;i++)
+    //                    {
+    //                        $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+    //                    }
+    //                }
+    //            })
+    //        }
+    //        else{
+    //            $('#ict_agency_resource_id').find('option').remove().end()
+    //            $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //        }
     })
 
     /*Agenct store drop box ends*/
@@ -2338,6 +2417,11 @@ $().ready(function(){
             alert("Enter Capacity");
             return false;
         }
+        else if ($("#resource_capacity").val() <= "0"){
+            alert("Capacity should be greater then zero");
+            return false;
+        }
+
     })
 
     $("#resource_transport_submit").live("click",function(){
@@ -2479,7 +2563,7 @@ function toreturnroomresource(chbx_id,room_book_id)
 {
     if(room_book_id!=null && room_book_id!=0)
     {
-        s = confirm("Do you Want to Return thuis Resource?");
+        s = confirm("Do you Want to Return this Resource?");
         if (s==true)
         {
             if($("#"+chbx_id).is(':checked'))

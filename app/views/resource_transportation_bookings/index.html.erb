@@ -7,17 +7,17 @@
           <div id="user_box_<%= resource_transportation_booking.id %>" class="manage-user-row box">
             <div class="mu-c1">
             </div>
+            <% requester = User.find(resource_transportation_booking.requester_id) %>
             <div class="mu-c2">
-              <p class="head1"><b>Purpose :<%= resource_transportation_booking.purpose%></b></p>
-              <p class="head1"><b>Pick up :<%= resource_transportation_booking.pick_up_place%><b/></p>
-              <p class="head1"><b>Destination :<%= resource_transportation_booking.location%><b/></p>
-              <p class="head1"><b>Car Type :<%= resource_transportation_booking.sub_category.name %><b/></p>
-              <p class="head1"><b>No of Passengers:<%= resource_transportation_booking.number_of_passengers%><b/></p>
-              <p class="head1"><b>From Date:<%= resource_transportation_booking.requested_from_date.strftime("%d - %m - %Y") %><b/></p>
-              <p class="head1"><b>To Date:<%= resource_transportation_booking.requested_to_date.strftime("%d - %m - %Y") %><b/></p>
+              <p class="head1"><b>Name : &nbsp; <%= requester.first_name %></b></p>
+              <p class="head1"><b>Car Type : &nbsp;<%= resource_transportation_booking.sub_category.name %><b/></p>
+              <p class="head1"><b>Ticket No : &nbsp; <%= resource_transportation_booking.id.to_s+'/'+Time.now.year.to_s %></b></p>
+              <p class="head1"><b>From Date : &nbsp;<%= resource_transportation_booking.requested_from_date.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
+              <p class="head1"><b>To Date : &nbsp;<%= resource_transportation_booking.requested_to_date.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
+              <p class="head1"><b>Booked Date : &nbsp;<%= resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
             </div>
             <div class="form-sec-row">
-              <b><%= "#{resource_transportation_booking.status}" %></b>
+              <b><font color='#329C20'><%= "#{resource_transportation_booking.status}" %></font></b>
             </div>
             <div class="form-sec-row">
               <span class="in-box">
@@ -28,23 +28,24 @@
                     <% if resource_transportation_booking.status == "Approved" %>
                       <%= link_to "Process Request", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) if current_user.is_resource_manager? %><br/><br/>
                     <% elsif (resource_transportation_booking.status == "Processed" && resource_transportation_booking.resource_returned_from_user?) %>
-                      <%= link_to "Return Request", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) if current_user.is_resource_manager? %><br/><br/>
+                      <%= link_to "Acknowledge", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) if current_user.is_resource_manager? %><br/><br/>
                     <%end%>
-                    <%= link_to "Request Details", resource_transportation_booking_path(resource_transportation_booking) %>
+                    <%= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking) %>
                   <%end%>
                 <%end%>
 
                 <% if (resource_transportation_booking.requester_id.to_i == current_user.id && resource_transportation_booking.status=="Processed") %>
                   <% if (!resource_transportation_booking.resource_returned_from_user?) %>
-                    <%= check_box_tag("is_returned","is_returned",false,:onclick=> "change_status(#{resource_transportation_booking.id})") %>
-                    <label class="text">If Resource Returned ?</label><br/><br/>
+                    <%#= check_box_tag("is_returned","is_returned",false,:onclick=> "change_status(#{resource_transportation_booking.id})") %>
+                      <a onclick="change_status(<%= resource_transportation_booking.id %>)" >Click here to return the resource</a>
+                    <label class="text"></label><br/><br/>
                   <%else%>
-                    <b><%= 'You have Successfully Returned the Resource' %></b><br /><br />
+                    <font color='#369'> <b><%= "You have successfully returned the Resource" %></b></font><br/><br/>
                   <%end%>
                 <%end%>
 
                 <% if (resource_transportation_booking.requester_id.to_i == current_user.id) %>
-                  <%= link_to "Request Details", resource_transportation_booking_path(resource_transportation_booking) %>
+                  <%= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking) %>
                 <%end%>
 
               </span>
