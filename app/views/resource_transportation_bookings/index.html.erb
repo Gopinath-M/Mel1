@@ -36,8 +36,9 @@
 
                 <% if (resource_transportation_booking.requester_id.to_i == current_user.id && resource_transportation_booking.status=="Processed") %>
                   <% if (!resource_transportation_booking.resource_returned_from_user?) %>
-                    <%= check_box_tag("is_returned","is_returned",false,:onclick=> "change_status(#{resource_transportation_booking.id})") %>
-                    <label class="text">If Resource Returned ?</label><br/><br/>
+                    <%#= check_box_tag("is_returned","is_returned",false,:onclick=> "change_status(#{resource_transportation_booking.id})") %>
+                      <a onclick="change_status(<%= resource_transportation_booking.id %>)" >Click here to return the resource</a>
+                    <label class="text"></label><br/><br/>
                   <%else%>
                     <font color='#369'> <b><%= "You have successfully returned the Resource" %></b></font><br/><br/>
                   <%end%>
