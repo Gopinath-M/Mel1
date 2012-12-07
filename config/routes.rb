@@ -208,6 +208,11 @@ resources :resource_room_bookings do
       post 'update_status'
     end
   end
+  resources :software_installations do
+  collection do
+      get 'approve_software_installation'
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
