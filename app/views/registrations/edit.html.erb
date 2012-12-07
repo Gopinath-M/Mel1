@@ -79,6 +79,7 @@
       <div  class="form-sec-row">
         <%= f.label :avatar , :class=>"text"%>
         <span class="in-box">
+          <%= image_tag(resource.avatar_url(:thumb)) if resource.avatar.url.present?%><%= label_tag(resource.avatar_url) if resource.avatar.url.present?%>
   <%#= image_tag(resource.avatar.url) if resource.avatar.url.present?%>
           <%= f.file_field :avatar, :class=>'passfiled'%>
           <%= f.hidden_field :avatar_cache %>
