@@ -79,8 +79,8 @@
                   </div>
                 </li>
                 <li>
-                  <%=link_to "Departments", "javascript:void(0);" , :title=>"departments" ,:class=>"", :id=>"lnk_department"%>
-                  <div id ="div_department" style="display:none;">
+                  <%=link_to "Departments", "javascript:void(0);" , :title=>"departments" ,:class=>"", :id=>"lnk_department", :onclick=>"leftNavigation(this.id,'div_department')"%>
+                  <div id ="div_department" style="<%=controller_name.to_s=="departments" ? 'display:block' : 'display:none'%> ">
                     <ul>
                       <li>
                         <%=link_to "Create New", new_department_path%>
@@ -92,8 +92,8 @@
                   </div>
                 </li>
                 <li>
-                  <%=link_to "Units", "javascript:void(0);" , :title=>"units" ,:class=>"", :id=>"lnk_unit"%>
-                  <div id ="div_unit" style="display:none;">
+                  <%=link_to "Units", "javascript:void(0);" , :title=>"units" ,:class=>"", :id=>"lnk_unit", :onclick=>"leftNavigation(this.id, 'div_unit')"%>
+                  <div id ="div_unit" style="<%=controller_name.to_s=="units" ? 'display:block' : 'display:none'%> ">
                     <ul>
                       <li>
                         <%=link_to "Create New", new_unit_path%>
@@ -275,14 +275,14 @@
                           <% count = ResourceTransportationBooking.find_all_by_status('New').count %>
                           <li><a href="/resource_transportation_bookings/approve_request" title="Approve Request"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
                         <%end%>
-                        <% if current_user.is_department_admin?  %>
-                          <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
-                          <% count = ResourceRoomBooking.find_all_by_status('New').count %>
+                        <% if current_role == DISP_USER_ROLE_DEPT_ADMIN  %>
                           <li>
-                            <%if @list.present? %>
-                              <span class="notifiNo"><%= count %></span>
-                            <%end%>
+                            <span class="notifiNo"><%= resource_room_status_count('New') %></span>
                             <%=link_to "Room Booking", list_resource_booking_resource_room_bookings_path%>
+                          </li>
+                          <li>
+                            <span class="notifiNo"><%= resource_ict_status_count('New') %></span>
+                            <%=link_to "ICT Equipment Booking", requests_resource_ict_equipment_bookings_path%>
                           </li>
                         <%end%>
                       </ul>
