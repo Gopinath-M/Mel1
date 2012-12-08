@@ -27,4 +27,22 @@ class UserMailer < ActionMailer::Base
     mail(:from=>@resource_user.email,:to=>@user.email,:subject =>"#{@resource_user.username}! has been sent request to join for chat ")
   end
 
+  def ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_ict_vpn, requisition_user)
+    @user = ict_email
+    @ict_vpn = ict_vpn
+    @requisition_ict_vpn = requisition_ict_vpn
+    @system_access_ict_vpn = system_access_ict_vpn
+    @requisition_user = requisition_user
+    mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded request for ICT - #{@requisition_ict_vpn.name} Booking")
+  end
+
+  def ict_system_access(ict_email, ict_system_access, requisition_ict_system_access, system_access_ict_system_access, requisition_user)
+    @user = ict_email
+    @ict_system_access = ict_system_access
+    @requisition_ict_system_access = requisition_ict_system_access
+    @system_access_ict_system_access = system_access_ict_system_access
+    @requisition_user = requisition_user
+    mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded request for ICT - #{@requisition_ict_system_access.name} Booking")
+  end
+
 end
