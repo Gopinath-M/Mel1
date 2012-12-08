@@ -43,6 +43,36 @@ Melaka::Application.routes.draw do
       get 'user_return_status'
     end
   end
+  resources :facility_ict_agencies do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_softwares do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_hardwares do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_servers do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_services do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_wirings do
+    collection do
+      post 'update_status'
+    end
+  end
 
   resources :drivers do
     collection do
@@ -130,6 +160,7 @@ resources :resource_room_bookings do
   resources :cms_pages
   resources :agencies do
     collection do
+      get 'for_agency'
       post 'update_status'
       get 'assign_resource_manager'
       post 'update_assign_resource_manager'
