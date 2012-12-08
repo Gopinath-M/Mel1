@@ -31,27 +31,43 @@ class AgencyStoresController < ApplicationController
   end
 
   def create
-    @store = AgencyStore.create(params[:agency_store])
-    @store.resource_type = params[:resource_type]
     if params[:room_agency]
+      @store = AgencyStore.create(params[:agency_store])
+      @store.resource_type = params[:resource_type]
       @store.agency_id = params[:room][:agency_id]
       @store.sub_category_id = params[:room_agency][:sub_category_id]
       @store.resource_id = params[:room_agency][:resource_id]
+      @store.save
     elsif params[:transport_agency]
+      @store = AgencyStore.create(params[:agency_store])
+      @store.resource_type = params[:resource_type]
       @store.agency_id = params[:transport][:agency_id]
       @store.sub_category_id = params[:transport_agency][:sub_category_id]
       @store.resource_id = params[:transport_agency][:resource_id]
-      #SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
+      SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
+      @store.save
     elsif params[:ict_agency]
-      @store.agency_id = params[:ict][:agency_id]
+      @store = AgencyStore.create(params[:agency_store])
+      @store.resource_type = "ICT"
+      @store.agency_id = params[:ict_agency][:agency_id]
       @store.sub_category_id = params[:ict_agency][:sub_category_id]
       @store.resource_id = params[:ict_agency][:resource_id]
+      @store.save
     elsif params[:other_agency]
-      @store.agency_id = params[:other][:agency_id]
-      @store.category_id = params[:other_category][:id]
-      @store.sub_category_id = params[:other_agency][:sub_category_id]
-      @store.resource_id = params[:other_agency][:resource_id]
-      @store.serial_no =  params[:dynamic].values.join(",").to_s
+      quantity = params[:agency_store][:quantity].to_i
+      quantity.times do
+        @store = AgencyStore.create(params[:agency_store])
+        @store.resource_type = params[:resource_type]
+        @store.agency_id = params[:other][:agency_id]
+        @store.category_id = params[:other_category][:id]
+        @store.sub_category_id = params[:other_agency][:sub_category_id]
+        @store.resource_id = params[:other_agency][:resource_id]
+        if params[:dynamic]
+        @store.serial_no =  params[:dynamic].values.join.to_s
+        end
+        @store.save
+      end
+   
     end
 
     #    store.categories_id = params[:categories_department][:id]
