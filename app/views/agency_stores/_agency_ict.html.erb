@@ -20,10 +20,31 @@
       <div class="form-sec-row">
         <label class="text">Resource<span style=color:red>*</span></label>
         <span class="in-box">
-          <%= select("ict_agency","resource_id", Resource.active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE") %>
+          <%= select("ict_agency","resource_id", Resource.where('name is not null').active.collect {|resource| [resource.name, resource.id]},:prompt=>"SELECT A RESOURCE") %>
         </span>
       </div>
- 
+
+ <%#*<div class="dynamic-form">%>
+      <%#*<div class="form-sec-row"><a href="#" id="add">Add</a> | <a href="#" id="remove">Remove</a> | <a href="#" id="reset">Reset</a></div>%>
+
+      <%#*<div class="inputs"><div class="form-sec-row"> <label class="text">Serial No</label></div>%>
+        <%#*<div class="form-sec-row-center">%>
+          <%#*<input type="text" name=text1 size ="29" class="field"/>%>
+        <%#*</div>%>
+      <%#*</div>%>
+    <%#*</div>%>
+<div class="form-sec-row">
+      <label class="text">Serial No <span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.text_field :serial_no%>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">UOM <span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.text_field :uom%>
+      </span>
+    </div>
 
 
   <div class="form-sec-row">
