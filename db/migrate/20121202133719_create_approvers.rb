@@ -3,7 +3,7 @@ class CreateApprovers < ActiveRecord::Migration
     create_table :approvers do |t|
       t.references :user
       t.references :department
-      t.boolean :is_active
+      t.boolean :is_active, :default => false
       t.timestamps
     end
   end
