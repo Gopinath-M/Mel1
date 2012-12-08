@@ -20,7 +20,7 @@
       <div class="form-sec-row">
         <label class="text">Resource<span style=color:red>*</span></label>
         <span class="in-box">
-          <%= select("room_agency","resource_id", Resource.active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE") %>
+          <%= select("room_agency","resource_id", Resource.where('resource_no  is not null').active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE") %>
         </span>
       </div>
  
