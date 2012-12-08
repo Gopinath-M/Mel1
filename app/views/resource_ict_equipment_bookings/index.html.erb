@@ -7,10 +7,10 @@
           <div id="user_box_<%= resource_ict_equipment_booking.id %>" class="manage-user-row box">
             <div class="mu-c1">
             </div>
-            <div class="mu-c2">
+            <div class="mu1-c2">
               <p class="head1"><b>Purpose: <%= resource_ict_equipment_booking.purpose%></b></p>
               <p class="head1"><b>Destination: <%= resource_ict_equipment_booking.location%></b></p>
-              <p class="head1"><b>Equipment Category Type: <%= resource_ict_equipment_booking.equipment_category.name %></b></p>
+              <p class="head1"><b>Sub Category Type: <%= resource_ict_equipment_booking.sub_category.name %></b></p>
               <p class="head1"><b>Requested From Date: <%= resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S ") %></b></p>
               <p class="head1"><b>Requested To Date: <%= resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %I:%M:%S ") %></b></p>
               <p class="head1"><b>Officer Needed: <%= resource_ict_equipment_booking.need_officer ? "Yes" : "No"%></b></p>

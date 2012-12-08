@@ -1,14 +1,14 @@
 class ResourceRoomBookingsController < ApplicationController
   before_filter :authenticate_user!
   #  before_filter :is_admin
-  
+
   def index
     if current_user && current_user.is_super_admin?
       @resource_room_booking = ResourceRoomBooking.all
     elsif current_user && current_user.is_resource_manager?
       @resource_room_bookings = ResourceRoomBooking.find_all_by_status("Approved")
     else
-      @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id).order.page(params[:page]).per(5) 
+      @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id).order.page(params[:page]).per(5)
     end
   end
 
@@ -41,14 +41,18 @@ class ResourceRoomBookingsController < ApplicationController
     agency = AgencyStore.find_by_resource_id(params[:resource_room_booking][:resource_id])
     if !agency.nil?
       if agency.booked == false
-        agency.update_attribute(:booked, true)
         @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
         @resource_room_booking.agency_store_id = agency.id
         @resource_room_booking.status = "New"
         @resource_room_booking.user_id = params[:user_id]
         @resource_room_booking.department_id = params[:department_id]
-        @resource_room_booking.save
-        redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
+        if @resource_room_booking.valid?
+          @resource_room_booking.save
+          agency.update_attribute(:booked, true)
+          redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
+        else
+          render :action=>'new'
+        end
       else
         redirect_to(new_resource_room_booking_path, :alert => "You can't book Reserved Room, Please try other.")
       end
@@ -136,5 +140,5 @@ class ResourceRoomBookingsController < ApplicationController
     resources = Resource.find(params[:resource_id])
     render :json=>[resources] if resources
   end
-  
+
 end

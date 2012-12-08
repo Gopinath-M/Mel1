@@ -7,7 +7,9 @@ class Category < ActiveRecord::Base
 
 
   scope :active, where(:is_active => true, :deleted => false)
-
+  scope :get_category , lambda { |*args|
+    {:conditions=>["is_active=true and deleted=false and name =? ", args[0]],:limit=>1}
+  }
   #Association
   has_many :categories_departments
   has_many :sub_categories
@@ -15,8 +17,8 @@ class Category < ActiveRecord::Base
 
 
   private
-    def strip_whitespace
+  def strip_whitespace
     self.name = self.name.strip
-end
+  end
   
 end

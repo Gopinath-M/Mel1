@@ -26,7 +26,13 @@ Melaka::Application.routes.draw do
      end
   end
 
-  resources :resource_ict_equipment_bookings
+  resources :resource_ict_equipment_bookings do
+    collection do
+      get 'requests'
+      get 'approve_request'
+      put 'update_booking'
+    end
+  end
   resources :resource_transportation_bookings do
     collection do
       get 'request_view'
@@ -185,6 +191,7 @@ resources :resource_room_bookings do
       get 'get_transport'
       get 'get_other_sub_categories'
       get 'get_resource_ict'
+      get 'get_agency_resource'
     end
   end
    resources :facilities do
