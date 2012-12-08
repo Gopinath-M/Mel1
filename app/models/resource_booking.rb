@@ -1,7 +1,7 @@
 class ResourceBooking < ActiveRecord::Base
   mount_uploader :attachment, ResourceImageUploader
 
-  attr_accessor :category_id,:sub_category_id
+#  attr_accessor :category_id,:sub_category_id
   
   #  belongs_to :bookable, :polymorphic=>true
   belongs_to :resource
