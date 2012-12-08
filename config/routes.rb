@@ -17,13 +17,14 @@ Melaka::Application.routes.draw do
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
   resources :resource_bookings do
-     collection do
-       get 'get_other_sub_categories'
-       get 'get_resources'
-       get 'resource_booking_approval'
-       get 'list_resource_booking'
-       put 'update_resource_booking'
-     end
+    collection do
+      get 'get_other_sub_categories'
+      get 'get_resources'
+      get 'resource_booking_approval'
+      get 'list_resource_booking'
+      put 'update_resource_booking'
+      post 'user_return'
+    end
   end
 
   resources :resource_ict_equipment_bookings do
@@ -82,7 +83,7 @@ Melaka::Application.routes.draw do
   resources :vehicles
   resources :vehicle_types
 
-resources :resource_room_bookings do
+  resources :resource_room_bookings do
     collection do
       get 'get_list_of_facility'
       get 'list_resource_booking'
@@ -225,7 +226,7 @@ resources :resource_room_bookings do
       get 'get_agency_resource'
     end
   end
-   resources :facilities do
+  resources :facilities do
     collection do
       post 'update_status'
     end
@@ -233,17 +234,38 @@ resources :resource_room_bookings do
   #Error routes
   get '/not_authorized' => 'errors#not_authorized', :as => 'not_authorized'   
   get '/blocked' => 'errors#blocked', :as => 'blocked' 
-# Online chat 
+  # Online chat
   resources :conversations do
     collection do
       get 'conversations'
       post 'send_request'
       get 'list_users'
-     end
+    end
   end
   resources :rooms do
     collection do
       post 'update_status'
+    end
+  end
+  resources :software_installations do
+    collection do
+      get 'approve_software_installation'
+      get 'approval_software_installation'
+      get 'resource_booking_approval'
+    end
+  end
+
+  resources :ict_vpns  do
+    collection do
+      get 'approval'
+      put 'approval'
+    end
+
+  end
+  resources :ict_system_accesses do
+    collection do
+      get 'approval'
+      put 'approval'
     end
   end
   # The priority is based upon order of creation:

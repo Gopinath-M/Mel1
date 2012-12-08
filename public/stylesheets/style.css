@@ -381,3 +381,8 @@ h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-
 /* Developer Style - Sasi */
 span.in-box2  { padding: 5px; width: 132%;}
 .form-sec-row2 span.in-box2{ float:right; width:60%;}
+
+.manage-user-rows {padding: 5px 0 5px;}
+.manage-user-rows .m-c1{ float:left; width:28%;}
+.manage-user-rows .m-c2{ float:left; width:34%; margin-left:10px; }
+.manage-user-rows .m-c3{ float:right; width:24%; }

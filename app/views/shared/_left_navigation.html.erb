@@ -426,6 +426,10 @@
                             <span class="notifiNo"><%= resource_ict_status_count('New') %></span>
                             <%=link_to "ICT Equipment Booking", requests_resource_ict_equipment_bookings_path%>
                           </li>
+                          <li>
+                            <span class="notifiNo"><%= resource_status_count('New') %></span>
+                            <%=link_to "Others Booking", list_resource_booking_resource_bookings_path%>
+                          </li>
                         <%end%>
                       </ul>
                     </div>
@@ -522,6 +526,19 @@
                     </ul>
                   </div>
                 </li>
+ <li class="menu-item">
+                        <%=link_to "Create Requisition ICT VPN", new_ict_vpn_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List Requisitions ICT VPNs", ict_vpns_path%>
+                      </li>                    
+
+                      <li>
+                        <%=link_to "Create Requisition ICT System Access", new_ict_system_access_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List Requisitions ICT System Accesses", ict_system_accesses_path%>
+                      </li>
               <%end%>
 
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_USER)%>
@@ -560,6 +577,12 @@
                         <% cnt = ResourceRoomBooking.find_all_by_status('Approved').count %>
                         <% if @list.present? %><span class="notifiNo"><%= cnt %></span><%end%>
                         <%=link_to "Room Request", list_resource_booking_resource_room_bookings_path %>
+                      </li>
+                      <li>
+                        <% @list = ResourceBooking.find_all_by_department_id(current_user.departments) %>
+                        <% cnt = ResourceBooking.find_all_by_status('Approved').count %>
+                        <% if @list.present? %><span class="notifiNo"><%= cnt %></span><%end%>
+                        <%=link_to "Other Request", list_resource_booking_resource_bookings_path %>
                       </li>
                     </ul>
                   </div>

@@ -60,5 +60,9 @@ module ApplicationHelper
     status_count=ResourceIctEquipmentBooking.find_all_by_department_id_and_status(@current_department, status).count
     return status_count
   end
-  
+
+  def resource_status_count(status)
+    status_count=ResourceBooking.find_all_by_department_id_and_status(@current_department, status).count
+    return status_count
+  end
 end

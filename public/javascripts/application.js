@@ -2586,6 +2586,39 @@ function toreturnroomresource(chbx_id,room_book_id)
     }
 }
 /* room booking ends */
+
+/* others booking */
+function toreturnresource(chbx_id,room_book_id)
+{
+    if(room_book_id!=null && room_book_id!=0)
+    {
+        s = confirm("Do you Want to Return this Resource?");
+        if (s==true)
+        {
+            if($("#"+chbx_id).is(':checked'))
+            {
+                document.getElementById('hide_check_box_'+room_book_id).style.visibility = 'hidden'
+                document.getElementById('room_box_'+room_book_id).style.display='block'
+                $.post("/resource_bookings/user_return/",
+                {
+                    //                    $("#vehicle_type_id").hide()
+                    room_book_id:room_book_id,
+                    user_returned_status:true
+                });
+            }
+        }
+        else
+        {
+            $('#user_returned_status_'+room_book_id).attr('checked', false);
+            return false;
+        }
+    }
+}
+/* others booking ends */
+
+
+
+
 $("#agency_submit").live("click",function(data){
     if ($("#agency_name").val()=="")
     {
