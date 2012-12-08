@@ -1,0 +1,124 @@
+<div class="clearfix"></div>
+<div class="CenterNav">
+  <div class="form-sec">
+    <h2 class="b-head">Requisition ICT - VPN Booking Details</h2>
+
+
+<%#=error_messages%>
+    <div class="clearfix">&nbsp;</div>
+<%#*<div class="CenterNav">%>
+
+    <div class="form-sec">
+<%# if @manager.present? %>
+      <font color="#369" size="3"><br/><b><u>Applicant Information :-</u><br/><br/></b></font>
+
+      <% @dept = Department.find_by_id(current_department) %>
+      <% @agency = Agency.find_by_id(@dept.agency_id) %>
+       <% @ict_vpn = IctVpn.find_by_id(params[:id]) %>
+      <% @user = User.find_by_id(@ict_vpn.user_id) %>
+      <div class="form-sec-row">
+        <label class="text">Agency Name</label>
+        <span class="in-box"><%= @agency.name  %></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Department Name</label>
+        <span class="in-box">
+          <%= @dept.name  %></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">User Name</label>
+        <span class="in-box"><%= @user.username %></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Contact Mobile</label>
+        <span class="in-box"><%= @user.contact_mobile  %></span>
+      </div>
+
+      <div class="form-sec-row">
+        <label class="text">IC Number</label>
+        <span class="in-box">
+          <%= @user.ic_number %></span>
+      </div>
+
+      <div class="form-sec-row">
+        <label class="text">E - Mail</label>
+        <span class="in-box">
+          <%= @user.email %></span>
+      </div>
+
+      <h2 class="b-head"></h2>
+
+      <div class="form-sec-row">
+        <label class="text">Ticket No</label>
+        <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @ict_vpn.id %>/<%=Time.now.year%></b></font></span>
+              </div>
+
+              <div class="form-sec-row">
+                <label class="text">Date of Application</label>
+                <span class="in-box"><%= @ict_vpn.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
+              </div>
+
+              </div>
+              <h2 class="b-head"></h2>
+
+              <div class="form-sec-row">
+                <label class="text">Type of Facility</label>
+                <span class="in-box">
+                  <%facility_name = IctVpn.find_by_user_id(@ict_vpn.user_id)%>
+                  <%requisition_name = RequisitionType.find(facility_name.requisition_type_id)%>
+                  <%= requisition_name.name %>
+                </span>
+              </div>
+              <div class="form-sec-row">
+                <label class="text">Term User From</label>
+                <span class="in-box">
+                  <%= @ict_vpn.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %></span>
+              </div>
+              <div class="form-sec-row">
+                <label class="text">Term User To</label>
+                <span class="in-box">
+                  <%= @ict_vpn.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %>
+                </span>
+              </div>
+              <div class="form-sec-row">
+                <label class="text">Justification</label>
+                <span class="in-box">
+                  <%= @ict_vpn.justification %></span>
+              </div>
+              <div class="form-sec-row">
+                <label class="text">VPN Access To</label>
+                <span class="in-box">
+                  <%sys_name = IctVpn.find_by_system_access_id(@ict_vpn.system_access_id)%>
+                  <%requisition_name = SystemAccess.find(sys_name.system_access_id)%>
+                  <%= requisition_name.name %>
+                </span>
+              </div>
+              <div class="form-sec-row">
+                <label class="text">Notes</label>
+                <span class="in-box">
+                  <%= @ict_vpn.note %></span>
+              </div>
+              <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
+              <div class="form-sec-row">
+                <label class="text">Booking Status</label>
+                <span class="in-box">
+                  <%= @ict_vpn.status %></span>
+              </div>
+              <%@dept = Department.find(default_department)%>
+              <%@users = @dept.users%>
+
+              <div class="form-sec-row">
+                <label class="text">Forward To</label>
+                <span class="in-box">
+                  <%= @ict_vpn.forward_to %></span>
+              </div>
+
+              <div class="form-sec-row">
+                <label class="text">Remarks</label>
+                <span class="in-box">
+                  <%= @ict_vpn.remarks %></span>
+              </div>
+              <h2 class="b-head"></h2>
+
+              </div>
+              </div>
