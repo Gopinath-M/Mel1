@@ -526,6 +526,19 @@
                     </ul>
                   </div>
                 </li>
+ <li class="menu-item">
+                        <%=link_to "Create Requisition ICT VPN", new_ict_vpn_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List Requisitions ICT VPNs", ict_vpns_path%>
+                      </li>                    
+
+                      <li>
+                        <%=link_to "Create Requisition ICT System Access", new_ict_system_access_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List Requisitions ICT System Accesses", ict_system_accesses_path%>
+                      </li>
               <%end%>
 
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_USER)%>
