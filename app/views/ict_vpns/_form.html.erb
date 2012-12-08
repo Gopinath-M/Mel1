@@ -1,0 +1,65 @@
+<%= form_for(@ict_vpn, :html => { :method => :post, :multipart => true }) do |f| %>
+  <%#=error_messages%>
+  <div class="clearfix">&nbsp;</div>
+  <%#*<div class="CenterNav">%>
+  <h2 class="b-head">ICT - VPN</h2>
+  <div class="form-sec">
+  <%# if @manager.present? %>
+
+  </div>
+  <font color="#369" size="3"><br/><b><u>Applicant Information :-</u><br/><br/></b></font>
+
+  <div class="form-sec-row">
+    <label class="text">Type of Facility<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= f.select(:requisition_type_id, RequisitionType.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A ICT FACILITY", :style=> "width:132%;") %>
+    </span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">Term User From<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%=f.text_field :from_date, :value=>@ict_vpn && @ict_vpn.from_date!=nil ? @ict_vpn.from_date : nil ,:readonly=>true%></span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">Term User To<span style=color:red>*</span></label>
+    <span class="in-box">
+
+      <%=f.text_field :to_date, :value=>@ict_vpn && @ict_vpn.to_date!=nil ? @ict_vpn.to_date : nil ,:readonly=>true%>
+    </span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">Justification<span style=color:red>*</span></label>
+    <span class="in-box">
+
+      <%= f.text_area :justification, :rows =>4%></span>
+  </div>
+   <div class="form-sec-row">
+          <label class="text">VPN Access<span style=color:red>*</span></label>
+          <span class="in-box">
+            <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A VPN ACCESS", :style=> "width:132%;") %>
+          </span>
+      </div>
+  <div class="form-sec-row">
+    <label class="text">Note<span style=color:red>*</span></label>
+    <span class="in-box">
+
+      <%= f.text_area :note, :rows =>4%></span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">Remarks<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= f.text_area :remarks, :rows =>4%></span>
+    <div>
+
+    </div>
+  </div>
+  <div class="form-sec-row">
+    <div class="CenterNav">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+        <%= f.submit :value=>'Save', :class=>"btn2"%>
+      </span>
+    </div>
+  </div>
+  <%#*</div>%>
+<%end%>
