@@ -1,26 +1,26 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
-//function leftNavigation(link_id, div_id)
-//{
-//    $("div.leftNav-links ul li div").hide();
-//    $("div.leftNav-links ul li a").each(function(index) {
-//        if ($(this).attr("id")!=link_id)
-//        {
-//            $(this).removeClass('selected')
-//        }
-//    });
-//    if($("#"+link_id).hasClass('selected'))
-//    {
-//        $("#"+link_id).removeClass("selected")
-//        $("#"+div_id).hide();
-//    }
-//    else
-//    {
-//        $("#"+link_id).addClass("selected")
-//        $("#"+div_id).toggle('fast');
-//    }
-////    $("#"+div_id).toggle();
-//}
+function leftNavigation(link_id, div_id)
+{
+    $("div.leftNav-links ul li div").hide();
+    $("div.leftNav-links ul li a").each(function(index) {
+        if ($(this).attr("id")!=link_id)
+        {
+            $(this).removeClass('selected')
+        }
+    });
+    if($("#"+link_id).hasClass('selected'))
+    {
+        $("#"+link_id).removeClass("selected")
+        $("#"+div_id).hide();
+    }
+    else
+    {
+        $("#"+link_id).addClass("selected")
+        $("#"+div_id).toggle('fast');
+    }
+//    $("#"+div_id).toggle();
+}
 //function getDepartmentforAgency(agency_id, department_id)
 //{
 ////    alert("comes to dept")
@@ -128,7 +128,7 @@ $().ready(function(){
         getResourceforSubcategory('resource_ict_equipment_booking_sub_category_id', 'resource_ict_equipment_resource_id')
     })
     $("#resource_ict_equipment_resource_id").live("change",function(){
-//alert("resource_ict_equipment_resource_id")
+        //alert("resource_ict_equipment_resource_id")
         getAgencyforResource('resource_ict_equipment_resource_id', 'resource_ict_equipment_booking_agency_store_id')
     })
     $("#transfer_department_id").live("change",function(){
@@ -202,462 +202,462 @@ $().ready(function(){
         })
     });
     /* LEFT NAVIGATION HIDE & SHOW STARTS HERE*/
-    $("#lnk_department").live('click',function(){
-        if ($("#lnk_department").hasClass("selected"))
-        {
-            $("#lnk_department").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_admin').hide();
-            $('#div_user').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_department").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_admin').hide();
-            $('#div_user').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        $('#div_department').toggle("fast");
-    });
-    $("#lnk_admin").live('click',function(){
-        if ($("#lnk_admin").hasClass("selected"))
-        {
-            $("#lnk_admin").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_user').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_admin").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_user').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        $('#div_admin').toggle("fast");
-    });
-    $("#lnk_user").live('click',function(){
-        if ($("#lnk_user").hasClass("selected"))
-        {
-            $("#lnk_user").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_user").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-
-        $('#div_user').toggle("fast");
-    });
-    $("#lnk_cms").live('click',function(){
-        if ($("#lnk_cms").hasClass("selected"))
-        {
-            $("#lnk_cms").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_user').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_cms").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_user').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-
-        $('#div_cms').toggle("fast");
-    });
-    $("#lnk_agency").live('click',function(){
-        if ($("#lnk_agency").hasClass("selected"))
-        {
-            $("#lnk_agency").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_user').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_agency").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_user').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        $('#div_agency').toggle("fast");
-    });
-    $("#lnk_unit").live('click',function(){
-        if ($("#lnk_unit").hasClass("selected"))
-        {
-            $("#lnk_unit").removeClass("selected")
-            $('#div_user').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_unit").addClass("selected")
-            $('#div_user').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        $('#div_unit').toggle("fast");
-    });
-    $("#lnk_resources").live('click',function(){
-        if ($("#lnk_resources").hasClass("selected"))
-        {
-            $("#lnk_resources").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_user').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_resources").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_user').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        $('#div_resources').toggle("fast");
-    });
-    $("#lnk_resource_bookings").live('click',function(){
-        if ($("#lnk_resource_bookings").hasClass("selected"))
-        {
-            $("#lnk_resource_bookings").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_resource_bookings").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        $('#div_resource_bookings').toggle("fast");
-    });
-    $("#lnk_vendors").live('click',function(){
-        if ($("#lnk_vendors").hasClass("selected"))
-        {
-            $("#lnk_vendors").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_vendors").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_facility').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-
-        $('#div_vendors').toggle("fast");
-    });
-    $("#lnk_facility").live('click',function(){
-        if ($("#lnk_facility").hasClass("selected"))
-        {
-            $("#lnk_facility").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_facility").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-
-        $('#div_facility').toggle("fast");
-    });
-    $("#lnk_category").live('click',function(){
-        if ($("#lnk_category").hasClass("selected"))
-        {
-            $("#lnk_category").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_category").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_approve_requests').hide();
-             $('#div_assign_approver').hide();
-        }
-
-        $('#div_category').toggle("fast");
-    });
-    $("#lnk_approve_requests").live('click',function(){
-        if ($("#lnk_approve_requests").hasClass("selected"))
-        {
-            $("#lnk_approve_requests").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_category').hide();
-             $('#div_assign_approver').hide();
-        }
-        else
-        {
-            $("#lnk_approve_requests").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_category').hide();
-            $('#div_assign_approver').hide();
-        }
-
-        $('#div_approve_requests').toggle("fast");
-    });
-        $("#lnk_assign_approver").live('click',function(){
-        if ($("#lnk_assign_approver").hasClass("selected"))
-        {
-            $("#lnk_assign_approver").removeClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-        }
-        else
-        {
-            $("#lnk_assign_approver").addClass("selected")
-            $('#div_unit').hide();
-            $('#div_cms').hide();
-            $('#div_department').hide();
-            $('#div_admin').hide();
-            $('#div_agency').hide();
-            $('#div_resources').hide();
-            $('#div_resource_bookings').hide();
-            $('#div_user').hide();
-            $('#div_vendors').hide();
-            $('#div_category').hide();
-            $('#div_approve_requests').hide();
-        }
-
-        $('#div_assign_approver').toggle("fast");
-    });
+    //    $("#lnk_department").live('click',function(){
+    //        if ($("#lnk_department").hasClass("selected"))
+    //        {
+    //            $("#lnk_department").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_user').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_department").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_user').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        $('#div_department').toggle("fast");
+    //    });
+    //    $("#lnk_admin").live('click',function(){
+    //        if ($("#lnk_admin").hasClass("selected"))
+    //        {
+    //            $("#lnk_admin").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_user').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_admin").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_user').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        $('#div_admin').toggle("fast");
+    //    });
+    //    $("#lnk_user").live('click',function(){
+    //        if ($("#lnk_user").hasClass("selected"))
+    //        {
+    //            $("#lnk_user").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_user").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //
+    //        $('#div_user').toggle("fast");
+    //    });
+    //    $("#lnk_cms").live('click',function(){
+    //        if ($("#lnk_cms").hasClass("selected"))
+    //        {
+    //            $("#lnk_cms").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_user').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_cms").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_user').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //
+    //        $('#div_cms').toggle("fast");
+    //    });
+    //    $("#lnk_agency").live('click',function(){
+    //        if ($("#lnk_agency").hasClass("selected"))
+    //        {
+    //            $("#lnk_agency").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_user').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_agency").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_user').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        $('#div_agency').toggle("fast");
+    //    });
+    //    $("#lnk_unit").live('click',function(){
+    //        if ($("#lnk_unit").hasClass("selected"))
+    //        {
+    //            $("#lnk_unit").removeClass("selected")
+    //            $('#div_user').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_unit").addClass("selected")
+    //            $('#div_user').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        $('#div_unit').toggle("fast");
+    //    });
+    //    $("#lnk_resources").live('click',function(){
+    //        if ($("#lnk_resources").hasClass("selected"))
+    //        {
+    //            $("#lnk_resources").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_user').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_resources").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_user').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        $('#div_resources').toggle("fast");
+    //    });
+    //    $("#lnk_resource_bookings").live('click',function(){
+    //        if ($("#lnk_resource_bookings").hasClass("selected"))
+    //        {
+    //            $("#lnk_resource_bookings").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_resource_bookings").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        $('#div_resource_bookings').toggle("fast");
+    //    });
+    //    $("#lnk_vendors").live('click',function(){
+    //        if ($("#lnk_vendors").hasClass("selected"))
+    //        {
+    //            $("#lnk_vendors").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_vendors").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_facility').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //
+    //        $('#div_vendors').toggle("fast");
+    //    });
+    //    $("#lnk_facility").live('click',function(){
+    //        if ($("#lnk_facility").hasClass("selected"))
+    //        {
+    //            $("#lnk_facility").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_facility").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //
+    //        $('#div_facility').toggle("fast");
+    //    });
+    //    $("#lnk_category").live('click',function(){
+    //        if ($("#lnk_category").hasClass("selected"))
+    //        {
+    //            $("#lnk_category").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_category").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_approve_requests').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //
+    //        $('#div_category').toggle("fast");
+    //    });
+    //    $("#lnk_approve_requests").live('click',function(){
+    //        if ($("#lnk_approve_requests").hasClass("selected"))
+    //        {
+    //            $("#lnk_approve_requests").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_category').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_approve_requests").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_category').hide();
+    //            $('#div_assign_approver').hide();
+    //        }
+    //
+    //        $('#div_approve_requests').toggle("fast");
+    //    });
+    //    $("#lnk_assign_approver").live('click',function(){
+    //        if ($("#lnk_assign_approver").hasClass("selected"))
+    //        {
+    //            $("#lnk_assign_approver").removeClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //        }
+    //        else
+    //        {
+    //            $("#lnk_assign_approver").addClass("selected")
+    //            $('#div_unit').hide();
+    //            $('#div_cms').hide();
+    //            $('#div_department').hide();
+    //            $('#div_admin').hide();
+    //            $('#div_agency').hide();
+    //            $('#div_resources').hide();
+    //            $('#div_resource_bookings').hide();
+    //            $('#div_user').hide();
+    //            $('#div_vendors').hide();
+    //            $('#div_category').hide();
+    //            $('#div_approve_requests').hide();
+    //        }
+    //
+    //        $('#div_assign_approver').toggle("fast");
+    //    });
     /* LEFT NAVIGATION HIDE & SHOW ENDS HERE*/
 
     /*Update Department based on agency*/
@@ -1554,23 +1554,23 @@ $().ready(function(){
 
     // here's our click function for when the forms submitted
 
-//    $('.submit').click(function(){
-//
-//
-//        var answers = [];
-//        $.each($('.field'), function() {
-//            answers.push($(this).val());
-//        });
-//
-//        if(answers.length == 0) {
-//            answers = "none";
-//        }
-//
-//        alert(answers);
-//
-//        return false;
-//
-//    });
+    //    $('.submit').click(function(){
+    //
+    //
+    //        var answers = [];
+    //        $.each($('.field'), function() {
+    //            answers.push($(this).val());
+    //        });
+    //
+    //        if(answers.length == 0) {
+    //            answers = "none";
+    //        }
+    //
+    //        alert(answers);
+    //
+    //        return false;
+    //
+    //    });
     /* dynamic text box ends */
     /* category mapping list page will show based on dept selection */
     $("#cat_department_id").live("change",function(){
@@ -1830,7 +1830,7 @@ $().ready(function(){
         }
         else
         {
-//            alert("Message sent...");
+            //            alert("Message sent...");
             $.ajax({
                 complete: function(){
                     $('#chat-msg').load('/conversations/'+jsUserID);
@@ -2188,7 +2188,7 @@ $().ready(function(){
     })
 
     /*Agenct store drop box ends*/
-/* resource booking for others */
+    /* resource booking for others */
     $("#other_booking_category_id").live("change", function(){
         if($("#other_booking_category_id").val()!="")
         {
@@ -2360,7 +2360,7 @@ $().ready(function(){
             return false;
         }
     });
-/* Agency Store validation ends */
+    /* Agency Store validation ends */
 
     /* Approver Starts*/
     $("#approver1_id").live("change", function(){
@@ -2442,7 +2442,7 @@ $().ready(function(){
             return false;
         }
     })
-$("#resource_ict").live("click",function(){
+    $("#resource_ict").live("click",function(){
         if ($("#resource_ict_sub_category_id").val() == ""){
             alert("Select Sub Category");
             return false;
@@ -2454,7 +2454,7 @@ $("#resource_ict").live("click",function(){
             alert("Enter Description");
             return false;
         }
-         else if ($("#resource_brand_model").val() == ""){
+        else if ($("#resource_brand_model").val() == ""){
             alert("Enter Brand Model");
             return false;
         }
@@ -2477,7 +2477,7 @@ $("#resource_ict").live("click",function(){
             return false;
         }
     })
-    /* Resources validation Ends*/
+/* Resources validation Ends*/
 
 })
 /* resource room booking validation ends */
@@ -2586,3 +2586,72 @@ function toreturnroomresource(chbx_id,room_book_id)
     }
 }
 /* room booking ends */
+$("#agency_submit").live("click",function(data){
+    if ($("#agency_name").val()=="")
+    {
+        alert("Enter Agency name");
+        return false;
+    }
+    else if ($("#agency_address").val()=="")
+    {
+        alert("Enter the Address");
+        return false;
+    }
+    else if($("#agency_telephone_number").val()=="")
+    {
+        alert("Enter the Telephone Number");
+        return false;
+    }
+    else if($("#agency_fax_number").val()=="")
+    {
+        alert("Enter the Fax Number");
+        return false;
+    }
+    var regEx = new RegExp("/[0-9]/");
+    if ($("#agency_telephone_number").val().length !=10 && !$("#agency_telephone_number").val().match(regEx)) {
+        alert("Invalid TelePhone Number");
+        return false;
+    }
+    if ($("#agency_fax_number").val().length !=10 && !$("#agency_fax_number").val().match(regEx)) {
+        alert("Invalid Fax Number");
+        return false;
+    }
+    if ($("#agency_name").val()!="" && $("#agency_address").val()!="" && $("#agency_telephone_number").val()!="" && $("#agency_fax_number").val()!="")
+    {
+        $.get("/agencies/for_agency",{
+            name: $("#agency_name").val(),
+            address: $("#agency_address").val(),
+            telephone_number: $("#agency_telephone_number").val(),
+            fax_number: $("#agency_fax_number").val(),
+            is_active: $("#agency_is_active").val()
+        }, function(data){
+            if(data && data[0]=="Success")
+            {
+                alert("success");
+            //                $("#agency_name").val("");
+            //                $("#agency_address").val("");
+            //                $("#agency_telephone_number").val("");
+            //                $("#agency_fax_number").val("");
+            //                $("#agency_is_active").val("");
+            }
+            else if(data && data[0]=="Failure")
+            {
+                alert("Failure")
+            }
+        });
+    }
+});
+$("#resource_type").live("change",function(){
+    $.get("/agency_stores/",{
+        resource_type: $("#resource_type").val()
+    }, function(data){
+        $("#resource_type").val($("#resource_type").val())
+        $("#div_ajax").html(data)
+    });
+})
+$("#edit_for_agency").live("click",function(){
+    $.ajax("agencies/edit", function(data) {
+        alert("comes here");
+        alert(data);
+    });
+});
