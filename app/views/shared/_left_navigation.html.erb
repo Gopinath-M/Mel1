@@ -365,8 +365,8 @@
                     </div>
                   </li>
                   <li class="menu-item">
-                    <%=link_to "Resource ICT Equipment Booking", "javascript:void(0);" , :title=>"Resource ICT Equipment Booking" ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
-                    <div id ="div_resource_bookings" style="display:none;">
+                    <%=link_to "ICT Equipment Booking", "javascript:void(0);" , :title=>"ICT Equipment Booking" ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
+                    <div id ="div_resource_ict_bookings" style="display:none;">
                       <ul>
                         <li>
                           <%=link_to "Create", new_resource_ict_equipment_booking_path %>
@@ -487,8 +487,8 @@
                   </div>
                 </li>
                 <li class="menu-item">
-                  <%=link_to "Resource ICT Equipment Booking", "javascript:void(0);" , :title=>"Resource ICT Equipment Booking" ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
-                  <div id ="div_resource_bookings" style="display:none;">
+                  <%=link_to "ICT Equipment Booking", "javascript:void(0);" , :title=>"ICT Equipment Booking" ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
+                  <div id ="div_resource_ict_bookings" style="display:none;">
                     <ul>
                       <li>
                         <%=link_to "Create", new_resource_ict_equipment_booking_path %>
@@ -500,7 +500,7 @@
                   </div>
                 </li>
                 <li class="menu-item">
-                  <%=link_to "Resources Room Booking", "javascript:void(0);" , :title=>"Resource Room Booking" ,:class=>"", :id=>"lnk_resource_room_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_room_booking')"%>
+                  <%=link_to "Room Booking", "javascript:void(0);" , :title=>"Room Booking" ,:class=>"", :id=>"lnk_resource_room_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_room_booking')"%>
                   <div id ="div_resource_room_booking" style="display:none;">
                     <ul>
                       <li>
@@ -514,7 +514,7 @@
                 </li>
 
                 <li class="menu-item">
-                  <%=link_to "Resources Transport Booking", "javascript:void(0);" , :title=>"Resources Transport Booking" ,:class=>"", :id=>"lnk_resource_transport_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_transport_booking')"%>
+                  <%=link_to "Transport Booking", "javascript:void(0);" , :title=>"Transport Booking" ,:class=>"", :id=>"lnk_resource_transport_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_transport_booking')"%>
                   <div id ="div_resource_transport_booking" style="display:none;">
                     <ul>
                       <li>
@@ -526,19 +526,35 @@
                     </ul>
                   </div>
                 </li>
- <li class="menu-item">
-                        <%=link_to "Create Requisition ICT VPN", new_ict_vpn_path%>
-                      </li>
-                      <li>
-                        <%=link_to "List Requisitions ICT VPNs", ict_vpns_path%>
-                      </li>                    
 
+                <li class="menu-item">
+                  <%=link_to "ICT VPN", "javascript:void(0);" , :title=>"Requisition ICT VPN" ,:class=>"", :id=>"lnk_requisition_ict_vpn" ,:onclick=>"leftNavigation(this.id,'div_requisition_ict_vpn')"%>
+                  <div id ="div_requisition_ict_vpn" style="display:none;">
+                    <ul>
                       <li>
-                        <%=link_to "Create Requisition ICT System Access", new_ict_system_access_path%>
+                        <%=link_to "Create",  new_ict_vpn_path %>
                       </li>
                       <li>
-                        <%=link_to "List Requisitions ICT System Accesses", ict_system_accesses_path%>
+                        <%=link_to "List", ict_vpns_path %>
                       </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="menu-item">
+                  <%=link_to "ICT System Access", "javascript:void(0);" , :title=>"Requisition ICT System Access" ,:class=>"", :id=>"lnk_requisition_ict_sys_access" ,:onclick=>"leftNavigation(this.id,'div_requisition_ict_sys_access')"%>
+                  <div id ="div_requisition_ict_sys_access" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create", new_ict_system_access_path %>
+                      </li>
+                      <li>
+                        <%=link_to "List", ict_system_accesses_path %>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+
+
               <%end%>
 
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_USER)%>

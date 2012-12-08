@@ -1,5 +1,6 @@
 class IctVpnsController < ApplicationController
-
+  before_filter :authenticate_user!
+  
   def index
     if current_user && current_user.is_super_admin?
       @ict_vpn = IctVpn.page(params[:page]).per(2)
@@ -15,10 +16,9 @@ class IctVpnsController < ApplicationController
   end
 
   def create
-    @ict_vpn = IctVpn.create(params[:ict_vpn])
-    @ict_vpn.user_id = current_user.id
-    @ict_vpn.save
+    @ict_vpn = IctVpn.create(params[:ict_vpn].merge!({:user_id=>current_user.id}))
     if @ict_vpn.valid?
+      @ict_vpn.save
       redirect_to(ict_vpns_path, :notice => "Resource Requisition ICT VPN has been created successfully.")
     else
       render :action=>'new'
