@@ -1,6 +1,7 @@
 class FacilitiesController < ApplicationController
-    before_filter :authenticate_user!
-    before_filter :is_admin
+  before_filter :authenticate_user!
+  before_filter :is_admin
+
   def index
     if params[:id].blank? || params[:id].nil?
       @facility = Facility.order.page(params[:page]).per(10)
