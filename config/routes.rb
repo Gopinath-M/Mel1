@@ -23,6 +23,7 @@ Melaka::Application.routes.draw do
        get 'resource_booking_approval'
        get 'list_resource_booking'
        put 'update_resource_booking'
+       post 'user_return'
      end
   end
 
@@ -249,6 +250,8 @@ resources :resource_room_bookings do
   resources :software_installations do
   collection do
       get 'approve_software_installation'
+      get 'approval_software_installation'
+      get 'resource_booking_approval'
     end
   end
   # The priority is based upon order of creation:
