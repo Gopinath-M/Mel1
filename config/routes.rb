@@ -35,6 +35,20 @@ Melaka::Application.routes.draw do
       post 'user_return'
     end
   end
+  resources :ict_network_points do
+    collection do
+      get 'approval_network_point'
+      get 'list_to_select_ict'
+      put 'update_approval_network_point'
+      get 'list_ict_network'
+    end
+  end
+
+  resources :settings do
+    collection do
+      post 'update_timeline_for_approver'
+    end
+  end
   resources :resource_transportation_bookings do
     collection do
       get 'request_view'
