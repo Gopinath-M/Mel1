@@ -21,7 +21,7 @@
             </div>
             <div class="form-sec-row">
               <% if resource_ict_equipment_booking.status == "Processed" && resource_ict_equipment_booking.user_id = current_user.id%>
-                <div id="div_ict_chk<%= resource_ict_equipment_booking.id %>">
+                <div id="div_ict_chk_<%= resource_ict_equipment_booking.id %>" style="display:block;">
                   <% if !resource_ict_equipment_booking.user_returned_status? %>
                     <label class="text"> Is Returnable?</label>
                     <span class="in-box">

@@ -94,10 +94,11 @@ class ResourceIctEquipmentBookingsController < ApplicationController
   def user_return
     ict_equipment = ResourceIctEquipmentBooking.find(params[:ict_equipment_id])
     if params[:user_returned_status] == "true"
-      ict_equipment.update_attribute(:user_returned_status, true)
-    else
-      ict_equipment.update_attribute(:user_returned_status, false)
+      if ict_equipment.update_attributes(:user_returned_status=> true, :returned_date=>Time.now)
+        render :json=>["Success"]
+      else
+        render :json=>["Error"]
+      end
     end
-    render :nothing=>true
   end
 end

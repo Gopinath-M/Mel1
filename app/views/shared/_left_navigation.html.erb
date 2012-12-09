@@ -565,6 +565,10 @@
 
                 <% @approve = Approver.find_by_department_id(current_user.departments)%>
                 <% if @approve.present? && @approve.user_id == current_user.id %>
+                  <li>
+                    <span class="notifiNo"><%= resource_ict_status_count('New') %></span>
+                    <%=link_to "ICT Equipment Request", requests_resource_ict_equipment_bookings_path %>
+                  </li>
                   <li  class="menu-item">
                     <%if @room_list.present? %>
                       <span class="notifiNo"><%= room_count %></span>
@@ -590,7 +594,7 @@
                       <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
                       <li>
                         <span class="notifiNo"><%= resource_ict_status_count('Approved') %></span>
-                        <%=link_to "ICT Equipment Request", list_resource_booking_resource_bookings_path %>
+                        <%=link_to "ICT Equipment Request", requests_resource_ict_equipment_bookings_path %>
                       </li>
                       <li>
                         <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>

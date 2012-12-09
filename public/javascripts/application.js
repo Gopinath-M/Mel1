@@ -2582,6 +2582,16 @@ function returnIctEquipment(chbx_id,ict_book_id)
                 {
                     ict_equipment_id:ict_book_id,
                     user_returned_status:true
+                }, function(data)
+                {
+                    if (data[0]=="Success")
+                    {
+                        alert("Resource returned Successfully.")
+                    }
+                    else
+                    {
+                        alert("Resource could not be returned!")
+                    }
                 });
             }
         }
