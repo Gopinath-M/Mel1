@@ -1,5 +1,18 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
+//function remove_fields(link) {
+//  $(link).previous("input[type=hidden]").value = "1";
+//  $(link).up(".fields").hide();
+//}
+//
+//function add_fields(link, association, content) {
+//  var new_id = new Date().getTime();
+//  var regexp = new RegExp("new_" + association, "g")
+//  $(link).up().insert({
+//    before: content.replace(regexp, new_id)
+//  });
+//}
+//
 function remove_fields(link) {
     $(link).prev("input[type=hidden]").val("1");
     $(link).closest(".fields").hide();
@@ -82,6 +95,12 @@ function getAgencyforResource(resource_id, agency_id)
     }
 }
 $().ready(function(){
+$("#ict_hardware_booking_application_category_group").live('click', function(){
+    $("#div_ict_hardware_add_more").show();
+})
+$("#ict_hardware_booking_application_category_individual").live('click', function(){
+    $("#div_ict_hardware_add_more").hide();
+})
     if ($("#pr-time"))
     {
         var date = new Date(); // today
