@@ -9,15 +9,24 @@ class ResourceBookingsController < ApplicationController
     agency = AgencyStore.find_by_resource_id(params[:resource_booking][:resource_id])
      if !agency.nil?
       if agency.booked == false
-    @resource_booking=ResourceBooking.create(params[:resource_booking])
-    @resource_booking.category_id = params[:other_booking_category][:id]
-    @resource_booking.sub_category_id = params[:other_booking_sub_category][:id]
-    @resource_booking.department_id = params[:department_id]
-    @resource_booking.user_id=current_user.id
-    @resource_booking.agency_store_id = agency.id
-    @resource_booking.status = "New"
-    @resource_booking.save
-    if @resource_booking.valid?
+    resource_booking=ResourceBooking.create(params[:resource_booking])
+    resource_booking.category_id = params[:other_booking_category][:id]
+    resource_booking.sub_category_id = params[:other_booking_sub_category][:id]
+    resource_booking.department_id = params[:department_id]
+    resource_booking.user_id=current_user.id
+    resource_booking.agency_store_id = agency.id
+    resource_booking.status = "New"
+    resource_booking.save
+    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+        dept = Department.find_by_id(params[:department_id])
+        if !@approve.present?
+          user = dept.users.where("role_id = 2").first
+          UserMailer.send_mail_to_dept_admin_for_others_booking(user,resource_booking,dept).deliver
+        else
+          user = User.find_by_id(@approve.user_id)
+          UserMailer.send_mail_to_approver_others_for_booking(user,resource_booking,dept).deliver
+        end
+    if resource_booking.valid?
       redirect_to(resource_bookings_path, :notice => "Your Resource booking has been created sucessfully.")
     else
       render :action=>'new'
@@ -83,7 +92,7 @@ class ResourceBookingsController < ApplicationController
       elsif @approver_second.present?
         @booking = ResourceBooking.where(:department_id => @approver_second.department_id)
       else
-        @booking = ResourceBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(5)
+        @booking = ResourceBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(10)
       end
     end
   end
