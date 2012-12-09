@@ -7,7 +7,7 @@ class AgencyStoresController < ApplicationController
     if @resource_id == 0
       if params[:id].blank? || params[:id].nil?
         if current_user.is_super_admin?
-          @stores=AgencyStore.order.page(params[:page]).per(15)
+          @stores=AgencyStore.order.page(params[:page]).per(10)
         else
           @stores=AgencyStore.find_all_by_agency_id(@resource_id)
         end
@@ -54,9 +54,10 @@ class AgencyStoresController < ApplicationController
       @store.resource_id = params[:ict_agency][:resource_id]
       @store.save
     elsif params[:other_agency]
-      quantity = params[:agency_store][:quantity].to_i
-      quantity.times do
+      
+#      quantity.times do
         @store = AgencyStore.create(params[:agency_store])
+        quantity = params[:agency_store][:quantity].to_i
         @store.resource_type = params[:resource_type]
         @store.agency_id = params[:other][:agency_id]
         @store.category_id = params[:other_category][:id]
@@ -64,10 +65,10 @@ class AgencyStoresController < ApplicationController
         @store.resource_id = params[:other_agency][:resource_id]
         if params[:dynamic]
         @store.serial_no =  params[:dynamic].values.join.to_s
-        end
-        @store.save
+#        end
+        
       end
-   
+   @store.save
     end
 
     #    store.categories_id = params[:categories_department][:id]

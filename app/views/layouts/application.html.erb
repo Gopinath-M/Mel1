@@ -20,7 +20,7 @@
     <%= javascript_include_tag 'slide' %>
     <%= javascript_include_tag 'prayTimes' %>
 <%#*<script type="text/javascript" src="jquery-1.3.2.min.js"></script>%>
-    <%if controller_name.to_s=="resource_bookings" || controller_name.to_s=="resource_transportation_bookings" || controller_name.to_s=="resource_room_bookings" || controller_name.to_s=="resource_ict_equipment_bookings" %>
+    <%if controller_name.to_s=="resource_bookings" || controller_name.to_s=="resource_transportation_bookings" ||  controller_name.to_s=="ict_vpns" || controller_name.to_s=="resource_requisitions"  || controller_name.to_s=="resource_room_bookings" || controller_name.to_s=="resource_ict_equipment_bookings" %>
       <%= javascript_include_tag 'time_tracker_add_on' %>
   <%#= javascript_include_tag 'jquery-ui-sliderAccess'%>
   <%#= javascript_include_tag 'jquery.ui.datepicker' %>
@@ -28,6 +28,27 @@
       <%= stylesheet_link_tag 'datetime_picker' %>
       <script type="text/javascript">
         $().ready(function(){
+$("#ict_vpn_to_date").datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'hh:mm:ss'
+          });
+          $("#ict_vpn_from_date").datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'hh:mm:ss'
+          });
+
+           $("#resource_requisition_vpn_to_date").datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'hh:mm:ss'
+          });
+          $("#resource_requisition_vpn_from_date").datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'hh:mm:ss'
+          });
           $("#resource_booking_requested_to_date").datetimepicker({
             controlType: 'select',
             dateFormat: "D MM d, yy",

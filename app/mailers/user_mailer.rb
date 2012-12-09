@@ -44,5 +44,11 @@ class UserMailer < ActionMailer::Base
     @requisition_user = requisition_user
     mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded request for ICT - #{@requisition_ict_system_access.name} Booking")
   end
-
+ def ict_software(ict_email, ict_vpn, requisition_ict_software, requisition_user)
+    @user = ict_email
+    @ict_vpn = ict_vpn
+    @requisition_ict_vpn = requisition_ict_software
+    @requisition_user = requisition_user
+    mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded request for ICT - #{@requisition_ict_vpn.name} Booking")
+  end
 end

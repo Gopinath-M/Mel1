@@ -352,19 +352,6 @@
                 <%end%>
                 <%if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
                   <li class="menu-item">
-                    <%=link_to "Resources Booking", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_bookings')"%>
-                    <div id ="div_resource_bookings" style="display:none;">
-                      <ul>
-                        <li>
-                          <%=link_to "Create", new_resource_booking_path%>
-                        </li>
-                        <li>
-                          <%=link_to "List", resource_bookings_path%>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="menu-item">
                     <%=link_to "ICT Equipment Booking", "javascript:void(0);" , :title=>"ICT Equipment Booking" ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
                     <div id ="div_resource_ict_bookings" style="display:none;">
                       <ul>
@@ -404,6 +391,19 @@
                       </ul>
                     </div>
                   </li>
+                   <li class="menu-item">
+                    <%=link_to "Other Resource Bookings", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_bookings')"%>
+                    <div id ="div_resource_bookings" style="display:none;">
+                      <ul>
+                        <li>
+                          <%=link_to "Create", new_resource_booking_path%>
+                        </li>
+                        <li>
+                          <%=link_to "List", resource_bookings_path%>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                 <%end%>
                 <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN  || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
                   <li>
@@ -434,6 +434,27 @@
                       </ul>
                     </div>
                   </li>
+
+                  <li>
+                    <%=link_to "Approve Requisition", "javascript:void(0);" , :title=>"Approve Requisition" ,:class=>"", :id=>"lnk_approve_requisition" ,:onclick=>"leftNavigation(this.id,'div_approve_requisition')"%>
+                    <div id ="div_approve_requisition" style="display:none;">
+                      <ul>
+
+                        <% if current_role == DISP_USER_ROLE_DEPT_ADMIN  %>
+
+                          <li>
+                            <%#*<span class="notifiNo"><%= resource_status_count('New') %>
+                            <%=link_to "Approve Software Installation", software_installations_path%>
+                          </li>
+                        <%end%>
+                      </ul>
+                    </div>
+                  </li>
+
+
+
+
+
                   <li>
                     <%=link_to "Assign Approver", "javascript:void(0);" , :title=>"Assign Approver" ,:class=>"", :id=>"lnk_assign_approver" ,:onclick=>"leftNavigation(this.id,'div_assign_approver')"%>
                     <div id ="div_assign_approver" style="display:none;">
@@ -474,19 +495,6 @@
             <ul>
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN || current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_USER)%>
                 <li class="menu-item">
-                  <%=link_to "Resources Booking", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_bookings')"%>
-                  <div id ="div_resource_bookings" style="display:none;">
-                    <ul>
-                      <li>
-                        <%=link_to "Create", new_resource_booking_path%>
-                      </li>
-                      <li>
-                        <%=link_to "List", resource_bookings_path%>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="menu-item">
                   <%=link_to "ICT Equipment Booking", "javascript:void(0);" , :title=>"ICT Equipment Booking" ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
                   <div id ="div_resource_ict_bookings" style="display:none;">
                     <ul>
@@ -526,9 +534,21 @@
                     </ul>
                   </div>
                 </li>
-
+                 <li class="menu-item">
+                  <%=link_to "Other Resource Bookings", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_bookings')"%>
+                  <div id ="div_resource_bookings" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create", new_resource_booking_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List", resource_bookings_path%>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
                 <li class="menu-item">
-                  <%=link_to "ICT VPN", "javascript:void(0);" , :title=>"Requisition ICT VPN" ,:class=>"", :id=>"lnk_requisition_ict_vpn" ,:onclick=>"leftNavigation(this.id,'div_requisition_ict_vpn')"%>
+                  <%=link_to "Requisition - ICT VPN", "javascript:void(0);" , :title=>"Requisition ICT VPN" ,:class=>"", :id=>"lnk_requisition_ict_vpn" ,:onclick=>"leftNavigation(this.id,'div_requisition_ict_vpn')"%>
                   <div id ="div_requisition_ict_vpn" style="display:none;">
                     <ul>
                       <li>
@@ -553,7 +573,19 @@
                     </ul>
                   </div>
                 </li>
-
+               <li class="menu-item">
+                  <%=link_to "Software Installation", "javascript:void(0);" , :title=>"Requisition Software Installation" ,:class=>"", :id=>"lnk_requisition_soft_install" ,:onclick=>"leftNavigation(this.id,'div_requisition_soft_install')"%>
+                  <div id ="div_requisition_soft_install" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create", new_software_installation_path %>
+                      </li>
+                      <li>
+                        <%=link_to "List", software_installations_path %>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
 
               <%end%>
 

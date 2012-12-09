@@ -1,0 +1,49 @@
+<%= form_for(@software_installation, :html => { :method => :post, :multipart => true }) do |f| %>
+  <%#=error_messages%>
+  <div class="clearfix">&nbsp;</div>
+  <%#*<div class="CenterNav">%>
+  <h2 class="b-head">ICT Software Installation</h2>
+  <div class="form-sec">
+
+  </div>
+  <font color="#369" size="3"><br/><b><u>Applicant Information :-</u><br/><br/></b></font>
+
+  <div class="form-sec-row">
+    <label class="text">Type of Facility<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= f.select(:requisition_type_id, RequisitionType.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A ICT FACILITY", :style=> "width:132%;") %>
+    </span>
+  </div>
+  <div class="form-sec-row">
+          <label class="text">Software Name<span style=color:red>*</span></label>
+          <span class="in-box">
+                           <%= f.select(:facility_ict_software_id, FacilityIctSoftware.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A SOFTWARE", :style=> "width:132%;") %>
+          </span>
+      </div>
+  <div class="form-sec-row">
+    <label class="text">Name<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= text_field 'service', 'name', :value=>current_user.username%></span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">Position<span style=color:red>*</span></label>
+    <span class="in-box">
+
+      <%= text_field 'service', 'position',:value=>current_user.position%>
+    </span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">Grade<span style=color:red>*</span></label>
+    <span class="in-box">
+
+      <%=  text_field 'service', 'grade'%></span>
+  </div>
+  <div class="form-sec-row">
+    <div class="CenterNav">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+        <%= f.submit :value=>'Save', :class=>"btn2"%>
+      </span>
+    </div>
+  </div>
+<%end%>
