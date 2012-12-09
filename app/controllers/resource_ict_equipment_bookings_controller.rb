@@ -98,5 +98,6 @@ class ResourceIctEquipmentBookingsController < ApplicationController
     else
       ict_equipment.update_attribute(:user_returned_status, false)
     end
+    render :nothing=>true
   end
 end

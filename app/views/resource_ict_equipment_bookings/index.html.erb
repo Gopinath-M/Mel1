@@ -20,23 +20,23 @@
               <p class="head1"><b>Status: <%= resource_ict_equipment_booking.status %></b></p>
             </div>
             <div class="form-sec-row">
-              <% if resource.status == "Processed" && resource.user_id = current_user.id%>
-                <div id="div_ict_chk<%= resource.id %>">
-                  <% if !resource.user_returned_status? %>
+              <% if resource_ict_equipment_booking.status == "Processed" && resource_ict_equipment_booking.user_id = current_user.id%>
+                <div id="div_ict_chk<%= resource_ict_equipment_booking.id %>">
+                  <% if !resource_ict_equipment_booking.user_returned_status? %>
                     <label class="text"> Is Returnable?</label>
                     <span class="in-box">
-                      <%= check_box_tag "user_returned_status[#{resource.id}]","",false,:onchange=>"returnIctEquipment(this.id,#{resource.id})" %>
+                      <%= check_box_tag "user_returned_status[#{resource_ict_equipment_booking.id}]","",false,:onchange=>"returnIctEquipment(this.id,#{resource_ict_equipment_booking.id})" %>
                     </span>
                   <%end%>
                 </div>
               <%end%>
             </div>
 
-            <div id="div_ict_msg_<%= resource.id %>" style="display:none;">
+            <div id="div_ict_msg_<%= resource_ict_equipment_booking.id %>" style="display:none;">
               <b class="heading_blue"><%= "You have successfully returned the Resource" %></b>
             </div>
 
-            <% if resource.status == "Returned" || resource.user_returned_status? %>
+            <% if resource_ict_equipment_booking.status == "Returned" || resource_ict_equipment_booking.user_returned_status? %>
               <b class="heading_blue"><%= "You have successfully returned the Resource " %></b>
             <%end%>
 
@@ -49,7 +49,7 @@
 
             <div class="form-sec-row">
               <span class="in-box">
-                <b style="color:#BB0802;"><%= link_to "Show Info",resource_ict_equipment_booking_path(:id => resource.id), :method=>:get%></b>
+                <b style="color:#BB0802;"><%= link_to "Show Info",resource_ict_equipment_booking_path(:id => resource_ict_equipment_booking.id), :method=>:get%></b>
               </span>
             </div>
           </div>

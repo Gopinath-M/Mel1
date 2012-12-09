@@ -589,6 +589,10 @@
                       <% count = ResourceTransportationBooking.find_all_by_status('Approved').count %>
                       <li><a href="/resource_transportation_bookings/approve_request" title="Complaints"><span class="notifiNo"><%= count %></span>Travel Request</a></li>
                       <li>
+                        <span class="notifiNo"><%= resource_ict_status_count('Approved') %></span>
+                        <%=link_to "ICT Equipment Request", list_resource_booking_resource_bookings_path %>
+                      </li>
+                      <li>
                         <% @list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
                         <% cnt = ResourceRoomBooking.find_all_by_status('Approved').count %>
                         <% if @list.present? %><span class="notifiNo"><%= cnt %></span><%end%>
@@ -600,6 +604,7 @@
                         <% if @list.present? %><span class="notifiNo"><%= cnt %></span><%end%>
                         <%=link_to "Other Request", list_resource_booking_resource_bookings_path %>
                       </li>
+
                     </ul>
                   </div>
                 </li>
