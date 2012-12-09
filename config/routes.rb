@@ -250,9 +250,9 @@ Melaka::Application.routes.draw do
   end
   resources :software_installations do
     collection do
-      get 'approve_software_installation'
       get 'approval_software_installation'
       get 'resource_booking_approval'
+      post 'resource_booking_approval'
     end
   end
 
