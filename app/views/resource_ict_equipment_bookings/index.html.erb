@@ -19,6 +19,39 @@
               <p class="head1"><b>Notes: <%= resource_ict_equipment_booking.notes %></b></p>
               <p class="head1"><b>Status: <%= resource_ict_equipment_booking.status %></b></p>
             </div>
+            <div class="form-sec-row">
+              <% if resource.status == "Processed" && resource.user_id = current_user.id%>
+                <div id="div_ict_chk<%= resource.id %>">
+                  <% if !resource.user_returned_status? %>
+                    <label class="text"> Is Returnable?</label>
+                    <span class="in-box">
+                      <%= check_box_tag "user_returned_status[#{resource.id}]","",false,:onchange=>"returnIctEquipment(this.id,#{resource.id})" %>
+                    </span>
+                  <%end%>
+                </div>
+              <%end%>
+            </div>
+
+            <div id="div_ict_msg_<%= resource.id %>" style="display:none;">
+              <b class="heading_blue"><%= "You have successfully returned the Resource" %></b>
+            </div>
+
+            <% if resource.status == "Returned" || resource.user_returned_status? %>
+              <b class="heading_blue"><%= "You have successfully returned the Resource " %></b>
+            <%end%>
+
+            <div class="form-sec-row">
+              <% if current_user.is_department_admin? || current_user.is_super_admin? %>
+                <span class="in-box">
+                </span>
+              <%end%>
+            </div>
+
+            <div class="form-sec-row">
+              <span class="in-box">
+                <b style="color:#BB0802;"><%= link_to "Show Info",resource_ict_equipment_booking_path(:id => resource.id), :method=>:get%></b>
+              </span>
+            </div>
           </div>
         </div>
       <%end%>

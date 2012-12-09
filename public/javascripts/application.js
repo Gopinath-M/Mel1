@@ -1,5 +1,15 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
+function remove_fields(link) {
+    $(link).prev("input[type=hidden]").val("1");
+    $(link).closest(".fields").hide();
+//    Post_Current = Post_Current - 1
+}
+function add_fields(link, association, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g")
+    $(link).parent().before(content.replace(regexp, new_id));
+}
 function leftNavigation(link_id, div_id)
 {
     $("div.leftNav-links ul li div").hide();
@@ -2557,7 +2567,31 @@ function change_status(id){
         return false;
     }
 }
-
+function returnIctEquipment(chbx_id,ict_book_id)
+{
+    if(ict_book_id!=null && ict_book_id!=0)
+    {
+        s = confirm("Do you Want to Return this Resource?");
+        if (s==true)
+        {
+            if($("#"+chbx_id).is(':checked'))
+            {
+                $("#div_ict_chk_"+ict_book_id).hide();
+                $("#div_ict_msg_"+ict_book_id).show();
+                $.post("/resource_ict_equipment_bookings/user_return/",
+                {
+                    ict_equipment_id:ict_book_id,
+                    user_returned_status:true
+                });
+            }
+        }
+        else
+        {
+            $('#user_returned_status_'+ict_book_id).attr('checked', false);
+            return false;
+        }
+    }
+}
 /* room booking */
 function toreturnroomresource(chbx_id,room_book_id)
 {

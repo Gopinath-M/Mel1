@@ -49,7 +49,7 @@ class AgencyStoresController < ApplicationController
     elsif params[:ict_agency]
       @store = AgencyStore.create(params[:agency_store])
       @store.resource_type = "ICT"
-      @store.agency_id = params[:ict_agency][:agency_id]
+      @store.agency_id = params[:ict][:agency_id]
       @store.sub_category_id = params[:ict_agency][:sub_category_id]
       @store.resource_id = params[:ict_agency][:resource_id]
       @store.save

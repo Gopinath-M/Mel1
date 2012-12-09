@@ -89,7 +89,14 @@ class ResourceIctEquipmentBookingsController < ApplicationController
         render :action=>'approve_request', :id=>params[:id]
       end
     end
-    
   end
-  
+
+  def user_return
+    ict_equipment = ResourceIctEquipmentBooking.find(params[:ict_equipment_id])
+    if params[:user_returned_status] == "true"
+      ict_equipment.update_attribute(:user_returned_status, true)
+    else
+      ict_equipment.update_attribute(:user_returned_status, false)
+    end
+  end
 end

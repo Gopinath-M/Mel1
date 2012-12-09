@@ -26,12 +26,13 @@ Melaka::Application.routes.draw do
       post 'user_return'
     end
   end
-
+  resources :ict_hardware_bookings
   resources :resource_ict_equipment_bookings do
     collection do
       get 'requests'
       get 'approve_request'
       put 'update_booking'
+      post 'user_return'
     end
   end
   resources :resource_transportation_bookings do

@@ -18,6 +18,7 @@ class CreateResourceIctEquipmentBookings < ActiveRecord::Migration
       t.datetime :declined_date
       t.datetime :returned_date
       t.datetime :processed_date
+      t.boolean :user_returned_status
       t.datetime :acknowledged_date
       t.text :notes
       t.string :status, :default => "New"
