@@ -1,5 +1,27 @@
 module ApplicationHelper
+  def link_to_remove_fields(name, f)
+    f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
+  end
 
+  def link_to_add_fields(name, f, association)
+    new_object = f.object.class.reflect_on_association(association).klass.new
+    fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
+      render(association.to_s.singularize + "_fields", :f => builder)
+    end
+    link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
+  end
+  #  def link_to_remove_fields(name, form,title)
+  #    form.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
+  #  end
+  #
+  #  def link_to_add_fields(name, form, association)
+  #    new_object = form.object.class.reflect_on_association(association).klass.new
+  #    fields = form.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
+  #      render(association.to_s.singularize + "_fields", :form => builder)
+  #    end
+  #    link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
+  #  end
+  
   def current_department
     if !current_user.is_super_admin?
       if !session[:department_id].nil?
@@ -16,6 +38,14 @@ module ApplicationHelper
     User.where("id in (?)", officer_ids)
   end
   
+  def get_department_users
+    p "=============dept users"
+
+    department_users=RoleMembership.where("department_id=?",@current_department).collect(&:user_id)
+    user_ids=department_users-[current_user.id]
+    p users=User.where("id in (?)", user_ids)
+    return users
+  end
   #Get count for unactivated dept admin accounts
   def activate_admin_users_count
     user_count=User.joins(:roles).where("activation_code is not null and roles.name='#{DISP_USER_ROLE_DEPT_ADMIN}'").count
