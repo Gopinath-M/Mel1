@@ -81,7 +81,23 @@ module ResourceTransportationBookingsHelper
     as.update_attribute(:booked,false)
     disable_the_sub_category_when_that_sub_category_is_fully_reserved(rtb.sub_category_id)
   end
-  
+
+  def allocate_resource_for_super_admin_request(rtb,sub_category_id)
+    a = AgencyStore.where(:sub_category_id=>"#{sub_category_id}",:booked => false).first
+    if !a.blank?
+      rtb.agency_store_id = a.id
+      rtb.driver_id = a.driver_id
+      a.update_attributes(:booked=>true)
+    else
+      last_rtb = ResourceTransportationBooking.where(:sub_category_id=>"#{sub_category_id}").last
+      last_rtb.update_attributes(:status => 'Cancelled')
+      rtb.agency_store_id = last_rtb.agency_store_id
+      rtb.driver_id = last_rtb.driver_id
+    end
+    rtb.save
+    disable_the_sub_category_when_that_sub_category_is_fully_reserved(sub_category_id)
+  end
+
   def disable_the_sub_category_when_that_sub_category_is_fully_reserved(id)
     ag = AgencyStore.find(:all,:conditions=>["booked = false and sub_category_id = ?",id])
     sc = SubCategory.find(id)

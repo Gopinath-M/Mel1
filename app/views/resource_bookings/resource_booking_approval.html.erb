@@ -21,11 +21,11 @@
                   </tr>
                   <tr>
                     <td><b>Image</b></td>
-                    <%#*<td><%=image_tag(@resource_booking.room_attachment.url(:thumb),:title=>@resource_booking.room_attachment)%></td>%>
+                    <td><%=image_tag(@resource_booking.attachment.url(:thumb),:title=>@resource_booking.attachment)%></td>
                   </tr>
                   <tr>
                     <td><b>Agency Name</b></td>
-                    <td><b>&nbsp;<%#= @agency.name  %></b></td>
+                    <td><b>&nbsp;<%= @agency.name  %></b></td>
                   </tr>
                   <tr>
                     <td><b>Department Name</b></td>
@@ -46,7 +46,7 @@
                     <td><b>&nbsp;<%= @user.last_name %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Ic Number</b></td>
+                    <td><b>IC Number</b></td>
                     <td><b>&nbsp;<%= @user.ic_number %></b></td>
                   </tr>
                   <tr>
@@ -82,7 +82,7 @@
             </tr>
             <tr>
               <td><b>Remarks</b></td>
-              <td><b>&nbsp;<%#=@resource_booking.remarks%></b></td>
+              <td><b>&nbsp;<%=@resource_booking.description%></b></td>
             </tr>
             <% if current_user.is_resource_manager? && @resource_booking.status == "Approved" %>
               <tr>
@@ -97,22 +97,6 @@
               <td><div id="details_resource_id" style="display:none;">
                 </div></td>
             </tr>
-            <% if current_user.is_department_admin? %>
-              <% if @details_resource.present?%>
-                <tr>
-                  <td><font color="#369"><b><u>Resource Details:-</u></b></font></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><b> Location</b></td>
-                  <td><b>&nbsp;<%=@details_resource.location%></b></td>
-                </tr>
-                <tr>
-                  <td><b> Capacity</b></td>
-                  <td><b>&nbsp;<%=@details_resource.capacity%></b></td>
-                </tr>
-              <%end%>
-            <%end%>
             <% if @facility.present? %>
               <tr>
                 <td><font color="#369"><b><u>Facility Details:-</u></b></font></td>
@@ -162,7 +146,11 @@
         <label class="text">&nbsp;</label>
         <span class="in-box">
           <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-          <%= f.submit :class=>"btn2"%>
+         <% if @resource_booking.status == "Processed" && @resource_booking.user_returned_status? %>
+            <%= f.submit raw('Acknowledge'), :class=>"btn2"%>
+          <%else%>
+            <%= f.submit raw('Submit'), :class=>"btn2"%>
+          <%end%>
         </span>
       </div>
     </div>

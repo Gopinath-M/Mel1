@@ -17,16 +17,24 @@ Melaka::Application.routes.draw do
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
   resources :resource_bookings do
-     collection do
-       get 'get_other_sub_categories'
-       get 'get_resources'
-       get 'resource_booking_approval'
-       get 'list_resource_booking'
-       put 'update_resource_booking'
-     end
+    collection do
+      get 'get_other_sub_categories'
+      get 'get_resources'
+      get 'resource_booking_approval'
+      get 'list_resource_booking'
+      put 'update_resource_booking'
+      post 'user_return'
+    end
   end
-
-  resources :resource_ict_equipment_bookings
+  resources :ict_hardware_bookings
+  resources :resource_ict_equipment_bookings do
+    collection do
+      get 'requests'
+      get 'approve_request'
+      put 'update_booking'
+      post 'user_return'
+    end
+  end
   resources :resource_transportation_bookings do
     collection do
       get 'request_view'
@@ -35,6 +43,36 @@ Melaka::Application.routes.draw do
       get 'get_vehicles'
       post 'change_resource_status'
       get 'user_return_status'
+    end
+  end
+  resources :facility_ict_agencies do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_softwares do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_hardwares do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_servers do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_services do
+    collection do
+      post 'update_status'
+    end
+  end
+  resources :facility_ict_wirings do
+    collection do
+      post 'update_status'
     end
   end
 
@@ -46,7 +84,7 @@ Melaka::Application.routes.draw do
   resources :vehicles
   resources :vehicle_types
 
-resources :resource_room_bookings do
+  resources :resource_room_bookings do
     collection do
       get 'get_list_of_facility'
       get 'list_resource_booking'
@@ -124,6 +162,7 @@ resources :resource_room_bookings do
   resources :cms_pages
   resources :agencies do
     collection do
+      get 'for_agency'
       post 'update_status'
       get 'assign_resource_manager'
       post 'update_assign_resource_manager'
@@ -185,9 +224,10 @@ resources :resource_room_bookings do
       get 'get_transport'
       get 'get_other_sub_categories'
       get 'get_resource_ict'
+      get 'get_agency_resource'
     end
   end
-   resources :facilities do
+  resources :facilities do
     collection do
       post 'update_status'
     end
@@ -195,17 +235,38 @@ resources :resource_room_bookings do
   #Error routes
   get '/not_authorized' => 'errors#not_authorized', :as => 'not_authorized'   
   get '/blocked' => 'errors#blocked', :as => 'blocked' 
-# Online chat 
+  # Online chat
   resources :conversations do
     collection do
       get 'conversations'
       post 'send_request'
       get 'list_users'
-     end
+    end
   end
   resources :rooms do
     collection do
       post 'update_status'
+    end
+  end
+  resources :software_installations do
+    collection do
+      get 'approval_software_installation'
+      get 'resource_booking_approval'
+      post 'resource_booking_approval'
+    end
+  end
+
+  resources :ict_vpns  do
+    collection do
+      get 'approval'
+      put 'approval'
+    end
+
+  end
+  resources :ict_system_accesses do
+    collection do
+      get 'approval'
+      put 'approval'
     end
   end
   # The priority is based upon order of creation:

@@ -43,6 +43,9 @@
                 <p class="head1">Ext No :&nbsp;<%=resource.resource_no%></p>
                 <%elsif resource.resource_type == 'transport'%>
                 <p class="head1">Reg No :&nbsp;<%=resource.resource_no%></p>
+                <%elsif resource.resource_type == 'ict'%>
+                <p class="head1">Name :&nbsp;<%=resource.name.camelize%></p>
+                <p class="head1">Brand Model :&nbsp;<%=resource.brand_model%></p>
                 <%elsif resource.resource_type == 'others'%>
                 <p class="head1">Name :&nbsp;<%=resource.resource_no%></p>
                 <%end%>
@@ -59,7 +62,9 @@
             </div>
             <div class="clear"></div>
           </div>
-        <%end%>
+        <%end%><div class="manage-user-rows box"><br/><br/>
+          <%= paginate @resources %>
+        </div>
     <%else%>
       No Resources Available
     <%end%>

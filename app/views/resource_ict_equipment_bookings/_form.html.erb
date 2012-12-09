@@ -15,9 +15,21 @@
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Equipment Category<span style=color:red>*</span></label>
+      <label class="text">Sub Category <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:equipment_category_id, options_from_collection_for_select(EquipmentCategory.active, 'id','name',@resource_ict_equipment_booking.equipment_category_id ),:prompt=>"SELECT A EQUIPMENT CATEGORY TYPE") %>
+        <%= f.select(:sub_category_id,  SubCategory.where(:category_id => @category).active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Resource <span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= select("resource_ict_equipment","resource_id",  options_from_collection_for_select(Resource.where(:category_id => @category), 'id','name',@resource ),{:prompt=>"SELECT A RESOURCE",:onchange=>"alert('testq')"}) %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Serial No<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.select(:agency_store_id, options_from_collection_for_select(AgencyStore.all, 'id','serial_no' ),:prompt=>"SELECT A EQUIPMENT CATEGORY TYPE") %>
       </span>
     </div>
     <div class="form-sec-row">

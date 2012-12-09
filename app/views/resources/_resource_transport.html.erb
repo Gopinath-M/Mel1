@@ -4,7 +4,7 @@
   <div class="form-sec-row">
     <label class="text">Resource Sub Category <span style=color:red>*</span></label>
     <span class="in-box">
-      <%= select("resource_transport","sub_category_id",  SubCategory.where("category_id = 7").active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+       <%= select("resource_transport","sub_category_id",  options_from_collection_for_select(SubCategory.where("category_id = 7").active, 'id','name',@resource.sub_category_id ),:prompt=>"SELECT A SUB CATEGORY") %>
     </span>
   </div>
   <%= hidden_field_tag :resource_type, ("transport") %>
@@ -35,18 +35,18 @@
       <%= f.text_field :capacity, :id=>"resource_capacity_transport"%>
     </span>
   </div>
-  <div class="form-sec-row">
-    <label class="text">Is Returnable</label>
-    <span class="in-box">
-      <%= f.check_box :is_returnable%>
-    </span>
-  </div>
-  <div class="form-sec-row">
-    <label class="text">Avail facility as a resource</label>
-    <span class="in-box">
-      <%= f.check_box :is_facilty_avail%>
-    </span>
-  </div>
+  <%#*<div class="form-sec-row">%>
+    <%#*<label class="text">Is Returnable</label>%>
+    <%#*<span class="in-box">%>
+      <%#= f.check_box :is_returnable%>
+    <%#*</span>%>
+  <%#*</div>%>
+  <%#*<div class="form-sec-row">%>
+    <%#*<label class="text">Avail facility as a resource</label>%>
+    <%#*<span class="in-box">%>
+      <%#= f.check_box :is_facilty_avail%>
+    <%#*</span>%>
+  <%#*</div>%>
 
 
   <div class="form-sec-row">

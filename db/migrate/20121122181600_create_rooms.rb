@@ -4,7 +4,7 @@ class CreateRooms < ActiveRecord::Migration
       t.string :name
       t.string :location
       t.integer :extension_no
-      t.boolean :is_active
+      t.boolean :is_active, :default => false
       t.timestamps
     end
   end

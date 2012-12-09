@@ -1,15 +1,17 @@
 class DashboardController < ApplicationController
- 
+  include MessagesHelper
   before_filter :authenticate_user!
   #  layout 'main_content'
   def index
     if current_user.is_super_admin?
       @users = Role.where(:name => "Department Admin").first.users
-    elsif current_user.is_department_admin? || current_user.is_department_user? || current_user.is_unit_admin?
+    #elsif current_user.is_department_admin? || current_user.is_department_user? || current_user.is_unit_admin? # UnitAdmin And Resource Manager Not Included
+    elsif current_user.is_department_admin? || current_user.is_department_user?
       current_department
       department = current_user.departments.first
       @users = Department.find(department).users 
     end
+    collect_messages
   end
 
   def change_default_department

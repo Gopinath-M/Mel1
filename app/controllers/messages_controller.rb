@@ -1,10 +1,12 @@
 class MessagesController < ApplicationController
+  require 'stalker'
   include MessagesHelper
   before_filter :authenticate_user!
   #Listing out the Messages of logged-in user
   def index
     collect_messages
     @message = Message.new
+    #Stalker.enqueue('email.send', :to => 'joe@example.com')
   end
 
   #Creating a New Message Instance
@@ -20,7 +22,7 @@ class MessagesController < ApplicationController
       message.attachment = params[:file] if params[:file]       
       redirect_to messages_path
     else
-      render :action => 'new'
+      render :action => 'index'
     end
   end
 

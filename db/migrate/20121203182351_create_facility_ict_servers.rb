@@ -3,7 +3,7 @@ class CreateFacilityIctServers < ActiveRecord::Migration
     create_table :facility_ict_servers do |t|
       t.string :name
       t.string :ip
-      t.boolean :is_active
+      t.boolean :is_active, :default => false
       t.boolean :deleted, :default => false
       t.timestamps
     end

@@ -264,6 +264,7 @@ h3.b-head {color:#E62C0C;  display: block;  font-size: 18px; margin-bottom: 5px;
 .manage-user-row{border-bottom: 1px solid #DFDFDF;padding: 10px 0 10px;}
 .manage-user-row .mu-c1{ float:left; width:63px;}
 .manage-user-row .mu-c2{ float:left; width:38%; margin-left:10px; }
+.manage-user-row .mu1-c2{ float:left; margin-left:10px; }
 .manage-user-row .mu-c2 p{line-height:22px;}
 .manage-user-row .mu-c3{ float:right; width:39%; }
 .manage-user-row .mu-c3 a{ float:left; margin-left:5px;}
@@ -380,3 +381,14 @@ h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-
 /* Developer Style - Sasi */
 span.in-box2  { padding: 5px; width: 132%;}
 .form-sec-row2 span.in-box2{ float:right; width:60%;}
+
+.manage-user-rows {padding: 5px 0 5px;}
+.manage-user-rows .m-c1{ float:left; width:28%;}
+.manage-user-rows .m-c2{ float:left; width:34%; margin-left:10px; }
+.manage-user-rows .m-c3{ float:right; width:24%; }
+
+heading_blue{color:#369;}
+
+.app-table{border:1px solid #FEC2C0; border-right: 0px;}
+.app-table th{ background: #FEC2C0; padding:2px;border-right:1px solid #FEC2C0; }
+.app-table td{ padding:2px; border-right:1px solid #ccc; text-align: center;}

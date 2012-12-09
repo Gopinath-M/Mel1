@@ -7,10 +7,10 @@
           <div id="user_box_<%= resource_ict_equipment_booking.id %>" class="manage-user-row box">
             <div class="mu-c1">
             </div>
-            <div class="mu-c2">
+            <div class="mu1-c2">
               <p class="head1"><b>Purpose: <%= resource_ict_equipment_booking.purpose%></b></p>
               <p class="head1"><b>Destination: <%= resource_ict_equipment_booking.location%></b></p>
-              <p class="head1"><b>Equipment Category Type: <%= resource_ict_equipment_booking.equipment_category.name %></b></p>
+              <p class="head1"><b>Sub Category Type: <%= resource_ict_equipment_booking.sub_category.name %></b></p>
               <p class="head1"><b>Requested From Date: <%= resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S ") %></b></p>
               <p class="head1"><b>Requested To Date: <%= resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %I:%M:%S ") %></b></p>
               <p class="head1"><b>Officer Needed: <%= resource_ict_equipment_booking.need_officer ? "Yes" : "No"%></b></p>
@@ -18,6 +18,39 @@
               <p class="head1"><b>Meeting From Date: <%= resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S ") %></b></p>
               <p class="head1"><b>Notes: <%= resource_ict_equipment_booking.notes %></b></p>
               <p class="head1"><b>Status: <%= resource_ict_equipment_booking.status %></b></p>
+            </div>
+            <div class="form-sec-row">
+              <% if resource_ict_equipment_booking.status == "Processed" && resource_ict_equipment_booking.user_id = current_user.id%>
+                <div id="div_ict_chk_<%= resource_ict_equipment_booking.id %>" style="display:block;">
+                  <% if !resource_ict_equipment_booking.user_returned_status? %>
+                    <label class="text"> Is Returnable?</label>
+                    <span class="in-box">
+                      <%= check_box_tag "user_returned_status[#{resource_ict_equipment_booking.id}]","",false,:onchange=>"returnIctEquipment(this.id,#{resource_ict_equipment_booking.id})" %>
+                    </span>
+                  <%end%>
+                </div>
+              <%end%>
+            </div>
+
+            <div id="div_ict_msg_<%= resource_ict_equipment_booking.id %>" style="display:none;">
+              <b class="heading_blue"><%= "You have successfully returned the Resource" %></b>
+            </div>
+
+            <% if resource_ict_equipment_booking.status == "Returned" || resource_ict_equipment_booking.user_returned_status? %>
+              <b class="heading_blue"><%= "You have successfully returned the Resource " %></b>
+            <%end%>
+
+            <div class="form-sec-row">
+              <% if current_user.is_department_admin? || current_user.is_super_admin? %>
+                <span class="in-box">
+                </span>
+              <%end%>
+            </div>
+
+            <div class="form-sec-row">
+              <span class="in-box">
+                <b style="color:#BB0802;"><%= link_to "Show Info",resource_ict_equipment_booking_path(:id => resource_ict_equipment_booking.id), :method=>:get%></b>
+              </span>
             </div>
           </div>
         </div>

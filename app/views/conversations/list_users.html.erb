@@ -2,7 +2,7 @@
     <h2 class="b-head">List of Users</h2>
   <% @users.each do |user| %>
     <%=image_tag (user.login_status ? "online.png" : "offline.png"), :alt=>"Image", :width=>"17", :height=>"17"%>&nbsp;&nbsp;
-        <%= link_to image_tag(user.avatar.url(:thumb).to_s) %>&nbsp;&nbsp;
+        <%= !user.avatar.nil? && !user.avatar.url(:thumb).nil? ? (image_tag(user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
         <font color="#369"><b><%=  link_to "#{user.username}", list_users_conversations_path(user.id), :id => user.username , :class => "online_users"%></b></font>&nbsp;&nbsp;<br/><br/>
   <% end %>
    </div>
