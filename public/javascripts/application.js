@@ -2032,6 +2032,126 @@ $().ready(function(){
     })
 /* Resources validation Ends*/
 
+
+
+    /* Resource Requisition for ICT starts*/
+    $("#check_box_network").live("click",function(){
+        $("#req_type_network").show();
+        $("#req_type_purchase").hide();
+        $("#get_hide").show();
+    });
+
+    $("#check_box_purchase").live("click",function(){
+        $("#req_type_purchase").show();
+        $("#req_type_network").hide();
+        $("#get_hide").show();
+    });
+
+    $("#check_box_no_recd").live("click",function(){
+        $("#get_hide").hide();
+    });
+    /* Resource Requisition for ICT ends*/
+
+    /* Resource Requisition validation for ICT starts*/
+    $("#ict_network_point_submit").live("click",function(){
+        if ($("#ict_network_point_status").val() == ""){
+            alert("Select Action");
+            return false;
+        }
+        else if ($("#ict_network_point_person_incharge").val() == ""){
+            alert("Select Person Incharge");
+            return false;
+        }
+        else if ($("#ict_network_point_remarks").val() == ""){
+            alert("Enter Remarks");
+            return false;
+        }
+        else if ($("#check_box_network").val() == ""){
+            alert("Select Recommondation Type");
+            return false;
+        }
+        else if ($("#ict_network_point_hardware_id").val() == ""){
+            alert("Select Hardware Type");
+            return false;
+        }
+        else if ($("#ict_network_point_type_id").val() == ""){
+            alert("Select Hardware Port");
+            return false;
+        }
+        else if ($("#ict_network_point_hardware_quantity").val() == ""){
+            alert("Enter Hardware Quantity");
+            return false;
+        }
+        else if ($("#ict_network_point_notes").val() == ""){
+            alert("Enter Notes");
+            return false;
+        }
+        else if ($("#ict_network_point_center_id").val() == ""){
+            alert("Select Location Center");
+            return false;
+        }
+        else if ($("#ict_network_point_work_status").val() == ""){
+            alert("Select Work Status");
+            return false;
+        }
+    });
+    /* Resource Requisition validation for ICT ends*/
+
+/*Dynamic Chance for Resource Req ICT Starts */
+    $("#requisition_type_id").live("change",function(){
+        alert ($("#requisition_type_id").val())
+        if ($("#requisition_type_id").val() == "1"){
+            $("#network_for_ict").show();
+            $("#firewall_for_ict").hide();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").hide();
+        }
+        else if ($("#requisition_type_id").val() == "2"){
+            $("#network_for_ict").hide();
+            $("#firewall_for_ict").show();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").hide();
+        }
+        else if ($("#requisition_type_id").val() == "3"){
+            $("#network_for_ict").hide();
+            $("#firewall_for_ict").hide();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").show();
+        }
+        else if ($("#requisition_type_id").val() == "4"){
+            $("#network_for_ict").hide();
+            $("#firewall_for_ict").hide();
+            $("#hardware_for_ict").show();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").hide();
+        }
+        else if ($("#requisition_type_id").val() == "5"){
+            $("#network_for_ict").hide();
+            $("#firewall_for_ict").hide();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").show();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").hide();
+        }
+        else if ($("#requisition_type_id").val() == "6"){
+            $("#network_for_ict").hide();
+            $("#firewall_for_ict").hide();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").show();
+            $("#vpn_for_ict").hide();
+        }
+    });
+/*Dynamic Chance for Resource Req ICT Ends */
+
+
 })
 /* resource room booking validation ends */
 /*Javascripts Starts*/
