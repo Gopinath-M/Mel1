@@ -1,5 +1,4 @@
-<% if !@sub_category.empty? %>
-  <h2 class="b-head">Resource Transportation Bookings</h2>
+<% if ((@sub_category && !@sub_category.empty?) || current_user.is_super_admin?) %> <h2 class="b-head">Resource Transportation Bookings</h2>
   <%= form_for(@resource_transportation_booking, :as => :resource_transportation_booking,  :url => resource_transportation_bookings_path, :html => {:multipart => true} ,:method=>:post) do |f| %>
     <div class="form-sec">
       <%=f.error_messages%>
@@ -19,35 +18,40 @@
         </div>
       <%end%>
 
-      <div class="form-sec-row">
-        <label class="text">Resource<span style=color:red>*</span></label>
-        <span class="in-box">
-          <%= f.select(:sub_category_id, SubCategory.where(:category_id=>7,:is_available=>true,:is_active=>true).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A SUB CATEGORY TYPE") %>
-        </span>
-      </div>
+    	<div class="form-sec-row">
+		<label class="text">Resource<span style=color:red>*</span></label>
+		<span class="in-box"> <% if !current_user.is_super_admin? %>
+			<%= f.select(:sub_category_id, SubCategory.where(:category_id=>7,:is_available=>true,:is_active=>true).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A SUB CATEGORY TYPE") %>
+			<%else%>
+			<% as = AgencyStore.find(:all,:select=>["DISTINCT sub_category_id"],:conditions=>["resource_type = 'Transport'"]).collect(&:sub_category_id).join(',') %>
+			<% if !as.blank? %>
+			<%= f.select(:sub_category_id, SubCategory.find(:all,:conditions=>["id in (#{as})"]).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A SUB CATEGORY TYPE") %>
+			<%end%>
+			<%end%> </span>
+	</div>
 
       <div class="form-sec-row">
         <label class="text">Purpose<span style=color:red>*</span></label>
         <span class="in-box">
-          <%= f.text_field :purpose, :rows=>2, :autofocus => true%>
+          <%= f.text_field :purpose, :rows=>2, :autofocus => true %>
         </span>
       </div>
       <div class="form-sec-row">
         <label class="text">Pick up place<span style=color:red>*</span></label>
         <span class="in-box">
-          <%= f.text_field :pick_up_place, :size => 30, :autofocus => true%>
+          <%= f.text_field :pick_up_place, :size => 30, :autofocus => true %>
         </span>
       </div>
       <div class="form-sec-row">
         <label class="text">From Date<span style=color:red>*</span></label>
         <span class="in-box">
-          <%=f.text_field :requested_from_date ,:readonly=>true%>
+          <%=f.text_field :requested_from_date ,:readonly=>true %>
         </span>
       </div>
       <div class="form-sec-row">
         <label class="text">To Date<span style=color:red>*</span></label>
         <span class="in-box">
-          <%=f.text_field :requested_to_date,:readonly=>true%>
+          <%=f.text_field :requested_to_date,:readonly=>true %>
         </span>
       </div>
       <div class="form-sec-row">
@@ -65,13 +69,13 @@
       <div class="form-sec-row">
         <label class="text">Number of Passengers<span style=color:red>*</span></label>
         <span class="in-box">
-          <%= f.text_field :number_of_passengers, :autofocus => true%>
+          <%= f.text_field :number_of_passengers, :autofocus => true %>
         </span>
       </div>
       <div class="form-sec-row">
         <%= f.label :remarks,raw("Remarks"), :class=>"text"%>
         <span class="in-box">
-          <%= f.text_area :remarks, :rows=>2, :autofocus => true%>
+          <%= f.text_area :remarks, :rows=>2, :autofocus => true %>
         </span>
       </div>
       <div  class="form-sec-row">
@@ -85,7 +89,7 @@
       <div class="form-sec-row">
         <label class="text">&nbsp;</label>
         <span class="in-box">
-          <%= f.submit :class=>"btn2"%>
+          <%= f.submit "Submit",:class=>"btn2"%>
         </span>
       </div>
     </div>

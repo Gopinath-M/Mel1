@@ -7,25 +7,36 @@ class ResourceTransportationBookingsController < ApplicationController
   end
 
   def new
-    @resource_transportation_booking = ResourceTransportationBooking.new    
-    @category = CategoriesDepartments.where(:category_id => 7,:department_id => current_user.role_memberships.where(:default_dept => true).first.department.id)
-    @sub_category = SubCategory.where(:category_id => 7,:is_available => true )
-    #@if_inside_agency = AgencyStore.where(:category_id=> 7,:booked=> false,:agency_id => current_user.departments.collect(&:agency_id).join(','))
+    @resource_transportation_booking = ResourceTransportationBooking.new
+    if !current_user.is_super_admin?
+      @category = CategoriesDepartments.where(:category_id => 7,:department_id => current_user.role_memberships.where(:default_dept => true).first.department.id)
+      @sub_category = SubCategory.where(:category_id => 7,:is_available => true )
+    end
+  #@if_inside_agency = AgencyStore.where(:category_id=> 7,:booked=> false,:agency_id => current_user.departments.collect(&:agency_id).join(','))
   end
 
   def create
-    @resource_transportation_booking = ResourceTransportationBooking.new(params[:resource_transportation_booking])
-    if @resource_transportation_booking.valid?
-      @resource_transportation_booking.status = "New"
-      @resource_transportation_booking.requester_id = current_user.id
-      @resource_transportation_booking.department_id = current_user.role_memberships.where(:default_dept => true).first.department.id
-      @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
-      @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
-      @resource_transportation_booking.save
+    resource_transportation_booking = ResourceTransportationBooking.new(params[:resource_transportation_booking])
+    if resource_transportation_booking.valid?
+      if !current_user.is_super_admin?
+        resource_transportation_booking.status = "New"
+        resource_transportation_booking.department_id = current_user.role_memberships.where(:default_dept => true).first.department.id
+      else
+        resource_transportation_booking.status = "Processed"
+        resource_transportation_booking.department_id = '0'
+        allocate_resource_for_super_admin_request(resource_transportation_booking,params[:resource_transportation_booking][:sub_category_id])
+        
+      end
+      resource_transportation_booking.requester_id = current_user.id
+      resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
+      resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
+      resource_transportation_booking.save
       redirect_to resource_transportation_bookings_path
     else
-      @category = CategoriesDepartments.where(:category_id=> 7,:department_id=> current_user.role_memberships.where(:default_dept => true).first.department.id)
-      @sub_category = SubCategory.where(:category_id => 7,:is_available => true)
+      if !current_user.is_super_admin?
+        @category = CategoriesDepartments.where(:category_id=> 7,:department_id=> current_user.role_memberships.where(:default_dept => true).first.department.id)
+        @sub_category = SubCategory.where(:category_id => 7,:is_available => true)
+      end
       #@if_inside_agency = AgencyStore.where(:category_id=> 7,:booked=> false,:agency_id => current_user.departments.collect(&:agency_id).join(','))
       render :action=>'new'
     end

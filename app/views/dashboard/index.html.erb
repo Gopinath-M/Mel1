@@ -108,7 +108,8 @@
 <%#end%>
 <%#*</div>%>
     <div id="tabs-1">
-      User Messages will comes here
+      <!--User Messages will comes here-->
+      <%= render :partial=>'messages_view' %>
     </div>
     <div id="tabs-2">
       <%if current_user && current_user.is_super_admin? %>

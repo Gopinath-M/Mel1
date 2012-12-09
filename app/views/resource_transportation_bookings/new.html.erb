@@ -1,7 +1,7 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <% if !@category.empty? %>
+    <% if ((@category && !@category.empty?) || current_user.is_super_admin?) %>
       <%=render :partial=>"form" %>
     <%else%>
       <div class="form-sec">

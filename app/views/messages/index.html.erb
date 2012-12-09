@@ -19,6 +19,13 @@
         </div>
 
         <% if current_user && current_user.is_super_admin? %>
+
+<% sticky_msg_count = Message.where(:is_sticky_message=>true,:deleted=>false).count %>
+			<% if sticky_msg_count < 2 %>
+			<span class="in-box"> <b><%= f.check_box :is_sticky_message %></b> </span>
+			<label class="text">Check If it is a Sticky Message?<span style=color:red></span></label>
+			<%end%>
+
           <div class="form-sec-row">
             <span class="in-box">
               <%= select_tag :message_user_select,"<option>Please Select</option>
@@ -32,7 +39,7 @@
           </div>
           <div id ="user_type_select_div"></div>
 
-          <%#= f.file_field :attachment %>
+    <%#= f.file_field :attachment %>
 
 
         <%elsif current_user && current_user.is_department_admin? %>
@@ -59,7 +66,14 @@
             <a href="#" title="Social Welfare Department of Melaka"><img src="images/img_user2.jpg" alt="Image" width="60" height="60" /></a>
           </div>
           <div class="postedMsg-txt">
-            <p class="head1"><b><%= message.message %> </b> <br /> </p>
+            <p class="head1"><b>
+					<% if message.is_sticky_message?%>
+					<font color='#329C20'><%= message.message %> </font>
+					<%else%>
+					<%=message.message%>
+					<%end%>
+					</b>
+					<br /></p>
             <div class=""></div>
             <div id="message_field_<%= message.id %>" ></div>
 

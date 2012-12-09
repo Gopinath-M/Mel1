@@ -30,7 +30,7 @@
                     <% elsif (resource_transportation_booking.status == "Processed" && resource_transportation_booking.resource_returned_from_user?) %>
                       <%= link_to "Acknowledge", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id) if current_user.is_resource_manager? %><br/><br/>
                     <%end%>
-                    <%= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking) %>
+                    <%= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking) %><br/>
                   <%end%>
                 <%end%>
 
@@ -44,7 +44,7 @@
                   <%end%>
                 <%end%>
 
-                <% if (resource_transportation_booking.requester_id.to_i == current_user.id) %>
+                <% if (resource_transportation_booking.requester_id.to_i == current_user.id) && !current_user.is_super_admin? %>
                   <%= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking) %>
                 <%end%>
 

@@ -9,6 +9,9 @@ class CreateMessages < ActiveRecord::Migration
       t.string :department_id
       t.string :unit_id
       t.string :attachment
+      t.string  :file_content_type
+      t.integer :file_size
+      t.boolean :is_sticky_message, :default => false
       t.boolean :deleted, :default => false
       t.boolean :send_to_dept_admins, :default => false
       t.boolean :send_to_unit_admins, :default => false
