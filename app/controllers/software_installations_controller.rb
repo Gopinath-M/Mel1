@@ -19,7 +19,22 @@ class SoftwareInstallationsController < ApplicationController
     software_installation_details.user_id = current_user.id
     software_installation_details.department_id = current_user.departments
     software_installation_details.save
-    render :action =>'index'
+  # new code
+    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+    dept = Department.find_by_id(current_user.departments)
+    if !@approve.present?
+      user = dept.users.where("role_id = 2").first
+      p'lllllllllllllllllllllllllllllllll',user.inspect
+      UserMailer.send_mail_to_dept_admin_for_ict_software(user,software_installation_details,software_installation,dept).deliver
+    else
+      p'lllllllllllllllllllllllllllllllll',user.inspect
+      user = User.find_by_id(@approve.user_id)
+      UserMailer.send_mail_to_approver_for_ict_software(user,software_installation_details,software_installation,dept).deliver
+    end
+    if software_installation_details.valid?
+ # new code ends
+    end
+    redirect_to(software_installations_path, :notice => 'Booked Requisition Software Installation created sucessfully')
   end
   def update
     @software_installation_detail=SoftwareInstallationDetail.find_by_id(params[:id])
