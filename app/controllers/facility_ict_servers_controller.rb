@@ -38,6 +38,16 @@ class FacilityIctServersController < ApplicationController
     end
   end
 
+  def update_status
+    @facility_ict_server = FacilityIctServer.find(params[:id])
+    if params[:status]=="Activate"
+      @facility_ict_server.update_attribute(:is_active,true)
+    elsif params[:status]=="Deactivate"
+      @facility_ict_server.update_attribute(:is_active,false)
+    end
+    redirect_to( facility_ict_servers_path, :notice => 'Facility ICT Server Status has been successfully changed.')
+  end
+
   def destroy
   end
 end
