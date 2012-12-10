@@ -88,12 +88,9 @@
           </tr>
           <tr>
             <td><b>Attachment</b></td>
-            <td>&nbsp;<b><%= link_to @resource_transportation_booking.attachment, download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
+            <td>&nbsp;<b><%= link_to 'Download File', download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
           </tr>
-          <tr>
-            <td><b>Attachment</b></td>
-            <td>&nbsp;<b><%#= link_to "#{@resource_transportation_booking.attachment}", @resource_transportation_booking.attachment_url(:profile)) if @resource_transportation_booking.attachment?  %></b></td>
-          </tr>
+          
           <tr>
             <td><b>Remarks</b></td>
             <td>&nbsp;<b><%=  @resource_transportation_booking.remarks %></b></td>
