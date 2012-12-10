@@ -106,16 +106,14 @@
               <td><b>Remarks</b></td>
               <td><b>&nbsp;<%=@resource_room_booking.remarks%></b></td>
             </tr>
-            <% if current_user.is_department_admin? %>
               <% if @details_resource.present?%>
-
-                <tr>
-                <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
-                </tr>
-
                 <tr>
                   <td><font color="#369"><b><u>Resource Details:-</u></b></font></td>
                   <td></td>
+                </tr>
+                <tr>
+                  <td><b> Room Ex No</b></td>
+                  <td><b>&nbsp;<%=@details_resource.resource_no%></b></td>
                 </tr>
                 <tr>
                   <td><b> Location</b></td>
@@ -126,7 +124,6 @@
                   <td><b>&nbsp;<%=@details_resource.capacity%></b></td>
                 </tr>
               <%end%>
-            <%end%>
             <% if @facility.present? %>
 
               <tr>

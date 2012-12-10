@@ -9,13 +9,21 @@
   <%end%>
   <div id="div_ajax" >
     <%if @approve && !@approve.empty?%>
+    <% i = 1 %>
       <%@approve.each do |approve|%>
           <div class="manage-user-row box">
             <div class="mu-c1">
             </div>
             <div class="mu-c2">
               <% @user = User.find_by_id(approve.user_id) %>
-              <p class="head1"><%= @user.first_name%></p>
+              <p class="head1">
+               <font color='#329C20'><u><%= "Approver "%><% if i == 1 %>First<%else%>Second<%end%></u><br/></font>
+                <% i = i+1 %>
+                <%=link_to content_tag(:b, @user.full_name), "javascript:void(0);"%><br/>
+                <%=@user.ic_number%><br/>
+                <%=link_to content_tag(:b, @user.email), "javascript:void(0);", :title=>@user.email%><br/>
+                <%#=user.department.first.name%>
+              </p>
             </div>
           </div>
         <%end%>

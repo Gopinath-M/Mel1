@@ -65,17 +65,34 @@
           <%= fff.label :department_id, raw('Select Department'), :class=>"text" %>
           <%=select(:default,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
         </div>
-                <div class="form-sec-row">
+        <div class="form-sec-row">
           <label class="text">Set as default</label>
           <span class="in-box">
-           <%= fff.check_box :default_dept, :checked=>true %>
+            <%= fff.check_box :default_dept, :checked=>true %>
           </span>
         </div>
-        
+
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">
             <br/> <%= fff.submit "Save Changes", :class=>"btn2"%>
+          </span>
+        </div>
+      <%end%>
+    <%end%>
+    <% if current_user.is_super_admin? %>
+      <% form_for(@setting, :as => :setting, :url => update_timeline_for_approver_settings_path, :html => { :method => :post}) do |ffff|  %>
+        <h2 class="b-head-acc-set">Time Line for Approval</h2>
+        <div class="form-sec-row5">
+          <label class="text"><b>Hours & Minutes</b></label>
+          <span class="in-box5">
+            <%= ffff.time_select :timeline, :default=>Time.now.change(:hour => 12, :min => 00) %>
+          </span>
+        </div><br/>
+        <div class="form-sec-row">
+          <label class="text">&nbsp;</label>
+          <span class="in-box">
+            <%= ffff.submit "Submit",:class=>"btn2"%>
           </span>
         </div>
       <%end%>
