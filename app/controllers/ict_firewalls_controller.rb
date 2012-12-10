@@ -24,6 +24,7 @@ def create
   @ict_firewall.destination_ip = params[:d1]+'.'+params[:d2]+'.'+params[:d3]+'.'+params[:d4]
   @ict_firewall.facility_type = params[:requisition_type_id]
   @ict_firewall.status = 'New'
+  @ict_firewall.requisition_type_id = '2'
   @ict_firewall.requested_from_date = params[:ict_firewall][:requested_from_date].to_datetime
   @ict_firewall.requested_to_date = params[:ict_firewall][:requested_to_date].to_datetime
 
