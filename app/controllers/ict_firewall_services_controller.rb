@@ -1,0 +1,2 @@
+class IctFirewallServicesController < ApplicationController
+end
