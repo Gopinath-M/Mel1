@@ -1,6 +1,6 @@
 <%= form_for(@resource_ict_equipment_booking, :url=>update_booking_resource_ict_equipment_bookings_path(:id=>@resource_ict_equipment_booking.id), :method=>:put) do |f| %>
-<%=f.error_messages%>
-<div class="clearfix">&nbsp;</div>
+  <%=f.error_messages%>
+  <div class="clearfix">&nbsp;</div>
   <div class="CenterNav">
     <% if current_user.is_department_admin? %>
       <h2 class="b-head">Resource ICT Equipment Approval Request</h2>
@@ -143,7 +143,12 @@
                   </tr>
                   <tr>
                     <td><label class="text"> <%= f.label :status, :class=>"text"%></label></td>
-                    <% if (@approve.present?  && @approve.user_id == current_user.id) || (current_user.is_department_admin? && !@approve.present?) %>
+                    <% if (@approve.present?  && @approve.user_id == current_user.id)  %>
+                      <td><span class="in-box">
+                          <%select_options=["Approved","Declined"]%>
+                          <%=f.select(:status, options_for_select(select_options))%>
+                        </span></td>
+                    <%elsif (current_user.is_department_admin? && !@approve.present?)%>
                       <td><span class="in-box">
                           <%select_options=["Approved","Declined"]%>
                           <%=f.select(:status, options_for_select(select_options))%>

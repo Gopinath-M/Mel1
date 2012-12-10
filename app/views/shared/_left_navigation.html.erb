@@ -42,9 +42,23 @@
               <% val = IctNetworkPoint.where(:person_incharge => current_user.id)%>
               <% if val.present? %>
                 <% if @list.present? %><span class="notifiNo"><%= cnt %></span><%end%>
-                <%=link_to "Network Request", list_ict_network_ict_network_points_path %>
+                <%=link_to "Network Process", list_ict_network_ict_network_points_path %>
               <%end%>
             </li>
+            <% @network = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
+            <% count = IctNetworkPoint.find_all_by_status('New').count %>
+            <% @approve = Approver.find_all_by_department_id(current_user.departments).first%>
+            <% @second_approver = Approver.find_all_by_department_id(current_user.departments).last%>
+            <%if  @approve.present? && @second_approver.present?%>
+              <% if @approve.present? && @second_approver.present? && @second_approver.user_id == current_user.id || @approve.user_id == current_user.id%>
+                <li>
+                  <%if @network.present? %>
+                    <span class="notifiNo"><%= count %></span>
+                  <%end%>
+                  <%=link_to "Network Request", list_ict_network_ict_network_points_path %>
+                </li>
+              <%end%>
+            <%end%>
             <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
               <li><a href="javascript:void(0);" title="User Transfer Request">User Transfer Request</a></li>
               <% if current_user.is_department_admin?  %>
