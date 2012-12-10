@@ -552,57 +552,18 @@
                   </div>
                 </li>
                 <li class="menu-item">
-                  <%=link_to "Requisition - Network Point", "javascript:void(0);" , :title=>"Requisition Network Point" ,:class=>"", :id=>"lnk_requisition_network_point" ,:onclick=>"leftNavigation(this.id,'div_requisition_network_point')"%>
+                  <%=link_to "ICT Requisition", "javascript:void(0);" , :title=>"ICT Requisition" ,:class=>"", :id=>"lnk_requisition_network_point" ,:onclick=>"leftNavigation(this.id,'div_requisition_network_point')"%>
                   <div id ="div_requisition_network_point" style="display:none;">
                     <ul>
                       <li>
-                        <%=link_to "Create", new_ict_network_point_path%>
+                        <%=link_to "Create", list_to_select_ict_ict_network_points_path%>
                       </li>
-                      <li>
-                        <%=link_to "List", ict_network_points_path%>
-                      </li>
+                     
                     </ul>
                   </div>
                 </li>
-                <li class="menu-item">
-                  <%=link_to "Requisition - ICT VPN", "javascript:void(0);" , :title=>"Requisition ICT VPN" ,:class=>"", :id=>"lnk_requisition_ict_vpn" ,:onclick=>"leftNavigation(this.id,'div_requisition_ict_vpn')"%>
-                  <div id ="div_requisition_ict_vpn" style="display:none;">
-                    <ul>
-                      <li>
-                        <%=link_to "Create",  new_ict_vpn_path %>
-                      </li>
-                      <li>
-                        <%=link_to "List", ict_vpns_path %>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="menu-item">
-                  <%=link_to "ICT System Access", "javascript:void(0);" , :title=>"Requisition ICT System Access" ,:class=>"", :id=>"lnk_requisition_ict_sys_access" ,:onclick=>"leftNavigation(this.id,'div_requisition_ict_sys_access')"%>
-                  <div id ="div_requisition_ict_sys_access" style="display:none;">
-                    <ul>
-                      <li>
-                        <%=link_to "Create", new_ict_system_access_path %>
-                      </li>
-                      <li>
-                        <%=link_to "List", ict_system_accesses_path %>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="menu-item">
-                  <%=link_to "Software Installation", "javascript:void(0);" , :title=>"Requisition Software Installation" ,:class=>"", :id=>"lnk_requisition_soft_install" ,:onclick=>"leftNavigation(this.id,'div_requisition_soft_install')"%>
-                  <div id ="div_requisition_soft_install" style="display:none;">
-                    <ul>
-                      <li>
-                        <%=link_to "Create", new_software_installation_path %>
-                      </li>
-                      <li>
-                        <%=link_to "List", software_installations_path %>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
+                
+               
 
               <%end%>
 
