@@ -12,7 +12,7 @@ class ResourceTransportationBookingsController < ApplicationController
       @category = CategoriesDepartments.where(:category_id => 7,:department_id => current_user.role_memberships.where(:default_dept => true).first.department.id)
       @sub_category = SubCategory.where(:category_id => 7,:is_available => true )
     end
-  #@if_inside_agency = AgencyStore.where(:category_id=> 7,:booked=> false,:agency_id => current_user.departments.collect(&:agency_id).join(','))
+    #@if_inside_agency = AgencyStore.where(:category_id=> 7,:booked=> false,:agency_id => current_user.departments.collect(&:agency_id).join(','))
   end
 
   def create
@@ -61,7 +61,7 @@ class ResourceTransportationBookingsController < ApplicationController
       elsif @approver_second.present? && @approver_second.user_id == current_user.id
         @resource_transportation_bookings = ResourceTransportationBooking.where(:department_id => @approver_second.department_id)
       else
-        @resource_transportation_bookings = ResourceTransportationBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(5)
+        @resource_transportation_bookings = ResourceTransportationBooking.where(:department_id => current_user.departments)
       end
     end
   end
