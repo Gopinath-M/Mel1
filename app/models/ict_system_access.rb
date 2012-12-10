@@ -4,4 +4,6 @@ class IctSystemAccess < ActiveRecord::Base
   has_many :requisition_types
   
   belongs_to :user
+
+  validates :requisition_type_id, :system_access_id, :presence => true
 end
