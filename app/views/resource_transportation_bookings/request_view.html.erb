@@ -105,7 +105,7 @@
                   </tr>
                   <tr>
                     <td><b>Attachment</b></td>
-                    <td>&nbsp;<b><%= link_to @resource_transportation_booking.attachment, download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
+                    <td>&nbsp;<b><%= link_to 'Download File', download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
                   </tr>
                   <tr>
                     <td><b>Remarks</b></td>
@@ -175,20 +175,20 @@
                       </tr>
                       <tr>
 
-                        <%#*<td><b>Change Vehicle</b></td>%>
-                        <%# user = User.find(@resource_transportation_booking.requester_id) %>
-                        <%# a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
-                        <%# if !a.blank? %>
-                          <%#*<td>%>
-                            <%#= hidden_field_tag :alternate_vehicle_id,'1' %>
-                            <%#= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
-                          <%#*</td>%>
-                        <%#else%>
-                          <%#*<td>&nbsp;<b><%= 'No Vehicles Available' %> <%#= hidden_field_tag :alternate_vehicle_id,'0' %>
+      <%#*<td><b>Change Vehicle</b></td>%>
+      <%# user = User.find(@resource_transportation_booking.requester_id) %>
+      <%# a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
+      <%# if !a.blank? %>
+      <%#*<td>%>
+      <%#= hidden_field_tag :alternate_vehicle_id,'1' %>
+      <%#= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
+      <%#*</td>%>
+      <%#else%>
+      <%#*<td>&nbsp;<b><%= 'No Vehicles Available' %> <%#= hidden_field_tag :alternate_vehicle_id,'0' %>
                         <!--</b></td>%>-->
-                        <%#end%>
+      <%#end%>
 
-                      <%#*</tr>%>
+      <%#*</tr>%>
 
 
                       <tr>

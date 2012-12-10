@@ -57,6 +57,7 @@ Melaka::Application.routes.draw do
       get 'get_vehicles'
       post 'change_resource_status'
       get 'user_return_status'
+      get 'download_attachments'
     end
   end
   resources :facility_ict_agencies do
