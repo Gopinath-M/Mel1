@@ -83,7 +83,7 @@
 
 
 
-        <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
+        <%if current_user && current_role==DISP_USER_ROLE_SUPER_ADMIN %>
           <div class="leftNav-links box">
             <h2>Masters</h2>
             <ul>
@@ -354,6 +354,19 @@
                         </li>
                         <li>
                           <%=link_to "List", agency_stores_path%>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="menu-item">
+                    <%=link_to "Resource Booking", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_booking_super_admin" ,:onclick=>"leftNavigation(this.id,'div_resource_booking_super_admin')"%>
+                    <div id ="div_resource_booking_super_admin" style="display:none;">
+                      <ul>
+                        <li>
+                          <%=link_to "Create", new_resource_transportation_booking_path %>
+                        </li>
+                        <li>
+                          <%=link_to "List", resource_transportation_bookings_path %>
                         </li>
                       </ul>
                     </div>
