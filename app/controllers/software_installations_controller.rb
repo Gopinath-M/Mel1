@@ -12,6 +12,7 @@ class SoftwareInstallationsController < ApplicationController
 
   def create
     software_installation = SoftwareInstallation.create(params[:software_installation])
+    software_installation.requisition_type_id = params[:requisition_type_id]
     software_installation.status = 'New'
     software_installation.save
     software_installation_details = SoftwareInstallationDetail.new(params[:service])
@@ -24,10 +25,8 @@ class SoftwareInstallationsController < ApplicationController
     dept = Department.find_by_id(current_user.departments)
     if !@approve.present?
       user = dept.users.where("role_id = 2").first
-      p'lllllllllllllllllllllllllllllllll',user.inspect
       UserMailer.send_mail_to_dept_admin_for_ict_software(user,software_installation_details,software_installation,dept).deliver
     else
-      p'lllllllllllllllllllllllllllllllll',user.inspect
       user = User.find_by_id(@approve.user_id)
       UserMailer.send_mail_to_approver_for_ict_software(user,software_installation_details,software_installation,dept).deliver
     end
