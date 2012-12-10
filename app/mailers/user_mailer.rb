@@ -142,4 +142,20 @@ class UserMailer < ActionMailer::Base
     @department = dept
     mail(:to=>@user.email,:subject =>" Details of Others Resource Booking")
   end
+
+   def send_mail_to_dept_admin_for_ict_software(user,requisition,software_installation,dept)
+    @user=user
+    @requisition=requisition
+    @department=dept
+    @software_installation = software_installation
+    mail(:to=>@user.email,:subject =>" Details of ICT Software Installation")
+  end
+
+  def send_mail_to_approver_for_ict_software(user,requisition,software_installation,dept)
+    @user=user
+    @requisition=requisition
+    @department=dept
+    @software_installation = software_installation
+    mail(:to=>@user.email,:subject =>" Details of ICT Software Installation")
+  end
 end
