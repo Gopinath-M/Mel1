@@ -637,20 +637,6 @@
                   </li>
                  <%end%>
                 <%end%>
-                <% @network = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
-                <% count = IctNetworkPoint.find_all_by_status('New').count %>
-                <% @approve = Approver.find_all_by_department_id(current_user.departments).first%>
-                <% @second_approver = Approver.find_all_by_department_id(current_user.departments).last%>
-                <%if  @approve.present? && @second_approver.present?%>
-                  <% if @approve.present? && @second_approver.present? && @second_approver.user_id == current_user.id || @approve.user_id == current_user.id%>
-                    <li>
-                      <%if @network.present? %>
-                        <span class="notifiNo"><%= count %></span>
-                      <%end%>
-                      <%=link_to "ICT Network Req", list_ict_network_ict_network_points_path %>
-                    </li>
-                  <%end%>
-                <%end%>
               <%end%>
 
 
