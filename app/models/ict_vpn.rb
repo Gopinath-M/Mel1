@@ -4,5 +4,8 @@ class IctVpn < ActiveRecord::Base
 
   has_many :system_accesses
   has_many :requisition_types
+  belongs_to :user
 
+
+    mount_uploader :vpn_attachment, VpnAttachmentUploader
 end

@@ -1,7 +1,7 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2 class="b-head">Requisition ICT - VPN Booking Details</h2>
+    <h2 class="b-head">Complaint - Building Asset Booking Details</h2>
 
 
 <%#=error_messages%>
@@ -14,8 +14,8 @@
 
       <% @dept = Department.find_by_id(current_department) %>
       <% @agency = Agency.find_by_id(@dept.agency_id) %>
-      <% @ict_vpn = IctVpn.find_by_id(params[:id]) %>
-      <% @user = User.find_by_id(@ict_vpn.user_id) %>
+      <% @complaint_building_asset = ComplaintBuildingAsset.find_by_id(params[:id]) %>
+      <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
       <div class="form-sec-row">
         <label class="text">Agency Name</label>
         <span class="in-box"><%= @agency.name  %></span>
@@ -50,82 +50,101 @@
 
       <div class="form-sec-row">
         <label class="text">Ticket No</label>
-        <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @ict_vpn.id %>/<%=Time.now.year%></b></font></span>
+        <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @complaint_building_asset.id %>/<%=Time.now.year%></b></font></span>
       </div>
 
       <div class="form-sec-row">
         <label class="text">Date of Application</label>
-        <span class="in-box"><%= @ict_vpn.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
+        <span class="in-box"><%= @complaint_building_asset.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
       </div>
 
     </div>
     <h2 class="b-head"></h2>
 
     <div class="form-sec-row">
-      <label class="text">Type of Facility</label>
+      <label class="text">Category</label>
       <span class="in-box">
-        <%facility_name = IctVpn.find_by_user_id(@ict_vpn.user_id)%>
-        <%requisition_name = RequisitionType.find(facility_name.requisition_type_id)%>
-        <%= requisition_name.name %>
+        <% @name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id)%>
+        <% @demage_name = DamageType.find_by_id(@complaint_building_asset.building_asset_type_id)%>
+        <% @item_name = BuildingAssetType.find_by_id(@complaint_building_asset.item_id)%>
+        <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
+        <%= @name.name%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Term User From</label>
+      <label class="text">Type</label>
       <span class="in-box">
-        <%= @ict_vpn.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %></span>
+        <%= @demage_name.name %></span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Term User To</label>
+      <label class="text">Item</label>
       <span class="in-box">
-        <%= @ict_vpn.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text">Justification</label>
-      <span class="in-box">
-        <%= @ict_vpn.justification %></span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text">VPN Access To</label>
-      <span class="in-box">
-        <%sys_name = IctVpn.find_by_system_access_id(@ict_vpn.system_access_id)%>
-        <%requisition_name = SystemAccess.find(sys_name.system_access_id)%>
-        <%= requisition_name.name %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text">Notes</label>
-      <span class="in-box">
-        <%= @ict_vpn.note %></span>
+        <%= @item_name.name %></span>
     </div>
 
     <div class="form-sec-row">
-      <% if @ict_vpn.vpn_attachment.present? %>
-        <label class="text">Attachment</label>
-        <% image = @ict_vpn.vpn_attachment.url(:profile).split(".").last %>
-        <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-          <span class="in-box">
-            <%=image_tag(@ict_vpn.vpn_attachment.url,:title=>@ict_vpn.vpn_attachment)%>
-          <%else%>
-            <% file = (@ict_vpn.vpn_attachment).url(:profile).split("/").last %>
-            <b>&nbsp;<%= file %></b>
-          </span>
-        <%end%>
-      <%end%>
+      <label class="text">Location</label>
+      <span class="in-box">
+        <%= @complaint_building_asset.location %></span>
     </div>
+    <div class="form-sec-row">
+      <label class="text">Reason</label>
+      <span class="in-box">
+        <%= @complaint_building_asset.reason %></span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Serial No</label>
+      <span class="in-box">
+        <%= @complaint_building_asset.serial_no %></span>
+    </div>
+
+
+    <div class="form-sec-row">
+      <label class="text">Repair Action</label>
+      <span class="in-box">
+        <% if @complaint_building_asset.repair_action == true %>
+          Yes <% else %>
+          No
+        <%end%></span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Spare Parts Action</label>
+      <span class="in-box">
+        <% if @complaint_building_asset.spare_part_action == true %>
+          Yes <% else %>
+          No
+        <%end%></span>
+    </div>
+
+<%#*<div class="form-sec-row">%>
+<%# if @complaint_building_asset.vpn_attachment.present? %>
+<%#*<label class="text">Attachment</label>%>
+<%# image = @complaint_building_asset.vpn_attachment.url(:profile).split(".").last %>
+<%# if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+<%#*<span class="in-box">%>
+<%#=image_tag(@complaint_building_asset.vpn_attachment.url,:title=>@complaint_building_asset.vpn_attachment)%>
+<%#else%>
+<%# file = (@complaint_building_asset.vpn_attachment).url(:profile).split("/").last %>
+<%#*<b>&nbsp;<%= file %></b>
+<%#*</span>%>
+<%#end%>
+<%#end%>
+<%#*</div>%>
     <h2 class="b-head"></h2>
-    <% if @ict_vpn.status == "Approved" || @ict_vpn.status == "Processed" || @ict_vpn.status == "Declined"%>
+    <% if @complaint_building_asset.status == "Approved" || @complaint_building_asset.status == "Processed" || @complaint_building_asset.status == "Declined"%>
 
       <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
+
+
       <div class="form-sec-row">
         <label class="text">Booking Status</label>
         <span class="in-box">
-          <%= @ict_vpn.status %></span>
+          <%= @complaint_building_asset.status %></span>
       </div>
       <%@dept = Department.find(default_department)%>
       <%@users = @dept.users%>
 
-      <% name = User.find_by_id(@ict_vpn.forward_to) %>
+      <% name = User.find_by_id(@complaint_building_asset.forward_to) %>
       <div class="form-sec-row">
         <label class="text">Forward To</label>
         <span class="in-box">
@@ -133,14 +152,15 @@
         </span>
       </div>
 
+
+
       <div class="form-sec-row">
         <label class="text">Remarks</label>
         <span class="in-box">
-          <%= @ict_vpn.remarks %></span>
+          <%= @complaint_building_asset.remarks %></span>
       </div>
       <h2 class="b-head"></h2>
     <%end%>
-
 
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
@@ -148,5 +168,6 @@
         <%= link_to "Back", :back, :class=>"btn1 mr2"%>
       </span>
     </div>
+
   </div>
 </div>

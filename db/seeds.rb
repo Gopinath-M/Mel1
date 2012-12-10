@@ -513,7 +513,8 @@ begin
   file = File.open("public/System_Access.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      SystemAccess.create(:name=>record,:is_active=>true)
+      record_split = record.split(",")
+      SystemAccess.create(:name=>record_split[0], :is_active=>true)
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end

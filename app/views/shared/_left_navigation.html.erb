@@ -561,7 +561,7 @@
                   </div>
                 </li>
                 <li class="menu-item">
-                  <%=link_to "ICT System Access", "javascript:void(0);" , :title=>"Requisition ICT System Access" ,:class=>"", :id=>"lnk_requisition_ict_sys_access" ,:onclick=>"leftNavigation(this.id,'div_requisition_ict_sys_access')"%>
+                  <%=link_to "Requisition ICT System Access", "javascript:void(0);" , :title=>"Requisition ICT System Access" ,:class=>"", :id=>"lnk_requisition_ict_sys_access" ,:onclick=>"leftNavigation(this.id,'div_requisition_ict_sys_access')"%>
                   <div id ="div_requisition_ict_sys_access" style="display:none;">
                     <ul>
                       <li>
@@ -586,6 +586,34 @@
                     </ul>
                   </div>
                 </li>
+
+ 			<li class="menu-item">
+<%=link_to "Complaints for Building Asset", "javascript:void(0);" , :title=>"Complaints for Building Asset" ,:class=>"", :id=>"lnk_complaints_building_asset" ,:onclick=>"leftNavigation(this.id,'div_complaints_building_asset')"%>
+			<div id ="div_complaints_building_asset" style="display:none;">
+			<ul>
+                       <li>
+                        <%=link_to "Create", new_complaint_building_asset_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List", complaint_building_assets_path%>
+                      </li>
+                    </ul>
+                     </div>
+                     </li>
+
+ 			<li class="menu-item">
+<%=link_to "Complaints for Computers", "javascript:void(0);" , :title=>"Complaints for Computers" ,:class=>"", :id=>"lnk_complaint_computer" ,:onclick=>"leftNavigation(this.id,'div_complaint_computer')"%>
+			<div id ="div_complaint_computer" style="display:none;">
+			<ul>
+                       <li>
+                        <%=link_to "Create", new_complaint_computer_path%>
+                      </li>
+                      <li>
+                        <%=link_to "List", complaint_computers_path%>
+                      </li>
+                    </ul>
+                     </div>
+                     </li>
 
               <%end%>
 

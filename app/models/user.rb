@@ -17,7 +17,11 @@ class User < ActiveRecord::Base
   has_many :departments, :through => :role_memberships
   has_many :units, :through => :role_memberships
   has_many :conversations
-  has_many :ict_hardware_bookings
+  has_many :ict_vpns
+  has_many :ict_system_accesses
+  has_many :complaint_building_assets
+  has_many :complaint_computers
+
   #helper for carrier wave
   mount_uploader :avatar, ProfileImageUploader
 

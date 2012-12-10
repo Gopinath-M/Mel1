@@ -2,7 +2,7 @@ class CreateSystemAccesses < ActiveRecord::Migration
   def self.up
     create_table :system_accesses do |t|
       t.text :name
-      t.boolean :is_active, :default => false
+      t.boolean :is_active
       t.timestamps
     end
   end

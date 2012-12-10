@@ -256,17 +256,31 @@ Melaka::Application.routes.draw do
     end
   end
 
-  resources :ict_vpns  do
+ resources :ict_vpns  do
     collection do
-      get 'approval'
-      put 'approval'
+     get 'approval'
+     put 'approval'
     end
 
   end
   resources :ict_system_accesses do
     collection do
-      get 'approval'
-      put 'approval'
+     get 'approval'
+     put 'approval'
+    end
+  end
+
+   resources :complaint_building_assets do
+    collection do
+     get 'approval'
+     put 'approval'
+    end
+  end
+
+   resources :complaint_computers do
+    collection do
+     get 'approval'
+     put 'approval'
     end
   end
   # The priority is based upon order of creation:

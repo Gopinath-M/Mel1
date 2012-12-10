@@ -27,7 +27,16 @@ class UserMailer < ActionMailer::Base
     mail(:from=>@resource_user.email,:to=>@user.email,:subject =>"#{@resource_user.username}! has been sent request to join for chat ")
   end
 
-  def ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_ict_vpn, requisition_user)
+ 
+ def ict_software(ict_email, ict_vpn, requisition_ict_software, requisition_user)
+    @user = ict_email
+    @ict_vpn = ict_vpn
+    @requisition_ict_vpn = requisition_ict_software
+    @requisition_user = requisition_user
+    mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded request for ICT - #{@requisition_ict_vpn.name} Booking")
+  end
+
+ def ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_ict_vpn, requisition_user)
     @user = ict_email
     @ict_vpn = ict_vpn
     @requisition_ict_vpn = requisition_ict_vpn
@@ -44,11 +53,24 @@ class UserMailer < ActionMailer::Base
     @requisition_user = requisition_user
     mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded request for ICT - #{@requisition_ict_system_access.name} Booking")
   end
- def ict_software(ict_email, ict_vpn, requisition_ict_software, requisition_user)
+
+  def complaint_building_asset(ict_email, complaint_building_asset, name, demage_name, item_name, requisition_user)
     @user = ict_email
-    @ict_vpn = ict_vpn
-    @requisition_ict_vpn = requisition_ict_software
+    @complaint_building_asset = complaint_building_asset
+    @name = name
+    @demage_name = demage_name
+    @item_name = item_name
     @requisition_user = requisition_user
-    mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded request for ICT - #{@requisition_ict_vpn.name} Booking")
+    mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded complained request for Building Asset - #{@name.name}")
+  end
+
+  def complaint_computer(ict_email, complaint_computer, name, system_access_name, system_model_name, requisition_user)
+    @user = ict_email
+    @complaint_computer = complaint_computer
+    @name = name
+    @system_access_name = system_access_name
+    @system_model_name = system_model_name
+    @requisition_user = requisition_user
+    mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded complained request for Computers - #{@name.name}")
   end
 end
