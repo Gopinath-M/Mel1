@@ -4,6 +4,7 @@
   <div class="form-sec">
     <%= hidden_field_tag :user_id, (current_user.id) %>
     <%= hidden_field_tag :department_id, (current_department) %>
+        <%= hidden_field_tag :requisition_type_id, 1 %>
     <div class="form-sec-row form-sec-row1">
       <% @dept = Department.find_by_id(current_department) %>
       <% @agency = Agency.find_by_id(@dept.agency_id) %>
@@ -26,12 +27,12 @@
           <%= f.file_field :ict_network_attachment%>
         </span>
       </div>
-      <div class="form-sec-row">
-        <%= f.label :requisition_type_id,raw("Requisition Type<span style=color:red>*</span>"), :class=>"text"%>
-        <span class="in-box">
-          <%= f.select(:requisition_type_id, RequisitionType.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A ICT FACILITY", :style=> "width:132%;") %>
-        </span>
-      </div>
+      <%#*<div class="form-sec-row">%>
+        <%#= f.label :requisition_type_id,raw("Requisition Type<span style=color:red>*</span>"), :class=>"text"%>
+        <%#*<span class="in-box">%>
+          <%#= f.select(:requisition_type_id, RequisitionType.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A ICT FACILITY", :style=> "width:132%;") %>
+        <%#*</span>%>
+      <%#*</div>%>
 
       <div id="network_for_ict">
         <div class="form-sec-row">
