@@ -1,0 +1,27 @@
+<div id="new_selection_id">
+  <div class="form-sec-row">
+    <label class="text">Service Name<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= select("ict_facility_service1", "id", FacilityIctService.find(:all,:conditions=>["is_active = true"]).collect {|ict_facility| [ict_facility.port, ict_facility.id]},:prompt=>"SELECT A ICT SERVICE TYPE") %>
+    </span>
+  </div>
+
+  <div class="form-sec-row">
+    <label class="text">Type<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= radio_button_tag :one_way, 'one_way', :checked=>true %> <%= label :one_way, "One Way" %>&nbsp;&nbsp;
+      <%= radio_button_tag :one_way, 'two_way', :checked=>false %> <%= label :two_way, "Two Way" %>
+    </span>
+  </div>
+
+  <a id="delete-selection-box">Delete Selection Box</a>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#delete-selection-box").click(function() {
+      $("#new_selection_id").hide();
+      //$("#std").append("<%#= escape_javascript(render(:partial => "ict_firewalls/ict_firewall_services")) %>");
+    });
+  });
+</script>

@@ -17,6 +17,7 @@ class IctSystemAccessesController < ApplicationController
 
   def create
     @ict_system_access=IctSystemAccess.create(params[:ict_system_access])
+    @ict_system_access.requisition_type_id = params[:requisition_type_id]
     @ict_system_access.user_id = current_user.id
     @ict_system_access.save
     if @ict_system_access.valid?

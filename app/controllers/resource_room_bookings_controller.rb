@@ -44,7 +44,11 @@ class ResourceRoomBookingsController < ApplicationController
         agency.update_attribute(:booked, true)
         resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
         resource_room_booking.agency_store_id = agency.id
-        resource_room_booking.status = "New"
+        if current_user.is_super_admin? || current_user.is_department_admin?
+        @resource_room_booking.status = "Approved"
+        else
+        @resource_room_booking.status = "New"
+        end      
         resource_room_booking.user_id = params[:user_id]
         resource_room_booking.department_id = params[:department_id]
         resource_room_booking.save
