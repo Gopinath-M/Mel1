@@ -1,0 +1,13 @@
+begin
+  file = File.open("public/System_Model_Types.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      record_split = record.split(",")
+      SystemModelType.create(:name=>record_split[0].titleize)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
