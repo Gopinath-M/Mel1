@@ -15,6 +15,7 @@ class IctNetworkPointsController < ApplicationController
 
   def create    
     requisition=IctNetworkPoint.create(params[:ict_network_point])
+    requisition.requisition_type_id = params[:requisition_type_id]
     requisition.user_id = params[:user_id]
     requisition.department_id = params[:department_id]
     requisition.status = "New"
