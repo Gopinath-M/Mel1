@@ -45,20 +45,6 @@
                 <%=link_to "Network Request", list_ict_network_ict_network_points_path %>
               <%end%>
             </li>
-            <% @network = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
-            <% count = IctNetworkPoint.find_all_by_status('New').count %>
-            <% @approve = Approver.find_all_by_department_id(current_user.departments).first%>
-            <% @second_approver = Approver.find_all_by_department_id(current_user.departments).last%>
-            <%if  @approve.present? && @second_approver.present?%>
-              <% if @approve.present? && @second_approver.present? && @second_approver.user_id == current_user.id || @approve.user_id == current_user.id%>
-                <li>
-                  <%if @network.present? %>
-                    <span class="notifiNo"><%= count %></span>
-                  <%end%>
-                  <%=link_to "ICT Network Req", list_ict_network_ict_network_points_path %>
-                </li>
-              <%end%>
-            <%end%>
             <%if current_user && ((current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_DEPT_ADMIN))%>
               <li><a href="javascript:void(0);" title="User Transfer Request">User Transfer Request</a></li>
               <% if current_user.is_department_admin?  %>
@@ -553,7 +539,7 @@
                   </div>
                 </li>
                 <li class="menu-item">
-                  <%=link_to "Other Resource Booking", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_bookings')"%>
+                  <%=link_to "Other Resource Bookings", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_bookings')"%>
                   <div id ="div_resource_bookings" style="display:none;">
                     <ul>
                       <li>
@@ -615,10 +601,8 @@
                 <% room_count = ResourceRoomBooking.find_all_by_status('New').count %>
                 <% transport_count = ResourceTransportationBooking.find_all_by_status('New').count %>
 
-                <% @approve = Approver.find_all_by_department_id(current_user.departments).first%>
-                <% @second_approver = Approver.find_all_by_department_id(current_user.departments).second%>
-                <% if @approve.present? &&  @second_approver.present? %>
-                  <% if @approve.user_id == current_user.id || @second_approver.user_id == current_user.id %>
+                <% @approve = Approver.find_by_department_id(current_user.departments)%>
+                <% if @approve.present? && @approve.user_id == current_user.id %>
                   <li>
                     <span class="notifiNo"><%= resource_ict_status_count('New') %></span>
                     <%=link_to "ICT Equipment Request", requests_resource_ict_equipment_bookings_path %>
@@ -635,7 +619,20 @@
                     <%end%>
                     <%=link_to "Transport List", approve_request_resource_transportation_bookings_path %>
                   </li>
-                 <%end%>
+                <%end%>
+                <% @network = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
+                <% count = IctNetworkPoint.find_all_by_status('New').count %>
+                <% @approve = Approver.find_all_by_department_id(current_user.departments).first%>
+                <% @second_approver = Approver.find_all_by_department_id(current_user.departments).last%>
+                <%if  @approve.present? && @second_approver.present?%>
+                  <% if @approve.present? && @second_approver.present? && @second_approver.user_id == current_user.id || @approve.user_id == current_user.id%>
+                    <li>
+                      <%if @network.present? %>
+                        <span class="notifiNo"><%= count %></span>
+                      <%end%>
+                      <%=link_to "ICT Network Req", list_ict_network_ict_network_points_path %>
+                    </li>
+                  <%end%>
                 <%end%>
               <%end%>
 
