@@ -17,6 +17,7 @@ class IctVpnsController < ApplicationController
 
   def create
     @ict_vpn = IctVpn.create(params[:ict_vpn].merge!({:user_id=>current_user.id}))
+    @ict_vpn.requisition_type_id = params[:requisition_type_id]
     if @ict_vpn.valid?
       @ict_vpn.save
       redirect_to(ict_vpns_path, :notice => "Resource Requisition ICT VPN has been created successfully.")
