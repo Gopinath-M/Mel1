@@ -538,4 +538,61 @@ rescue Exception=>e
   p "Exception due to : #{e.to_s}"
 end
 
+puts "Creating Damage Types"
+damage_type1 = DamageType.create(:name => 'Building', :parent_type_id => 0, :building_asset_type_id => 1)
+damage_type2 = DamageType.create(:name => 'Asset', :parent_type_id => 0, :building_asset_type_id => 34)
+damage_type3 = DamageType.create(:name => 'Cleanliness', :parent_type_id => 0, :building_asset_type_id => 40)
+damage_type4 = DamageType.create(:name => 'Mechanical', :parent_type_id => 1, :building_asset_type_id => 2)
+damage_type5 = DamageType.create(:name => 'Electrical', :parent_type_id => 1, :building_asset_type_id => 3)
+damage_type6 = DamageType.create(:name => 'Civil', :parent_type_id => 1, :building_asset_type_id => 35)
+
+
+p "Creating Building Asset Types"
+
+begin
+  file = File.open("public/Building_Asset_Type.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      BuildingAssetType.create(:name=>record)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+
+p "Creating System Model Types"
+
+begin
+  file = File.open("public/System_Model_Types.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      SystemModelType.create(:name=>record)
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
+
+p "Creating Complaint Types"
+
+begin
+  file = File.open("public/Complaint_Types.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      record_split = record.split(",")
+      ComplaintType.create(:name=>record_split[0])
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
 puts "Whoa, im done! Now you can run the server and see the application"
