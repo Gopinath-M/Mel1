@@ -7,6 +7,7 @@ class CreateIctVpns < ActiveRecord::Migration
       t.string :to_date
       t.text :justification
       t.references :system_access
+      t.string :vpn_attachment
       t.text :note
       t.string :status, :default => "New"
       t.integer :forward_to

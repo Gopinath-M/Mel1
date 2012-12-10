@@ -125,17 +125,22 @@ class ResourcesController < ApplicationController
 
 def update_resource_approver
     if params[:approver1][:id] != params[:approver2][:id]
+      dept_admin = User.find_by_id(params[:admin_id])
+      department = Department.find_by_id(params[:department_id])
       @val = Approver.find_all_by_department_id(params[:department_id]).first
       @second = Approver.find_all_by_department_id(params[:department_id]).last
       if @val.present? && @second.present?
-          @val.update_attribute(:user_id, params[:approver1][:id])
+        user = User.find_by_id(params[:approver1][:id])
+        @val.update_attribute(:user_id, params[:approver1][:id])
+        UserMailer.send_update_mail_to_approver1(user,dept_admin,department).deliver
         val = User.find_by_id(params[:approver2][:id])
         temp = User.find_by_ic_number(params[:approver2][:id])
         if val.present?
           @second.update_attribute(:user_id, val.id)
-        end
-        if temp.present?
+          UserMailer.send_update_mail_to_approver2(val,dept_admin,department).deliver
+        elsif temp.present?
           @second.update_attribute(:user_id, temp.id)
+          UserMailer.send_update_mail_to_approver2_temp(temp,dept_admin,department).deliver
         end
         redirect_to(list_approver_resources_path, :notice => 'Approver has been Updated.')
       else
@@ -143,12 +148,16 @@ def update_resource_approver
         @approve.user_id = params[:approver1][:id]
         @approve.department_id = params[:department_id]
         @approve.save
+        user = User.find_by_id(params[:approver1][:id])
+        UserMailer.send_mail_to_approver1(user,dept_admin,department).deliver
         @approve = Approver.create(:is_active => params[:active2][:id])
         update = User.find_by_ic_number(params[:approver2][:id])
         if update.present?
           @approve.user_id = update.id
           @approve.department_id = params[:department_id]
           @approve.save
+          user1 = User.find_by_id(update.id)
+          UserMailer.send_mail_to_approver2(user1,dept_admin,department).deliver
           redirect_to(list_approver_resources_path, :notice => 'Approver has been Assigned.')
         end
       end

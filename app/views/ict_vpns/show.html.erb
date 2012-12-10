@@ -14,7 +14,7 @@
 
       <% @dept = Department.find_by_id(current_department) %>
       <% @agency = Agency.find_by_id(@dept.agency_id) %>
-       <% @ict_vpn = IctVpn.find_by_id(params[:id]) %>
+      <% @ict_vpn = IctVpn.find_by_id(params[:id]) %>
       <% @user = User.find_by_id(@ict_vpn.user_id) %>
       <div class="form-sec-row">
         <label class="text">Agency Name</label>
@@ -51,74 +51,102 @@
       <div class="form-sec-row">
         <label class="text">Ticket No</label>
         <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @ict_vpn.id %>/<%=Time.now.year%></b></font></span>
-              </div>
+      </div>
 
-              <div class="form-sec-row">
-                <label class="text">Date of Application</label>
-                <span class="in-box"><%= @ict_vpn.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
-              </div>
+      <div class="form-sec-row">
+        <label class="text">Date of Application</label>
+        <span class="in-box"><%= @ict_vpn.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
+      </div>
 
-              </div>
-              <h2 class="b-head"></h2>
+    </div>
+    <h2 class="b-head"></h2>
 
-              <div class="form-sec-row">
-                <label class="text">Type of Facility</label>
-                <span class="in-box">
-                  <%facility_name = IctVpn.find_by_user_id(@ict_vpn.user_id)%>
-                  <%requisition_name = RequisitionType.find(facility_name.requisition_type_id)%>
-                  <%= requisition_name.name %>
-                </span>
-              </div>
-              <div class="form-sec-row">
-                <label class="text">Term User From</label>
-                <span class="in-box">
-                  <%= @ict_vpn.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %></span>
-              </div>
-              <div class="form-sec-row">
-                <label class="text">Term User To</label>
-                <span class="in-box">
-                  <%= @ict_vpn.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %>
-                </span>
-              </div>
-              <div class="form-sec-row">
-                <label class="text">Justification</label>
-                <span class="in-box">
-                  <%= @ict_vpn.justification %></span>
-              </div>
-              <div class="form-sec-row">
-                <label class="text">VPN Access To</label>
-                <span class="in-box">
-                  <%sys_name = IctVpn.find_by_system_access_id(@ict_vpn.system_access_id)%>
-                  <%requisition_name = SystemAccess.find(sys_name.system_access_id)%>
-                  <%= requisition_name.name %>
-                </span>
-              </div>
-              <div class="form-sec-row">
-                <label class="text">Notes</label>
-                <span class="in-box">
-                  <%= @ict_vpn.note %></span>
-              </div>
-              <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
-              <div class="form-sec-row">
-                <label class="text">Booking Status</label>
-                <span class="in-box">
-                  <%= @ict_vpn.status %></span>
-              </div>
-              <%@dept = Department.find(default_department)%>
-              <%@users = @dept.users%>
+    <div class="form-sec-row">
+      <label class="text">Type of Facility</label>
+      <span class="in-box">
+        <%facility_name = IctVpn.find_by_user_id(@ict_vpn.user_id)%>
+        <%requisition_name = RequisitionType.find(facility_name.requisition_type_id)%>
+        <%= requisition_name.name %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Term User From</label>
+      <span class="in-box">
+        <%= @ict_vpn.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %></span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Term User To</label>
+      <span class="in-box">
+        <%= @ict_vpn.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Justification</label>
+      <span class="in-box">
+        <%= @ict_vpn.justification %></span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">VPN Access To</label>
+      <span class="in-box">
+        <%sys_name = IctVpn.find_by_system_access_id(@ict_vpn.system_access_id)%>
+        <%requisition_name = SystemAccess.find(sys_name.system_access_id)%>
+        <%= requisition_name.name %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Notes</label>
+      <span class="in-box">
+        <%= @ict_vpn.note %></span>
+    </div>
 
-              <div class="form-sec-row">
-                <label class="text">Forward To</label>
-                <span class="in-box">
-                  <%= @ict_vpn.forward_to %></span>
-              </div>
+    <div class="form-sec-row">
+      <% if @ict_vpn.vpn_attachment.present? %>
+        <label class="text">Attachment</label>
+        <% image = @ict_vpn.vpn_attachment.url(:profile).split(".").last %>
+        <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+          <span class="in-box">
+            <%=image_tag(@ict_vpn.vpn_attachment.url,:title=>@ict_vpn.vpn_attachment)%>
+          <%else%>
+            <% file = (@ict_vpn.vpn_attachment).url(:profile).split("/").last %>
+            <b>&nbsp;<%= file %></b>
+          </span>
+        <%end%>
+      <%end%>
+    </div>
+    <h2 class="b-head"></h2>
+    <% if @ict_vpn.status == "Approved" || @ict_vpn.status == "Processed" || @ict_vpn.status == "Declined"%>
 
-              <div class="form-sec-row">
-                <label class="text">Remarks</label>
-                <span class="in-box">
-                  <%= @ict_vpn.remarks %></span>
-              </div>
-              <h2 class="b-head"></h2>
+      <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
+      <div class="form-sec-row">
+        <label class="text">Booking Status</label>
+        <span class="in-box">
+          <%= @ict_vpn.status %></span>
+      </div>
+      <%@dept = Department.find(default_department)%>
+      <%@users = @dept.users%>
 
-              </div>
-              </div>
+      <% name = User.find_by_id(@ict_vpn.forward_to) %>
+      <div class="form-sec-row">
+        <label class="text">Forward To</label>
+        <span class="in-box">
+          <%= name.username %>
+        </span>
+      </div>
+
+      <div class="form-sec-row">
+        <label class="text">Remarks</label>
+        <span class="in-box">
+          <%= @ict_vpn.remarks %></span>
+      </div>
+      <h2 class="b-head"></h2>
+    <%end%>
+
+
+    <div class="form-sec-row">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+        <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+      </span>
+    </div>
+  </div>
+</div>

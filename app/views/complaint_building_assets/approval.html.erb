@@ -1,0 +1,178 @@
+<div class="clearfix"></div>
+<div class="CenterNav">
+  <div class="form-sec">
+    <h2 class="b-head">Complaint - Building Asset Booking for Approval</h2>
+
+    <%= form_for(@complaint_building_asset, :url=>complaint_building_asset_path(:id=>@complaint_building_asset.id), :method => :put) do |f|%>
+  <%#=error_messages%>
+      <div class="clearfix">&nbsp;</div>
+  <%#*<div class="CenterNav">%>
+
+      <div class="form-sec">
+  <%# if @manager.present? %>
+        <font color="#369" size="3"><br/><b><u>Applicant Information :-</u><br/><br/></b></font>
+
+        <% @dept = Department.find_by_id(current_department) %>
+        <% @agency = Agency.find_by_id(@dept.agency_id) %>
+        <% @complaint_building_asset = ComplaintBuildingAsset.find_by_id(params[:id]) %>
+        <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
+        <div class="form-sec-row">
+          <label class="text">Agency Name</label>
+          <span class="in-box"><%= @agency.name  %></span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text">Department Name</label>
+          <span class="in-box">
+            <%= @dept.name  %></span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text">User Name</label>
+          <span class="in-box"><%= @user.username %></span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text">Contact Mobile</label>
+          <span class="in-box"><%= @user.contact_mobile  %></span>
+        </div>
+
+        <div class="form-sec-row">
+          <label class="text">IC Number</label>
+          <span class="in-box">
+            <%= @user.ic_number %></span>
+        </div>
+
+        <div class="form-sec-row">
+          <label class="text">E - Mail</label>
+          <span class="in-box">
+            <%= @user.email %></span>
+        </div>
+
+        <h2 class="b-head"></h2>
+
+        <div class="form-sec-row">
+          <label class="text">Ticket No</label>
+          <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @complaint_building_asset.id %>/<%=Time.now.year%></b></font></span>
+        </div>
+
+        <div class="form-sec-row">
+          <label class="text">Date of Application</label>
+          <span class="in-box"><%= @complaint_building_asset.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
+        </div>
+
+      </div>
+      <h2 class="b-head"></h2>
+
+      <div class="form-sec-row">
+        <label class="text">Category</label>
+        <span class="in-box">
+          <% @name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id)%>
+          <% @demage_name = DamageType.find_by_id(@complaint_building_asset.building_asset_type_id)%>
+          <% @item_name = BuildingAssetType.find_by_id(@complaint_building_asset.item_id)%>
+          <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
+          <%= @name.name%>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Type</label>
+        <span class="in-box">
+          <%= @demage_name.name %></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Item</label>
+        <span class="in-box">
+          <%= @item_name.name %></span>
+      </div>
+
+      <div class="form-sec-row">
+        <label class="text">Location</label>
+        <span class="in-box">
+          <%= @complaint_building_asset.location %></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Reason</label>
+        <span class="in-box">
+          <%= @complaint_building_asset.reason %></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Serial No</label>
+        <span class="in-box">
+          <%= @complaint_building_asset.serial_no %></span>
+      </div>
+
+
+      <h2 class="b-head"></h2>
+      <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
+
+      <div class="form-sec-row">
+        <label class="text">Repair Action<span style=color:red>*</span></label>
+        <span class="in-box">
+
+          <%= f.radio_button :repair_action, true %> <%= f.label :repair_action, "Yes" %>
+          <%= f.radio_button :repair_action, false %> <%= f.label :repair_action, "No" %>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Spare Parts Action<span style=color:red>*</span></label>
+        <span class="in-box">
+
+          <%= f.radio_button :spare_part_action, true %> <%= f.label :spare_part_action, "Yes" %>
+          <%= f.radio_button :spare_part_action, false %> <%= f.label :spare_part_action, "No" %>
+        </span>
+      </div>
+
+      <% if @complaint_building_asset.status == "New" %>
+        <div class="form-sec-row">
+          <label class="text">Booking Status<span style=color:red>*</span></label>
+          <span class="in-box">
+            <%= f.select :status, options_for_select([["SELECT A STATUS", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @complaint_building_asset.status) %>
+
+          </span>
+        </div>
+
+      <% elsif @complaint_building_asset.status == "Approved" %>
+        <div class="form-sec-row">
+          <label class="text">Booking Status<span style=color:red>*</span></label>
+          <span class="in-box">
+            <%= f.select :status, options_for_select([["SELECT A STATUS", -1],["Processed", "Processed"], ["Declined", "Declined"]], @complaint_building_asset.status) %>
+          </span>
+        </div>
+
+      <% else %>
+        <div class="form-sec-row">
+          <label class="text">Booking Status</label>
+          <span class="in-box">
+            <%= @complaint_building_asset.status %>
+          </span>
+        </div>
+      <%end%>
+      <%@dept = Department.find(default_department)%>
+      <%@users = @dept.users%>
+      <div class="form-sec-row">
+        <label class="text">Forward To<span style=color:red>*</span></label>
+        <span class="in-box">
+          <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "SELECT A USER") %>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Remarks<span style=color:red>*</span></label>
+        <span class="in-box">
+          <%= f.text_area :remarks, :rows =>4%></span>
+        <div>
+
+        </div>
+      </div>
+      <div class="form-sec-row">
+        <div class="CenterNav">
+          <label class="text">&nbsp;</label>
+          <span class="in-box">
+            <%= f.submit :value=>'Update', :class=>"btn2"%>
+          </span>
+        </div>
+      </div>
+  <%#*</div>%>
+    <%end%>
+
+
+
+
+  </div>
+</div>

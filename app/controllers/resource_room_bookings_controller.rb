@@ -41,23 +41,28 @@ class ResourceRoomBookingsController < ApplicationController
     agency = AgencyStore.find_by_resource_id(params[:resource_room_booking][:resource_id])
     if !agency.nil?
       if agency.booked == false
-        @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
-        @resource_room_booking.agency_store_id = agency.id
-        @resource_room_booking.status = "New"
-        @resource_room_booking.user_id = params[:user_id]
-        @resource_room_booking.department_id = params[:department_id]
-        if @resource_room_booking.valid?
-          @resource_room_booking.save
-          agency.update_attribute(:booked, true)
-          redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
+        agency.update_attribute(:booked, true)
+        resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
+        resource_room_booking.agency_store_id = agency.id
+        resource_room_booking.status = "New"
+        resource_room_booking.user_id = params[:user_id]
+        resource_room_booking.department_id = params[:department_id]
+        resource_room_booking.save
+        @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+        dept = Department.find_by_id(params[:department_id])
+        if !@approve.present?
+          user = dept.users.where("role_id = 2").first
+          UserMailer.send_mail_to_dept_admin_for_room_booking(user,resource_room_booking,dept).deliver
         else
-          render :action=>'new'
+          user = User.find_by_id(@approve.user_id)
+          UserMailer.send_mail_to_approver_for_room_booking(user,resource_room_booking,dept).deliver
         end
+        redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
       else
-        redirect_to(new_resource_room_booking_path, :alert => "You can't book Reserved Room, Please try other.")
+        redirect_to(new_resource_room_booking_path, :alert => "You cant book the Already Reserved Room, Please try other.")
       end
     else
-      redirect_to(new_resource_room_booking_path, :alert => "Resource selected is not available in your Store.")
+      redirect_to(new_resource_room_booking_path, :alert => "Resource selected is not available in your Store, Are you want this as resource requistion.")
     end
   end
 
@@ -71,7 +76,7 @@ class ResourceRoomBookingsController < ApplicationController
   end
 
   def get_list_of_facility
-    facilities = Facility.find_all_by_resource_id(params[:resource_id])
+    facilities = Facility.active.find_all_by_resource_id(params[:resource_id])
     render :json=>[facilities] if facilities
   end
 
@@ -99,6 +104,10 @@ class ResourceRoomBookingsController < ApplicationController
     end
     @resource_room_booking = ResourceRoomBooking.find_by_id(params[:resource_book_id])
     @resource_room_booking.update_attributes(params[:resource_room_booking])
+    ordered_user = User.find_by_id(room.user_id)
+    resource_manager = RoleMembership.find_by_department_id(room.department_id, :conditions=>["role_id = ?", 5])
+    user = User.find_by_id(resource_manager.user_id)
+    UserMailer.send_status_mail_for_room_booking(user,ordered_user,room).deliver
     redirect_to(list_resource_booking_resource_room_bookings_path, :notice => 'Your Room Booking Status has been successfully updated.')
   end
 

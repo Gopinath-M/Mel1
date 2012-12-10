@@ -4,7 +4,7 @@
     <h2 class="b-head">Requisition Software Installation</h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/software_installations/new" title="Create Software Installation"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Software Installation</a></div>
+    <div class="cu-c1"><a href="/ict_network_points/list_to_select_ict" title="Create Requisition for ICT "><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Requisition for ICT</a></div>
 
     </div>
   <%end%>
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="clear"></div>
-
+ </div>
 
           <div class="manage-user-rows box">
             <div class="m-c1"><b>Type of Facility</b>
@@ -36,21 +36,23 @@
             <div class="m-c2">
               <%= @name.name%>
             </div>
+             <div class="m-c3">
         <%if software.status == "New"%>
-            <div class="m-c3">
+           
               <% if current_user.is_department_admin? || current_user.is_super_admin? %>
                 <span class="in-box">
                   <%= link_to "Approve Request",  resource_booking_approval_software_installations_path(:id => software.id), :class=>"btn2 in-btn2"%>
                 </span>
               <%end%>
-         <%elsif software.user_id == current_user.id %>
+             <%elsif software.user_id == current_user.id %>
               <%if software.status == "Approved"%>
               <span class="in-box">
                   <%= link_to "Process Request",  resource_booking_approval_software_installations_path(:id => software.id), :class=>"btn2 in-btn2"%>
               </span>
             <%end%>
-            </div>
+            
          <%end%>
+               </div>
           </div>
           <div class="clear"></div>
 
@@ -65,7 +67,7 @@
             </div>
           </div>
           <div class="clear"></div>
-        </div>
+       
 
                 <div class="manage-user-rows box">
                   <div class="m-c1"><b>Date of Application</b>

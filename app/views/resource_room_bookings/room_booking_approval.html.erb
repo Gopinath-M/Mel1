@@ -114,16 +114,15 @@
               <td><div id="details_resource_id" style="display:none;">
                 </div></td>
             </tr>
-            <% if current_user.is_department_admin? %>
+            <% if current_user.is_department_admin? || current_user.is_department_user? %>
               <% if @details_resource.present?%>
-
-                <tr>
-                <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
-                </tr>
-
                 <tr>
                   <td><font color="#369"><b><u>Resource Details:-</u></b></font></td>
                   <td></td>
+                </tr>
+                <tr>
+                  <td><b> Room Ex No</b></td>
+                  <td><b>&nbsp;<%=@details_resource.resource_no%></b></td>
                 </tr>
                 <tr>
                   <td><b> Location</b></td>
