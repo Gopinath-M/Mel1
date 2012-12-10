@@ -7,7 +7,7 @@ class IctHardwareBookingsController < ApplicationController
 
   def new
     @ict_hardware_booking=IctHardwareBooking.new
-    @ict_hardware_booked_user=@ict_harwdare_booking.ict_hardware_booked_users.build
+    @ict_hardware_booked_user=@ict_hardware_booking.ict_hardware_booked_users.build
   end
 
   def create

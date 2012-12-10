@@ -3,7 +3,7 @@
     <div class="form-sec">
       <%=f.error_messages%>
       <div class="clearfix">&nbsp;</div>
-      <% if (!current_user.is_super_admin? || !current_user.is_resource_manager?) %>
+      <% if (current_user.is_department_user? || current_user.is_department_admin?) %>
         <div class="form-sec-row">
           <label class="text">Agency<span style=color:red></span></label>
           <span class="in-box">
