@@ -38,6 +38,16 @@ class FacilityIctAgenciesController < ApplicationController
     end
   end
 
+  def update_status
+    @facility_ict_agency = FacilityIctAgency.find(params[:id])
+    if params[:status]=="Activate"
+      @facility_ict_agency.update_attribute(:is_active,true)
+    elsif params[:status]=="Deactivate"
+      @facility_ict_agency.update_attribute(:is_active,false)
+    end
+    redirect_to( facility_ict_agencies_path, :notice => 'Facility ICT Agency Status has been successfully changed.')
+  end
+  
   def destroy
   end
 
