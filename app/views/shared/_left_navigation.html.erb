@@ -83,7 +83,7 @@
 
 
 
-        <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
+        <%if current_user && current_role==DISP_USER_ROLE_SUPER_ADMIN %>
           <div class="leftNav-links box">
             <h2>Masters</h2>
             <ul>
