@@ -9,18 +9,7 @@
       <% @dept = Department.find_by_id(current_department) %>
       <% @agency = Agency.find_by_id(@dept.agency_id) %>
       <% @user = User.find_by_id(current_user.id) %>
-      <div class="form-sec-row">
-        <label class="text">Agency Name</label>
-        <span class="in-box">
-          <%= @agency.name  %>
-        </span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text">Department Name</label>
-        <span class="in-box">
-          <%= @dept.name %>
-        </span>
-      </div>
+
       <div class="form-sec-row">
         <%= f.label :ict_network_attachment,raw("Upload File"), :class=>"text"%>
         <span class="in-box">

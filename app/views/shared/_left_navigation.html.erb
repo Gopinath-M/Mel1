@@ -358,6 +358,19 @@
                       </ul>
                     </div>
                   </li>
+                  <li class="menu-item">
+                    <%=link_to "Resource Booking", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_booking_super_admin" ,:onclick=>"leftNavigation(this.id,'div_resource_booking_super_admin')"%>
+                    <div id ="div_resource_booking_super_admin" style="display:none;">
+                      <ul>
+                        <li>
+                          <%=link_to "Create", new_resource_transportation_booking_path %>
+                        </li>
+                        <li>
+                          <%=link_to "List", resource_transportation_bookings_path %>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                 <%end%>
                 <%if current_user && (current_user.is_department_user? || current_user.is_department_admin?) %>
                   <li class="menu-item">

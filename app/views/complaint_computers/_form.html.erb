@@ -1,13 +1,11 @@
 <%= form_for(@complaint_computer, :html => { :method => :post, :multipart => true }) do |f| %>
-<%=f.error_messages%>
+  <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
   <%#*<div class="CenterNav">%>
-
   <div class="form-sec">
   <%# if @manager.present? %>
-
   </div>
-<br/>
+  <br/>
   <div class="form-sec-row">
     <label class="text">Type of Complaint<span style=color:red>*</span></label>
     <span class="in-box">
@@ -20,13 +18,12 @@
       <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A ITEM / SYSTEM TYPE", :style=> "width:132%;") %>
     </span>
   </div>
-    <div class="form-sec-row">
+  <div class="form-sec-row">
     <label class="text">Model Item / System<span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.select(:system_model_type_id, SystemModelType.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A MODEL ITEM / SYSTEM ", :style=> "width:132%;") %>
     </span>
   </div>
- 
   <div class="form-sec-row">
     <label class="text">Serial No <span style=color:red>*</span></label>
     <span class="in-box">
@@ -38,7 +35,6 @@
     <span class="in-box">
       <%= f.text_area :reason, :rows =>4%></span>
     <div>
-
     </div>
   </div>
   <div class="form-sec-row">

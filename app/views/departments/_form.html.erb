@@ -1,7 +1,6 @@
 <%= form_for(@department) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
-
   <div class="form-sec-row">
     <%= label_tag :agency_id, raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
     <span class="in-box">
@@ -13,14 +12,12 @@
       <%end%>
     </span>
   </div>
-
   <div class="form-sec-row">
     <label class="text">Department Name: <span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.text_field :name%>
     </span>
   </div>
-
   <div class="form-sec-row">
     <label class="text">Address <span style=color:red>*</span></label>
     <span class="in-box">
@@ -47,6 +44,6 @@
   </div>
   <div class="form-sec-row">
     <label class="text">&nbsp;</label>
-    <span class="in-box"><%= f.submit :class=>"btn2", :value=>'Create'%></span>
+    <span class="in-box"><%= f.submit :class=>"btn2", :value=>@department.new_record? ? "Create" : "Update"%></span>
   </div>
 <%end%>

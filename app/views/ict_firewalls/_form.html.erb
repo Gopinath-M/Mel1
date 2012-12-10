@@ -1,5 +1,7 @@
-<%= form_for @ict_firewall do |f|%>
-<%=f.error_messages%>
+
+<%= form_for IctFirewall.new do |f|%>
+  <%=f.error_messages%>
+
   <div class="form-sec-row">
     <label class="text">Source Ip<span style=color:red>*</span></label>
     <input class="source_ip" id="source1" type="text"  maxlength="3" size="3" name="s1" onkeypress="return isNumberKey(event);" onkeyup="autoTab(event, this, s2);">&nbsp;-
@@ -7,7 +9,7 @@
     <input class="source_ip2" id="source3" type="text"  maxlength="3" size="3" name="s3" onkeypress="return isNumberKey(event);" onKeyUp="autoTab(event, this, s4);">&nbsp;-
     <input class="source_ip3" id="source4" type="text"  maxlength="3" size="3" name="s4" onkeypress="return isNumberKey(event);">
   </div>
-
+  <%= hidden_field_tag :requisition_type_id, 2 %>
   <div class="form-sec-row">
     <label class="text">Destination Ip<span style=color:red>*</span></label>
     <input class="dest_ip" id="dest1" type="text"  maxlength="3" size="3" name="d1" onkeypress="return isNumberKey(event);" onkeyup="autoTab(event, this, d2);">&nbsp;-
@@ -38,14 +40,14 @@
   </div>
 
   <div class="form-sec-row" id="add_selection_box">
-    <%#= add_selection_box "Add Selection Box",f %>
+  <%#= add_selection_box "Add Selection Box",f %>
     <!--<a id="add-selection-box">Add Selection Box</a>    -->
   </div>
 
   <%#*<div class="form-sec-row">%>
-    <%#*<a id="add_select_box">Add</a> |%>
-    <%#*<a id="remove_select_box">Remove</a> |%>
-    <%#*<a id="reset_select_box">Reset</a></div>%>
+  <%#*<a id="add_select_box">Add</a> |%>
+  <%#*<a id="remove_select_box">Remove</a> |%>
+  <%#*<a id="reset_select_box">Reset</a></div>%>
   <%#*<div id="std"></div>%>
 
   <div class="form-sec-row">
@@ -73,12 +75,9 @@
     <label class="text">&nbsp;</label>
     <span class="in-box">
       <%= f.submit "Submit", :class=>"btn2"%>
-      
     </span>
   </div>
-
 <%end%>
-
 <script type="text/javascript">
   $(document).ready(function(){    
     $("#add-selection-box").click(function() {      
