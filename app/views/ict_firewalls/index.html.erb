@@ -18,7 +18,7 @@
               <b><font color='#329C20'><%= "#{ict_firewall.status}" %></font></b>
             </div>
 
-            <% if current_user.is_department_admin? %>
+            <% if current_user.is_department_admin? && ict_firewall.status == "New" %>
               <div class="form-sec-row">
                 <span class="in-box">
                   <%= link_to "Approve Request", edit_ict_firewall_path(ict_firewall) %>
