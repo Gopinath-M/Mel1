@@ -32,10 +32,10 @@ class ResourceBookingsController < ApplicationController
       render :action=>'new'
     end
     else
-        redirect_to(new_resource_booking_path, :notice => "You cant book the Already Reserved Resource, Please try other.")
+        redirect_to(new_resource_booking_path, :alert => "You cant book the Already Reserved Resource, Please try other.")
       end
     else
-      redirect_to(new_resource_booking_path, :notice => "Resource selected is not available in your Store.")
+      redirect_to(new_resource_booking_path, :alert => "Resource selected is not available in your Store.")
     end
   end
 
