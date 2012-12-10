@@ -51,6 +51,10 @@
             <td>&nbsp;<b><%=@resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
           </tr>
           <tr>
+            <td><b>Ticket Number</b></td>
+            <td>&nbsp;<b><%=@resource_transportation_booking.id.to_s+'/'+Time.now.year.to_s %></b></td>
+          </tr>
+          <tr>
             <td><b>Purpose</b></td>
             <td>&nbsp;<b><%=@resource_transportation_booking.purpose%></b></td>
           </tr>
@@ -90,7 +94,7 @@
             <td><b>Attachment</b></td>
             <td>&nbsp;<b><%= link_to 'Download File', download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
           </tr>
-          
+
           <tr>
             <td><b>Remarks</b></td>
             <td>&nbsp;<b><%=  @resource_transportation_booking.remarks %></b></td>

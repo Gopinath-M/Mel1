@@ -1,0 +1,121 @@
+<%#= form_tag :controller=>"resource_transportation_bookings",:action=>"change_resource_status" do %>
+<div class="clearfix">&nbsp;</div>
+<div class="CenterNav">
+  <h2 class="b-head">ICT Firewall Approval</h2>
+  <%= hidden_field_tag :id,(@ict_firewall.id)  %>
+  <div class="form-sec">
+    <div class="form-sec-row form-sec-row1">
+      <td><table width="500" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td style=" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333; border-bottom:1px solid #CCC;border-top:1px solid #CCC; padding:10px 0;">
+              <table width="750" border="2" cellspacing="3" cellpadding="3" align="center"><br/>
+                <tr>
+                  <td><font color="#369"><b><u>User Details:-</u></b></font></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Agency Name</b></td>
+                  <td>&nbsp;<b><%= @ict_firewall.user.departments[0].agency.name.upcase if !@ict_firewall.user.is_super_admin? %></b></td>
+                </tr>
+                <tr>
+                  <td><b>Department Name</b></td>
+                  <td>&nbsp;<b><%= @ict_firewall.user.departments[0].name if !@ict_firewall.user.is_super_admin? %></b></td>
+                </tr>
+                <tr>
+                  <td><b>IC Number</b></td>
+                  <td>&nbsp;<b><%= @ict_firewall.user.ic_number %></b></td>
+                </tr>
+                <tr>
+                  <td><b>First Name</b></td>
+                  <td>&nbsp;<b><%= @ict_firewall.user.first_name %></b></td>
+                </tr>
+                <tr>
+                  <td><b>Last Name</b></td>
+                  <td>&nbsp;<b><%= @ict_firewall.user.last_name %></b></td>
+                </tr>
+                <tr>
+                  <td><b>Email</b></td>
+                  <td>&nbsp;<b><%= @ict_firewall.user.email %></b></td>
+                </tr>
+
+                <tr>
+                <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+          </tr>
+
+          <tr>
+            <td><font color="#369"><b><u>Firewall Details:-</u></b></font></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><b>Date of Application</b></td>
+            <td>&nbsp;<b><%= @ict_firewall.created_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
+          </tr>
+          <tr>
+            <td><b>Source IP</b></td>
+            <td>&nbsp;<b><%= @ict_firewall.source_ip %></b></td>
+          </tr>
+          <tr>
+            <td><b>Destination IP</b></td>
+            <td>&nbsp;<b><%= @ict_firewall.destination_ip %></b></td>
+          </tr>
+
+          <tr>
+            <td><b>From Date</b></td>
+            <td>&nbsp;<b><%=  @ict_firewall.requested_from_date.strftime("%d-%m-%Y %H:%M %p") %></b></td>
+          </tr>
+          <tr>
+            <td><b>To Date</b></td>
+            <td>&nbsp;<b><%=  @ict_firewall.requested_to_date.strftime("%d-%m-%Y %H:%M %p") %></b></td>
+          </tr>
+
+          <tr>
+            <td><b>Remarks</b></td>
+            <td>&nbsp;<b><%=  @ict_firewall.justification %></b></td>
+          </tr>
+
+          <tr>
+          <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+          </tr>
+
+
+
+          <tr>
+            <td><font color="#369"><b><u>Service Details:-</u></b></font></td>
+            <td></td>
+          </tr>
+        </table>
+        <table>
+          <% services = @ict_firewall.ict_firewall_services %>
+          <% services.each do |ict_firewall_service| %>
+            <tr>
+              &nbsp;<b>Service Information</b>
+            </tr>
+            <tr>
+              <th><b>Service Name</b></th>
+              <th><b>Way</b></th>
+              <th><b>Action</b></th>
+            </tr>
+            <tr>
+              <td><b><%= FacilityIctService.find(ict_firewall_service.id).port %></b></td> &nbsp;&nbsp; | &nbsp;&nbsp;
+              <td>
+                <b><%= ict_firewall_service.one_way? ? 'One Way' : 'Two Way' %></b>
+              </td>
+              <td>
+                <b><%= ict_firewall_service.approved? ? 'Approved' : 'Not Approved' %></b>
+              </td>
+            </tr>
+          <%end%>
+        </table>
+      </td>
+      </tr>
+      </table>
+      </td>
+    </div>
+  </div>
+  <div class="form-sec-row2">
+    <label class="text">&nbsp;</label>
+    <span class="in-box2">
+      <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+    </span>
+  </div></div>
+<%#end%>
