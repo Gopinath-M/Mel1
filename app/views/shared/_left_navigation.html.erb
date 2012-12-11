@@ -42,7 +42,7 @@
               <% val = IctNetworkPoint.where(:person_incharge => current_user.id)%>
               <% if val.present? %>
                 <% if @list.present? %><span class="notifiNo"><%= cnt %></span><%end%>
-                <%=link_to "Process Network Req", list_ict_network_ict_network_points_path %>
+                <%=link_to "Process N/W Request", list_ict_network_ict_network_points_path %>
               <%end%>
             </li>
             <% @network = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
@@ -55,7 +55,7 @@
                   <%if @network.present? %>
                     <span class="notifiNo"><%= count %></span>
                   <%end%>
-                  <%=link_to "Approve Network Req", list_ict_network_ict_network_points_path %>
+                  <%=link_to "Approve N/W Request", list_ict_network_ict_network_points_path %>
                 </li>
               <%end%>
             <%end%>
@@ -648,32 +648,12 @@
                     <span class="notifiNo"><%= resource_ict_status_count('New') %></span>
                     <%=link_to "ICT Equipment Request", requests_resource_ict_equipment_bookings_path %>
                   </li>
-                  <li  class="menu-item">
-                    <%if @room_list.present? %>
-                      <span class="notifiNo"><%= room_count %></span>
-                    <%end%>
-                    <%=link_to "Room List", list_resource_booking_resource_room_bookings_path %>
-                  </li>
                   <li>
                     <%if @transport_list.present? %>
                       <span class="notifiNo"><%= transport_count %></span>
                     <%end%>
                     <%=link_to "Transport List", approve_request_resource_transportation_bookings_path %>
                   </li>
-                <%end%>
-                <% @network = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
-                <% count = IctNetworkPoint.find_all_by_status('New').count %>
-                <% @approve = Approver.find_all_by_department_id(current_user.departments).first%>
-                <% @second_approver = Approver.find_all_by_department_id(current_user.departments).last%>
-                <%if  @approve.present? && @second_approver.present?%>
-                  <% if @approve.present? && @second_approver.present? && @second_approver.user_id == current_user.id || @approve.user_id == current_user.id%>
-                    <li>
-                      <%if @network.present? %>
-                        <span class="notifiNo"><%= count %></span>
-                      <%end%>
-                      <%=link_to "ICT Network Req", list_ict_network_ict_network_points_path %>
-                    </li>
-                  <%end%>
                 <%end%>
               <%end%>
 
