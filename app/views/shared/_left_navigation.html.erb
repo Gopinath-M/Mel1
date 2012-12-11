@@ -478,9 +478,11 @@
 
                         <% if current_role == DISP_USER_ROLE_DEPT_ADMIN  %>
 
-                          <li>
-          <%#*<span class="notifiNo"><%= resource_status_count('New') %>
-                            <%=link_to "Approve Software Installation", software_installations_path%>
+                          <li>          
+                            <%=link_to "Software Request", software_installations_path%>
+                          </li>
+                          <li>          
+                            <%=link_to "Firewall Request", software_installations_path%>
                           </li>
                           <% @list = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
                           <% count = IctNetworkPoint.find_all_by_status('New').count %>
@@ -488,7 +490,7 @@
                             <%if @list.present? %>
                               <span class="notifiNo"><%= count %></span>
                             <%end%>
-                            <%=link_to "ICT Network Req", list_ict_network_ict_network_points_path %>
+                            <%=link_to "Network Request", list_ict_network_ict_network_points_path %>
                           </li>
                         <%end%>
                       </ul>
