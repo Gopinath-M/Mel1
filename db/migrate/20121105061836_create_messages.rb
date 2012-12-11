@@ -5,9 +5,9 @@ class CreateMessages < ActiveRecord::Migration
       t.text :message
       t.string :sender
       t.string :message_type
-      t.string :agency_id
-      t.string :department_id
-      t.string :unit_id
+      t.integer :agency_id
+      t.integer :department_id
+      t.integer :unit_id
       t.string :attachment
       t.string  :file_content_type
       t.integer :file_size
