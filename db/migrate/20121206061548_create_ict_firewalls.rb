@@ -1,7 +1,7 @@
 class CreateIctFirewalls < ActiveRecord::Migration
   def self.up
     create_table :ict_firewalls do |t|
-      t.string :facility_type
+      t.references :requisition_type
       t.string :source_ip
       t.string :destination_ip      
       t.datetime :requested_from_date
