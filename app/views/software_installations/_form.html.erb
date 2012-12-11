@@ -5,14 +5,14 @@
   <div class="form-sec">
   </div>
 
-
-  <%#*<div class="form-sec-row">%>
-  <%#*<label class="text">Type of Facility<span style=color:red>*</span></label>%>
-  <%#*<span class="in-box">%>
-  <%#= f.select(:requisition_type_id, RequisitionType.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A ICT FACILITY", :style=> "width:132%;") %>
-  <%#*</span>%>
-  <%#*</div>%>
   <%= hidden_field_tag :requisition_type_id, 5 %>
+  <%#*<div class="form-sec-row">%>
+        <%#= f.label :software_attachment,raw("Upload File"), :class=>"text"%>
+        <%#*<span class="in-box">%>
+          <%#= f.file_field :software_attachment%>
+          <%#= f.hidden_field :software_attachment_cache %>
+        <%#*</span>>
+      <%#*</div>%>
   <div class="form-sec-row">
     <label class="text">Software Name<span style=color:red>*</span></label>
     <span class="in-box">

@@ -59,13 +59,17 @@ class IctNetworkPointsController < ApplicationController
   def update_approval_network_point
     network = IctNetworkPoint.find_by_id(params[:id])
     network.update_attributes(params[:ict_network_point])
-    p user = User.find_by_id(network.person_incharge)
-    p ordered_user = User.find_by_id(network.user_id)
+    user = User.find_by_id(network.person_incharge)
+    ordered_user = User.find_by_id(network.user_id)
     UserMailer.send_status_mail_for_ict_network(user,ordered_user,network).deliver
     redirect_to(list_ict_network_ict_network_points_path, :notice => 'Your ICT Network Point Status has been successfully updated.')
   end
 
   def list_to_select_ict
+    
+  end
+
+  def selected_list_ict
     
   end
 end
