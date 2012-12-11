@@ -6,7 +6,7 @@
   </head>
   <% @sub_cat_type = SubCategory.find_by_id(@requisition.sub_category_id)%>
   <%@user_name = User.find_by_id(@requisition.user_id)%>
-
+ <%@resource_name = Resource.find_by_id(@requisition.resource_id%>
   <body style="background:#ccc; padding:0; margin:10px;">
     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="background:#fff;">
       <tr>
@@ -56,7 +56,7 @@
                     <td>&nbsp;<%= @requisition.created_at.strftime("%a %d %b %Y %I:%M %p")%></td>
                   </tr>
        
-                    <td><b>Room Capacity</b></td>
+                    <td><b>Quantity</b></td>
                     <td>&nbsp;<%= @requisition.quantity %>
                     </td>
                   </tr>

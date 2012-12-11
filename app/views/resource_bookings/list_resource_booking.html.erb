@@ -16,7 +16,7 @@
               <% @name = SubCategory.find_by_id(resource.sub_category_id)%>
               <% @user = User.find_by_id(resource.user_id) %>
               <p class="head1"><b>Name :<%= @user.first_name%></b></p>
-              <p class="head1"><b>Room Name :<%= @name.name%></b></p>
+              <p class="head1"><b>Resource Name :<%= @name.name%></b></p>
               <p class="head1"><b>Ticket No :<font color="#BB0802;">&nbsp;<%=resource.id%>/<%=Time.now.year%></font></b></p>
               <p class="head1"><b>From Date:<%= resource.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></p>
               <p class="head1"><b>To Date:<%= resource.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></p>

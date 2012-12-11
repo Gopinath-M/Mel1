@@ -142,4 +142,9 @@ class ResourceBookingsController < ApplicationController
       render :json=>[resoures] if resoures
     end
   end
+
+  def download_attachments
+    @download = ResourceBooking.find(params[:id])
+    send_file @download.attachment.path
+  end
 end
