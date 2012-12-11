@@ -30,6 +30,10 @@
                         <td><b>&nbsp;<%= file %></b></td>
                       <%end%>
                     </tr>
+                    <tr>
+            <td><b>Attachment</b></td>
+            <td>&nbsp;<b><%= link_to 'Download File', download_attachments_resource_bookings_path(:id=>@resource_booking.id) if @resource_booking.attachment?  %></b></td>
+          </tr>
                   <%end%>
                   <% if @agency.present? %>
                     <tr>

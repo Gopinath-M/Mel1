@@ -24,6 +24,7 @@ Melaka::Application.routes.draw do
       get 'list_resource_booking'
       put 'update_resource_booking'
       post 'user_return'
+      get 'download_attachments'
     end
   end
   resources :ict_hardware_bookings
@@ -40,6 +41,7 @@ Melaka::Application.routes.draw do
     collection do
       get 'approval_network_point'
       get 'list_to_select_ict'
+      get 'selected_list_ict'
       put 'update_approval_network_point'
       get 'list_ict_network'
     end
