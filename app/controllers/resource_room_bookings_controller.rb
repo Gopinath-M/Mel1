@@ -110,8 +110,10 @@ class ResourceRoomBookingsController < ApplicationController
     @resource_room_booking.update_attributes(params[:resource_room_booking])
     ordered_user = User.find_by_id(room.user_id)
     resource_manager = RoleMembership.find_by_department_id(room.department_id, :conditions=>["role_id = ?", 5])
-    user = User.find_by_id(resource_manager.user_id)
-    UserMailer.send_status_mail_for_room_booking(user,ordered_user,room).deliver
+    if resource_manager.present?
+      user = User.find_by_id(resource_manager.user_id)
+      UserMailer.send_status_mail_for_room_booking(user,ordered_user,room).deliver
+    end
     redirect_to(list_resource_booking_resource_room_bookings_path, :notice => 'Your Room Booking Status has been successfully updated.')
   end
 
