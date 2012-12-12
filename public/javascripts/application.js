@@ -1102,10 +1102,10 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
 
 
     /* adding dynamic text box in agency store fomr */
-    var i = $('input').size() + 1;
-
+//    var i = $('input').size() + 1;
+    var i = 0 + 1;
     $('#add').click(function() {
-        $('<div>Serial No </div><div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div class="form-sec-row"><label class="text">Serial No '+i+'</label></div><div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
         i++;
     });
     //<input type="text" class="field" size=30 name="dynamic[]" value="' + i + '" />
@@ -1929,6 +1929,25 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
         }
         else if ($("#agency_store_driver_id").val() == ""){
             alert("Select Driver Name");
+            return false;
+        }
+    });
+
+     $("#ict_store_submit").live("click",function(){
+        if ($("#ict_agency_id").val() == ""){
+            alert("Select Agency Name");
+            return false;
+        }
+        else if ($("#ict_agency_sub_category_id").val() == ""){
+            alert("Select Sub Category Name");
+            return false;
+        }
+        else if ($("#ict_agency_resource_id").val() == ""){
+            alert("Select Resource Name");
+            return false;
+        }
+        else if ($("#agency_store_serial_no").val() == ""){
+            alert("Enter Serial Number");
             return false;
         }
     });
