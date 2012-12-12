@@ -227,4 +227,12 @@ function validateMessageForm(e){
     }    
 }
 
+  function validate_ict_firewall_requests(){
+    if ($("#source1").val() == "" || $("#source2").val() == "" || $("#source3").val() == "" || $("#source4").val() == "" || $("#dest1").val() == "" || $("#dest2").val() == "" || $("#dest3").val() == "" || $("#dest4").val() == "" || $("#ict_facility_service_id").val() == "" || $("#ict_firewall_requested_from_date").val() == "" || $("#ict_firewall_requested_to_date").val() == "" || $("#ict_firewall_justification").val() == "")
+    {
+      alert("You didn't provide proper details. Please fill all the required fields.");
+      return false;
+    }
+  }
+
 
