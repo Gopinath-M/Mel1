@@ -29,42 +29,17 @@
   <%end%>
 
   <h3 class="b-head">Today's News</h3><marquee behavior="scroll" direction="left" style="background: #f2f2f2;border-bottom: 1px solid #CCCCCC;
-    border-top: 1px solid #CCCCCC;
-    padding: 5px 0;"> Melaka State adopts Red Hat virtualization and Linux operating system; security, reliability and cost key factors in win
+                                               border-top: 1px solid #CCCCCC;
+                                               padding: 5px 0;"> Melaka State adopts Red Hat virtualization and Linux operating system; security, reliability and cost key factors in win
     Opens Center of Excellence in a bid to train more open source professionals, boosting skill sets for future
   </marquee><br /><br /><h3 class="b-head">Dashboard</h3>
   <div id="tabs">
     <ul>  
       <%if current_user && (current_user.is_super_admin? || current_user.is_department_admin?)%>
-                          <!--li><a href="#tabs-1"><%#=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li-->
-        <%#*<li><a href="#tabs-1">Messages</a></li>%>
-        <%#*<li><a href="#tabs-2">User Transfer Request</a></li>%>
-        <%#*<li><a href="#tabs-3">Complaints</a></li>%>
-      <div class="tabber">
-
-     <div class="tabbertab">
-	  <h2>Messages</h2>
-	  <div>User Messages will comes here</div>
-     </div>
-
-
-     <div class="tabbertab">
-	  <h2>User Transfer Request</h2>
-	  <div><%if current_user && current_user.is_super_admin? %>
-        User Transfer Requests comes here
-      <%elsif current_user && current_user.is_department_admin?%>
-        User Transfer Request comes here for department admin
-      <%else%>
-        Vendors actions
-      <%end%></div>
-     </div>
-
-
-     <div class="tabbertab">
-	  <h2>Complaints</h2>
-	  <div> Complaints will come here</div>
-     </div>
-        </div>
+                            <!--li><a href="#tabs-1"><%#=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li-->
+        <li><a href="#tabs-1">Messages</a></li>
+        <li><a href="#tabs-2">User Transfer Request</a></li>
+        <li><a href="#tabs-3">Complaints</a></li>
       <%else%>
         <li><a href="#tabs-1">Messages</a></li>
         <li><a href="#tabs-2">Vendors</a></li>
@@ -134,20 +109,20 @@
 <%#end%>
 <%#end%>
 <%#*</div>%>
-    <%#*<div id="tabs-1">%>
-      <%#*<!--User Messages will comes here-->%>
-      <%#= render :partial=>'messages_view' %>
-    <%#*</div>%>
-    <%#*<div id="tabs-2">%>
-      <%#if current_user && current_user.is_super_admin? %>
-        <%#*User Transfer Requests comes here%>
-      <%#elsif current_user && current_user.is_department_admin?%>
-        <%#*User Transfer Request comes here for department admin%>
-      <%#else%>
-        <%#*Vendors actions%>
-      <%#end%>
-    <%#*</div>%>
-    <%#*<div id="tabs-3">%>
+    <div id="tabs-1">
+      <!--User Messages will comes here-->
+      <%= render :partial=>'messages_view' %>
+    </div>
+    <div id="tabs-2">
+      <%if current_user && current_user.is_super_admin? %>
+        User Transfer Requests comes here
+      <%elsif current_user && current_user.is_department_admin?%>
+        User Transfer Request comes here for department admin
+      <%else%>
+        Vendors actions
+      <%end%>
+    </div>
+    <div id="tabs-3">
 <%#if current_user && current_user.is_super_admin? %>
 <%#*<p>Resource Booking.</p>%>
 <%#elsif current_user && current_user.is_department_admin?%>
@@ -155,7 +130,7 @@
 <%#else%>
 <%#*User can book resources%>
 <%#end%>
-      <%#*Complaints will come here%>
-    <%#*</div>%>
+      Complaints will come here
+    </div>
   </div>
 </div>
