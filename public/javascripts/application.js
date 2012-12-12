@@ -1105,7 +1105,7 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
     var i = $('input').size() + 1;
 
     $('#add').click(function() {
-        $('<div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div>Serial No </div><div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
         i++;
     });
     //<input type="text" class="field" size=30 name="dynamic[]" value="' + i + '" />

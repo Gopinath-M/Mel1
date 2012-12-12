@@ -1,6 +1,4 @@
-<%if !request.xhr?%>
-<%end%>
-<div class="CenterNav">
+
   <%@ict_vpn = IctVpn.where(:user_id => current_user.id).order.page(params[:page]).per(2)%>
   <div id="div_ajax" >
     <%if @ict_vpn && !@ict_vpn.empty?%>
@@ -96,4 +94,3 @@
       No Resources Available
     <%end%>
   </div>
-</div>

@@ -274,10 +274,11 @@ Melaka::Application.routes.draw do
     end
   end
 
- resources :ict_vpns  do
+  resources :ict_vpns  do
     collection do
      get 'approval'
      put 'approval'
+     get 'download_attachments'
     end
 
   end
@@ -285,6 +286,7 @@ Melaka::Application.routes.draw do
     collection do
      get 'approval'
      put 'approval'
+     get 'download_attachments'
     end
   end
 
@@ -292,6 +294,8 @@ Melaka::Application.routes.draw do
     collection do
      get 'approval'
      put 'approval'
+     get 'get_categories'
+     get 'get_categories_types'
     end
   end
 
@@ -299,6 +303,8 @@ Melaka::Application.routes.draw do
     collection do
      get 'approval'
      put 'approval'
+     get 'get_system_types'
+     get 'get_system_items'
     end
   end
   # The priority is based upon order of creation:
