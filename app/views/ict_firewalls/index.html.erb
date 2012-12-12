@@ -37,7 +37,7 @@
                     <%= link_to "Approve Request",  edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                   </span>
                 <%end%>
-              <%elsif resource.user_id == current_user.id %>
+              <%elsif resource.incharge_person == current_user.id %>
                 <%if resource.status == "Approved"%>
                   <span class="in-box">
                     <%= link_to "Process Request",  edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%>
