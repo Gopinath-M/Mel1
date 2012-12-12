@@ -37,7 +37,7 @@
             <div class="m-c3">
               <% if current_user.is_department_admin? || current_user.is_super_admin? %>
                 <span class="in-box">
-                  <%= link_to "Approve Request", approval_complaint_computers_path(:id => complaint_computer.id), :class=>"btn2 in-btn2"%>
+                  <%= link_to "Approve", approval_complaint_computers_path(:id => complaint_computer.id), :class=>"btn2 in-btn2"%>
                 </span>
               <%end%>
             </div>

@@ -64,23 +64,23 @@
       <div class="form-sec-row">
         <label class="text">Category</label>
         <span class="in-box">
-          <% @name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id)%>
-          <% @demage_name = DamageType.find_by_id(@complaint_building_asset.building_asset_type_id)%>
-          <% @item_name = BuildingAssetType.find_by_id(@complaint_building_asset.item_id)%>
-          <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
-          <%= @name.name%>
+             <% @category_name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id) if @complaint_building_asset.building_asset_type_id %>
+        <% @type_name = BuildingAssetType.find_by_id(@complaint_building_asset.type_id)%>
+        <% @item_name = BuildingAssetType.find_by_id(@complaint_building_asset.item_id)%>
+        <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
+          <%= @category_name.name%>
         </span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Type</label>
-        <span class="in-box">
-          <%= @demage_name.name %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text">Item</label>
-        <span class="in-box">
-          <%= @item_name.name %></span>
-      </div>
+      <label class="text">Type</label>
+      <span class="in-box">
+        <%= @type_name.name %></span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Item</label>
+      <span class="in-box">
+        <%= @item_name.name %></span>
+    </div>
 
       <div class="form-sec-row">
         <label class="text">Location</label>
@@ -111,7 +111,7 @@
         </span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Spare Parts Action<span style=color:red>*</span></label>
+        <label class="text">Spare Parts Required<span style=color:red>*</span></label>
         <span class="in-box">
 
           <%= f.radio_button :spare_part_action, true %> <%= f.label :spare_part_action, "Yes" %>

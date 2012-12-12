@@ -1,7 +1,7 @@
 class ComplaintBuildingAssetsController < ApplicationController
   before_filter :authenticate_user!
   def index    
-     if current_user && current_user.is_super_admin?
+    if current_user && current_user.is_super_admin?
       @complaint_building_asset = ComplaintBuildingAsset.page(params[:page]).per(2)
     elsif current_user && current_user.is_department_admin?
       @complaint_building_asset = ComplaintBuildingAsset.page(params[:page]).per(2)
@@ -23,18 +23,19 @@ class ComplaintBuildingAssetsController < ApplicationController
     else
       render :action=>'new'
     end
+
   end
 
   def update
     @complaint_building_asset=ComplaintBuildingAsset.find_by_id(params[:id])
-    @name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id)
-    @demage_name = DamageType.find_by_id(@complaint_building_asset.building_asset_type_id)
+    @category_name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id) if @complaint_building_asset.building_asset_type_id
+    @type_name = BuildingAssetType.find_by_id(@complaint_building_asset.type_id)
     @item_name = BuildingAssetType.find_by_id(@complaint_building_asset.item_id)
     @complaint_building_asset.update_attributes(params[:complaint_building_asset])
     
     if @complaint_building_asset.update_attributes(params[:complaint_building_asset])
       ict_email = User.find_by_id(@complaint_building_asset.forward_to)
-      UserMailer.complaint_building_asset(ict_email, @complaint_building_asset, @name, @demage_name, @item_name, current_user).deliver
+      UserMailer.complaint_building_asset(ict_email, @complaint_building_asset, @category_name, @type_name, @item_name, current_user).deliver
 
       redirect_to(complaint_building_assets_path, :notice => 'Complained Building Asset Status has been updated and Mail has been sent successfully')
     else
@@ -51,6 +52,15 @@ class ComplaintBuildingAssetsController < ApplicationController
     if !params[:id].nil?
       @complaint_building_asset=ComplaintBuildingAsset.find(params[:id])
     end
+  end
+
+  def get_categories
+    building_asset_types = BuildingAssetType.where("parent_type_id =?",params[:category_id]).order('name asc')
+    render :json=>[building_asset_types] if building_asset_types
+  end
+  def get_categories_types
+    building_asset_types = BuildingAssetType.where("parent_type_id =?",params[:category_type_id]).order('name asc')
+    render :json=>[building_asset_types] if building_asset_types
   end
 
 end

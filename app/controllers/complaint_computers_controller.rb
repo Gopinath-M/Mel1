@@ -52,4 +52,16 @@ class ComplaintComputersController < ApplicationController
       @complaint_computer=ComplaintComputer.find(params[:id])
     end
   end
+
+  def get_system_types
+    system_accesses = SystemAccess.where("complaint_type_id =?", params[:system_access_id]).order('name asc')
+    render :json=>[system_accesses ] if system_accesses
+
+
+  end
+  def get_system_items
+    system_model_types = SystemModelType.where("system_access_id =?",params[:system_model_type_id]).order('name asc')
+    render :json=>[system_model_types] if system_model_types
+  end
+
 end
