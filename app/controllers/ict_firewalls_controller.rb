@@ -7,7 +7,7 @@ class IctFirewallsController < ApplicationController
     if current_user.is_resource_manager? 
       @ict_firewalls = IctFirewall.find(:all, :conditions => ["status != 'New'"])
     elsif current_user.is_department_admin?
-      @ict_firewalls = IctNetworkPoint.where(:department_id => current_user.departments)
+      @ict_firewalls = IctFirewall.where(:department_id => current_user.departments)
     else
       @ict_firewalls = IctFirewall.find(:all,:conditions=>["user_id = ? or incharge_person = ?",current_user.id,current_user.id])
     end

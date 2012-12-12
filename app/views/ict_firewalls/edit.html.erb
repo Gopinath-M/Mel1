@@ -172,7 +172,7 @@
             <script>
               function validate_ict_request_approval_form()
               {
-                if ($("#forward_to").val() == "")
+                if ($("#forward_to").val() == "" && $("#approve_status").val() == "Approved")
                 {
                   alert("Select a InCharge Person");
                   return false;
