@@ -3,7 +3,7 @@ class CreateComplaintBuildingAssets < ActiveRecord::Migration
     create_table :complaint_building_assets do |t|
       t.references :building_asset_type
       t.references :user
-      t.references :damage_type
+      t.integer :type_id
       t.integer :item_id
       t.string :location
       t.integer :serial_no

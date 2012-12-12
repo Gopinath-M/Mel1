@@ -3,6 +3,7 @@ class CreateSystemAccesses < ActiveRecord::Migration
     create_table :system_accesses do |t|
       t.text :name
       t.boolean :is_active
+      t.references :complaint_type
       t.timestamps
     end
   end
