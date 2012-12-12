@@ -1,6 +1,6 @@
 <%= form_for IctFirewall.new do |f|%>
   <%=f.error_messages%>
-
+  <%= hidden_field_tag :department_id, (current_department) %>
   <div class="form-sec-row">
     <label class="text">Source Ip<span style=color:red>*</span></label>
     <input class="source_ip" id="source1" type="text"  maxlength="3" size="3" name="s1" onkeypress="return isNumberKey(event);" onkeyup="autoTab(event, this, s2);">&nbsp;-
