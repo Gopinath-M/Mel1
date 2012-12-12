@@ -123,11 +123,11 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
         {
             $("#tabs").tabs();
         }
-        $("input").watermark({
-            placeholder: function() {
-                return $(".formRow label[for=" + this.id + "]").hide().text();
-            }
-        });
+//        $("input").watermark({
+//            placeholder: function() {
+//                return $(".formRow label[for=" + this.id + "]").hide().text();
+//            }
+//        });
         $("input[type='text']").watermark({
             placeholder: function() {
                 return $(".formRow label[for=" + this.id + "]").hide().text();
@@ -1105,7 +1105,7 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
     var i = $('input').size() + 1;
 
     $('#add').click(function() {
-        $('<div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div>Serial No </div><div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
         i++;
     });
     //<input type="text" class="field" size=30 name="dynamic[]" value="' + i + '" />
@@ -2116,64 +2116,6 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
     });
     /* Resource Requisition validation for ICT ends*/
 
-/*Dynamic Chance for Resource Req ICT Starts */
-    $("#requisition_type_id").live("change",function(){
-        if ($("#requisition_type_id").val() == "1"){
-            $("#network_for_ict").show();
-            $("#show_text").hide();
-            $("#firewall_for_ict").hide();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").hide();
-        }
-        else if ($("#requisition_type_id").val() == "2"){
-            $("#network_for_ict").hide();
-            $("#show_text").hide();
-            $("#firewall_for_ict").show();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").hide();
-        }
-        else if ($("#requisition_type_id").val() == "3"){
-            $("#network_for_ict").hide();
-            $("#show_text").hide();
-            $("#firewall_for_ict").hide();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").show();
-        }
-        else if ($("#requisition_type_id").val() == "4"){
-            $("#network_for_ict").hide();
-            $("#firewall_for_ict").hide();
-            $("#show_text").hide();
-            $("#hardware_for_ict").show();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").hide();
-        }
-        else if ($("#requisition_type_id").val() == "5"){
-            $("#network_for_ict").hide();
-            $("#firewall_for_ict").hide();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").show();
-            $("#show_text").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").hide();
-        }
-        else if ($("#requisition_type_id").val() == "6"){
-            $("#network_for_ict").hide();
-            $("#show_text").hide();
-            $("#firewall_for_ict").hide();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").show();
-            $("#vpn_for_ict").hide();
-        }
-    });
-/*Dynamic Chance for Resource Req ICT Ends */
 
 
 })
@@ -2493,3 +2435,152 @@ $("#edit_for_agency").live("click",function(){
         alert(data);
     });
 });
+/* Complaints - Building Assets */
+    $("#complaint_building_asset_building_asset_type_id").live("change", function(){
+        if($("#complaint_building_asset_building_asset_type_id").val()!="")
+        {
+            $.get("/complaint_building_assets/get_categories",{
+                category_id : $("#complaint_building_asset_building_asset_type_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#complaint_building_asset_type_id').find('option').remove().end()
+                    $('#complaint_building_asset_type_id').append($("<option></option>").attr("value","").text("SELECT A TYPE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#complaint_building_asset_type_id').append($("<option></option>").attr("value",data[0][i].building_asset_type.id).text(data[0][i].building_asset_type.name));
+                    }
+                }
+            })
+        }
+
+       });
+
+  $("#complaint_building_asset_type_id").live("change", function(){
+        if($("#complaint_building_asset_type_id").val()!="")
+        {
+            $.get("/complaint_building_assets/get_categories_types",{
+                category_type_id : $("#complaint_building_asset_type_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#complaint_building_asset_item_id').find('option').remove().end()
+                    $('#complaint_building_asset_item_id').append($("<option></option>").attr("value","").text("SELECT A ITEM"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#complaint_building_asset_item_id').append($("<option></option>").attr("value",data[0][i].building_asset_type.id).text(data[0][i].building_asset_type.name));
+                    }
+                }
+            })
+        }
+
+       });
+ /* End Complaint - Building Assets */
+
+ /* Complaints - Computers */
+    $("#complaint_computer_complaint_type_id").live("change", function(){
+        if($("#complaint_computer_complaint_type_id").val()!="")
+        {
+            $.get("/complaint_computers/get_system_types",{
+                system_access_id : $("#complaint_computer_complaint_type_id").val()
+            }, function(data){
+                  if (data[0]!=null)
+                {
+                    $('#complaint_computer_system_access_id').find('option').remove().end()
+                    $('#complaint_computer_system_access_id').append($("<option></option>").attr("value","").text("SELECT AN ITEM / SYSTEM TYPE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#complaint_computer_system_access_id').append($("<option></option>").attr("value",data[0][i].system_access.id).text(data[0][i].system_access.name));
+                    }
+                }
+            })
+        }
+
+       });
+
+  $("#complaint_computer_system_access_id").live("change", function(){
+        if($("#complaint_computer_system_access_id").val()!="")
+        {
+            $.get("/complaint_computers/get_system_items",{
+                system_model_type_id : $("#complaint_computer_system_access_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+
+                    $('#complaint_computer_system_model_type_id').find('option').remove().end()
+                    $('#complaint_computer_system_model_type_id').append($("<option></option>").attr("value","").text("SELECT A MODEL ITEM / SYSTEM"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#complaint_computer_system_model_type_id').append($("<option></option>").attr("value",data[0][i].system_model_type.id).text(data[0][i].system_model_type.name));
+                    }
+                }
+            })
+        }
+
+       });
+
+
+       /* End Complaint - Computers */
+
+
+       /*Dynamic Chance for Resource Req ICT Starts */
+    $("#requisition_type_id").live("change",function(){
+        if ($("#requisition_type_id").val() == "1"){
+            $("#network_for_ict").show();
+            $("#show_text").hide();
+            $("#firewall_for_ict").hide();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").hide();
+        }
+        else if ($("#requisition_type_id").val() == "2"){
+            $("#network_for_ict").hide();
+            $("#show_text").hide();
+            $("#firewall_for_ict").show();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").hide();
+        }
+        else if ($("#requisition_type_id").val() == "3"){
+            $("#network_for_ict").hide();
+            $("#show_text").hide();
+            $("#firewall_for_ict").hide();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").show();
+        }
+        else if ($("#requisition_type_id").val() == "4"){
+            $("#network_for_ict").hide();
+            $("#firewall_for_ict").hide();
+            $("#show_text").hide();
+            $("#hardware_for_ict").show();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").hide();
+        }
+        else if ($("#requisition_type_id").val() == "5"){
+            $("#network_for_ict").hide();
+            $("#firewall_for_ict").hide();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").show();
+            $("#show_text").hide();
+            $("#system_access_for_ict").hide();
+            $("#vpn_for_ict").hide();
+        }
+        else if ($("#requisition_type_id").val() == "6"){
+            $("#network_for_ict").hide();
+            $("#show_text").hide();
+            $("#firewall_for_ict").hide();
+            $("#hardware_for_ict").hide();
+            $("#software_for_ict").hide();
+            $("#system_access_for_ict").show();
+            $("#vpn_for_ict").hide();
+        }
+    });
+/*Dynamic Chance for Resource Req ICT Ends */
+

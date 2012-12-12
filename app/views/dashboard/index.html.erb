@@ -29,14 +29,14 @@
   <%end%>
 
   <h3 class="b-head">Today's News</h3><marquee behavior="scroll" direction="left" style="background: #f2f2f2;border-bottom: 1px solid #CCCCCC;
-    border-top: 1px solid #CCCCCC;
-    padding: 5px 0;"> Melaka State adopts Red Hat virtualization and Linux operating system; security, reliability and cost key factors in win
+                                               border-top: 1px solid #CCCCCC;
+                                               padding: 5px 0;"> Melaka State adopts Red Hat virtualization and Linux operating system; security, reliability and cost key factors in win
     Opens Center of Excellence in a bid to train more open source professionals, boosting skill sets for future
   </marquee><br /><br /><h3 class="b-head">Dashboard</h3>
   <div id="tabs">
     <ul>  
       <%if current_user && (current_user.is_super_admin? || current_user.is_department_admin?)%>
-                          <!--li><a href="#tabs-1"><%#=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li-->
+                            <!--li><a href="#tabs-1"><%#=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li-->
         <li><a href="#tabs-1">Messages</a></li>
         <li><a href="#tabs-2">User Transfer Request</a></li>
         <li><a href="#tabs-3">Complaints</a></li>

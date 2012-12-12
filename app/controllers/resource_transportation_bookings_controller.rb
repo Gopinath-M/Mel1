@@ -29,8 +29,8 @@ class ResourceTransportationBookingsController < ApplicationController
       @resource_transportation_booking.requester_id = current_user.id
       @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
       @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
-      @resource_transportation_booking.save
-      redirect_to resource_transportation_bookings_path
+      @resource_transportation_booking.save      
+      redirect_to(resource_transportation_bookings_path, :notice => "Your Transport booking has been created sucessfully.")
     else
       if !current_user.is_super_admin?
         @category = CategoriesDepartments.where(:category_id=> 7,:department_id=> current_user.role_memberships.where(:default_dept => true).first.department.id)
@@ -97,7 +97,7 @@ class ResourceTransportationBookingsController < ApplicationController
       @resource_transportation_booking.update_attribute(:status,'Declined')
     end
     
-    redirect_to approve_request_resource_transportation_bookings_path
+    redirect_to(approve_request_resource_transportation_bookings_path, :notice => 'Transport Booking Status has been successfully updated.')
   end
 
   # Retrieve the Vehicles List for the Vehicle Type

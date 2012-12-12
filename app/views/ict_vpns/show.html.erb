@@ -107,11 +107,11 @@
           <span class="in-box">
             <%=image_tag(@ict_vpn.vpn_attachment.url,:title=>@ict_vpn.vpn_attachment)%>
           <%else%>
-            <% file = (@ict_vpn.vpn_attachment).url(:profile).split("/").last %>
-            <b>&nbsp;<%= file %></b>
+            <% file = (@ict_vpn.vpn_attachment).url.split("/").last %>
+            <b>&nbsp;<%= link_to file, download_attachments_ict_vpns_path(:id=>@ict_vpn.id) if @ict_vpn.vpn_attachment?  %></b>
           </span>
         <%end%>
-      <%end%>
+      <%end%><br/>
     </div>
     <h2 class="b-head"></h2>
     <% if @ict_vpn.status == "Approved" || @ict_vpn.status == "Processed" || @ict_vpn.status == "Declined"%>

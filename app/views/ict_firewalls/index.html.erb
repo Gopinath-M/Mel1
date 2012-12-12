@@ -1,8 +1,10 @@
 <div class="CenterNav">
   <h2 class="b-head">Manage Resource Requisition</h2>
+  <% if current_user.is_department_user? %>
   <div class="create-user">
     <div class="cu-c1"><a href="/ict_network_points/list_to_select_ict" title="Create Requisition for ICT "><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Requisition for ICT</a></div>
   </div>
+  <%end%>
 
   <div id="div_ajax" >
     <%if @ict_firewalls && !@ict_firewalls.empty?%>
@@ -35,7 +37,7 @@
                     <%= link_to "Approve Request",  edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                   </span>
                 <%end%>
-              <%elsif resource.user_id == current_user.id %>
+              <%elsif resource.incharge_person == current_user.id %>
                 <%if resource.status == "Approved"%>
                   <span class="in-box">
                     <%= link_to "Process Request",  edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%>

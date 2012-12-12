@@ -2,10 +2,9 @@
   <div class="CenterNav">
     <h2 class="b-head">Requisition ICT - VPN</h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-    <div class="create-user">
+   <div class="create-user">
     <div class="cu-c1"><a href="/ict_network_points/list_to_select_ict" title="Create Requisition for ICT "><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Requisition for ICT</a></div>
-
-    </div>
+  </div>
   <%end%>
   <div id="div_ajax" >
     <%if @ict_vpn && !@ict_vpn.empty?%>
@@ -35,7 +34,7 @@
             <div class="m-c3">
               <% if current_user.is_department_admin? || current_user.is_super_admin? %>
                 <span class="in-box">
-                  <%= link_to "Approve Request", approval_ict_vpns_path(:id => ict_vpn.id), :class=>"btn2 in-btn2"%>
+                  <%= link_to "Approve", approval_ict_vpns_path(:id => ict_vpn.id), :class=>"btn2 in-btn2"%>
                 </span>
               <%end%>
             </div>
