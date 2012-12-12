@@ -1,6 +1,5 @@
 <%= form_for(IctNetworkPoint.new, :html => { :method => :post, :multipart => true }) do |f| %>
   <%=f.error_messages%>
-  <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
     <%= hidden_field_tag :user_id, (current_user.id) %>
     <%= hidden_field_tag :department_id, (current_department) %>
