@@ -1,58 +1,106 @@
 <div class="CenterNav">
   <h2 class="b-head">Resource Transport Approval List</h2>
   <div id="div_ajax" >
-    <%if @resource_transportation_bookings && !@resource_transportation_bookings.empty? %>
-      <%  @resource_transportation_bookings.each do |resource_transportation_booking| %>
+    <%if @resource_transportation_bookings && !@resource_transportation_bookings.empty?%>
+      <%  @resource_transportation_bookings.each do |resource_transportation_booking|%>
+
         <div class="manage-user box">
-          <div class="manage-user-row box">
-            <div class="mu-c1">
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>Name</b>
             </div>
-            <% requester = User.find(resource_transportation_booking.requester_id) %>
-            <div class="mu-c2">
-              <p class="head1"><b>Name : &nbsp; <%= requester.first_name %></b></p>
-              <p class="head1"><b>Car Type : &nbsp;<%= resource_transportation_booking.sub_category.name %><b/></p>
-              <p class="head1"><b>Ticket No : &nbsp; <%= resource_transportation_booking.id.to_s+'/'+Time.now.year.to_s %></b></p>
-              <p class="head1"><b>From Date : &nbsp;<%= resource_transportation_booking.requested_from_date.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
-              <p class="head1"><b>To Date : &nbsp;<%= resource_transportation_booking.requested_to_date.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
-              <p class="head1"><b>Booked Date : &nbsp;<%= resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p") %><b/></p>
+            <div class="m-c2">
+              <%= User.find_by_id(resource_transportation_booking.requester_id).username %>
             </div>
-            <div class="form-sec-row">
-              <b><font color='#329C20'><%= "#{resource_transportation_booking.status}" %></font></b>
-            </div>
-
-            <div class="form-sec-row">
-              <span class="in-box">
-                <% if current_user && (current_user.is_department_admin? || current_user.is_super_admin? || current_user.is_resource_manager?) %>
-                  <% if resource_transportation_booking.status == "New" %>
-                    <%= link_to "Approve Request",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id), :class=>"btn2 in-btn2" %>
-                  <%else%>
-                    <% if resource_transportation_booking.status == "Approved" %>
-                      <%= (link_to "Process Request", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id),:class=>"btn2 in-btn2") if current_user.is_resource_manager? %><br/><br/>
-                    <% elsif (resource_transportation_booking.status == "Processed" && resource_transportation_booking.resource_returned_from_user?) %>
-                      <%= (link_to "Return Acknowledge", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id),:class=>"btn2 in-btn2") if current_user.is_resource_manager? %><br/><br/>
-                    <%end%>
-                    <%= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking)%>
-                  <%end%>
-                <%else%>
-                  <% if (@approver.user_id.to_i == current_user.id || @approver_second.user_id.to_i == current_user.id)%>
-                    <%= link_to "Approve Request",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id),:class=>"btn2 in-btn2" %>
-                  <%end%>
-                <%end%>
-
-                <% if current_user && (current_user.is_department_user?) %>
-                  <% if (resource_transportation_booking.requester_id == current_user.id) %>
-                    <%= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking)%>
-                  <%end%>
-                <%end%>
-
-              </span>
+            <div class="m-c3">
+              <% if resource_transportation_booking.status == "New"%><b><font color='#FFA500'><%= "#{resource_transportation_booking.status}" %></font></b><% elsif resource_transportation_booking.status == "Approved" || resource_transportation_booking.status == "Processed"  %>  <b><font color='#329C20'><%= "#{resource_transportation_booking.status}" %> </font></b><% elsif resource_transportation_booking.status == "Declined" || resource_transportation_booking.status == "Returned"  %>  <b><font color='red'><%= "#{resource_transportation_booking.status}" %> </font></b><% end %>
             </div>
           </div>
+          <div class="clear"></div>
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>Car Type</b>
+            </div>
+            <div class="m-c2">
+              &nbsp;<%= SubCategory.find_by_id(resource_transportation_booking.sub_category_id).name%>
+            </div>
+            <div class="m-c3">
+              <div class="form-sec-row">
+                <span class="in-box">
+                  <% if current_user && (current_user.is_department_admin? || current_user.is_super_admin? || current_user.is_resource_manager?) %>
+                    <% if resource_transportation_booking.status == "New" %>
+                      <%= link_to "Approve",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id), :class=>"btn2 in-btn2" %>
+                    <%else%>
+                      <% if resource_transportation_booking.status == "Approved" %>
+                        <%= (link_to "Process", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id),:class=>"btn2 in-btn2") if current_user.is_resource_manager? %>
+                      <% elsif (resource_transportation_booking.status == "Processed" && resource_transportation_booking.resource_returned_from_user?) %>
+                        <%= (link_to "Return Acknowledge", request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id),:class=>"btn2 in-btn2") if current_user.is_resource_manager? %><br/><br/>
+                      <%end%>
+                      <%#= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking)%>
+                    <%end%>
+                  <%else%>
+                    <% if (@approver.user_id.to_i == current_user.id || @approver_second.user_id.to_i == current_user.id) && resource_transportation_booking.status == "New"%>
+                      <%= link_to "Approve",request_view_resource_transportation_bookings_path(:id=>resource_transportation_booking.id),:class=>"btn2 in-btn2" %>
+                    <%end%>
+                  <%end%>
+
+                  <% if current_user && (current_user.is_department_user?) %>
+                    <% if (resource_transportation_booking.requester_id == current_user.id) %>
+                      <%= link_to "Show Info", resource_transportation_booking_path(resource_transportation_booking)%>
+                    <%end%>
+                  <%end%>
+
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="clear"></div>
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>Ticket No</b>
+            </div>
+            <div class="m-c2">
+              <font color="red"><b>&nbsp;<%= resource_transportation_booking.id%>/<%=Time.now.year%></b></font>
+            </div>
+            <div class="m-c3">
+              <b><font color="#336699"><%= link_to "Show Info",resource_transportation_booking_path(:id => resource_transportation_booking.id), :method=>:get%></font></b>
+            </div>
+          </div>
+          <div class="clear"></div>
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>From Date</b>
+            </div>
+            <div class="m-c2">
+              &nbsp;<%= resource_transportation_booking.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
+            </div>
+            <div class="m-c3">
+            </div>
+          </div>
+          <div class="clear"></div>
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>To Date</b>
+            </div>
+            <div class="m-c2">
+              &nbsp;<%= resource_transportation_booking.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
+            </div>
+            <div class="m-c3">
+            </div>
+          </div>
+          <div class="clear"></div>
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>Date of Application</b>
+            </div>
+            <div class="m-c2">
+              &nbsp;<%= resource_transportation_booking.created_at.strftime("%d-%m-%Y %H:%M %p")%>
+            </div>
+            <div class="m-c3">
+            </div>
+          </div>
+          <div class="clear"></div>
+          <h2 class="b-head"></h2>
         </div>
-      <%end%><div class="manage-user-rows box"><br/><br/>
-      </div>
-    <%else%>
-      No New Requests
-    <%end%>
+      <%end%><%end%>
   </div>
+
 </div>
