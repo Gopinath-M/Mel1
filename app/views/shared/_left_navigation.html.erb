@@ -45,6 +45,15 @@
                 <%=link_to "Process N/W Request", list_ict_network_ict_network_points_path %>
               <%end%>
             </li>
+            <li>
+              <% process_firewall = IctFirewall.find_all_by_department_id(current_user.departments) %>
+              <% count = IctFirewall.find_all_by_status('Approved').count %>
+              <% firewall = IctFirewall.where(:incharge_person => current_user.id)%>
+              <% if firewall.present? %>
+                <% if process_firewall.present? %><span class="notifiNo"><%= count %></span><%end%>
+                <%=link_to "Process F/W Request", ict_firewalls_path %>
+              <%end%>
+            </li>
             <% @network = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
             <% count = IctNetworkPoint.find_all_by_status('New').count %>
             <% @approve = Approver.find_all_by_department_id(current_user.departments).first%>
@@ -505,13 +514,16 @@
                       <ul>
 
                         <% if current_role == DISP_USER_ROLE_DEPT_ADMIN  %>
-
-                          <li>          
+                          <li>
                             <%=link_to "Software Request", software_installations_path%>
                           </li>
-                          <li>          
+                          <% firewall_count = IctFirewall.find_all_by_department_id_and_status(current_user.departments,'New').count %>
+
+                          <li>
+                            <span class="notifiNo"><%= firewall_count %></span>
                             <%=link_to "Firewall Request", ict_firewalls_path %>
                           </li>
+
                           <% @list = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
                           <% count = IctNetworkPoint.find_all_by_status('New').count %>
                           <li>
