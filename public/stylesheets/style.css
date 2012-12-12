@@ -387,7 +387,7 @@ span.in-box2  { padding: 5px; width: 132%;}
 .manage-user-rows .m-c2{ float:left; width:34%; margin-left:10px; }
 .manage-user-rows .m-c3{ float:right; width:24%; }
 
-heading_blue{color:#369;}
+.heading_blue{color:#369;}
 
 .app-table{border:1px solid #FEC2C0; border-right: 0px;}
 .app-table th{ background: #FEC2C0; padding:2px;border-right:1px solid #FEC2C0; }
