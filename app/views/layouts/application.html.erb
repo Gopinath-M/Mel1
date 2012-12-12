@@ -12,8 +12,11 @@
     <%= stylesheet_link_tag 'global' %>
     <%= javascript_include_tag 'jquery.min' %>
     <%if controller_name.to_s!="sessions"%>
-      <%= javascript_include_tag 'jquery_ui.js'%>
-      <%= stylesheet_link_tag 'jquery-ui' %>
+      <%#= javascript_include_tag 'jquery_ui.js'%>
+      <%#= stylesheet_link_tag 'jquery-ui' %>
+    <!-- Tab -->
+  <%= javascript_include_tag 'tabber.js'%>
+      <%= stylesheet_link_tag 'tab.css' %>
     <%end%>
     <%= javascript_include_tag 'rails' %>
     <%= javascript_include_tag 'slides.min.jquery' %>
