@@ -7,7 +7,7 @@ class IctFirewallsController < ApplicationController
     if current_user.is_resource_manager? 
       @ict_firewalls = IctFirewall.find(:all, :conditions => ["status != 'New'"])
     elsif current_user.is_department_admin?
-      @ict_firewalls = IctFirewall.all
+      @ict_firewalls = IctNetworkPoint.where(:department_id => current_user.departments)
     else
       @ict_firewalls = IctFirewall.find(:all,:conditions=>["user_id = ? or incharge_person = ?",current_user.id,current_user.id])
     end
@@ -22,9 +22,9 @@ class IctFirewallsController < ApplicationController
     @ict_firewall = IctFirewall.create(params[:ict_firewall])
     @ict_firewall.user_id = current_user.id
     @ict_firewall.source_ip = params[:s1]+'.'+params[:s2]+'.'+params[:s3]+'.'+params[:s4]
-    @ict_firewall.destination_ip = params[:d1]+'.'+params[:d2]+'.'+params[:d3]+'.'+params[:d4]
-    #@ict_firewall.facility_type = params[:requisition_type_id]
+    @ict_firewall.destination_ip = params[:d1]+'.'+params[:d2]+'.'+params[:d3]+'.'+params[:d4]    
     @ict_firewall.status = 'New'
+    @ict_firewall.department_id = params[:department_id]
     @ict_firewall.requisition_type_id = '2'
     @ict_firewall.requested_from_date = params[:ict_firewall][:requested_from_date].to_datetime
     @ict_firewall.requested_to_date = params[:ict_firewall][:requested_to_date].to_datetime
@@ -48,10 +48,12 @@ class IctFirewallsController < ApplicationController
   def update
     @ict_firewall = IctFirewall.find(params[:id])
   
-    if params[:approved].to_s == 'approved'
-      t = true
-    else
-      t = false
+    if @ict_firewall.status == "New"
+      if params[:ict_firewall][:status].to_s == 'Approve'
+        t = true
+      else
+        t = false
+      end
     end
   
     if @ict_firewall.status == 'New'

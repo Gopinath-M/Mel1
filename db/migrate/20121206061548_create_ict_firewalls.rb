@@ -8,6 +8,7 @@ class CreateIctFirewalls < ActiveRecord::Migration
       t.datetime :requested_to_date
       t.text :justification
       t.references :user
+      t.references :department
       t.text :remarks
       t.string :status
       t.integer :incharge_person
