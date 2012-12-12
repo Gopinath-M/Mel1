@@ -22,8 +22,7 @@ class IctFirewallsController < ApplicationController
     @ict_firewall = IctFirewall.create(params[:ict_firewall])
     @ict_firewall.user_id = current_user.id
     @ict_firewall.source_ip = params[:s1]+'.'+params[:s2]+'.'+params[:s3]+'.'+params[:s4]
-    @ict_firewall.destination_ip = params[:d1]+'.'+params[:d2]+'.'+params[:d3]+'.'+params[:d4]
-    #@ict_firewall.facility_type = params[:requisition_type_id]
+    @ict_firewall.destination_ip = params[:d1]+'.'+params[:d2]+'.'+params[:d3]+'.'+params[:d4]    
     @ict_firewall.status = 'New'
     @ict_firewall.requisition_type_id = '2'
     @ict_firewall.requested_from_date = params[:ict_firewall][:requested_from_date].to_datetime
@@ -48,7 +47,7 @@ class IctFirewallsController < ApplicationController
   def update
     @ict_firewall = IctFirewall.find(params[:id])
   
-    if params[:approved].to_s == 'approved'
+    if params[:ict_firewall][:status].to_s == 'Approve'
       t = true
     else
       t = false
