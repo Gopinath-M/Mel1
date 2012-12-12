@@ -123,11 +123,11 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
         {
             $("#tabs").tabs();
         }
-        $("input").watermark({
-            placeholder: function() {
-                return $(".formRow label[for=" + this.id + "]").hide().text();
-            }
-        });
+//        $("input").watermark({
+//            placeholder: function() {
+//                return $(".formRow label[for=" + this.id + "]").hide().text();
+//            }
+//        });
         $("input[type='text']").watermark({
             placeholder: function() {
                 return $(".formRow label[for=" + this.id + "]").hide().text();
