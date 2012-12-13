@@ -3,19 +3,25 @@ class ResourceBookingsController < ApplicationController
   
   def new
     @resource_booking=ResourceBooking.new
+#    @booking = CategoriesDepartments.where("id != 6 and id != 7 and id !=8", :department_id=> current_user.departments.first.id)
   end
 
   def create
     agency = AgencyStore.find_by_resource_id(params[:resource_booking][:resource_id])
      if !agency.nil?
       if agency.booked == false
+    agency.update_attribute(:booked, true)
     resource_booking=ResourceBooking.create(params[:resource_booking])
     resource_booking.category_id = params[:other_booking_category][:id]
     resource_booking.sub_category_id = params[:other_booking_sub_category][:id]
     resource_booking.department_id = params[:department_id]
     resource_booking.user_id=current_user.id
     resource_booking.agency_store_id = agency.id
-    resource_booking.status = "New"
+     if current_user.is_super_admin? || current_user.is_department_admin?
+          resource_booking.status = "Approved"
+        else
+          resource_booking.status = "New"
+        end
     resource_booking.save
     @approve = Approver.active.find_all_by_department_id(current_user.departments).first
         dept = Department.find_by_id(params[:department_id])
@@ -92,7 +98,7 @@ class ResourceBookingsController < ApplicationController
       elsif @approver_second.present?
         @booking = ResourceBooking.where(:department_id => @approver_second.department_id)
       else
-        @booking = ResourceBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(10)
+        @booking = ResourceBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(5)
       end
     end
   end
@@ -120,6 +126,12 @@ class ResourceBookingsController < ApplicationController
     end
     @resource_booking = ResourceBooking.find_by_id(params[:resource_book_id])
     @resource_booking.update_attributes(params[:resource_booking])
+     ordered_user = User.find_by_id(others.user_id)
+    resource_manager = RoleMembership.find_by_department_id(others.department_id, :conditions=>["role_id = ?", 5])
+    if resource_manager.present?
+      user = User.find_by_id(resource_manager.user_id)
+      UserMailer.send_status_mail_for_others_booking(user,ordered_user,others).deliver
+    end
     redirect_to(list_resource_booking_resource_bookings_path, :notice => 'Your Resource Booking Status has been successfully updated.')
   end
   def user_return
@@ -146,5 +158,14 @@ class ResourceBookingsController < ApplicationController
   def download_attachments
     @download = ResourceBooking.find(params[:id])
     send_file @download.attachment.path
+  end
+
+  def get_list_of_facility
+    facilities = Facility.active.find_all_by_resource_id(params[:resource_id])
+    render :json=>[facilities] if facilities
+  end
+   def get_details_for_resource
+    resources = Resource.find(params[:resource_id])
+    render :json=>[resources] if resources
   end
 end
