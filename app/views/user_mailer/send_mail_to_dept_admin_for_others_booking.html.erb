@@ -45,13 +45,13 @@
                       <b>Ticket No</b>
                     </td>
                     <td><font color="red" size="3"><b>&nbsp;<%= @requisition.id %>/<%=Time.now.year%></b></font></td>
-                  </tr>
+                  </tr><%if @requisition.created_at != nil%>
                   <tr>
                     <td>
                       <b>Date of Application</b>
                     </td>
                     <td>&nbsp;<%= @requisition.created_at.strftime("%a %d %b %Y %I:%M %p")%></td>
-                  </tr>
+                  </tr><%end%>
                   <tr>
                     <td><b>Quantity</b></td>
                     <td>&nbsp;<%= @requisition.quantity %>
