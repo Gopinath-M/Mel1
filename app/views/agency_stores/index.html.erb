@@ -28,20 +28,20 @@
       <%@stores.each do |store|%>
         <div class="manage-user box">
           <div class="manage-user-row box">
-            <div class="mu-c2">
+            <div class="mu-c2" width="45%">
               <%resource = Resource.find_all_by_id(store.resource_id)%>
               <%sub_category = SubCategory.find_all_by_id(store.sub_category_id)%>
               <p class="head1">Resource Type :&nbsp;<%=store.resource_type%></p>
+              <%if store.category_id?%>
+                <%category = Category.find_all_by_id(store.category_id)%>
+              <p class="head1">Category:&nbsp;<%=category[0].name.camelize%></p>
+              <%end%>
+              <p class="head1">Sub Category:&nbsp;<%=sub_category[0].name.camelize%></p>
               <%if store.resource_type == 'ICT'%>
               <p class="head1">Serial No   :&nbsp;<%=store.serial_no%></p>
               <%else%>
               <p class="head1">Resource No   :&nbsp;<%=resource[0].resource_no%></p>
               <%end%>
-              <%if store.category_id?%>
-                <%category = Category.find_all_by_id(store.category_id)%>
-                <p class="head1">Category:&nbsp;<%=category[0].name.camelize%></p>
-              <%end%>
-              <p class="head1">Sub Category:&nbsp;<%=sub_category[0].name.camelize%></p>
               <%if store.quantity?%>
                 <p class="head1">Quantity:&nbsp;<%=store.quantity%></p>
               <%end%>

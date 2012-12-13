@@ -179,4 +179,11 @@ class UserMailer < ActionMailer::Base
     @software_installation = software_installation
     mail(:to=>@user.email,:subject =>" Details of ICT Software Installation")
   end
+
+  def send_status_mail_for_others_booking(user,ordered_user,room)
+    @user=user
+    @ordered_user=ordered_user
+    @requisition=room
+    mail(:to=>@user.email,:subject =>"Others Resource Booking Status Update",:bcc=>@ordered_user.email)
+  end
 end

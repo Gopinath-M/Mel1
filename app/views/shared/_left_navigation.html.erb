@@ -683,9 +683,10 @@
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_USER)%>
                 <% @room_list = ResourceRoomBooking.find_all_by_department_id(current_user.departments) %>
                 <% @transport_list = ResourceTransportationBooking.find_all_by_department_id(current_user.departments) %>
+                <% @others_list = ResourceBooking.find_all_by_department_id(current_user.departments) %>
                 <% room_count = ResourceRoomBooking.find_all_by_status('New').count %>
                 <% transport_count = ResourceTransportationBooking.find_all_by_status('New').count %>
-
+                <% others_count = ResourceBooking.find_all_by_status('New').count %>
                 <% @approve = Approver.find_by_department_id(current_user.departments)%>
                 <% if @approve.present? && @approve.user_id == current_user.id %>
                   <li>
@@ -697,6 +698,12 @@
                       <span class="notifiNo"><%= transport_count %></span>
                     <%end%>
                     <%=link_to "Transport List", approve_request_resource_transportation_bookings_path %>
+                  </li>
+                  <li>
+                    <%if @others_list.present? %>
+                      <span class="notifiNo"><%= others_count %></span>
+                    <%end%>
+                    <%=link_to "Approve Others", list_resource_booking_resource_bookings_path %>
                   </li>
                 <%end%>
               <%end%>

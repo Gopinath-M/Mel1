@@ -47,6 +47,8 @@
                 <p class="head1">Name :&nbsp;<%=resource.name.camelize%></p>
                 <p class="head1">Brand Model :&nbsp;<%=resource.brand_model%></p>
                 <%elsif resource.resource_type == 'others'%>
+                <%sub_category = SubCategory.find(resource.sub_category_id)%>
+                <p class="head1">Sub Category Name :&nbsp;<%=sub_category.name%></p>
                 <p class="head1">Name :&nbsp;<%=resource.resource_no%></p>
                 <%end%>
               </div>
