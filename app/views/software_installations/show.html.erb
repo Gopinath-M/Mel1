@@ -60,6 +60,20 @@
               </div>
 
               </div>
+     <div class="form-sec-row">
+                  <% if @software_installation.software_attachment.present? %>
+                    <label class="text">Attachment</label>
+                    <% image = @software_installation.software_attachment.url(:profile).split(".").last %>
+                    <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                      <span class="in-box">
+                        <%=image_tag(@software_installation.software_attachment.url(:profile),:title=>@software_installation.software_attachment)%>
+                      <%else%>
+          <b><%= link_to 'Download File', download_attachments_software_installations_path(:id=>@software_installation.id) if @software_installation.software_attachment  %></b>
+
+                      </span>
+                    <%end%>
+                  <%end%>
+                </div>
               <h2 class="b-head"></h2>
 
               <div class="form-sec-row">
@@ -90,7 +104,6 @@
               </div>
               <%@dept = Department.find(default_department)%>
               <%@users = @dept.users%>
-
               <%#*<div class="form-sec-row">%>
                 <%#*<label class="text">Forward To</label>%>
                 <%#*<span class="in-box">%>

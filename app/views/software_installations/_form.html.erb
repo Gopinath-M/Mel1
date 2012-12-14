@@ -5,13 +5,13 @@
   </div>
 
   <%= hidden_field_tag :requisition_type_id, 5 %>
-  <%#*<div class="form-sec-row">%>
-        <%#= f.label :software_attachment,raw("Upload File"), :class=>"text"%>
-        <%#*<span class="in-box">%>
-          <%#= f.file_field :software_attachment%>
-          <%#= f.hidden_field :software_attachment_cache %>
-        <%#*</span>>
-      <%#*</div>%>
+  <div class="form-sec-row">
+        <%= f.label :software_attachment,raw("Upload File"), :class=>"text"%>
+        <span class="in-box">
+          <%= f.file_field :software_attachment%>
+          <%= f.hidden_field :software_attachment_cache %>
+        </span>
+      </div>
   <div class="form-sec-row">
     <label class="text">Software Name<span style=color:red>*</span></label>
     <span class="in-box">

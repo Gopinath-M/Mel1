@@ -4,7 +4,7 @@ class CreateSoftwareInstallations < ActiveRecord::Migration
       t.references :facility_ict_software
       t.references :requisition_type
       t.string :status
-      t.string :attachement
+      t.string :software_attachment
       t.references :user
       t.timestamps
     end

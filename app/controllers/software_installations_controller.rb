@@ -77,10 +77,15 @@ class SoftwareInstallationsController < ApplicationController
    @requisition=RequisitionType.find(@software_installation.requisition_type_id)
     if @software_installation_detail.update_attributes(params[:software_installation])
       software_email = User.find(@software_installation_detail.user_id)
-#      UserMailer.ict_software(software_email, @software_installation_detail, @requisition, current_user).deliver
+      UserMailer.ict_software(software_email, @software_installation_detail, @requisition, current_user).deliver
 #      redirect_to(software_installations_path, :notice => 'Booked Requisition Software Installation has been updated and Mail has been sent successfully')
     else
       render :action=>'new'
     end
+  end
+
+   def download_attachments
+    @download = SoftwareInstallation.find(params[:id])
+    send_file @download.software_attachment.path
   end
 end
