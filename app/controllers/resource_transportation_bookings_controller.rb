@@ -43,12 +43,6 @@ class ResourceTransportationBookingsController < ApplicationController
 
   # For Approval
   def approve_request
-    #get_booking_records
-    #    if current_user.is_department_admin?
-    #      @resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(current_user.departments)
-    #    else
-    #      @resource_transportation_bookings = ResourceTransportationBooking.find(:all, :conditions => ["status != 'New'"])
-    #    end
     if current_user.is_resource_manager?
       @resource_transportation_bookings = ResourceTransportationBooking.find(:all, :conditions => ["status != 'New'"])
       #@resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
@@ -80,8 +74,11 @@ class ResourceTransportationBookingsController < ApplicationController
     @resource_transportation_booking = ResourceTransportationBooking.find(params[:id])
 
     if params[:approve_status] == "Approved"
+      
       approve_scenario(params[:id],params[:vehicle][:id])
+
     elsif params[:approve_status] == "Processed"
+
       if params[:driver][:name] && params[:driver][:name] != ''
         process_scenario_alternate_driver(params[:id],params[:driver][:name])
       else

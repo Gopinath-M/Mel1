@@ -2200,18 +2200,21 @@ function validate_request_approval_form(){
 
 /*Javascripts Ends*/
 
-function change_status(id){
+function transport_resource_from_user(id){
     r = confirm("You are going to return the resource. Confirm ?")
     if (r == true){
         $.get("/resource_transportation_bookings/user_return_status",{
             id : id
-        },function(data){
-            $("#user_box_"+id).html(data);
         });
+        document.getElementById('user_return_request_'+id).style.display='none'
+        document.getElementById('transport_booking_'+id).style.display='block'
+        //,function(data){
+//            $("#user_box_"+id).html(data);
+//        });
     }
     else
     {
-        $('#is_returned').attr('checked', false);
+        $('#user_returned_status'+id).attr('checked', false);
         return false;
     }
 }

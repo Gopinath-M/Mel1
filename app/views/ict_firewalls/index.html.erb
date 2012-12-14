@@ -13,7 +13,7 @@
           <div class="manage-user-rows box">
             <div class="m-c1"><b>Name</b>
             </div>
-            <div class="m-c2">              
+            <div class="m-c-second">
               <%= User.find(resource.user_id).username   %>
             </div>
             <div class="m-c3">
@@ -25,7 +25,7 @@
           <div class="manage-user-rows box">
             <div class="m-c1"><b>Type of Facility</b>
             </div>
-            <div class="m-c2">
+            <div class="m-c-second">
               <% name = RequisitionType.find_by_id(resource.requisition_type_id) %>
               <%=name.name%>
             </div>
@@ -52,7 +52,7 @@
           <div class="manage-user-rows box">
             <div class="m-c1"><b>Ticket No</b>
             </div>
-            <div class="m-c2">
+            <div class="m-c-second">
               <font color="red"><b>&nbsp;<%=resource.id%>/<%=Time.now.year%></b></font>
             </div>
             <div class="m-c3">
@@ -64,7 +64,7 @@
           <div class="manage-user-rows box">
             <div class="m-c1"><b>Date of Application</b>
             </div>
-            <div class="m-c2">
+            <div class="m-c-second">
               &nbsp;<%= resource.created_at.strftime("%a %d %b %Y %I:%M %p")%></font>
             </div>
             <div class="m-c3">

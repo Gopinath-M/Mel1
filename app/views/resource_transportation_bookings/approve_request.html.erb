@@ -84,7 +84,7 @@
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "Approved" %>
                       <%= link_to "Process",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
-                    <%elsif resource_transportation_booking.user_returned_status? && resource_transportation_booking.status != "Returned" && resource_transportation_booking.status != "Declined" %>
+                    <%elsif resource_transportation_booking.resource_returned_from_user? && resource_transportation_booking.status != "Returned" && resource_transportation_booking.status != "Declined" %>
                       <%= link_to "Return",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
