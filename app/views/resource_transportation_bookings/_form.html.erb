@@ -1,4 +1,5 @@
-<% if ((@sub_category && !@sub_category.empty?) || current_user.is_super_admin?) %> <h2 class="b-head">Resource Transportation Bookings</h2>
+<% if ((@sub_category && !@sub_category.empty?) || current_user.is_super_admin?) %> 
+  <h2 class="b-head">Resource Transportation Bookings</h2>
   <%= form_for(@resource_transportation_booking, :as => :resource_transportation_booking,  :url => resource_transportation_bookings_path, :html => {:multipart => true} ,:method=>:post) do |f| %>
     <div class="form-sec">
       <%=f.error_messages%>
@@ -18,17 +19,17 @@
         </div>
       <%end%>
 
-    	<div class="form-sec-row">
-		<label class="text">Resource<span style=color:red>*</span></label>
-		<span class="in-box"> <% if !current_user.is_super_admin? %>
-			<%= f.select(:sub_category_id, SubCategory.where(:category_id=>7,:is_available=>true,:is_active=>true).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A SUB CATEGORY TYPE") %>
-			<%else%>
-			<% as = AgencyStore.find(:all,:select=>["DISTINCT sub_category_id"],:conditions=>["resource_type = 'Transport'"]).collect(&:sub_category_id).join(',') %>
-			<% if !as.blank? %>
-			<%= f.select(:sub_category_id, SubCategory.find(:all,:conditions=>["id in (#{as})"]).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A SUB CATEGORY TYPE") %>
-			<%end%>
-			<%end%> </span>
-	</div>
+      <div class="form-sec-row">
+        <label class="text">Resource<span style=color:red>*</span></label>
+        <span class="in-box"> <% if !current_user.is_super_admin? %>
+            <%= f.select(:sub_category_id, SubCategory.where(:category_id=>7,:is_available=>true,:is_active=>true).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A SUB CATEGORY TYPE") %>
+          <%else%>
+            <% as = AgencyStore.find(:all,:select=>["DISTINCT sub_category_id"],:conditions=>["resource_type = 'Transport'"]).collect(&:sub_category_id).join(',') %>
+            <% if !as.blank? %>
+              <%= f.select(:sub_category_id, SubCategory.find(:all,:conditions=>["id in (#{as})"]).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A SUB CATEGORY TYPE") %>
+            <%end%>
+          <%end%> </span>
+      </div>
 
       <div class="form-sec-row">
         <label class="text">Purpose<span style=color:red>*</span></label>
@@ -96,7 +97,7 @@
     <div class="clear"></div>
   <%end%>
 <%else%>
-    <h2 class="b-head"><%= 'All Vehicles are Reserved. Check after some time.' %></h2>
+  <h2 class="b-head"><%= 'All Vehicles are Reserved. Check after some time.' %></h2>
 <%end%>
 
 

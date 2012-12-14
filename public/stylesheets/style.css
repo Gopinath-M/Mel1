@@ -385,6 +385,7 @@ span.in-box2  { padding: 5px; width: 132%;}
 .manage-user-rows {padding: 5px 0 5px;}
 .manage-user-rows .m-c1{ float:left; width:28%;}
 .manage-user-rows .m-c2{ float:left; width:56%; margin-left:10px; }
+.manage-user-rows .m-c-second{ float:left; width:55%; margin-left:10px; }
 .manage-user-rows .m-c3{ float:right; width:14%; }
 
 .heading_blue{color:#369;}

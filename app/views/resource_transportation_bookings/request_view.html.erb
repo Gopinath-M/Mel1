@@ -233,7 +233,7 @@
                     <tr>
                       <td><b>Vehicle</b></td>
                       <% user = User.find(@resource_transportation_booking.requester_id) %>
-                      <% a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
+                      <% a = AgencyStore.find(:all,:conditions=>["agency_id = ? and sub_category_id = ? and resource_type = ? and booked = ?",current_user.departments[0].agency.id,@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
                       <% if !a.blank? %>
                         <td>
                           <%= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>

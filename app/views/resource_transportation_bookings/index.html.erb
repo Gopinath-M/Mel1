@@ -1,27 +1,24 @@
 <div class="CenterNav">
   <h2 class="b-head">Resource Transport Approval List</h2>
   <div id="div_ajax" >
-
     <%if @resource_transportation_bookings && !@resource_transportation_bookings.empty?%>
-      <%  @resource_transportation_bookings.each do |resource_transportation_booking|%>
+      <% @resource_transportation_bookings.each do |resource_transportation_booking|%>
 
         <div id="user_box_<%= resource_transportation_booking.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Name</b>
-            </div>
-            <div class="m-c2">
+            <div class="m-c1"><b>Name</b></div>
+            <div class="m-c-second">
               <%= User.find_by_id(resource_transportation_booking.requester_id).username %>
             </div>
             <div class="m-c3">
-              <% if resource_transportation_booking.status == "New"%><b><font color='#FFA500'><%= "#{resource_transportation_booking.status}" %></font></b><% elsif resource_transportation_booking.status == "Approved" || resource_transportation_booking.status == "Processed"  %>  <b><font color='#329C20'><%= "#{resource_transportation_booking.status}" %> </font></b><% elsif resource_transportation_booking.status == "Declined" || resource_transportation_booking.status == "Returned"  %>  <b><font color='red'><%= "#{resource_transportation_booking.status}" %> </font></b><% end %>
+              <% if resource_transportation_booking.status == "New"%><b><font color='#FFA500'><%= "#{resource_transportation_booking.status}" %></font></b><% elsif resource_transportation_booking.status == "Approved" || resource_transportation_booking.status == "Processed"  %>  <b><font color='#329C20'><%= "#{resource_transportation_booking.status}" %> </font></b><% elsif resource_transportation_booking.status == "Declined" || resource_transportation_booking.status == "Returned" || resource_transportation_booking.status == "Cancelled" %>  <b><font color='red'><%= "#{resource_transportation_booking.status}" %> </font></b><% end %>
             </div>
           </div>
           <div class="clear"></div>
-
           <div class="manage-user-rows box">
             <div class="m-c1"><b>Car Type</b>
             </div>
-            <div class="m-c2">
+            <div class="m-c-second">
               &nbsp;<%= SubCategory.find_by_id(resource_transportation_booking.sub_category_id).name%>
             </div>
             <div class="m-c3">
@@ -48,7 +45,7 @@
           <div class="manage-user-rows box">
             <div class="m-c1"><b>Ticket No</b>
             </div>
-            <div class="m-c2">
+            <div class="m-c-second">
               <font color="red"><b>&nbsp;<%= resource_transportation_booking.id%>/<%=Time.now.year%></b></font>
             </div>
             <div class="m-c3">
@@ -60,7 +57,7 @@
           <div class="manage-user-rows box">
             <div class="m-c1"><b>From Date</b>
             </div>
-            <div class="m-c2">
+            <div class="m-c-second">
               &nbsp;<%= resource_transportation_booking.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
             </div>
             <div class="m-c3">
@@ -71,7 +68,7 @@
           <div class="manage-user-rows box">
             <div class="m-c1"><b>To Date</b>
             </div>
-            <div class="m-c2">
+            <div class="m-c-second">
               &nbsp;<%= resource_transportation_booking.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
             </div>
             <div class="m-c3">
@@ -82,7 +79,7 @@
           <div class="manage-user-rows box">
             <div class="m-c1"><b>Date of Application</b>
             </div>
-            <div class="m-c2">
+            <div class="m-c-second">
               &nbsp;<%= resource_transportation_booking.created_at.strftime("%d-%m-%Y %H:%M %p")%>
             </div>
             <div class="m-c3">
