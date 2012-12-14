@@ -9,15 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :username
-      t.integer :substantive_post_id      
-      t.integer :service_level_id
-      t.integer :classification_id
-      t.integer :grade_id
-      t.integer :salary_id
-      t.integer :salary_standard_id
-      t.integer :appointment_id
-      t.string :position
-      t.string :official_position     
+      t.integer :substantive_post_id           
       t.string :gender
       t.text :address
       t.text :address
@@ -26,11 +18,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :state
       t.string :contact_phone
       t.string :contact_mobile
-      t.string :fax_number
-      t.date :first_appointment_to_public_service
-      t.date :first_appointment_to_present_position
-      t.date :promotion_to_grad_now
-      t.date :confirmation_date_to_post_now
+      t.string :fax_number      
       t.date :date_of_join
       t.date :date_of_birth    
       t.integer :created_by
