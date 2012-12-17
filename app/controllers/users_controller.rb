@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department]
+  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference]
   
   #Activate or Deactivate a particular User
   def update_status
@@ -280,6 +280,22 @@ class UsersController < ApplicationController
     @users = User.find(:all, :conditions => ["username != ?", current_user.username])
   end
 
-  
+  def user_profile
+    @users = User.find(current_user.id)
+    @users.update_attributes(params[:user])
+    if params[:commit]
+      redirect_to :controller =>'users', :action => 'emergency_reference', :notice => 'Sucessfully completed Stage 1'
+    end
+  end
+  def emergency_reference
+    @emergency_references = EmergencyReference.find(current_user.id)
+    if @emergency_references != nil
+      
+    else
+      @emergency_references = EmergencyReference.new(params[:emergency_reference])
+    end
+    @emergency_references.save
+  end
+
 
 end
