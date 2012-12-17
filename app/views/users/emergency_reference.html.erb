@@ -1,0 +1,65 @@
+<div class="clearfix"></div>
+<div class="CenterNav">
+  <div class="form-sec">
+    <%= form_for(@emergency_references, :url => emergency_reference_users_path, :html => { :method => :put, :multipart => true }) do |f| %>
+      <%=flash[:notice]%>
+      <div class="clearfix">&nbsp;</div>
+      <h2>Head of Department Information</h2>
+      <div class="form-sec-row">
+        Head of Department Name
+        <span class="in-box">
+          <%= current_user.departments.first.name%>
+        </span>
+      </div>
+    <div class="form-sec-row">
+        Head Department Position Title
+        <span class="in-box">
+          <%= current_user.departments.first.name%>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        Head Department Email
+        <span class="in-box">
+          <%= current_user.departments.first.name%>
+        </span>
+      </div>
+        <%= f.hidden_field :user_id, :value=>current_user.id %>
+      <div class="form-sec-row">
+      <%= f.label :name,raw("Name<span style=color:red>*</span>"), :class=>"text"%>
+      <span class="in-box">
+        <%= f.text_field :name, :size => 30, :autofocus => true%>
+      </span>
+    </div>
+  <div class="form-sec-row">
+      <%= f.label :address,raw("Address<span style=color:red>*</span>"), :class=>"text"%>
+      <span class="in-box">
+        <%= f.text_field :address, :size => 30, :autofocus => true%>
+      </span>
+    </div>
+        <div class="form-sec-row">
+      <%= f.label :phone_no,raw("Telephone No<span style=color:red>*</span>"), :class=>"text"%>
+      <span class="in-box">
+        <%= f.text_field :phone_no, :size => 30, :autofocus => true%>
+      </span>
+    </div>
+         <div class="form-sec-row">
+      <%= f.label :relation,raw("Relationship<span style=color:red>*</span>"), :class=>"text"%>
+      <span class="in-box">
+        <%= f.text_field :relation, :size => 30, :autofocus => true%>
+      </span>
+    </div>
+      <div class="form-sec-row">
+        <label class="text">&nbsp;</label>
+        <span class="in-box">
+          <%= f.submit "Update Reference" ,:class=>"btn2"%>
+        </span>
+      </div>
+    </div>
+  </div>
+  <%#*</div>%>
+  <div class="clear"></div>
+  <!--BODY END-->
+<%end%>
+
+
+<div class="clearfix"></div>
