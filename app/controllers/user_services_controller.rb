@@ -1,4 +1,5 @@
 class UserServicesController < ApplicationController
+  before_filter :authenticate_user!
   def index
     @user_services = UserService.all
   end

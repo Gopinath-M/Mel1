@@ -1,4 +1,5 @@
 class OutstationsController < ApplicationController
+  before_filter :authenticate_user!
   def index
     @outstations = Outstation.all
   end
