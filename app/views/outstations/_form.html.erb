@@ -1,0 +1,109 @@
+<%= form_for(@outstation, :as => :outstation,  :url => outstations_path, :method=>:post) do |f| %>
+  <div class="form-sec">
+    <%=f.error_messages%>
+    <div class="clearfix">&nbsp;</div>
+    <h2>Out Station Request</h2>
+
+    <%= hidden_field_tag "outstation[user_id]",current_user.id %>
+
+    <div class="form-sec-row">
+      <%= f.label "Destination", :class=>"text"%>
+      <span class="in-box">
+        <%= f.radio_button :is_out_of_state,'Out of State', :checked => true %> Out of State
+        <%= f.radio_button :is_out_of_state,'Out of Country' %> Out of Country
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <%= f.label "Type", :class=>"text"%>
+      <span class="in-box">
+        <%= f.radio_button :is_official,'Official',:checked => true %> Official
+        <%= f.radio_button :is_official,'Non-Official/Personal' %> Non-Official/Personal
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Place Name <span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.text_field :placename, :size => 30, :autofocus => true%>
+      </span>
+    </div>
+
+    <div id="state_box" class="form-sec-row" style="display:block">
+      <label class="text">State<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.select(:state,options_from_collection_for_select(State.all, 'id','name' ), :prompt => "Select State")%>      </span>
+    </div>
+
+    <div id="country_box" class="form-sec-row" style="display:none">
+      <label class="text">Country<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= country_select("outstation", "country")%>  </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">From Date<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%=f.text_field :from_date ,:readonly=>true %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">To Date<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%=f.text_field :to_date ,:readonly=>true %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Purpose<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%=f.text_area :purpose,:rows=>2 %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Total Expenditure<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%=f.text_field :total_expenditure %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Cause Spending<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%=f.text_field :cause_spending%>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+        <%= f.submit :class=>"btn2", :onclick=>"return validate_state_invalid();",:value=>'Create'%>
+      </span>
+    </div>
+
+  </div>
+<%end%>
+
+
+<script>
+  $().ready(function(){
+    $("#outstation_is_out_of_state_out_of_country").live('change',function(){
+      $("#state_box").hide();
+      $("#country_box").show();
+    });
+
+    $("#outstation_is_out_of_state_out_of_state").live('change',function(){
+      $("#country_box").hide();
+      $("#state_box").show();
+    });
+  });
+
+  function validate_state_invalid(){    
+    if ($("#outstation_state").val() == "Select State"){
+      alert("Please Select State");
+      return false;
+    }
+  }
+</script>
