@@ -29,6 +29,7 @@ Melaka::Application.routes.draw do
   end
   resources :ict_hardware_bookings
   resources :ict_firewalls
+  resources :user_services
   resources :resource_ict_equipment_bookings do
     collection do
       get 'requests'

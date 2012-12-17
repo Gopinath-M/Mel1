@@ -24,7 +24,7 @@
     <%= javascript_include_tag 'slide' %>
     <%= javascript_include_tag 'prayTimes' %>
 <%#*<script type="text/javascript" src="jquery-1.3.2.min.js"></script>%>
-    <%if controller_name.to_s=="resource_bookings" || controller_name.to_s=="resource_transportation_bookings" ||  controller_name.to_s=="ict_vpns" || controller_name.to_s=="resource_requisitions"  || controller_name.to_s=="resource_room_bookings" || controller_name.to_s=="resource_ict_equipment_bookings" || controller_name.to_s=="ict_network_points" || controller_name.to_s=="ict_firewalls" %>
+    <%if controller_name.to_s=="resource_bookings" || controller_name.to_s=="resource_transportation_bookings" ||  controller_name.to_s=="ict_vpns" || controller_name.to_s=="resource_requisitions"  || controller_name.to_s=="resource_room_bookings" || controller_name.to_s=="resource_ict_equipment_bookings" || controller_name.to_s=="ict_network_points" || controller_name.to_s=="ict_firewalls" || controller_name.to_s == "user_services"%>
       <%= javascript_include_tag 'time_tracker_add_on' %>
   <%#= javascript_include_tag 'jquery-ui-sliderAccess'%>
   <%#= javascript_include_tag 'jquery.ui.datepicker' %>
@@ -113,6 +113,20 @@
             dateFormat: "D MM d, yy",
             timeFormat: 'HH:mm:ss'
           });
+        });
+      </script>
+    <%end%>
+
+
+    <%if controller_name.to_s=="user_services" %>
+      <%= javascript_include_tag 'jquery.ui.datepicker' %>
+      <%= stylesheet_link_tag 'jquery.ui.datepicker' %>
+      <script type="text/javascript">
+        $().ready(function(){
+          $("#user_service_first_appointment_to_public_service").datepicker();
+          $("#user_service_first_appointment_to_present_position").datepicker();
+          $("#user_service_promotion_to_present_grade").datepicker();
+          $("#user_service_confirmation_date").datepicker();
         });
       </script>
     <%end%>
