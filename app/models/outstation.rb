@@ -1,6 +1,7 @@
 class Outstation < ActiveRecord::Base
-
-  attr_accessible :user_id,:is_out_of_state,:is_official,:placename,:from_date,:to_date,:state,:country,:purpose,:total_expenditure,:cause_spending
+  mount_uploader :attachment, OutstationAttachmentUploader
+  
+  attr_accessible :user_id,:is_out_of_state,:is_official,:placename,:from_date,:to_date,:state,:country,:purpose,:total_expenditure,:cause_spending,:attachment
 
   validates :placename,:from_date,:to_date,:purpose, :presence => true
 
