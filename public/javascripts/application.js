@@ -2546,7 +2546,6 @@ $("#edit_for_agency").live("click",function(){
 
        /* End Complaint - Computers */
 
-
        /*Dynamic Chance for Resource Req ICT Starts */
     $("#requisition_type_id").live("change",function(){
         if ($("#requisition_type_id").val() == "1"){

@@ -19,7 +19,28 @@ class IctSystemAccessesController < ApplicationController
     @ict_system_access=IctSystemAccess.create(params[:ict_system_access])
     @ict_system_access.requisition_type_id = params[:requisition_type_id]
     @ict_system_access.user_id = current_user.id
+    @ict_system_access.department_id = current_user.departments
     @ict_system_access.save
+
+    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+    dept = Department.find_by_id(current_user.departments)
+   @requisition_ict_system_access=RequisitionType.find(@ict_system_access.requisition_type_id)
+    @system_access_ict_system_access=SystemAccess.find(@ict_system_access.system_access_id)
+
+    p 'ddddddddd', @ict_system_access.inspect
+    p 'qqqqqqqqq', @approve.inspect
+    p 'eeeeeeeeeeee', @requisition_ict_system_access.inspect
+    p 'rrrrrrrrrr', @system_access_ict_system_access.inspect
+
+    if !@approve.present?
+      ict_email = dept.users.where("role_id = 2").first
+      UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
+    else
+      ict_email = User.find_by_id(@approve.user_id)
+      UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
+    end
+
+
     if @ict_system_access.valid?
       redirect_to(ict_system_accesses_path, :notice => "Resource Requisition ICT System Access has been created.")
     else
@@ -35,7 +56,7 @@ class IctSystemAccessesController < ApplicationController
       
     if @ict_system_access.update_attributes(params[:ict_system_access])
       ict_email = User.find_by_id(@ict_system_access.forward_to)
-      UserMailer.ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
+      UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
 
       redirect_to(ict_system_accesses_path, :notice => 'Booked Resource ICT System Access has been updated and Mail has been sent successfully')
     else

@@ -92,7 +92,7 @@
       <%end%>
     </div>
 
-    
+
 
     <h2 class="b-head"></h2>
     <% if @ict_system_access.status == "Approved" || @ict_system_access.status == "Processed" || @ict_system_access.status == "Declined"%>
@@ -101,11 +101,8 @@
       <div class="form-sec-row">
         <label class="text">Booking Status</label>
         <span class="in-box">
-          <%= @ict_system_access.status %></span>
+          <% if @ict_system_access.status == "New"%><b><font color='#FFA500'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Approved" || @ict_system_access.status == "Processed"  %>  <b><font color='#329C20'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Declined" || @ict_system_access.status == "Returned"  %>  <b><font color='red'><%= @ict_system_access.status %></b></font><%end%></span>
       </div>
-      <%@dept = Department.find(default_department)%>
-      <%@users = @dept.users%>
-
       <% name = User.find_by_id(@ict_system_access.forward_to) %>
       <div class="form-sec-row">
         <label class="text">Forward To</label>
@@ -113,7 +110,6 @@
           <%= name.username %>
         </span>
       </div>
-
       <div class="form-sec-row">
         <label class="text">Remarks</label>
         <span class="in-box">
@@ -121,12 +117,12 @@
       </div>
       <h2 class="b-head"></h2>
     <%end%>
-
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
         <%= link_to "Back", :back, :class=>"btn1 mr2"%>
       </span>
     </div>
+
   </div>
 </div>

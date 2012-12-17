@@ -1,5 +1,4 @@
 
-  <%@ict_vpn = IctVpn.where(:user_id => current_user.id).order.page(params[:page]).per(2)%>
   <div id="div_ajax" >
     <%if @ict_vpn && !@ict_vpn.empty?%>
       <%@ict_vpn.each do |ict_vpn|%>
@@ -25,15 +24,66 @@
             <div class="m-c2">
               <%= @name.name%>
             </div>
-            <div class="m-c3">
-              <% if current_user.is_department_admin? || current_user.is_super_admin? %>
-                <span class="in-box">
-                  <%= link_to "Approve Request", approval_ict_vpns_path(:id => ict_vpn.id), :class=>"btn2 in-btn2"%>
-                </span>
-              <%end%>
-            </div>
+             <% time = Setting.find_by_id(1) %>
+            <%if time.present?%>
+              <% temp = time.timeline.strftime("%H:%M:%S")%>
+              <%dt = DateTime.parse(temp)%>
+              <% seconds = dt.hour * 3600 + dt.min * 60 %>
+
+              <div class="m-c3">
+                <% if @approve.present?  && @approve.user_id == current_user.id && ict_vpn.created_at > (Time.now-seconds) %>
+                  <span class="in-box">
+                    <% if ict_vpn.status == "New" %>
+                      <b><font color="#336699"><%= link_to "Approve",approval_ict_vpns_path(:id => ict_vpn.id), :class=>"btn2 in-btn2"%></b>
+                    <%end%>
+                  </span>
+                <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && ict_vpn.created_at > (Time.now-2*seconds)%>
+                  <span class="in-box">
+                    <% if ict_vpn.status == "New" %>
+                      <% val = (ict_vpn.created_at > (Time.now-seconds))  %>
+                      <% if !val.present? %>
+                        <b><font color="#336699"><%= link_to "Approve",approval_ict_vpns_path(:id => ict_vpn.id), :class=>"btn2 in-btn2"%></b>
+                      <%end%>
+                    <%end%>
+                  </span>
+                <% elsif ict_vpn.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
+                  <span class="in-box">
+                    <b><font color="#336699"><%= link_to "Approve",approval_ict_vpns_path(:id => ict_vpn.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                  </span>
+                <%end%>
+                <%if ict_vpn.status == "Approved" && ict_vpn.forward_to == current_user.id %>
+                  <span class="in-box">
+                    <b><font color="#336699"><%= link_to "Process",approval_ict_vpns_path(:id => ict_vpn.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                  </span>
+                <%end%>
+              </div>
+            <%else%>
+              <div class="m-c3">
+                <% if @approve.present?  && @approve.user_id == current_user.id %>
+                  <span class="in-box">
+                    <% if ict_vpn.status == "New" %>
+                      <b><font color="#336699"><%= link_to "Approve",approval_ict_vpns_path(:id => ict_vpn.id), :class=>"btn2 in-btn2"%></b>
+                    <%end%>
+                  </span>
+                <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
+                  <span class="in-box">
+                    <% if ict_vpn.status == "New" %>
+                      <b><font color="#336699"><%= link_to "Approve",approval_ict_vpns_path(:id => ict_vpn.id), :class=>"btn2 in-btn2"%></b>
+                    <%end%>
+                  </span>
+                <% elsif ict_vpn.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
+                  <span class="in-box">
+                    <b><font color="#336699"><%= link_to "Approve",approval_ict_vpns_path(:id => ict_vpn.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                  </span>
+                <%end%>
+                <%if ict_vpn.status == "Approved" && ict_vpn.forward_to == current_user.id %>
+                  <span class="in-box">
+                    <b><font color="#336699"><%= link_to "Process",approval_ict_vpns_path(:id => ict_vpn.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                  </span>
+                <%end%>
+              </div>
+            <%end%>
           </div>
-          <div class="clear"></div>
 
 
 
@@ -94,3 +144,4 @@
       No Resources Available
     <%end%>
   </div>
+</div>

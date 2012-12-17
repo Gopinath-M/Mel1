@@ -117,14 +117,11 @@
     <% if @ict_vpn.status == "Approved" || @ict_vpn.status == "Processed" || @ict_vpn.status == "Declined"%>
 
       <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
-      <div class="form-sec-row">
+    <div class="form-sec-row">
         <label class="text">Booking Status</label>
         <span class="in-box">
-          <%= @ict_vpn.status %></span>
+          <% if @ict_vpn.status == "New"%><b><font color='#FFA500'><%= @ict_vpn.status %></b></font><% elsif @ict_vpn.status == "Approved" || @ict_vpn.status == "Processed"  %>  <b><font color='#329C20'><%= @ict_vpn.status %></b></font><% elsif @ict_vpn.status == "Declined" || @ict_vpn.status == "Returned"  %>  <b><font color='red'><%= @ict_vpn.status %></b></font><%end%></span>
       </div>
-      <%@dept = Department.find(default_department)%>
-      <%@users = @dept.users%>
-
       <% name = User.find_by_id(@ict_vpn.forward_to) %>
       <div class="form-sec-row">
         <label class="text">Forward To</label>
@@ -132,7 +129,6 @@
           <%= name.username %>
         </span>
       </div>
-
       <div class="form-sec-row">
         <label class="text">Remarks</label>
         <span class="in-box">
@@ -140,13 +136,12 @@
       </div>
       <h2 class="b-head"></h2>
     <%end%>
-
-
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
         <%= link_to "Back", :back, :class=>"btn1 mr2"%>
       </span>
     </div>
+
   </div>
 </div>

@@ -5,6 +5,7 @@ class CreateComplaintComputers < ActiveRecord::Migration
       t.references :system_access
       t.references :system_model_type
       t.references :user
+      t.references :department
       t.integer :serial_no
       t.text :reason
       t.string :status, :default => "New"

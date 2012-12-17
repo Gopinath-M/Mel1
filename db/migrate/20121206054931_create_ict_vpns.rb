@@ -3,6 +3,7 @@ class CreateIctVpns < ActiveRecord::Migration
     create_table :ict_vpns do |t|
       t.references :requisition_type
       t.references :user
+      t.references :department
       t.string :from_date
       t.string :to_date
       t.text :justification

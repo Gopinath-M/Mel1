@@ -4,6 +4,7 @@ class CreateIctSystemAccesses < ActiveRecord::Migration
 
       t.references :requisition_type
       t.references :user
+      t.references :department
       t.references :system_access
       t.string :system_access_attachment
       t.string :status, :default => "New"

@@ -98,15 +98,11 @@
 
       <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
 
-
       <div class="form-sec-row">
         <label class="text">Booking Status</label>
         <span class="in-box">
-          <%= @complaint_computer.status %></span>
+          <% if @complaint_computer.status == "New"%><b><font color='#FFA500'><%= @complaint_computer.status %></b></font><% elsif @complaint_computer.status == "Approved" || @complaint_computer.status == "Processed"  %>  <b><font color='#329C20'><%= @complaint_computer.status %></b></font><% elsif @complaint_computer.status == "Declined" || @complaint_computer.status == "Returned"  %>  <b><font color='red'><%= @complaint_computer.status %></b></font><%end%></span>
       </div>
-      <%@dept = Department.find(default_department)%>
-      <%@users = @dept.users%>
-
       <% name = User.find_by_id(@complaint_computer.forward_to) %>
       <div class="form-sec-row">
         <label class="text">Forward To</label>
@@ -114,9 +110,6 @@
           <%= name.username %>
         </span>
       </div>
-
-
-
       <div class="form-sec-row">
         <label class="text">Remarks</label>
         <span class="in-box">
@@ -124,7 +117,6 @@
       </div>
       <h2 class="b-head"></h2>
     <%end%>
-
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">

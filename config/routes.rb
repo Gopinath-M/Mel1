@@ -155,6 +155,10 @@ Melaka::Application.routes.draw do
       post 'update_account_setting'
       post 'update_default_department'
       get 'admin'
+      put 'user_profile'
+      get 'user_profile'
+      get 'emergency_reference'
+      put 'emergency_reference'
     end
   end
   resources :department_users do
