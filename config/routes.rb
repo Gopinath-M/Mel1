@@ -159,6 +159,7 @@ Melaka::Application.routes.draw do
       get 'user_profile'
       get 'emergency_reference'
       put 'emergency_reference'
+      get 'declaration_property'
     end
   end
   resources :department_users do
