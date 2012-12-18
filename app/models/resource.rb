@@ -19,5 +19,12 @@ class Resource < ActiveRecord::Base
   scope :active_others, where(:deleted => false, :resource_type=>"others")
   scope :active_transport, where(:deleted => false, :resource_type=>"transport")
   scope :active_room, where(:deleted => false, :resource_type=>"room_booking")
-
+#  define_index do
+#    ##indexes :name,  :sortable => true
+#    indexes :category_id
+#    indexes :sub_category_id
+#  end
+#  sphinx_scope(:active_and_subcategory) {|sub_category_id|
+#    {:conditions=>{:sub_category_id => sub_category_id}}
+#  }
 end
