@@ -39,11 +39,9 @@ module ApplicationHelper
   end
   
   def get_department_users
-    p "=============dept users"
-
     department_users=RoleMembership.where("department_id=?",@current_department).collect(&:user_id)
     user_ids=department_users-[current_user.id]
-    p users=User.where("id in (?)", user_ids)
+    users=User.where("id in (?)", user_ids)
     return users
   end
   #Get count for unactivated dept admin accounts
@@ -94,5 +92,27 @@ module ApplicationHelper
   def resource_status_count(status)
     status_count=ResourceBooking.find_all_by_department_id_and_status(@current_department, status).count
     return status_count
+  end
+
+  def resource_transport_status_count(status)
+    status_count=ResourceTransportationBooking.find_all_by_department_id_and_status(@current_department, status).count
+    return status_count
+  end
+
+  def ict_hardware_status_count(status)
+    booking_status=IctHardwareBooking.joins(:ict_hardware_booked_users).where("department_id= ? and ict_hardware_booked_users.status=?", @current_department, status).count
+    return booking_status
+  end
+
+  def approve_hardware_request(status)
+    booking_status = IctHardwareBooking.joins(:ict_hardware_booked_users).where("department_id= ? and ict_hardware_booked_users.status=?", @current_department, status).count
+    first_approver = Approver.find_all_by_department_id(@current_department).first
+    second_approver = Approver.find_all_by_department_id(@current_department).last
+    return first_approver.present? && second_approver.present? && (second_approver.user_id == current_user.id || first_approver.user_id == current_user.id) ? booking_status : 0
+  end
+  
+  def generic_model_status_count(model_name, status)
+    count=model_name.find_all_by_department_id_and_status(@current_department, status).count
+    return count
   end
 end
