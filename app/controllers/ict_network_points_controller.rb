@@ -66,10 +66,10 @@ class IctNetworkPointsController < ApplicationController
   end
 
   def list_to_select_ict
-    
+    @ict_hardware_booking=IctHardwareBooking.new
+    @ict_hardware_booked_user=@ict_hardware_booking.ict_hardware_booked_users.build
   end
 
   def selected_list_ict
-    
   end
 end
