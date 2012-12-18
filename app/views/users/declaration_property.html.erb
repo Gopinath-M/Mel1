@@ -1,0 +1,35 @@
+<%= form_for(@outstation, :as => :outstation,  :url => outstations_path, :html => {:multipart => true}, :method=>:post) do |f| %>
+  <div class="form-sec">
+    <%=f.error_messages%>
+    <div class="clearfix">&nbsp;</div>
+    <h2>Stage 4 - Declaration Property</h2>
+
+    <%= hidden_field_tag "user_id",current_user.id %>
+
+
+    <div class="form-sec-row">
+      <label class="text">Year <span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= select_year(Date.today, :start_year => 2010, :end_year => 2020)%>
+      </span>
+    </div>
+
+
+    <div class="form-sec-row">
+      <label class="text">Upload File<span style=color:red></span></label>
+      <span class="in-box">
+        <%=f.file_field :attachment %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+        <%= f.submit :class=>"btn2",:value=>'Create'%>
+      </span>
+    </div>
+
+  </div>
+<%end%>
+
+
