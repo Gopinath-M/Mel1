@@ -1,4 +1,4 @@
-
+ <% @ict_vpn = IctVpn.where(:user_id => current_user.id).order.page(params[:page]).per(5)%>
   <div id="div_ajax" >
     <%if @ict_vpn && !@ict_vpn.empty?%>
       <%@ict_vpn.each do |ict_vpn|%>

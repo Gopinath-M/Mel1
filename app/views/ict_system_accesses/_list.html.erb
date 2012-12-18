@@ -1,6 +1,7 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
   <%end%>
+     <%@ict_system_access = IctSystemAccess.where(:user_id => current_user.id).order.page(params[:page]).per(5)%>
   <div id="div_ajax" >
     <%if @ict_system_access && !@ict_system_access.empty?%>
       <%@ict_system_access.each do |ict_system_access|%>

@@ -25,12 +25,6 @@ class IctVpnsController < ApplicationController
     dept = Department.find_by_id(current_user.departments)
     @requisition_ict_vpn=RequisitionType.find(@ict_vpn.requisition_type_id)
     @system_access_ict_vpn=SystemAccess.find(@ict_vpn.system_access_id)
-
-    p 'ddddddddd', @ict_vpn.inspect
-    p 'qqqqqqqqq', @approve.inspect
-    p 'eeeeeeeeeeee', @requisition_ict_vpn.inspect
-    p 'rrrrrrrrrr', @system_access_ict_vpn.inspect
-
     if !@approve.present?
       ict_email = dept.users.where("role_id = 2").first
       UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver

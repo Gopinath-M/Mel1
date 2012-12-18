@@ -26,12 +26,6 @@ class IctSystemAccessesController < ApplicationController
     dept = Department.find_by_id(current_user.departments)
    @requisition_ict_system_access=RequisitionType.find(@ict_system_access.requisition_type_id)
     @system_access_ict_system_access=SystemAccess.find(@ict_system_access.system_access_id)
-
-    p 'ddddddddd', @ict_system_access.inspect
-    p 'qqqqqqqqq', @approve.inspect
-    p 'eeeeeeeeeeee', @requisition_ict_system_access.inspect
-    p 'rrrrrrrrrr', @system_access_ict_system_access.inspect
-
     if !@approve.present?
       ict_email = dept.users.where("role_id = 2").first
       UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
