@@ -1,7 +1,7 @@
 class ComplaintComputersController < ApplicationController
   before_filter :authenticate_user!
   def index 
-  if current_user && current_user.is_super_admin?
+    if current_user && current_user.is_super_admin?
       @complaint_computer = ComplaintComputer.page(params[:page]).per(2)
     elsif current_user && current_user.is_department_admin?
       @complaint_computer = ComplaintComputer.page(params[:page]).per(2)
@@ -17,7 +17,29 @@ class ComplaintComputersController < ApplicationController
   def create
     @complaint_computer=ComplaintComputer.create(params[:complaint_computer])
     @complaint_computer.user_id = current_user.id
+    @complaint_computer.department_id = current_user.departments
     @complaint_computer.save
+
+    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+    dept = Department.find_by_id(current_user.departments)
+    @name = ComplaintType.find_by_id(@complaint_computer.complaint_type_id)
+    @system_access_name = SystemAccess.find_by_id(@complaint_computer.system_access_id)
+    @system_model_name = SystemModelType.find_by_id(@complaint_computer.system_model_type_id)
+
+    p 'ddddddddd', @complaint_computer.inspect
+    p 'qqqqqqqqq', @approve.inspect
+    p 'eeeeeeeeeeee', @name.inspect
+    p 'rrrrrrrrrr', @system_access_name.inspect
+    p 'tttttttttt', @system_model_name.inspect
+
+    if !@approve.present?
+      ict_email = dept.users.where("role_id = 2").first
+      UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
+    else
+      ict_email = User.find_by_id(@approve.user_id)
+      UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
+    end
+
     if @complaint_computer.valid?
       redirect_to(complaint_computers_path, :notice => "Computers has been complained successfully.")
     else
@@ -34,7 +56,7 @@ class ComplaintComputersController < ApplicationController
     
     if @complaint_computer.update_attributes(params[:complaint_computer])
       ict_email = User.find_by_id(@complaint_computer.forward_to)
-      UserMailer.complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
+      UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
 
       redirect_to(complaint_computers_path, :notice => 'Complained Computers Status has been updated and Mail has been sent successfully')
     else

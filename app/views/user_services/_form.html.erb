@@ -1,85 +1,131 @@
-<%= form_for(@user, :as => :user,  :url => users_path, :method=>:post) do |f| %>
+<%= form_for(@user_service, :as => :user_service,  :url => user_services_path, :method=>:post) do |f| %>
   <div class="form-sec">
     <%=f.error_messages%>
     <div class="clearfix">&nbsp;</div>
-    <h2>Edit User <%=@user.full_name%></h2>
+    <h2>Stage 2 - User Service Information<%#=@user.full_name%></h2>
+
     <div class="form-sec-row">
-      <%= f.label :first_name,raw("First Name <span style=color:red>*</span>"), :class=>"text"%>
+      <label class="text">Level Of Service<span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.text_field :first_name, :size => 30, :autofocus => true%>
+        <%= f.select(:service_level_id,options_from_collection_for_select(ServiceLevel.all, 'id','stage' ), :prompt => "Select your Service Level")%>
       </span>
     </div>
+
     <div class="form-sec-row">
-      <%= f.label :last_name,raw("Last Name <span style=color:red>*</span>"), :class=>"text"%>
+      <label class="text">Classification Of Service<span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.text_field :last_name, :size => 30, :autofocus => true%>
+        <%= f.select(:classification_id,options_from_collection_for_select(Classification.all, 'id','title' ), :prompt => "Select your Classification ")%>
       </span>
     </div>
+
     <div class="form-sec-row">
-      <%= f.label :email,,raw("Email <span style=color:red>*</span>") :class=>"text"%>
+      <label class="text">Service Standards<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.select(:service_standard_id,options_from_collection_for_select(ServiceStandard.all, 'id','name' ), :prompt => "Select your Service Standard")%>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Appointment Status<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.select(:appointment_id,options_from_collection_for_select(Appointment.all, 'id','name' ), :prompt => "Select your Appointment")%>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Grade <span style=color:red>*</span></label>
+      <span class="in-box">
+        <% options = ['A1','A2','A3','A4'] %>
+        <%= f.select(:grade_id, options_for_select(options),:prompt=> "Select Grade") %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <%= f.label :position, :class=>"text"%>
+      <span class="in-box">
+        <%= f.text_field :position, :size => 30, :autofocus => true%>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Salary Scale<span style=color:red>*</span></label>
+      P <%= f.text_field :salary_scale1, :size => 2, :maxlength =>1, :autofocus => true, :onkeypress=>"return isNumberKey(event);"%>&nbsp;&nbsp;&nbsp;&nbsp;
+      T <%= f.text_field :salary_scale2, :size => 2, :maxlength =>1, :autofocus => true, :onkeypress=>"return isNumberKey(event);"%>
+    </div>
+
+    <div class="form-sec-row">
+      <%= f.label :email,raw("Email <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= f.text_field :email, :size => 30, :autofocus => true%>
       </span>
     </div>
     <div class="form-sec-row">
-      <%= f.label :username,raw("User Name <span style=color:red>*</span>"), :class=>"text"%>
+      <label class="text">Destination State<span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.text_field :username, :size => 30, :autofocus => true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= f.label :ic_number,raw("IC Number <span style=color:red>*</span>"), :class=>"text"%>
-      <span class="in-box">
-        <%= f.text_field :ic_number, :size => 30, :autofocus => true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= f.label :city, :class=>"text"%>
-      <span class="in-box">
-        <%= f.text_field :city, :size => 30, :autofocus => true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= f.label :state, :class=>"text"%>
-      <span class="in-box">
-        <%= f.select(:state,options_for_select(State.all, 'id','name' ), :prompt => "SELECT YOUR STATE")%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= f.label :zipcode, :class=>"text"%>
-      <span class="in-box">
-        <%= f.text_field :zipcode, :size => 6, :autofocus => true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= label_tag "users_agency", raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
-      <span class="in-box">
-        <%= select("users","agency", options_for_select(Agency.active, 'id','name', @user.state!=nil ? @user.state : "" ), {},:prompt=>"SELECT AN AGENCY") %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= label_tag "users_department", raw("Department <span style=color:red>*</span>"), :class=>"text"%>
-      <span class="in-box">
-        <%= select("users","department", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= label_tag "users_unit",raw("Unit"), :class=>"text"%>
-      <span class="in-box">
-        <%= select("users","unit", Unit.active.where("department_id=?", params[:department]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT AN UNIT") %>
-      </span>
+        <%= f.select(:state,options_from_collection_for_select(State.all, 'id','name' ), :prompt => "Select Your State")%>      </span>
     </div>
 
 
-    <div  class="form-sec-row">
-      <%= f.label :avatar , :class=>"text"%>
+    <div class="form-sec-row">
+      <label class="text">City<span style=color:red>*</span></label>
       <span class="in-box">
-  <%#= image_tag(resource.avatar.url) if resource.avatar.url.present?%>
-        <%= f.file_field :avatar%>
-        <%= f.hidden_field :avatar_cache %>
-        <br/>
-        <%= f.check_box :remove_avatar %>
-        <%= f.label :remove_avatar %>
+        <%= f.text_field :city, :size => 6, :autofocus => true%>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Postal Code<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.text_field :postal_code, :size => 6, :autofocus => true,:onkeypress=>"return isNumberKey(event);" %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Office Address<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.text_area :office_address, :rows=>2,  :autofocus => true%>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Office Number<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.text_field :office_number, :size => 30, :autofocus => true,:onkeypress=>"return isNumberKey(event);"%>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Office Fax<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%= f.text_field :office_fax, :size => 30, :autofocus => true, :onkeypress=>"return isNumberKey(event);"%>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Date of First Appointment of Public Service<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%=f.text_field :first_appointment_to_public_service ,:readonly=>true,:onchange=>'get_date_diff();' %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Date of First Appointment of the Present Post<span style=color:red>*</span></label>
+      <span class="in-box">
+        <%=f.text_field :first_appointment_to_present_position ,:readonly=>true %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Date of Promotion to Present Grade<span style=color:red></span></label>
+      <span class="in-box">
+        <%=f.text_field :promotion_to_present_grade ,:readonly=>true %>
+      </span>
+    </div>
+
+    <div class="form-sec-row">
+      <label class="text">Confirmation Date<span style=color:red></span></label>
+      <span class="in-box">
+        <%=f.text_field :confirmation_date ,:readonly=>true,:onchange=>'get_date_diff();' %>
       </span>
     </div>
 
@@ -93,3 +139,46 @@
   <div class="clear"></div>
 <%end%>
 
+<script>
+  function get_date_diff()
+  {
+    increment = 0;
+    if ($("#user_service_first_appointment_to_public_service").val() != '' && $("#user_service_confirmation_date").val() != '')
+    {      
+      // var start = Date.parse($("#user_service_first_appointment_to_public_service").val());
+      // var end = Date.parse($("#user_service_confirmation_date").val());
+
+      var start = new Date($("#user_service_first_appointment_to_public_service").val());
+      var end = new Date($("#user_service_confirmation_date").val());
+      {
+        var diff = new Date(end - start);
+        var days = diff/1000/60/60/24;
+
+<%#*var nowYear = end.getFullYear();%>
+<%#*var pastYear = start.getFullYear();%>
+<%#*var age = nowYear - pastYear;%>
+<%#*var nowMonth = end.getMonth();%>
+<%#*var pastMonth = start.getMonth();%>
+<%#*var month = nowMonth - pastMonth;%>
+
+        var years = start.year - end.year - 1;
+        var months = start.month - end.month - 1;
+        var month;
+        days = (max(end.month) - start.day) + (end.day - 1);
+        if(days >= 30)       //Here you can take totals days in date1 or date2
+        {
+          month++;
+          days-=30;
+        }
+        while(month >= 12)      //Here month can reach a value of 24 because it can be incremented above too
+        {
+          years++;
+          month-=12;
+        }
+
+        
+        alert('Year =>'+years+'  ,Month=> '+month+', days =>'+days);
+      }
+    }      
+  }
+</script>

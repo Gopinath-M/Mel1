@@ -29,6 +29,8 @@ Melaka::Application.routes.draw do
   end
   resources :ict_hardware_bookings
   resources :ict_firewalls
+  resources :user_services
+  resources :outstations
   resources :resource_ict_equipment_bookings do
     collection do
       get 'requests'
@@ -153,6 +155,11 @@ Melaka::Application.routes.draw do
       post 'update_account_setting'
       post 'update_default_department'
       get 'admin'
+      put 'user_profile'
+      get 'user_profile'
+      get 'emergency_reference'
+      put 'emergency_reference'
+      get 'declaration_property'
     end
   end
   resources :department_users do

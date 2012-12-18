@@ -12,7 +12,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :substantive_post_id           
       t.string :gender
       t.text :address
-      t.text :address
       t.string :city
       t.integer :zipcode
       t.string :state
@@ -33,12 +32,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.boolean :widget_one, :default => true
       t.boolean :widget_two, :default => true
       t.boolean :profile_status, :default => false
-      # t.encryptable
-      # t.confirmable
-      # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
-      # t.token_authenticatable
-
-
+      t.string :marital_status
+      t.integer :hp_number
+      t.integer :child
       t.timestamps
     end
 

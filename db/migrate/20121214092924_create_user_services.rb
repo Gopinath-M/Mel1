@@ -14,8 +14,8 @@ class CreateUserServices < ActiveRecord::Migration
       t.string :salary_scale2
       t.integer :service_level_id
       t.integer :classification_id
-      t.integer :grade_id      
-      t.integer :salary_standard_id
+      t.string :grade_id
+      t.integer :service_standard_id
       t.integer :appointment_id
       t.string :position
       t.string :official_position
