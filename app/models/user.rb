@@ -41,6 +41,12 @@ class User < ActiveRecord::Base
   #Scopes
   scope :active, where(:deleted => false)
 
+#  define_index do
+#    indexes :username,  :sortable => true
+#    indexes :ic_number,  :sortable => true
+#    indexes [first_name, last_name], :as => :name, :sortable => true
+#    indexes :email
+#  end
   
   def full_name
     return "NA" if first_name.nil? || last_name.nil?
