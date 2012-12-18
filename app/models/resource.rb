@@ -14,6 +14,12 @@ class Resource < ActiveRecord::Base
   validates :name, :length => { :minimum => 3 }, :if=>Proc.new {|u| !u.name.blank? && u.resource_type=="ict" }
   validates :description, :length => { :minimum => 10 }, :if=>Proc.new {|u| !u.description.blank? && u.resource_type=="ict" }
   validates :brand_model,:length => { :minimum => 4 }, :if=>Proc.new {|u| !u.brand_model.blank? && u.resource_type=="ict" }
+
+  validates_uniqueness_of :name, :case_sensitive=>false, :if=>Proc.new {|u| !u.name.blank?}
+  validates_uniqueness_of :brand_model, :case_sensitive=>false, :if=>Proc.new {|u| !u.brand_model.blank?}
+  validates_uniqueness_of :vehicle_model, :case_sensitive=>false, :if=>Proc.new {|u| !u.vehicle_model.blank?}
+  validates_uniqueness_of :resource_no, :case_sensitive=>false, :if=>Proc.new {|u| !u.resource_no.blank? && u.resource_type!="room_booking"}
+
   scope :active, where(:deleted => false)
   scope :active_ict, where(:deleted => false, :resource_type=>"ict")
   scope :active_others, where(:deleted => false, :resource_type=>"others")

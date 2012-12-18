@@ -166,6 +166,8 @@ Melaka::Application.routes.draw do
       get 'emergency_reference'
       put 'emergency_reference'
       get 'declaration_property'
+      post 'declaration_property'
+      get 'download_attachments'
     end
   end
   resources :department_users do

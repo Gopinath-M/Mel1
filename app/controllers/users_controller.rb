@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference, :declaration_property]
+  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference, :declaration_property, :download_attachments]
   
   #Activate or Deactivate a particular User
   def update_status
@@ -289,26 +289,29 @@ class UsersController < ApplicationController
   end
   def emergency_reference
     @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
-    if @emergency_references != nil  
+    if @emergency_references != nil
+       @emergency_references = EmergencyReference.update_attributes(params[:emergency_reference])
     else
       @emergency_references = EmergencyReference.new(params[:emergency_reference])
     end
     if params[:commit] == 'Update Reference'
     @emergency_references.save
-    redirect_to :controller =>'outstations', :action=>'new'
+    redirect_to :controller =>'users', :action=>'declaration_property'
     end
   end
 
   def declaration_property
-    @property_file = DeclarationProperty.find_by_user_id(current_user.id)
-    if @property_file !=nil
-    else
-
+    @property_file = DeclarationProperty.find_all_by_user_id(current_user.id)
     @property_file = DeclarationProperty.new(params[:declaration_property])
-    end
     if params[:commit]
+      @property_file.property_year = params[:date][:year]
       @property_file.save
+      redirect_to :controller =>'outstations', :action=>'new'
     end
+  end
+ def download_attachments
+    @download = DeclarationProperty.find(params[:id])
+    send_file @download.property_file.path
   end
 # out station module methods ends here
 

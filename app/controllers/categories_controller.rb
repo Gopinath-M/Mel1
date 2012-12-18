@@ -70,7 +70,7 @@ class CategoriesController < ApplicationController
        category.save
         redirect_to(list_category_mapping_categories_path, :notice => 'Resource Category has been sucessfully assigned  to Department.')
     else
-        redirect_to(assign_category_categories_path, :notice => 'Resource Category has been already assigned to this Department.')
+        redirect_to(assign_category_categories_path, :alert => 'Resource Category has been already assigned to this Department.')
     end
   end
 

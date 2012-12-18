@@ -37,11 +37,11 @@ class DriversController < ApplicationController
   end
 
   def update_status
-    @driver = Driver.find(params[:id])
+    driver = Driver.find(params[:id])
     if params[:status]=="Activate"
-      @driver.update_attribute(:is_active,true)
+      driver.update_attribute(:is_active,true)
     elsif params[:status]=="Deactivate"
-      @driver.update_attribute(:is_active,false)
+      driver.update_attribute(:is_active,false)
     end    
     redirect_to(drivers_path, :notice => 'Driver Status has been successfully changed.')
   end
