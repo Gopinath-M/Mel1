@@ -138,7 +138,7 @@
               <%select_options=["Approved","Declined"]%>
               <%=f.select(:status, options_for_select(select_options))%>
             </span></td>
-        <%elsif current_user.is_resource_manager? && @resource_room_booking.user_returned_status?%>
+        <%elsif current_user.is_resource_manager? && @resource_booking.user_returned_status?%>
           <td><span class="in-box">
               <%select_options=["Returned"]%>
               <%=f.select(:status, options_for_select(select_options))%>
