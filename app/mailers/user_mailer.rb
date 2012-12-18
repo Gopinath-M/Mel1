@@ -186,4 +186,24 @@ class UserMailer < ActionMailer::Base
     @requisition=room
     mail(:to=>@user.email,:subject =>"Others Resource Booking Status Update",:bcc=>@ordered_user.email)
   end
+   def send_mail_to_approver_for_ict_equipment_booking(user,ict_equipment_booking,dept)
+    @user=user
+    @requisition= ict_equipment_booking
+    @department = dept
+    mail(:to=>@user.email,:subject =>"Details of Ict Equipment Booking")
+  end
+
+  def send_mail_to_dept_admin_for_ict_equipment_booking(user,ict_equipment_booking,dept)
+    @user=user
+    @requisition= ict_equipment_booking
+    @department = dept
+    mail(:to=>@user.email,:subject =>"Details of Ict Equipment  Booking")
+  end
+
+  def send_status_mail_for_ict_equipment_booking(user,ordered_user,ict_booking)
+    @user=user
+    @ordered_user=ordered_user
+    @resource_ict_equipment_booking =ict_booking
+    mail(:to=>@user.email,:subject =>"Ict Equipment Booking Update",:bcc=>@ordered_user.email)
+  end
 end
