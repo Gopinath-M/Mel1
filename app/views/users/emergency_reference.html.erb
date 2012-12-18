@@ -4,25 +4,32 @@
     <%= form_for(@emergency_references, :url => emergency_reference_users_path, :html => { :method => :put, :multipart => true }) do |f| %>
       <%=flash[:notice]%>
       <div class="clearfix">&nbsp;</div>
-      <h2>Head of Department Information</h2>
+      <%if !current_user.is_super_admin?%>
+      <h2>Stage 3 - Head of Department Information</h2>
       <div class="form-sec-row">
-        Head of Department Name
+         <%= f.label :name,raw("Head of Department Name<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
-          <%= current_user.departments.first.name%>
+         <%= current_user.departments.first.name%>
         </span>
       </div>
     <div class="form-sec-row">
-        Head Department Position Title
+       <%= f.label :name,raw("Head Department Position Title<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
-          <%= current_user.departments.first.name%>
+         <%dept_name = RoleMembership.find_by_department_id_and_role_id(current_user.departments.first.id,2)%>
+          <%position = User.find(dept_name.user_id)%>
+          <%user_service = UserService.find(dept_name.user_id) if !position%>
+          <%if user_service !=nil %>
+          <%=user_service.position%>
+          <%end%>
         </span>
       </div>
       <div class="form-sec-row">
-        Head Department Email
+         <%= f.label :name,raw("Head Department Email<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
-          <%= current_user.departments.first.name%>
+          <%=position.email%>
         </span>
       </div>
+      <%end%>
         <%= f.hidden_field :user_id, :value=>current_user.id %>
       <div class="form-sec-row">
       <%= f.label :name,raw("Name<span style=color:red>*</span>"), :class=>"text"%>

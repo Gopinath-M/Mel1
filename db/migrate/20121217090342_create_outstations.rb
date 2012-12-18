@@ -6,8 +6,8 @@ class CreateOutstations < ActiveRecord::Migration
       t.string :placename
       t.string :state
       t.string :country
-      t.date :from_date
-      t.date :to_date
+      t.datetime :from_date
+      t.datetime :to_date
       t.string :user_id
       t.string :purpose
       t.integer :total_expenditure

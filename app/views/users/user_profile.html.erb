@@ -4,7 +4,7 @@
     <%= form_for(@users, :url => user_profile_users_path(:id=>@users.id), :html => { :method => :put, :multipart => true }) do |f| %>
       <%=f.error_messages%>
       <div class="clearfix">&nbsp;</div>
-      <h2>Update User Profile</h2>
+      <h2>Stage 1 - Update User Profile</h2>
       <div class="form-sec-row">
         <%= f.label :username,raw("Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">

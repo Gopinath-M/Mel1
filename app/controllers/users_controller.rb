@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference]
+  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference, :declaration_property]
   
   #Activate or Deactivate a particular User
   def update_status
@@ -279,23 +279,37 @@ class UsersController < ApplicationController
   def online_users
     @users = User.find(:all, :conditions => ["username != ?", current_user.username])
   end
-
+#Out station module
   def user_profile
     @users = User.find(current_user.id)
     @users.update_attributes(params[:user])
     if params[:commit]
-      redirect_to :controller =>'users', :action => 'emergency_reference', :notice => 'Sucessfully completed Stage 1'
+      redirect_to :controller =>'user_services', :action => 'new'
     end
   end
   def emergency_reference
-    @emergency_references = EmergencyReference.find(current_user.id)
-    if @emergency_references != nil
-      
+    @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
+    if @emergency_references != nil  
     else
       @emergency_references = EmergencyReference.new(params[:emergency_reference])
     end
+    if params[:commit] == 'Update Reference'
     @emergency_references.save
+    redirect_to :controller =>'outstations', :action=>'new'
+    end
   end
 
+  def declaration_property
+    @property_file = DeclarationProperty.find_by_user_id(current_user.id)
+    if @property_file !=nil
+    else
+
+    @property_file = DeclarationProperty.new(params[:declaration_property])
+    end
+    if params[:commit]
+      @property_file.save
+    end
+  end
+# out station module methods ends here
 
 end

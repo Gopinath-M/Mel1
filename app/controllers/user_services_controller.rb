@@ -13,7 +13,7 @@ class UserServicesController < ApplicationController
     if @user_service.valid?
       @user_service.user_id = current_user.id
       @user_service.save
-      redirect_to user_services_path
+       redirect_to :controller => 'users', :action => 'emergency_reference'
     else
       render :action => 'new'
     end    
