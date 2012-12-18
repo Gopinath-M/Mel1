@@ -27,7 +27,13 @@ Melaka::Application.routes.draw do
       get 'download_attachments'
     end
   end
-  resources :ict_hardware_bookings
+  resources :ict_hardware_bookings do
+    collection do
+      get 'requests'
+      get 'approve'
+      put 'update_request'
+    end
+  end
   resources :ict_firewalls
   resources :user_services
   resources :outstations

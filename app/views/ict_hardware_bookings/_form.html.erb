@@ -1,12 +1,7 @@
 <%= form_for(@ict_hardware_booking) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
-  <div class="form-sec-row">
-    <%= f.label :facility_ict_id, raw("Facility Type"), :class=>"text"%>
-    <span class="in-box">
-      <%=f.select(:facility_ict_id, options_from_collection_for_select(FacilityIct.active, 'id','name',@ict_hardware_booking.facility_ict_id ),:prompt=>"SELECT A HARDWARE")%>
-    </span>
-  </div>
+  <%=f.hidden_field :facility_ict_id,:value=>"4" %>
   <div class="form-sec-row"><br/>
     <%= f.label :application_category,raw("Application Category"), :class=>"text"%>
     <span class="in-box">

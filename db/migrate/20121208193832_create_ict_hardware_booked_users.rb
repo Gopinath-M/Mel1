@@ -7,8 +7,9 @@ class CreateIctHardwareBookedUsers < ActiveRecord::Migration
       t.boolean :pc
       t.boolean :printer
       t.boolean :scanner
-
-
+      t.string :status, :default => "New"
+      t.integer :forward_to
+      t.text :remarks
       t.timestamps
     end
   end

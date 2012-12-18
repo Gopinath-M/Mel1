@@ -3,15 +3,14 @@
   <span class="in-box">
     <%dept = Department.find(default_department)%>
     <%users = dept.users%>
-    <%=f.select(:user_id, options_from_collection_for_select(users, 'id','username',@ict_hardware_booked_user && @ict_hardware_booked_user.user_id ? @ict_hardware_booked_user.user_id : nil),:prompt=>"Select a User")%>
-<%#=f.select(:user_id, options_from_collection_for_select(get_department_users, 'id','username',@ict_hardware_booked_user.user_id),:prompt=>"Select a User")%>
+    <%=f.select(:user_id, options_from_collection_for_select(users, 'id','username',@ict_hardware_booked_user.user_id),:prompt=>"Select a User")%>
   </span>
 </div>
 <div class="form-sec-row"><br/>
   <%= f.label :is_replacement,raw("Application Type"), :class=>"text"%>
   <span class="in-box">
-    <%= f.radio_button :is_replacement, 0, :checked=>@ict_hardware_booked_user && (@ict_hardware_booked_user.is_replacement.blank? || @ict_hardware_booked_user.is_replacement==false) ? true : false%> <%= f.label :is_replacement, "New" %>
-    <%= f.radio_button :is_replacement, 1, :checked=>@ict_hardware_booked_user && @ict_hardware_booked_user.is_replacement==true ? true : false%> <%= f.label :is_replacement, "Replacement" %>
+    <%= f.radio_button :is_replacement, false, :checked=>@ict_hardware_booked_user && (!@ict_hardware_booked_user.is_replacement? || @ict_hardware_booked_user.is_replacement.blank?) ? true : false%> <%= f.label :is_replacement, "New" %>
+    <%= f.radio_button :is_replacement, true, :checked=>@ict_hardware_booked_user && @ict_hardware_booked_user.is_replacement ? true : false%> <%= f.label :is_replacement, "Replacement" %>
   </span>
 </div>
 <div class="form-sec-row"><br/>
