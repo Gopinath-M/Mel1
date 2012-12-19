@@ -4,7 +4,7 @@
     <%= form_for(@users, :url => user_profile_users_path(:id=>@users.id), :html => { :method => :put, :multipart => true }) do |f| %>
       <%=f.error_messages%>
       <div class="clearfix">&nbsp;</div>
-      <h2>Stage 1 - Update User Profile</h2>
+      <h2>Stage 1 Out of Stage 5 - Update User Profile</h2>
       <div class="form-sec-row">
         <%= f.label :username,raw("Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
@@ -65,7 +65,7 @@
       </div>
       <h2>Dependent</h2>
        <div class="form-sec-row">
-        <%= f.label :child,raw("Total Child/ Dependent <span style=color:red>*</span>"), :class=>"text"%>
+        <%= f.label :child,raw("Total Children/Dependent <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :child, :size => 30, :autofocus => true %>orang
         </span>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference, :declaration_property, :download_attachments]
+  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference, :declaration_property, :download_attachments, :show]
   
   #Activate or Deactivate a particular User
   def update_status
@@ -313,6 +313,21 @@ class UsersController < ApplicationController
     @download = DeclarationProperty.find(params[:id])
     send_file @download.property_file.path
   end
+
+ def show
+    @users = User.find(current_user.id)
+    @service = UserService.find_by_user_id(current_user.id)
+    @service_level = ServiceLevel.find(@service.service_level_id)
+    @classification = Classification.find(@service.classification_id)
+    @standard = ServiceStandard.find(@service.service_standard_id)
+    @appointment = Appointment.find(@service.appointment_id)
+    @state = State.find(@service.state)
+#    @grade = Grade.find(@service.grade_id)
+ end
+ def show_stage
+   @emergency_reference = EmergencyReference.find(current_user.id)
+   @property_file = DeclarationProperty.find_all_by_user_id(current_user.id)
+ end
 # out station module methods ends here
 
 end
