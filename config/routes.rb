@@ -36,7 +36,11 @@ Melaka::Application.routes.draw do
   end
   resources :ict_firewalls
   resources :user_services
-  resources :outstations
+  resources :outstations do
+    collection do
+      get 'approve_request'
+    end
+  end
   resources :resource_ict_equipment_bookings do
     collection do
       get 'requests'
@@ -291,35 +295,35 @@ Melaka::Application.routes.draw do
 
   resources :ict_vpns  do
     collection do
-     get 'approval'
-     put 'approval'
-     get 'download_attachments'
+      get 'approval'
+      put 'approval'
+      get 'download_attachments'
     end
 
   end
   resources :ict_system_accesses do
     collection do
-     get 'approval'
-     put 'approval'
-     get 'download_attachments'
+      get 'approval'
+      put 'approval'
+      get 'download_attachments'
     end
   end
 
-   resources :complaint_building_assets do
+  resources :complaint_building_assets do
     collection do
-     get 'approval'
-     put 'approval'
-     get 'get_categories'
-     get 'get_categories_types'
+      get 'approval'
+      put 'approval'
+      get 'get_categories'
+      get 'get_categories_types'
     end
   end
 
-   resources :complaint_computers do
+  resources :complaint_computers do
     collection do
-     get 'approval'
-     put 'approval'
-     get 'get_system_types'
-     get 'get_system_items'
+      get 'approval'
+      put 'approval'
+      get 'get_system_types'
+      get 'get_system_items'
     end
   end
   # The priority is based upon order of creation:

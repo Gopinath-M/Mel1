@@ -146,10 +146,10 @@
                       <td><b>&nbsp;<%=FacilityIctService.find(ict_firewall_service.id).port%></b></td>
                       <td><b>&nbsp;<%= ict_firewall_service.one_way? ? 'One Way' : 'Two Way' %></b></td>
                       <% if @ict_firewall.status == "New" %>
-                      <td> <%= f.radio_button :status, 'Approve',:checked=>true %> <%= f.label :approve_status, "Approve" %>
-                           <%= f.radio_button :status, 'Not Approve'%> <%= f.label :approve_status, "Not Approve" %></td>
+                        <td> <%= f.radio_button :status, 'Approve',:checked=>true %> <%= f.label :approve_status, "Approve" %>
+                          <%= f.radio_button :status, 'Not Approve'%> <%= f.label :approve_status, "Not Approve" %></td>
                       <%else%>
-                       <td><b>&nbsp;<%= ict_firewall_service.approved? ? 'Approved' : 'Not Approved' %></b></td>
+                        <td><b>&nbsp;<%= ict_firewall_service.approved? ? 'Approved' : 'Not Approved' %></b></td>
                       <%end%>
                     </tr>
                   <%end%>

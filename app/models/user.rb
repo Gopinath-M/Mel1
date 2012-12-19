@@ -48,12 +48,12 @@ class User < ActiveRecord::Base
   #Scopes
   scope :active, where(:deleted => false)
 
-#  define_index do
-#    indexes :username,  :sortable => true
-#    indexes :ic_number,  :sortable => true
-#    indexes [first_name, last_name], :as => :name, :sortable => true
-#    indexes :email
-#  end
+  #  define_index do
+  #    indexes :username,  :sortable => true
+  #    indexes :ic_number,  :sortable => true
+  #    indexes [first_name, last_name], :as => :name, :sortable => true
+  #    indexes :email
+  #  end
   
   def full_name
     return "NA" if first_name.nil? || last_name.nil?
@@ -96,6 +96,31 @@ class User < ActiveRecord::Base
     return roles && roles.first ? true : false
     #    return role.users.include?(self)
   end
+
+  def is_datuk_suk?
+    role = Role.find_by_name(DISP_USER_ROLE_DATUK_SUK)
+    roles = RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    return roles && roles.first ? true : false
+  end
+
+  def is_suk_deputy?
+    role = Role.find_by_name(DISP_USER_ROLE_SUK_DEPUTY)
+    roles = RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    return roles && roles.first ? true : false
+  end
+
+  def is_human_resource_manager?
+    role = Role.find_by_name(DISP_USER_ROLE_HUMAN_RESOURCE)
+    roles = RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    return roles && roles.first ? true : false
+  end
+
+  def is_chief_minister?
+    role = Role.find_by_name(DISP_USER_ROLE_CHIEF_MINISTER)
+    roles = RoleMembership.where(:user_id=>self.id, :role_id=>role.id)
+    return roles && roles.first ? true : false
+  end
+
 
   def activate_user
     self.activated_at = Time.now.utc
