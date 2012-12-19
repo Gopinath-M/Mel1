@@ -4,6 +4,7 @@
   <%= form_for(@resource_transportation_booking, :as => :resource_transportation_booking,  :url => resource_transportation_bookings_path, :html => {:multipart => true} ,:method=>:post) do |f| %>
     <div class="form-sec">
       <%=f.error_messages%>
+      
       <div class="clearfix">&nbsp;</div>
       <% if (current_user.is_department_user? || current_user.is_department_admin?) %>
         <div class="form-sec-row">
