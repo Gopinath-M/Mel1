@@ -14,6 +14,15 @@ class IctHardwareBookingsController < ApplicationController
     @ict_hardware_booking=IctHardwareBooking.create(params[:ict_hardware_booking].merge!({:booker_id=>current_user.id, :department_id=>@current_department}))
     if @ict_hardware_booking.valid?
       @ict_hardware_booking.save
+      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+      dept = Department.find_by_id(current_department)
+      if !@approve.present?
+        user = dept.users.where("role_id = 2").first
+        UserMailer.send_mail_to_dept_admin_for_ict_hardware(user,@ict_hardware_booking,dept).deliver
+      else
+        user = User.find_by_id(@approve.user_id)
+        UserMailer.send_mail_to_approver_for_ict_hardware(user,@ict_hardware_booking,dept).deliver
+      end
       redirect_to(ict_hardware_bookings_path, :notice => "Resource Requisition ICT Hardware has been booked.")
     else
       render :action=>'new'
@@ -38,16 +47,16 @@ class IctHardwareBookingsController < ApplicationController
   end
 
   def approve
-   @ict_hardware_booked_user=IctHardwareBookedUser.find(params[:id])
-   @ict_hardware_booking=@ict_hardware_booked_user.ict_hardware_booking
+    @ict_hardware_booked_user=IctHardwareBookedUser.find(params[:id])
+    @ict_hardware_booking=@ict_hardware_booked_user.ict_hardware_booking
   end
 
   def update_request
     @ict_hardware_booked_user=IctHardwareBookedUser.find(params[:id])
     @ict_hardware_booked_user.update_attributes(params[:ict_hardware_booked_user])
-#    p user = User.find_by_id(ict_hardware.person_incharge)
-#    p ordered_user = User.find_by_id(ict_hardware.user_id)
-#    UserMailer.send_status_mail_for_ict_network(user,ordered_user,network).deliver
+    user = @ict_hardware_booked_user.officer
+    ordered_user = @ict_hardware_booked_user.ict_hardware_booking.booker
+    UserMailer.send_status_mail_for_ict_hardware(user, ordered_user, @ict_hardware_booked_user.ict_hardware_booking,@ict_hardware_booked_user).deliver
     redirect_to(requests_ict_hardware_bookings_path, :notice => 'Your ICT Hardware booking Status has been successfully updated.')
   end
 
