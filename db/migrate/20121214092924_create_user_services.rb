@@ -19,10 +19,10 @@ class CreateUserServices < ActiveRecord::Migration
       t.integer :appointment_id
       t.string :position
       t.string :official_position
-      t.date :first_appointment_to_public_service
-      t.date :first_appointment_to_present_position
-      t.date :promotion_to_present_grade      
-      t.date :confirmation_date
+      t.datetime :first_appointment_to_public_service
+      t.datetime :first_appointment_to_present_position
+      t.datetime :promotion_to_present_grade
+      t.datetime :confirmation_date
       t.timestamps
     end
   end

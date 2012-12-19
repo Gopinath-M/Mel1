@@ -36,6 +36,8 @@
         <div class="leftNav-links box">
           <h2>Alerts</h2>
           <ul>
+  <%# if (current_user.is_datuk_suk? || current_user.is_department_admin? || current_user.is_suk_deputy? || current_user.is_human_resource_manager? || current_user.is_chief_minister?) %>
+
             <li>
               <% val = IctNetworkPoint.where(:person_incharge => current_user.id)%>
               <% if val.present? %>
@@ -646,6 +648,36 @@
                     </div>
                   </li>
                 <%end%>
+                                <% if (current_role!=DISP_USER_ROLE_DEPT_USER) %>
+                  <li class="menu-item">
+                    <%=link_to "Outstation Requests", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
+                    <div id ="div_outstation_request" style="display:none;">
+                      <ul>
+                        <% if (current_user.is_datuk_suk? || current_user.is_department_admin? || current_user.is_suk_deputy?) %>
+                          <li>
+                            <% support_count = Outstation.find_all_by_status("New").count  %>
+                            <span class="notifiNo"><%=  support_count>0 ? support_count : ''%> </span>
+                            <%=link_to "Support Request", approve_request_outstations_path%>
+                          </li>
+                        <%end%>
+                        <% if current_user.is_human_resource_manager? %>
+                          <li>
+                            <% review_count = Outstation.find_all_by_status("Support").count  %>
+                            <span class="notifiNo"><%=  review_count>0 ? review_count : ''%> </span>
+                            <%=link_to "Review Request", approve_request_outstations_path%>
+                          </li>
+                        <%end%>
+                        <% if (current_user.is_datuk_suk? || current_user.is_chief_minister?) %>
+                          <li>
+                            <% approve_count = Outstation.find_all_by_status("Review").count  %>
+                            <span class="notifiNo"><%=  approve_count>0 ? approve_count : ''%> </span>
+                            <%=link_to "Approve Request", approve_request_outstations_path%>
+                          </li>
+                        <%end%>
+                      </ul>
+                    </div>
+                  </li>
+                <%end%>
                 <li><a href="javascript:void(0);" title="Newsletter">Newsletter</a></li>
                 <li><a href="javascript:void(0);" title="Email Template">Email Template</a></li>
                 <li><a href="javascript:void(0);" title="Events">Events</a></li>
@@ -755,7 +787,6 @@
                   </div>
                 </li>
 
-              <%end%>
 
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_USER)%>
       <%# @room_list =  resource_room_status_count(status) %>
@@ -828,6 +859,38 @@
                 <li><a href="javascript:void(0);" title="Resources">Resources</a></li>
                 <li><a href="javascript:void(0);" title="View Resources">View Resources</a></li>
               <%end%>
+              <%end%>
+
+                <% if (current_role!=DISP_USER_ROLE_DEPT_USER) %>
+                  <li class="menu-item">
+                    <%=link_to "Outstation Requests", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
+                    <div id ="div_outstation_request" style="display:none;">
+                      <ul>
+                        <% if (current_user.is_datuk_suk? || current_user.is_department_admin? || current_user.is_suk_deputy?) %>
+                          <li>
+                            <% support_count = Outstation.find_all_by_status("New").count  %>
+                            <span class="notifiNo"><%=  support_count>0 ? support_count : ''%> </span>
+                            <%=link_to "Support Request", approve_request_outstations_path%>
+                          </li>
+                        <%end%>
+                        <% if current_user.is_human_resource_manager? %>
+                          <li>
+                            <% review_count = Outstation.find_all_by_status("Support").count  %>
+                            <span class="notifiNo"><%=  review_count>0 ? review_count : ''%> </span>
+                            <%=link_to "Review Request", approve_request_outstations_path%>
+                          </li>
+                        <%end%>
+                        <% if (current_user.is_datuk_suk? || current_user.is_chief_minister?) %>
+                          <li>
+                            <% approve_count = Outstation.find_all_by_status("Review").count  %>
+                            <span class="notifiNo"><%=  approve_count>0 ? approve_count : ''%> </span>
+                            <%=link_to "Approve Request", approve_request_outstations_path%>
+                          </li>
+                        <%end%>
+                      </ul>
+                    </div>
+                  </li>
+                <%end%>
               <li><a href="javascript:void(0);" title="My Newsletter">My Newsletter</a></li>
               <li><a href="javascript:void(0);" title="Email Template">Email Template</a></li>
               <li><a href="javascript:void(0);" title="View Events">View Events</a></li>
