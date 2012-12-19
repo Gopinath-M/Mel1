@@ -15,7 +15,16 @@ gem 'mysql2', '~>0.2.6'
 gem 'mini_magick'
 gem 'private_pub'  #chat online
 gem 'stalker'
-gem 'country-select'
+#gem 'country-select'
+gem 'riddle','1.2.1'
+#gem 'thinking-sphinx', :git => 'http://github.com/freelancing-god/thinking-sphinx.git', :require => 'thinking_sphinx'
+gem "thinking-sphinx", "~> 2.0.0"
+#gem 'thinking-sphinx', :git => 'git://github.com/pat/thinking-sphinx.git'
+gem 'rdoc'
+
+
+#gem 'postgres', '~>0.8.1'
+#gem 'postgres-pr', '~>0.6.3'
 #gem 'thinking-sphinx', '2.0.3'
 # Use unicorn as the web server
 # gem 'unicorn'
