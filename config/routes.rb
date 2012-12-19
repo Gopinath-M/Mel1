@@ -47,6 +47,7 @@ Melaka::Application.routes.draw do
       get 'approve_request'
       put 'update_booking'
       post 'user_return'
+      get 'search_other_resource'
     end
   end
   resources :ict_network_points do

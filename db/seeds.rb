@@ -454,7 +454,7 @@ begin
   file = File.open("public/Facility_Ict_Agencies.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      FacilityIctAgencie.create(:name=>record,:is_active=>true)
+      FacilityIctAgency.create(:name=>record,:is_active=>true)
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
