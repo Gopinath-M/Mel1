@@ -400,3 +400,9 @@ span.in-box2  { padding: 5px; width: 132%;}
 .form-sec-row5 label.text {float: left;font-weight: bold;width: 150px;}
 .size-quan-box-ict  { padding: 5px; width: 4%;}
 .size-quan-box-ict1  { padding: 5px; width: 22%;}
+.form-sec-row-out{ overflow:hidden; padding:5px 0}
+.form-sec-row-out label.text{ float:left; width:185px; font-weight:bold;}
+.form-sec-row-out span.in-box{ float:left; width:60%;}
+.form-sec-row-out span.in-box input[type="text"],.form-sec-row span.in-box input[type="password"]{ width:81%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
+.form-sec-row-out span.in-box select{ width:85%; padding:5px; border:1px solid #96a6c5}
+.form-sec-row-out span.in-box textarea{ width:81%; padding:5px; border:1px solid #96a6c5; font-size:13px;}
