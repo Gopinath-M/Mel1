@@ -74,13 +74,13 @@
               <div class="form-sec-row">
                 <label class="text">From Date</label>
                 <span class="in-box">
-                  <%= @outstation.from_date.strftime("%a %d %b %Y %I:%M %p") %></span>
+                  <%= @outstation.from_date %></span> 
               </div>
 
               <div class="form-sec-row">
                 <label class="text">To Date</label>
                 <span class="in-box">
-                  <%= @outstation.to_date.strftime("%a %d %b %Y %I:%M %p") %></span>
+                  <%= @outstation.to_date%></span>
               </div>
 
               <div class="form-sec-row">
@@ -123,7 +123,7 @@
                 <label class="text">&nbsp;</label>
                 <span class="in-box2">
                   <%#= link_to "Back", :back, :class=>"btn1 mr2"%>
-                  <%= f.submit "Submit", :class=>"btn1 mr2", :onclick=>'return validate_ict_request_approval_form();'%>
+                  <%= f.submit "Submit", :class=>"btn1 mr2"%>
                 </span>
               </div>
 
