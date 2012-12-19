@@ -96,7 +96,7 @@ end
 
 
 puts "Creating Roles"
-roles = ["Super Admin", "Department Admin", "Department User", "Unit Admin", "Resource Manager"]
+roles = ["Super Admin", "Department Admin", "Department User", "Unit Admin", "Resource Manager","Datuk SUK","SUK Deputy","Human Resource","Y.A.B Chief Minister"]
 roles.each do | role |
   role = Role.new(:name => role)
   role.save
@@ -158,6 +158,28 @@ rm_resource_manager1 = RoleMembership.create(:user_id => resource_manager1.id, :
 resource_manager2 = User.create(:ic_number => "123456780002", :contact_mobile => "9801498404", :email => 'sathish@openwavecomp.in', :password => "password", :first_name => "Sheik", :username => "Sheik", :last_name => "Sultan", :status => 'A', :state => 7, :sign_in_count => 1)
 resource_manager2.activate_user
 rm_resource_manager2 = RoleMembership.create(:user_id => resource_manager2.id, :department_id => 3, :role_id => 5, :status => 'A', :default_dept=>true)
+
+
+puts"Creating Sample Datuk SUK"
+Datuk_suk1 = User.create(:ic_number => "123456700001", :contact_mobile => "9801498404",:email => 'datuksuk@openwavecomp.in', :password => "password", :first_name => "Datuk", :username => "Datuk SUK", :last_name => "SUK", :status => 'A', :state => 7, :sign_in_count => 1)
+Datuk_suk1.activate_user
+rm_Datuk_suk1 = RoleMembership.create(:user_id => Datuk_suk1.id, :department_id => 1, :role_id => 6, :status => 'A', :default_dept=>true)
+
+puts"Creating Sample SUK Deputy"
+Suk_Deputy1 = User.create(:ic_number => "123456700011", :contact_mobile => "9801498404",:email => 'sukdeputy@openwavecomp.in', :password => "password", :first_name => "SUK", :username => "SUK Deputy", :last_name => "Deputy", :status => 'A', :state => 7, :sign_in_count => 1)
+Suk_Deputy1.activate_user
+rm_Suk_Deputy1 = RoleMembership.create(:user_id => Suk_Deputy1.id, :department_id => 1, :role_id => 7, :status => 'A', :default_dept=>true)
+
+puts"Creating Sample HR"
+hr_manager1 = User.create(:ic_number => "123456700111", :contact_mobile => "9801498404",:email => 'hrdept@openwavecomp.in', :password => "password", :first_name => "HR", :username => "Human Resource", :last_name => "HR", :status => 'A', :state => 7, :sign_in_count => 1)
+hr_manager1.activate_user
+rm_hr_manager1 = RoleMembership.create(:user_id => hr_manager1.id, :department_id => 1, :role_id => 8, :status => 'A', :default_dept=>true)
+
+puts"Creating Sample Chief Minister"
+chief_minister1 = User.create(:ic_number => "123456123456", :contact_mobile => "9801498404",:email => 'yab@openwavecomp.in', :password => "password", :first_name => "Y.A.B", :username => "Chief Minister", :last_name => "Minister", :status => 'A', :state => 7, :sign_in_count => 1)
+chief_minister1.activate_user
+rm_chief_minister1 = RoleMembership.create(:user_id => chief_minister1.id, :department_id => 1, :role_id => 9, :status => 'A', :default_dept=>true)
+
 
 puts "Creating Sample Department Admins for the departments JABATAN KETUA MENTERI MELAKA, JABATAN AGAMA ISLAM MELAKA, JABATAN KERJA RAYA MELAKA, JABATAN MUFTI NEGERI MELAKA, JABATAN PERTANIAN NEGERI MELAKA, JABATAN KEBAJIKAN MASYARAKAT"
 department_admin1 = User.create(:ic_number => "123456781111",:contact_mobile => "9801498404", :email => 'sathish.t@openwavecomp.in', :password => "password", :first_name => "Dept1Admin",  :last_name => "JKMM", :username=>'Sathish', :status => 'A', :state => 7, :sign_in_count => 1)
