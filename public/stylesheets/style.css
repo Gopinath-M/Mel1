@@ -1,3 +1,9 @@
+
+
+
+
+
+
 /*COMMON*/
 
 .container{ width:100%; margin:0 auto;min-height: 1000px;}
@@ -13,6 +19,7 @@
 #Header{ min-height:95px;width:980px; margin:0 auto;}
 #Header .logo{ float:left; width:500px; height:95px;}
 #Header .logo a{ float:left; width:500px; height:95px; background:url(../images/logo.png) no-repeat 0 0; text-indent:-999px; text-align:left; overflow:hidden;}
+#Header .logo1 a{ float:left; width:500px; height:95px; background:url(../images/logo_malay.png) no-repeat 0 0; text-indent:-999px; text-align:left; overflow:hidden;}
 #Header .header-right{ float:right; width:480px;}
 #Header .header-right .language,#Header .iHeader .language{ float:right; margin-top:35px; margin-left:5px;}
 #Header .header-right .language a,#Header .header-right .language span,#Header .iHeader .language a,#Header .iHeader .language span{ float:right; margin-left:3px; width:16px; height:16px; padding:2px;}
@@ -122,13 +129,14 @@
 .leftNav-links{ padding-bottom:15px; padding-top:15px; padding-left:10px; background: url(../images/cross_line.png) repeat-x 0 0;}
 .leftNav-links ul{ margin-right:10px;}
 .leftNav-links li{ background: url(../images/sep_leftnav1.png) repeat-x 0 100%; padding-bottom:1px;}
-.leftNav-links li a{ display:block; padding-left:10px; line-height:22px; background: url(../images/arrow_leftnav.png) no-repeat 0 8px; color:#333;}
+/*.leftNav-links li a{ display:block; padding-left:10px; line-height:22px; background: url(../images/arrow_leftnav.png) no-repeat 0 8px; color:#333;}*/
+.leftNav-links li a{ display:block; padding-left:10px; padding-bottom: 5px; padding-left: 10px; padding-top: 4px;line-height:14px; background: url(../images/arrow_leftnav2.png) no-repeat 0 8px; color:#333;}
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     .leftNav-links li a{ display:block; padding-left:10px; line-height:22px; background: url(../images/arrow_leftnav.png) no-repeat 0 7px; color:#333;}
 
 }
 .leftNav-links li a:hover{ color:#E62C0C;}
-.leftNav-links li a.selected{ background-position:0 -10px;}
+.leftNav-links li a.selected{ background-position:0 -20px;}
 .leftNav-links li ul{ margin-right:0;}
 .leftNav-links li li{background: url(../images/sep_leftnav1.png) repeat-x 0 0; padding-top:1px; padding-bottom:0px;}
 .leftNav-links li li a{ padding-left:20px;background:#FEF9F8 url(../images/bullet3.jpg) no-repeat 10px 10px;}
@@ -405,4 +413,3 @@ span.in-box2  { padding: 5px; width: 132%;}
 .form-sec-row-out span.in-box{ float:left; width:60%;}
 .form-sec-row-out span.in-box input[type="text"],.form-sec-row span.in-box input[type="password"]{ width:81%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
 .form-sec-row-out span.in-box select{ width:85%; padding:5px; border:1px solid #96a6c5}
-.form-sec-row-out span.in-box textarea{ width:81%; padding:5px; border:1px solid #96a6c5; font-size:13px;}
