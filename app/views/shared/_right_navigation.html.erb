@@ -11,41 +11,40 @@
           <%end%>
           <%if current_user.widget_two%>
             <div id="pr-time">
-              <script type="text/javascript" src="http://locateandpray.islamicnature.com/code/?placeaddress=Jalan+Durian+Daun%2C+Kampung+Durian+Daun+Lama%2C+75400+Melaka%2C+Malaysia&amp;tf=24&amp;method=mwl&amp;madhab=shafii&amp;ia=17&amp;fa=18&amp;lng=102.25616&amp;lat=2.20568&amp;tz=8.0"></script>
+              <!--<script type="text/javascript" src="http://locateandpray.islamicnature.com/code/?placeaddress=Jalan+Durian+Daun%2C+Kampung+Durian+Daun+Lama%2C+75400+Melaka%2C+Malaysia&amp;tf=24&amp;method=mwl&amp;madhab=shafii&amp;ia=17&amp;fa=18&amp;lng=102.25616&amp;lat=2.20568&amp;tz=8.0"></script>-->
             </div>
           <%end%>
-          <h2>Resource Apps</h2>
+          <h2><%= t('right_nav.res_apps')%></h2>
           <ul>
-            <li><a href="javascript:void(0);" title="Resource Booking ">Resource Booking </a></li>
-            <li><a href="javascript:void(0);" title="Complaints">Complaints</a></li>
-            <li><a href="/ict_network_points/list_to_select_ict" title="Resource Requisition">Resource Requisition</a></li>
-            <li><a href="javascript:void(0);" title="Issue Log ">Issue Log </a></li>
-            <li><a href="javascript:void(0);" title="Change Request ">Change Request </a></li>
-            <li><a href="/users/user_profile" title="Out-Station">Outstation Request </a></li>
+            <li><a href="javascript:void(0);" title="<%= t('right_nav.res_booking')%>"><%= t('right_nav.res_booking')%> </a></li>
+            <li><a href="javascript:void(0);" title="<%= t('right_nav.complaints')%>"><%= t('right_nav.complaints')%></a></li>
+            <li><a href="javascript:void(0);" title="<%= t('right_nav.complaints')%>"><%= t('right_nav.complaints')%></a></li>
+            <li><a href="javascript:void(0);" title="<%= t('right_nav.issue_log')%>"><%= t('right_nav.issue_log')%></a></li>
+            <li><a href="javascript:void(0);" title="<%= t('right_nav.change_req')%>"><%= t('right_nav.change_req')%> </a></li>
           </ul>
         </div>
         <div class="recentEvents box">
-          <h2>Upcoming Events</h2>
+          <h2><%= t('right_nav.up_event')%></h2>
           <ul>
             <li>
               <div class="event-img"><a href="javascript:void(0);" title=""><img src="/images/img_event1.jpg" alt="Image" width="50" height="50" /></a></div>
               <div class="event-txt">
-                <a href="javascript:void(0);" title="Melaka International con..">Melaka International con..</a>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, </p>
+                <a href="javascript:void(0);" title="<%= t('right_nav.melaka_info')%>"><%= t('right_nav.melaka_info')%></a>
+                <p><%= t('right_nav.melaka_info_con1')%> </p>
               </div>
             </li>
             <li>
               <div class="event-img"><a href="javascript:void(0);" title="High level State Govern..."><img src="/images/img_event2.jpg" alt="Image" width="50" height="50" /></a></div>
               <div class="event-txt">
-                <a href="javascript:void(0);" title="High level State Govern...">High level State Govern...</a>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, </p>
+                <a href="javascript:void(0);" title="<%= t('right_nav.high_level')%>"><%= t('right_nav.high_level')%></a>
+                <p><%= t('right_nav.high_level_con1')%> </p>
               </div>
             </li>
             <li>
               <div class="event-img"><a href="javascript:void(0);" title="4th Malaysian State Con..."><img src="/images/img_event3.jpg" alt="Image" width="50" height="50" /></a></div>
               <div class="event-txt">
-                <a href="javascript:void(0);" title="4th Malaysian State Con...">4th Malaysian State Con...</a>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit </p>
+                <a href="javascript:void(0);" title="<%= t('right_nav.malaysia_state')%>"><%= t('right_nav.malaysia_state')%></a>
+                <p><%= t('right_nav.malaysia_state_con1')%> </p>
               </div>
             </li>
           </ul>

@@ -18,7 +18,7 @@
           <ul class="box">
             <li>
               <%department=Department.find(@current_department) %>
-              <span>Change Department: </span>
+              <span><%= t('dashboard.change_dept')%>  </span>
               <%=select(:default, :department_name,  options_from_collection_for_select(departments, 'id', 'name', department.id)) %>
             </li>
           </ul>
@@ -27,25 +27,23 @@
       </div>
     <%end%>
   <%end%>
-
-  <h3 class="b-head">Today's News</h3><marquee behavior="scroll" direction="left" style="background: #f2f2f2;border-bottom: 1px solid #CCCCCC;
+ <h3 class="b-head"><%= t('dashboard.today_news')%> </h3><marquee behavior="scroll" direction="left" style="background: #f2f2f2;border-bottom: 1px solid #CCCCCC;
                                                border-top: 1px solid #CCCCCC;
-                                               padding: 5px 0;"> Melaka State adopts Red Hat virtualization and Linux operating system; security, reliability and cost key factors in win
-    Opens Center of Excellence in a bid to train more open source professionals, boosting skill sets for future
-  </marquee><br /><br /><h3 class="b-head">Dashboard</h3>
+                                               padding: 5px 0;"> <%= t('dashboard.today_news_con')%>
+  </marquee><br /><br /><h3 class="b-head"><%= t('dashboard.dashboard_main')%> </h3>
   <div id="tabs">
-    <ul>  
+    <ul>
       <%if current_user && (current_user.is_super_admin? || current_user.is_department_admin?)%>
                             <!--li><a href="#tabs-1"><%#=current_user.is_super_admin? ? "Admin Activation" : "User Activation"%> </a></li-->
-        <li><a href="#tabs-1">Messages</a></li>
-        <li><a href="#tabs-2">User Transfer Request</a></li>
-        <li><a href="#tabs-3">Complaints</a></li>
+        <li><a href="#tabs-1"><%= t('dashboard.message')%> s</a></li>
+        <li><a href="#tabs-2"><%= t('dashboard.user_transfer_req')%> </a></li>
+        <li><a href="#tabs-3"><%= t('right_nav.complaints')%></a></li>
       <%else%>
-        <li><a href="#tabs-1">Messages</a></li>
-        <li><a href="#tabs-2">Vendors</a></li>
-        <li><a href="#tabs-3">Resources</a></li>
-        <li><a href="#tabs-3">My Newsletter</a></li>
-        <li><a href="#tabs-3">Events</a></li>
+        <li><a href="#tabs-1"><%= t('dashboard.message')%></a></li>
+        <li><a href="#tabs-2"><%= t('dashboard.vendors')%></a></li>
+        <li><a href="#tabs-3"><%= t('dashboard.resource')%></a></li>
+        <li><a href="#tabs-3"><%= t('dashboard.my_news')%></a></li>
+        <li><a href="#tabs-3"><%= t('dashboard.events')%></a></li>
       <%end%>
     </ul>
 <%#*<div id="tabs-1">%>
@@ -104,7 +102,7 @@
 <%#else%>
 <%#*User Messages will comes here<br />%>
 <%#if current_user.departments && current_user.departments.first%>
-<%#*Department Logged%>  
+<%#*Department Logged%>
 <%#=current_user && current_user.departments.first.name%>
 <%#end%>
 <%#end%>
@@ -119,18 +117,11 @@
       <%elsif current_user && current_user.is_department_admin?%>
         User Transfer Request comes here for department admin
       <%else%>
-        Vendors actions
+        <%= t('dashboard.vendor_action')%>
       <%end%>
     </div>
     <div id="tabs-3">
-<%#if current_user && current_user.is_super_admin? %>
-<%#*<p>Resource Booking.</p>%>
-<%#elsif current_user && current_user.is_department_admin?%>
-<%#*<p>Resource booking for Dept Admin.</p>%>
-<%#else%>
-<%#*User can book resources%>
-<%#end%>
-      Complaints will come here
+ <%= t('dashboard.complaint_list')%>
     </div>
   </div>
 </div>

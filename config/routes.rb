@@ -4,6 +4,7 @@ Melaka::Application.routes.draw do
     collection do
       get 'def_dept'
       post 'change_default_department'
+      get 'set_locale'
     end
   end
 

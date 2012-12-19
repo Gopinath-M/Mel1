@@ -4,10 +4,8 @@
     <%if current_user.blank?%>
       <div class="header-right">
         <div class="language">
-          <span href="javascript:void(0);" class="eng selected">
-            <%=image_tag("/images/flag_english.png", :alt=>"English" ,:width=>"16", :border=>"0" ,:height=>"11")%>
-          </span>
-          <%=link_to image_tag("/images/flag_melaka.png", :alt=>"Malay" ,:width=>"16", :border=>"0" ,:height=>"11"), "javascript:void(0);", :class=>"mal", :title=>"Malay"%>
+          <a href="/dashboard/set_locale?locale=en" title="English"><%=image_tag("/images/flag_english.png", :alt=>"English" ,:width=>"16", :border=>"0" ,:height=>"11")%></a>
+          <a href="/dashboard/set_locale?locale=malay" title="Malay"><%=image_tag("/images/flag_melaka.png", :alt=>"Malay" ,:width=>"16", :border=>"0" ,:height=>"11")%></a>
         </div>
         <ul class="globe-menu1 dropdown">
           <li><a href="javascript:void(0);" title="Melaka Info">Melaka Info</a>
@@ -25,16 +23,16 @@
             <li class="drop-arrow"><a href="javascript:void(0);" title="Click Here"><span></span></a>
               <ul>
                 <li>
-                  <%= link_to "Account Settings", account_setting_users_path %>
+                  <%= link_to t('header.account_setting'), account_setting_users_path %>
                 </li>
-                <li> <%=link_to "My Profile", edit_user_registration_path(:id=>current_user.id)%></li>
+                <li> <%=link_to t('header.my_profile'), edit_user_registration_path(:id=>current_user.id)%></li>
                 <% if user_signed_in? %>
-                  <li><%= link_to('Logout', destroy_user_session_path, :method => :get) %></li>
+                  <li><%= link_to( t('header.logout'), destroy_user_session_path, :method =>:get) %></li>
                 <%end%>
-                <li><a href="javascript:void(0);" title="">Help</a></li>
+                <li><a href="javascript:void(0);" title=""><%=t('header.help')%></a></li>
               </ul>
             </li>
-            <li><a href="javascript:void(0);" title="Melaka Info">Home</a></li>
+            <li><a href="javascript:void(0);" title="<%=t('header.home')%>"><%=t('header.home')%></a></li>
             <li><a href="javascript:void(0);" title="Melaka Info" class="mInfo">Melaka Info</a>
               <ul>
                 <%=render :partial=>'shared/cms_header_page'%>
@@ -44,7 +42,7 @@
           <div class="profName-con">
             <%if current_user && !current_user.blank?%>
               <%image_url= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag(current_user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
-              <%user_title=current_role%> 
+              <%user_title=current_role%>
             <%else%>
               <%image_url=image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30"%>
               <%user_title= "Guest User"%>
@@ -54,7 +52,7 @@
               <tr>
                 <td><%#=current_role%>
                   <%=link_to user_title, "javascript:void(0);",:title=>user_title, :class=>"profName", :id=>"lnk_default_department_user_role"%><br />
-                  <font color="#FFFFFF">Welcome 
+                  <font color="#FFFFFF">Welcome
                     <% if !current_user.username.nil? %>
                       <% if current_user.username.length >= 9 %>
                         <%=h truncate(current_user.username, :length => 8) %></font>
@@ -76,16 +74,14 @@
         </div>
         <div class="search-con">
           <div class="language">
-            <span href="javascript:void(0);" class="eng selected">
-              <%=image_tag("/images/flag_english.png", :alt=>"English" ,:width=>"16", :border=>"0" ,:height=>"11")%>
-            </span>
-            <%=link_to image_tag("/images/flag_melaka.png", :alt=>"Malay" ,:width=>"16", :border=>"0" ,:height=>"11"), "javascript:void(0);", :class=>"mal", :title=>"Malay"%>
+            <a href="/dashboard/set_locale?locale=en" title="English"><%=image_tag("/images/flag_english.png", :alt=>"English" ,:width=>"16", :border=>"0" ,:height=>"11")%></a>
+            <a href="/dashboard/set_locale?locale=malay" title="Malay"><%=image_tag("/images/flag_melaka.png", :alt=>"Malay" ,:width=>"16", :border=>"0" ,:height=>"11")%></a>
           </div>
           <div class="search">
             <form method="get" name="form2" id="form2" action="">
               <input name="search" type="submit" class="but-search" value="." />
               <p class="formRow f-right">
-                <label for="kywd" class="ui-watermark-label-pass">Keyword...</label>
+                <label for="kywd" class="ui-watermark-label-pass"><%=t('header.keyword')%></label>
                 <span class="shadow-input"><input name="kywd" id="kywd" type="text" value="" class="pass" /> </span>
               </p>
             </form>
@@ -95,7 +91,7 @@
 
       </div>
     <%end%>
-    <div class="logo">
+    <div class="<%=t('header.logo')%>">
       <%=link_to "Intranet Portal Melaka State Government" , users_path , :title=>"Intranet Portal Melaka State Government"%>
     </div>
   </div>

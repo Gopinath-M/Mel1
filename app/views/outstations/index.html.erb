@@ -11,7 +11,7 @@
               <%= User.find_by_id(outstation.user_id).username %>
             </div>
             <div class="m-c3">
-              <% if outstation.status == "New"%><b><font color='#FFA500'><%= "#{outstation.status}" %></font></b><% elsif outstation.status == "Approve" %><font color='#329C20'><b><%= "#{outstation.status}d" %></font></b> <% elsif outstation.status == "Support" || outstation.status == "Review" %>  <b><font color='#329C20'><%= "#{outstation.status}ed" %> </font></b><% elsif outstation.status == "Declined" || outstation.status == "Returned" || outstation.status == "Cancelled" %>  <b><font color='red'><%= "#{outstation.status}" %> </font></b><% end %>
+              <% if outstation.status == "New"%><b><font color='#FFA500'><%= "#{outstation.status}" %></font></b> <% elsif (outstation.status == "Verified" || outstation.status == "Approved" || outstation.status == "Recommended") %>  <b><font color='#329C20'><%= "#{outstation.status}" %> </font></b><% elsif outstation.status == "Declined" || outstation.status == "Returned" %>  <b><font color='red'><%= "#{outstation.status}" %> </font></b><% end %>
             </div>
           </div>
           <div class="clear"></div>

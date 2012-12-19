@@ -74,7 +74,7 @@
               <div class="form-sec-row">
                 <label class="text">From Date</label>
                 <span class="in-box">
-                  <%= @outstation.from_date %></span> 
+                  <%= @outstation.from_date %></span>
               </div>
 
               <div class="form-sec-row">
@@ -105,14 +105,14 @@
                 <label class="text">Change Status<span style=color:red>*</span></label>
                 <%if @outstation.status == 'New'%>
                   <span class="in-box">
-                    <%= select_tag :status,"<option>Support</option><option>Decline</option>".html_safe %>
+                    <%= select_tag :status,"<option>Verify</option><option>Decline</option>".html_safe %>
                   </span>
-                <%elsif @outstation.status == 'Support'%>
-                <span class="in-box">
-                    <%= select_tag :status,"<option>Review</option><option>Decline</option>".html_safe %>
+                <%elsif @outstation.status == 'Verified'%>
+                  <span class="in-box">
+                    <%= select_tag :status,"<option>Recommend</option><option>Decline</option>".html_safe %>
                   </span>
-                <%elsif @outstation.status == 'Review'%>
-                <span class="in-box">
+                <%elsif @outstation.status == 'Recommended'%>
+                  <span class="in-box">
                     <%= select_tag :status,"<option>Approve</option><option>Decline</option>".html_safe %>
                   </span>
                 <%end%>
@@ -122,7 +122,7 @@
               <div class="form-sec-row2">
                 <label class="text">&nbsp;</label>
                 <span class="in-box2">
-                  <%#= link_to "Back", :back, :class=>"btn1 mr2"%>
+  <%#= link_to "Back", :back, :class=>"btn1 mr2"%>
                   <%= f.submit "Submit", :class=>"btn1 mr2"%>
                 </span>
               </div>
