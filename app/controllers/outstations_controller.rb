@@ -19,7 +19,21 @@ class OutstationsController < ApplicationController
   def approve_request
     index
   end
-
+  def approve_request_for_state
+     if current_user.is_department_user?
+      @outstations = Outstation.find_all_by_user_id_and_is_out_of_state(current_user.id,true)
+    elsif current_user.is_department_admin?
+      @outstations = Outstation.where(:department_id=>current_user.departments, :is_out_of_state=>true)
+    elsif current_user.is_human_resource_manager?
+      @outstations = Outstation.find(:all,:conditions=>["status != ? and is_out_of_state =?",'New''true'])
+    elsif current_user.is_datuk_suk?
+      users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
+      @outstations = Outstation.find(:all,:conditions=>["status = 'Review' or status = 'Approve' or ((status='New' or status='Support') and is out_of_state and user_id in (#{users}) )"])
+    elsif current_user.is_chief_minister?
+      users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
+      @outstations = Outstation.find(:all,:conditions=>["((status='Review' or status='Approve') and user_id in (#{users}) )"])
+    end
+  end
   def new
     @outstations = Outstation.new
   end

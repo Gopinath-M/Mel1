@@ -32,7 +32,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.boolean :widget_one, :default => true
       t.boolean :widget_two, :default => true
       t.boolean :profile_status, :default => false
-      t.string :marital_status
+      t.string :marital_status,:default => 'Single'
       t.integer :hp_number
       t.integer :child
       t.timestamps

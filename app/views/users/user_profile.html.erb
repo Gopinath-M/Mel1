@@ -4,7 +4,8 @@
     <%= form_for(@users, :url => user_profile_users_path(:id=>@users.id), :html => { :method => :put, :multipart => true }) do |f| %>
       <%=f.error_messages%>
       <div class="clearfix">&nbsp;</div>
-      <h2>Stage 1 Out of Stage 5 - Update User Profile</h2>
+      <table><tr><td><font color="red">Step 1 -></font></td><td><font color="#858585">Step 2-></font></td><td><font color="#858585">Step 3-></font></td><td><font color="#858585">Step 4-></font></td><td><font color="#858585">Step 5</font></td></tr></table>
+      <h2>Update User Profile</h2>
       <div class="form-sec-row">
         <%= f.label :username,raw("Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
@@ -40,9 +41,9 @@
       </div>
        <div class="form-sec-row">
         <%= f.label :zipcode,raw("Post Code/ City <span style=color:red>*</span>"), :class=>"text"%>
-        <span class="in-box">
-          <%= f.text_field :zipcode, :autofocus => true, :onkeypress=>"return isNumberKey(event);", :class=> "size-quan-box-ict"%>
-          <%= f.text_field :city, :size => 30, :autofocus => true%>
+        <span class="in-boxx">
+          <%= f.text_field :zipcode, :autofocus => true, :onkeypress=>"return isNumberKey(event);", :class=> "size-quan-box-ict1"%>
+          <%= f.text_field :city, :size => 30, :autofocus => true, :class=>'size-quan-box-ict1'%>
         </span>
       </div>
            <div class="form-sec-row">
@@ -54,7 +55,7 @@
       <div class="form-sec-row">
       <%= f.label :hp_number,raw("HP Number<span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
-        <%= f.text_field :hp_number, :size => 30, :autofocus => true%>
+        <%= f.text_field :hp_number, :onkeypress=>"return isNumberKey(event);", :size => 30, :autofocus => true%>
       </span>
     </div>
  <div class="form-sec-row">
@@ -64,10 +65,10 @@
         </span>
       </div>
       <h2>Dependent</h2>
-       <div class="form-sec-row">
+       <div class="form-sec-row-out">
         <%= f.label :child,raw("Total Children/Dependent <span style=color:red>*</span>"), :class=>"text"%>
-        <span class="in-box">
-          <%= f.text_field :child, :size => 30, :autofocus => true %>orang
+        <span class="in-boxx">
+          <%= f.text_field :child, :autofocus => true, :onkeypress=>"return isNumberKey(event);", :class=>'size-quan-box-ict' %>persons
         </span>
       </div>
       <div class="form-sec-row">
