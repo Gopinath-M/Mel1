@@ -130,6 +130,38 @@ def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_
     mail(:to=>@user.email,:subject =>" Details of ICT Network Point")
   end
 
+
+#  ict_hardware
+
+  #  ict_hardware
+   def send_mail_to_dept_admin_for_ict_hardware(user, ict_hardware_booking, dept)
+    @user=user
+    @ict_hardware_booking=ict_hardware_booking
+    @department=dept
+     mail(:to=>@user.email,:subject =>" Details of ICT Hardware")
+  end
+
+
+
+   def send_status_mail_for_ict_hardware(user,ordered_user,ict_hardware,ict_hardware_booked_user)
+    @user=user
+    @ordered_user=ordered_user
+    @ict_hardware_booking=ict_hardware
+    @ict_hardware_booked_user=ict_hardware_booked_user
+    mail(:to=>@user.email,:subject =>" Resource Requisition for ICT network Point Requisition",:bcc=>@ordered_user.email)
+  end
+
+
+
+
+   def send_mail_to_approver_for_ict_hardware(user, ict_hardware_booking, dept)
+    @user=user
+    @ict_hardware_booking=ict_hardware_booking
+    @department=dept
+    mail(:to=>@user.email,:subject =>" Details of ICT Network Point")
+  end
+
+#ict_hardware end
   def send_mail_to_approver_for_room_booking(user,resource_room_booking,dept)
     @user=user
     @requisition= resource_room_booking
