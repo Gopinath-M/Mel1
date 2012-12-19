@@ -16,11 +16,11 @@ gem 'mini_magick'
 gem 'private_pub'  #chat online
 gem 'stalker'
 #gem 'country-select'
-gem 'riddle','1.2.1'
+#gem 'riddle','1.2.1'
 #gem 'thinking-sphinx', :git => 'http://github.com/freelancing-god/thinking-sphinx.git', :require => 'thinking_sphinx'
-gem "thinking-sphinx", "~> 2.0.0"
+#gem "thinking-sphinx", "~> 2.0.0"
 #gem 'thinking-sphinx', :git => 'git://github.com/pat/thinking-sphinx.git'
-gem 'rdoc'
+#gem 'rdoc'
 
 
 #gem 'postgres', '~>0.8.1'
