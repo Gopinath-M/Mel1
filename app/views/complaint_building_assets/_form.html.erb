@@ -11,19 +11,19 @@
   <div class="form-sec-row">
     <label class="text">Category<span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.select(:building_asset_type_id, BuildingAssetType.all.collect {|p| [ p.name, p.id] },:prompt => "SELECT A CATEGORY", :style=> "width:132%;") %>
+      <%= f.select(:building_asset_type_id, BuildingAssetType.all.collect {|p| [ p.name, p.id] },:prompt => "Select Category", :style=> "width:132%;") %>
     </span>
   </div>
   <div class="form-sec-row">
     <label class="text">Type<span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.select(:type_id, BuildingAssetType.where("parent_type_id=?", params[:building_asset_type_id]).collect {|p| [ p.name, p.id, p.parent_type_id]  },:prompt => "SELECT A TYPE", :style=> "width:132%;") %>
+      <%= f.select(:type_id, BuildingAssetType.where("parent_type_id=?", params[:building_asset_type_id]).collect {|p| [ p.name, p.id, p.parent_type_id]  },:prompt => "Select Type", :style=> "width:132%;") %>
     </span>
   </div>
     <div class="form-sec-row">
     <label class="text">Item<span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.select(:item_id, BuildingAssetType.where("parent_type_id=?", params[:type_id]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT AN ITEM", :style=> "width:132%;") %>
+      <%= f.select(:item_id, BuildingAssetType.where("parent_type_id=?", params[:type_id]).collect {|p| [ p.name, p.id ] },:prompt => "Select Item", :style=> "width:132%;") %>
     </span>
   </div>
 

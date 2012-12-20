@@ -1,7 +1,7 @@
 class OutstationsController < ApplicationController
   before_filter :authenticate_user!
   def index
-    @outstations = Outstation.find_all_by_user_id_and_is_out_of_state(current_user.id,true)
+    @outstations = Outstation.find_all_by_user_id(current_user.id)
   end
 
   def index_for_state

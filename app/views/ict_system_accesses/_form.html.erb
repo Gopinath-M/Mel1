@@ -4,7 +4,7 @@
       <div class="form-sec-row">
           <label class="text">Required System<span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A REQUIRED SYSTEM", :style=> "width:132%;") %>
+            <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Required System", :style=> "width:132%;") %>
           </span>
       </div>
           <div class="form-sec-row">

@@ -99,7 +99,7 @@
 
       <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
       <div class="form-sec-row">
-        <label class="text">Booking Status</label>
+        <label class="text">Status</label>
         <span class="in-box">
           <% if @ict_system_access.status == "New"%><b><font color='#FFA500'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Approved" || @ict_system_access.status == "Processed"  %>  <b><font color='#329C20'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Declined" || @ict_system_access.status == "Returned"  %>  <b><font color='red'><%= @ict_system_access.status %></b></font><%end%></span>
       </div>

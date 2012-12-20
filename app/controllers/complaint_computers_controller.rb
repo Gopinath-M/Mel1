@@ -6,7 +6,7 @@ class ComplaintComputersController < ApplicationController
     elsif current_user && current_user.is_department_admin?
       @complaint_computer = ComplaintComputer.page(params[:page]).per(2)
     else
-      @complaint_computer = ComplaintComputer.where(:user_id => current_user.id).order.page(params[:page]).per(2)
+      @complaint_computer = ComplaintComputer.where("user_id = ? or forward_to = ?", current_user.id, current_user.id).order.page(params[:page]).per(2)
     end
   end
 
@@ -25,12 +25,6 @@ class ComplaintComputersController < ApplicationController
     @name = ComplaintType.find_by_id(@complaint_computer.complaint_type_id)
     @system_access_name = SystemAccess.find_by_id(@complaint_computer.system_access_id)
     @system_model_name = SystemModelType.find_by_id(@complaint_computer.system_model_type_id)
-
-    p 'ddddddddd', @complaint_computer.inspect
-    p 'qqqqqqqqq', @approve.inspect
-    p 'eeeeeeeeeeee', @name.inspect
-    p 'rrrrrrrrrr', @system_access_name.inspect
-    p 'tttttttttt', @system_model_name.inspect
 
     if !@approve.present?
       ict_email = dept.users.where("role_id = 2").first
