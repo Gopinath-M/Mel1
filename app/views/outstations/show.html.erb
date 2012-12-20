@@ -97,7 +97,8 @@
             <div class="form-sec-row">
               <label class="text">Status</label>
               <span class="in-box">
-                <%= @outstation.status %></span>
+                <% if @outstation.status == "New"%><b><font color='#FFA500'><%= "#{@outstation.status}" %></font></b> <% elsif @outstation.status == "Verified" || @outstation.status == "Recommended" || @outstation.status == "Approved" %>  <b><font color='#329C20'><%= "#{@outstation.status}" %> </font></b><% elsif @outstation.status == "Declined" || @outstation.status == "Returned" || @outstation.status == "Cancelled" %>  <b><font color='red'><%= "#{@outstation.status}" %> </font></b><% end %>
+              </span>
             </div>
 
             </div>
