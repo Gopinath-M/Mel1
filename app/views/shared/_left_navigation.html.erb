@@ -342,17 +342,9 @@
                       </div>
                     </li>
                   <%end%>
+                  
+                   
                   <li class="menu-item">
-                    <%=link_to t('left_nav.driver'), "javascript:void(0);" , :title=>t('left_nav.driver') ,:class=>"", :id=>"lnk_driver" ,:onclick=>"leftNavigation(this.id,'div_driver')"%>
-                    <div id ="div_driver" style="display:none;">
-                      <ul>
-                        <li>
-                          <%= link_to t('left_nav.create'), new_driver_path %>
-                        </li>
-                        <li>
-                          <%= link_to t('left_nav.list'), drivers_path %>
-                        </li>
-                        <li class="menu-item">
                           <%=link_to "Facility Ict Softwares", "javascript:void(0);" , :title=>"Facility Ict Softwares" ,:class=>"", :id=>"lnk_facility_ict_softwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_softwares')"%>
                           <div id ="div_facility_ict_softwares" style="display:none;">
                             <ul>
