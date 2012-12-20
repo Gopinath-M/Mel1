@@ -13,7 +13,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :gender
       t.text :address
       t.string :city
-      t.integer :zipcode
+      t.string :zipcode
       t.string :state
       t.string :contact_phone
       t.string :contact_mobile
@@ -33,7 +33,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.boolean :widget_two, :default => true
       t.boolean :profile_status, :default => false
       t.string :marital_status,:default => 'Single'
-      t.integer :hp_number
+      t.string :hp_number
       t.integer :child
       t.timestamps
     end
