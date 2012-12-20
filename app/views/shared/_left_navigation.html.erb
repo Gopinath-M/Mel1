@@ -489,19 +489,25 @@
                       <li>
                         <%=link_to "Create Building Asset", new_complaint_building_asset_path%>
                       </li>
-        <%#*<li>%>
-        <%#=link_to "List Building Asset", complaint_building_assets_path%>
-        <%#*</li>%>
                       <li>
                         <%=link_to "Create Computers", new_complaint_computer_path%>
                       </li>
-        <%#*<li>%>
-        <%#=link_to "List Computers Complaints", complaint_computers_path%>
-        <%#*</li>%>
                     </ul>
                   </div>
                 </li>
-
+               <li class="menu-item">
+                  <%=link_to "Outstation Request", "javascript:void(0);" , :title=>"Outstation Request" ,:class=>"", :id=>"lnk_outstation_request" ,:onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
+                  <div id ="div_outstation_request" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create Request", new_outstation_path%>
+                      </li>
+                      <li>
+                        <%=link_to "Show Request", user_path%>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
               <%end%>
               <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN  || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
                 <li>
@@ -755,19 +761,28 @@
                       <li>
                         <%=link_to "Create Building Asset", new_complaint_building_asset_path%>
                       </li>
-      <%#*<li>%>
-      <%#=link_to "List Building Asset", complaint_building_assets_path%>
-      <%#*</li>%>
                       <li>
                         <%=link_to "Create Computers", new_complaint_computer_path%>
                       </li>
-      <%#*<li>%>
-      <%#=link_to "List Computers Complaints", complaint_computers_path%>
-      <%#*</li>%>
                     </ul>
                   </div>
                 </li>
-
+               <li class="menu-item">
+                  <%=link_to "Outstation Request", "javascript:void(0);" , :title=>"Outstation Request" ,:class=>"", :id=>"lnk_outstation_request" ,:onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
+                  <div id ="div_outstation_request" style="display:none;">
+                    <ul>
+                      <li>
+                        <%=link_to "Create Request", user_profile_users_path%>
+                      </li>
+                      <%user_service = UserService.find_by_user_id(current_user.id)%>
+                      <%if !user_service.blank? %>
+                      <li>
+                        <%=link_to "Show Request", users_path(current_user.id)%>
+                      </li>
+                      <%end%>
+                    </ul>
+                  </div>
+                </li>
 
                 <%if current_user && (current_role == DISP_USER_ROLE_DEPT_USER)%>
         <%# @room_list =  resource_room_status_count(status) %>

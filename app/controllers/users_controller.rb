@@ -282,11 +282,16 @@ class UsersController < ApplicationController
 #Out station module
   def user_profile
     @users = User.find(current_user.id)
-    @users.update_attributes(params[:user])
-    if params[:commit]
+    if params[:commit] == 'Update Profile'
+     @users.update_attributes(params[:user])
+      if @users.valid?
       redirect_to :controller =>'user_services', :action => 'new'
+      else
+        render :action =>'user_profile'
+      end
     end
   end
+  
   def emergency_reference
     @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
     if @emergency_references != nil
@@ -295,8 +300,10 @@ class UsersController < ApplicationController
       @emergency_references = EmergencyReference.new(params[:emergency_reference])
     end
     if params[:commit] == 'Update Reference'
+      if @emergency_references.valid?
     @emergency_references.save
     redirect_to :controller =>'users', :action=>'declaration_property'
+      end
     end
   end
 
@@ -305,8 +312,11 @@ class UsersController < ApplicationController
     @property_file = DeclarationProperty.new(params[:declaration_property])
     if params[:commit]
       @property_file.property_year = params[:date][:year]
+      @property_file.user_id = current_user.id
+      if @property_file.valid?
       @property_file.save
       redirect_to :controller =>'outstations', :action=>'new'
+      end
     end
   end
  def download_attachments
@@ -314,16 +324,20 @@ class UsersController < ApplicationController
     send_file @download.property_file.path
   end
 
- def show
+def show
     @users = User.find(current_user.id)
-    @service = UserService.find_by_user_id(current_user.id)
+    @service = UserService.find_by_user_id(current_user.id) 
     @service_level = ServiceLevel.find(@service.service_level_id)
     @classification = Classification.find(@service.classification_id)
     @standard = ServiceStandard.find(@service.service_standard_id)
     @appointment = Appointment.find(@service.appointment_id)
     @state = State.find(@service.state)
-#    @grade = Grade.find(@service.grade_id)
- end
+    #    @grade = Grade.find(@service.grade_id)
+    @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
+    @declaration_properties = DeclarationProperty.find_by_user_id(current_user.id)
+    @outstations = Outstation.find_by_user_id(current_user.id)
+
+  end
  def show_stage
    @emergency_reference = EmergencyReference.find(current_user.id)
    @property_file = DeclarationProperty.find_all_by_user_id(current_user.id)
