@@ -783,9 +783,10 @@
                       <% user_service = UserService.find_by_user_id(current_user.id) %>
                       <% declaration_property = DeclarationProperty.find_by_user_id(current_user.id) %>
                       <% emergency_reference = EmergencyReference.find_by_user_id(current_user.id) %>
-                      <%if !user_service.blank? && !declaration_property.blank? && !emergency_reference.blank? %>
+                      <% outstation = Outstation.find_by_user_id(current_user.id) %>
+                      <%if !user_service.blank? && !declaration_property.blank? && !emergency_reference.blank? && !outstation.blank? %>
                         <li>
-                          <%=link_to "Show Request", user_path(current_user.id)%>
+                          <%=link_to "Show Request", user_path(:id=>current_user.id)%>
                         </li>
                       <%end%>
                     </ul>
