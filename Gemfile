@@ -16,6 +16,7 @@ gem 'mini_magick'
 gem 'private_pub'  #chat online
 gem 'stalker'
 #gem 'country-select'
+#gem 'i18n'
 #gem 'riddle','1.2.1'
 #gem 'thinking-sphinx', :git => 'http://github.com/freelancing-god/thinking-sphinx.git', :require => 'thinking_sphinx'
 #gem "thinking-sphinx", "~> 2.0.0"
