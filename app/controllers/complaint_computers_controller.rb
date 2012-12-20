@@ -18,23 +18,23 @@ class ComplaintComputersController < ApplicationController
     @complaint_computer=ComplaintComputer.create(params[:complaint_computer])
     @complaint_computer.user_id = current_user.id
     @complaint_computer.department_id = current_user.departments
-    @complaint_computer.save
-
-    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-    dept = Department.find_by_id(current_user.departments)
-    @name = ComplaintType.find_by_id(@complaint_computer.complaint_type_id)
-    @system_access_name = SystemAccess.find_by_id(@complaint_computer.system_access_id)
-    @system_model_name = SystemModelType.find_by_id(@complaint_computer.system_model_type_id)
-
-    if !@approve.present?
-      ict_email = dept.users.where("role_id = 2").first
-      UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
-    else
-      ict_email = User.find_by_id(@approve.user_id)
-      UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
-    end
-
+    
     if @complaint_computer.valid?
+      @complaint_computer.save
+      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+      dept = Department.find_by_id(current_user.departments)
+      @name = ComplaintType.find_by_id(@complaint_computer.complaint_type_id)
+      @system_access_name = SystemAccess.find_by_id(@complaint_computer.system_access_id)
+      @system_model_name = SystemModelType.find_by_id(@complaint_computer.system_model_type_id)
+      if !@approve.present?
+        ict_email = dept.users.where("role_id = 2").first
+        UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
+      else
+        ict_email = User.find_by_id(@approve.user_id)
+        UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
+      end
+
+      
       redirect_to(complaint_computers_path, :notice => "Computers has been complained successfully.")
     else
       render :action=>'new'
