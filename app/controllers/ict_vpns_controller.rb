@@ -20,20 +20,21 @@ class IctVpnsController < ApplicationController
     @ict_vpn.requisition_type_id = params[:requisition_type_id]
     @ict_vpn.user_id = current_user.id
     @ict_vpn.department_id = current_user.departments
-    @ict_vpn.save
-
-    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-    dept = Department.find_by_id(current_user.departments)
-    @requisition_ict_vpn=RequisitionType.find(@ict_vpn.requisition_type_id)
-    @system_access_ict_vpn=SystemAccess.find(@ict_vpn.system_access_id)
-    if !@approve.present?
-      ict_email = dept.users.where("role_id = 2").first
-      UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
-    else
-      ict_email = User.find_by_id(@approve.user_id)
-      UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
-    end
     if @ict_vpn.valid?
+      @ict_vpn.save
+
+      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+      dept = Department.find_by_id(current_user.departments)
+      @requisition_ict_vpn=RequisitionType.find(@ict_vpn.requisition_type_id)
+      @system_access_ict_vpn=SystemAccess.find(@ict_vpn.system_access_id)
+      if !@approve.present?
+        ict_email = dept.users.where("role_id = 2").first
+        UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
+      else
+        ict_email = User.find_by_id(@approve.user_id)
+        UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
+      end
+
       redirect_to(ict_vpns_path, :notice => "Resource Requisition ICT VPN has been created successfully.")
     else
       render :action=>'new'

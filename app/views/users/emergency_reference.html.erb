@@ -16,21 +16,22 @@
     <div class="form-sec-row">
        <%= f.label :name,raw("Head Department Position Title<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
-         <%dept_name = RoleMembership.find_by_department_id_and_role_id(current_user.departments.first.id,2)%>
-          <%position = User.find(dept_name.user_id)%>
-          <%user_service = UserService.find(dept_name.user_id) if !position%>
-          <%if user_service !=nil %>
-          <%=user_service.position%>
-          <%end%>
+         <%#dept_name = RoleMembership.find_by_department_id_and_role_id(current_user.departments.first.id,2)%>
+          <%#position = User.find(dept_name.user_id)%>
+          <%#user_service = UserService.find(dept_name.user_id) if !position%>
+          <%#if user_service !=nil %>
+          <%#=user_service.position%>
+          <%#end%>
         </span>
       </div>
       <div class="form-sec-row">
          <%= f.label :name,raw("Head Department Email<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
-          <%=position.email%>
+          <%#=position.email%>
         </span>
       </div>
       <%end%>
+      <h2>Emergency Reference </h2>
         <%= f.hidden_field :user_id, :value=>current_user.id %>
       <div class="form-sec-row">
       <%= f.label :name,raw("Name<span style=color:red>*</span>"), :class=>"text"%>
