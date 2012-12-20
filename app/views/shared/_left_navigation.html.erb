@@ -503,7 +503,9 @@
                         <%=link_to "Create Request", new_outstation_path%>
                       </li>
                       <% user_service = UserService.where(:user_id=>current_user.id) %>
-                      <% if !user_service.blank? %>
+                      <% declaration_property = DeclarationProperty.find_by_user_id(current_user.id) %>
+                      <% emergency_reference = EmergencyReference.find_by_user_id(current_user.id) %>
+                      <%if !user_service.blank? && !declaration_property.blank? && !emergency_reference.blank? %>                      
                         <li>
                           <%=link_to "Show Request", user_path(:id=>current_user.id)%>
                         </li>
