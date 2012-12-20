@@ -641,14 +641,14 @@
                               <li>
                                 <% support_count = Outstation.find_all_by_status("New").count  %>
                                 <span class="notifiNo"><%=  support_count>0 ? support_count : ''%> </span>
-                                <%=link_to "Support Request", approve_request_outstations_path%>
+                                <%=link_to "Verify Request", approve_request_outstations_path%>
                               </li>
                             <%end%>
                             <% if current_user.is_human_resource_manager? %>
                               <li>
                                 <% review_count = Outstation.find_all_by_status("Support").count  %>
                                 <span class="notifiNo"><%=  review_count>0 ? review_count : ''%> </span>
-                                <%=link_to "Review Request", approve_request_outstations_path%>
+                                <%=link_to "Recommend Request", approve_request_outstations_path%>
                               </li>
                             <%end%>
                             <% if (current_user.is_datuk_suk? || current_user.is_chief_minister?) %>
