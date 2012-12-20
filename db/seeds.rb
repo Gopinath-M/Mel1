@@ -621,7 +621,7 @@ begin
   file.readlines.each_with_index do |record, i|
     begin
       record_split = record.split(",")
-      SystemAccess.create(:name=>record_split[0], :is_active=>true)
+      SystemAccess.create(:name=>record_split[0], :is_active=>true, :complaint_type_id=>record_split[1])
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
@@ -660,7 +660,8 @@ begin
   file = File.open("public/Building_Asset_Type.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      BuildingAssetType.create(:name=>record)
+       record_split = record.split(",")
+      BuildingAssetType.create(:name=>record_split[0], :parent_type_id=>record_split[1])
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
@@ -676,7 +677,8 @@ begin
   file = File.open("public/System_Model_Types.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      SystemModelType.create(:name=>record)
+      record_split = record.split(",")
+      SystemModelType.create(:name=>record_split[0], :system_access_id=>record_split[1])
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
