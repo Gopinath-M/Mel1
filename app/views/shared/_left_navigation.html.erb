@@ -297,7 +297,7 @@
                         </li>
                         <li>
                           <%=link_to t('left_nav.list'), categories_path%>
-                        </li>    
+                        </li>
                       </ul>
                     </div>
                   </li>
@@ -495,16 +495,19 @@
                     </ul>
                   </div>
                 </li>
-               <li class="menu-item">
-                  <%=link_to "Outstation Request", "javascript:void(0);" , :title=>"Outstation Request" ,:class=>"", :id=>"lnk_outstation_request" ,:onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
-                  <div id ="div_outstation_request" style="display:none;">
+                <li class="menu-item">
+                  <%=link_to "Outstation Request", "javascript:void(0);" , :title=>"Outstation Request" ,:class=>"", :id=>"lnk_outstation_request" ,:onclick=>"leftNavigation(this.id,'div_outstation_request1')"%>
+                  <div id ="div_outstation_request1" style="display:none;">
                     <ul>
                       <li>
                         <%=link_to "Create Request", new_outstation_path%>
                       </li>
-                      <li>
-                        <%=link_to "Show Request", user_path%>
-                      </li>
+                      <% user_service = UserService.where(:user_id=>current_user.id) %>
+                      <% if !user_service.blank? %>
+                        <li>
+                          <%=link_to "Show Request", user_path(:id=>current_user.id)%>
+                        </li>
+                      <%end%>
                     </ul>
                   </div>
                 </li>
@@ -767,18 +770,20 @@
                     </ul>
                   </div>
                 </li>
-               <li class="menu-item">
+                <li class="menu-item">
                   <%=link_to "Outstation Request", "javascript:void(0);" , :title=>"Outstation Request" ,:class=>"", :id=>"lnk_outstation_request" ,:onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
                   <div id ="div_outstation_request" style="display:none;">
                     <ul>
                       <li>
                         <%=link_to "Create Request", user_profile_users_path%>
                       </li>
-                      <%user_service = UserService.find_by_user_id(current_user.id)%>
-                      <%if !user_service.blank? %>
-                      <li>
-                        <%=link_to "Show Request", users_path(current_user.id)%>
-                      </li>
+                      <% user_service = UserService.find_by_user_id(current_user.id) %>
+                      <% declaration_property = DeclarationProperty.find_by_user_id(current_user.id) %>
+                      <% emergency_reference = EmergencyReference.find_by_user_id(current_user.id) %>
+                      <%if !user_service.blank? && !declaration_property.blank? && !emergency_reference.blank? %>
+                        <li>
+                          <%=link_to "Show Request", user_path(current_user.id)%>
+                        </li>
                       <%end%>
                     </ul>
                   </div>
