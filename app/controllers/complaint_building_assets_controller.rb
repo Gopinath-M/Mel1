@@ -18,23 +18,23 @@ class ComplaintBuildingAssetsController < ApplicationController
     @complaint_building_asset=ComplaintBuildingAsset.create(params[:complaint_building_asset])
     @complaint_building_asset.user_id = current_user.id
     @complaint_building_asset.department_id = current_user.departments    
-    @complaint_building_asset.save   
-
-
-    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-    dept = Department.find_by_id(current_user.departments)
-    @category_name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id) if @complaint_building_asset.building_asset_type_id
-    @type_name = BuildingAssetType.find_by_id(@complaint_building_asset.type_id)
-    @item_name = BuildingAssetType.find_by_id(@complaint_building_asset.item_id)
-
-    if !@approve.present?
-      ict_email = dept.users.where("role_id = 2").first
-      UserMailer.send_mail_to_complaint_building_asset(ict_email, @complaint_building_asset, @category_name, @type_name, @item_name, current_user).deliver
-    else
-      ict_email = User.find_by_id(@approve.user_id)
-      UserMailer.send_mail_to_complaint_building_asset(ict_email, @complaint_building_asset, @category_name, @type_name, @item_name, current_user).deliver
-    end
+    
     if @complaint_building_asset.valid?
+      @complaint_building_asset.save
+
+      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+      dept = Department.find_by_id(current_user.departments)
+      @category_name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id) if @complaint_building_asset.building_asset_type_id
+      @type_name = BuildingAssetType.find_by_id(@complaint_building_asset.type_id)
+      @item_name = BuildingAssetType.find_by_id(@complaint_building_asset.item_id)
+
+      if !@approve.present?
+        ict_email = dept.users.where("role_id = 2").first
+        UserMailer.send_mail_to_complaint_building_asset(ict_email, @complaint_building_asset, @category_name, @type_name, @item_name, current_user).deliver
+      else
+        ict_email = User.find_by_id(@approve.user_id)
+        UserMailer.send_mail_to_complaint_building_asset(ict_email, @complaint_building_asset, @category_name, @type_name, @item_name, current_user).deliver
+      end
       redirect_to(complaint_building_assets_path, :notice => "Building Asset has been complained successfully.")
     else
       render :action=>'new'
