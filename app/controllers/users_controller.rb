@@ -290,7 +290,7 @@ class UsersController < ApplicationController
   def emergency_reference
     @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
     if @emergency_references != nil
-       @emergency_references = EmergencyReference.update_attributes(params[:emergency_reference])
+       @emergency_references.update_attributes(params[:emergency_reference])
     else
       @emergency_references = EmergencyReference.new(params[:emergency_reference])
     end
