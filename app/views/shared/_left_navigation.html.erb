@@ -68,6 +68,63 @@
                 <%=link_to "Process H/W Request", requests_ict_hardware_bookings_path %>
               <%end%>
             </li>
+ <li>
+              <% @ict_vpn = IctVpn.find_all_by_department_id(current_user.departments) %>
+              <% cnt = IctVpn.find_all_by_status('Approved').count %>
+              <% val = IctVpn.where(:forward_to => current_user.id)%>
+              <% if val.present? %>
+                <% if @ict_vpn.present? %><span class="notifiNo"><%= cnt %></span><%end%>
+                <%=link_to "Process VPN Request", ict_vpns_path %>
+              <%end%>
+            </li>
+
+            <li>
+              <% @ict_system_access = IctSystemAccess.find_all_by_department_id(current_user.departments) %>
+              <% cnt = IctSystemAccess.find_all_by_status('Approved').count %>
+              <% val = IctSystemAccess.where(:forward_to => current_user.id)%>
+              <% if val.present? %>
+                <% if @ict_system_access.present? %><span class="notifiNo"><%= cnt %></span><%end%>
+                <%=link_to "Process S/A Request", ict_system_accesses_path %>
+              <%end%>
+            </li>
+            <li>
+              <%=link_to "Complaints / Issue Logs", "javascript:void(0);" , :title=>"Approve Complaint" ,:class=>"", :id=>"lnk_approve_complaint" ,:onclick=>"leftNavigation(this.id,'div_approve_complaint')"%>
+              <div id ="div_approve_complaint" style="display:none;">
+                <ul>
+                  <% complaint_building_asset_count = ComplaintBuildingAsset.find_all_by_department_id_and_status(current_user.departments,'New').count %>
+                  <li>
+                    <span class="notifiNo"><%= complaint_building_asset_count %></span>
+                    <%=link_to "Approve Building Asset", complaint_building_assets_path %>
+                  </li>
+                  <% complaint_computer_count = ComplaintComputer.find_all_by_department_id_and_status(current_user.departments,'New').count %>
+
+                  <li>
+                    <span class="notifiNo"><%= complaint_computer_count %></span>
+                    <%=link_to "Approve Computers", complaint_computers_path %>
+                  </li>
+                  <li>
+                    <% @complaint_building_asset = ComplaintBuildingAsset.find_all_by_department_id(current_user.departments) %>
+                    <% cnt = ComplaintBuildingAsset.find_all_by_status('Approved').count %>
+                    <% val = ComplaintBuildingAsset.where(:forward_to => current_user.id)%>
+                    <% if val.present? %>
+                      <% if @complaint_building_asset.present? %><span class="notifiNo"><%= cnt %></span><%end%>
+                      <%=link_to "Process Building Assets", complaint_building_assets_path %>
+                    <%end%>
+                  </li>
+                  <% complaint_computer_count = ComplaintComputer.find_all_by_department_id_and_status(current_user.departments,'New').count %>
+
+                  <li>
+                    <% @complaint_computer = ComplaintComputer.find_all_by_department_id(current_user.departments) %>
+                    <% cnt = ComplaintComputer.find_all_by_status('Approved').count %>
+                    <% val = ComplaintComputer.where(:forward_to => current_user.id)%>
+                    <% if val.present? %>
+                      <% if @complaint_computer.present? %><span class="notifiNo"><%= cnt %></span><%end%>
+                      <%=link_to "Process Computers", complaint_computers_path %>
+                    <%end%>
+                  </li>
+                </ul>
+              </div>
+            </li>
             <% @network = IctNetworkPoint.find_all_by_department_id(current_user.departments) %>
             <% count = IctNetworkPoint.find_all_by_status('New').count %>
             <% @approve = Approver.find_all_by_department_id(current_user.departments).first%>
@@ -421,32 +478,24 @@
                         </div>
                       </li>
                       <li class="menu-item">
-                        <%=link_to "Complaints for Building Asset", "javascript:void(0);" , :title=>"Complaints for Building Asset" ,:class=>"", :id=>"lnk_complaints_building_asset" ,:onclick=>"leftNavigation(this.id,'div_complaints_building_asset')"%>
-                        <div id ="div_complaints_building_asset" style="display:none;">
-                          <ul>
-                            <li>
-                              <%=link_to "Create", new_complaint_building_asset_path%>
-                            </li>
-                            <li>
-                              <%=link_to "List", complaint_building_assets_path%>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-
-                      <li class="menu-item">
-                        <%=link_to "Complaints for Computers", "javascript:void(0);" , :title=>"Complaints for Computers" ,:class=>"", :id=>"lnk_complaint_computer" ,:onclick=>"leftNavigation(this.id,'div_complaint_computer')"%>
-                        <div id ="div_complaint_computer" style="display:none;">
-                          <ul>
-                            <li>
-                              <%=link_to "Create", new_complaint_computer_path%>
-                            </li>
-                            <li>
-                              <%=link_to "List", complaint_computers_path%>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
+                    <%=link_to "Complaints / Issue Logs", "javascript:void(0);" , :title=>"Complaints / Issue Logs" ,:class=>"", :id=>"lnk_complaints_issue_logs" ,:onclick=>"leftNavigation(this.id,'div_complaints_issue_logs')"%>
+                    <div id ="div_complaints_issue_logs" style="display:none;">
+                      <ul>
+                        <li>
+                          <%=link_to "Create Building Asset", new_complaint_building_asset_path%>
+                        </li>
+        <%#*<li>%>
+        <%#=link_to "List Building Asset", complaint_building_assets_path%>
+        <%#*</li>%>
+                        <li>
+                          <%=link_to "Create Computers", new_complaint_computer_path%>
+                        </li>
+        <%#*<li>%>
+        <%#=link_to "List Computers Complaints", complaint_computers_path%>
+        <%#*</li>%>
+                      </ul>
+                    </div>
+                  </li>
 
                     <%end%>
                     <%if current_user && (current_role == DISP_USER_ROLE_DEPT_ADMIN  || current_role==DISP_USER_ROLE_RESOURCE_MANAGER)%>
@@ -514,48 +563,31 @@
                                 <span class="notifiNo"> <%=ict_hardware_status_count('New').inspect%></span>
                                 <%=link_to "Hardware Request", requests_ict_hardware_bookings_path%>
                               </li>
+<li>
+                            <%if @list.present? %>
+                              <span class="notifiNo"><%= count %></span>
+                            <%end%>
+                            <%=link_to "Network Request", list_ict_network_ict_network_points_path %>
+                          </li>
+                          <% ict_vpn_count = IctVpn.find_all_by_department_id_and_status(current_user.departments,'New').count %>
 
-                              <% ict_vpn_count = IctVpn.find_all_by_department_id_and_status(current_user.departments,'New').count %>
+                          <li>
+                            <span class="notifiNo"><%= ict_vpn_count %></span>
+                            <%=link_to "VPN Request", ict_vpns_path %>
+                          </li>
+                          <% ict_system_access_count = IctSystemAccess.find_all_by_department_id_and_status(current_user.departments,'New').count %>
 
-                              <li>
-                                <span class="notifiNo"><%= ict_vpn_count %></span>
-                                <%=link_to "VPN Request", ict_vpns_path %>
-                              </li>
-                              <% ict_system_access_count = IctSystemAccess.find_all_by_department_id_and_status(current_user.departments,'New').count %>
-
-                              <li>
-                                <span class="notifiNo"><%= ict_system_access_count %></span>
-                                <%=link_to "System Access Request", ict_system_accesses_path %>
-                              </li>
+                          <li>
+                            <span class="notifiNo"><%= ict_system_access_count %></span>
+                            <%=link_to "System Access Request", ict_system_accesses_path %>
+                          </li>
                             <%end%>
                           </ul>
                         </div>
                       </li>
 
 
-                      <li>
-                        <%=link_to "Approve Complaint", "javascript:void(0);" , :title=>"Approve Complaint" ,:class=>"", :id=>"lnk_approve_complaint" ,:onclick=>"leftNavigation(this.id,'div_approve_complaint')"%>
-                        <div id ="div_approve_complaint" style="display:none;">
-                          <ul>
-
-                            <% if current_role == DISP_USER_ROLE_DEPT_ADMIN  %>
-
-                              <% complaint_building_asset_count = ComplaintBuildingAsset.find_all_by_department_id_and_status(current_user.departments,'New').count %>
-
-                              <li>
-                                <span class="notifiNo"><%= complaint_building_asset_count %></span>
-                                <%=link_to "Building Asset Complaints", complaint_building_assets_path %>
-                              </li>
-                              <% complaint_computer_count = ComplaintComputer.find_all_by_department_id_and_status(current_user.departments,'New').count %>
-
-                              <li>
-                                <span class="notifiNo"><%= complaint_computer_count %></span>
-                                <%=link_to "Computer Complaints", complaint_computers_path %>
-                              </li>
-                            <%end%>
-                          </ul>
-                        </div>
-                      </li>
+              
 
 
                       <li>
@@ -711,30 +743,22 @@
 
 
 
-                <li class="menu-item">
-                  <%=link_to "Complaints for Building Asset", "javascript:void(0);" , :title=>"Complaints for Building Asset" ,:class=>"", :id=>"lnk_complaints_building_asset" ,:onclick=>"leftNavigation(this.id,'div_complaints_building_asset')"%>
+               <li class="menu-item">
+                  <%=link_to "Complaints / Issue Logs", "javascript:void(0);" , :title=>"Complaints for Building Asset" ,:class=>"", :id=>"lnk_complaints_building_asset" ,:onclick=>"leftNavigation(this.id,'div_complaints_building_asset')"%>
                   <div id ="div_complaints_building_asset" style="display:none;">
                     <ul>
                       <li>
-                        <%=link_to "Create", new_complaint_building_asset_path%>
+                        <%=link_to "Create Building Asset", new_complaint_building_asset_path%>
                       </li>
+      <%#*<li>%>
+      <%#=link_to "List Building Asset", complaint_building_assets_path%>
+      <%#*</li>%>
                       <li>
-                        <%=link_to "List", complaint_building_assets_path%>
+                        <%=link_to "Create Computers", new_complaint_computer_path%>
                       </li>
-                    </ul>
-                  </div>
-                </li>
-
-                <li class="menu-item">
-                  <%=link_to "Complaints for Computers", "javascript:void(0);" , :title=>"Complaints for Computers" ,:class=>"", :id=>"lnk_complaint_computer" ,:onclick=>"leftNavigation(this.id,'div_complaint_computer')"%>
-                  <div id ="div_complaint_computer" style="display:none;">
-                    <ul>
-                      <li>
-                        <%=link_to "Create", new_complaint_computer_path%>
-                      </li>
-                      <li>
-                        <%=link_to "List", complaint_computers_path%>
-                      </li>
+      <%#*<li>%>
+      <%#=link_to "List Computers Complaints", complaint_computers_path%>
+      <%#*</li>%>
                     </ul>
                   </div>
                 </li>
