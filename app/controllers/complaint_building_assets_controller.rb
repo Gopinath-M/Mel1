@@ -6,7 +6,7 @@ class ComplaintBuildingAssetsController < ApplicationController
     elsif current_user && current_user.is_department_admin?
       @complaint_building_asset = ComplaintBuildingAsset.page(params[:page]).per(2)
     else
-      @complaint_building_asset = ComplaintBuildingAsset.where(:user_id => current_user.id).order.page(params[:page]).per(2)
+      @complaint_building_asset = ComplaintBuildingAsset.where("user_id = ? or forward_to = ?", current_user.id, current_user.id).order.page(params[:page]).per(2)
     end
   end
 
@@ -17,7 +17,7 @@ class ComplaintBuildingAssetsController < ApplicationController
   def create
     @complaint_building_asset=ComplaintBuildingAsset.create(params[:complaint_building_asset])
     @complaint_building_asset.user_id = current_user.id
-    @complaint_building_asset.department_id = current_user.departments
+    @complaint_building_asset.department_id = current_user.departments    
     @complaint_building_asset.save   
 
 
@@ -26,13 +26,6 @@ class ComplaintBuildingAssetsController < ApplicationController
     @category_name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id) if @complaint_building_asset.building_asset_type_id
     @type_name = BuildingAssetType.find_by_id(@complaint_building_asset.type_id)
     @item_name = BuildingAssetType.find_by_id(@complaint_building_asset.item_id)
-
-    p 'ddddddddd', @complaint_building_asset.inspect
-    p 'qqqqqqqqq', @approve.inspect
-     p 'eeeeeeeeeeee', @category_name.inspect
-     p 'rrrrrrrrrr', @type_name.inspect
-      p 'tttttttttt', @item_name.inspect
-
 
     if !@approve.present?
       ict_email = dept.users.where("role_id = 2").first

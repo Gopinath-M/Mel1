@@ -1,7 +1,7 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2 class="b-head">Complaint - Computers Booking Details</h2>
+    <h2 class="b-head">Complaint / Issue Log - Computers Booking Details</h2>
 
 
 <%#=error_messages%>
@@ -99,7 +99,56 @@
       <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
 
       <div class="form-sec-row">
-        <label class="text">Booking Status</label>
+        <label class="text">Action to be Taken</label>
+        <span class="in-box">
+          <% if @complaint_computer.action_taken == false %>
+
+            Internal <% else %>
+            External
+          <%end%></span>
+      </div>
+
+      <% @vendor_name = Vendor.find_by_id(@complaint_computer.vendor_id) %>
+<% if @complaint_computer.action_taken == true && @complaint_computer.status == "Approved"%>
+
+          <div class="form-sec-row">
+            <label class="text">Vendor Name</label>
+            <span class="in-box">
+              <%= @vendor_name.name if @complaint_computer.vendor_id %></span>
+          </div>
+
+      <%end%>
+      <% if @complaint_computer.action_taken == true && @complaint_computer.status == "Processed"%>
+
+       <div class="form-sec-row">
+            <label class="text">Vendor Name</label>
+            <span class="in-box">
+              <%= @vendor_name.name if @complaint_computer.vendor_id %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text">Given Date</label>
+            <span class="in-box">
+
+              <%= @complaint_computer.given_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @complaint_computer.given_date %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text">Receipt Date</label>
+            <span class="in-box">
+              <%= @complaint_computer.receipt_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @complaint_computer.receipt_date%></span>
+          </div>
+
+          <div class="form-sec-row">
+            <label class="text">Comments</label>
+            <span class="in-box">
+              <%= @complaint_computer.comments if @complaint_computer.comments %></span>
+          </div>
+
+          <h2 class="b-head"></h2>
+
+      <%end%>
+        
+      <div class="form-sec-row">
+        <label class="text">Status</label>
         <span class="in-box">
           <% if @complaint_computer.status == "New"%><b><font color='#FFA500'><%= @complaint_computer.status %></b></font><% elsif @complaint_computer.status == "Approved" || @complaint_computer.status == "Processed"  %>  <b><font color='#329C20'><%= @complaint_computer.status %></b></font><% elsif @complaint_computer.status == "Declined" || @complaint_computer.status == "Returned"  %>  <b><font color='red'><%= @complaint_computer.status %></b></font><%end%></span>
       </div>

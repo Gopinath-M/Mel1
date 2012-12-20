@@ -118,9 +118,9 @@
       <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
   <% if @ict_vpn.status == "New" %>
         <div class="form-sec-row">
-          <label class="text">Booking Status<span style=color:red>*</span></label>
+          <label class="text">Status<span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.select :status, options_for_select([["SELECT A STATUS", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_vpn.status) %>
+            <%= f.select :status, options_for_select([["Select Status", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_vpn.status) %>
 
           </span>
         </div>
@@ -129,7 +129,7 @@
         <div class="form-sec-row">
           <label class="text">Forward To<span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "SELECT A USER") %>
+            <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
           </span>
         </div>
         <div class="form-sec-row">
@@ -149,9 +149,9 @@
       <% elsif @ict_vpn.status == "Approved" %>
         <% if @ict_vpn.forward_to.present? %>
           <div class="form-sec-row">
-            <label class="text">Booking Status<span style=color:red>*</span></label>
+            <label class="text">Status<span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.select :status, options_for_select([["SELECT A STATUS", -1],["Processed", "Processed"], ["Declined", "Declined"]], @ict_vpn.status) %>
+              <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @ict_vpn.status) %>
             </span>
           </div>
           <%@dept = Department.find(default_department)%>
@@ -159,7 +159,7 @@
           <div class="form-sec-row">
             <label class="text">Forward To<span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "SELECT A USER") %>
+              <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
             </span>
           </div>
           <div class="form-sec-row">
