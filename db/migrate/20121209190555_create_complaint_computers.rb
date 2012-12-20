@@ -8,6 +8,11 @@ class CreateComplaintComputers < ActiveRecord::Migration
       t.references :department
       t.integer :serial_no
       t.text :reason
+      t.boolean :action_taken, :default => false
+      t.string :given_date
+      t.string :receipt_date
+      t.text :comments
+      t.references :vendor
       t.string :status, :default => "New"
       t.integer :forward_to
       t.text :remarks

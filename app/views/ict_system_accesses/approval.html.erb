@@ -77,20 +77,20 @@
           <%= requisition_name.name %>
         </span>
       </div>
-      <div class="form-sec-row">
-        <% if @ict_system_access.system_access_attachment.present? %>
-          <label class="text">Attachment</label>
-          <% image = @ict_system_access.system_access_attachment.url(:profile).split(".").last %>
-          <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-            <span class="in-box">
-              <%=image_tag(@ict_system_access.system_access_attachment.url,:title=>@ict_system_access.system_access_attachment)%>
-            <%else%>
-              <% file = (@ict_system_access.system_access_attachment).url(:profile).split("/").last %>
-              <b>&nbsp;<%= file %></b>
-            </span>
-          <%end%>
+         <div class="form-sec-row">
+      <% if @ict_system_access.system_access_attachment.present? %>
+        <label class="text">Attachment</label>
+        <% image = @ict_system_access.system_access_attachment.url(:profile).split(".").last %>
+        <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+          <span class="in-box">
+            <%=image_tag(@ict_system_access.system_access_attachment.url,:title=>@ict_system_access.system_access_attachment)%>
+          <%else%>
+            <% file = (@ict_system_access.system_access_attachment).url.split("/").last %>
+            <b>&nbsp;<%= link_to file, download_attachments_ict_system_accesses_path(:id=>@ict_system_access.id) if @ict_system_access.system_access_attachment?  %></b>
+          </span>
         <%end%>
-      </div>
+      <%end%>
+    </div>
       <h2 class="b-head"></h2>
       <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
 
@@ -98,7 +98,7 @@
         <div class="form-sec-row">
           <label class="text">Booking Status<span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.select :status, options_for_select([["SELECT A STATUS", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_system_access.status) %>
+            <%= f.select :status, options_for_select([["Select Status", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_system_access.status) %>
 
           </span>
         </div>
@@ -107,7 +107,7 @@
         <div class="form-sec-row">
           <label class="text">Forward To<span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "SELECT A USER") %>
+            <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
           </span>
         </div>
         <div class="form-sec-row">
@@ -129,7 +129,7 @@
           <div class="form-sec-row">
             <label class="text">Booking Status<span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.select :status, options_for_select([["SELECT A STATUS", -1],["Processed", "Processed"], ["Declined", "Declined"]], @ict_system_access.status) %>
+              <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @ict_system_access.status) %>
             </span>
           </div>
           <%@dept = Department.find(default_department)%>
@@ -137,7 +137,7 @@
           <div class="form-sec-row">
             <label class="text">Forward To<span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "SELECT A USER") %>
+              <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
             </span>
           </div>
           <div class="form-sec-row">
@@ -157,7 +157,7 @@
 
       <% else %>
         <div class="form-sec-row">
-          <label class="text">Booking Status</label>
+          <label class="text">Status</label>
           <span class="in-box">
             <% if @ict_system_access.status == "New"%><b><font color='#FFA500'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Approved" || @ict_system_access.status == "Processed"  %>  <b><font color='#329C20'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Declined" || @ict_system_access.status == "Returned"  %>  <b><font color='red'><%= @ict_system_access.status %></b></font><%end%></span>
         </div>
