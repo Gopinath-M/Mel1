@@ -69,7 +69,7 @@ class AgencyStoresController < ApplicationController
 #        end
         
       end
-   @store.save
+
     end
 
     #    store.categories_id = params[:categories_department][:id]
