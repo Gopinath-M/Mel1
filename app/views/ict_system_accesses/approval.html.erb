@@ -77,20 +77,20 @@
           <%= requisition_name.name %>
         </span>
       </div>
-         <div class="form-sec-row">
-      <% if @ict_system_access.system_access_attachment.present? %>
-        <label class="text">Attachment</label>
-        <% image = @ict_system_access.system_access_attachment.url(:profile).split(".").last %>
-        <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-          <span class="in-box">
-            <%=image_tag(@ict_system_access.system_access_attachment.url,:title=>@ict_system_access.system_access_attachment)%>
-          <%else%>
-            <% file = (@ict_system_access.system_access_attachment).url.split("/").last %>
-            <b>&nbsp;<%= link_to file, download_attachments_ict_system_accesses_path(:id=>@ict_system_access.id) if @ict_system_access.system_access_attachment?  %></b>
-          </span>
+      <div class="form-sec-row">
+        <% if @ict_system_access.system_access_attachment.present? %>
+          <label class="text">Attachment</label>
+          <% image = @ict_system_access.system_access_attachment.url(:profile).split(".").last %>
+          <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+            <span class="in-box">
+              <%=image_tag(@ict_system_access.system_access_attachment.url,:title=>@ict_system_access.system_access_attachment)%>
+            <%else%>
+              <% file = (@ict_system_access.system_access_attachment).url.split("/").last %>
+              <b>&nbsp;<%= link_to file, download_attachments_ict_system_accesses_path(:id=>@ict_system_access.id) if @ict_system_access.system_access_attachment?  %></b>
+            </span>
+          <%end%>
         <%end%>
-      <%end%>
-    </div>
+      </div>
       <h2 class="b-head"></h2>
       <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
 
@@ -132,12 +132,13 @@
               <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @ict_system_access.status) %>
             </span>
           </div>
-          <%@dept = Department.find(default_department)%>
-          <%@users = @dept.users%>
+
+
+          <% name = User.find_by_id(@ict_system_access.forward_to) %>
           <div class="form-sec-row">
-            <label class="text">Forward To<span style=color:red>*</span></label>
+            <label class="text">Forward To</label>
             <span class="in-box">
-              <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
+              <%= name.username %>
             </span>
           </div>
           <div class="form-sec-row">
