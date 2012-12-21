@@ -651,7 +651,7 @@
               <%end%>
               <% if (current_role!=DISP_USER_ROLE_DEPT_USER) %>
                 <li class="menu-item">
-                  <%=link_to "Outstation Requests", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
+                  <%=link_to "Outstation : Country", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
                   <div id ="div_outstation_request" style="display:none;">
                     <ul>
                       <% if (current_user.is_datuk_suk? || current_user.is_department_admin? || current_user.is_suk_deputy?) %>
@@ -868,7 +868,7 @@
 
               <% if (current_role!=DISP_USER_ROLE_DEPT_USER) %>
                 <li class="menu-item">
-                  <%=link_to "Outstation Requests", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
+                  <%=link_to "Outstation : Country", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
                   <div id ="div_outstation_request" style="display:none;">
                     <ul>
                       <% if (current_user.is_datuk_suk? || current_user.is_department_admin? || current_user.is_suk_deputy?) %>
