@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, ProfileImageUploader
 
   #Validations
-  validates :ic_number, :state, :presence=>true
+#  validates :ic_number, :zipcode, :city, :state, :presence=>true
   validates_integrity_of :avatar
   validates_processing_of :avatar
   validates_uniqueness_of :username , :if=>Proc.new {|u| !u.username.blank?}
@@ -37,7 +37,6 @@ class User < ActiveRecord::Base
   validates_numericality_of :ic_number, :if=>Proc.new {|u| !u.ic_number.blank?}
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>Proc.new {|u| !u.email.blank?}
   validates_format_of :contact_mobile, :with=>/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-  validates :marital_status, :zipcode, :city, :hp_number, :date_of_birth, :presence=>true, :if=>Proc.new {|u| u.gender!=nil }
   validate :validate_date_of_birth, :if=>Proc.new {|u| u.date_of_birth!=nil }
 
   def validate_date_of_birth

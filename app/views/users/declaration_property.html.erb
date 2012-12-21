@@ -18,12 +18,35 @@
 
 
     <div class="form-sec-row">
-      <label class="text">Upload File<span style=color:red></span></label>
+      <label class="text">Upload File <span style=color:red></span></label>
       <span class="in-box">
         <%=f.file_field :property_file %>
       </span>
     </div>
-
+    <div class="form-sec-row">
+      <label class="text">Upload File 1<span style=color:red></span></label>
+      <span class="in-box">
+        <%=f.file_field :property_file1 %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Upload File 2<span style=color:red></span></label>
+      <span class="in-box">
+        <%=f.file_field :property_file2 %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Upload File 3<span style=color:red></span></label>
+      <span class="in-box">
+        <%=f.file_field :property_file3 %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text">Upload File 4<span style=color:red></span></label>
+      <span class="in-box">
+        <%=f.file_field :property_file4 %>
+      </span>
+    </div>
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
@@ -35,26 +58,29 @@
 <%end%>
 <%i =1%>
   <div class="form-sec-row">
-    <%#*<label class="text">S.No</label>%>
-  <%#*<label class="text">File Name</label>%>
-  <%#*<label class="text">Year</label>%>
+    <label class="text">Year</label>
+  <%#=file.property_year%>
   </div>
 <div class="form-sec-row">
 <%@property_file = DeclarationProperty.find_all_by_user_id(current_user.id)%>
 <%if @property_file %>
 <%@property_file.each do |file| %>
-                    <label class="text"><%=i%></label>
                     <% image = file.property_file.url(:profile).split(".").last %>
-                   <%=file.property_year%>
+                  
                       <span class="in-box">
-
-           <% file_url = (file.property_file).url.split("/").last %>
+                        <% file_url = (file.property_file).url.split("/").last %>
+                        <% file_url1 = (file.property_file1).url.split("/").last %>
+                        <% file_url2 = (file.property_file2).url.split("/").last %>
+                        <% file_url3 = (file.property_file3).url.split("/").last %>
+                        <% file_url4 = (file.property_file4).url.split("/").last %>
             <b>&nbsp;<%= link_to file_url, download_attachments_users_path(:id=>file.id) if file.property_file  %></b>
-          <%#*<b><%= link_to 'Download File', download_attachments_users_path(:id=>file.id) if file.property_file  %>
-
+            <b>&nbsp;<%= link_to file_url1, download_attachments_users_path(:id=>file.id) if file.property_file1  %></b>
+            <b>&nbsp;<%= link_to file_url2, download_attachments_users_path(:id=>file.id) if file.property_file2  %></b>
+            <b>&nbsp;<%= link_to file_url3, download_attachments_users_path(:id=>file.id) if file.property_file3  %></b>
+            <b>&nbsp;<%= link_to file_url4, download_attachments_users_path(:id=>file.id) if file.property_file4  %></b>
                       </span>
-                    <%i=i+1%>
                   <%end%>
   <%end%>
+  
 </div>
 </div>
