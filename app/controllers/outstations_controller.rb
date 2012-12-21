@@ -22,17 +22,17 @@ class OutstationsController < ApplicationController
 
   def approve_request
     if current_user.is_department_user?
-      @outstations = Outstation.find_all_by_user_id(current_user.id)
+      @outstations = Outstation.find_all_by_user_id_and_is_out_of_state(current_user.id,false)
     elsif current_user.is_department_admin?
-      @outstations = Outstation.where(:department_id=>current_user.departments)
+      @outstations = Outstation.where(:department_id=>current_user.departments,:is_out_of_state=>false)
     elsif current_user.is_human_resource_manager?
-      @outstations = Outstation.find(:all,:conditions=>["status != ?",'New'])
+      @outstations = Outstation.find(:all,:conditions=>["status != 'New' and is_out_of_state = false"])
     elsif current_user.is_datuk_suk?
       users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
-      @outstations = Outstation.find(:all,:conditions=>["status = 'Recommended' or status = 'Approved' or ((status='New' or status='Verified') and user_id in (#{users}) )"])
+      @outstations = Outstation.find(:all,:conditions=>["(((status = 'Recommended' or status = 'Approved') and is_out_of_state = false) or ((status='New' or status='Verified') and user_id in (#{users}) and is_out_of_state = false)) "])
     elsif current_user.is_chief_minister?
       users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
-      @outstations = Outstation.find(:all,:conditions=>["((status='Recommended' or status='Approved') and user_id in (#{users}) )"])
+      @outstations = Outstation.find(:all,:conditions=>["((status='Recommended' or status='Approved') and user_id in (#{users}) and is_out_of_state = false)"])
     end
   end
 

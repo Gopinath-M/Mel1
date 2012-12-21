@@ -656,21 +656,21 @@
                     <ul>
                       <% if (current_user.is_datuk_suk? || current_user.is_department_admin? || current_user.is_suk_deputy?) %>
                         <li>
-                          <% support_count = Outstation.find_all_by_status("New").count  %>
+                          <% support_count = Outstation.find_all_by_status_and_is_out_of_state("New",false).count  %>
                           <span class="notifiNo"><%=  support_count>0 ? support_count : ''%> </span>
                           <%=link_to "Verify Request", approve_request_outstations_path%>
                         </li>
                       <%end%>
                       <% if current_user.is_human_resource_manager? %>
                         <li>
-                          <% review_count = Outstation.find_all_by_status("Support").count  %>
+                          <% review_count = Outstation.find_all_by_status_and_is_out_of_state("Verified",false).count  %>
                           <span class="notifiNo"><%=  review_count>0 ? review_count : ''%> </span>
                           <%=link_to "Recommend Request", approve_request_outstations_path%>
                         </li>
                       <%end%>
                       <% if (current_user.is_datuk_suk? || current_user.is_chief_minister?) %>
                         <li>
-                          <% approve_count = Outstation.find_all_by_status("Review").count  %>
+                          <% approve_count = Outstation.find_all_by_status_and_is_out_of_state("Reviewed",false).count  %>
                           <span class="notifiNo"><%=  approve_count>0 ? approve_count : ''%> </span>
                           <%=link_to "Approve Request", approve_request_outstations_path%>
                         </li>
@@ -873,21 +873,21 @@
                     <ul>
                       <% if (current_user.is_datuk_suk? || current_user.is_department_admin? || current_user.is_suk_deputy?) %>
                         <li>
-                          <% support_count = Outstation.find_all_by_status("New").count  %>
+                          <% support_count = Outstation.find_all_by_status_and_is_out_of_state("New",false).count  %>
                           <span class="notifiNo"><%=  support_count>0 ? support_count : ''%> </span>
                           <%=link_to "Verify Request", approve_request_outstations_path%>
                         </li>
                       <%end%>
                       <% if current_user.is_human_resource_manager? %>
                         <li>
-                          <% review_count = Outstation.find_all_by_status("Verified").count  %>
+                          <% review_count = Outstation.find_all_by_status_and_is_out_of_state("Verified",false).count  %>
                           <span class="notifiNo"><%=  review_count>0 ? review_count : ''%> </span>
                           <%=link_to "Recommend Request", approve_request_outstations_path%>
                         </li>
                       <%end%>
                       <% if (current_user.is_datuk_suk? || current_user.is_chief_minister?) %>
                         <li>
-                          <% approve_count = Outstation.find_all_by_status("Recommended").count  %>
+                          <% approve_count = Outstation.find_all_by_status_and_is_out_of_state("Reviewed",false).count  %>
                           <span class="notifiNo"><%=  approve_count>0 ? approve_count : ''%> </span>
                           <%=link_to "Approve Request", approve_request_outstations_path%>
                         </li>
