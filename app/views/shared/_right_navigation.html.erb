@@ -2,7 +2,7 @@
 <div id="Body">
   <div class="pageContainer box">
     <div class="rightNav">
-      <%if current_user.sign_in_count>1 || (current_user.sign_in_count==1 && session[:password_changed]=="true")%>
+      <%if current_user && (current_user.sign_in_count>1 || (current_user.sign_in_count==1 && session[:password_changed]=="true"))%>
         <div class="resourceApps box">
           <%if current_user.widget_one%>
             <div class="weather">
