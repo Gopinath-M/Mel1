@@ -42,6 +42,7 @@ class AgencyStoresController < ApplicationController
       @store = AgencyStore.create(params[:agency_store])
       @store.resource_type = params[:resource_type]
       @store.agency_id = params[:transport][:agency_id]
+      @store.driver_id = params[:transport][:driver_id]
       @store.sub_category_id = params[:transport_agency][:sub_category_id]
       @store.resource_id = params[:transport_agency][:resource_id]
       SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
