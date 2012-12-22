@@ -219,7 +219,7 @@
             <%=image_tag(@declaration_properties.property_file.url,:title=>@declaration_properties.property_file)%>
           <%else%>
             <% file = (@declaration_properties.property_file).url.split("/").last %>
-            <b>&nbsp;<%= link_to file, download_attachments_path(:id=>@declaration_properties.id) if @declaration_properties.property_file?  %></b>
+            <b>&nbsp;<%= link_to file, download_attachments_users_path(:id=>@declaration_properties.id) if @declaration_properties.property_file?  %></b>
           </span>
         <%end%>
       <%end%>
