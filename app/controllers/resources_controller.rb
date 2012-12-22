@@ -8,13 +8,13 @@ class ResourcesController < ApplicationController
         if current_user.is_super_admin?
           @resources=Resource.page(params[:page]).per(10).order('created_at DESC')
         else
-          @resources=Resource.find_all_by_department_id(current_department.id)
+          @resources=Resource.where(:department_id=>current_department.id).page(params[:page]).per(1).order('created_at DESC')
         end
       else
-        @resources=Resource.find_all_by_sub_category_id(params[:department_id])
+        @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(1).order('created_at DESC')
       end
     else
-      @resources=Resource.find_all_by_sub_category_id(params[:department_id])
+      @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(1).order('created_at DESC')
     end
     if request.xhr?
       render :layout=>false
@@ -89,6 +89,7 @@ class ResourcesController < ApplicationController
   end
 
   def get_resources
+    #resources=Resource.active_and_subcategory(params[:sub_category_id])
     resources=Resource.where("sub_category_id= ? and deleted=false", params[:sub_category_id])
     render :json=>[resources] if resources
   end

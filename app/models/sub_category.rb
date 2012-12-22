@@ -7,6 +7,7 @@ class SubCategory < ActiveRecord::Base
   belongs_to :category
   has_many :resources
   has_many :resource_transportation_bookings
+  has_many :resource_ict_equipment_bookings
 
   scope :active, where(:is_active => true, :deleted => false)
   private

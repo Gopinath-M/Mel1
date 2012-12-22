@@ -79,26 +79,6 @@ module ApplicationHelper
     @users = current_department.users - [current_user] #all users except current_user
   end
 
-  def resource_room_status_count(status)
-    status_count=ResourceRoomBooking.find_all_by_department_id_and_status(@current_department, status).count
-    return status_count
-  end
-
-  def resource_ict_status_count(status)
-    status_count=ResourceIctEquipmentBooking.find_all_by_department_id_and_status(@current_department, status).count
-    return status_count
-  end
-
-  def resource_status_count(status)
-    status_count=ResourceBooking.find_all_by_department_id_and_status(@current_department, status).count
-    return status_count
-  end
-
-  def resource_transport_status_count(status)
-    status_count=ResourceTransportationBooking.find_all_by_department_id_and_status(@current_department, status).count
-    return status_count
-  end
-
   def ict_hardware_status_count(status)
     booking_status=IctHardwareBooking.joins(:ict_hardware_booked_users).where("department_id= ? and ict_hardware_booked_users.status=?", @current_department, status).count
     return booking_status
@@ -106,13 +86,31 @@ module ApplicationHelper
 
   def approve_hardware_request(status)
     booking_status = IctHardwareBooking.joins(:ict_hardware_booked_users).where("department_id= ? and ict_hardware_booked_users.status=?", @current_department, status).count
-    first_approver = Approver.find_all_by_department_id(@current_department).first
-    second_approver = Approver.find_all_by_department_id(@current_department).last
+    first_approver = Approver.where(:department_id => @current_department).first
+    second_approver = Approver.where(:department_id => @current_department).last
+    return first_approver.present? && second_approver.present? && (second_approver.user_id == current_user.id || first_approver.user_id == current_user.id) ? booking_status : 0
+  end
+
+  def generic_model_approve_request(model_name,status)
+    booking_status = model_name.where("department_id = ? and status = ?", @current_department, status).count
+    first_approver = Approver.where(:department_id => @current_department).first
+    second_approver = Approver.where(:department_id => @current_department).last
     return first_approver.present? && second_approver.present? && (second_approver.user_id == current_user.id || first_approver.user_id == current_user.id) ? booking_status : 0
   end
   
+
   def generic_model_status_count(model_name, status)
-    count=model_name.find_all_by_department_id_and_status(@current_department, status).count
+    count=model_name.where("department_id = ? and status =? ",@current_department, status).count
     return count
+  end
+
+  def generic_model_status_counts(model_name, status1, status2)
+    count=model_name.where("department_id = ? and ( status =? || status = ?) ",@current_department, status1, status2).count
+    return count
+  end
+  
+  def generic_model_person_incharge(model_name, field_name)
+    user=model_name.where("#{field_name} = ? ", current_user.id)
+    return user
   end
 end

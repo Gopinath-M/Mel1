@@ -9,6 +9,7 @@ class Department < ActiveRecord::Base
   belongs_to :agency
   has_many :categories_departments
   has_many :categories, :through => :categories_departments
+  has_many :resource_ict_equipment_bookings
   #Validations comes here
   validates :agency_id,:name,:address,:telephone_number, :presence => true
   validates_uniqueness_of :name, :case_sensitive=>false, :if=>Proc.new {|u| !u.name.blank?}

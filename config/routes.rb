@@ -265,6 +265,7 @@ Melaka::Application.routes.draw do
       get 'get_other_sub_categories'
       get 'get_resource_ict'
       get 'get_agency_resource'
+      get 'get_other_resource_ict'
     end
   end
   resources :facilities do

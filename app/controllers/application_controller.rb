@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :current_department
+  before_filter :current_department, :current_role
 
   def home
     if user_signed_in?
@@ -31,6 +31,19 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  def current_role
+    if current_user && (!current_user.is_super_admin?)
+      department=Department.find(@current_department) if @current_department
+      current_role=RoleMembership.find_by_user_id_and_department_id(current_user.id,department.id) if department
+      session[:current_role] = current_role.role.name if current_role
+      return current_role.role.name if current_role
+    elsif current_user && current_user.is_super_admin?
+      current_role=Role.find_by_name(DISP_USER_ROLE_SUPER_ADMIN)
+      session[:current_role] = current_role.name if current_role
+      return current_role.name if current_role
+    end
+  end
 
   # this method is for restricting user from login before super admin approves him. Since it has to be needed some tweaks, i am commenting this for timebeing #manivannan
   #def validate_user_role_membership  
@@ -51,7 +64,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-    def is_resource_manager
+  def is_resource_manager
     if current_user && !((current_user.roles.first.name=="Super Admin" || current_user.roles.first.name=="Resource Manager") && current_user.role_memberships.first.status=="A")
       redirect_to dashboard_index_path
     end

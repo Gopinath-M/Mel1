@@ -21,9 +21,10 @@
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Resource <span style=color:red>*</span></label>
+      <label class="text" id="lb_resource">Resource <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= select("resource_ict_equipment","resource_id",  options_from_collection_for_select(Resource.where(:category_id => @category), 'id','name',@resource ),{:prompt=>"SELECT A RESOURCE",:onchange=>"alert('testq')"}) %>
+        <%= f.select(:resource_id,  options_from_collection_for_select(Resource.where(:category_id => @category), 'id','name',@resource ),{:prompt=>"SELECT A RESOURCE",:onchange=>"alert('testq')"}) %>
+        <%#=link_to "search in other agency",search_other_resource_resource_ict_equipment_bookings_path%>
       </span>
     </div>
     <div class="form-sec-row">
