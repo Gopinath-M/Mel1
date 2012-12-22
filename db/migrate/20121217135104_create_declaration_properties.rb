@@ -2,11 +2,11 @@ class CreateDeclarationProperties < ActiveRecord::Migration
   def self.up
     create_table :declaration_properties do |t|
       t.references :user
-      t.string :property_file
-      t.string :property_file1
-      t.string :property_file2
-      t.string :property_file3
-      t.string :property_file4
+      t.string :property_file, :default => nil
+      t.string :property_file1, :default => nil
+      t.string :property_file2, :default => nil
+      t.string :property_file3, :default => nil
+      t.string :property_file4, :default => nil
       t.integer :property_year
       t.timestamps
     end

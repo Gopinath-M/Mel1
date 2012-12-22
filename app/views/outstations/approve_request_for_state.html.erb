@@ -11,7 +11,7 @@
               <%= User.find_by_id(outstation.user_id).username %>
             </div>
             <div class="m-c3">
-              <% if outstation.status == "New"%><b><font color='#FFA500'><%= "#{outstation.status}" %></font></b><% elsif outstation.status == "Approve" %><font color='#329C20'><b><%= "#{outstation.status}d" %></font></b> <% elsif outstation.status == "Support" || outstation.status == "Review" %>  <b><font color='#329C20'><%= "#{outstation.status}ed" %> </font></b><% elsif outstation.status == "Declined" || outstation.status == "Returned" || outstation.status == "Cancelled" %>  <b><font color='red'><%= "#{outstation.status}" %> </font></b><% end %>
+              <% if outstation.status == "New"%><b><font color='#FFA500'><%= "#{outstation.status}" %></font></b> <% elsif outstation.status == "Verified" || outstation.status == "Recommended" || outstation.status == "Approved" %>  <b><font color='#329C20'><%= "#{outstation.status}" %> </font></b><% elsif outstation.status == "Declined" || outstation.status == "Returned" || outstation.status == "Cancelled" %>  <b><font color='red'><%= "#{outstation.status}" %> </font></b><% end %>
             </div>
           </div>
           <div class="clear"></div>
@@ -25,21 +25,21 @@
               <span class="in-box">
                 <% if current_user.is_department_admin? %>
                   <% if outstation.status == "New" %>
-                    <%= link_to "Support",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to "Verify",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <%end%>
                 <%elsif current_user.is_human_resource_manager? %>
-                  <% if outstation.status == "Support" %>
-                    <%= link_to "Review",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
+                  <% if outstation.status == "Verified" %>
+                    <%= link_to "Recommend",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <%end%>
                 <%elsif current_user.is_chief_minister?  %>
-                  <% if outstation.status == "Review" %>
+                  <% if outstation.status == "Recommended" %>
                     <%= link_to "Approve",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <%end%>
-                <%elsif current_user.is_datuk_suk? %>
-                  <% if outstation.status == "Review" %>
+                <%elsif current_user.is_suk_deputy? %>
+                  <% if outstation.status == "Recommended" %>
                     <%= link_to "Approve",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <% elsif outstation.status == "New" %>
-                    <%= link_to "Support",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to "Verify",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <%end%>
                 <%end%>
               </span>
@@ -52,7 +52,7 @@
               &nbsp;<%= outstation.placename %>
             </div>
             <div class="m-c3">
-              <b><font color="#336699"><%= link_to "Show Info",outstation_path(:id => outstation.id), :method=>:get%></font></b>
+              <b><font color="#336699"><%= link_to "Show Info",user_path(:id => outstation.id), :method=>:get%></font></b>
             </div>
           </div>
           <div class="clear"></div>

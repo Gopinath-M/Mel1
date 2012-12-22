@@ -14,11 +14,17 @@ class CreateResourceBookings < ActiveRecord::Migration
       t.datetime :requested_from_date
       t.datetime :requested_to_date
       t.datetime :request_processed_date
-      t.datetime :return_date
       t.string :status
+      t.datetime :approved_date
+      t.datetime :declined_date
+      t.datetime :returned_date
+      t.datetime :processed_date
+      t.datetime :acknowledged_date
+      t.boolean :is_other_agency
       t.boolean :user_returned_status
       t.boolean :priority_booking, :default=>false
       t.integer :created_by
+      t.integer :updated_by
       t.timestamps
     end
   end
