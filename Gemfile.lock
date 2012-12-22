@@ -46,6 +46,7 @@ GEM
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
     cookiejar (0.3.0)
+    country-select (1.1.1)
     daemons (1.1.9)
     devise (1.5.3)
       bcrypt-ruby (~> 3.0)
@@ -166,6 +167,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   carrierwave
+  country-select
   devise
   email_spec
   jquery-rails
