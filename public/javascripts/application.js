@@ -123,12 +123,12 @@ function getAgencyforResource(resource_id, agency_id)
     }
 }
 $().ready(function(){
-$("#ict_hardware_booking_application_category_group").live('click', function(){
-    $("#div_ict_hardware_add_more").show();
-})
-$("#ict_hardware_booking_application_category_individual").live('click', function(){
-    $("#div_ict_hardware_add_more").hide();
-})
+    $("#ict_hardware_booking_application_category_group").live('click', function(){
+        $("#div_ict_hardware_add_more").show();
+    })
+    $("#ict_hardware_booking_application_category_individual").live('click', function(){
+        $("#div_ict_hardware_add_more").hide();
+    })
     if ($("#pr-time"))
     {
         var date = new Date(); // today
@@ -151,11 +151,11 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
         {
             $("#tabs").tabs();
         }
-//        $("input").watermark({
-//            placeholder: function() {
-//                return $(".formRow label[for=" + this.id + "]").hide().text();
-//            }
-//        });
+        //        $("input").watermark({
+        //            placeholder: function() {
+        //                return $(".formRow label[for=" + this.id + "]").hide().text();
+        //            }
+        //        });
         $("input[type='text']").watermark({
             placeholder: function() {
                 return $(".formRow label[for=" + this.id + "]").hide().text();
@@ -1130,7 +1130,7 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
 
 
     /* adding dynamic text box in agency store fomr */
-//    var i = $('input').size() + 1;
+    //    var i = $('input').size() + 1;
     var i = 0 + 1;
     $('#add').click(function() {
         $('<div class="form-sec-row"><label class="text">Serial No '+i+'</label></div><div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
@@ -1764,27 +1764,27 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
         }
     })
     $("#ict_agency_sub_category_id").live("change", function(){
-        getResourceforSubcategory('ict_agency_sub_category_id', 'ict_agency_resource_id')
-    //        if($("#ict_agency_sub_category_id").val()!="")
-    //        {
-    //            $.get("/agency_stores/get_resource_ict",{
-    //                sub_category_id : $("#ict_agency_sub_category_id").val()
-    //            }, function(data){
-    //                if (data[0]!=null)
-    //                {
-    //                    $('#ict_agency_resource_id').find('option').remove().end()
-    //                    $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-    //                    for(var i=0; i<data[0].length;i++)
-    //                    {
-    //                        $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
-    //                    }
-    //                }
-    //            })
-    //        }
-    //        else{
-    //            $('#ict_agency_resource_id').find('option').remove().end()
-    //            $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-    //        }
+        //        getResourceforSubcategory('ict_agency_sub_category_id', 'ict_agency_resource_id')
+        if($("#ict_agency_sub_category_id").val()!="")
+        {
+            $.get("/agency_stores/get_resource_ict",{
+                sub_category_id : $("#ict_agency_sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#ict_agency_resource_id').find('option').remove().end()
+                    $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                    }
+                }
+            })
+        }
+        else{
+            $('#ict_agency_resource_id').find('option').remove().end()
+            $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        }
     })
 
     /*Agenct store drop box ends*/
@@ -1961,7 +1961,7 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
         }
     });
 
-     $("#ict_store_submit").live("click",function(){
+    $("#ict_store_submit").live("click",function(){
         if ($("#ict_agency_id").val() == ""){
             alert("Select Agency Name");
             return false;
@@ -2096,7 +2096,7 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
             return false;
         }
     })
-/* Resources validation Ends*/
+    /* Resources validation Ends*/
 
 
 
@@ -2161,7 +2161,7 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
             return false;
         }
     });
-    /* Resource Requisition validation for ICT ends*/
+/* Resource Requisition validation for ICT ends*/
 
 
 
@@ -2236,9 +2236,9 @@ function transport_resource_from_user(id){
         });
         document.getElementById('user_return_request_'+id).style.display='none'
         document.getElementById('transport_booking_'+id).style.display='block'
-        //,function(data){
-//            $("#user_box_"+id).html(data);
-//        });
+    //,function(data){
+    //            $("#user_box_"+id).html(data);
+    //        });
     }
     else
     {
@@ -2339,80 +2339,80 @@ function toreturnresource(chbx_id,room_book_id)
 }
 /* others booking ends */
 
-  /* Resource Other Booking Validation Starts*/
+/* Resource Other Booking Validation Starts*/
 
-    $("#resource_booking_submit").live("click",function(){
-        if ($("#other_booking_category_id").val() == ""){
-            alert("Select Category");
-            return false;
-        }
-        else if ($("#other_booking_sub_category_id").val() == ""){
-            alert("Select Sub Category");
-            return false;
-        }
-        else if ($("#resource_booking_resource_id").val() == ""){
-            alert("Select Resource");
-            return false;
-        }
-        else if ($("#resource_booking_requested_from_date").val() == ""){
-            alert("Enter From Date");
-            return false;
-        }
-        else if ($("#resource_booking_requested_to_date").val() == ""){
-            alert("Enter To Date");
-            return false;
-        }
-        else if ($("#resource_booking_quantity").val() == ""){
-            alert("Enter Quantity");
-            return false;
-        }
-        else if ($("#resource_booking_purpose").val() == ""){
-            alert("Enter Purpose");
-            return false;
-        }
-        else if ($("#resource_booking_description").val() == ""){
-            alert("Enter Description");
-            return false;
-        }
-    });
-    /* Resource Other Booking Validation Ends*/
+$("#resource_booking_submit").live("click",function(){
+    if ($("#other_booking_category_id").val() == ""){
+        alert("Select Category");
+        return false;
+    }
+    else if ($("#other_booking_sub_category_id").val() == ""){
+        alert("Select Sub Category");
+        return false;
+    }
+    else if ($("#resource_booking_resource_id").val() == ""){
+        alert("Select Resource");
+        return false;
+    }
+    else if ($("#resource_booking_requested_from_date").val() == ""){
+        alert("Enter From Date");
+        return false;
+    }
+    else if ($("#resource_booking_requested_to_date").val() == ""){
+        alert("Enter To Date");
+        return false;
+    }
+    else if ($("#resource_booking_quantity").val() == ""){
+        alert("Enter Quantity");
+        return false;
+    }
+    else if ($("#resource_booking_purpose").val() == ""){
+        alert("Enter Purpose");
+        return false;
+    }
+    else if ($("#resource_booking_description").val() == ""){
+        alert("Enter Description");
+        return false;
+    }
+});
+/* Resource Other Booking Validation Ends*/
 
-    /* Requisition for Software Validation Starts*/
-    $("#software_installation_submit").live("click",function(){
-        if ($("#software_installation_facility_ict_software_id").val() == ""){
-            alert("Select Software Type");
-            return false;
-        }
-        else if ($("#service_name").val() == ""){
-            alert("Enter Name");
-            return false;
-        }
-        else if ($("#service_position").val() == ""){
-            alert("Enter Position");
-            return false;
-        }
-        else if ($("#service_grade").val() == ""){
-            alert("Enter Grade");
-            return false;
-        }
-    });
-    /* Requisition for Software Validation Ends*/
+/* Requisition for Software Validation Starts*/
+$("#software_installation_submit").live("click",function(){
+    if ($("#software_installation_facility_ict_software_id").val() == ""){
+        alert("Select Software Type");
+        return false;
+    }
+    else if ($("#service_name").val() == ""){
+        alert("Enter Name");
+        return false;
+    }
+    else if ($("#service_position").val() == ""){
+        alert("Enter Position");
+        return false;
+    }
+    else if ($("#service_grade").val() == ""){
+        alert("Enter Grade");
+        return false;
+    }
+});
+/* Requisition for Software Validation Ends*/
 
-    /* Requisition for Network Validation Starts*/
-    $("#ict_network_point_submit").live("click",function(){
-        if ($("#ict_network_point_justification").val() == ""){
-            alert("Enter Justification");
-            return false;
-        }
-        else if ($("#ict_network_point_location").val() == ""){
-            alert("Enter Location");
-            return false;
-        }
-        else if ($("#ict_network_point_quantity").val() == ""){
-            alert("Enter Quantity");
-            return false;
-        }
-    });
+/* Requisition for Network Validation Starts*/
+$("#ict_network_point_submit").live("click",function(){
+    if ($("#ict_network_point_justification").val() == ""){
+        alert("Enter Justification");
+        return false;
+    }
+    else if ($("#ict_network_point_location").val() == ""){
+        alert("Enter Location");
+        return false;
+    }
+    else if ($("#ict_network_point_quantity").val() == ""){
+        alert("Enter Quantity");
+        return false;
+    }
+});
 /* Requisition for Network Validation Ends*/
 
 
@@ -2486,150 +2486,150 @@ $("#edit_for_agency").live("click",function(){
     });
 });
 /* Complaints - Building Assets */
-    $("#complaint_building_asset_building_asset_type_id").live("change", function(){
-        if($("#complaint_building_asset_building_asset_type_id").val()!="")
-        {
-            $.get("/complaint_building_assets/get_categories",{
-                category_id : $("#complaint_building_asset_building_asset_type_id").val()
-            }, function(data){
-                if (data[0]!=null)
+$("#complaint_building_asset_building_asset_type_id").live("change", function(){
+    if($("#complaint_building_asset_building_asset_type_id").val()!="")
+    {
+        $.get("/complaint_building_assets/get_categories",{
+            category_id : $("#complaint_building_asset_building_asset_type_id").val()
+        }, function(data){
+            if (data[0]!=null)
+            {
+
+                $('#complaint_building_asset_type_id').find('option').remove().end()
+                $('#complaint_building_asset_type_id').append($("<option></option>").attr("value","").text("SELECT A TYPE"));
+                for(var i=0; i<data[0].length;i++)
                 {
-
-                    $('#complaint_building_asset_type_id').find('option').remove().end()
-                    $('#complaint_building_asset_type_id').append($("<option></option>").attr("value","").text("SELECT A TYPE"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#complaint_building_asset_type_id').append($("<option></option>").attr("value",data[0][i].building_asset_type.id).text(data[0][i].building_asset_type.name));
-                    }
+                    $('#complaint_building_asset_type_id').append($("<option></option>").attr("value",data[0][i].building_asset_type.id).text(data[0][i].building_asset_type.name));
                 }
-            })
-        }
+            }
+        })
+    }
 
-       });
+});
 
-  $("#complaint_building_asset_type_id").live("change", function(){
-        if($("#complaint_building_asset_type_id").val()!="")
-        {
-            $.get("/complaint_building_assets/get_categories_types",{
-                category_type_id : $("#complaint_building_asset_type_id").val()
-            }, function(data){
-                if (data[0]!=null)
+$("#complaint_building_asset_type_id").live("change", function(){
+    if($("#complaint_building_asset_type_id").val()!="")
+    {
+        $.get("/complaint_building_assets/get_categories_types",{
+            category_type_id : $("#complaint_building_asset_type_id").val()
+        }, function(data){
+            if (data[0]!=null)
+            {
+
+                $('#complaint_building_asset_item_id').find('option').remove().end()
+                $('#complaint_building_asset_item_id').append($("<option></option>").attr("value","").text("SELECT A ITEM"));
+                for(var i=0; i<data[0].length;i++)
                 {
-
-                    $('#complaint_building_asset_item_id').find('option').remove().end()
-                    $('#complaint_building_asset_item_id').append($("<option></option>").attr("value","").text("SELECT A ITEM"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#complaint_building_asset_item_id').append($("<option></option>").attr("value",data[0][i].building_asset_type.id).text(data[0][i].building_asset_type.name));
-                    }
+                    $('#complaint_building_asset_item_id').append($("<option></option>").attr("value",data[0][i].building_asset_type.id).text(data[0][i].building_asset_type.name));
                 }
-            })
-        }
+            }
+        })
+    }
 
-       });
- /* End Complaint - Building Assets */
+});
+/* End Complaint - Building Assets */
 
- /* Complaints - Computers */
-    $("#complaint_computer_complaint_type_id").live("change", function(){
-        if($("#complaint_computer_complaint_type_id").val()!="")
-        {
-            $.get("/complaint_computers/get_system_types",{
-                system_access_id : $("#complaint_computer_complaint_type_id").val()
-            }, function(data){
-                  if (data[0]!=null)
+/* Complaints - Computers */
+$("#complaint_computer_complaint_type_id").live("change", function(){
+    if($("#complaint_computer_complaint_type_id").val()!="")
+    {
+        $.get("/complaint_computers/get_system_types",{
+            system_access_id : $("#complaint_computer_complaint_type_id").val()
+        }, function(data){
+            if (data[0]!=null)
+            {
+                $('#complaint_computer_system_access_id').find('option').remove().end()
+                $('#complaint_computer_system_access_id').append($("<option></option>").attr("value","").text("SELECT AN ITEM / SYSTEM TYPE"));
+                for(var i=0; i<data[0].length;i++)
                 {
-                    $('#complaint_computer_system_access_id').find('option').remove().end()
-                    $('#complaint_computer_system_access_id').append($("<option></option>").attr("value","").text("SELECT AN ITEM / SYSTEM TYPE"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#complaint_computer_system_access_id').append($("<option></option>").attr("value",data[0][i].system_access.id).text(data[0][i].system_access.name));
-                    }
+                    $('#complaint_computer_system_access_id').append($("<option></option>").attr("value",data[0][i].system_access.id).text(data[0][i].system_access.name));
                 }
-            })
-        }
+            }
+        })
+    }
 
-       });
+});
 
-  $("#complaint_computer_system_access_id").live("change", function(){
-        if($("#complaint_computer_system_access_id").val()!="")
-        {
-            $.get("/complaint_computers/get_system_items",{
-                system_model_type_id : $("#complaint_computer_system_access_id").val()
-            }, function(data){
-                if (data[0]!=null)
+$("#complaint_computer_system_access_id").live("change", function(){
+    if($("#complaint_computer_system_access_id").val()!="")
+    {
+        $.get("/complaint_computers/get_system_items",{
+            system_model_type_id : $("#complaint_computer_system_access_id").val()
+        }, function(data){
+            if (data[0]!=null)
+            {
+
+                $('#complaint_computer_system_model_type_id').find('option').remove().end()
+                $('#complaint_computer_system_model_type_id').append($("<option></option>").attr("value","").text("SELECT A MODEL ITEM / SYSTEM"));
+                for(var i=0; i<data[0].length;i++)
                 {
-
-                    $('#complaint_computer_system_model_type_id').find('option').remove().end()
-                    $('#complaint_computer_system_model_type_id').append($("<option></option>").attr("value","").text("SELECT A MODEL ITEM / SYSTEM"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#complaint_computer_system_model_type_id').append($("<option></option>").attr("value",data[0][i].system_model_type.id).text(data[0][i].system_model_type.name));
-                    }
+                    $('#complaint_computer_system_model_type_id').append($("<option></option>").attr("value",data[0][i].system_model_type.id).text(data[0][i].system_model_type.name));
                 }
-            })
-        }
+            }
+        })
+    }
 
-       });
+});
 
 
-       /* End Complaint - Computers */
+/* End Complaint - Computers */
 
-       /*Dynamic Chance for Resource Req ICT Starts */
-    $("#requisition_type_id").live("change",function(){
-        if ($("#requisition_type_id").val() == "1"){
-            $("#network_for_ict").show();
-            $("#show_text").hide();
-            $("#firewall_for_ict").hide();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").hide();
-        }
-        else if ($("#requisition_type_id").val() == "2"){
-            $("#network_for_ict").hide();
-            $("#show_text").hide();
-            $("#firewall_for_ict").show();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").hide();
-        }
-        else if ($("#requisition_type_id").val() == "3"){
-            $("#network_for_ict").hide();
-            $("#show_text").hide();
-            $("#firewall_for_ict").hide();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").show();
-        }
-        else if ($("#requisition_type_id").val() == "4"){
-            $("#network_for_ict").hide();
-            $("#firewall_for_ict").hide();
-            $("#show_text").hide();
-            $("#hardware_for_ict").show();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").hide();
-        }
-        else if ($("#requisition_type_id").val() == "5"){
-            $("#network_for_ict").hide();
-            $("#firewall_for_ict").hide();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").show();
-            $("#show_text").hide();
-            $("#system_access_for_ict").hide();
-            $("#vpn_for_ict").hide();
-        }
-        else if ($("#requisition_type_id").val() == "6"){
-            $("#network_for_ict").hide();
-            $("#show_text").hide();
-            $("#firewall_for_ict").hide();
-            $("#hardware_for_ict").hide();
-            $("#software_for_ict").hide();
-            $("#system_access_for_ict").show();
-            $("#vpn_for_ict").hide();
-        }
-    });
+/*Dynamic Chance for Resource Req ICT Starts */
+$("#requisition_type_id").live("change",function(){
+    if ($("#requisition_type_id").val() == "1"){
+        $("#network_for_ict").show();
+        $("#show_text").hide();
+        $("#firewall_for_ict").hide();
+        $("#hardware_for_ict").hide();
+        $("#software_for_ict").hide();
+        $("#system_access_for_ict").hide();
+        $("#vpn_for_ict").hide();
+    }
+    else if ($("#requisition_type_id").val() == "2"){
+        $("#network_for_ict").hide();
+        $("#show_text").hide();
+        $("#firewall_for_ict").show();
+        $("#hardware_for_ict").hide();
+        $("#software_for_ict").hide();
+        $("#system_access_for_ict").hide();
+        $("#vpn_for_ict").hide();
+    }
+    else if ($("#requisition_type_id").val() == "3"){
+        $("#network_for_ict").hide();
+        $("#show_text").hide();
+        $("#firewall_for_ict").hide();
+        $("#hardware_for_ict").hide();
+        $("#software_for_ict").hide();
+        $("#system_access_for_ict").hide();
+        $("#vpn_for_ict").show();
+    }
+    else if ($("#requisition_type_id").val() == "4"){
+        $("#network_for_ict").hide();
+        $("#firewall_for_ict").hide();
+        $("#show_text").hide();
+        $("#hardware_for_ict").show();
+        $("#software_for_ict").hide();
+        $("#system_access_for_ict").hide();
+        $("#vpn_for_ict").hide();
+    }
+    else if ($("#requisition_type_id").val() == "5"){
+        $("#network_for_ict").hide();
+        $("#firewall_for_ict").hide();
+        $("#hardware_for_ict").hide();
+        $("#software_for_ict").show();
+        $("#show_text").hide();
+        $("#system_access_for_ict").hide();
+        $("#vpn_for_ict").hide();
+    }
+    else if ($("#requisition_type_id").val() == "6"){
+        $("#network_for_ict").hide();
+        $("#show_text").hide();
+        $("#firewall_for_ict").hide();
+        $("#hardware_for_ict").hide();
+        $("#software_for_ict").hide();
+        $("#system_access_for_ict").show();
+        $("#vpn_for_ict").hide();
+    }
+});
 /*Dynamic Chance for Resource Req ICT Ends */
 

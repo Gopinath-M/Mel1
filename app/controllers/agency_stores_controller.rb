@@ -56,17 +56,17 @@ class AgencyStoresController < ApplicationController
       @store.save
     elsif params[:other_agency]
       
-#      quantity.times do
-        @store = AgencyStore.create(params[:agency_store])
-        quantity = params[:agency_store][:quantity].to_i
-        @store.resource_type = params[:resource_type]
-        @store.agency_id = params[:other][:agency_id]
-        @store.category_id = params[:other_category][:id]
-        @store.sub_category_id = params[:other_agency][:sub_category_id]
-        @store.resource_id = params[:other_agency][:resource_id]
-        if params[:dynamic]
+      #      quantity.times do
+      @store = AgencyStore.create(params[:agency_store])
+      quantity = params[:agency_store][:quantity].to_i
+      @store.resource_type = params[:resource_type]
+      @store.agency_id = params[:other][:agency_id]
+      @store.category_id = params[:other_category][:id]
+      @store.sub_category_id = params[:other_agency][:sub_category_id]
+      @store.resource_id = params[:other_agency][:resource_id]
+      if params[:dynamic]
         @store.serial_no =  params[:dynamic].values.join.to_s
-#        end
+        #        end
         
       end
 
@@ -89,7 +89,6 @@ class AgencyStoresController < ApplicationController
     else
       render :action=>'new', :notice =>'Resource already added for this Sub category'
     end
-   
   end
 
   def update
@@ -161,13 +160,26 @@ class AgencyStoresController < ApplicationController
   end
 
   def get_resource_ict
-    department=Department.find(@current_department)
-    resource = AgencyStore.where("booked = false and sub_category_id = ? and agency_id = ? ",params[:sub_category_id],department.agency_id).collect(&:resource_id)
-    resources=[]
-    if resource && !resource.empty?
-      resources = Resource.find(resource)
+    if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
+      render :json=>[resources] if resources
+    else
+      department=Department.find(@current_department)
+      resource = AgencyStore.where("booked = false and sub_category_id = ? and agency_id = ? ",params[:sub_category_id],department.agency_id).collect(&:resource_id)
+      resources=[]
+      if resource && !resource.empty?
+        resources = Resource.find(resource)
+      end
+      render :json=>[resources.to_a] if resources
     end
-    render :json=>[resources.to_a] if resources
+    
+    #    department=Department.find(@current_department)
+    #    resource = AgencyStore.where("booked = false and sub_category_id = ? and agency_id = ? ",params[:sub_category_id],department.agency_id).collect(&:resource_id)
+    #    resources=[]
+    #    if resource && !resource.empty?
+    #      resources = Resource.find(resource)
+    #    end
+    #    render :json=>[resources.to_a] if resources
     #p resources =Resource.active_and_subcategory(params[:sub_category_id])
   end
 
