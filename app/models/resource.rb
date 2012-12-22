@@ -18,7 +18,7 @@ class Resource < ActiveRecord::Base
   validates_uniqueness_of :name, :case_sensitive=>false, :if=>Proc.new {|u| !u.name.blank?}
   #validates_uniqueness_of :brand_model, :case_sensitive=>false, :if=>Proc.new {|u| !u.brand_model.blank?}
   #validates_uniqueness_of :vehicle_model, :case_sensitive=>false, :if=>Proc.new {|u| !u.vehicle_model.blank?}
-  validates_uniqueness_of :resource_no, :case_sensitive=>false, :if=>Proc.new {|u| !u.resource_no.blank? && u.resource_type!="room_booking" || u.resource_type!="others"}
+  validates_uniqueness_of :resource_no, :case_sensitive=>false, :if=>Proc.new {|u| !u.resource_no.blank? && (u.resource_type!="room_booking" || u.resource_type!="others"|| u.resource_type!= "ict")}
 
   scope :active, where(:deleted => false)
   scope :active_ict, where(:deleted => false, :resource_type=>"ict")
