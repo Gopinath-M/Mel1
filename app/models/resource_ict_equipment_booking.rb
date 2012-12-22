@@ -2,6 +2,7 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
   belongs_to :sub_category
   belongs_to :agency_store
   belongs_to :department
+  belongs_to :resource
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   belongs_to :officer, :class_name => "User", :foreign_key => "officer_id"
   belongs_to :approver, :class_name => "User", :foreign_key => "approver_id"

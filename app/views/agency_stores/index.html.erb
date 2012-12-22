@@ -59,12 +59,15 @@
 
             </div>
           </div>
-        <div class="clear"></div>
-      </div>
+          <div class="clear"></div>
+        </div>
+      <%end%>
+      <div class="manage-user-rows box">
+        <br/><br/>
+        <%= paginate @stores %></div>
+    <%else%>
+      No Resources Available in selected Agency Store.
     <%end%>
-  <%else%>
-    No Resources Available in selected Agency Store.
-  <%end%>
 <%#*<div><%= paginate @units %>
   </div>
 </div>

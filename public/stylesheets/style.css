@@ -132,8 +132,8 @@
 /*.leftNav-links li a{ display:block; padding-left:10px; line-height:22px; background: url(../images/arrow_leftnav.png) no-repeat 0 8px; color:#333;}*/
 .leftNav-links li a{ display:block; padding-left:10px; padding-bottom: 5px; padding-left: 10px; padding-top: 4px;line-height:14px; background: url(../images/arrow_leftnav2.png) no-repeat 0 8px; color:#333;}
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-    .leftNav-links li a{ display:block; padding-left:10px; line-height:22px; background: url(../images/arrow_leftnav.png) no-repeat 0 7px; color:#333;}
-
+    .leftNav-links li a{ display:block; padding-left:10px; line-height:14px; background: url(../images/arrow_leftnav.png) no-repeat 0 7px; color:#333;}
+    .leftNav-links li a.selected{ background-position:0 -12px !important;}
 }
 .leftNav-links li a:hover{ color:#E62C0C;}
 .leftNav-links li a.selected{ background-position:0 -20px;}
@@ -369,10 +369,10 @@ h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-
 .ch-minas{ float:right;width:16px; height:16px; margin:5px 2px 0 0;  background:url(/images/minas.png) no-repeat 0px 0px;text-indent:-999px; font-size:0;}
 .ch-square{ float:right;width:16px; height:16px; margin:5px 2px 0 0;  background:url(/images/chat_max.jpg) no-repeat 0px 0px;text-indent:-999px; font-size:0;}
 
-  .test{ border: 3px inset red; }
+.test{ border: 3px inset red; }
 
 .chat-msg{ border:1px solid #ccc; border-top:0; height:200px; overflow: auto; overflow-x: hidden;
-        overflow-y: scroll; background:#FFF; padding:5px;}
+           overflow-y: scroll; background:#FFF; padding:5px;}
 .ftext{ font-size:11px; color:#BB0802}
 .ftext span{ font-size:11px;font-weight:bold; color:#BB0802;}
 .ttext{ font-size:11px; color:#666;}

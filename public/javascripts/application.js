@@ -52,10 +52,11 @@ function  getResourceforSubcategory(category_id, resource_id)
 {
     if($("#"+category_id).val()!="")
     {
+        $("#lb_resource").text("Resource")
         $.get("/agency_stores/get_resource_ict",{
             sub_category_id : $("#"+category_id).val()
         }, function(data){
-            if (data[0]!=null)
+            if (data[0]!=null && data[0]!="")
             {
                 $('#'+resource_id).find('option').remove().end()
                 $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
@@ -63,6 +64,33 @@ function  getResourceforSubcategory(category_id, resource_id)
                 {
                     $('#'+resource_id).append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
                 }
+            }
+            else
+            {
+                $('#'+resource_id).find('option').remove().end()
+                $("#resource_ict_equipment_booking_agency_store_id").find('option').remove().end()
+                alert("Selected sub category has no resource in your Agency")
+                $.get("/agency_stores/get_other_resource_ict",{
+                    sub_category_id : $("#"+category_id).val()
+                }, function(data){
+                    //                    alert("comes here in else")
+                    if (data[0]!=null && data[0]!="")
+                    {
+                        $("#lb_resource").text("Other Agency Resource")
+                        $('#'+resource_id).find('option').remove().end()
+                        $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                        for(var i=0; i<data[0].length;i++)
+                        {
+                            $('#'+resource_id).append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                        }
+                    }
+                    else
+                    {
+                        $('#'+resource_id).find('option').remove().end()
+                        $("#resource_ict_equipment_booking_agency_store_id").find('option').remove().end()
+                        alert("Selected sub category has no resource in any Agency")
+                    }
+                })
             }
         })
     }
@@ -154,11 +182,11 @@ $("#ict_hardware_booking_application_category_individual").live('click', functio
     })
     $("#resource_ict_equipment_booking_sub_category_id").live("change",function(){
 
-        getResourceforSubcategory('resource_ict_equipment_booking_sub_category_id', 'resource_ict_equipment_resource_id')
+        getResourceforSubcategory('resource_ict_equipment_booking_sub_category_id', 'resource_ict_equipment_booking_resource_id')
     })
-    $("#resource_ict_equipment_resource_id").live("change",function(){
-        //alert("resource_ict_equipment_resource_id")
-        getAgencyforResource('resource_ict_equipment_resource_id', 'resource_ict_equipment_booking_agency_store_id')
+    $("#resource_ict_equipment_booking_resource_id").live("change",function(){
+        //alert("resource_ict_equipment_booking_resource_id")
+        getAgencyforResource('resource_ict_equipment_booking_resource_id', 'resource_ict_equipment_booking_agency_store_id')
     })
     $("#transfer_department_id").live("change",function(){
         if ( $("#transfer_department_id").val()=="")

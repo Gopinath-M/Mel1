@@ -39,11 +39,12 @@
       <span class="in-box">
         <%= @users.city %></span>
     </div>
-    <div class="form-sec-row-out">
-      <label class="text">State</label>
-      <span class="in-box">
-        <%= @users.state %></span>
-    </div>
+    <% users_state = State.find_by_id(@users.state) %>
+      <div class="form-sec-row-out">
+        <label class="text">State</label>
+        <span class="in-box">
+          <%= users_state.name %></span>
+      </div>
 
     <div class="form-sec-row-out">
       <label class="text">HP Number</label>
@@ -218,7 +219,7 @@
             <%=image_tag(@declaration_properties.property_file.url,:title=>@declaration_properties.property_file)%>
           <%else%>
             <% file = (@declaration_properties.property_file).url.split("/").last %>
-            <b>&nbsp;<%= link_to file, download_attachments_users_path(:id=>@declaration_properties.id) if @declaration_properties.property_file?  %></b>
+            <b>&nbsp;<%= link_to file, download_attachments_path(:id=>@declaration_properties.id) if @declaration_properties.property_file?  %></b>
           </span>
         <%end%>
       <%end%>
@@ -247,12 +248,18 @@
         <label class="text">Place Name</label>
         <span class="in-box">
           <%= @outstations.placename %></span>
-      </div>
+      </div>  <% if @outstations.is_out_of_state == true %>
+      <% outstations_state = State.find_by_id(@outstations.state) %>
+      <div class="form-sec-row-out">
+        <label class="text">State</label>
+        <span class="in-box">
+          <%= outstations_state.name %></span>
+      </div><%else%>
       <div class="form-sec-row-out">
         <label class="text">Country</label>
         <span class="in-box">
           <%= @outstations.country %></span>
-      </div>
+      </div><%end%>
       <div class="form-sec-row-out">
         <label class="text">From Date</label>
         <span class="in-box">

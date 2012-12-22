@@ -99,7 +99,7 @@
       <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
 
       <% if @complaint_computer.status == "New" %>
-      <div class="form-sec-row">
+        <div class="form-sec-row">
           <label class="text">Action to be taken<span style=color:red>*</span></label>
           <span class="in-box">
 
@@ -147,57 +147,57 @@
       <% elsif @complaint_computer.status == "Approved" %>
         <% if @complaint_computer.forward_to.present? %>
 
-      <div class="form-sec-row">
-          <label class="text">Action to be taken<span style=color:red>*</span></label>
-          <span class="in-box">
+          <div class="form-sec-row">
+            <label class="text">Action to be taken<span style=color:red>*</span></label>
+            <span class="in-box">
 
-            <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, "External" %>
-            <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, "Internal"  %>
-          </span>
-        </div>
-        <div id="officer">
-          <div class="form-sec-row">
-            <label class="text">Vendor Name<span style=color:red>*</span></label>
-            <span class="in-box">
-              <%= f.select(:vendor_id, Vendor.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Vendor Name", :style=> "width:132%;") %>
+              <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, "External" %>
+              <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, "Internal"  %>
             </span>
           </div>
-          <div class="form-sec-row">
-            <label class="text">Given Date<span style=color:red>*</span></label>
-            <span class="in-box">
-              <%=f.text_field :given_date, :value=>@complaint_building_asset && @complaint_building_asset.given_date!=nil ? @complaint_building_asset.given_date : nil ,:readonly=>true%></span>
+          <div id="officer">
+            <div class="form-sec-row">
+              <label class="text">Vendor Name<span style=color:red>*</span></label>
+              <span class="in-box">
+                <%= f.select(:vendor_id, Vendor.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Vendor Name", :style=> "width:132%;") %>
+              </span>
+            </div>
+            <div class="form-sec-row">
+              <label class="text">Given Date<span style=color:red>*</span></label>
+              <span class="in-box">
+                <%=f.text_field :given_date, :value=>@complaint_building_asset && @complaint_building_asset.given_date!=nil ? @complaint_building_asset.given_date : nil ,:readonly=>true%></span>
+            </div>
+            <div class="form-sec-row">
+              <label class="text">Receipt Date<span style=color:red>*</span></label>
+              <span class="in-box">
+                <%=f.text_field :receipt_date, :value=>@complaint_building_asset && @complaint_building_asset.receipt_date!=nil ? @complaint_building_asset.receipt_date : nil ,:readonly=>true%>
+              </span>
+            </div>
+            <div class="form-sec-row">
+              <label class="text">Comments<span style=color:red>*</span></label>
+              <span class="in-box">
+                <%= f.text_area :comments, :rows =>4%></span>
+            </div>
           </div>
-          <div class="form-sec-row">
-            <label class="text">Receipt Date<span style=color:red>*</span></label>
-            <span class="in-box">
-              <%=f.text_field :receipt_date, :value=>@complaint_building_asset && @complaint_building_asset.receipt_date!=nil ? @complaint_building_asset.receipt_date : nil ,:readonly=>true%>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text">Comments<span style=color:red>*</span></label>
-            <span class="in-box">
-              <%= f.text_area :comments, :rows =>4%></span>
-          </div>
-        </div>
           <div class="form-sec-row">
             <label class="text">Status<span style=color:red>*</span></label>
             <span class="in-box">
               <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @complaint_computer.status) %>
             </span>
           </div>
-          <%@dept = Department.find(default_department)%>
-          <%@users = @dept.users%>
+
+          <% name = User.find_by_id(@complaint_computer.forward_to) %>
           <div class="form-sec-row">
-            <label class="text">Forward To<span style=color:red>*</span></label>
+            <label class="text">Forward To</label>
             <span class="in-box">
-              <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
+              <%= name.username %>
             </span>
           </div>
-             <div class="form-sec-row">
-        <label class="text">Remarks</label>
-        <span class="in-box">
-          <%= @complaint_computer.remarks %></span>
-      </div>
+          <div class="form-sec-row">
+            <label class="text">Remarks</label>
+            <span class="in-box">
+              <%= @complaint_computer.remarks %></span>
+          </div>
           <div class="form-sec-row">
             <div class="CenterNav">
               <label class="text">&nbsp;</label>
@@ -264,13 +264,13 @@
         $("#officer").hide();
       }
     });
-       if( $('#radio_click').is(':checked') ==true) {
-     $("#officer").show();
-       }
+    if( $('#radio_click').is(':checked') ==true) {
+      $("#officer").show();
+    }
 
-        if( $('#radio_click').is(':checked') ==false) {
-     $("#officer").hide();
-       }
+    if( $('#radio_click').is(':checked') ==false) {
+      $("#officer").hide();
+    }
 
 
   });

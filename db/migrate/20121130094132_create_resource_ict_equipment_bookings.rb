@@ -4,6 +4,7 @@ class CreateResourceIctEquipmentBookings < ActiveRecord::Migration
       t.references :sub_category
       t.references :agency_store
       t.references :department
+      t.references :resource
       t.text :purpose
       t.text :location
       t.datetime :requested_from_date
@@ -20,6 +21,7 @@ class CreateResourceIctEquipmentBookings < ActiveRecord::Migration
       t.datetime :processed_date
       t.boolean :user_returned_status
       t.datetime :acknowledged_date
+      t.boolean :is_other_agency
       t.text :notes
       t.string :status, :default => "New"
       t.timestamps

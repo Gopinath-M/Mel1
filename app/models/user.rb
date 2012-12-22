@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_many :ict_system_accesses
   has_many :complaint_building_assets
   has_many :complaint_computers
+  has_many :resource_ict_equipment_bookings
+  has_many :agency
 
   #helper for carrier wave
   mount_uploader :avatar, ProfileImageUploader

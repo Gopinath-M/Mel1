@@ -3,6 +3,7 @@ class Agency < ActiveRecord::Base
   has_many :departments
   has_many :resource_managers
   has_one :agency_store
+  belongs_to :user
   before_validation :strip_whitespace
 
   

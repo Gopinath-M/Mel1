@@ -299,53 +299,52 @@ department_user3.activate_user
 rm_department_user3 = RoleMembership.create(:user_id => department_user3.id, :department_id => 1, :role_id => 3,:status => 'A', :default_dept=>true)
 
 #Prakash Users
-department_user19 = User.create!(:ic_number => "100000000000",:contact_mobile => "9888888888", :email => 'prakashtest01@gmail.com', :password => "123456789", :first_name => "Prakash DA1", :last_name => "Muthu DA2",:username=>'Prakash DA1', :status => 'A', :state => 7, :sign_in_count => 1)
+
+department_user19 = User.create(:ic_number => "100000000000",:contact_mobile => "9888888888", :email => 'prakashtest01@gmail.com', :password => "123456789", :first_name => "Prakash DA1", :last_name => "Muthu DA1",:username=>'Prakash DA One', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user19.activate_user
-rm_department_user19 = RoleMembership.create(:user_id => department_user19.id, :department_id => 7, :role_id => 3, :status => 'A', :default_dept=>true)
+rm_department_user19 = RoleMembership.create(:user_id => department_user19.id, :department_id => 12, :role_id => 2, :status => 'A', :default_dept=>true)
 
-department_user20 = User.create!(:ic_number => "200000000000",:contact_mobile => "9888888881", :email => 'prakashtest02@gmail.com', :password => "123456789", :first_name => "Prakash DA2", :last_name => "Muthu DA2",:username=>'Prakash DA2', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user20 = User.create(:ic_number => "200000000000",:contact_mobile => "9888888881", :email => 'prakashtest02@gmail.com', :password => "123456789", :first_name => "Prakash DA2", :last_name => "Muthu DA2",:username=>'Prakash DA Two', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user20.activate_user
-rm_department_user20 = RoleMembership.create(:user_id => department_user20.id, :department_id => 8, :role_id => 3, :status => 'A', :default_dept=>true)
+rm_department_user20 = RoleMembership.create(:user_id => department_user20.id, :department_id => 2, :role_id => 2, :status => 'A', :default_dept=>true)
 
-department_user21 = User.create!(:ic_number => "300000000000",:contact_mobile => "9888888188", :email => 'prakashtest03@gmail.com', :password => "123456789", :first_name => "Prakash DA3", :last_name => "Muthu DA3",:username=>'Prakash DA3', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user21 = User.create(:ic_number => "300000000000",:contact_mobile => "9888888188", :email => 'prakashtest03@gmail.com', :password => "123456789", :first_name => "Prakash DA3", :last_name => "Muthu DA3",:username=>'Prakash DA Three', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user21.activate_user
-rm_department_user21 = RoleMembership.create(:user_id => department_user21.id, :department_id => 9, :role_id => 3, :status => 'A', :default_dept=>true)
+rm_department_user21 = RoleMembership.create(:user_id => department_user21.id, :department_id => 13, :role_id => 2, :status => 'A', :default_dept=>true)
 
 
-department_user22 = User.create!(:ic_number => "100000001111",:contact_mobile => "9888888388", :email => 'prakashtest04@gmail.com', :password => "123456789", :first_name => "Prakash DU1", :last_name => "Muthu DA2",:username=>'Prakash DU1', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user22 = User.create(:ic_number => "100000001111",:contact_mobile => "9888888388", :email => 'prakashtest04@gmail.com', :password => "123456789", :first_name => "Prakash DU1", :last_name => "Muthu DU1",:username=>'Prakash DU One', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user22.activate_user
-rm_department_user22 = RoleMembership.create(:user_id => department_user22.id, :department_id => 10, :role_id => 3, :status => 'A', :default_dept=>true)
+rm_department_user22 = RoleMembership.create(:user_id => department_user22.id, :department_id => 12, :role_id => 3, :status => 'A', :default_dept=>true)
 
-department_user23 = User.create!(:ic_number => "100000002222",:contact_mobile => "9888888848", :email => 'prakashtest05@gmail.com', :password => "123456789", :first_name => "Prakash DU2", :last_name => "Muthu DA3",:username=>'Prakash DU2', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user23 = User.create(:ic_number => "100000002222",:contact_mobile => "9888888848", :email => 'prakashtest05@gmail.com', :password => "123456789", :first_name => "Prakash DU2", :last_name => "Muthu DU2",:username=>'Prakash DU Two', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user23.activate_user
-rm_department_user23 = RoleMembership.create(:user_id => department_user23.id, :department_id => 11, :role_id => 3, :status => 'A', :default_dept=>true)
+rm_department_user23 = RoleMembership.create(:user_id => department_user23.id, :department_id => 12, :role_id => 3, :status => 'A', :default_dept=>true)
 
 
-department_user24 = User.create(:ic_number => "200000001111",:contact_mobile => "9888888588", :email => 'prakashtest06@gmail.com', :password => "123456789", :first_name => "Prakash DU3", :last_name => "Muthu DA2",:username=>'Prakash DU3', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user24 = User.create(:ic_number => "200000001111",:contact_mobile => "9888888588", :email => 'prakashtest06@gmail.com', :password => "123456789", :first_name => "Prakash DU3", :last_name => "Muthu DU3",:username=>'Prakash DU Three', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user24.activate_user
-rm_department_user24 = RoleMembership.create(:user_id => department_user24.id, :department_id => 12, :role_id => 3, :status => 'A', :default_dept=>true)
+rm_department_user24 = RoleMembership.create(:user_id => department_user24.id, :department_id => 8  , :role_id => 3, :status => 'A', :default_dept=>true)
 
-department_user25 = User.create(:ic_number => "300001231111",:contact_mobile => "9888888688", :email => 'prakashtest078@gmail.com', :password => "123456789", :first_name => "Prakash DU444", :last_name => "Muthu DA3",:username=>'Prakash DU444', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user25 = User.create(:ic_number => "300001231111",:contact_mobile => "9888888688", :email => 'prakashtest078@gmail.com', :password => "123456789", :first_name => "Prakash DU444", :last_name => "Muthu DU4",:username=>'Prakash DU Fourth44', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user25.activate_user
 rm_department_user25 = RoleMembership.create(:user_id => department_user25.id, :department_id => 13, :role_id => 3, :status => 'A', :default_dept=>true)
 
-department_user26 = User.create(:ic_number => "300000001111",:contact_mobile => "9888788888", :email => 'prakashtest07@gmail.com', :password => "123456789", :first_name => "Prakash DU4", :last_name => "Muthu DA2",:username=>'Prakash DU4', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user26 = User.create(:ic_number => "300000001111",:contact_mobile => "9888788888", :email => 'prakashtest07@gmail.com', :password => "123456789", :first_name => "Prakash DU4", :last_name => "Muthu DU2",:username=>'Prakash DU Fourth', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user26.activate_user
-rm_department_user26 = RoleMembership.create(:user_id => department_user26.id, :department_id => 14, :role_id => 3, :status => 'A', :default_dept=>true)
+rm_department_user26 = RoleMembership.create(:user_id => department_user26.id, :department_id => 13, :role_id => 3, :status => 'A', :default_dept=>true)
 
-department_user27 = User.create(:ic_number => "100000000011",:contact_mobile => "9888868888", :email => 'prakashtest08@gmail.com', :password => "123456789", :first_name => "Prakash RM1", :last_name => "Muthu DA2",:username=>'Prakash RM1', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user27 = User.create(:ic_number => "100000000011",:contact_mobile => "9888868888", :email => 'prakashtest08@gmail.com', :password => "123456789", :first_name => "Prakash RM1", :last_name => "Muthu RM1",:username=>'Prakash RM One', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user27.activate_user
-rm_department_user27 = RoleMembership.create(:user_id => department_user27.id, :department_id => 15, :role_id => 5, :status => 'A', :default_dept=>true)
+rm_department_user27 = RoleMembership.create(:user_id => department_user27.id, :department_id => 12, :role_id => 5, :status => 'A', :default_dept=>true)
 
-department_user28 = User.create(:ic_number => "100000000022",:contact_mobile => "9888888788", :email => 'prakashtest09@gmail.com', :password => "123456789", :first_name => "Prakash RM2", :last_name => "Muthu DA2",:username=>'Prakash RM2', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user28 = User.create(:ic_number => "100000000022",:contact_mobile => "9888888788", :email => 'prakashtest09@gmail.com', :password => "123456789", :first_name => "Prakash RM2", :last_name => "Muthu DA2",:username=>'Prakash RM Two', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user28.activate_user
-rm_department_user28 = RoleMembership.create(:user_id => department_user28.id, :department_id => 16, :role_id => 5, :status => 'A', :default_dept=>true)
+rm_department_user28 = RoleMembership.create(:user_id => department_user28.id, :department_id => 13, :role_id => 5, :status => 'A', :default_dept=>true)
 
-department_user29 = User.create(:ic_number => "100000003333",:contact_mobile => "9888888988", :email => 'prakashtest10@gmail.com', :password => "123456789", :first_name => "Prakash DU5", :last_name => "Muthu DA2",:username=>'Prakash DU5', :status => 'A', :state => 7, :sign_in_count => 1)
+department_user29 = User.create(:ic_number => "100000003333",:contact_mobile => "9888888988", :email => 'prakashtest10@gmail.com', :password => "123456789", :first_name => "Prakash DU5", :last_name => "Muthu DU5",:username=>'Prakash DU Five', :status => 'A', :state => 7, :sign_in_count => 1)
 department_user29.activate_user
-rm_department_user29 = RoleMembership.create(:user_id => department_user29.id, :department_id => 17, :role_id => 3, :status => 'A', :default_dept=>true)
-
-
+rm_department_user29 = RoleMembership.create(:user_id => department_user29.id, :department_id => 12, :role_id => 3, :status => 'A', :default_dept=>true)
 
 
 puts "Creating Sample Department Users for JABATAN KEBAJIKAN MASYARAKAT"

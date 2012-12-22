@@ -40,6 +40,7 @@ Melaka::Application.routes.draw do
   resources :outstations do
     collection do
       get 'approve_request'
+      get 'approve_request_for_state'
     end
   end
   resources :resource_ict_equipment_bookings do
@@ -264,6 +265,7 @@ Melaka::Application.routes.draw do
       get 'get_other_sub_categories'
       get 'get_resource_ict'
       get 'get_agency_resource'
+      get 'get_other_resource_ict'
     end
   end
   resources :facilities do
