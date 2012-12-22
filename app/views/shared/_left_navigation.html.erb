@@ -12,7 +12,7 @@
         <%  resource_transport_new_count = generic_model_status_count(ResourceTransportationBooking, "New")%>
         <%  resource_other_new_count = generic_model_status_count(ResourceBooking, "New")%>
 
-      <%  ict_network_new_count = generic_model_status_count(IctNetworkPoint,'New')%>
+        <%  ict_network_new_count = generic_model_status_count(IctNetworkPoint,'New')%>
 
         <div id="control">
           <a id="controlbtn" class="open" href="javascript:void(0);" alt="Side Panel">Side Panel</a>
@@ -283,6 +283,19 @@
                       </div>
                     </li>
                   <%end%>
+                  <li class="menu-item">
+                    <%=link_to "Facility", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_facility" ,:onclick=>"leftNavigation(this.id,'div_facility')"%>
+                    <div id ="div_facility" style="display:none;">
+                      <ul>
+                        <li>
+                          <%=link_to t('left_nav.create'), new_facility_path%>
+                        </li>
+                        <li>
+                          <%=link_to t('left_nav.list'), facilities_path%>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                   <li class="menu-item">
                     <%=link_to "Facility Ict Softwares", "javascript:void(0);" , :title=>"Facility Ict Softwares" ,:class=>"", :id=>"lnk_facility_ict_softwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_softwares')"%>
                     <div id ="div_facility_ict_softwares" style="display:none;">
@@ -631,7 +644,7 @@
               <%end%>
               <% if (session[:current_role]!=DISP_USER_ROLE_DEPT_USER) %>
                 <li class="menu-item">
-                  <%=link_to "Outstation Requests", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
+                  <%=link_to "Outstation: Country", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
                   <div id ="div_outstation_request" style="display:none;">
                     <ul>
                       <% if (session[:current_role] == DISP_USER_ROLE_DATUK_SUK  || session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role] == DISP_USER_ROLE_SUK_DEPUTY) %>
@@ -653,6 +666,34 @@
                           <% approve_count = Outstation.where(:status => "Recommended").count  %>
                           <span class="notifiNo"><%=  approve_count > 0 ? approve_count : ''%> </span>
                           <%=link_to "Approve Request", approve_request_outstations_path%>
+                        </li>
+                      <%end%>
+                    </ul>
+                  </div>
+                </li>
+                <li class="menu-item">
+                  <%=link_to "Outstation : State", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests_for_state", :onclick=>"leftNavigation(this.id,'div_outstation_request_for_state')"%>
+                  <div id ="div_outstation_request_for_state" style="display:none;">
+                    <ul>
+                      <% if (session[:current_role] == DISP_USER_ROLE_DATUK_SUK  || session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role] == DISP_USER_ROLE_SUK_DEPUTY) %>
+                        <li>
+                          <% support_count = Outstation.where("status = ? and out_of_state = ?","New",false).count  %>
+                          <span class="notifiNo"><%=  support_count>0 ? support_count : ''%> </span>
+                          <%=link_to "Verify Request", approve_request_for_state_outstations_path%>
+                        </li>
+                      <%end%>
+                      <% if session[:current_role] == DISP_USER_ROLE_HUMAN_RESOURCE%>
+                        <li>
+                          <% review_count = Outstation.where("status = ? and out_of_state = ?","Verified",false).count  %>
+                          <span class="notifiNo"><%=  review_count>0 ? review_count : ''%> </span>
+                          <%=link_to "Recommend Request", approve_request_for_state_outstations_path%>
+                        </li>
+                      <%end%>
+                      <% if (session[:current_role] == DISP_USER_ROLE_DATUK_SUK || session[:current_role] == DISP_USER_ROLE_CHIEF_MINISTER) %>
+                        <li>
+                          <% approve_count = Outstation.where("status = ? and out_of_state = ?","Reviewed",false).count  %>
+                          <span class="notifiNo"><%=  approve_count>0 ? approve_count : ''%> </span>
+                          <%=link_to "Approve Request", approve_request_for_state_outstations_path%>
                         </li>
                       <%end%>
                     </ul>
