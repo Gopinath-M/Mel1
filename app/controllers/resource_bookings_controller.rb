@@ -126,6 +126,7 @@ class ResourceBookingsController < ApplicationController
     end
     @resource_booking = ResourceBooking.find_by_id(params[:resource_book_id])
     @resource_booking.update_attributes(params[:resource_booking])
+    @resource_booking.update_attribute(:updated_by, current_user.id)
      ordered_user = User.find_by_id(others.user_id)
     resource_manager = RoleMembership.find_by_department_id(others.department_id, :conditions=>["role_id = ?", 5])
     if resource_manager.present?
