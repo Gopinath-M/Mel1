@@ -52,14 +52,14 @@ departments = [
   ['Test Department1 of Prakash_Agency_One','Dept One','012-345-4446',4,true],
   ['Test Department2 of Prakash_Agency_One','Dept Two','012-345-5557',4,true],
   ['Test Department3 of Prakash_Agency_One','Dept Three','012-345-6668',4,true],
-  ['Test Department1 of Prakash_Agency_Two','Dept Four','012-345-7779',4,true],
+  ['Test Department1 of Prakash_Agency_Two','Dept Four','012-345-7779',5,true],
   ['Test Department2 of Prakash_Agency_Two','Dept Five','012-345-8882',5,true],
   ['Test Department3 of Prakash_Agency_Two','Dept Six','012-345-9995',5,true],
-  ['Test Department1 of Prakash_Agency_Three','Dept One','012-345-4446',5,true],
-  ['Test Department2 of Prakash_Agency_Three','Dept Two','012-345-5558',5,true],
+  ['Test Department1 of Prakash_Agency_Three','Dept One','012-345-4446',6,true],
+  ['Test Department2 of Prakash_Agency_Three','Dept Two','012-345-5558',6,true],
   ['Test Department3 of Prakash_Agency_Three','Dept Three','012-345-6665',6,true],
-  ['Test Department1 of Prakash_Agency_Four','Dept Four','012-345-7775',6,true],
-  ['Test Department2 of Prakash_Agency_Four','Dept Five','012-345-8885',6,true]
+  ['Test Department1 of Prakash_Agency_Four','Dept Four','012-345-7775',7,true],
+  ['Test Department2 of Prakash_Agency_Four','Dept Five','012-345-8885',7,true]
 ]
 
 departments.each do |department|
