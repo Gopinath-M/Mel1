@@ -50,16 +50,16 @@ departments = [
   ['Jabatan Pertanian Negeri Melaka','Dept Five','012-345-8888',3,true],
   ['Jabatan Kebajikan Masyarakat','Dept Six','012-345-9999',3,true],
   ['Test Department1 of Prakash_Agency_One','Dept One','012-345-4446',4,true],
-  ['Test Department1 of Prakash_Agency_Two','Dept Two','012-345-5557',4,true],
-  ['Test Department1 of Prakash_Agency_Three','Dept Three','012-345-6668',4,true],
-  ['Test Department1 of Prakash_Agency_Four','Dept Four','012-345-7779',4,true],
-  ['Test Department2 of Prakash_Agency_One','Dept Five','012-345-8882',5,true],
-  ['Test Department2 of Prakash_Agency_Two','Dept Six','012-345-9995',5,true],
-  ['Test Department2 of Prakash_Agency_Three','Dept One','012-345-4446',5,true],
-  ['Test Department2 of Prakash_Agency_Four','Dept Two','012-345-5558',5,true],
-  ['Test Department3 of Prakash_Agency_One','Dept Three','012-345-6665',6,true],
-  ['Test Department3 of Prakash_Agency_Two','Dept Four','012-345-7775',6,true],
-  ['Test Department3 of Prakash_Agency_Three','Dept Five','012-345-8885',6,true]
+  ['Test Department2 of Prakash_Agency_One','Dept Two','012-345-5557',4,true],
+  ['Test Department3 of Prakash_Agency_One','Dept Three','012-345-6668',4,true],
+  ['Test Department1 of Prakash_Agency_Two','Dept Four','012-345-7779',4,true],
+  ['Test Department2 of Prakash_Agency_Two','Dept Five','012-345-8882',5,true],
+  ['Test Department3 of Prakash_Agency_Two','Dept Six','012-345-9995',5,true],
+  ['Test Department1 of Prakash_Agency_Three','Dept One','012-345-4446',5,true],
+  ['Test Department2 of Prakash_Agency_Three','Dept Two','012-345-5558',5,true],
+  ['Test Department3 of Prakash_Agency_Three','Dept Three','012-345-6665',6,true],
+  ['Test Department1 of Prakash_Agency_Four','Dept Four','012-345-7775',6,true],
+  ['Test Department2 of Prakash_Agency_Four','Dept Five','012-345-8885',6,true]
 ]
 
 departments.each do |department|
@@ -111,17 +111,17 @@ users=[
   ["123456786630", "9801498404", 'john.poul04@gmail.com', "password", "Dept6UserThird", "JKM", 'JohnPoul04',["6","3"]],
 
   ["100000000000", "9801498404", 'prakashtest01@gmail.com', "123456789", "Prakash DA1", "Muthu DA1", 'Prakash DA One',["7","2"]],
-  ["200000000000", "9801498404", 'prakashtest02@gmail.com', "123456789", "Prakash DA2", "Muthu DA2", 'Prakash DA Two',["11","2"]],
-  ["300000000000", "9801498404", 'prakashtest03@gmail.com', "123456789", "Prakash DA3", "Muthu DA3", 'Prakash DA Three',["8","2"]],
+  ["200000000000", "9801498404", 'prakashtest02@gmail.com', "123456789", "Prakash DA2", "Muthu DA2", 'Prakash DA Two',["8","2"]],
+  ["300000000000", "9801498404", 'prakashtest03@gmail.com', "123456789", "Prakash DA3", "Muthu DA3", 'Prakash DA Three',["10","2"]],
 
   ["100000001111", "9801498404", 'prakashtest04@gmail.com', "123456789", "Prakash DU1", "Muthu DU1", 'Prakash DU One',["7","3"]],
   ["100000002222", "9801498404", 'prakashtest05@gmail.com', "123456789", "Prakash DU2", "Muthu DU2", 'Prakash DU Two',["7","3"]],
   ["100000003333", "9801498404", 'prakashtest10@gmail.com', "123456789", "Prakash DU3", "Muthu DU3", 'Prakash DU Three',["7","3"]],
-  ["200000001111", "9801498404", 'prakashtest06@gmail.com', "123456789", "Prakash DU3", "Muthu DU4", 'Prakash DU Fourth',["11","3"]],
-  ["300000001111", "9801498404", 'prakashtest07@gmail.com', "123456789", "Prakash DU4", "Muthu DU5", 'Prakash DU Fifth',["8","3"]],
+  ["200000001111", "9801498404", 'prakashtest06@gmail.com', "123456789", "Prakash DU3", "Muthu DU4", 'Prakash DU Fourth',["8","3"]],
+  ["300000001111", "9801498404", 'prakashtest07@gmail.com', "123456789", "Prakash DU4", "Muthu DU5", 'Prakash DU Fifth',["10","3"]],
 
   ["100000000011", "9801498404", 'prakashtest08@gmail.com', "123456789", "Prakash RM1", "Muthu RM1", 'Prakash RM One',["7","5"]],
-  ["200000000011", "9801498404", 'prakashtest09@gmail.com', "123456789", "Prakash RM2", "Muthu RM2", 'Prakash RM Two',["8","5"]]
+  ["200000000011", "9801498404", 'prakashtest09@gmail.com', "123456789", "Prakash RM2", "Muthu RM2", 'Prakash RM Two',["10","5"]]
 
 
 ]
