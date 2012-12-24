@@ -63,7 +63,6 @@ departments = [
 ]
 
 departments.each do |department|
-  p department[2] =~/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
   Department.create(:name => department[0] ,:address => department[1], :telephone_number => department[2], :agency_id => department[3], :is_active => department[4])
 end
 
