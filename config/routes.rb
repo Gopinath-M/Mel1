@@ -35,7 +35,11 @@ Melaka::Application.routes.draw do
       put 'update_request'
     end
   end
-  resources :ict_firewalls
+   resources :ict_firewalls do
+    collection do
+      get 'add_select_boxes'
+    end
+  end
   resources :user_services
   resources :outstations do
     collection do
@@ -76,6 +80,8 @@ Melaka::Application.routes.draw do
       post 'change_resource_status'
       get 'user_return_status'
       get 'download_attachments'
+      get 'get_vehicle_brands'
+      get 'get_booked_and_available_vehicles'   
     end
   end
   resources :facility_ict_agencies do

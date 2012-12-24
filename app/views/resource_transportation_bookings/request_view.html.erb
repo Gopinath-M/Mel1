@@ -21,6 +21,7 @@
     $('#changed_driver').hide();
     $('#change_vehicle').hide();
   });
+  
 </script>
 
 <%= form_tag :controller=>"resource_transportation_bookings",:action=>"change_resource_status" do %>
@@ -127,7 +128,7 @@
                     <% @approver = Approver.active.find_all_by_department_id(current_user.departments).first %>
                     <% @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last %>
 
-                    <% if (@approver.user_id.to_i == current_user.id || @approver_second.user_id.to_id == current_user.id) %>
+                    <% if (@approver.user_id.to_i == current_user.id || @approver_second.user_id.to_i == current_user.id) %>
                       <tr>
                         <td><label class="text"> <%= label :location,raw("Status"), :class=>"text"%></label></td>
                         <td>
@@ -231,12 +232,33 @@
                     <%end%>
                   <%else%>
                     <tr>
+                      <td><b>Brand Name</b></td>                                       
+                      <!--<#% a = AgencyStore.find(:all,:conditions=>["agency_id = ? and sub_category_id = ? and resource_type = ? and booked = ?",current_user.departments[0].agency.id,@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
+                      <#% if !a.blank? %>
+                        <td>
+                          <%#= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A BRAND"})%>
+                        </td>
+                      <%#end%>
+                      </div>-->
+                      <% user = User.find(@resource_transportation_booking.requester_id) %>
+                      <% a = AgencyStore.find(:all,:conditions=>["agency_id = ? and sub_category_id = ? and resource_type = ? and booked = ?",current_user.departments[0].agency.id,@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
+                      <% b = Resource.find(:all,:conditions=>["id in (#{a})"]).collect(&:vehicle_model_type_id).uniq.join(',') %>
+                      <% if !b.blank? %>
+                        <td>
+                          <%= select("vehicle","model_type_id", options_from_collection_for_select(VehicleModelType.find(:all,:conditions=>["id in (#{b})"]),'id',"name"),{:prompt=>"Select a Brand"})%>
+                        </td>
+                      <%end%>
+                      </div>
+                    </tr>
+                    
+                    <tr>
                       <td><b>Vehicle</b></td>
                       <% user = User.find(@resource_transportation_booking.requester_id) %>
                       <% a = AgencyStore.find(:all,:conditions=>["agency_id = ? and sub_category_id = ? and resource_type = ? and booked = ?",current_user.departments[0].agency.id,@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
                       <% if !a.blank? %>
-                        <td>
-                          <%= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
+                        <td>                          
+                          <%#= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"Select a Vehicle"})%>
+                          <%= select("vehicle","id", options_from_collection_for_select(VehicleModelType.where("sub_category_id = ?",params[:sub_category_id]).active, 'id','name'),{:prompt=>"Select a Vehicle"})%>
                         </td>
                       <%end%>
                       </div>
@@ -276,3 +298,47 @@
 
 <%end%>
 
+<script>
+	
+	    /* Validating Transport Request Approval Form */
+
+function validate_request_approval_form(){	
+	alert(1);
+    if($("#approve_status").val() == "Declined"){
+        var r = confirm("You want to Decline this Request. Continue ?");
+        if (r == false)
+        {
+        	alert(3);
+            return false;
+        }
+    }
+    alert(2);
+    else if ($("#approve_status").val() == "New"){
+        var r = confirm("You didn't Approve this request. Continue ?");
+        if (r== false)
+        {
+            return false;
+        }
+    }
+    else if ($("#approve_status").val() == "Approved"){
+    	alert(1);
+    	if ($("#vehicle_model_type_id").val() == "Select a Brand"){
+            alert("Please Select the Brand");
+            return false;
+        }    	
+        alert(2);
+        else if ($("#vehicle_id").val() == "Select a Vehicle"){
+            alert("Please Select the Vehicle");
+            return false;
+        }
+    }
+    else if ($("#approve_status").val() == "Returned"){
+        var r = confirm("You want to Return this Request. Continue ?")
+        if (r == false)
+        {
+            return false;
+        }
+    }
+}
+
+</script>
