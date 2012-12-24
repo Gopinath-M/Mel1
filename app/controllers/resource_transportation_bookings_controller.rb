@@ -14,6 +14,31 @@ class ResourceTransportationBookingsController < ApplicationController
     end
     #@if_inside_agency = AgencyStore.where(:category_id=> 7,:booked=> false,:agency_id => current_user.departments.collect(&:agency_id).join(','))
   end
+  
+  def get_vehicle_brands
+    vehicle_brands =params[:sub_category_id] ? VehicleModelType.active.where("sub_category_id =?",params[:sub_category_id]) : nil
+    render :json=>[vehicle_brands] if vehicle_brands
+  end
+  
+  def get_booked_and_available_vehicles
+    booked_vehicles = Resource.find_by_sql "SELECT * FROM `resources` INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                            WHERE agency_stores.booked = true
+                                            AND resources.vehicle_model_type_id =#{params[:vehicle_model_type_id]}"
+                                            
+    available_vehicles = Resource.find_by_sql "SELECT * FROM `resources` INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                               WHERE agency_stores.booked = false
+                                               AND resources.vehicle_model_type_id =#{params[:vehicle_model_type_id]}"                                         
+    render :json =>{ :booked => booked_vehicles, :available => available_vehicles} 
+  end
+  
+  def get_vehicles    
+    vehicles = Resource.find_by_sql "SELECT * FROM `resources` INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                     WHERE agency_stores.booked = false
+                                     AND agency_stores.agency_id =#{current_user.departments[0].agency.id}
+                                     AND resources.vehicle_model_type_id =#{params[:vehicle_model_type_id]}"
+    
+    render :json=>[vehicles] if vehicles
+  end
 
   def create
     @resource_transportation_booking = ResourceTransportationBooking.new(params[:resource_transportation_booking])
@@ -24,12 +49,44 @@ class ResourceTransportationBookingsController < ApplicationController
       else
         @resource_transportation_booking.status = "Processed"
         @resource_transportation_booking.department_id = '0'
-        allocate_resource_for_super_admin_request(@resource_transportation_booking,params[:resource_transportation_booking][:sub_category_id])
+        if params[:vehicle][:model_type_id_available] != ''
+          agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_available])
+          @resource_transportation_booking.agency_store_id = agency_store.id
+          @resource_transportation_booking.driver_id = agency_store.driver_id
+          agency_store.update_attributes(:booked=>true)
+        else
+          agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_booked])
+          rtb_old = ResourceTransportationBooking.find_by_agency_store_id(agency_store.id)
+          rtb_old.update_attributes(:status => 'Cancelled')
+          @resource_transportation_booking.agency_store_id = rtb_old.agency_store_id
+          @resource_transportation_booking.driver_id = rtb_old.driver_id      
+          agency_store.update_attributes(:booked=>true)    
+        end
+        #allocate_resource_for_super_admin_request(@resource_transportation_booking,params[:resource_transportation_booking][:sub_category_id])        
       end
       @resource_transportation_booking.requester_id = current_user.id
       @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
       @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
-      @resource_transportation_booking.save      
+      @resource_transportation_booking.save
+
+      if !current_user.is_super_admin?
+      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+      @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
+              
+        if @approve.present?
+          UserMailer.send_mail_to_dept_admin_for_transport_booking(@approve,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
+          #Stalker.enqueue("#{SPREFIX}.transport.booking", :booking_id => @resource_transportation_booking.id, :user=> @approve.user_id)
+        elsif @approve_second.present?
+          UserMailer.send_mail_to_dept_admin_for_transport_booking(@approve_second,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
+          #Stalker.enqueue("#{SPREFIX}.transport.booking", :booking_id => @resource_transportation_booking.id, :user=> @approve_second.user_id)
+        else
+          dept = Department.find_by_id(params[:department_id])
+          user = dept.users.where("role_id = 2").first
+          UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
+          #Stalker.enqueue("#{SPREFIX}.transport.booking", :booking_id => @resource_transportation_booking.id, :user=> user.id)
+        end
+      end
+
       redirect_to(resource_transportation_bookings_path, :notice => "Your Transport booking has been created sucessfully.")
     else
       if !current_user.is_super_admin?
@@ -71,11 +128,11 @@ class ResourceTransportationBookingsController < ApplicationController
 
   # Resource Transportation Booking Tracking Method
   def change_resource_status
-    @resource_transportation_booking = ResourceTransportationBooking.find(params[:id])
+    @resource_transportation_booking = ResourceTransportationBooking.find(params[:id])    
 
     if params[:approve_status] == "Approved"
       
-      approve_scenario(params[:id],params[:vehicle][:id])
+      approve_scenario(params[:id],params[:vehicle][:id])      
 
     elsif params[:approve_status] == "Processed"
 
@@ -98,10 +155,10 @@ class ResourceTransportationBookingsController < ApplicationController
   end
 
   # Retrieve the Vehicles List for the Vehicle Type
-  def get_vehicles
-    vehicles = Vehicle.where(:vehicle_type_id => params[:vehicle_type_id])
-    render :json=>[vehicles] if vehicles
-  end
+  #def get_vehicles
+    #vehicles = Vehicle.where(:vehicle_type_id => params[:vehicle_type_id])
+    #render :json=>[vehicles] if vehicles
+  #end
 
   # Retrieving Driver Details
   def get_driver_details
