@@ -2,17 +2,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :current_department, :current_role
 
+  #redirect user based on sign in count and force user to change password if logged in first time
   def home
     if user_signed_in?
+      current_user.update_attribute(:login_status => true) if current_user # update login status for logged in user
       if !current_user.is_super_admin? && current_user.sign_in_count == 1 && current_user.created_by != 0 #User records which are created by super admin or dept admin has to change the password while they are logged in first time
-        user = User.find_by_ic_number(current_user.ic_number)
-        user.login_status = 1
-        user.save
         redirect_to :controller => "registrations", :action => "privacy_setting"
       else
-        user = User.find_by_ic_number(current_user.ic_number)
-        user.login_status = 1
-        user.save
         redirect_to :controller => "dashboard", :action => "index"
       end
     else
@@ -34,14 +30,14 @@ class ApplicationController < ActionController::Base
   
   def current_role
     if current_user && (!current_user.is_super_admin?)
-      department=Department.find(@current_department) if @current_department
-      current_role=RoleMembership.find_by_user_id_and_department_id(current_user.id,department.id) if department
-      session[:current_role] = current_role.role.name if current_role
-      return current_role.role.name if current_role
+      department = Department.find(@current_department) if @current_department
+      current_role_membership = RoleMembership.find_by_user_id_and_department_id(current_user.id,department.id) if department
+      session[:current_role] = current_role_membership.role.name if current_role_membership
+      return current_role_membership.role.name if current_role_membership
     elsif current_user && current_user.is_super_admin?
-      current_role=Role.find_by_name(DISP_USER_ROLE_SUPER_ADMIN)
-      session[:current_role] = current_role.name if current_role
-      return current_role.name if current_role
+      current_user_role = Role.find_by_name(DISP_USER_ROLE_SUPER_ADMIN)
+      session[:current_role] = current_user_role.name if current_user_role
+      return current_user_role.name if current_user_role
     end
   end
 
