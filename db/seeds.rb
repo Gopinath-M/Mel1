@@ -556,4 +556,20 @@ rescue Exception=>e
   p "Exception due to : #{e.to_s}"
 end
 
+p "Creating Vehicle Models"
+
+begin
+  file = File.open("public/VehicleModel.csv", "r")
+  file.readlines.each_with_index do |record, i|
+    begin
+      record_split = record.split(",")
+      VehicleModelType.create(:name=>record_split[0],:sub_category_id=>record_split[1])
+    rescue Exception =>e
+      p "Exception ocurred due to #{e.to_s} at #{i}"
+    end
+  end
+rescue Exception=>e
+  p "Exception due to : #{e.to_s}"
+end
+
 puts "Whoa, im done! Now you can run the server and see the application"

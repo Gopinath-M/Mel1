@@ -12,14 +12,17 @@ class IctFirewallsController < ApplicationController
       @ict_firewalls = IctFirewall.find(:all,:conditions=>["user_id = ? or incharge_person = ?",current_user.id,current_user.id])
     end
   end
-
+  
+    def add_select_boxes
+    @val = params[:incre]
+  end
 
   def new
     @ict_firewall = IctFirewall.new
   end
 
-  def create
-    @ict_firewall = IctFirewall.create(params[:ict_firewall])
+  def create   
+    @ict_firewall = IctFirewall.new(params[:ict_firewall])
     @ict_firewall.user_id = current_user.id
     @ict_firewall.source_ip = params[:s1]+'.'+params[:s2]+'.'+params[:s3]+'.'+params[:s4]
     @ict_firewall.destination_ip = params[:d1]+'.'+params[:d2]+'.'+params[:d3]+'.'+params[:d4]    
@@ -32,12 +35,26 @@ class IctFirewallsController < ApplicationController
     if @ict_firewall.valid?
       @ict_firewall.save
       if params[:ict_facility_service][:id] != ''
-        if params[:one_way] == 'one_way'
+        if params[:one_way] == 'one_way' 
           t = true
         else
           t = false
-        end
+        end        
         @ict_facility = IctFirewallService.create(:ict_firewall_id=>@ict_firewall.id,:facility_ict_service_id => params[:ict_facility_service][:id],:one_way=>t)
+      
+      n = params[:total_service_count].to_i if params[:total_service_count] != '0'
+      
+      if !n.blank?
+        for i in 1..n
+          if params[:"one_way_#{i}"] == 'one_way' 
+          t = true
+          else
+          t = false
+          end  
+          @ict_facility = IctFirewallService.create(:ict_firewall_id=>@ict_firewall.id,:facility_ict_service_id => params[:ict_facility_service][:"#{i}"],:one_way=>t)
+        end
+      end
+      
       end
       redirect_to(ict_firewalls_path, :notice => "Resource Requisition ICT Firewall has been created successfully.")
     else
