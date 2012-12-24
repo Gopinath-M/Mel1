@@ -21,7 +21,7 @@
   <div class="form-sec-row">
     <%= f.label :driver_id, :class=>"text"%>
     <span class="in-box">
-      <%= select("transport","driver_id",  Driver.active.collect {|driver| [driver.name, driver.id]},:prompt=>"SELECT AN AGENCY") %>
+      <%= select("transport","driver_id",  Driver.active.collect {|driver| [driver.name, driver.id]},:prompt=>"SELECT A DRIVER") %>
     </span>
   </div>
   <div class="form-sec-row">
