@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   #redirect user based on sign in count and force user to change password if logged in first time
   def home
     if user_signed_in?
-      current_user.update_attribute(:login_status => true) if current_user # update login status for logged in user
+      current_user.update_attribute(:login_status, true) if current_user # update login status for logged in user
       if !current_user.is_super_admin? && current_user.sign_in_count == 1 && current_user.created_by != 0 #User records which are created by super admin or dept admin has to change the password while they are logged in first time
         redirect_to :controller => "registrations", :action => "privacy_setting"
       else
