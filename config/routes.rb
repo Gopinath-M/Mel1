@@ -17,6 +17,7 @@ Melaka::Application.routes.draw do
     get "/privacy_setting", :to => "registrations#privacy_setting", :as=> :privacy_setting_registrations
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
+
   resources :resource_bookings do
     collection do
       get 'get_other_sub_categories'
@@ -28,6 +29,7 @@ Melaka::Application.routes.draw do
       get 'download_attachments'
     end
   end
+
   resources :ict_hardware_bookings do
     collection do
       get 'requests'
@@ -35,11 +37,13 @@ Melaka::Application.routes.draw do
       put 'update_request'
     end
   end
+
    resources :ict_firewalls do
     collection do
       get 'add_select_boxes'
     end
   end
+
   resources :user_services
   resources :outstations do
     collection do
@@ -47,6 +51,7 @@ Melaka::Application.routes.draw do
       get 'approve_request_for_state'
     end
   end
+
   resources :resource_ict_equipment_bookings do
     collection do
       get 'requests'
@@ -56,6 +61,7 @@ Melaka::Application.routes.draw do
       get 'search_other_resource'
     end
   end
+
   resources :ict_network_points do
     collection do
       get 'approval_network_point'
@@ -71,6 +77,7 @@ Melaka::Application.routes.draw do
       post 'update_timeline_for_approver'
     end
   end
+
   resources :resource_transportation_bookings do
     collection do
       get 'request_view'
@@ -84,31 +91,37 @@ Melaka::Application.routes.draw do
       get 'get_booked_and_available_vehicles'   
     end
   end
+
   resources :facility_ict_agencies do
     collection do
       post 'update_status'
     end
   end
+
   resources :facility_ict_softwares do
     collection do
       post 'update_status'
     end
   end
+
   resources :facility_ict_hardwares do
     collection do
       post 'update_status'
     end
   end
+
   resources :facility_ict_servers do
     collection do
       post 'update_status'
     end
   end
+
   resources :facility_ict_services do
     collection do
       post 'update_status'
     end
   end
+
   resources :facility_ict_wirings do
     collection do
       post 'update_status'
@@ -120,6 +133,7 @@ Melaka::Application.routes.draw do
       post 'update_status'
     end
   end
+
   resources :vehicles
   resources :vehicle_types
 
@@ -133,7 +147,6 @@ Melaka::Application.routes.draw do
       get 'get_resources'
       get 'get_details_for_resource'
       post 'user_return'
-
     end
   end
   
@@ -145,6 +158,7 @@ Melaka::Application.routes.draw do
       get 'depart_user_list'
     end
   end
+
   resources :static_pages do
     collection do
       get 'about_us'
@@ -154,6 +168,7 @@ Melaka::Application.routes.draw do
       get 'terms_and_conditions'
     end
   end
+
   resources :users do
     collection do
       post 'update_status'
@@ -183,6 +198,7 @@ Melaka::Application.routes.draw do
       get 'download_attachments'
     end
   end
+
   resources :department_users do
     collection do
       post 'transfer'
@@ -192,6 +208,7 @@ Melaka::Application.routes.draw do
       get 'get_units_for_transfer'
     end
   end
+
   resources :messages do
     collection do
       get 'autocomplete_user_icnumber'
@@ -212,6 +229,7 @@ Melaka::Application.routes.draw do
       post 'update_status'
       get 'assign_resource_manager'
       post 'update_assign_resource_manager'
+      get 'role_memberships'
     end
   end
 
@@ -220,6 +238,7 @@ Melaka::Application.routes.draw do
       post 'update_status'
     end
   end
+
   resources :categories  do
     collection do
       post 'update_status'
@@ -230,17 +249,20 @@ Melaka::Application.routes.draw do
       post 'update_category_mapping'
     end
   end
+
   resources :sub_categories do
     collection do
       post 'update_status'
       get 'get_sub_categories'
     end
   end
+
   resources :vendors do
     collection do
       post 'update_status'
     end
   end
+
   resources :resources do
     collection do
       get 'get_subcategory'
@@ -254,11 +276,13 @@ Melaka::Application.routes.draw do
       get 'get_sub_category'
     end
   end
+
   resources :resource_managers do
     collection do
       post 'update_status'
     end
   end
+
   resources :agency_stores do
     collection do
       get 'get_categories'
@@ -274,6 +298,7 @@ Melaka::Application.routes.draw do
       get 'get_other_resource_ict'
     end
   end
+
   resources :facilities do
     collection do
       post 'update_status'
@@ -290,11 +315,13 @@ Melaka::Application.routes.draw do
       get 'list_users'
     end
   end
+
   resources :rooms do
     collection do
       post 'update_status'
     end
   end
+
   resources :software_installations do
     collection do
       get 'approval_software_installation'
@@ -311,6 +338,7 @@ Melaka::Application.routes.draw do
     end
 
   end
+  
   resources :ict_system_accesses do
     collection do
       get 'approval'
