@@ -29,29 +29,21 @@
         <div class="manage-user box">
           <div class="manage-user-row box">
             <div class="mu-c2" width="45%">
-              <%resource = Resource.find_all_by_id(store.resource_id)%>
-              <%sub_category = SubCategory.find_all_by_id(store.sub_category_id)%>
               <p class="head1">Resource Type :&nbsp;<%=store.resource_type%></p>
-              <%if store.category_id?%>
-                <%category = Category.find_all_by_id(store.category_id)%>
-              <p class="head1">Category:&nbsp;<%=category[0].name.camelize%></p>
-              <%end%>
-              <p class="head1">Sub Category:&nbsp;<%=sub_category[0].name.camelize%></p>
+              <%if store.category_id!=nil%><p class="head1">Category:&nbsp;<%= store.category.name.camelize %></p><%end%>
+              <p class="head1">Sub Category:&nbsp;<%=store.sub_category.name%></p>
               <%if store.resource_type == 'ICT'%>
-              <p class="head1">Serial No   :&nbsp;<%=store.serial_no%></p>
+                <p class="head1">Serial No   :&nbsp;<%=store.serial_no%></p>
               <%else%>
-              <p class="head1">Resource No   :&nbsp;<%=resource[0].resource_no%></p>
+                <p class="head1">Resource No   :&nbsp;<%=store.resource.resource_no%></p>
               <%end%>
               <%if store.quantity?%>
-                <p class="head1">Quantity:&nbsp;<%=store.quantity%></p>
+                <p class="head1">Quantity:&nbsp;<%=  store.quantity%></p>
               <%end%>
               <%if store.uom?%>
                 <p class="head1">UOM:&nbsp;<%=store.uom%></p>
               <%end%>
-              <%if store.driver_id?%>
-                <%driver = Driver.find_all_by_id(store.driver_id)%>
-                <p class="head1">Driver Name:&nbsp;<%=driver[0].name.camelize%></p>
-              <%end%>
+                <%if store.driver_id!=nil%><p class="head1">Driver Name:&nbsp;<%=store.driver.name.camelize%></p><%end%>
               <p class="head1">Status:&nbsp;<%if store.booked%><span style=color:#336699>Booked</span><%else%><span style=color:#336699>Available</span><%end%></p>
     <%#end%>
             </div>

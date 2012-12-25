@@ -3,23 +3,31 @@ class AgencyStoresController < ApplicationController
   before_filter :is_admin, :except=>[:get_resource_ict,:get_agency_resource,:get_other_resource_ict]
 
   def index
-    @resource_id = params[:resource_id].to_i # while selecting Please Select returns string params
-    if @resource_id == 0
-      if params[:id].blank? || params[:id].nil?
-        if current_user.is_super_admin?
-          @stores=AgencyStore.order.page(params[:page]).per(10)
-        else
-          @stores=AgencyStore.where(:agency_id=>@resource_id).order.page(params[:page]).per(10)
-        end
-      end
+    if params[:resource_id] && params[:resource_id]!='' && params[:resource_id]!=0
+      @resource_id = params[:resource_id].to_i
+      @stores=AgencyStore.where(:agency_id=>@resource_id).order.page(params[:page]).per(10)
     else
-      if current_user.is_super_admin?
-        @stores=AgencyStore.where(:agency_id=>@resource_id).order.page(params[:page]).per(10)
-      end
+      @stores=AgencyStore.order.page(params[:page]).per(10)
     end
+    @resource_id = params[:resource_id].to_i # while selecting Please Select returns string params
+    #    if @resource_id == 0
+    #      if params[:id].blank? || params[:id].nil?
+    #        if current_user.is_super_admin?
+    #          @stores=AgencyStore.order.page(params[:page]).per(10)
+    #        else
+    #          @stores=AgencyStore.where(:agency_id=>@resource_id).order.page(params[:page]).per(10)
+    #        end
+    #      end
+    #    else
+    #      if current_user.is_super_admin?
+    #        @stores=AgencyStore.where(:agency_id=>@resource_id).order.page(params[:page]).per(10)
+    #      end
+    #    end
     if request.xhr?
       render :layout=>false
     end
+
+    
   end
 
   def new
@@ -32,43 +40,39 @@ class AgencyStoresController < ApplicationController
 
   def create
     if params[:room_agency]
-      @store = AgencyStore.create(params[:agency_store])
+      @store = AgencyStore.new(params[:agency_store])
       @store.resource_type = params[:resource_type]
       @store.agency_id = params[:room][:agency_id]
       @store.sub_category_id = params[:room_agency][:sub_category_id]
       @store.resource_id = params[:room_agency][:resource_id]
-      @store.save
+      #      @store.save
     elsif params[:transport_agency]
-      @store = AgencyStore.create(params[:agency_store])
+      @store = AgencyStore.new(params[:agency_store])
       @store.resource_type = params[:resource_type]
       @store.agency_id = params[:transport][:agency_id]
       @store.driver_id = params[:transport][:driver_id]
       @store.sub_category_id = params[:transport_agency][:sub_category_id]
       @store.resource_id = params[:transport_agency][:resource_id]
-      SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
-      @store.save
+      #      SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
+      #      @store.save
     elsif params[:ict_agency]
-      @store = AgencyStore.create(params[:agency_store])
+      @store = AgencyStore.new(params[:agency_store])
       @store.resource_type = "ICT"
       @store.agency_id = params[:ict][:agency_id]
       @store.sub_category_id = params[:ict_agency][:sub_category_id]
       @store.resource_id = params[:ict_agency][:resource_id]
-      @store.save
+      #      @store.save
     elsif params[:other_agency]
       
       #      quantity.times do
-      @store = AgencyStore.create(params[:agency_store])
+      @store = AgencyStore.new(params[:agency_store])
       quantity = params[:agency_store][:quantity].to_i
       @store.resource_type = params[:resource_type]
       @store.agency_id = params[:other][:agency_id]
       @store.category_id = params[:other_category][:id]
       @store.sub_category_id = params[:other_agency][:sub_category_id]
       @store.resource_id = params[:other_agency][:resource_id]
-      if params[:dynamic]
-        @store.serial_no =  params[:dynamic].values.join.to_s
-        #        end
-        
-      end
+      @store.serial_no =  params[:dynamic].values.join.to_s if params[:dynamic]
 
     end
 
@@ -84,7 +88,7 @@ class AgencyStoresController < ApplicationController
     
     if @store.valid?
       @store.save
-      SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true) if params[:ict_agency]
+      SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true) if params[:transport_agency] #params[:ict_agency]
       redirect_to :controller=>'agency_stores', :action=>'index'
     else
       render :action=>'new', :notice =>'Resource already added for this Sub category'
@@ -170,7 +174,7 @@ class AgencyStoresController < ApplicationController
       if resource && !resource.empty?
         resources = Resource.find(resource)
       end
-      render :json=>[resources.to_a] if resources
+      render :json=>[resources] if resources
     end
     
     #    department=Department.find(@current_department)
@@ -190,13 +194,23 @@ class AgencyStoresController < ApplicationController
     if resource && !resource.empty?
       resources = Resource.find(resource)
     end
+    p resources.to_a
     render :json=>[resources.to_a] if resources
     #p resources =Resource.active_and_subcategory(params[:sub_category_id])
   end
   
   def get_agency_resource
-    resources = AgencyStore.find_all_by_resource_id_and_booked(params[:resource_id],false)
+    #    resources1={}
+    resources = AgencyStore.where("resource_id = ? and booked = ? ",params[:resource_id],false)
     render :json=>[resources] if resources
+    #    resources.each do |resource|
+    #      p resource.inspect
+    #      val= resource!=nil && resource.serial_no!="" ? resource.serial_no.to_s + "-" +resource.agency.name.to_s : resource.agency.name.to_s
+    #      resources1.store(resource.id,val)
+    #    end
+    #    p resources1.inspect
+    #    #    resources1.compact!
+    #    render :json=>[resources1] if resources1
   end
 
 end

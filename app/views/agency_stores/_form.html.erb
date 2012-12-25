@@ -1,3 +1,17 @@
+<script type="text/javascript">
+  $().ready(function(){
+<%if @store.resource_type.nil? || @store.resource_type=="Others"%>
+      $("#agency_store_resource_type_others").click();
+<%elsif @store.resource_type=="ICT"%>
+      $("#agency_store_resource_type_ict").click();
+<%elsif @store.resource_type=="Transport"%>
+      $("#agency_store_resource_type_transport").click();
+<%elsif @store.resource_type=="Room"%>
+      $("#agency_store_resource_type_room_booking").click();
+<%end%>
+  })
+</script>
+
 <%= form_for(@store) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
@@ -5,10 +19,10 @@
     <div class="form-sec-row">
       <label class="text">Resource Type <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.radio_button :resource_type, 'ict'%> <%= f.label :resource_type, "ICT" %>
-        <%= f.radio_button :resource_type, 'transport'%> <%= f.label :resource_type, "Transport" %>
-        <%= f.radio_button :resource_type, 'room_booking'%> <%= f.label :resource_type, "Room Booking" %>
-        <%= f.radio_button :resource_type, 'others', :checked=>true%> <%= f.label :resource_type, "Others" %>
+        <%= f.radio_button :resource_type, 'ict', :checked=>@store.resource_type=='ICT' ? true : false%> <%= f.label :resource_type, "ICT" %>
+        <%= f.radio_button :resource_type, 'transport', :checked=>@store.resource_type=='Transport' ? true : false%> <%= f.label :resource_type, "Transport" %>
+        <%= f.radio_button :resource_type, 'room_booking', :checked=>@store.resource_type=='Room' ? true : false%> <%= f.label :resource_type, "Room Booking" %>
+        <%= f.radio_button :resource_type, 'others', :checked=>@store.resource_type=='Others' || @store.resource_type.nil? ? true : false%> <%= f.label :resource_type, "Others" %>
       </span>
     </div>
     <div id="agency_room" style="display:none;">
