@@ -6,14 +6,11 @@
         <% declaration_property = DeclarationProperty.find_by_user_id(current_user.id) %>
         <% emergency_reference = EmergencyReference.find_by_user_id(current_user.id) %>
         <% outstation = Outstation.find_by_user_id(current_user.id) %>
-
         <%  resource_room_new_count = generic_model_status_count(ResourceRoomBooking, "New") %>
         <%  resource_ict_new_count = generic_model_status_count(ResourceIctEquipmentBooking, "New")%>
         <%  resource_transport_new_count = generic_model_status_count(ResourceTransportationBooking, "New")%>
         <%  resource_other_new_count = generic_model_status_count(ResourceBooking, "New")%>
-
         <%  ict_network_new_count = generic_model_status_count(IctNetworkPoint,'New')%>
-
         <div id="control">
           <a id="controlbtn" class="open" href="javascript:void(0);" alt="Side Panel">Side Panel</a>
         </div>
@@ -157,13 +154,13 @@
                 </ul>
               </div>
             </li>
-            <%if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN)%>
-              <li><a href="javascript:void(0);" title="<%=t('left_nav.complaints')%>"><span class="notifiNo"></span><%=t('left_nav.complaints')%></a></li>
-              <li><a href="javascript:void(0);" title="<%=t('left_nav.resource_requisition')%>"><%=t('left_nav.resource_requisition')%></a></li>
-              <li><a href="javascript:void(0);" title="<%=t('left_nav.issue_log')%>"><%=t('left_nav.issue_log')%></a></li>
-              <li><a href="javascript:void(0);" title="<%=t('left_nav.change_requests')%>"><%=t('left_nav.change_requests')%></a></li>
-              <li><a href="javascript:void(0);" title="<%=t('left_nav.canceled_requests')%>"><%=t('left_nav.canceled_requests')%></a></li>
-            <%end%>
+            <%#if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN)%>
+              <!--li><a href="javascript:void(0);" title="<%#=t('left_nav.complaints')%>"><span class="notifiNo"></span><%#=t('left_nav.complaints')%></a></li>
+              <li><a href="javascript:void(0);" title="<%#=t('left_nav.resource_requisition')%>"><%#=t('left_nav.resource_requisition')%></a></li>
+              <li><a href="javascript:void(0);" title="<%#=t('left_nav.issue_log')%>"><%#=t('left_nav.issue_log')%></a></li>
+              <li><a href="javascript:void(0);" title="<%#=t('left_nav.change_requests')%>"><%#=t('left_nav.change_requests')%></a></li>
+              <li><a href="javascript:void(0);" title="<%#=t('left_nav.canceled_requests')%>"><%#=t('left_nav.canceled_requests')%></a></li-->
+            <%#end%>
           </ul>
         </div>
         <div class="clear"></div>
@@ -229,8 +226,8 @@
                       <%if current_user && (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN) %>
                         <li><%=link_to t('left_nav.transfer_dept'), transfer_users_path , :title=>t('left_nav.transfer_dept') ,:class=>""%></li>
                         <li><%=link_to t('left_nav.assign_dept'), assign_department_users_path , :title=>t('left_nav.assign_dept') ,:class=>""%></li>
-                        <li><%=link_to t('left_nav.transfer_unit'), transfer_unit_users_path , :title=>t('left_nav.transfer_unit') ,:class=>""%></li>
-                        <li><%=link_to t('left_nav.assign_unit'), assign_unit_users_path , :title=>t('left_nav.assign_unit') ,:class=>""%></li>
+                        <!--li><%#=link_to t('left_nav.transfer_unit'), transfer_unit_users_path , :title=>t('left_nav.transfer_unit') ,:class=>""%></li>
+                        <li><%#=link_to t('left_nav.assign_unit'), assign_unit_users_path , :title=>t('left_nav.assign_unit') ,:class=>""%></li-->
                       <%end%>
                     </ul>
                   </div>
@@ -242,15 +239,6 @@
                       <ul>
                         <li><%=link_to t('left_nav.create'), new_category_path%></li>
                         <li><%=link_to t('left_nav.list'), categories_path%></li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="menu-item">
-                    <%=link_to "Resources", "javascript:void(0);" , :title=>"Resources" ,:class=>"", :id=>"lnk_resources" ,:onclick=>"leftNavigation(this.id,'div_resources')"%>
-                    <div id ="div_resources" style="display:none;">
-                      <ul>
-                        <li><%= link_to t('left_nav.create'), new_resource_path %></li>
-                        <li><%= link_to t('left_nav.list'), resources_path %></li>
                       </ul>
                     </div>
                   </li>
@@ -272,9 +260,18 @@
                       </ul>
                     </div>
                   </li>
+                  <li class="menu-item">
+                    <%=link_to t('left_nav.resource'), "javascript:void(0);" , :title=>"Resources" ,:class=>"", :id=>"lnk_resources" ,:onclick=>"leftNavigation(this.id,'div_resources')"%>
+                    <div id ="div_resources" style="display:none;">
+                      <ul>
+                        <li><%= link_to t('left_nav.create'), new_resource_path %></li>
+                        <li><%= link_to t('left_nav.list'), resources_path %></li>
+                      </ul>
+                    </div>
+                  </li>
                   <%if session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN %>
                     <li class="menu-item">
-                      <%=link_to "Driver", "javascript:void(0);" , :title=>"Driver" ,:class=>"", :id=>"lnk_driver" ,:onclick=>"leftNavigation(this.id,'div_driver')"%>
+                      <%=link_to t('left_nav.driver'), "javascript:void(0);" , :title=>"Driver" ,:class=>"", :id=>"lnk_driver" ,:onclick=>"leftNavigation(this.id,'div_driver')"%>
                       <div id ="div_driver" style="display:none;">
                         <ul>
                           <li><%= link_to t('left_nav.create'), new_driver_path %></li>
@@ -284,7 +281,7 @@
                     </li>
                   <%end%>
                   <li class="menu-item">
-                    <%=link_to "Facility", "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_facility" ,:onclick=>"leftNavigation(this.id,'div_facility')"%>
+                    <%=link_to t('left_nav.facility'), "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_facility" ,:onclick=>"leftNavigation(this.id,'div_facility')"%>
                     <div id ="div_facility" style="display:none;">
                       <ul>
                         <li>
@@ -297,7 +294,7 @@
                     </div>
                   </li>
                   <li class="menu-item">
-                    <%=link_to "Facility Ict Softwares", "javascript:void(0);" , :title=>"Facility Ict Softwares" ,:class=>"", :id=>"lnk_facility_ict_softwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_softwares')"%>
+                    <%=link_to t('left_nav.facility_ict_softwares'), "javascript:void(0);" , :title=>"Facility Ict Softwares" ,:class=>"", :id=>"lnk_facility_ict_softwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_softwares')"%>
                     <div id ="div_facility_ict_softwares" style="display:none;">
                       <ul>
                         <li><%=link_to t('left_nav.create'), new_facility_ict_software_path%></li>
@@ -305,42 +302,44 @@
                       </ul>
                     </div>
                   </li>
+                  <!--
                   <li class="menu-item">
-                    <%=link_to "Facility Ict Servers", "javascript:void(0);" , :title=>"Facility Ict Servers" ,:class=>"", :id=>"lnk_facility_ict_servers" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_servers')"%>
+        <%#=link_to "Facility Ict Servers", "javascript:void(0);" , :title=>"Facility Ict Servers" ,:class=>"", :id=>"lnk_facility_ict_servers" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_servers')"%>
                     <div id ="div_facility_ict_servers" style="display:none;">
                       <ul>
-                        <li><%=link_to t('left_nav.create'), new_facility_ict_server_path%></li>
-                        <li><%=link_to t('left_nav.list'), facility_ict_servers_path%></li>
+                        <li><%#=link_to t('left_nav.create'), new_facility_ict_server_path%></li>
+                        <li><%#=link_to t('left_nav.list'), facility_ict_servers_path%></li>
                       </ul>
                     </div>
                   </li>
                   <li class="menu-item">
-                    <%=link_to "Facility Ict Services", "javascript:void(0);" , :title=>"Facility Ict Services" ,:class=>"", :id=>"lnk_facility_ict_services" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_services')"%>
+        <%#=link_to "Facility Ict Services", "javascript:void(0);" , :title=>"Facility Ict Services" ,:class=>"", :id=>"lnk_facility_ict_services" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_services')"%>
                     <div id ="div_facility_ict_services" style="display:none;">
                       <ul>
-                        <li><%=link_to t('left_nav.create'), new_facility_ict_service_path%></li>
-                        <li><%=link_to t('left_nav.list'), facility_ict_services_path%></li>
+                        <li><%#=link_to t('left_nav.create'), new_facility_ict_service_path%></li>
+                        <li><%#=link_to t('left_nav.list'), facility_ict_services_path%></li>
                       </ul>
                     </div>
                   </li>
                   <li class="menu-item">
-                    <%=link_to "Facility Ict Hardwares", "javascript:void(0);" , :title=>"Facility Ict Hardwares" ,:class=>"", :id=>"lnk_facility_ict_hardwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_hardwares')"%>
+        <%#=link_to "Facility Ict Hardwares", "javascript:void(0);" , :title=>"Facility Ict Hardwares" ,:class=>"", :id=>"lnk_facility_ict_hardwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_hardwares')"%>
                     <div id ="div_facility_ict_hardwares" style="display:none;">
                       <ul>
-                        <li><%=link_to t('left_nav.create'), new_facility_ict_hardware_path%></li>
-                        <li><%=link_to t('left_nav.list'), facility_ict_hardwares_path%></li>
+                        <li><%#=link_to t('left_nav.create'), new_facility_ict_hardware_path%></li>
+                        <li><%#=link_to t('left_nav.list'), facility_ict_hardwares_path%></li>
                       </ul>
                     </div>
                   </li>
                   <li class="menu-item">
-                    <%=link_to "Facility Ict Wirings", "javascript:void(0);" , :title=>"Facility Ict Wirings" ,:class=>"", :id=>"lnk_facility_ict_wirings" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_wirings')"%>
+        <%#=link_to "Facility Ict Wirings", "javascript:void(0);" , :title=>"Facility Ict Wirings" ,:class=>"", :id=>"lnk_facility_ict_wirings" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_wirings')"%>
                     <div id ="div_facility_ict_wirings" style="display:none;">
                       <ul>
-                        <li><%=link_to t('left_nav.create'), new_facility_ict_wiring_path%></li>
-                        <li><%=link_to t('left_nav.list'), facility_ict_wirings_path%></li>
+                        <li><%#=link_to t('left_nav.create'), new_facility_ict_wiring_path%></li>
+                        <li><%#=link_to t('left_nav.list'), facility_ict_wirings_path%></li>
                       </ul>
                     </div>
                   </li>
+                  -->
                   <div class="clear"></div>
                 <%end%>
                 <%if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN %>
@@ -354,7 +353,7 @@
                     </div>
                   </li>
                   <li class="menu-item">
-                    <%=link_to "Resources Room Booking", "javascript:void(0);" , :title=>"Resource Room Booking" ,:class=>"", :id=>"lnk_resource_room_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_room_booking')"%>
+                    <%=link_to "Room Booking", "javascript:void(0);" , :title=>"Resource Room Booking" ,:class=>"", :id=>"lnk_resource_room_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_room_booking')"%>
                     <div id ="div_resource_room_booking" style="display:none;">
                       <ul>
                         <li><%=link_to t('left_nav.create'), new_resource_room_booking_path %></li>
@@ -363,7 +362,7 @@
                     </div>
                   </li>
                   <li class="menu-item">
-                    <%=link_to "Resources Transport Booking", "javascript:void(0);" , :title=>"Resources Transport Booking" ,:class=>"", :id=>"lnk_resource_transport_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_transport_booking')"%>
+                    <%=link_to "Transport Booking", "javascript:void(0);" , :title=>"Resources Transport Booking" ,:class=>"", :id=>"lnk_resource_transport_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_transport_booking')"%>
                     <div id ="div_resource_transport_booking" style="display:none;">
                       <ul>
                         <li><%=link_to t('left_nav.create'), new_resource_transportation_booking_path %></li>
@@ -399,6 +398,13 @@
                         <%if !user_service.blank? && !declaration_property.blank? && !emergency_reference.blank? && !outstation.blank? %>
                           <li>
                             <%=link_to "Show Request", user_path(:id=>current_user.id)%>
+                          </li>
+                        <%end%>
+                        <% if  session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN  %>
+                          <li>
+                            <% support_count = Outstation.where(:status=>"New").count  %>
+                            <span class="notifiNo"><%=  support_count > 0 ? support_count : ''%> </span>
+                            <%=link_to "Verify Request", approve_request_outstations_path%>
                           </li>
                         <%end%>
                       </ul>
@@ -488,20 +494,20 @@
                     </div>
                   </li>
                 <%end%>
-                <li class="menu-item">
-                  <%=link_to "Outstation Requests", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
-                  <div id ="div_outstation_request" style="display:none;">
-                    <ul>
-                      <% if  session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN  %>
-                        <li>
-                          <% support_count = Outstation.where(:status=>"New").count  %>
-                          <span class="notifiNo"><%=  support_count > 0 ? support_count : ''%> </span>
-                          <%=link_to "Verify Request", approve_request_outstations_path%>
-                        </li>
-                      <%end%>
-                    </ul>
-                  </div>
-                </li>
+      <%#*<li class="menu-item">%>
+      <%#=link_to "Outstation Requests", "javascript:void(0);" , :title=>"OutStation Requests" ,:class=>"", :id=>"lnk_approve_requests", :onclick=>"leftNavigation(this.id,'div_outstation_request')"%>
+      <%#*<div id ="div_outstation_request" style="display:none;">%>
+      <%#*<ul>%>
+      <%# if  session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN  %>
+      <%#*<li>%>
+      <%# support_count = Outstation.where(:status=>"New").count  %>
+                        <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+      <%#=link_to "Verify Request", approve_request_outstations_path%>
+      <%#*</li>%>
+      <%#end%>
+      <%#*</ul>%>
+      <%#*</div>%>
+      <%#*</li>%>
                 <li><a href="javascript:void(0);" title="<%= t('left_nav.news_letter')%>"><%= t('left_nav.news_letter')%></a></li>
                 <li><a href="javascript:void(0);" title="<%= t('left_nav.email_temp')%>"><%= t('left_nav.email_temp')%></a></li>
                 <li><a href="javascript:void(0);" title="<%= t('left_nav.events')%>"><%= t('left_nav.events')%></a></li>
