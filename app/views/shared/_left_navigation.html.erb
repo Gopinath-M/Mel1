@@ -176,9 +176,9 @@
                   <%=link_to t('left_nav.agency'), "javascript:void(0);" , :title=>t('left_nav.agency') ,:class=>"", :id=>"lnk_agency" ,:onclick=>"leftNavigation(this.id,'div_agency')"%>
                   <div id ="div_agency" style="display:none;">
                     <ul>
-                      <li><%=link_to t('left_nav.create'), new_agency_path%></li>
-                      <li><%=link_to t('left_nav.list'), agencies_path%></li>
-                      <!--li><%# = link_to "Resource Manager", assign_resource_manager_agencies_path%></li-->
+                      <li><%=  link_to t('left_nav.create'), new_agency_path%></li>
+                      <li><%=  link_to t('left_nav.list'), agencies_path%></li>
+                      <li><%=  link_to "Resource Manager", assign_resource_manager_agencies_path%></li>
                     </ul>
                   </div>
                 </li>
