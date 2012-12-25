@@ -3,7 +3,7 @@ class Resource < ActiveRecord::Base
   belongs_to :department
   belongs_to :category
   belongs_to :sub_category
-  belongs_to :agency_store
+  has_many :agency_store
   has_many :resource_boookings
   has_many :resource_transport_bookings
 
@@ -18,7 +18,7 @@ class Resource < ActiveRecord::Base
   validates_uniqueness_of :name, :case_sensitive=>false, :if=>Proc.new {|u| !u.name.blank?}
   #validates_uniqueness_of :brand_model, :case_sensitive=>false, :if=>Proc.new {|u| !u.brand_model.blank?}
   #validates_uniqueness_of :vehicle_model, :case_sensitive=>false, :if=>Proc.new {|u| !u.vehicle_model.blank?}
-  validates :resource_no, :uniqueness => {:scope => [:resource_no, :sub_category_id]}
+  validates :resource_no, :uniqueness => {:scope => [:resource_no, :sub_category_id]}, :if=>Proc.new {|u| u.resource_type!="ict" }
 #  validates_uniqueness_of :resource_no, :case_sensitive=>false, :if=>Proc.new {|u| !u.resource_no.blank? && (u.resource_type!="room_booking" || u.resource_type!="others"|| u.resource_type!= "ict" || u.resource_type!= "transport")}
 
   scope :active, where(:deleted => false)
