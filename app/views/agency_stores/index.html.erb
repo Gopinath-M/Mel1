@@ -33,9 +33,9 @@
               <%if store.category_id!=nil%><p class="head1">Category:&nbsp;<%= store.category.name.camelize %></p><%end%>
               <%if store.sub_category_id!=nil%><p class="head1">Sub Category:&nbsp;<%=store.sub_category.name%></p><%end%>
               <%if store.resource_type == 'ICT'%>
-                <p class="head1">Serial No:&nbsp;<%=store.serial_no!=nil ?  store.serial_no ? ''%></p>
+                <p class="head1">Serial No:&nbsp;<%=store.serial_no!=nil ?  store.serial_no : ''%></p>
               <%else%>
-                <p class="head1">Resource No:&nbsp;<%=store.resource && store.resource.resource_no!=nil ? store.resource.resource_no : ''%></p>
+                <p class="head1">Resource No:&nbsp;<%=  (store.resource && store.resource.resource_no!=nil) ? store.resource.resource_no : ''%></p>
               <%end%>
               <%if store.quantity?%>
                 <p class="head1">Quantity:&nbsp;<%=  store.quantity%></p>
