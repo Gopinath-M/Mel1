@@ -23,14 +23,14 @@
     <div class="form-sec-row">
       <label class="text" id="lb_resource">Resource <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:resource_id,  options_from_collection_for_select(Resource.where(:category_id => @category), 'id','name',@resource ),{:prompt=>"SELECT A RESOURCE",:onchange=>"alert('testq')"}) %>
+        <%= f.select(:resource_id,  options_from_collection_for_select([], 'id','name',@resource ),{:prompt=>"SELECT A RESOURCE",:onchange=>"alert('testq')"}) %>
         <%#=link_to "search in other agency",search_other_resource_resource_ict_equipment_bookings_path%>
       </span>
     </div>
     <div class="form-sec-row">
       <label class="text">Serial No<span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:agency_store_id, options_from_collection_for_select(AgencyStore.all, 'id','serial_no' ),:prompt=>"SELECT A EQUIPMENT CATEGORY TYPE") %>
+        <%= f.select(:agency_store_id, options_from_collection_for_select([], 'id','serial_no' ),:prompt=>"SELECT A EQUIPMENT CATEGORY TYPE") %>
       </span>
     </div>
     <div class="form-sec-row">

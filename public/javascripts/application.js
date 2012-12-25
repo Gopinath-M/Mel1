@@ -50,44 +50,97 @@ function leftNavigation(link_id, div_id)
 //}
 function  getResourceforSubcategory(category_id, resource_id)
 {
+    alert(resource_id)
     if($("#"+category_id).val()!="")
     {
-        $("#lb_resource").text("Resource")
-        $.get("/agency_stores/get_resource_ict",{
+        if(resource_id=="resource_ict_equipment_booking_resource_id")
+        {
+            $("#lb_resource").text("Resource")
+        }
+        else if (resource_id=="resource_room_booking_resource_id")
+        {
+            $("#lb_res_room_booking").text("Room No")
+        }
+        
+        $.get("/agency_stores/get_resource",{
             sub_category_id : $("#"+category_id).val()
         }, function(data){
             if (data[0]!=null && data[0]!="")
             {
                 $('#'+resource_id).find('option').remove().end()
                 $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-                for(var i=0; i<data[0].length;i++)
+                if(resource_id=="resource_ict_equipment_booking_resource_id")
                 {
-                    $('#'+resource_id).append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#'+resource_id).append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                    }
+                }
+                else if (resource_id=="resource_room_booking_resource_id"  || resource_id == "resource_booking_resource_id")
+                {
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#'+resource_id).append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                    }
                 }
             }
             else
             {
                 $('#'+resource_id).find('option').remove().end()
-                $("#resource_ict_equipment_booking_agency_store_id").find('option').remove().end()
+                var resource_type='';
+                if(resource_id  == "resource_ict_equipment_booking_resource_id")
+                {
+                    $("#resource_ict_equipment_booking_agency_store_id").find('option').remove().end()
+                    resource_type = "ict"
+                }
+                else if (resource_id == "resource_room_booking_resource_id")
+                {
+                    resource_type = "room"
+                }
+                else if (resource_id == "resource_booking_resource_id")
+                {
+                    resource_type = "others"
+                }
                 alert("Selected sub category has no resource in your Agency")
-                $.get("/agency_stores/get_other_resource_ict",{
-                    sub_category_id : $("#"+category_id).val()
+                $.get("/agency_stores/get_other_resource",{
+                    sub_category_id : $("#"+category_id).val(),
+                    resource_type : resource_type
                 }, function(data){
-                    //                    alert("comes here in else")
                     if (data[0]!=null && data[0]!="")
                     {
-                        $("#lb_resource").text("Other Agency Resource")
+                        alert(data[0][i])
+
                         $('#'+resource_id).find('option').remove().end()
                         $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-                        for(var i=0; i<data[0].length;i++)
+                        if(resource_id=="resource_ict_equipment_booking_resource_id")
                         {
-                            $('#'+resource_id).append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                            $("#lb_resource").text("Other Agency Resource")
+                            for(var i=0; i<data[0].length;i++)
+                            {
+                                $('#'+resource_id).append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
+                            }
                         }
+                        else if (resource_id=="resource_room_booking_resource_id" || resource_id == "resource_booking_resource_id")
+                        {
+                            $("#lb_res_room_booking").text("Other Agency Room No")
+                            $.each(data[0], function(key, val) {
+                                $('#'+resource_id).append($("<option></option>").attr("value",key).text(val));
+                            });
+
+                        //                            for(var i=0; i<data[0].length;i++)
+                        //                            {
+                        //                                $('#'+resource_id).append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+                        //                            }
+                        }
+                
                     }
                     else
                     {
                         $('#'+resource_id).find('option').remove().end()
-                        $("#resource_ict_equipment_booking_agency_store_id").find('option').remove().end()
+                        if(resource_id=="resource_ict_equipment_booking_resource_id")
+                        {
+                            $("#resource_ict_equipment_booking_agency_store_id").find('option').remove().end()
+                        }
                         alert("Selected sub category has no resource in any Agency")
                     }
                 })
@@ -110,10 +163,14 @@ function getAgencyforResource(resource_id, agency_id)
             {
                 $('#'+agency_id).find('option').remove().end()
                 $('#'+agency_id).append($("<option></option>").attr("value","").text("SELECT A EQUIPMENT CATEGORY TYPE"));
-                for(var i=0; i<data[0].length;i++)
-                {
-                    $('#'+agency_id).append($("<option></option>").attr("value",data[0][i].agency_store.id).text(data[0][i].agency_store.serial_no));
-                }
+                $.each(data[0], function(key, val) {
+                    $('#'+agency_id).append($("<option></option>").attr("value",key).text(val));
+                });
+
+            //                for(var i=0; i<data[0].length;i++)
+            //                {
+            //                    $('#'+agency_id).append($("<option></option>").attr("value",data[0][i]).text(data[0][i]));
+            //                }
             }
         })
     }
@@ -1444,53 +1501,58 @@ $().ready(function(){
 
     /* resource room booking script */
     $("#resource_room_booking_sub_category_id").live("change", function(){
-        if($("#resource_room_booking_sub_category_id").val()!="")
-        {
-            $.get("/resource_room_bookings/get_resources",{
-                sub_category_id : $("#resource_room_booking_sub_category_id").val()
-            }, function(data){
-                if (data[0]!=null)
-                {
-                    $('#resource_room_booking_resource_id').find('option').remove().end()
-                    $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#resource_room_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
-                    }
-                }
-            })
-        }
-        else{
-            $('#resource_room_booking_resource_id').find('option').remove().end()
-            $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-        }
+        getResourceforSubcategory('resource_room_booking_sub_category_id', 'resource_room_booking_resource_id')
+    //        if($("#resource_room_booking_sub_category_id").val()!="")
+    //        {
+    //            $.get("/resource_room_bookings/get_resources",{
+    //                sub_category_id : $("#resource_room_booking_sub_category_id").val()
+    //            }, function(data){
+    //                if (data[0]!=null)
+    //                {
+    //                    $('#resource_room_booking_resource_id').find('option').remove().end()
+    //                    $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //                    for(var i=0; i<data[0].length;i++)
+    //                    {
+    //                        $('#resource_room_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+    //                    }
+    //                }
+    //            })
+    //        }
+    //        else{
+    //            $('#resource_room_booking_resource_id').find('option').remove().end()
+    //            $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //        }
     })
 
 
     $("#resource_room_booking_resource_id").live("click",function(){
-        $.get("/resource_room_bookings/get_details_for_resource/",{
-            resource_id: $("#resource_room_booking_resource_id").val()
-        }, function(data){
-            if(data[0]!=null)
-            {
-                $("#dis_col").show();
-                $("#details_resource_id").show();
-                var content="";
-                content+=""
-                content+= "<tr><td><b>Location</b></td><td><font color='#369'><b>"+data[0].resource.location+"</b></font></td></tr>"
-                content+= "<tr><td><b>Capacity</b></td><td><font color='#369'><b>"+data[0].resource.capacity+"</b></font></td></tr>"
-                content+="</table>"
-                $("#details_resource_id").html(content)
-            }
-            else
-            {
-                content+="No Departments Found"
-                $("#details_resource_id").hide();
-                $("#details_resource_id").html(content)
-                $("#dis_col").hide();
-            }
+        if ($("#resource_room_booking_resource_id").val()!=null && $("#resource_room_booking_resource_id").val()!='')
+        {
+            $.get("/resource_room_bookings/get_details_for_resource/",{
+                resource_id: $("#resource_room_booking_resource_id").val()
+            }, function(data){
+                if(data[0]!=null)
+                {
+                    $("#dis_col").show();
+                    $("#details_resource_id").show();
+                    var content="";
+                    content+=""
+                    content+= "<tr><td><b>Location</b></td><td><font color='#369'><b>"+data[0].resource.location+"</b></font></td></tr>"
+                    content+= "<tr><td><b>Capacity</b></td><td><font color='#369'><b>"+data[0].resource.capacity+"</b></font></td></tr>"
+                    content+="</table>"
+                    $("#details_resource_id").html(content)
+                }
+                else
+                {
+                    content+="No Departments Found"
+                    $("#details_resource_id").hide();
+                    $("#details_resource_id").html(content)
+                    $("#dis_col").hide();
+                }
 
-        });
+            });
+        }
+
     })
     /*room booking script ends */
 
@@ -1767,7 +1829,7 @@ $().ready(function(){
         //        getResourceforSubcategory('ict_agency_sub_category_id', 'ict_agency_resource_id')
         if($("#ict_agency_sub_category_id").val()!="")
         {
-            $.get("/agency_stores/get_resource_ict",{
+            $.get("/agency_stores/get_resource",{
                 sub_category_id : $("#ict_agency_sub_category_id").val()
             }, function(data){
                 if (data[0]!=null)
@@ -1814,26 +1876,27 @@ $().ready(function(){
 
 
     $("#other_booking_sub_category_id").live("change", function(){
-        if($("#other_booking_sub_category_id").val()!="")
-        {
-            $.get("/resource_bookings/get_resources",{
-                sub_category_id : $("#other_booking_sub_category_id").val()
-            }, function(data){
-                if (data[0]!=null)
-                {
-                    $('#resource_booking_resource_id').find('option').remove().end()
-                    $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#resource_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
-                    }
-                }
-            })
-        }
-        else{
-            $('#resource_booking_resource_id').find('option').remove().end()
-            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
-        }
+        getResourceforSubcategory('other_booking_sub_category_id', 'resource_booking_resource_id')
+    //        if($("#other_booking_sub_category_id").val()!="")
+    //        {
+    //            $.get("/resource_bookings/get_resources",{
+    //                sub_category_id : $("#other_booking_sub_category_id").val()
+    //            }, function(data){
+    //                if (data[0]!=null)
+    //                {
+    //                    $('#resource_booking_resource_id').find('option').remove().end()
+    //                    $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //                    for(var i=0; i<data[0].length;i++)
+    //                    {
+    //                        $('#resource_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
+    //                    }
+    //                }
+    //            })
+    //        }
+    //        else{
+    //            $('#resource_booking_resource_id').find('option').remove().end()
+    //            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //        }
     })
     /* resource booking others ends */
     $("#transport_category_id").live("change", function(){
