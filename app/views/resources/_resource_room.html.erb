@@ -4,7 +4,7 @@
   <div class="form-sec-row">
     <label class="text">Resource Sub Category <span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.select(:sub_category_id,  SubCategory.where("category_id = 6").active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+      <%= f.select(:sub_category_id,  SubCategory.where("category_id = 6").active.collect {|category| [category.name, category.id]},:prompt=>"Select Sub Category") %>
     </span>
   </div>
 

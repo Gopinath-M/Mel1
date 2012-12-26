@@ -3,14 +3,14 @@
   <div class="form-sec-row">
     <label class="text">Resource Category <span style=color:red>*</span></label>
     <span class="in-box">
-      <%= select("resource_other","category_id",  Category.where("id not in (6,7,8)").active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A CATEGORY") %>
+      <%= select("resource_other","category_id",  Category.where("id not in (6,7,8)").active.collect {|category| [category.name, category.id]},:prompt=>"Select Category") %>
     </span>
   </div>
   <div class="form-sec-row">
     <label class="text">Resource Sub Category <span style=color:red>*</span></label>
     <%sub_category= SubCategory.where("is_active = true and deleted = false and category_id not in (6,7,8)") %>
     <span class="in-box">
-      <%= select("resource_other","sub_category_id",  sub_category.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+      <%= select("resource_other","sub_category_id",  sub_category.collect {|category| [category.name, category.id]},:prompt=>"Select Sub Category") %>
     </span>
   </div>
 

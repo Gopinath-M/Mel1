@@ -23,7 +23,7 @@
     <div class="form-sec-row">
       <label class="text">Sub Category <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:sub_category_id,  SubCategory.where(:category_id => "6").active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+        <%= f.select(:sub_category_id,  SubCategory.where(:category_id => "6").active.collect {|category| [category.name, category.id]},:prompt=>"Select Sub Category") %>
       </span>
     </div>
 
@@ -37,7 +37,7 @@
     <div class="form-sec-row">
       <%= label_tag :resource_id, raw("Room No"), :class=>"text", :id=>"lb_res_room_booking"%>
       <span class="in-box">
-        <%= f.select(:resource_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A RESOURCE") %>
+        <%= f.select(:resource_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
       </span>
     </div>
 

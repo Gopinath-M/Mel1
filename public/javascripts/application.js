@@ -510,7 +510,7 @@ $().ready(function(){
             $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
         }
     });
-        $("#role_membership_department_id").live("change",function(){
+    $("#role_membership_department_id").live("change",function(){
         if($("#role_membership_department_id").val()!="")
         {
             $.get("/users/transfer/",{
@@ -1900,7 +1900,8 @@ $().ready(function(){
         if($("#ict_agency_sub_category_id").val()!="")
         {
             $.get("/agency_stores/get_resource",{
-                sub_category_id : $("#ict_agency_sub_category_id").val()
+                sub_category_id : $("#ict_agency_sub_category_id").val(),
+                from : 'agency_store'
             }, function(data){
                 if (data[0]!=null)
                 {
