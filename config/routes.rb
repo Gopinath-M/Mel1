@@ -293,9 +293,9 @@ Melaka::Application.routes.draw do
       get 'get_vehicles'
       get 'get_transport'
       get 'get_other_sub_categories'
-      get 'get_resource_ict'
+      get 'get_resource'
       get 'get_agency_resource'
-      get 'get_other_resource_ict'
+      get 'get_other_resource'
     end
   end
 

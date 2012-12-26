@@ -2,7 +2,7 @@ class ResourceIctEquipmentBookingsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @resource_ict_equipment_bookings=ResourceIctEquipmentBooking.where(:user_id=>current_user.id).order.page(params[:page]).per(25)
+    @resource_ict_equipment_bookings=ResourceIctEquipmentBooking.where(:user_id=>current_user.id).order.page(params[:page]).per(10)
   end
   
   def category
@@ -57,16 +57,16 @@ class ResourceIctEquipmentBookingsController < ApplicationController
 
   def requests
     if current_user.is_resource_manager?
-      @booking = ResourceIctEquipmentBooking.find_all_by_department_id(@current_department, :conditions => ["status != 'New'"])
+      @booking = ResourceIctEquipmentBooking.where(" department_id = ?  and status !='New' ",@current_department).page(params[:page]).per(10)
     else
       @approve = Approver.active.find_all_by_department_id(@current_department).first
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last
       if @approve.present?
-        @booking = ResourceIctEquipmentBooking.find_all_by_department_id(@approve.department_id)
+        @booking = ResourceIctEquipmentBooking.where(:department_id => @approve.department_id).page(params[:page]).per(10)
       elsif @approver_second.present?
-        @booking = ResourceIctEquipmentBooking.where(:department_id => @approver_second.department_id)
+        @booking = ResourceIctEquipmentBooking.where(:department_id => @approver_second.department_id).page(params[:page]).per(10)
       else
-        @booking = ResourceIctEquipmentBooking.where(:department_id => @current_department).order.page(params[:page]).per(25)
+        @booking = ResourceIctEquipmentBooking.where(:department_id => @current_department).order.page(params[:page]).per(10)
       end
     end
   end

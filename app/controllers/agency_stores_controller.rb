@@ -1,6 +1,6 @@
 class AgencyStoresController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin, :except=>[:get_resource_ict,:get_agency_resource,:get_other_resource_ict]
+  before_filter :is_admin, :except=>[:get_resource,:get_agency_resource,:get_other_resource]
 
   def index
     if params[:resource_id] && params[:resource_id]!='' && params[:resource_id]!=0
@@ -163,7 +163,7 @@ class AgencyStoresController < ApplicationController
     render :json=>[ subcategories] if  subcategories
   end
 
-  def get_resource_ict
+  def get_resource
     if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
       resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
       render :json=>[resources] if resources
@@ -176,41 +176,37 @@ class AgencyStoresController < ApplicationController
       end
       render :json=>[resources] if resources
     end
-    
-    #    department=Department.find(@current_department)
-    #    resource = AgencyStore.where("booked = false and sub_category_id = ? and agency_id = ? ",params[:sub_category_id],department.agency_id).collect(&:resource_id)
-    #    resources=[]
-    #    if resource && !resource.empty?
-    #      resources = Resource.find(resource)
-    #    end
-    #    render :json=>[resources.to_a] if resources
-    #p resources =Resource.active_and_subcategory(params[:sub_category_id])
   end
 
-  def get_other_resource_ict
-    department=Department.find(@current_department)
-    resource = AgencyStore.where("booked = false and sub_category_id = ? and agency_id != ? ",params[:sub_category_id],department.agency_id).collect(&:resource_id)
-    resources=[]
-    if resource && !resource.empty?
-      resources = Resource.find(resource)
+  def get_other_resource
+    department = Department.find(@current_department)
+    agency_resources = AgencyStore.where("booked = false and sub_category_id = ? and agency_id != ? ",params[:sub_category_id],department.agency_id)#.collect(&:resource_id)
+    if params[:resource_type] && (params[:resource_type] == "room" ||  params[:resource_type] == "others")
+      resources={}
+      agency_resources.each do |store|
+        val = store.resource.resource_no.to_s + "-" + store.agency.name
+        resources.store(store.resource.id,val)
+      end
+    else
+      resources = []
+      agency_resources.each do |store|
+        resources << store.resource
+      end
+      resources.uniq!
+      resources.compact!
     end
-    p resources.to_a
-    render :json=>[resources.to_a] if resources
-    #p resources =Resource.active_and_subcategory(params[:sub_category_id])
+    render :json => [resources] if resources
   end
   
   def get_agency_resource
-    #    resources1={}
-    resources = AgencyStore.where("resource_id = ? and booked = ? ",params[:resource_id],false)
+    resources={}
+    temp_resources = AgencyStore.where("resource_id = ? and booked = ? ",params[:resource_id],false)
+    temp_resources.each do |resource|
+      p resource.inspect
+      val= resource!=nil && resource.serial_no!="" ? resource.serial_no.to_s + "-" +resource.agency.name.to_s : resource.agency.name.to_s
+      resources.store(resource.id, val)
+    end
     render :json=>[resources] if resources
-    #    resources.each do |resource|
-    #      p resource.inspect
-    #      val= resource!=nil && resource.serial_no!="" ? resource.serial_no.to_s + "-" +resource.agency.name.to_s : resource.agency.name.to_s
-    #      resources1.store(resource.id,val)
-    #    end
-    #    p resources1.inspect
-    #    #    resources1.compact!
-    #    render :json=>[resources1] if resources1
   end
 
 end
