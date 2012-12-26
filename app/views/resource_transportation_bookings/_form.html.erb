@@ -25,12 +25,12 @@
       <div class="form-sec-row">
         <label class="text">Resource<span style=color:red>*</span></label>
         <span class="in-box"> <% if !current_user.is_super_admin? %>        	
-            <%= f.select(:sub_category_id, SubCategory.where(:category_id=>7,:is_available=>true,:is_active=>true).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A SUB CATEGORY TYPE") %>
+            <%= f.select(:sub_category_id, SubCategory.where(:category_id=>7,:is_available=>true,:is_active=>true).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"Select Sub Category Type") %>
           <%else%>
             <%= hidden_field_tag 'is_super_admin', 1 %>
             <% as = AgencyStore.find(:all,:select=>["DISTINCT sub_category_id"],:conditions=>["resource_type = 'Transport'"]).collect(&:sub_category_id).join(',') %>
             <% if !as.blank? %>
-              <%= f.select(:sub_category_id, SubCategory.find(:all,:conditions=>["id in (#{as})"]).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A SUB CATEGORY TYPE") %>
+              <%= f.select(:sub_category_id, SubCategory.find(:all,:conditions=>["id in (#{as})"]).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"Select Sub Category Type") %>
             <%end%>
           <%end%> </span>
       </div>
@@ -40,7 +40,7 @@
         <label class="text">Vehicle Brand<span style=color:red>*</span></label>
         <span class="in-box">          
           <td>
-          <%= select("vehicle","model_type_id", options_from_collection_for_select(VehicleModelType.all,'id',"name"),{:prompt=>"Select a Brand"})%>
+          <%= select("vehicle","model_type_id", options_from_collection_for_select(VehicleModelType.all,'id',"name"),{:prompt=>"Select Brand"})%>
           </td>         
         </span>
       </div>

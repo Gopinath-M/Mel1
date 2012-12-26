@@ -28,7 +28,7 @@
   <div class="form-sec-row">
     <label class="text">Service Name<span style=color:red>*</span></label>
     <span class="in-box">
-      <%= select("ict_facility_service", "id", FacilityIctService.find(:all,:conditions=>["is_active = true"]).collect {|ict_facility| [ict_facility.port, ict_facility.id]},:prompt=>"SELECT A ICT SERVICE TYPE") %>
+      <%= select("ict_facility_service", "id", FacilityIctService.find(:all,:conditions=>["is_active = true"]).collect {|ict_facility| [ict_facility.port, ict_facility.id]},:prompt=>"Select ICT Service Type") %>
     </span>
   </div>
 

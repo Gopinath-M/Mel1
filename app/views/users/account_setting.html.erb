@@ -63,7 +63,7 @@
         <h2 class="b-head-acc-set">Change Default Department</h2>
         <div class="form-sec-row">
           <%= fff.label :department_id, raw('Select Department'), :class=>"text" %>
-          <%=select(:default,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
+          <%=select(:default,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "Select Department") %>
         </div>
         <div class="form-sec-row">
           <label class="text">Set as default</label>
