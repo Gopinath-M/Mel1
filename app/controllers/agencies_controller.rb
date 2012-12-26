@@ -75,7 +75,7 @@ class AgenciesController < ApplicationController
   end
 
   def role_memberships
-    @role_memberships = RoleMembership.where("department_id is not null").order("department_id asc").page(params[:page]).per(10)
+    @role_memberships = RoleMembership.where("department_id is not null and department_id != 0 ").order("department_id asc").page(params[:page]).per(10)
   end
 
 end
