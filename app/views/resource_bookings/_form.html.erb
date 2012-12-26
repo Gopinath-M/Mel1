@@ -25,9 +25,9 @@
           <%if !@resource_booking.new_record?%>
             <%resource=@resource if @resource && !@resource.blank?%>
             <%category=resource.category%>
-            <%=select("other_booking_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7 and id !=8").active.all, 'id','name',category.id),{:prompt=>"SELECT A CATEGORY"})%>
+            <%=select("other_booking_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7 and id !=8").active.all, 'id','name',category.id),{:prompt=>"Select Category"})%>
           <%else%>
-            <%=select("other_booking_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7 and id !=8").active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
+            <%=select("other_booking_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7 and id !=8").active.all, 'id','name'),{:prompt=>"Select Category"})%>
           <%end%>
         </span>
       </div>
@@ -35,7 +35,7 @@
         <label class="text">Sub Category Name <span style=color:red>*</span></label>
         <span class="in-box">
 
-          <%= select("other_booking_sub_category","id",  SubCategory.active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+          <%= select("other_booking_sub_category","id",  SubCategory.active.collect {|category| [category.name, category.id]},:prompt=>"Select Sub Category") %>
            
         </span>
       </div>
@@ -43,7 +43,7 @@
         <label class="text">Resource<span style=color:red>*</span></label>
         <span class="in-box">
           
-          <%= f.select(:resource_id, Resource.where('resource_no  is not null').active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE") %>
+          <%= f.select(:resource_id, Resource.where('resource_no  is not null').active.collect {|category| [category.resource_no, category.id]},:prompt=>"Select Resource") %>
         </span>
       </div>
       <%#if !current_user.is_super_admin?%>
