@@ -17,21 +17,41 @@ class ResourceIctEquipmentBookingsController < ApplicationController
 
   def create
     category
-    dept = Department.find(@current_department)
+
+
     agency = AgencyStore.find(params[:resource_ict_equipment_booking][:agency_store_id]) if params[:resource_ict_equipment_booking] && !params[:resource_ict_equipment_booking][:agency_store_id].blank?
     if !agency.nil?
       if agency.booked == false
         @resource=params[:resource_ict_equipment_booking][:resource_id]
-        @resource_ict_equipment_booking = ResourceIctEquipmentBooking.create(params[:resource_ict_equipment_booking].merge!({:department_id=>@current_department,:user_id=>current_user.id}))
+        if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+          department_id = 0
+        else
+          department_id = @current_department
+        end
+        @resource_ict_equipment_booking = ResourceIctEquipmentBooking.create(params[:resource_ict_equipment_booking].merge!({:department_id=>department_id,:user_id=>current_user.id}))
+        if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+          @resource_ict_equipment_booking.status = "Processed"
+        elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
+          @resource_ict_equipment_booking.status = "Approved"
+        else
+          @resource_ict_equipment_booking.status = "New"
+        end   
         if @resource_ict_equipment_booking.valid?
           @resource_ict_equipment_booking.save
-          @approve = Approver.active.find_all_by_department_id(@current_department).first
-          if !@approve.present?
-            user = dept.users.where("role_id = 2").first
-            UserMailer.send_mail_to_dept_admin_for_ict_equipment_booking(user,@resource_ict_equipment_booking,dept).deliver
+          if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+            #            department_id=
+            #              resource_manager = RoleMembership.find_by_department_id_and_role_id(agency.department_id,5)
+            #            UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
           else
-            user = User.find(@approve.user_id)
-            UserMailer.send_mail_to_approver_for_ict_equipment_booking(user,@resource_ict_equipment_booking,dept).deliver
+            dept = Department.find(@current_department)
+            @approve = Approver.active.find_all_by_department_id(@current_department).first
+            if !@approve.present?
+              user = dept.users.where("role_id = 2").first
+              UserMailer.send_mail_to_dept_admin_for_ict_equipment_booking(user,@resource_ict_equipment_booking,dept).deliver
+            else
+              user = User.find(@approve.user_id)
+              UserMailer.send_mail_to_approver_for_ict_equipment_booking(user,@resource_ict_equipment_booking,dept).deliver
+            end
           end
           agency.update_attribute(:booked, true)
           redirect_to resource_ict_equipment_bookings_path, :notice => "Your ICT Equipment booking has been created sucessfully."
@@ -46,13 +66,13 @@ class ResourceIctEquipmentBookingsController < ApplicationController
     end
   end
 
-#  def approval_details(ict_equipment)
-#    @resource = SubCategory.find(ict_equipment.sub_category_id) if ict_equipment
-#  end
+  #  def approval_details(ict_equipment)
+  #    @resource = SubCategory.find(ict_equipment.sub_category_id) if ict_equipment
+  #  end
   
   def show
     @resource_ict_equipment_booking = ResourceIctEquipmentBooking.find(params[:id]) if params[:id]
-#    approval_details(@resource_ict_equipment_booking)
+    #    approval_details(@resource_ict_equipment_booking)
   end
 
   def requests
@@ -73,7 +93,7 @@ class ResourceIctEquipmentBookingsController < ApplicationController
 
   def approve_request
     @resource_ict_equipment_booking = ResourceIctEquipmentBooking.find(params[:id]) if params[:id]
-#    approval_details(@resource_ict_equipment_booking)
+    #    approval_details(@resource_ict_equipment_booking)
   end
   
   def update_booking

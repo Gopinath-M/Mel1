@@ -164,23 +164,33 @@ class AgencyStoresController < ApplicationController
   end
 
   def get_resource
+    #    if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+    #      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
+    #      render :json=>[resources] if resources
+    #    else
+    
     if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
-      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
-      render :json=>[resources] if resources
+      resource = AgencyStore.where("booked = false and sub_category_id = ?",params[:sub_category_id]).collect(&:resource_id)
     else
       department=Department.find(@current_department)
       resource = AgencyStore.where("booked = false and sub_category_id = ? and agency_id = ? ",params[:sub_category_id],department.agency_id).collect(&:resource_id)
-      resources=[]
-      if resource && !resource.empty?
-        resources = Resource.find(resource)
-      end
-      render :json=>[resources] if resources
     end
+    resources=[]
+    if resource && !resource.empty?
+      resources = Resource.find(resource)
+    end
+    render :json=>[resources] if resources
+    #    end
   end
 
   def get_other_resource
-    department = Department.find(@current_department)
-    agency_resources = AgencyStore.where("booked = false and sub_category_id = ? and agency_id != ? ",params[:sub_category_id],department.agency_id)#.collect(&:resource_id)
+    
+    if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+      agency_resources = AgencyStore.where("booked = false and sub_category_id = ?",params[:sub_category_id])#.collect(&:resource_id)
+    else
+      department = Department.find(@current_department)
+      agency_resources = AgencyStore.where("booked = false and sub_category_id = ? and agency_id != ? ",params[:sub_category_id],department.agency_id)#.collect(&:resource_id)
+    end
     if params[:resource_type] && (params[:resource_type] == "room" ||  params[:resource_type] == "others")
       resources={}
       agency_resources.each do |store|
