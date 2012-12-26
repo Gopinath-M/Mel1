@@ -86,7 +86,7 @@ class ResourceIctEquipmentBookingsController < ApplicationController
       if @resource_ict_equipment_booking.update_attributes(params[:resource_ict_equipment_booking].merge!({:approver_id=>current_user.id}))
         resource_manager = RoleMembership.find_by_department_id_and_role_id(@resource_ict_equipment_booking.department_id,5)
         #UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
-        UserMailer.send_status_mail_for_ict_equipment_booking(@resource_ict_equipment_booking.agency_store.agency.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
+        UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
         redirect_to(requests_resource_ict_equipment_bookings_path, :notice => 'Your ICT Equipment Status has been successfully updated.')
       else
         approval_details(@resource_ict_equipment_booking)
