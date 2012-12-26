@@ -7,6 +7,7 @@ class CreateIctNetworkPoints < ActiveRecord::Migration
       t.string :quantity
       t.references :user
       t.references :department
+      t.integer :updated_by
       t.integer :hardware_id
       t.integer :type_id
       t.integer :center_id

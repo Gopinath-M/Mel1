@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       department_id = params[:department_id].to_i
       if department_id != 0
         department = Department.find_by_id(params[:department_id])
-        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10).order('created_at DESC')
+        @users = department.users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
       else
         if !params[:unit_id].nil?
           @users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
@@ -65,12 +65,19 @@ class UsersController < ApplicationController
   
   ## Transfer Department Function begins here
   def transfer
-   if !params[:department_id].nil? || !params[:department_id].blank?
-      users= Department.find_by_id(params[:department_id]).users.where("role_id !=2")
+    if !params[:department_id].nil? || !params[:department_id].blank?
+      users= Department.find_by_id(params[:department_id]).users.active
       render :json=>[users] if users
     end
     if !params[:unit_id].nil?
       users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2")
+      render :json=>[users] if users
+    end
+  end
+
+  def list_of_user
+    if !params[:department_id].nil? || !params[:department_id].blank?
+      users= Department.find_by_id(params[:department_id]).users.active.where("role_id !=2")
       render :json=>[users] if users
     end
   end
@@ -84,11 +91,18 @@ class UsersController < ApplicationController
   def update_transfer
     if params[:transfer][:username] != "" && params[:from_department][:id] != "" && params[:to_department][:id]!= "" && params[:transfer_from_agency] != "" && params[:transfer_to_agency] != ""
       user = User.find_by_ic_number(params[:transfer][:username])
+      val = User.find_by_ic_number(params[:transfer][:username_id])
       departments = user.departments
       s = Department.find_by_id(params[:to_department][:id])
       if user.departments.include?(s)
         redirect_to(transfer_users_path, :alert => "You Cant transfer the User to Already exist department")
       else
+        if (params[:transfer][:username_id]).present?
+          rol = RoleMembership.find_by_user_id(val.id)
+          rol.update_attribute(:role_id, '2')
+          chan = RoleMembership.find_by_department_id_and_role_id(params[:to_department][:id], 2)
+          chan.update_attribute(:role_id, '3')
+        end
         role = RoleMembership.find_by_user_id(user.id)
         role.update_attribute(:department_id, params[:to_department][:id])
         department = Department.find_by_id(params[:to_department][:id])
@@ -97,6 +111,15 @@ class UsersController < ApplicationController
       end
     else
       redirect_to(transfer_users_path, :alert => "Please Select the Drop Box listed")
+    end
+  end
+
+  def get_admin_for_users
+    user = User.find_by_ic_number(params[:ic_number])
+    role =  user.roles
+    if role[0].id == 2
+      departments=user.departments.active.collect(&:name)
+      render :json=>[departments] if departments
     end
   end
 
@@ -279,13 +302,13 @@ class UsersController < ApplicationController
   def online_users
     @users = User.find(:all, :conditions => ["username != ?", current_user.username])
   end
-#Out station module
+  #Out station module
   def user_profile
     @users = User.find(current_user.id)
     if params[:commit] == 'Update Profile'
-     @users.update_attributes(params[:user])
+      @users.update_attributes(params[:user])
       if @users.valid?
-      redirect_to :controller =>'user_services', :action => 'new'
+        redirect_to :controller =>'user_services', :action => 'new'
       else
         render :action =>'user_profile'
       end
@@ -295,14 +318,14 @@ class UsersController < ApplicationController
   def emergency_reference
     @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
     if @emergency_references != nil
-       @emergency_references.update_attributes(params[:emergency_reference])
+      @emergency_references.update_attributes(params[:emergency_reference])
     else
       @emergency_references = EmergencyReference.new(params[:emergency_reference])
     end
     if params[:commit] == 'Update Reference'
       if @emergency_references.valid?
-    @emergency_references.save
-    redirect_to :controller =>'users', :action=>'declaration_property'
+        @emergency_references.save
+        redirect_to :controller =>'users', :action=>'declaration_property'
       end
     end
   end
@@ -313,17 +336,17 @@ class UsersController < ApplicationController
       @property_file.property_year = params[:date][:year]
       @property_file.user_id = current_user.id
       if @property_file.valid?
-      @property_file.save
-#      redirect_to :controller =>'outstations', :action=>'new'
+        @property_file.save
+        #      redirect_to :controller =>'outstations', :action=>'new'
       end
     end
   end
- def download_attachments
+  def download_attachments
     @download = DeclarationProperty.find(params[:id])
     send_file @download.property_file.path
   end
 
-def show
+  def show
     @users = User.find(current_user.id)
     @service = UserService.find_by_user_id(current_user.id) 
     @service_level = ServiceLevel.find(@service.service_level_id)
@@ -337,10 +360,10 @@ def show
     @outstations = Outstation.find_by_user_id(current_user.id)
 
   end
- def show_stage
-   @emergency_reference = EmergencyReference.find(current_user.id)
-   @property_file = DeclarationProperty.find_all_by_user_id(current_user.id)
- end
-# out station module methods ends here
+  def show_stage
+    @emergency_reference = EmergencyReference.find(current_user.id)
+    @property_file = DeclarationProperty.find_all_by_user_id(current_user.id)
+  end
+  # out station module methods ends here
 
 end

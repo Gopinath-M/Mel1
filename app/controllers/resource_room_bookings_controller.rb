@@ -4,7 +4,7 @@ class ResourceRoomBookingsController < ApplicationController
 
   def index
     if current_user && current_user.is_super_admin?
-      @resource_room_booking = ResourceRoomBooking.all
+      @resource_room_bookings = ResourceRoomBooking.where(:user_id => 1).order.page(params[:page]).per(5)
     elsif current_user && current_user.is_resource_manager?
       @resource_room_bookings = ResourceRoomBooking.find_all_by_status("Approved")
     else
@@ -14,7 +14,9 @@ class ResourceRoomBookingsController < ApplicationController
 
   def new
     @resource_room_booking = ResourceRoomBooking.new()
-    @booking = CategoriesDepartments.where(:category_id=> "6", :department_id=> current_user.departments.first.id)
+    if !current_user.is_super_admin?
+      @booking = CategoriesDepartments.where(:category_id=> "6", :department_id=> current_user.departments.first.id)
+    end
   end
 
   def edit
@@ -28,7 +30,7 @@ class ResourceRoomBookingsController < ApplicationController
       @facility = Facility.active.find_all_by_resource_id(@resource_room_booking.resource_id)
       @details_resource = Resource.active.find_by_id(@resource_room_booking.resource_id)
       @user = User.find_by_id(@resource_room_booking.user_id)
-      @dept = Department.find_by_id(default_department)
+      @dept = Department.find_by_id(@resource_room_booking.department_id)
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id)
       if @agencystore.present?
         @agency= Agency.find_by_id(@agencystore.agency_id)
@@ -38,32 +40,57 @@ class ResourceRoomBookingsController < ApplicationController
   end
 
   def create
+#    p from_date = params[:resource_room_booking][:requested_from_date].to_datetime.to_s
+#    p to_date = params[:resource_room_booking][:requested_to_date].to_datetime.to_s
     agency = AgencyStore.find_by_resource_id(params[:resource_room_booking][:resource_id])
     if !agency.nil?
       if agency.booked == false
-        agency.update_attribute(:booked, true)
-        resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
-        resource_room_booking.agency_store_id = agency.id
-        if current_user.is_super_admin? || current_user.is_department_admin?
-          resource_room_booking.status = "Approved"
+        @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
+        @resource_room_booking.agency_store_id = agency.id
+        @resource_room_booking.user_id = params[:user_id]
+        if current_user.is_super_admin?
+          @resource_room_booking.status = "Processed"
+          @resource_room_booking.department_id = '0'
+        elsif current_user.is_department_admin?
+          @resource_room_booking.status = "Approved"
+          @resource_room_booking.department_id = params[:department_id]
         else
-          resource_room_booking.status = "New"
-        end      
-        resource_room_booking.user_id = params[:user_id]
-        resource_room_booking.department_id = params[:department_id]
-        resource_room_booking.save
-        @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-        dept = Department.find_by_id(params[:department_id])
-        if !@approve.present?
-          user = dept.users.where("role_id = 2").first
-          UserMailer.send_mail_to_dept_admin_for_room_booking(user,resource_room_booking,dept).deliver
-        else
-          user = User.find_by_id(@approve.user_id)
-          UserMailer.send_mail_to_approver_for_room_booking(user,resource_room_booking,dept).deliver
+          @resource_room_booking.status = "New"
+          @resource_room_booking.department_id = params[:department_id]
         end
-        redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
+        if @resource_room_booking.valid?
+          @resource_room_booking.save
+          agency.update_attribute(:booked, true)
+          redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
+        else
+          if !current_user.is_super_admin?
+            @booking = CategoriesDepartments.where(:category_id=> "6", :department_id=> current_user.departments.first.id)
+            @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+            dept = Department.find_by_id(params[:department_id])
+            if !@approve.present?
+              user = dept.users.where("role_id = 2").first
+              #UserMailer.send_mail_to_dept_admin_for_room_booking(user,@resource_room_booking,dept).deliver
+            else
+              user = User.find_by_id(@approve.user_id)
+              #UserMailer.send_mail_to_approver_for_room_booking(user,@resource_room_booking,dept).deliver
+            end
+          end
+          render :action => 'new'
+        end
       else
-        redirect_to(new_resource_room_booking_path, :alert => "You cant book the Already Reserved Room, Please try other.")
+        if current_user.is_super_admin?
+          @room = ResourceRoomBooking.find_all_by_resource_id(params[:resource_room_booking][:resource_id], :conditions=>["user_id != ?", 1]).last
+          @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
+          @resource_room_booking.agency_store_id = agency.id
+          @resource_room_booking.status = "Processed"
+          @resource_room_booking.user_id = params[:user_id]
+          @resource_room_booking.department_id = '0'
+          @resource_room_booking.save
+          @room.update_attribute(:status, "Cancelled")
+          redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
+        else
+          redirect_to(new_resource_room_booking_path, :alert => "You cant book the Already Reserved Room, Please try other.")
+        end
       end
     else
       redirect_to(new_resource_room_booking_path, :alert => "Resource selected is not available in your Store, Are you want this as resource requistion.")
@@ -86,14 +113,18 @@ class ResourceRoomBookingsController < ApplicationController
 
   def list_resource_booking
     if current_user.is_resource_manager?
-      @booking = ResourceRoomBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
+      @booking = ResourceRoomBooking.where("department_id=? and status !=?", @current_department, "New").page(params[:page]).per(5)
     else
       @approve = Approver.active.find_all_by_department_id(current_user.departments).first
       @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
       if @approve.present?
-        @booking = ResourceRoomBooking.find_all_by_department_id(@approve.department_id)
+        @booking = ResourceRoomBooking.where(:department_id => @approve.department_id).page(params[:page]).per(5)
+        #          @booking = ResourceRoomBooking.find(:all, :conditions=>["department_id = ? and created_at >= ?",@approve.department_id,Time.now-seconds])
       elsif @approver_second.present?
-        @booking = ResourceRoomBooking.where(:department_id => @approver_second.department_id)
+        @booking = ResourceRoomBooking.where(:department_id => @approver_second.department_id).page(params[:page]).per(5)
+      elsif current_user.is_super_admin?
+        @booking = ResourceRoomBooking.page(params[:page]).per(5)
+        @second_approver = Approver.all.last
       else
         @booking = ResourceRoomBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(5)
       end
@@ -101,18 +132,20 @@ class ResourceRoomBookingsController < ApplicationController
   end
 
   def update_room_booking
-    room = ResourceRoomBooking.find_by_id(params[:resource_book_id])
+    @resource_room_booking = ResourceRoomBooking.find_by_id(params[:resource_book_id])
     agency_store = AgencyStore.find_by_resource_id(params[:resource_id])
     if params[:resource_room_booking][:status] == "Returned" ||  params[:resource_room_booking][:status] == "Declined"
       agency_store.update_attribute(:booked, false)
     end
-    @resource_room_booking = ResourceRoomBooking.find_by_id(params[:resource_book_id])
-    @resource_room_booking.update_attributes(params[:resource_room_booking])
+    room = ResourceRoomBooking.find_by_id(params[:resource_book_id])
+    room.update_attributes(params[:resource_room_booking])
+    room.update_attribute(:updated_by, params[:updated_by])
     ordered_user = User.find_by_id(room.user_id)
     resource_manager = RoleMembership.find_by_department_id(room.department_id, :conditions=>["role_id = ?", 5])
     if resource_manager.present?
       user = User.find_by_id(resource_manager.user_id)
-      UserMailer.send_status_mail_for_room_booking(user,ordered_user,room).deliver
+      UserMailer.send_status_mail_ordered_user_for_room_booking(user,ordered_user,room).deliver
+      UserMailer.send_status_mail_resource_manager_for_room_booking(user,ordered_user,room).deliver
     end
     redirect_to(list_resource_booking_resource_room_bookings_path, :notice => 'Your Room Booking Status has been successfully updated.')
   end
@@ -125,7 +158,7 @@ class ResourceRoomBookingsController < ApplicationController
       @approve = Approver.find_by_department_id(current_user.departments)
       @details_resource = Resource.active.find_by_id(@resource_room_booking.resource_id)
       @user = User.find_by_id(@resource_room_booking.user_id)
-      @dept = Department.find_by_id(current_department)
+      @dept = Department.find_by_id(@resource_room_booking.department_id)
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id)
       if @agencystore.present?
         @agency= Agency.find_by_id(@agencystore.agency_id)
@@ -136,10 +169,10 @@ class ResourceRoomBookingsController < ApplicationController
 
   def user_return
     room = ResourceRoomBooking.find(params[:room_book_id])
-    if params[:user_returned_status] == "true"
-      room.update_attribute(:user_returned_status, true)
+    if params[:user_returned_status] == "true" && room.user_id == 1
+      room.update_attributes(:user_returned_status=>true, :status => "Returned")
     else
-      room.update_attribute(:user_returned_status, false)
+      room.update_attributes(:user_returned_status=>true)
     end
   end
 
@@ -154,6 +187,11 @@ class ResourceRoomBookingsController < ApplicationController
   def get_details_for_resource
     resources = Resource.find(params[:resource_id])
     render :json=>[resources] if resources
+  end
+
+  def download_attachments
+    @message = ResourceRoomBooking.find(params[:id])
+    send_file @message.room_attachment.path
   end
 
 end

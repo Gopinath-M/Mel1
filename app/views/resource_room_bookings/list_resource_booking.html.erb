@@ -40,7 +40,7 @@
                 <% if @approve.present?  && @approve.user_id == current_user.id && resource.created_at > (Time.now-seconds) %>
                   <span class="in-box">
                     <% if resource.status == "New" %>
-                      <%= link_to "Approve Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && resource.created_at > (Time.now-2*seconds)%>
@@ -48,22 +48,36 @@
                     <% if resource.status == "New" %>
                       <% val = (resource.created_at > (Time.now-seconds))  %>
                       <% if !val.present? %>
-                        <%= link_to "Approve Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                        <% user = User.find(@approve.user_id) %>
+                        <% UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+                        <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%end%>
+                    <%end%>
+                  </span>
+                <% elsif current_user.is_super_admin?%>
+                  <span class="in-box">
+                    <% if resource.status == "New" && @approve.present?%>
+                      <% val = (resource.created_at > (Time.now-seconds)) %>
+                      <% val1 = (resource.created_at > (Time.now-2*seconds)) %>
+                      <% if !val.present? && !val1.present? %>
+                        <%= user = User.find(@second_approver.user_id) %>
+                        <%  UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+                        <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                       <%end%>
                     <%end%>
                   </span>
                 <%elsif current_user.is_department_admin? &&  !@approve.present? %>
                   <span class="in-box">
                     <% if resource.status == "New" %>
-                      <%= link_to "Approve Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%elsif current_user.is_resource_manager?%>
                   <span class="in-box">
                     <% if resource.status == "Approved" %>
-                      <%= link_to "Process Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to "Process",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%elsif resource.user_returned_status? && resource.status != "Returned" && resource.status != "Declined" %>
-                      <%= link_to "Return Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to "Return",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%end%>
@@ -73,27 +87,33 @@
                 <% if @approve.present?  && @approve.user_id == current_user.id %>
                   <span class="in-box">
                     <% if resource.status == "New" %>
-                      <%= link_to "Approve Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
                   <span class="in-box">
                     <% if !val.present? %>
-                      <%= link_to "Approve Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%end%>
+                  </span>
+                <% elsif current_user.is_super_admin?%>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%elsif current_user.is_department_admin? &&  !@approve.present? %>
                   <span class="in-box">
                     <% if resource.status == "New" %>
-                      <%= link_to "Approve Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%elsif current_user.is_resource_manager?%>
                   <span class="in-box">
                     <% if resource.status == "Approved" %>
-                      <%= link_to "Process Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to "Process",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%elsif resource.user_returned_status? && resource.status != "Returned" && resource.status != "Declined" %>
-                      <%= link_to "Return Request",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to "Return",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%end%>
@@ -153,7 +173,7 @@
         <h2 class="b-head"></h2>
 
       <%end%> <div class="manage-user-rows box"><br/><br/>
-  <%#= paginate @list_network_point %></div>
+        <%= paginate @booking %></div>
       <%else%>
       No Resources Available
     <%end%>

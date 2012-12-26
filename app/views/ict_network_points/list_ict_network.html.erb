@@ -37,7 +37,7 @@
                 <% if @approve.present?  && @approve.user_id == current_user.id && resource.created_at > (Time.now-seconds) %>
                   <span class="in-box">
                     <% if resource.status == "New" %>
-                      <b><font color="#336699"><%= link_to "Approve Request",approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                      <b><font color="#336699"><%= link_to "Approve",approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
                     <%end%>
                   </span>
                 <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && resource.created_at > (Time.now-2*seconds)%>
@@ -45,18 +45,18 @@
                     <% if resource.status == "New" %>
                       <% val = (resource.created_at > (Time.now-seconds))  %>
                       <% if !val.present? %>
-                        <b><font color="#336699"><%= link_to "Approve Request",approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                        <b><font color="#336699"><%= link_to "Approve",approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
                       <%end%>
                     <%end%>
                   </span>
                 <% elsif resource.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
                   <span class="in-box">
-                    <b><font color="#336699"><%= link_to "Approve Request",approval_network_point_ict_network_points_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                    <b><font color="#336699"><%= link_to "Approve",approval_network_point_ict_network_points_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                   </span>
                 <%end%>
                 <%if resource.status == "Approved" && resource.person_incharge == current_user.id %>
                   <span class="in-box">
-                    <b><font color="#336699"><%= link_to "Process Request",approval_network_point_ict_network_points_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                    <b><font color="#336699"><%= link_to "Process",approval_network_point_ict_network_points_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                   </span>
                 <%end%>
               </div>
@@ -65,23 +65,23 @@
                 <% if @approve.present?  && @approve.user_id == current_user.id %>
                   <span class="in-box">
                     <% if resource.status == "New" %>
-                      <b><font color="#336699"><%= link_to "Approve Request",approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                      <b><font color="#336699"><%= link_to "Approve",approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
                     <%end%>
                   </span>
                 <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
                   <span class="in-box">
                     <% if resource.status == "New" %>
-                        <b><font color="#336699"><%= link_to "Approve Request",approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                        <b><font color="#336699"><%= link_to "Approve",approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
                     <%end%>
                   </span>
                 <% elsif resource.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
                   <span class="in-box">
-                    <b><font color="#336699"><%= link_to "Approve Request",approval_network_point_ict_network_points_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                    <b><font color="#336699"><%= link_to "Approve",approval_network_point_ict_network_points_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                   </span>
                 <%end%>
                 <%if resource.status == "Approved" && resource.person_incharge == current_user.id %>
                   <span class="in-box">
-                    <b><font color="#336699"><%= link_to "Process Request",approval_network_point_ict_network_points_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                    <b><font color="#336699"><%= link_to "Process",approval_network_point_ict_network_points_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                   </span>
                 <%end%>
               </div>

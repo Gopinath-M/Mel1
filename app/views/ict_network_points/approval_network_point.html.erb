@@ -6,6 +6,7 @@
       <h2 class="b-head">Approval for Network Point</h2>
       <div class="form-sec">
 
+        <%= hidden_field_tag :updated_by, (current_user.id) %>
         <%= hidden_field_tag :id, (@ict_network.id) %>
         <%= hidden_field_tag :user_id, (@ict_network.user_id) %>
         <font color="#369" size="3"><br/><b><u>User Details :-</u><br/><br/></b></font>
@@ -80,7 +81,7 @@
                         <%=image_tag(@ict_network.ict_network_attachment.url(:profile),:title=>@ict_network.ict_network_attachment)%>
                       <%else%>
                         <% file = (@ict_network.ict_network_attachment).url(:profile).split("/").last %>
-                        <b>&nbsp;<%= file %></b>
+                        <td>&nbsp;<b><%= link_to file, download_attachments_ict_network_points_path(:id=>@ict_network.id) if @ict_network.ict_network_attachment?  %></b></td>
                       </span>
                     <%end%>
                   <%end%>
@@ -106,6 +107,38 @@
                     <%= @ict_network.quantity %>
                   </span>
                 </div>
+
+                <% if @ict_network.status == "Approved"%>
+                  <% username = User.find(@ict_network.updated_by) %>
+                  <h2 class="b-head"></h2>
+                  <div class="form-sec-row">
+                    <label class="text">Approved by</label>
+                    <span class="in-box">
+                      <%= username.username %>
+                    </span>
+                  </div>
+                  <div class="form-sec-row">
+                    <label class="text">Approved at</label>
+                    <span class="in-box">
+                      <%= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
+                    </span>
+                  </div>
+                <%elsif @ict_network.status == "Processed"%>
+                  <% username = User.find(@ict_network.updated_by) %>
+                  <h2 class="b-head"></h2>
+                  <div class="form-sec-row">
+                    <label class="text">Processed by</label>
+                    <span class="in-box">
+                      <%= username.username %>
+                    </span>
+                  </div>
+                  <div class="form-sec-row">
+                    <label class="text">Processed at</label>
+                    <span class="in-box">
+                      <%= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
+                    </span>
+                  </div>
+                <%end%>
 
                 <% if @ict_network.status == "Approved" || @ict_network.status == "Processed" || @ict_network.status == "Declined"%>
                   <h2 class="b-head"></h2>
@@ -166,7 +199,7 @@
                   <div class="form-sec-row">
                     <label class="text">Current Status</label>
                     <span class="in-box">
-                      <%= @ict_network.status %>
+                      <% if @ict_network.status == "New"%><b><font color='#FFA500'><%= "#{@ict_network.status}" %></font></b><% elsif @ict_network.status == "Approved" || @ict_network.status == "Processed"  %>  <b><font color='#329C20'><%= "#{@ict_network.status}" %> </font></b><% elsif @ict_network.status == "Declined" || @ict_network.status == "Returned"  %>  <b><font color='red'><%= "#{@ict_network.status}" %> </font></b><% end %>
                     </span>
                   </div>
 

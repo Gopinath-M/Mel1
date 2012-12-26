@@ -31,6 +31,30 @@
         <div id="div_dept_transfer" >
 
         </div>
+
+      </div>
+
+
+      <div id="div_admin_transfer">
+      </div>
+
+
+      <div id="value_new" style="display:none">
+        <div class="form-sec-row">
+         Choose Department Admin :<br/><br/>
+          <%=hidden_field_tag :username %>
+          <span class="in-box">
+            <%= select(:transfer, :username_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A USER") %>
+          </span>
+        </div>
+
+                <%#*<div class="form-sec-row">%>
+          <%#*Role :<br/><br/>%>
+          <%#=hidden_field_tag :username %>
+          <%#*<span class="in-box">%>
+            <%#= select(:transfer, :role, Role.where("id != ?", 1).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A ROLE") %>
+          <%#*</span>%>
+        <%#*</div>%>
       </div>
 
       <div class="create-user">
