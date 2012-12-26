@@ -36,6 +36,7 @@ class ResourcesController < ApplicationController
       @resource = Resource.create(params[:resource])
       @resource.category_id = params[:resource_transport][:category_id]
       @resource.sub_category_id = params[:resource_transport][:sub_category_id]
+      @resource.vehicle_model_type_id = params[:resource_transport][:vehicle_model_type_id]
       @resource.resource_type = params[:resource_type]
     elsif params[:resource_type] =="others"
       @resource = Resource.create(params[:resource])
