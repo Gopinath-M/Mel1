@@ -464,6 +464,49 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
+    $("#role_membership_agency").live("change", function(){
+        if($("#role_membership_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#role_membership_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#role_membership_department_id').find('option').remove().end()
+                    $('#role_membership_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#role_membership_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $('#role_membership_department_id').find('option').remove().end()
+            $('#role_membership_user_id').find('option').remove().end()
+            $('#role_membership_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+        }
+    });
+        $("#role_membership_department_id").live("change",function(){
+        if($("#role_membership_department_id").val()!="")
+        {
+            $.get("/users/transfer/",{
+                department_id: $("#role_membership_department_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#role_membership_user_id').find('option').remove().end()
+                    $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#role_membership_user_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+    });
 
     $("#transfer_from_agency").live("change", function(){
         if($("#transfer_from_agency").val()!="")
