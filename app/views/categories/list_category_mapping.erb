@@ -5,7 +5,7 @@
     <div class="create-user">
       <div class="cu-c1"><a href="/categories/assign_category" title="Map Category"><img src="../images/add_user.jpg" width="17" height="16" alt="img" />Map Category</a></div>
        <div class="cu-c2">Select Department:
-      <%= select("cat_department","id",  Department.active.collect {|dept| [dept.name, dept.id]},:prompt=>"SELECT A DEPARTMENT") %>
+      <%= select("cat_department","id",  Department.active.collect {|dept| [dept.name, dept.id]},:prompt=>"Select Department") %>
     </div>
 
     </div>

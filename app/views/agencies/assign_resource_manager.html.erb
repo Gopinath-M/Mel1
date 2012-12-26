@@ -8,19 +8,19 @@
         <div class="form-sec-row">
           <%= f.label :agency, raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
           <span class="in-box">
-            <%=f.select(:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+            <%=f.select(:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
           </span>
         </div>
         <div class="form-sec-row">
           <%= f.label :department_id, raw("Department <span style=color:red>*</span>"), :class=>"text"%>
           <span class="in-box">
-            <%= f.select(:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+            <%= f.select(:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
           </span>
         </div>
         <div class="form-sec-row">
           <%= f.label :user_id, raw("User <span style=color:red>*</span>"), :class=>"text"%>
           <span class="in-box">
-            <%= f.select(:user_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A USER") %>
+            <%= f.select(:user_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select User") %>
           </span>
         </div>
         <div class="form-sec-row">
