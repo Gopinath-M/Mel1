@@ -105,7 +105,7 @@ module ApplicationHelper
   end
 
   def generic_model_status_counts(model_name, status1, status2)
-    count=model_name.where("department_id = ? and ( status =? || status = ?) ",@current_department, status1, status2).count
+    count=model_name.where("department_id = ? and ( status = ? or status = ?) ",@current_department, status1, status2).count
     return count
   end
   
