@@ -58,19 +58,19 @@ class AgenciesController < ApplicationController
   end
 
   def update_assign_resource_manager
-    from_user =  User.find_by_ic_number(params[:transfer][:username])
-    if from_user
-      agency = Agency.find(params[:transfer_from][:agency])
-      @role_membership = RoleMembership.new(:department_id => 0, :user_id => from_user.id, :role_id => '5', :status => 'A')
+    role_member = RoleMembership.where("user_id = ?  and department_id = ? and role_id = 5 ",params[:role_membership][:user_id],params[:role_membership][:department_id])
+    if role_member && !role_member.empty?
+      render :action => 'assign_resource_manager', :alert => "This user is already a resource manager"
+    else
+      agency = Agency.find(params[:role_membership][:agency])
+      @role_membership = RoleMembership.create(:department_id => params[:role_membership][:department_id],:user_id => params[:role_membership][:user_id], :role_id => '5', :status => 'A')
       if @role_membership.valid?
         @role_membership.save
-        agency.update_attribute(:user_id, from_user.id)
+        agency.update_attribute(:user_id, params[:role_membership][:user_id])
         redirect_to(role_memberships_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
       else
         render :action => 'assign_resource_manager'
       end
-    else
-      redirect_to(role_memberships_agencies_path, :alert => 'Resource Manager cannot be Successfully Assigned.')
     end
   end
 

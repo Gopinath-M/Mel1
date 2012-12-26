@@ -165,7 +165,7 @@
         </div>
         <div class="clear"></div>
         <div class="leftNav-links box">
-          <%if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN)%>
+          <%if (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN)%>
             <h2>Management Tools</h2>
             <ul>
               <%if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN)%>
@@ -342,7 +342,7 @@
                   -->
                   <div class="clear"></div>
                 <%end%>
-                <%if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN %>
+                <%if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN%>
                   <li class="menu-item">
                     <%=link_to "ICT Equipment Booking", "javascript:void(0);" , :title=>"ICT Equipment Booking" ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
                     <div id ="div_resource_ict_bookings" style="display:none;">
@@ -379,6 +379,8 @@
                       </ul>
                     </div>
                   </li>
+                  <%end%>
+                  <%if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN%>
                   <li class="menu-item">
                     <%=link_to "Complaints / Issue Logs", "javascript:void(0);" , :title=>"Complaints / Issue Logs" ,:class=>"", :id=>"lnk_complaints_issue_logs" ,:onclick=>"leftNavigation(this.id,'div_complaints_issue_logs')"%>
                     <div id ="div_complaints_issue_logs" style="display:none;">
@@ -484,7 +486,7 @@
                     </ul>
                   </div>
                 </li>
-                <%if current_user && (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN)%>
+                <%if current_user && (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN)%>
                   <li class="menu-item"> <%=link_to t('left_nav.vendors'), "javascript:void(0);" , :title=>t('left_nav.vendors') ,:class=>"", :id=>"lnk_vendors" ,:onclick=>"leftNavigation(this.id,'div_vendors')"%>
                     <div id ="div_vendors" style="display:none;">
                       <ul>

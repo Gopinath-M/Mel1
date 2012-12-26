@@ -107,21 +107,25 @@
         <div class="form-sec-row">
           <%= label_tag :role_id, raw("Role"), :class=>"text" %>
           <span class="in-box">
-            <%= select("role", "id", Role.find(:all,:conditions=>["name != 'Super Admin' and name != 'Department Admin'"]).collect {|role| [role.name, role.id]},:prompt=>"SELECT A ROLE") %>
+            <%= select("role", "id", Role.where("name in (?)",[DISP_USER_ROLE_DEPT_USER,DISP_USER_ROLE_RESOURCE_MANAGER]).collect {|role| [role.name, role.id]},:prompt=>"SELECT A ROLE") %>
           </span>
         </div>
         <div class="form-sec-row">
           <%= label_tag "users_agency", raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
           <span class="in-box">
-            <%department=Department.find(current_department)%>
+            <%  department = Department.find(@current_department)%>
             <%agency = Agency.find(department.agency_id) %>
-            <%= select("users","agency_id",  Agency.find_all_by_id(department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+            <%=department.agency.name%>
+            <%=  text_field_tag 'users[agency_id]', department.agency_id%>
+            <%#= select("users","agency_id",  Agency.find_all_by_id(department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
           </span>
         </div>
         <div class="form-sec-row">
           <%= label_tag "users_department", raw("Department <span style=color:red>*</span>"), :class=>"text"%>
           <span class="in-box">
-            <%= select("users","department", current_user.departments.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+            <%=department.name%>
+            <%=text_field_tag 'users[department]', department.id%>
+            <%#= select("users","department", current_user.departments.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
           </span>
         </div>
         <div id="unit_display" style="display:none">
