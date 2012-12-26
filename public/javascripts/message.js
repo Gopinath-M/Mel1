@@ -1,4 +1,42 @@
 $().ready(function(){
+	
+	$("#vehicle_model_type_id").live("change", function(){
+    if($("#vehicle_model_type_id").val()!= "")
+      {
+            $.get("/resource_transportation_bookings/get_vehicles",{
+                vehicle_model_type_id : $("#vehicle_model_type_id").val()                
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#vehicle_id').find('option').remove().end()                   
+                    $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#vehicle_id').append($("<option></option>").attr("value",data[0][i].resource.resource_id).text(data[0][i].resource.vehicle_model +' : '+ data[0][i].resource.resource_no));
+                    }
+                }
+            })
+        }
+    });
+	
+	$("#resource_transport_sub_category_id").live("change", function(){
+    if($("#resource_transport_sub_category_id").val()!="")
+      {
+            $.get("/resource_transportation_bookings/get_vehicle_brands",{
+                sub_category_id : $("#resource_transport_sub_category_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#resource_transport_vehicle_model_type_id').find('option').remove().end()                   
+                    $('#resource_transport_vehicle_model_type_id').append($("<option></option>").attr("value","").text("Select a Vehicle Brand"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#resource_transport_vehicle_model_type_id').append($("<option></option>").attr("value",data[0][i].vehicle_model_type.id).text(data[0][i].vehicle_model_type.name));
+                    }
+                }
+            })
+        }
+    });
     
     $("#post_message").live("click", function(){
         if($("#message_user_select").val() == "Sort by")
@@ -234,5 +272,44 @@ function validateMessageForm(e){
       return false;
     }
   }
+  
+  /* Validating Transport Request Approval Form */
+
+function validate_request_approval_form(){
+    if($("#approve_status").val() == "Declined"){
+        var r = confirm("You want to Decline this Request. Continue ?");
+        if (r == false)
+        {
+            return false;
+        }
+    }
+    else if ($("#approve_status").val() == "New"){
+        var r = confirm("You didn't Approve this request. Continue ?");
+        if (r== false)
+        {
+            return false;
+        }
+    }
+    else if ($("#approve_status").val() == "Approved"){
+    	
+    	if ($("#vehicle_model_type_id").val() == "Select a Brand"){
+            alert("Please Select the Brand");
+            return false;
+        }    	
+        else if ($("#vehicle_id").val() == "Select a Vehicle"){
+            alert("Please Select the Vehicle");
+            return false;
+        }
+    }
+    else if ($("#approve_status").val() == "Returned"){
+        var r = confirm("You want to Return this Request. Continue ?")
+        if (r == false)
+        {
+            return false;
+        }
+    }
+}
+
+
 
 
