@@ -6,8 +6,9 @@ class CreateResourceRoomBookings < ActiveRecord::Migration
       t.references :agency_store
       t.references :user
       t.references :department
-      t.string :requested_from_date
-      t.string :requested_to_date
+      t.integer :updated_by
+      t.timestamp :requested_from_date
+      t.timestamp :requested_to_date
       t.boolean :user_returned_status
       t.integer :room_capacity
       t.string :purpose

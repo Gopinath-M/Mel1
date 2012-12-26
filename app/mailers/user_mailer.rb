@@ -28,7 +28,7 @@ class UserMailer < ActionMailer::Base
   end
 
  
- def ict_software(ict_email, ict_vpn, requisition_ict_software, requisition_user)
+  def ict_software(ict_email, ict_vpn, requisition_ict_software, requisition_user)
     @user = ict_email
     @ict_vpn = ict_vpn
     @requisition_ict_vpn = requisition_ict_software
@@ -36,7 +36,7 @@ class UserMailer < ActionMailer::Base
     mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded request for ICT - #{@requisition_ict_vpn.name} Booking")
   end
 
-def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_ict_vpn, requisition_user)
+  def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_ict_vpn, requisition_user)
     @user = ict_email
     @ict_vpn = ict_vpn
     @requisition_ict_vpn = requisition_ict_vpn
@@ -75,9 +75,9 @@ def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_
   end
 
   def send_mail_to_approver1(user,dept_admin,department)
-     @user=user
-     @dept_admin = dept_admin
-     @department=department
+    @user=user
+    @dept_admin = dept_admin
+    @department=department
     mail(:to=>@user.email,:subject =>" #{@dept_admin.username} has assigned you #{@user.username}! as a Approver First. ")
   end
 
@@ -131,19 +131,19 @@ def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_
   end
 
 
-#  ict_hardware
+  #  ict_hardware
 
   #  ict_hardware
-   def send_mail_to_dept_admin_for_ict_hardware(user, ict_hardware_booking, dept)
+  def send_mail_to_dept_admin_for_ict_hardware(user, ict_hardware_booking, dept)
     @user=user
     @ict_hardware_booking=ict_hardware_booking
     @department=dept
-     mail(:to=>@user.email,:subject =>" Details of ICT Hardware")
+    mail(:to=>@user.email,:subject =>" Details of ICT Hardware")
   end
 
 
 
-   def send_status_mail_for_ict_hardware(user,ordered_user,ict_hardware,ict_hardware_booked_user)
+  def send_status_mail_for_ict_hardware(user,ordered_user,ict_hardware,ict_hardware_booked_user)
     @user=user
     @ordered_user=ordered_user
     @ict_hardware_booking=ict_hardware
@@ -154,14 +154,14 @@ def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_
 
 
 
-   def send_mail_to_approver_for_ict_hardware(user, ict_hardware_booking, dept)
+  def send_mail_to_approver_for_ict_hardware(user, ict_hardware_booking, dept)
     @user=user
     @ict_hardware_booking=ict_hardware_booking
     @department=dept
     mail(:to=>@user.email,:subject =>" Details of ICT Network Point")
   end
 
-#ict_hardware end
+  #ict_hardware end
   def send_mail_to_approver_for_room_booking(user,resource_room_booking,dept)
     @user=user
     @requisition= resource_room_booking
@@ -176,13 +176,21 @@ def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_
     mail(:to=>@user.email,:subject =>" Details of Resource Room Booking")
   end
 
-  def send_status_mail_for_room_booking(user,ordered_user,room)
+  def send_status_mail_ordered_user_for_room_booking(user,ordered_user,room)
     @user=user
     @ordered_user=ordered_user
     @requisition=room
-    mail(:to=>@user.email,:subject =>" Resource Room Bookking Status Update",:bcc=>@ordered_user.email)
+    mail(:to=>@ordered_user.email,:subject =>" Resource Room Bookking Status Update")
   end
-   def send_mail_to_approver_others_for_booking(user,resource_booking,dept)
+
+  def send_status_mail_resource_manager_for_room_booking(user,ordered_user,room)
+    @user=user
+    @ordered_user=ordered_user
+    @requisition=room
+    mail(:to=>@user.email,:subject =>" Resource Room Bookking Status Update")
+  end
+  
+  def send_mail_to_approver_others_for_booking(user,resource_booking,dept)
     @user=user
     @requisition= resource_booking
     @department = dept
@@ -196,7 +204,7 @@ def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_
     mail(:to=>@user.email,:subject =>" Details of Others Resource Booking")
   end
 
-   def send_mail_to_dept_admin_for_ict_software(user,requisition,software_installation,dept)
+  def send_mail_to_dept_admin_for_ict_software(user,requisition,software_installation,dept)
     @user=user
     @requisition=requisition
     @department=dept
@@ -218,7 +226,7 @@ def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_
     @requisition=room
     mail(:to=>@user.email,:subject =>"Others Resource Booking Status Update",:bcc=>@ordered_user.email)
   end
-   def send_mail_to_approver_for_ict_equipment_booking(user,ict_equipment_booking,dept)
+  def send_mail_to_approver_for_ict_equipment_booking(user,ict_equipment_booking,dept)
     @user=user
     @requisition= ict_equipment_booking
     @department = dept
@@ -238,4 +246,15 @@ def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_
     @resource_ict_equipment_booking =ict_booking
     mail(:to=>@user.email,:subject =>"Ict Equipment Booking Update",:bcc=>@ordered_user.email)
   end
+
+  def timeline_expire_mail_to_approver(user)
+    @user = user
+    mail(:to=>@user.email,:subject =>"Timeline Expire Intimation")
+  end
+
+  def timeline_expire_mail_to_approver(user)
+    @user = user
+    mail(:to=>@user.email,:subject =>"Timeline Expire Intimation")
+  end
+  
 end

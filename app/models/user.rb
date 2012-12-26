@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   #  attr_accessor :agency
   #  validates :agency,  :presence => true, :if=>Proc.new{|u| u.id!=1}
   #Scopes
-  scope :active, where(:deleted => false)
+  scope :active, where(:deleted => false, :status => 'Active')
 
   #  define_index do
   #    indexes :username,  :sortable => true
