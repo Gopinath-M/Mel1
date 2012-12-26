@@ -21,18 +21,18 @@ class ResourceTransportationBookingsController < ApplicationController
   end
   
   def get_booked_and_available_vehicles
-    booked_vehicles = Resource.find_by_sql "SELECT * FROM `resources` INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+    booked_vehicles = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
                                             WHERE agency_stores.booked = true
                                             AND resources.vehicle_model_type_id =#{params[:vehicle_model_type_id]}"
                                             
-    available_vehicles = Resource.find_by_sql "SELECT * FROM `resources` INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
-                                               WHERE agency_stores.booked = false
-                                               AND resources.vehicle_model_type_id =#{params[:vehicle_model_type_id]}"                                         
+    available_vehicles = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                               WHERE agency_stores.booked = false AND
+                                               resources.vehicle_model_type_id=#{params[:vehicle_model_type_id]}"                                         
     render :json =>{ :booked => booked_vehicles, :available => available_vehicles} 
   end
   
   def get_vehicles    
-    vehicles = Resource.find_by_sql "SELECT * FROM `resources` INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+    vehicles = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
                                      WHERE agency_stores.booked = false
                                      AND agency_stores.agency_id =#{current_user.departments[0].agency.id}
                                      AND resources.vehicle_model_type_id =#{params[:vehicle_model_type_id]}"
@@ -74,7 +74,7 @@ class ResourceTransportationBookingsController < ApplicationController
       @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
               
         if @approve.present?
-          UserMailer.send_mail_to_dept_admin_for_transport_booking(@approve,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
+          UserMailer.send_mail_to_dept_admin_for_transport_booking(@approve,@resource_transportation_booking, @resource_transportation_booking.department_id ).deliver
           #Stalker.enqueue("#{SPREFIX}.transport.booking", :booking_id => @resource_transportation_booking.id, :user=> @approve.user_id)
         elsif @approve_second.present?
           UserMailer.send_mail_to_dept_admin_for_transport_booking(@approve_second,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
@@ -82,7 +82,7 @@ class ResourceTransportationBookingsController < ApplicationController
         else
           dept = Department.find_by_id(params[:department_id])
           user = dept.users.where("role_id = 2").first
-          UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
+          #UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
           #Stalker.enqueue("#{SPREFIX}.transport.booking", :booking_id => @resource_transportation_booking.id, :user=> user.id)
         end
       end
@@ -163,8 +163,7 @@ class ResourceTransportationBookingsController < ApplicationController
   # Retrieving Driver Details
   def get_driver_details
     @resource = Resource.find(params[:id])
-    @driver = Driver.find(AgencyStore.find_by_resource_id(params[:id]).driver_id)
-    
+    @driver = Driver.find(AgencyStore.find_by_resource_id(params[:id]).driver_id)  
     render :layout => false
   end
 
