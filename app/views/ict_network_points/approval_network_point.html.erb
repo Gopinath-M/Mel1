@@ -232,7 +232,7 @@
                     <%@users = @dept.users%>
                     <label class="text"> <%= f.label :person_incharge,raw("Person Incharge"), :class=>"text"%></label>
                     <span class="in-box">
-                      <%= f.select(:person_incharge, @users.collect {|p| [ p.username, p.id ] },:prompt => "SELECT A USER") %>
+                      <%= f.select(:person_incharge, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
                     </span>
                   </div>
                   <div class="form-sec-row">
@@ -258,8 +258,8 @@
                         <th width="20%"><b>Action</b></th>
                       </tr>
                       <tr>
-                        <td><%= f.select(:hardware_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A HARDWARE") %></td>
-                        <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A HARDWARE") %></td>
+                        <td><%= f.select(:hardware_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
+                        <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
                         <td><b>&nbsp;<%=f.text_field :hardware_quantity, :class=> "size-quan-box-ict"%></b></td>
                         <td id="req_type_network"><b class="btn2">Install</b></td>
                         <td id="req_type_purchase"style="display:none;"><b class="btn2">Purchase</b></td>
@@ -278,7 +278,7 @@
                   <div class="form-sec-row">
                     <label class="text"> <%= f.label :center_id,raw("Location Center"), :class=>"text"%></label>
                     <span class="in-box">
-                      <%= f.select(:center_id, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "SELECT A STATE")%>
+                      <%= f.select(:center_id, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select State")%>
                     </span>
                   </div>
 

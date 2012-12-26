@@ -11,9 +11,9 @@
       <label class="text">First Approver<span style=color:red>*</span></label>
       <span class="in-box">
         <% if @first.present? %>
-          <%= select("approver1","id", @users.collect {|p| [ p.first_name, p.id ] },:selected => @first.id, :prompt => "SELECT A USER") %>      </span>
+          <%= select("approver1","id", @users.collect {|p| [ p.first_name, p.id ] },:selected => @first.id, :prompt => "Select User") %>      </span>
       <%else%>
-          <%= select("approver1","id", @users.collect {|p| [ p.first_name, p.id ] },:prompt => "SELECT A USER") %>      </span>
+          <%= select("approver1","id", @users.collect {|p| [ p.first_name, p.id ] },:prompt => "Select User") %>      </span>
         <%end%>
     </div>
 
@@ -32,9 +32,9 @@
       <label class="text">Second Approver<span style=color:red>*</span></label>
       <span class="in-box">
         <% if @second.present? %>
-          <%= select("approver2","id", @users.collect {|p| [ p.first_name, p.id ] },:selected => @second.id, :prompt => "SELECT A USER") %>      </span>
+          <%= select("approver2","id", @users.collect {|p| [ p.first_name, p.id ] },:selected => @second.id, :prompt => "Select User") %>      </span>
       <%else%>
-          <%= select("approver2","id", @users.collect {|p| [ p.first_name, p.id ] },:prompt => "SELECT A USER") %>      </span>
+          <%= select("approver2","id", @users.collect {|p| [ p.first_name, p.id ] },:prompt => "Select User") %>      </span>
         <%end%>
     </div>
 

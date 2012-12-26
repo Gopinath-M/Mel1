@@ -15,7 +15,7 @@
       <div class="form-sec-row">
         <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
         <span class="in-box">
-          <%= select(:transfer,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"SELECT AN AGENCY") %>
+          <%= select(:transfer,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"Select Agency") %>
           <br/><br/>
         </span>
       </div>
@@ -24,10 +24,10 @@
       <%= label_tag :department_id, raw("Department"), :class=>"text"%>
       <span class="in-box">
         <%if current_user.is_super_admin? %>
-          <%= select(:standard4,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+          <%= select(:standard4,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
         <%else%>
 
-          <%= select(:standard4,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
+          <%= select(:standard4,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "Select Department") %>
 
         <%end%>
       </span>
@@ -38,7 +38,7 @@
         <div class="form-sec-row">
           <%= label_tag "users_unit",raw("Unit"), :class=>"text"%>
           <span class="in-box">
-            <%= select("users_id","unit", Unit.active.where("department_id=?", params[:department]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT AN UNIT") %>
+            <%= select("users_id","unit", Unit.active.where("department_id=?", params[:department]).collect {|p| [ p.name, p.id ] },:prompt => "Select Unit") %>
           </span>
         </div>
       </div>

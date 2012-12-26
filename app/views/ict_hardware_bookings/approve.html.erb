@@ -101,7 +101,7 @@
             <%users = dept.users%>
             <label class="text"> <%= f.label :forward_to,raw("Forward To"), :class=>"text"%></label>
             <span class="in-box">
-              <%= f.select(:forward_to, users.collect {|p| [ p.username, p.id ] },:prompt => "SELECT A USER") %>
+              <%= f.select(:forward_to, users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
             </span>
           </div>
           <div class="form-sec-row">

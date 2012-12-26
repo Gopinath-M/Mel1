@@ -9,13 +9,13 @@
     <div class="form-sec-row">
       <%= label_tag "id_agency", raw("Agency"), :class=>"text" %>
       <span class="in-box">
-        <%= select("id","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+        <%= select("id","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
       <br/><br/>
       </span>
    
       <%= label_tag :department_id,raw("Department"), :class=>"text"%>
       <span class="in-box">
-        <%=select(:standard1,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+        <%=select(:standard1,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
       </span>
     </div>
     <%=hidden_field_tag :department_id, ""%>

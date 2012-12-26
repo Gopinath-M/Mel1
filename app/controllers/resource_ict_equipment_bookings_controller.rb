@@ -59,10 +59,10 @@ class ResourceIctEquipmentBookingsController < ApplicationController
           render :action=>'new'
         end
       else
-        redirect_to(new_resource_ict_equipment_booking_path, :alert => "You can't book already booked ICT Equipment, Please try other.")
+        render :action=>'new' , :alert => "You can't book already booked ICT Equipment, Please try other."
       end
     else
-      redirect_to(new_resource_ict_equipment_booking_path, :alert => "Resource selected is not available in your Store.")
+      render :action=>'new' , :alert => "Resource selected is not available in your Store."
     end
   end
 

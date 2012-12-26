@@ -6,7 +6,7 @@
   });
 
   $("#driver_name").live("change",function(){
-    if ($("#driver_name").val() != 'SELECT A VEHICLE')
+    if ($("#driver_name").val() != 'Select a Vehicle')
     {
       $('#alternate').hide();      
       $('#changed_driver').text($("#driver_name").val()).css("font-weight", "bold");
@@ -202,7 +202,7 @@
                           </div>
 
                           <div id="alternate">
-                            <%= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"SELECT A DRIVER"})%>
+                            <%= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"Select Driver"})%>
                           </div>
 
                           <div id="changed_driver">
@@ -245,7 +245,7 @@
                       <% b = Resource.find(:all,:conditions=>["id in (#{a})"]).collect(&:vehicle_model_type_id).uniq.join(',') %>
                       <% if !b.blank? %>
                         <td>
-                          <%= select("vehicle","model_type_id", options_from_collection_for_select(VehicleModelType.find(:all,:conditions=>["id in (#{b})"]),'id',"name"),{:prompt=>"Select a Brand"})%>
+                          <%= select("vehicle","model_type_id", options_from_collection_for_select(VehicleModelType.find(:all,:conditions=>["id in (#{b})"]),'id',"name"),{:prompt=>"Select Brand"})%>
                         </td>
                       <%end%>
                       </div>
@@ -258,7 +258,7 @@
                       <% if !a.blank? %>
                         <td>                          
                           <%#= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"Select a Vehicle"})%>
-                          <%= select("vehicle","id", options_from_collection_for_select(VehicleModelType.where("sub_category_id = ?",params[:sub_category_id]).active, 'id','name'),{:prompt=>"Select a Vehicle"})%>
+                          <%= select("vehicle","id", options_from_collection_for_select(VehicleModelType.where("sub_category_id = ?",params[:sub_category_id]).active, 'id','name'),{:prompt=>"Select Vehicle"})%>
                         </td>
                       <%end%>
                       </div>

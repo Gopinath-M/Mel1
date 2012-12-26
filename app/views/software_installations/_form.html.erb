@@ -15,7 +15,7 @@
   <div class="form-sec-row">
     <label class="text">Software Name<span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.select(:facility_ict_software_id, FacilityIctSoftware.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A SOFTWARE", :style=> "width:132%;") %>
+      <%= f.select(:facility_ict_software_id, FacilityIctSoftware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Software", :style=> "width:132%;") %>
     </span>
   </div>
   <div class="form-sec-row">

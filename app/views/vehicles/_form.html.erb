@@ -6,14 +6,14 @@
     <div class="form-sec-row">
       <%= f.label :vehicle_type_id, :class=>"text"%>
       <span class="in-box">
-        <%= f.select(:vehicle_type_id,options_from_collection_for_select(VehicleType.all, 'id','name' ), :prompt => "SELECT TYPE")%>
+        <%= f.select(:vehicle_type_id,options_from_collection_for_select(VehicleType.all, 'id','name' ), :prompt => "Select Type")%>
       </span>
     </div>
 
     <div class="form-sec-row">
       <%= f.label :driver_id, :class=>"text"%>
       <span class="in-box">
-        <%= f.select(:driver_id,options_from_collection_for_select(Driver.all, 'id','name' ), :prompt => "SELECT DRIVER")%>
+        <%= f.select(:driver_id,options_from_collection_for_select(Driver.all, 'id','name' ), :prompt =>"Select Driver")%>
       </span>
     </div>
 
