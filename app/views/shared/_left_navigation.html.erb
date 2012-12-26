@@ -49,7 +49,7 @@
                       <%= link_to "Approve Room Request", list_resource_booking_resource_room_bookings_path %>
                     </li>
                   <%end%>
-                  <li><a href="javascript:void(0);" title="<%=t('left_nav.user_transfer_request')%>"><%=t('left_nav.user_transfer_request')%></a></li>
+                <!--li><a href="javascript:void(0);" title="<%#=t('left_nav.user_transfer_request')%>"><%#=t('left_nav.user_transfer_request')%></a></li-->
                   <%if session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN%>
                     <li>
                       <span class="notifiNo"><%= resource_room_new_count>0 ? resource_room_new_count : '' %></span>
@@ -154,13 +154,13 @@
                 </ul>
               </div>
             </li>
-            <%#if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN)%>
+  <%#if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN)%>
               <!--li><a href="javascript:void(0);" title="<%#=t('left_nav.complaints')%>"><span class="notifiNo"></span><%#=t('left_nav.complaints')%></a></li>
               <li><a href="javascript:void(0);" title="<%#=t('left_nav.resource_requisition')%>"><%#=t('left_nav.resource_requisition')%></a></li>
               <li><a href="javascript:void(0);" title="<%#=t('left_nav.issue_log')%>"><%#=t('left_nav.issue_log')%></a></li>
               <li><a href="javascript:void(0);" title="<%#=t('left_nav.change_requests')%>"><%#=t('left_nav.change_requests')%></a></li>
               <li><a href="javascript:void(0);" title="<%#=t('left_nav.canceled_requests')%>"><%#=t('left_nav.canceled_requests')%></a></li-->
-            <%#end%>
+  <%#end%>
           </ul>
         </div>
         <div class="clear"></div>
@@ -501,7 +501,7 @@
       <%# if  session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN  %>
       <%#*<li>%>
       <%# support_count = Outstation.where(:status=>"New").count  %>
-                        <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+                      <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
       <%#=link_to "Verify Request", approve_request_outstations_path%>
       <%#*</li>%>
       <%#end%>
@@ -519,6 +519,39 @@
           <%else%>
             <h2>Department Info</h2>
             <ul>
+              <% if session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER %>
+                <li class="menu-item">
+                  <%=link_to "Process Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests" ,:onclick=>"leftNavigation(this.id,'div_approve_requests')"%>
+                  <div id ="div_approve_requests" style="display:none;">
+                    <ul>
+                      <li>
+                        <span class="notifiNo">
+                          <% transport_count = generic_model_status_counts(ResourceTransportationBooking,'Approved','Declined') %>
+                          <%=  transport_count > 0 ? transport_count : ''%>
+                        </span>
+                        <%=link_to "Travel Request",approve_request_resource_transportation_bookings_path%>
+                      </li>
+                      <li>
+                        <span class="notifiNo">
+                          <% ict_resource_count = generic_model_status_counts(ResourceIctEquipmentBooking,'Approved','Declined') %>
+                          <%= ict_resource_count > 0 ? ict_resource_count : ''%>
+                        </span>
+                        <%=link_to "ICT Equipment Request", requests_resource_ict_equipment_bookings_path %>
+                      </li>
+                      <li>
+                        <% room_resource_count = generic_model_status_counts(ResourceRoomBooking,'Approved','Declined') %>
+                        <span class="notifiNo"><%=room_resource_count > 0 ? room_resource_count : ''%></span>
+                        <%=link_to "Room Request", list_resource_booking_resource_room_bookings_path %>
+                      </li>
+                      <li>
+                        <% room_resource_count = generic_model_status_counts(ResourceBooking,'Approved','Declined') %>
+                        <span class="notifiNo"><%=  room_resource_count >0 ? room_resource_count : '' %></span>
+                        <%=link_to "Other Request", list_resource_booking_resource_bookings_path %>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              <%end%>
               <%if current_user && (session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_USER)%>
                 <li class="menu-item">
                   <%=link_to "ICT Equipment Booking", "javascript:void(0);" , :title=>"ICT Equipment Booking" ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
@@ -606,39 +639,7 @@
                     </li>
                   <%end%>
                 <%end%>
-                <% if session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER %>
-                  <li class="menu-item">
-                    <%=link_to "Process Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests" ,:onclick=>"leftNavigation(this.id,'div_approve_requests')"%>
-                    <div id ="div_approve_requests" style="display:none;">
-                      <ul>
-                        <li>
-                          <span class="notifiNo">
-                            <% transport_count = generic_model_status_counts(ResourceTransportationBooking,'Approved','Declined') %>
-                            <%=  transport_count > 0 ? transport_count : ''%>
-                          </span>
-                          <%=link_to "Travel Request",approve_request_resource_transportation_bookings_path%>
-                        </li>
-                        <li>
-                          <span class="notifiNo">
-                            <% ict_resource_count = generic_model_status_counts(ResourceIctEquipmentBooking,'Approved','Declined') %>
-                            <%= ict_resource_count > 0 ? ict_resource_count : ''%>
-                          </span>
-                          <%=link_to "ICT Equipment Request", requests_resource_ict_equipment_bookings_path %>
-                        </li>
-                        <li>
-                          <% room_resource_count = generic_model_status_counts(ResourceRoomBooking,'Approved','Declined') %>
-                          <span class="notifiNo"><%=room_resource_count > 0 ? room_resource_count : ''%></span>
-                          <%=link_to "Room Request", list_resource_booking_resource_room_bookings_path %>
-                        </li>
-                        <li>
-                          <% room_resource_count = generic_model_status_counts(ResourceBooking,'Approved','Declined') %>
-                          <span class="notifiNo"><%=  room_resource_count >0 ? room_resource_count : '' %></span>
-                          <%=link_to "Other Request", list_resource_booking_resource_bookings_path %>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                <%end%>
+
                 <%if current_user && (session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_USER)%>
                   <li><a href="javascript:void(0);" title="Department details">Department details</a></li>
                 <%end%>
