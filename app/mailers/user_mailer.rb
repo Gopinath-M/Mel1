@@ -256,5 +256,18 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail(:to=>@user.email,:subject =>"Timeline Expire Intimation")
   end
+
+    def send_mail_to_dept_admin_for_transport_booking(user,resource_transport_booking,dept)
+    @user=user
+    @requisition= resource_transport_booking
+    @department = dept
+    mail(:to=>@user.email,:subject =>" Details of Resource Transport Booking")
+  end
+
+  def send_mail_to_user_for_transport_booking(user,resource_transport_booking)
+    @user=user
+    @requisition= resource_transport_booking    
+    mail(:to=>@user.email,:subject =>"Your Transport Booking Request was #{@requisition.status}")
+  end
   
 end
