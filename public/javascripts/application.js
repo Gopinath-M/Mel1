@@ -67,7 +67,7 @@ function  getResourceforSubcategory(category_id, resource_id)
             if (data[0]!=null && data[0]!="")
             {
                 $('#'+resource_id).find('option').remove().end()
-                $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                $('#'+resource_id).append($("<option></option>").attr("value","").text("Select Resource"));
                 if(resource_id=="resource_ict_equipment_booking_resource_id")
                 {
                     for(var i=0; i<data[0].length;i++)
@@ -108,7 +108,7 @@ function  getResourceforSubcategory(category_id, resource_id)
                     if (data[0]!=null && data[0]!="")
                     {
                         $('#'+resource_id).find('option').remove().end()
-                        $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                        $('#'+resource_id).append($("<option></option>").attr("value","").text("Select Resource"));
                         if(resource_id=="resource_ict_equipment_booking_resource_id")
                         {
                             $("#lb_resource").text("Other Agency Resource")
@@ -146,7 +146,7 @@ function  getResourceforSubcategory(category_id, resource_id)
     }
     else{
         $('#'+resource_id).find('option').remove().end()
-        $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+        $('#'+resource_id).append($("<option></option>").attr("value","").text("Select Resource"));
     }
 }
 function getAgencyforResource(resource_id, agency_id)
@@ -159,7 +159,7 @@ function getAgencyforResource(resource_id, agency_id)
             if (data[0]!=null)
             {
                 $('#'+agency_id).find('option').remove().end()
-                $('#'+agency_id).append($("<option></option>").attr("value","").text("SELECT A EQUIPMENT CATEGORY TYPE"));
+                $('#'+agency_id).append($("<option></option>").attr("value","").text("Select Equipment Category Type"));
                 $.each(data[0], function(key, val) {
                     $('#'+agency_id).append($("<option></option>").attr("value",key).text(val));
                 });
@@ -173,7 +173,7 @@ function getAgencyforResource(resource_id, agency_id)
     }
     else{
         $('#'+agency_id).find('option').remove().end()
-        $('#'+agency_id).append($("<option></option>").attr("value","").text("SELECT A EQUIPMENT CATEGORY TYPE"));
+        $('#'+agency_id).append($("<option></option>").attr("value","").text("Select Equipment Category Type"));
     }
 }
 $().ready(function(){
@@ -325,8 +325,8 @@ $().ready(function(){
                 {
                     $('#users_department').find('option').remove().end()
                     $('#users_unit').find('option').remove().end()
-                    $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
-                    $('#users_department').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#users_unit').append($("<option></option>").attr("value","").text("Select Unit"));
+                    $('#users_department').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_department').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -338,8 +338,8 @@ $().ready(function(){
         {
             $('#users_department').find('option').remove().end()
             $('#users_unit').find('option').remove().end()
-            $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
-            $('#users_department').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#users_unit').append($("<option></option>").attr("value","").text("Select Unit"));
+            $('#users_department').append($("<option></option>").attr("value","").text("Select Department"));
         }
     });
     /*Update Unit based on  Department*/
@@ -353,7 +353,7 @@ $().ready(function(){
                 {
                     $("#unit_display").show();
                     $('#users_unit').find('option').remove().end()
-                    $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    $('#users_unit').append($("<option></option>").attr("value","").text("Select Unit"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
@@ -376,7 +376,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#standard1_department_id').find('option').remove().end()
-                    $('#standard1_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#standard1_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
 
@@ -389,7 +389,7 @@ $().ready(function(){
         {
 
             $('#standard1_department_id').find('option').remove().end()
-            $('#standard1_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#standard1_department_id').append($("<option></option>").attr("value","").text("Select Department"));
             $.get("/units/",{
                 department_id: $("#standard1_department_id").val()
             }, function(data){
@@ -417,7 +417,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#unit_department_id').find('option').remove().end()
-                    $('#unit_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#unit_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#unit_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -427,7 +427,7 @@ $().ready(function(){
         }
         else{
             $('#unit_department_id').find('option').remove().end()
-            $('#unit_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#unit_department_id').append($("<option></option>").attr("value","").text("Select Department"));
         }
 
     });
@@ -445,7 +445,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transfer_username').find('option').remove().end()
-                    $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    $('#transfer_username').append($("<option></option>").attr("value","").text("Select User"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transfer_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -465,7 +465,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transfer_username_id').find('option').remove().end()
-                    $('#transfer_username_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    $('#transfer_username_id').append($("<option></option>").attr("value","").text("Select User"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transfer_username_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -494,7 +494,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#role_membership_department_id').find('option').remove().end()
-                    $('#role_membership_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#role_membership_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#role_membership_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -506,8 +506,8 @@ $().ready(function(){
         {
             $('#role_membership_department_id').find('option').remove().end()
             $('#role_membership_user_id').find('option').remove().end()
-            $('#role_membership_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
-            $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+            $('#role_membership_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+            $('#role_membership_user_id').append($("<option></option>").attr("value","").text("Select User"));
         }
     });
     $("#role_membership_department_id").live("change",function(){
@@ -519,7 +519,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#role_membership_user_id').find('option').remove().end()
-                    $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    $('#role_membership_user_id').append($("<option></option>").attr("value","").text("Select User"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#role_membership_user_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -538,7 +538,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#from_department_id').find('option').remove().end()
-                    $('#from_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#from_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#from_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -550,8 +550,8 @@ $().ready(function(){
         {
             $('#from_department_id').find('option').remove().end()
             $('#transfer_username').find('option').remove().end()
-            $('#from_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
-            $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+            $('#from_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+            $('#transfer_username').append($("<option></option>").attr("value","").text("Select User"));
         }
     });
 
@@ -564,7 +564,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#to_department_id').find('option').remove().end()
-                    $('#to_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#to_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#to_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -575,7 +575,7 @@ $().ready(function(){
         else
         {
             $('#to_department_id').find('option').remove().end()
-            $('#to_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#to_department_id').append($("<option></option>").attr("value","").text("Select Department"));
         }
     });
 
@@ -716,7 +716,7 @@ $().ready(function(){
                 {
                     $("#unit_from_hide").show();
                     $('#users_id_unit').find('option').remove().end()
-                    $('#users_id_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    $('#users_id_unit').append($("<option></option>").attr("value","").text("Select Unit"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_id_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
@@ -768,7 +768,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#standard4_department_id').find('option').remove().end()
-                    $('#standard4_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#standard4_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#standard4_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -779,7 +779,7 @@ $().ready(function(){
         else
         {
             $('#standard4_department_id').find('option').remove().end()
-            $('#standard4_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#standard4_department_id').append($("<option></option>").attr("value","").text("Select Department"));
             $.get("/users/",{
                 department_id: $("#standard4_department_id").val()
             }, function(data){
@@ -871,7 +871,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#resource_category_department_id').find('option').remove().end()
-                    $('#resource_category_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#resource_category_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#resource_category_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -903,7 +903,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#resource_sub_category_id').find('option').remove().end()
-                    $('#resource_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#resource_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#resource_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -913,7 +913,7 @@ $().ready(function(){
         }
         else{
             $('#resource_sub_category_id').find('option').remove().end()
-            $('#resource_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+            $('#resource_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
         }
 
     });
@@ -928,7 +928,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transfer_unit_username').find('option').remove().end()
-                    $('#transfer_unit_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    $('#transfer_unit_username').append($("<option></option>").attr("value","").text("Select User"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transfer_unit_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -976,7 +976,7 @@ $().ready(function(){
                 if (data[0] != null)
                 {
                     $('#users_unit').find('option').remove().end()
-                    $('#users_unit').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    $('#users_unit').append($("<option></option>").attr("value","").text("Select Unit"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#users_unit').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
@@ -995,7 +995,7 @@ $().ready(function(){
                 if (data[0]!= null)
                 {
                     $('#to_unit_id').find('option').remove().end()
-                    $('#to_unit_id').append($("<option></option>").attr("value","").text("SELECT AN UNIT"));
+                    $('#to_unit_id').append($("<option></option>").attr("value","").text("Select Unit"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#to_unit_id').append($("<option></option>").attr("value",data[0][i].unit.id).text(data[0][i].unit.name));
@@ -1015,7 +1015,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transfer_username').find('option').remove().end()
-                    $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    $('#transfer_username').append($("<option></option>").attr("value","").text("Select User"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transfer_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -1038,7 +1038,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#resource_resource_id').find('option').remove().end()
-                    $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#resource_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#resource_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
@@ -1048,7 +1048,7 @@ $().ready(function(){
         }
         else{
             $('#resource_resource_id').find('option').remove().end()
-            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#resource_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
 
     });
@@ -1064,7 +1064,7 @@ $().ready(function(){
                 {
 
                     $('#categories_department_id').find('option').remove().end()
-                    $('#categories_department_id').append($("<option></option>").attr("value","").text("SELECT A CATEGORY"));
+                    $('#categories_department_id').append($("<option></option>").attr("value","").text("Select Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#categories_department_id').append($("<option></option>").attr("value",data[0][i].category.id).text(data[0][i].category.name));
@@ -1074,7 +1074,7 @@ $().ready(function(){
         }
         else{
             $('#categories_department_id').find('option').remove().end()
-            $('#categories_department_id').append($("<option></option>").attr("value","").text("SELECT A CATEGORY"));
+            $('#categories_department_id').append($("<option></option>").attr("value","").text("Select Category"));
         }
 
     });
@@ -1089,7 +1089,7 @@ $().ready(function(){
                 {
 
                     $('#sub_categories_id').find('option').remove().end()
-                    $('#sub_categories_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#sub_categories_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#sub_categories_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -1099,7 +1099,7 @@ $().ready(function(){
         }
         else{
             $('#sub_categories_id').find('option').remove().end()
-            $('#sub_categories_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#sub_categories_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
 
     });
@@ -1114,7 +1114,7 @@ $().ready(function(){
                 {
 
                     $('#resource_resource_id').find('option').remove().end()
-                    $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#resource_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#resource_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
@@ -1124,7 +1124,7 @@ $().ready(function(){
         }
         else{
             $('#resource_resource_id').find('option').remove().end()
-            $('#resource_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#resource_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
 
     });
@@ -1165,7 +1165,7 @@ $().ready(function(){
                 {
 
                     $('#sub_category_id').find('option').remove().end()
-                    $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -1175,7 +1175,7 @@ $().ready(function(){
         }
         else{
             $('#sub_category_id').find('option').remove().end()
-            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
         }
     })
 
@@ -1189,7 +1189,7 @@ $().ready(function(){
                 {
 
                     $('#agency_store_resource_id').find('option').remove().end()
-                    $('#agency_store_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#agency_store_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#agency_store_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1199,7 +1199,7 @@ $().ready(function(){
         }
         else{
             $('#sub_category_id').find('option').remove().end()
-            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
     /* drop down others resource booking */
@@ -1213,7 +1213,7 @@ $().ready(function(){
                 {
 
                     $('#sub_category_id').find('option').remove().end()
-                    $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -1223,7 +1223,7 @@ $().ready(function(){
         }
         else{
             $('#sub_category_id').find('option').remove().end()
-            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
         }
     })
 
@@ -1237,7 +1237,7 @@ $().ready(function(){
                 {
 
                     $('#agency_store_resource_id').find('option').remove().end()
-                    $('#agency_store_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#agency_store_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#agency_store_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1247,7 +1247,7 @@ $().ready(function(){
         }
         else{
             $('#sub_category_id').find('option').remove().end()
-            $('#sub_category_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#sub_category_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
     /* resource booking ends here */
@@ -1413,7 +1413,7 @@ $().ready(function(){
                 {
 
                     $('#vehicle_id').find('option').remove().end()
-                    $('#vehicle_id').append($("<option></option>").attr("value","").text("SELECT A VEHICLE"));
+                    $('#vehicle_id').append($("<option></option>").attr("value","").text("Select Vehicle"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#vehicle_id').append($("<option></option>").attr("value",data[0][i].vehicle.id).text(data[0][i].vehicle.registration_number));
@@ -1423,7 +1423,7 @@ $().ready(function(){
         }
         else{
             $('#vehicle_id').find('option').remove().end()
-            $('#vehicle_id').append($("<option></option>").attr("value","").text("SELECT A VEHICLE"));
+            $('#vehicle_id').append($("<option></option>").attr("value","").text("Select Vehicle"));
         }
     })
 
@@ -1513,7 +1513,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#resource_other_sub_category_id').find('option').remove().end()
-                    $('#resource_other_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#resource_other_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#resource_other_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -1523,7 +1523,7 @@ $().ready(function(){
         }
         else{
             $('#resource_other_sub_category_id').find('option').remove().end()
-            $('#resource_other_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+            $('#resource_other_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
         }
 
     });
@@ -1537,7 +1537,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#resource_transport_sub_category_id').find('option').remove().end()
-                    $('#resource_transport_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#resource_transport_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#resource_transport_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -1547,7 +1547,7 @@ $().ready(function(){
         }
         else{
             $('#resource_transport_sub_category_id').find('option').remove().end()
-            $('#resource_transport_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+            $('#resource_transport_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
         }
 
     });
@@ -1559,7 +1559,7 @@ $().ready(function(){
 
     $("#vehicle_id").live("change",function(){
 
-        if($("#vehicle_id").val() != "SELECT A VEHICLE"){
+        if($("#vehicle_id").val() != "Select Vehicle"){
             $.get("/resource_transportation_bookings/get_driver_details",{
                 id : $("#vehicle_id").val()
             },
@@ -1603,7 +1603,7 @@ $().ready(function(){
     //                if (data[0]!=null)
     //                {
     //                    $('#resource_room_booking_resource_id').find('option').remove().end()
-    //                    $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //                    $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
     //                    for(var i=0; i<data[0].length;i++)
     //                    {
     //                        $('#resource_room_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1613,7 +1613,7 @@ $().ready(function(){
     //        }
     //        else{
     //            $('#resource_room_booking_resource_id').find('option').remove().end()
-    //            $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //            $('#resource_room_booking_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
     //        }
     })
 
@@ -1682,7 +1682,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#room_resource_id').find('option').remove().end()
-                    $('#room_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#room_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#room_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1692,7 +1692,7 @@ $().ready(function(){
         }
         else{
             $('#room_resource_id').find('option').remove().end()
-            $('#room_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#room_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
 
@@ -1706,7 +1706,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transport_resource_id').find('option').remove().end()
-                    $('#transport_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#transport_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transport_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1716,7 +1716,7 @@ $().ready(function(){
         }
         else{
             $('#transport_resource_id').find('option').remove().end()
-            $('#transport_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#transport_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
 
@@ -1729,7 +1729,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#other_resource_id').find('option').remove().end()
-                    $('#other_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#other_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#other_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1739,7 +1739,7 @@ $().ready(function(){
         }
         else{
             $('#other_resource_id').find('option').remove().end()
-            $('#other_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#other_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
     $("#resource_room_booking_resource_id").live("change",function(){
@@ -1778,7 +1778,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#standard5_department_id').find('option').remove().end()
-                    $('#standard5_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#standard5_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#standard5_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -1789,7 +1789,7 @@ $().ready(function(){
         else
         {
             $('#standard5_department_id').find('option').remove().end()
-            $('#standard5_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#standard5_department_id').append($("<option></option>").attr("value","").text("Select Department"));
             $.get("/conversations/",{
                 department_id: $("#standard5_department_id").val()
             }, function(data){
@@ -1810,7 +1810,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#room_agency_resource_id').find('option').remove().end()
-                    $('#room_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#room_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#room_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1820,7 +1820,7 @@ $().ready(function(){
         }
         else{
             $('#room_agency_resource_id').find('option').remove().end()
-            $('#room_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#room_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
 
@@ -1834,7 +1834,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transport_agency_resource_id').find('option').remove().end()
-                    $('#transport_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#transport_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transport_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1844,7 +1844,7 @@ $().ready(function(){
         }
         else{
             $('#transport_agency_resource_id').find('option').remove().end()
-            $('#transport_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#transport_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
 
@@ -1858,7 +1858,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#other_agency_sub_category_id').find('option').remove().end()
-                    $('#other_agency_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#other_agency_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#other_agency_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -1868,7 +1868,7 @@ $().ready(function(){
         }
         else{
             $('#other_agency_sub_category_id').find('option').remove().end()
-            $('#other_agency_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+            $('#other_agency_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
         }
     })
 
@@ -1882,7 +1882,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#other_agency_resource_id').find('option').remove().end()
-                    $('#other_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#other_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#other_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1892,7 +1892,7 @@ $().ready(function(){
         }
         else{
             $('#other_agency_resource_id').find('option').remove().end()
-            $('#other_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#other_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
     $("#ict_agency_sub_category_id").live("change", function(){
@@ -1906,7 +1906,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#ict_agency_resource_id').find('option').remove().end()
-                    $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+                    $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#ict_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.name));
@@ -1916,7 +1916,7 @@ $().ready(function(){
         }
         else{
             $('#ict_agency_resource_id').find('option').remove().end()
-            $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#ict_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
 
@@ -1931,7 +1931,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#other_booking_sub_category_id').find('option').remove().end()
-                    $('#other_booking_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#other_booking_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#other_booking_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -1941,7 +1941,7 @@ $().ready(function(){
         }
         else{
             $('#other_booking_sub_category_id').find('option').remove().end()
-            $('#other_booking_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+            $('#other_booking_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
         }
     })
 
@@ -1956,7 +1956,7 @@ $().ready(function(){
     //                if (data[0]!=null)
     //                {
     //                    $('#resource_booking_resource_id').find('option').remove().end()
-    //                    $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //                    $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
     //                    for(var i=0; i<data[0].length;i++)
     //                    {
     //                        $('#resource_booking_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
@@ -1966,7 +1966,7 @@ $().ready(function(){
     //        }
     //        else{
     //            $('#resource_booking_resource_id').find('option').remove().end()
-    //            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+    //            $('#resource_booking_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
     //        }
     })
     /* resource booking others ends */
@@ -1979,7 +1979,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transport_sub_category_id').find('option').remove().end()
-                    $('#transport_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#transport_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transport_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -1989,7 +1989,7 @@ $().ready(function(){
         }
         else{
             $('#transport_sub_category_id').find('option').remove().end()
-            $('#transport_sub_category_id').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+            $('#transport_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
         }
     })
 
@@ -2011,7 +2011,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#category_allid').find('option').remove().end()
-                    $('#category_allid').append($("<option></option>").attr("value","").text("SELECT A SUB CATEGORY"));
+                    $('#category_allid').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#category_allid').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
@@ -2021,7 +2021,7 @@ $().ready(function(){
         }
         else{
             $('#category_allid').find('option').remove().end()
-            $('#category_allid').append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
+            $('#category_allid').append($("<option></option>").attr("value","").text("Select Resource"));
         }
     })
     $("#list_agency").live("change",function(){
@@ -2125,7 +2125,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#approver2_id').find('option').remove().end()
-                    $('#approver2_id').append($("<option></option>").attr("value","").text("SELECT A USER"));
+                    $('#approver2_id').append($("<option></option>").attr("value","").text("Select User"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#approver2_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -2135,7 +2135,7 @@ $().ready(function(){
         }
         else{
             $('#approver2_id').find('option').remove().end()
-            $('#approver2_id').append($("<option></option>").attr("value","").text("SELECT A USER"));
+            $('#approver2_id').append($("<option></option>").attr("value","").text("Select User"));
         }
     })
 
@@ -2630,7 +2630,7 @@ $("#complaint_building_asset_building_asset_type_id").live("change", function(){
             {
 
                 $('#complaint_building_asset_type_id').find('option').remove().end()
-                $('#complaint_building_asset_type_id').append($("<option></option>").attr("value","").text("SELECT A TYPE"));
+                $('#complaint_building_asset_type_id').append($("<option></option>").attr("value","").text("Select Type"));
                 for(var i=0; i<data[0].length;i++)
                 {
                     $('#complaint_building_asset_type_id').append($("<option></option>").attr("value",data[0][i].building_asset_type.id).text(data[0][i].building_asset_type.name));
@@ -2651,7 +2651,7 @@ $("#complaint_building_asset_type_id").live("change", function(){
             {
 
                 $('#complaint_building_asset_item_id').find('option').remove().end()
-                $('#complaint_building_asset_item_id').append($("<option></option>").attr("value","").text("SELECT A ITEM"));
+                $('#complaint_building_asset_item_id').append($("<option></option>").attr("value","").text("Select Item"));
                 for(var i=0; i<data[0].length;i++)
                 {
                     $('#complaint_building_asset_item_id').append($("<option></option>").attr("value",data[0][i].building_asset_type.id).text(data[0][i].building_asset_type.name));
@@ -2673,7 +2673,7 @@ $("#complaint_computer_complaint_type_id").live("change", function(){
             if (data[0]!=null)
             {
                 $('#complaint_computer_system_access_id').find('option').remove().end()
-                $('#complaint_computer_system_access_id').append($("<option></option>").attr("value","").text("SELECT AN ITEM / SYSTEM TYPE"));
+                $('#complaint_computer_system_access_id').append($("<option></option>").attr("value","").text("Select Item / System Type"));
                 for(var i=0; i<data[0].length;i++)
                 {
                     $('#complaint_computer_system_access_id').append($("<option></option>").attr("value",data[0][i].system_access.id).text(data[0][i].system_access.name));
@@ -2694,7 +2694,7 @@ $("#complaint_computer_system_access_id").live("change", function(){
             {
 
                 $('#complaint_computer_system_model_type_id').find('option').remove().end()
-                $('#complaint_computer_system_model_type_id').append($("<option></option>").attr("value","").text("SELECT A MODEL ITEM / SYSTEM"));
+                $('#complaint_computer_system_model_type_id').append($("<option></option>").attr("value","").text("Select Model Item / System"));
                 for(var i=0; i<data[0].length;i++)
                 {
                     $('#complaint_computer_system_model_type_id').append($("<option></option>").attr("value",data[0][i].system_model_type.id).text(data[0][i].system_model_type.name));
