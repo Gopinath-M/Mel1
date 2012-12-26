@@ -19,20 +19,27 @@
     <div class="form-sec-row">
       <label class="text">Sub Category <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:sub_category_id,  SubCategory.where(:category_id => @category).active.collect {|category| [category.name, category.id]},:prompt=>"SELECT A SUB CATEGORY") %>
+        <%= f.select(:sub_category_id,  SubCategory.where(:category_id => @category).active.collect {|category| [category.name, category.id]},:prompt=>"Select a Sub Category") %>
       </span>
     </div>
     <div class="form-sec-row">
       <label class="text" id="lb_resource">Resource <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:resource_id,  options_from_collection_for_select([], 'id','name',@resource ),{:prompt=>"SELECT A RESOURCE",:onchange=>"alert('testq')"}) %>
-  <%#=link_to "search in other agency",search_other_resource_resource_ict_equipment_bookings_path%>
+        <%if @resource%>
+          <%= f.select(:resource_id,  options_from_collection_for_select(Resource.where("sub_category_id = ? and resource_type = 'ict'",@resource_ict_equipment_booking.sub_category_id), 'id','name',@resource ),{:prompt=>"SELECT A RESOURCE",:onchange=>"alert('testq')"}) %>
+        <%else%>
+          <%= f.select(:resource_id,  options_from_collection_for_select([], 'id','name',@resource ),{:prompt=>"Select a Resource"}) %>
+        <%end%>
       </span>
     </div>
     <div class="form-sec-row">
       <label class="text">Serial No<span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:agency_store_id, options_from_collection_for_select([], 'id','serial_no' ),:prompt=>"SELECT A EQUIPMENT CATEGORY TYPE") %>
+        <%if @resource%>
+          <%= f.select(:agency_store_id, options_from_collection_for_select(AgencyStore.where(:id=>@resource_ict_equipment_booking.agency_store_id), 'id','serial_no',@resource_ict_equipment_booking.agency_store_id ),:prompt=>"Select a Equipment Category Type") %>
+        <%else%>
+          <%= f.select(:agency_store_id, options_from_collection_for_select([], 'id','serial_no' ),:prompt=>"Select A Equipment Category Type") %>
+        <%end%>
       </span>
     </div>
     <div class="form-sec-row">
@@ -50,13 +57,13 @@
     <div class="form-sec-row">
       <label class="text">Request From Date<span style=color:red>*</span></label>
       <span class="in-box">
-        <%=f.text_field :requested_from_date, :value=>@resource_ict_equipment_booking.requested_from_date!=nil ? @resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S ") : nil, :readonly=>true %>
+        <%=f.text_field :requested_from_date, :value=>@resource_ict_equipment_booking.requested_from_date!=nil ? @resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true %>
       </span>
     </div>
     <div class="form-sec-row">
       <label class="text">Request To Date<span style=color:red>*</span></label>
       <span class="in-box">
-        <%=f.text_field :requested_to_date, :value=>@resource_ict_equipment_booking.requested_to_date!=nil ? @resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %I:%M:%S ") : nil, :readonly=>true%>
+        <%=f.text_field :requested_to_date, :value=>@resource_ict_equipment_booking.requested_to_date!=nil ? @resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%>
       </span>
     </div>
     <div class="form-sec-row">
@@ -74,13 +81,13 @@
     <div class="form-sec-row">
       <label class="text">Meeting From Date<span style=color:red>*</span></label>
       <span class="in-box">
-        <%=f.text_field :meeting_start_time, :value=>@resource_ict_equipment_booking.meeting_start_time!=nil ? @resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %I:%M:%S ") : nil, :readonly=>true%>
+        <%=f.text_field :meeting_start_time, :value=>@resource_ict_equipment_booking.meeting_start_time!=nil ? @resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%>
       </span>
     </div>
     <div class="form-sec-row">
       <label class="text">Meeting To Date<span style=color:red>*</span></label>
       <span class="in-box">
-        <%=f.text_field :meeting_end_time, :value=>@resource_ict_equipment_booking.meeting_end_time!=nil ? @resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S ") : nil, :readonly=>true%>
+        <%=f.text_field :meeting_end_time, :value=>@resource_ict_equipment_booking.meeting_end_time!=nil ? @resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%>
       </span>
     </div>
     <div class="form-sec-row">
