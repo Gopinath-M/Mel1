@@ -50,7 +50,6 @@ function leftNavigation(link_id, div_id)
 //}
 function  getResourceforSubcategory(category_id, resource_id)
 {
-    alert(resource_id)
     if($("#"+category_id).val()!="")
     {
         if(resource_id=="resource_ict_equipment_booking_resource_id")
@@ -108,8 +107,6 @@ function  getResourceforSubcategory(category_id, resource_id)
                 }, function(data){
                     if (data[0]!=null && data[0]!="")
                     {
-                        alert(data[0][i])
-
                         $('#'+resource_id).find('option').remove().end()
                         $('#'+resource_id).append($("<option></option>").attr("value","").text("SELECT A RESOURCE"));
                         if(resource_id=="resource_ict_equipment_booking_resource_id")
