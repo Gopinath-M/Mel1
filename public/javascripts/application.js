@@ -455,6 +455,27 @@ $().ready(function(){
         }
     });
 
+
+    $("#from_department_id").live("change",function(){
+        if($("#from_department_id").val()!="")
+        {
+            $.get("/users/list_of_user/",{
+                department_id: $("#from_department_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#transfer_username_id').find('option').remove().end()
+                    $('#transfer_username_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#transfer_username_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+    });
+
+
     $("#to_department_id").live("change",function(){
 
         $.get("/users/update_transfer/",{
@@ -521,12 +542,15 @@ $().ready(function(){
         }, function(data){
             if(data[0]!=null)
             {
+                $("#value_new").hide();
                 $("#user_id").val($("#transfer_username").val())
                 var content="<table><tr><td><u><b>List of Existing Departments :</b></u></td></tr><tr><td><br/></td></tr>";
                 content+=""
                 for(i=0; i<data[0].length; i++)
                 {
                     content+="<tr><td><font color='#369'><b>"+data[0][i]+"</b></font></td></tr>"
+                    $("#div_admin_transfer").hide();
+                    $("#div_dept_transfer").show();
                 }
                 content+="</table>"
                 $("#div_dept_transfer").html(content)
@@ -535,6 +559,35 @@ $().ready(function(){
             {
                 content+="No Departments Found"
                 $("#div_dept_transfer").html(content)
+            }
+
+        });
+    })
+
+
+    $("#transfer_username").live("change",function(){
+        $.get("/users/get_admin_for_users/",{
+            ic_number: $("#transfer_username").val()
+        }, function(data){
+            if(data[0]!=null)
+            {
+                $("#value_new").show();
+                $("#user_id").val($("#transfer_username").val())
+                var content="<table><tr><td><u><b>The User you Selected is a Department Admin, So Please Assign other Department Admin for this department before transfer him.</b></u></td></tr><tr><td><br/></td></tr>";
+                content+=""
+                for(i=0; i<data[0].length; i++)
+                {
+                    content+="<tr><td><font color='#369'><b>"+data[0][i]+"</b></font></td></tr>"
+                    $("#div_dept_transfer").hide();
+                    $("#div_admin_transfer").show();
+                }
+                content+="</table>"
+                $("#div_admin_transfer").html(content)
+            }
+            else
+            {
+                content+="No Departments Found"
+                $("#div_admin_transfer").html(content)
             }
 
         });
@@ -1537,6 +1590,7 @@ $().ready(function(){
                     content+= "<tr><td><b>Location</b></td><td><font color='#369'><b>"+data[0].resource.location+"</b></font></td></tr>"
                     content+= "<tr><td><b>Capacity</b></td><td><font color='#369'><b>"+data[0].resource.capacity+"</b></font></td></tr>"
                     content+="</table>"
+                    $('#resource_room_booking_room_capacity').val(data[0].resource.capacity);
                     $("#details_resource_id").html(content)
                 }
                 else
@@ -1702,30 +1756,6 @@ $().ready(function(){
         }
     });
     /* chat user ends*/
-    /* resource room booking validation */
-    $("#resource_room_booking_submit").live("click",function(){
-        if ($("#resource_room_booking_sub_category_id").val() == ""){
-            alert("Select Sub Category value");
-            return false;
-        }
-        else if ($("#resource_room_booking_resource_id").val() == ""){
-            alert("Select Resource value");
-            return false;
-        }
-        else if ($("#resource_room_booking_requested_from_date").val() == ""){
-            alert("Enter From date");
-            return false;
-        }else if ($("#resource_room_booking_requested_to_date").val() == ""){
-            alert("Enter To date");
-            return false;
-        }else if ($("#resource_room_booking_room_capacity").val() == ""){
-            alert("Enter Room Capacity");
-            return false;
-        }else if ($("#resource_room_booking_purpose").val() == ""){
-            alert("Enter Purpose");
-            return false;
-        }
-    });
 
     /*Agenct store drop box starts*/
     $("#room_agency_sub_category_id").live("change", function(){

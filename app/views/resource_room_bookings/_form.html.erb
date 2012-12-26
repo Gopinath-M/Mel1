@@ -4,20 +4,22 @@
   <div class="CenterNav">
     <%= hidden_field_tag :user_id, (current_user.id) %>
     <%= hidden_field_tag :department_id, (current_department) %>
-    <% @dept = Department.find_by_id(current_department) %>
-    <% @agency = Agency.find_by_id(@dept.agency_id) %>
-    <div class="form-sec-row">
-      <label class="text">Agency Name<span style=color:red>*</span></label>
-      <span class="in-box">
-        <%= @agency.name  %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text">Department Name<span style=color:red>*</span></label>
-      <span class="in-box">
+    <% if !current_user.is_super_admin? %>
+      <% @dept = Department.find_by_id(current_department) %>
+      <% @agency = Agency.find_by_id(@dept.agency_id) %>
+      <div class="form-sec-row">
+        <label class="text">Agency Name<span style=color:red>*</span></label>
+        <span class="in-box">
+          <%= @agency.name  %>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">Department Name<span style=color:red>*</span></label>
+        <span class="in-box">
           <%= @dept.name %>
-      </span>
-    </div>
+        </span>
+      </div>
+    <%end%>
     <div class="form-sec-row">
       <label class="text">Sub Category <span style=color:red>*</span></label>
       <span class="in-box">
@@ -64,7 +66,7 @@
     <div class="form-sec-row">
       <label class="text">Room Capacity<span style=color:red>*</span></label>
       <span class="in-box">
-        <%=f.text_field :room_capacity,:onkeypress=>"return isNumberKey(event);",:size => 10%>
+        <%=f.text_field :room_capacity,:readonly=>true,:size => 10%>
       </span>
     </div>
     <div class="form-sec-row">
