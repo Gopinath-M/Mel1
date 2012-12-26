@@ -1,0 +1,56 @@
+<div class="CenterNav">
+  <div class="form-sec">
+    <h2 class="b-head">Manage Agencies</h2>
+    <%if @role_memberships && !@role_memberships.empty?%>
+      <% @role_memberships.each do |role_membership|%>
+        <div class="create-user">
+          <div class="form-sec-row">
+            <%= label_tag :user_ic_number, raw("IC Number"), :class=>"text" %>
+            <span class="in-box">
+              <%= role_membership.user.ic_number %>
+            </span>
+          </div>
+          <div class="form-sec-row">
+            <%= label_tag :role_id, raw("Role"), :class=>"text" %>
+            <span class="in-box">
+              <%= role_membership.role.name %>
+            </span>
+          </div>
+          <div class="form-sec-row">
+            <%= label_tag :user_id, raw("Login"), :class=>"text" %>
+            <span class="in-box">
+              <%= role_membership.user.username %>
+            </span>
+          </div>
+          <div class="form-sec-row">
+            <%= label_tag :user_id, raw("Email"), :class=>"text" %>
+            <span class="in-box">
+              <%= role_membership.user.email %>
+            </span>
+          </div>
+          <div class="form-sec-row">
+            <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+            <span class="in-box">
+              <%= role_membership.department.agency.name %>
+            </span>
+          </div>
+          <div class="form-sec-row">
+            <%= label_tag :department_id, raw("Department"), :class=>"text" %>
+            <span class="in-box">
+              <%= role_membership.department.name %>
+            </span>
+          </div>
+
+        </div>
+      <%end%>
+      <div class="manage-user-rows box">
+        <%= paginate @role_memberships %>
+      </div>
+    <%else%>
+      No Agencies Available
+    <%end%>
+    <div class="create-user">
+      <div class="form-sec-row"></div>
+    </div>
+  </div>
+</div>
