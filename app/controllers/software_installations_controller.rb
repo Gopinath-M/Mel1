@@ -21,6 +21,13 @@ class SoftwareInstallationsController < ApplicationController
     software_installation_details.department_id = current_user.departments
     software_installation_details.save
   # new code
+    n = params[:total_service_count].to_i if params[:total_service_count] != '0'
+      
+      if !n.blank?
+
+          @ict_facility = SoftwareInstallationDetail.create(:ict_firewall_id=>@ict_firewall.id,:facility_ict_service_id => params[:ict_facility_service][:"#{i}"],:one_way=>t)
+        end
+
     @approve = Approver.active.find_all_by_department_id(current_user.departments).first
     dept = Department.find_by_id(current_user.departments)
     if !@approve.present?
@@ -87,5 +94,8 @@ class SoftwareInstallationsController < ApplicationController
    def download_attachments
     @download = SoftwareInstallation.find(params[:id])
     send_file @download.software_attachment.path
+  end
+  def add_select_boxes
+    @val = params[:incre]
   end
 end

@@ -17,16 +17,22 @@ class DepartmentUsersController < ApplicationController
       @admin='admin'
     end
     if @user.valid?
-      @user.save
-      @user.activate_user
-      @user.role_memberships.create(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
-      #UserMailer.welcomemail_department_user(@user,password_token).deliver
-      Stalker.enqueue("#{SPREFIX}.send.welcome", :id => @user.id, :password=> password_token)
-      @user.feed_for_create_user
-      if @user.roles.first.name==DISP_USER_ROLE_DEPT_ADMIN
-        redirect_to(admin_users_path, :notice => 'Department Admin was added successfully.')
+      role_member = @user.role_memberships.create(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
+      if role_member.valid?
+        @user.save
+        role_member.save
+        @user.activate_user
+        #UserMailer.welcomemail_department_user(@user,password_token).deliver
+        Stalker.enqueue("#{SPREFIX}.send.welcome", :id => @user.id, :password=> password_token)
+        if @user.roles && !@user.roles.empty? && @user.roles.first.name == DISP_USER_ROLE_DEPT_ADMIN
+          redirect_to(admin_users_path, :notice => 'Department Admin was added successfully.')
+        else
+          redirect_to(users_path, :notice => 'User was added successfully.')
+        end
       else
-        redirect_to(users_path, :notice => 'User was added successfully.')
+        User.destroy(@user.id)
+        @errors = role_member.errors.full_messages.to_sentence
+        render :action=>'new',:admin=>'admin'
       end
     else
       render :action=>'new',:admin=>'admin'

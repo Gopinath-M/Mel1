@@ -18,6 +18,10 @@
           <div class="profInfo-img box">
             <%= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag current_user.avatar.url(:profile), :alt=>"Image", :width=>"120", :height=>"120") : (image_tag t('left_nav.photo'), :alt=>"Image", :width=>"120", :height=>"120")  %>
             <p><%=  current_user.profile_status ? t('left_nav.private') : t('left_nav.public')%></p>
+  <%  if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
+  <%  department = Department.find(@current_department) %>
+            <p><%=department.name%></p>
+            <%end%>
           </div>
           <ul>
             <li><a href="javascript:void(0);" title="<%=t('left_nav.daily_updates')%>" class="selected"><%=image_tag "icn_news.png" , :width=>"16", :height=>"16", :alt=>"Daily Updates"%><%=t('left_nav.daily_updates')%></a></li>

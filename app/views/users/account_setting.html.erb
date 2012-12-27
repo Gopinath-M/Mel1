@@ -59,19 +59,14 @@
       </div>
     <%end%>
     <%= form_for(@role_membership, :as => :role_membership, :url => update_default_department_users_path(:role_membership), :html => { :method => :post}) do |fff| %>
-      <%if current_user.departments && current_user.departments.length > 1%>
+      <% departments = current_user.departments%>
+      <%departments.uniq!%>
+      <%if departments.length > 1%>
         <h2 class="b-head-acc-set">Change Default Department</h2>
         <div class="form-sec-row">
           <%= fff.label :department_id, raw('Select Department'), :class=>"text" %>
-          <%=select(:default,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "Select Department") %>
+          <%=select(:default,:department_id, departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "Select Department") %>
         </div>
-        <div class="form-sec-row">
-          <label class="text">Set as default</label>
-          <span class="in-box">
-            <%= fff.check_box :default_dept, :checked=>true %>
-          </span>
-        </div>
-
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">

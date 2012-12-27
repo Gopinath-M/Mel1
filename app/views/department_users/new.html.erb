@@ -1,4 +1,6 @@
-
+<%if @errors && @errors!=''%>
+  <div class="error"><%= @errors%></div>
+<%end%>
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
@@ -117,7 +119,7 @@
             <%agency = Agency.find(department.agency_id) %>
             <%=department.agency.name%>
             <%=  text_field_tag 'users[agency_id]', department.agency_id%>
-            <%#= select("users","agency_id",  Agency.find_all_by_id(department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
+    <%#= select("users","agency_id",  Agency.find_all_by_id(department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
           </span>
         </div>
         <div class="form-sec-row">
@@ -125,7 +127,7 @@
           <span class="in-box">
             <%=department.name%>
             <%=text_field_tag 'users[department]', department.id%>
-            <%#= select("users","department", current_user.departments.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+    <%#= select("users","department", current_user.departments.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
           </span>
         </div>
         <div id="unit_display" style="display:none">
