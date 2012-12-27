@@ -1960,24 +1960,24 @@ $().ready(function(){
             }, function(data){
                 if (data[0]!=null)
                 {
-                    $('#transport_sub_category_id').find('option').remove().end()
-                    $('#transport_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
+                    $('#resource_sub_category_id').find('option').remove().end()
+                    $('#resource_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
                     for(var i=0; i<data[0].length;i++)
                     {
-                        $('#transport_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
+                        $('#resource_sub_category_id').append($("<option></option>").attr("value",data[0][i].sub_category.id).text(data[0][i].sub_category.name));
                     }
                 }
             })
         }
         else{
-            $('#transport_sub_category_id').find('option').remove().end()
-            $('#transport_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
+            $('#resource_sub_category_id').find('option').remove().end()
+            $('#resource_sub_category_id').append($("<option></option>").attr("value","").text("Select Sub Category"));
         }
     })
 
-    $("#transport_sub_category_id").live("change",function(){
+    $("#resource_sub_category_id").live("change",function(){
         $.get("/resources/",{
-            department_id: $("#transport_sub_category_id").val()
+            sub_category_id: $("#resource_sub_category_id").val()
         }, function(data){
             $("#department_id").val($("#transport_sub_category_id").val())
             $("#div_ajax").html(data)
