@@ -6,9 +6,9 @@
     <span class="in-box">
       <%if @department.name%>
         <%agency_name = Agency.find(@department.agency_id)%>
-        <%= f.select(:agency_id,  options_from_collection_for_select(Agency.active, 'id','name',agency_name.id ),:prompt=>"SELECT AN AGENCY") %>
+        <%= f.select(:agency_id,  options_from_collection_for_select(Agency.active, 'id','name',agency_name.id ),:prompt=>"Select Agency") %>
       <%else%>
-        <%= f.select(:agency_id,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+        <%= f.select(:agency_id,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
       <%end%>
     </span>
   </div>

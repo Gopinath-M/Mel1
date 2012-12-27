@@ -9,7 +9,7 @@
         <label class="text">Select Category <span style=color:red>*</span></label>
         <span class="in-box">
 
-            <%=select("transport_category","id", options_from_collection_for_select(Category.active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
+            <%=select("transport_category","id", options_from_collection_for_select(Category.active.all, 'id','name'),{:prompt=>"Select Category"})%>
 
         </span>
       </div>
@@ -17,7 +17,7 @@
         <label class="text">Select Sub Category<span style=color:red>*</span></label>
         <span class="in-box">
 
-            <%=select("transport_sub_category","id", options_from_collection_for_select(SubCategory.active.all, 'id','name'),{:prompt=>"SELECT A SUB CATEGORY"})%>
+            <%=select("transport_sub_category","id", options_from_collection_for_select(SubCategory.active.all, 'id','name'),{:prompt=>"Select Sub Category"})%>
 
         </span>
       </div>

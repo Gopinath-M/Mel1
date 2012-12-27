@@ -25,11 +25,11 @@
           <%= label_tag "users_agency", raw("Agency"), :class=>"text" %>
           <span class="in-box">
             <% if current_user.is_super_admin? %>
-              <%= select("users","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+              <%= select("users","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
             <%else%>
               <%department=Department.find(current_department)%>
               <%agency = Agency.find(department.agency_id) %>
-              <%= select("users","agency_id",  Agency.find_all_by_id(department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+              <%= select("users","agency_id",  Agency.find_all_by_id(department.agency_id).collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
 
             <%end%>
           </span>
@@ -38,9 +38,9 @@
           <%= label_tag "department_id", raw("Department"), :class=>"text"%>
           <span class="in-box">
             <% if current_user.is_super_admin? %>
-              <%= select("resource_category","department_id",Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+              <%= select("resource_category","department_id",Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
             <%else%>
-              <%= select("resource_category","department_id", current_user.departments.active.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+              <%= select("resource_category","department_id", current_user.departments.active.collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
             <%end%>
           </span>
         </div>
@@ -48,7 +48,7 @@
       <div class="form-sec-row">
         <label class="text">Category Name</label>
         <span class="in-box">
-          <%= select("resource_category","resource_category_id",Category.active.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A CATEGORY") %>
+          <%= select("resource_category","resource_category_id",Category.active.collect {|p| [ p.name, p.id ] },:prompt => "Select Category") %>
         </span>
       </div>
 

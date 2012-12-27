@@ -18,6 +18,8 @@ Melaka::Application.routes.draw do
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
 
+  resources :feeds, :only=>[:index]
+
   resources :resource_bookings do
     collection do
       get 'get_other_sub_categories'
@@ -38,7 +40,7 @@ Melaka::Application.routes.draw do
     end
   end
 
-   resources :ict_firewalls do
+  resources :ict_firewalls do
     collection do
       get 'add_select_boxes'
     end
@@ -69,6 +71,7 @@ Melaka::Application.routes.draw do
       get 'selected_list_ict'
       put 'update_approval_network_point'
       get 'list_ict_network'
+      get 'download_attachments'
     end
   end
 
@@ -147,6 +150,7 @@ Melaka::Application.routes.draw do
       get 'get_resources'
       get 'get_details_for_resource'
       post 'user_return'
+      get 'download_attachments'
     end
   end
   
@@ -178,6 +182,8 @@ Melaka::Application.routes.draw do
       get 'assign_department'
       get 'transfer_unit'
       post 'transfer_update_unit'
+      get 'list_of_user'
+      get 'get_admin_for_users'
       get 'assign_unit'
       post 'assign_update_unit'
       get 'admin_activation'

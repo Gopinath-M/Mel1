@@ -10,7 +10,7 @@
       <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
       <span class="in-box">
 
-        <%= select("list","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+        <%= select("list","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
 
       </span>
     </div>

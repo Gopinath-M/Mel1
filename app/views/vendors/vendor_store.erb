@@ -7,25 +7,25 @@
     <div class="form-sec-row">
         <%= label_tag :vendor_id, raw("Vendor <span style=color:red>*</span>"), :class=>"text" %>
         <span class="in-box">
-          <%= select(:vendor_store,:id,  Vendor.active.collect {|vendor| [vendor.name, vendor.id]},:selected=>@user,:prompt=>"SELECT A VENDOR") %>
+          <%= select(:vendor_store,:id,  Vendor.active.collect {|vendor| [vendor.name, vendor.id]},:selected=>@user,:prompt=>"Select Vendor") %>
         </span>
       </div>
     <div class="form-sec-row">
       <%= label_tag :category_id, raw("Category <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
-        <%= select(:categories,:id, Category.active.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A CATEGORY") %>
+        <%= select(:categories,:id, Category.active.collect {|p| [ p.name, p.id ] },:prompt => "Select Category") %>
       </span>
     </div>
     <div class="form-sec-row">
       <%= label_tag :sub_category, raw("Sub Category <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
-        <%= select(:sub_category,:id, SubCategory.where("category_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A SUB CATEGORY") %>
+        <%= select(:sub_category,:id, SubCategory.where("category_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Sub Category") %>
       </span>
     </div>
     <div class="form-sec-row">
       <label class="text">Resource <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= select("resource","id",  Resource.where("sub_category_id =?", params[:resources]).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"SELECT A RESOURCE") %>
+        <%= select("resource","id",  Resource.where("sub_category_id =?", params[:resources]).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"Select Resource") %>
       </span>
     </div>
     <div class="form-sec-row">

@@ -50,7 +50,7 @@
         <div class="form-sec-row">
           <%= f.label :state, :class=>"text"%>
           <span class="in-box">
-            <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "SELECT YOUR STATE")%>
+            <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select Your State")%>
           </span>
         </div>
         <div class="form-sec-row">
@@ -62,7 +62,7 @@
         <div class="form-sec-row">
           <%= f.label :department_id,raw("Department"), :class=>"text"%>
           <span class="in-box">
-            <%=f.select(:department_id, Department.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT YOUR DEPARTMENT ") %>
+            <%=f.select(:department_id, Department.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Your Department") %>
           </span>
         </div>
         <div class="form-sec-row">

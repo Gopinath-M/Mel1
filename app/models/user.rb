@@ -22,10 +22,17 @@ class User < ActiveRecord::Base
   has_many :complaint_building_assets
   has_many :complaint_computers
   has_many :resource_ict_equipment_bookings
-  has_many :agency
+  has_many :agency  
+  has_many :created_feeds, :foreign_key=>:actor_id, :class_name=>'ActivityFeed'
+  has_many :feed_subscriptions, :foreign_key=>:subscriber_id
+  has_many :activity_feeds, :through=>:feed_subscriptions
 
   #helper for carrier wave
   mount_uploader :avatar, ProfileImageUploader
+
+  feed_template :created => "feeds/user/created"
+  #feed_template :updated => "feeds/user/updated"
+  #feed_template :destroyed => "feeds/user/destroyed"
 
   #Validations
 #  validates :ic_number, :zipcode, :city, :state, :presence=>true
@@ -47,7 +54,7 @@ class User < ActiveRecord::Base
   #  attr_accessor :agency
   #  validates :agency,  :presence => true, :if=>Proc.new{|u| u.id!=1}
   #Scopes
-  scope :active, where(:deleted => false)
+  scope :active, where(:deleted => false, :status => 'Active')
 
   #  define_index do
   #    indexes :username,  :sortable => true
@@ -175,6 +182,46 @@ class User < ActiveRecord::Base
     new = (ip.to_a + existing).uniq.compact[0..9]
     self.update_attribute(:ips, new.join(", ")) unless new == existing
   end
+
+   def feed_for_create_user
+    feed = User.find(self.id).created_feeds.build
+    feed.for = "User"
+    feed.feed_type = "created"
+    feed.feed_objects << FeedObject.convert(:user => self)
+    subscribers = []  
+    super_admin = Role.where("roles.name ='Super Admin'").first.users  
+     super_admin.each do |a|
+      subscribers << a unless subscribers.index(a)
+    end     
+    subscribers.uniq.each do |s|
+      feed.feed_subscriptions.build(:subscriber_id => s.id)
+    end
+    feed.save! 
+  end
+ 
+  def delete_user
+    feed = User.find(self.user_id).created_feeds.build
+    feed.for = "Vacancy"
+    feed.feed_type = "destroyed"
+    feed.feed_objects << FeedObject.convert(:vacancy => self)
+    subscribers = []
+    admins = Organization.find(self.organization_id).roles.where(:name => "Admin").first.users
+    admins.each do |a|
+      subscribers << a unless subscribers.index(a)
+    end
+   
+    hr = User.find(self.hr_responsible)
+    manager = User.find(self.manager)
+
+    subscribers << hr
+    subscribers << manager
+ 
+    subscribers.uniq.each do |s|
+      feed.feed_subscriptions.build(:subscriber_id => s.id)
+    end
+    feed.save!     
+  end
+
 
   private
 
