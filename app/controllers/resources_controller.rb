@@ -39,9 +39,10 @@ class ResourcesController < ApplicationController
     if params[:resource_type] == "room_booking"
       @resource = Resource.create(params[:resource])
       @resource.resource_type = params[:resource_type]
+      @resource.category_id = 6
     elsif  params[:resource_type] =="transport"
       @resource = Resource.create(params[:resource])
-      @resource.category_id = params[:resource_transport][:category_id]
+      @resource.category_id = 7 #params[:resource_transport][:category_id]
       @resource.sub_category_id = params[:resource_transport][:sub_category_id]
       @resource.vehicle_model_type_id = params[:resource_transport][:vehicle_model_type_id]
       @resource.resource_type = params[:resource_type]
