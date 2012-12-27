@@ -130,7 +130,7 @@ class ResourceTransportationBookingsController < ApplicationController
       end
       disable_the_sub_category_when_that_sub_category_is_fully_reserved(params[:resource_transportation_booking][:sub_category_id])
 
-      if (!session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
+      if (session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
       @approver = Approver.active.find_all_by_department_id(current_user.departments).first
       @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
               
