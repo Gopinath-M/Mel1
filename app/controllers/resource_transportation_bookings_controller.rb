@@ -130,23 +130,23 @@ class ResourceTransportationBookingsController < ApplicationController
       end
       disable_the_sub_category_when_that_sub_category_is_fully_reserved(params[:resource_transportation_booking][:sub_category_id])
 
-      if (!session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
-      @approver = Approver.active.find_all_by_department_id(current_user.departments).first
-      @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
+  #    if (session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
+   #   @approver = Approver.active.find_all_by_department_id(current_user.departments).first
+   #   @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
               
-        if @approver.present?
-          user = User.find(@approver.user_id)
-          UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking, @resource_transportation_booking.department_id ).deliver         
-        elsif @approve_second.present?
-         user = User.find(@approver.user_id)
-          UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver         
-        else
-          dept = Department.find_by_id(params[:department_id])
-          user = dept.users.where("role_id = 2").first
-          UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver         
-        end
-       redirect_to(resource_transportation_bookings_path, :notice => "Your Transport booking has been created sucessfully.")
-      end
+   #     if @approver.present?
+   #       user = User.find(@approver.user_id)
+   #       UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking, @resource_transportation_booking.department_id ).deliver         
+   #     elsif @approve_second.present?
+   #      user = User.find(@approver.user_id)
+   #       UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver         
+   #     else
+   #       dept = Department.find_by_id(params[:department_id])
+   #       user = dept.users.where("role_id = 2").first
+   #       UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver         
+    #    end
+     #  redirect_to(resource_transportation_bookings_path, :notice => "Your Transport booking has been created sucessfully.")
+   #   end
 
      
     else
