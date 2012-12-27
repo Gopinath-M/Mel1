@@ -8,13 +8,13 @@ class ResourcesController < ApplicationController
         if current_user.is_super_admin?
           @resources=Resource.page(params[:page]).per(10).order('created_at DESC')
         else
-          @resources=Resource.where(:department_id=>current_department.id).page(params[:page]).per(1).order('created_at DESC')
+          @resources=Resource.where(:department_id=>current_department.id).page(params[:page]).per(10).order('created_at DESC')
         end
       else
-        @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(1).order('created_at DESC')
+        @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(10).order('created_at DESC')
       end
     else
-      @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(1).order('created_at DESC')
+      @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(10).order('created_at DESC')
     end
     if request.xhr?
       render :layout=>false
@@ -52,7 +52,9 @@ class ResourcesController < ApplicationController
     @resource.created_by = current_user.id
     if @resource.valid?
       @resource.save
-      redirect_to :controller=>'resources', :action=>'index', :notice => 'Resource has been successfully created.'
+       flash[:notice] = 'Resource has been successfully created.'
+      redirect_to :controller=>'resources', :action=>'index'
+
     else
       render :action=>'new'
     end

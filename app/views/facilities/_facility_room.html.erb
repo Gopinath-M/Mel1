@@ -8,7 +8,7 @@
   </div>
   <div id="sub_list_facility">
     <div class="form-sec-row">
-      <%= label_tag :resource_id, raw("Resource Ex No"), :class=>"text"%>
+      <%= label_tag :resource_id, raw("Room No"), :class=>"text"%>
       <span class="in-box">
         <%= select("room","resource_id", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
       </span>
