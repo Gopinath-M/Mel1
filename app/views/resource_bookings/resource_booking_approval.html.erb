@@ -36,11 +36,11 @@
                     <td><b>Agency Name</b></td>
                     <td><b>&nbsp;<%= @agency.name  %></b></td>
                   </tr>
-                    <%end%>
+                    <%end%> <% if @dept.present? %>
                   <tr>
                     <td><b>Department Name</b></td>
                     <td><b>&nbsp;<%= @dept.name  %></b></td>
-                  </tr>
+                  </tr><%end%>
                   <% if @manager.present? %>
                     <tr>
                       <td><b>Resource Manager</b></td>

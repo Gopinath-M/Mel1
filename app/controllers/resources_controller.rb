@@ -51,7 +51,7 @@ class ResourcesController < ApplicationController
 #    @resource.created_by = params[:created_by]
     if @resource.valid?
       @resource.save
-      redirect_to :controller=>'resources', :action=>'index'
+      redirect_to :controller=>'resources', :action=>'index', :notice => 'Resource has been successfully created.'
     else
       render :action=>'new'
     end
