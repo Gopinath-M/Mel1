@@ -53,7 +53,7 @@
                       <%= link_to "Approve Room Request", list_resource_booking_resource_room_bookings_path %>
                     </li>
                   <%end%>
-          <!--li><a href="javascript:void(0);" title="<%#=t('left_nav.user_transfer_request')%>"><%#=t('left_nav.user_transfer_request')%></a></li-->
+        <!--li><a href="javascript:void(0);" title="<%#=t('left_nav.user_transfer_request')%>"><%#=t('left_nav.user_transfer_request')%></a></li-->
                   <%if session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN%>
                     <li>
                       <span class="notifiNo"><%= resource_room_new_count>0 ? resource_room_new_count : '' %></span>
@@ -169,7 +169,7 @@
         </div>
         <div class="clear"></div>
         <div class="leftNav-links box">
-          <%if (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN  || session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER)%>
+          <%if (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN )%>
             <h2>Management Tools</h2>
             <ul>
               <%if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN)%>
@@ -220,24 +220,22 @@
                   </div>
                 </li>
               <%end%>
-              <%if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN  || session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER)%>
-                <%if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN)%>
-                  <li class="menu-item">
-                    <%=link_to t('left_nav.user'), "javascript:void(0);" , :title=>t('left_nav.user') ,:class=>"", :id=>"lnk_user" ,:onclick=>"leftNavigation(this.id,'div_user')"%>
-                    <div id ="div_user" style="display:none;">
-                      <ul>
-                        <li><%=link_to t('left_nav.create'), new_department_user_path%></li>
-                        <li><%=link_to t('left_nav.list'), users_path %></li>
-                        <%if current_user && (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN) %>
-                          <li><%=link_to t('left_nav.transfer_dept'), transfer_users_path , :title=>t('left_nav.transfer_dept') ,:class=>""%></li>
-                          <li><%=link_to t('left_nav.assign_dept'), assign_department_users_path , :title=>t('left_nav.assign_dept') ,:class=>""%></li>
-                          <!--li><%#=link_to t('left_nav.transfer_unit'), transfer_unit_users_path , :title=>t('left_nav.transfer_unit') ,:class=>""%></li>
-                          <li><%#=link_to t('left_nav.assign_unit'), assign_unit_users_path , :title=>t('left_nav.assign_unit') ,:class=>""%></li-->
-                        <%end%>
-                      </ul>
-                    </div>
-                  </li>
-                <%end%>
+              <%if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN)%>
+                <li class="menu-item">
+                  <%=link_to t('left_nav.user'), "javascript:void(0);" , :title=>t('left_nav.user') ,:class=>"", :id=>"lnk_user" ,:onclick=>"leftNavigation(this.id,'div_user')"%>
+                  <div id ="div_user" style="display:none;">
+                    <ul>
+                      <li><%=link_to t('left_nav.create'), new_department_user_path%></li>
+                      <li><%=link_to t('left_nav.list'), users_path %></li>
+                      <%if current_user && (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN) %>
+                        <li><%=link_to t('left_nav.transfer_dept'), transfer_users_path , :title=>t('left_nav.transfer_dept') ,:class=>""%></li>
+                        <li><%=link_to t('left_nav.assign_dept'), assign_department_users_path , :title=>t('left_nav.assign_dept') ,:class=>""%></li>
+                        <!--li><%#=link_to t('left_nav.transfer_unit'), transfer_unit_users_path , :title=>t('left_nav.transfer_unit') ,:class=>""%></li>
+                        <li><%#=link_to t('left_nav.assign_unit'), assign_unit_users_path , :title=>t('left_nav.assign_unit') ,:class=>""%></li-->
+                      <%end%>
+                    </ul>
+                  </div>
+                </li>
                 <%if current_user && (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN)%>
                   <li class="menu-item">
                     <%=link_to t('left_nav.category'), "javascript:void(0);" , :title=>t('left_nav.category') ,:class=>"", :id=>"lnk_category" ,:onclick=>"leftNavigation(this.id,'div_category')"%>
@@ -510,7 +508,7 @@
       <%# if  session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN  %>
       <%#*<li>%>
       <%# support_count = Outstation.where(:status=>"New").count  %>
-                <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+              <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
       <%#=link_to "Verify Request", approve_request_outstations_path%>
       <%#*</li>%>
       <%#end%>
@@ -531,6 +529,42 @@
             <h2>Department Info</h2>
             <ul>
               <% if session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER %>
+                <li class="menu-item">
+                  <%=link_to "ICT Equipment Booking", "javascript:void(0);" , :title=>"ICT Equipment Booking" ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
+                  <div id ="div_resource_ict_bookings" style="display:none;">
+                    <ul>
+                      <li><%=link_to t('left_nav.create'), new_resource_ict_equipment_booking_path %></li>
+                      <li><%=link_to t('left_nav.list'), resource_ict_equipment_bookings_path %></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="menu-item">
+                  <%=link_to "Room Booking", "javascript:void(0);" , :title=>"Resource Room Booking" ,:class=>"", :id=>"lnk_resource_room_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_room_booking')"%>
+                  <div id ="div_resource_room_booking" style="display:none;">
+                    <ul>
+                      <li><%=link_to t('left_nav.create'), new_resource_room_booking_path %></li>
+                      <li><%=link_to t('left_nav.list'), resource_room_bookings_path %></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="menu-item">
+                  <%=link_to "Transport Booking", "javascript:void(0);" , :title=>"Resources Transport Booking" ,:class=>"", :id=>"lnk_resource_transport_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_transport_booking')"%>
+                  <div id ="div_resource_transport_booking" style="display:none;">
+                    <ul>
+                      <li><%=link_to t('left_nav.create'), new_resource_transportation_booking_path %></li>
+                      <li><%=link_to t('left_nav.list'), resource_transportation_bookings_path %></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="menu-item">
+                  <%=link_to "Other Resource Booking", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_bookings')"%>
+                  <div id ="div_resource_bookings" style="display:none;">
+                    <ul>
+                      <li><%=link_to t('left_nav.create'), new_resource_booking_path%></li>
+                      <li><%=link_to t('left_nav.list'), resource_bookings_path%></li>
+                    </ul>
+                  </div>
+                </li>
                 <li class="menu-item">
                   <%=link_to "Process Booking Request", "javascript:void(0);" , :title=>"Approve Booking Request" ,:class=>"", :id=>"lnk_approve_requests" ,:onclick=>"leftNavigation(this.id,'div_approve_requests')"%>
                   <div id ="div_approve_requests" style="display:none;">
