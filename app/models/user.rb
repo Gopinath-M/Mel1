@@ -199,30 +199,6 @@ class User < ActiveRecord::Base
     feed.save! 
   end
  
-  def delete_user
-    feed = User.find(self.user_id).created_feeds.build
-    feed.for = "Vacancy"
-    feed.feed_type = "destroyed"
-    feed.feed_objects << FeedObject.convert(:vacancy => self)
-    subscribers = []
-    admins = Organization.find(self.organization_id).roles.where(:name => "Admin").first.users
-    admins.each do |a|
-      subscribers << a unless subscribers.index(a)
-    end
-   
-    hr = User.find(self.hr_responsible)
-    manager = User.find(self.manager)
-
-    subscribers << hr
-    subscribers << manager
- 
-    subscribers.uniq.each do |s|
-      feed.feed_subscriptions.build(:subscriber_id => s.id)
-    end
-    feed.save!     
-  end
-
-
   private
 
   def update_avatar_attributes
