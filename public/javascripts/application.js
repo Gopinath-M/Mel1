@@ -2327,38 +2327,6 @@ function autoTab(e, element, nextElement)
     }
 }
 
-/*Javascripts Ends*/
-/* Validating Transport Request Approval Form */
-
-function validate_request_approval_form(){
-    if($("#approve_status").val() == "Declined"){
-        var r = confirm("You want to Decline this Request. Continue ?");
-        if (r == false)
-        {
-            return false;
-        }
-    }
-    else if ($("#approve_status").val() == "New"){
-        var r = confirm("You didn't Approve this request. Continue ?");
-        if (r== false)
-        {
-            return false;
-        }
-    }
-    else if ($("#approve_status").val() == "Approved"){
-        if ($("#vehicle_id").val() == ""){
-            alert("Please Select the Vehicle");
-            return false;
-        }
-    }
-    else if ($("#approve_status").val() == "Returned"){
-        var r = confirm("You want to Return this Request. Continue ?")
-        if (r == false)
-        {
-            return false;
-        }
-    }
-}
 
 /*Javascripts Ends*/
 
