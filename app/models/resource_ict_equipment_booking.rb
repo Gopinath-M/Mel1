@@ -18,8 +18,8 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
     errors.add(:base,"To Meeting Date Should be greater than current date and time") if self.meeting_end_time!=nil && self.meeting_end_time<Time.now
     errors.add(:base,"To Meeting Date Should be greater than From date and time") if self.meeting_start_time!=nil && self.meeting_end_time!=nil && self.meeting_start_time>self.meeting_end_time
     errors.add(:base,"From Date Should be greater than current date and time") if self.requested_from_date!=nil && self.requested_from_date<Time.now
-    errors.add(:base,"From Date should be greater than Meeting From Date") if self.requested_from_date!=nil && self.meeting_start_time!=nil  && self.meeting_start_time < self.requested_from_date
-    errors.add(:base,"To Date should be greater than Meeting end Date") if self.requested_to_date!=nil && self.meeting_end_time!=nil  && self.meeting_end_time > self.requested_to_date
+    errors.add(:base,"From Meeting Time should be greater than From Date") if self.requested_from_date!=nil && self.meeting_start_time!=nil  && self.meeting_start_time < self.requested_from_date
+    errors.add(:base,"Meeting End Time should be greater than To Date") if self.requested_to_date!=nil && self.meeting_end_time!=nil  && self.meeting_end_time > self.requested_to_date
   end
   
 end

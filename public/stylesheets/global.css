@@ -30,7 +30,7 @@
     left: 585px;
 }
 .pagination {
-    background: url("../images/bg_slide_indicator.png") no-repeat scroll 0 0 transparent;
+/*    background: url("../images/bg_slide_indicator.png") no-repeat scroll 0 0 transparent;   commented for image missing warning through in console*/
     float: right;
     height: 7px;
     margin: -20px 15px 0 0;
