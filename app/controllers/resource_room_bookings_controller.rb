@@ -90,7 +90,9 @@ class ResourceRoomBookingsController < ApplicationController
           @resource_room_booking.user_id = params[:user_id]
           @resource_room_booking.department_id = '0'
           @resource_room_booking.save
+          if @room.present?
           @room.update_attribute(:status, "Cancelled")
+          end
           redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
         else
           redirect_to(new_resource_room_booking_path, :alert => "You cant book the Already Reserved Room, Please try other.")
