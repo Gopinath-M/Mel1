@@ -5,18 +5,18 @@
       <div class="create-user">From Department :<br/><br/>
         <%=hidden_field_tag :department_id, ""%>
         <div class="cu-c2">
-          <%= select(:standard,:department_id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "SELECT A DEPARTMENT") %>
+          <%= select(:standard,:department_id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "Select Department") %>
         </div>
       </div>
       <div class="create-user">List of Existing Users :<br/><br/>
         <%=hidden_field_tag :username %>
         <div class="cu-c2">
-          <%= select(:standard,:username, User.order('username').all.collect{ |s| [truncate(s.username, :length => 50), s.id] },:selected => @username ,:prompt => "SELECT A USER") %>
+          <%= select(:standard,:username, User.order('username').all.collect{ |s| [truncate(s.username, :length => 50), s.id] },:selected => @username ,:prompt => "Select User") %>
         </div>
       </div>
       <div class="create-user">To Department :<br/><br/>
         <div class="cu-c2">
-          <%= select(:standard2,:department_id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "SELECT A DEPARTMENT") %>
+          <%= select(:standard2,:department_id, Department.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "Select Department") %>
         </div>
       </div>
     </div>

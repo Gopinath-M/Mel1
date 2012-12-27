@@ -11,7 +11,7 @@
       <div class="form-sec-row">
         <%= label "requisition","type_id",raw("Requisition Type<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
-          <%= select("requisition","type_id", RequisitionType.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A ICT FACILITY", :style=> "width:132%;") %>
+          <%= select("requisition","type_id", RequisitionType.all.collect {|p| [ p.name, p.id ] },:prompt => "Select ICT Facility", :style=> "width:132%;") %>
         </span>
       </div>
 

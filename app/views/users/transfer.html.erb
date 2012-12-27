@@ -8,13 +8,13 @@
         <div class="form-sec-row">
           <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
           <span class="in-box">
-            <%= select(:transfer_from,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+            <%= select(:transfer_from,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
           </span>
         </div>
         <div class="form-sec-row">
           <%= label_tag :department_id, raw("Department"), :class=>"text"%>
           <span class="in-box">
-            <%= select(:from_department,:id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+            <%= select(:from_department,:id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
           </span>
         </div>
       </div>
@@ -24,7 +24,7 @@
           List of Existing Users :<br/><br/>
           <%=hidden_field_tag :username %>
           <span class="in-box">
-            <%= select(:transfer, :username, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A USER") %>
+            <%= select(:transfer, :username, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select User") %>
           </span>
         </div>
 
@@ -44,7 +44,7 @@
          Choose Department Admin :<br/><br/>
           <%=hidden_field_tag :username %>
           <span class="in-box">
-            <%= select(:transfer, :username_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A USER") %>
+            <%= select(:transfer, :username_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select User") %>
           </span>
         </div>
 
@@ -62,13 +62,13 @@
         <div class="form-sec-row">
           <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
           <span class="in-box">
-            <%= select(:transfer_to,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+            <%= select(:transfer_to,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
           </span>
         </div>
         <div class="form-sec-row">
           <%= label_tag :department_id, raw("Department"), :class=>"text"%>
           <span class="in-box">
-            <%= select(:to_department, :id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+            <%= select(:to_department, :id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
           </span>
         </div>
       </div>

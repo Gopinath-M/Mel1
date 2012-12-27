@@ -22,7 +22,7 @@
    <div class="form-sec-row">
           <label class="text">VPN Access<span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "SELECT A VPN ACCESS", :style=> "width:132%;") %>
+            <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "Select VPN Access", :style=> "width:132%;") %>
           </span>
       </div>
   <div class="form-sec-row">
