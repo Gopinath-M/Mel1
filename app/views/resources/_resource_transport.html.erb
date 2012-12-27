@@ -11,7 +11,7 @@
     <div class="form-sec-row">
     <label class="text">Vehicle Brand<span style=color:red>*</span></label>
     <span class="in-box">
-       <%= select("resource_transport","vehicle_model_type_id",  options_from_collection_for_select(VehicleModelType.where("sub_category_id = ?",params[:sub_category_id]).active, 'id','name',@resource.sub_category_id ),:prompt=>"SELECT VEHICLE BRAND") %>
+       <%= select("resource_transport","vehicle_model_type_id",  options_from_collection_for_select(VehicleModelType.where("sub_category_id = ?",params[:sub_category_id]).active, 'id','name',@resource.sub_category_id ),:prompt=>"Select Vehicle Brand") %>
     </span>
   </div>
   

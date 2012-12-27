@@ -8,7 +8,7 @@
       </div>
       <%=hidden_field_tag :department_id, ""%>
       <div class="cu-c2">Select Department:
-        <%= select(:admin_user,:department_id, Department.all_undeleted.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "SELECT A DEPARTMENT") %>
+        <%= select(:admin_user,:department_id, Department.all_undeleted.order('name').all.collect{ |s| [truncate(s.name, :length => 50), s.id] },:selected => @department_id ,:prompt => "Select Department") %>
       </div>
     </div>
     <div class="manage-user box">

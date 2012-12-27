@@ -1,0 +1,14 @@
+<%= "Feeds" %>
+<% previous_date="nothing" %>
+  <% @feeds.each do |f| %>
+    <% if not (previous_date == f.created_at.strftime("%d-%b-%Y")) %>
+      <%= f.created_at.strftime("%d") %>
+        </br>
+      <%= f.created_at.strftime("%b") %>
+    <% end %>
+      <strong> <%= f.created_at.strftime("%H:%M %p") %>
+      <%= render :partial => f.template, :locals => f.locals %>
+      <% previous_date = f.created_at.strftime("%d-%b-%Y") %>
+   <% end %>
+</br>
+</br>

@@ -57,7 +57,7 @@
       <div class="form-sec-row">
         <%= f.label :state,raw("State <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
-          <%= f.select(:state, options_for_select(State.all.collect {|p| [p.name.upcase, p.id]},resource.state) ,:prompt => "SELECT YOUR STATE")%>
+          <%= f.select(:state, options_for_select(State.all.collect {|p| [p.name.upcase, p.id]},resource.state) ,:prompt => "Select Your State")%>
         </span>
       </div>
       <div class="form-sec-row">
