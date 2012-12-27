@@ -241,7 +241,7 @@
                       <%#end%>
                       </div>-->
                       <% user = User.find(@resource_transportation_booking.requester_id) %>
-                      <% a = AgencyStore.find(:all,:conditions=>["agency_id = ? and sub_category_id = ? and resource_type = ? and booked = ?",current_user.departments[0].agency.id,@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
+                      <% a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
                       <% b = Resource.find(:all,:conditions=>["id in (#{a})"]).collect(&:vehicle_model_type_id).uniq.join(',') %>
                       <% if !b.blank? %>
                         <td>
@@ -254,7 +254,7 @@
                     <tr>
                       <td><b>Vehicle</b></td>
                       <% user = User.find(@resource_transportation_booking.requester_id) %>
-                      <% a = AgencyStore.find(:all,:conditions=>["agency_id = ? and sub_category_id = ? and resource_type = ? and booked = ?",current_user.departments[0].agency.id,@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
+                      <% a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
                       <% if !a.blank? %>
                         <td>                          
                           <%#= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"Select a Vehicle"})%>
@@ -301,8 +301,52 @@
 <script>
 	
 	    /* Validating Transport Request Approval Form */
-
-function validate_request_approval_form(){	
+$().ready(function(){
+      
+$("#1vehicle_model_type_id").live("change", function(){
+   
+    
+    if($("#vehicle_model_type_id").val()!= "")
+    {     
+      $.get("/resource_transportation_bookings/get_vehicles",{
+        vehicle_model_type_id : $("#vehicle_model_type_id").val()
+      }, function(data){
+        if (data[0]!=null)
+        {
+          if (data[0].length > 0)
+          {
+            $('#vehicle_id').find('option').remove().end()
+            $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
+            for(var i=0; i<data[0].length;i++)
+            {
+              $('#vehicle_id').append($("<option></option>").attr("value",data[0][i].resource.resource_id).text(data[0][i].resource.vehicle_model +' : '+ data[0][i].resource.resource_no));
+            }
+          }
+          else
+          {
+            $.get("/resource_transportation_bookings/get_other_agency_vehicles",{
+              vehicle_model_type_id : $("#vehicle_model_type_id").val()              
+            },
+            function(data){
+              if (data[0]!=null)
+              {
+                $('#vehicle_id').find('option').remove().end()
+                $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
+                
+                $.each(data[0], function(key, val) {
+                  $('#vehicle_id').append($("<option></option>").attr("value",key).text(val));
+                });
+              }
+              alert("Selected Vehicle Category is not Available in your Agency. Searching in Other Agencies.. ");
+            });
+          }
+        })
+      }
+    });
+    
+  });
+    
+    function validate_request_approval_form(){	
   
     if($("#approve_status").val() == "Declined"){
         var r = confirm("You want to Decline this Request. Continue ?");
@@ -336,5 +380,7 @@ function validate_request_approval_form(){
         }
     }
 }
+
+
 
 </script>
