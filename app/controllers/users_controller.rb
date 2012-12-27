@@ -30,28 +30,28 @@ class UsersController < ApplicationController
   #List all Users
   def index
     @users=nil
-    if !current_user.is_super_admin?
+    if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
       department_id = params[:department_id].to_i
       if department_id != 0
-        department = Department.find_by_id(params[:department_id])
-        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10).order('created_at DESC')
+        department = Department.find(params[:department_id])
+        @users = department.users.joins(:roles).where("users.deleted = false and roles.name = ?",DISP_USER_ROLE_DEPT_USER).page(params[:page]).per(10).order('created_at DESC')
       else
         if !params[:unit_id].nil?
-          @users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
+          @users = Unit.find(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
         else
           default_department ||= current_user.role_memberships.first.department_id
-          @dept = Department.find_by_id(default_department)
+          @dept = Department.find(default_department)
           @users = @dept.users.where("role_id != 2").page(params[:page]).per(10) if @dept
         end
       end
     else
       department_id = params[:department_id].to_i
       if department_id != 0
-        department = Department.find_by_id(params[:department_id])
+        department = Department.find(params[:department_id])
         @users = department.users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
       else
         if !params[:unit_id].nil?
-          @users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
+          @users = Unit.find(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
         else
           @users=User.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10).order('created_at DESC')
         end
@@ -273,11 +273,11 @@ class UsersController < ApplicationController
   end
 
   def update_default_department
-    department=Department.find(params[:default][:department_id]) if params[:default][:department_id]
-    if department && department!=nil
-      role=current_user.role_memberships.where(:default_dept => true)
+    department = Department.find(params[:default][:department_id]) if params[:default][:department_id]
+    if department && department != nil
+      role = current_user.role_memberships.where(:default_dept => true)
       role.first.update_attribute(:default_dept, false) if role && !role.empty? && role.first
-      new_role=current_user.role_memberships.where(:default_dept => false,:department_id=>department.id)
+      new_role = current_user.role_memberships.where(:default_dept => false,:department_id => department.id)
       new_role.first.update_attribute(:default_dept, true)  if new_role && !new_role.empty? && new_role.first
     end
     redirect_to(users_path, :notice => "Your Account Settings Updated successfully")
