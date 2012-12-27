@@ -38,7 +38,7 @@
           <div class="form-sec-row">
             <label class="text">Ticket No</label>
             <span class="in-box">
-              <b><font color="#BB0802;">&nbsp;<%=resource.id%>/<%=Time.now.year%></font></b>
+              <b style="color:red;">&nbsp;<%=resource.id%>/<%=Time.now.year%></b>
             </span>
           </div>
           <div class="form-sec-row">
@@ -67,8 +67,8 @@
           </div>
           <div class="form-sec-row">
             <label class="text">Status</label>
-            <span class="in-box">
-              <b><font color="#FFA500"><%= "#{resource.status}" %></font></b>
+            <span class="in-box" style="color :<%= (resource.status == 'New') ? '#FFA500' : ((resource.status == 'Approved' || resource.status == 'Processed') ? '#329C20' : 'red' )%>">
+              <b><%= resource.status%></b>
             </span>
           </div>
           <div class="form-sec-row2">
