@@ -18,6 +18,8 @@ Melaka::Application.routes.draw do
   end
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
 
+  resources :feeds, :only=>[:index]
+
   resources :resource_bookings do
     collection do
       get 'get_other_sub_categories'

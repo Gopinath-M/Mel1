@@ -22,6 +22,7 @@ class DepartmentUsersController < ApplicationController
       @user.role_memberships.create(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
       #UserMailer.welcomemail_department_user(@user,password_token).deliver
       Stalker.enqueue("#{SPREFIX}.send.welcome", :id => @user.id, :password=> password_token)
+      @user.feed_for_create_user
       if @user.roles.first.name==DISP_USER_ROLE_DEPT_ADMIN
         redirect_to(admin_users_path, :notice => 'Department Admin was added successfully.')
       else
