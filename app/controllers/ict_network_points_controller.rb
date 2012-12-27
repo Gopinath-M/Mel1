@@ -59,6 +59,7 @@ class IctNetworkPointsController < ApplicationController
   def update_approval_network_point
     network = IctNetworkPoint.find_by_id(params[:id])
     network.update_attributes(params[:ict_network_point])
+    network.update_attribute(:updated_by, params[:updated_by])
     user = User.find_by_id(network.person_incharge)
     ordered_user = User.find_by_id(network.user_id)
     UserMailer.send_status_mail_for_ict_network(user,ordered_user,network).deliver
@@ -72,4 +73,10 @@ class IctNetworkPointsController < ApplicationController
 
   def selected_list_ict
   end
+
+  def download_attachments
+    @message = IctNetworkPoint.find(params[:id])
+    send_file @message.ict_network_attachment.path
+  end
+
 end

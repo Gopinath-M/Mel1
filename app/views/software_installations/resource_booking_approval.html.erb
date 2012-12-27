@@ -106,11 +106,11 @@
                   <label class="text">Booking Status<span style=color:red>*</span></label>
                   <%if @software_installation.status == 'New'%>
                     <span class="in-box">
-                      <%= select 'status', 'id', options_for_select([["SELECT A STATUS", -1],["Approved", "Approved"], ["Declined", "Declined"]], @software_installation.status) %>
+                      <%= select 'status', 'id', options_for_select([["Select Status", -1],["Approved", "Approved"], ["Declined", "Declined"]], @software_installation.status) %>
                     </span>
                   <%elsif @software_installation.status == 'Approved'%>
                     <span class="in-box">
-                      <%= select 'status', 'id', options_for_select([["SELECT A STATUS", -1],["Processed", "Processed"], ["Declined", "Declined"]], @software_installation.status) %>
+                      <%= select 'status', 'id', options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @software_installation.status) %>
                     </span>
                   <%end%>
                 </div>
@@ -120,7 +120,7 @@
                   <div class="form-sec-row">
                     <label class="text">Forward To<span style=color:red>*</span></label>
                     <span class="in-box">
-                      <%= f.select(:user_id, @users.collect {|p| [ p.first_name, p.id ] },:prompt => "SELECT A USER") %>
+                      <%= f.select(:user_id, @users.collect {|p| [ p.first_name, p.id ] },:prompt => "Select User") %>
                     </span>
                   </div>
                 <%end%>

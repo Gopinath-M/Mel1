@@ -7,18 +7,20 @@
           <div class="form-sec-row">
             <label class="text heading_blue">User Details:</label>
           </div>
-          <div class="form-sec-row">
-            <label class="text">Agency Name</label>
-            <span class="in-box">
-              <b><%= resource_ict_equipment_booking.department.agency.name %></b>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text">Department Name</label>
-            <span class="in-box">
-              <b><%= resource_ict_equipment_booking.department.name %></b>
-            </span>
-          </div>
+          <%if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
+            <div class="form-sec-row">
+              <label class="text">Agency Name</label>
+              <span class="in-box">
+                <b><%= resource_ict_equipment_booking.department.agency.name %></b>
+              </span>
+            </div>
+            <div class="form-sec-row">
+              <label class="text">Department Name</label>
+              <span class="in-box">
+                <b><%= resource_ict_equipment_booking.department.name %></b>
+              </span>
+            </div>
+          <%end%>
           <div class="form-sec-row">
             <label class="text">IC Number</label>
             <span class="in-box">
@@ -147,6 +149,7 @@
         </div>
       <%end%>
       <div class="manage-user-rows box"><br/><br/>
+        <%= paginate @resource_ict_equipment_bookings %>
       </div>
     <%else%>
       No Resource Booking done

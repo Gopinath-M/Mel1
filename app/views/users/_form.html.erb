@@ -42,7 +42,7 @@
     <div class="form-sec-row">
       <%= f.label :state, :class=>"text"%>
       <span class="in-box">
-        <%= f.select(:state,options_for_select(State.all, 'id','name' ), :prompt => "SELECT YOUR STATE")%>
+        <%= f.select(:state,options_for_select(State.all, 'id','name' ), :prompt => "Select Your State")%>
       </span>
     </div>
     <div class="form-sec-row">
@@ -54,19 +54,19 @@
     <div class="form-sec-row">
       <%= label_tag "users_agency", raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
       <span class="in-box">
-        <%= select("users","agency", options_for_select(Agency.active, 'id','name', @user.state!=nil ? @user.state : "" ), {},:prompt=>"SELECT AN AGENCY") %>
+        <%= select("users","agency", options_for_select(Agency.active, 'id','name', @user.state!=nil ? @user.state : "" ), {},:prompt=>"Select Agency") %>
       </span>
     </div>
     <div class="form-sec-row">
       <%= label_tag "users_department", raw("Department <span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
-        <%= select("users","department", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+        <%= select("users","department", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
       </span>
     </div>
     <div class="form-sec-row">
       <%= label_tag "users_unit",raw("Unit"), :class=>"text"%>
       <span class="in-box">
-        <%= select("users","unit", Unit.active.where("department_id=?", params[:department]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT AN UNIT") %>
+        <%= select("users","unit", Unit.active.where("department_id=?", params[:department]).collect {|p| [ p.name, p.id ] },:prompt => "Select Unit") %>
       </span>
     </div>
 

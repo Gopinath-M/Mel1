@@ -112,7 +112,7 @@
                 <div class="form-sec-row">
                   <label class="text">Forward To</label>
                   <span class="in-box">
-                    <%= select("forward","to", @users.collect {|p| [ p.first_name, p.id ] }, :prompt => "SELECT A USER") %>
+                    <%= select("forward","to", @users.collect {|p| [ p.first_name, p.id ] }, :prompt => "Select User") %>
                   </span>
                 </div>
 

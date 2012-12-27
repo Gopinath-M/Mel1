@@ -109,11 +109,14 @@
             <%= hidden_field_tag(:id, resource.id) %>
           </div>
         </div>
-        <div class="clear"></div>
+        <h2 class="b-head"></h2>
+      <%end%>
+      <div class="manage-user-rows box"><br/><br/>
+        <%= paginate @booking %>
       </div>
+    <%else%>
+      No Resources Available
     <%end%>
-  <%#= paginate @booking %>
-  <%else%>
-    No Resources Available
-  <%end%>
+    <div class="clear"></div>
+  </div>
 </div>

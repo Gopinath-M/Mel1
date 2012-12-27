@@ -2,26 +2,26 @@
   <div class="form-sec-row">
     <%= label_tag :agency_id, raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
     <span class="in-box">
-      <%= select("other","agency_id",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"SELECT AN AGENCY") %>
+      <%= select("other","agency_id",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
     </span>
   </div>
   <div class="form-sec-row">
     <label class="text">Select Category <span style=color:red>*</span></label>
     <span class="in-box">
-      <%=select("other_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7 and id !=8").active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
+      <%=select("other_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7 and id !=8").active.all, 'id','name'),{:prompt=>"Select Category"})%>
     </span>
   </div>
   <div class="form-sec-row">
     <label class="text">Select Sub Category<span style=color:red>*</span></label>
     <span class="in-box">
-      <%=select("other_agency","sub_category_id", options_from_collection_for_select(SubCategory.active.all, 'id','name'),{:prompt=>"SELECT A SUB CATEGORY"})%>
+      <%=select("other_agency","sub_category_id", options_from_collection_for_select(SubCategory.active.all, 'id','name'),{:prompt=>"Select Sub Category"})%>
     </span>
   </div>
   <%= hidden_field_tag :resource_type, ("Others") %>
   <div class="form-sec-row">
     <label class="text">Resource<span style=color:red>*</span></label>
     <span class="in-box">
-      <%= select("other_agency","resource_id", Resource.where('resource_no  is not null').active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE") %>
+      <%= select("other_agency","resource_id", Resource.where('resource_no  is not null').active.collect {|category| [category.resource_no, category.id]},:prompt=>"Select Resource") %>
     </span>
   </div>
   <div class="form-sec-row">

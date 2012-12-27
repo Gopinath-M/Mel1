@@ -1,9 +1,10 @@
 class AgenciesController < ApplicationController
   before_filter :authenticate_user!
+  
   def index
-    @agencies=nil
+    @agencies = nil
     if params[:id].blank? || params[:id].nil?
-      @agencies=Agency.where(:deleted => false).order.page(params[:page]).per(15)
+      @agencies = Agency.where(:deleted => false).order.page(params[:page]).per(10)
     end
   end
 
@@ -17,11 +18,11 @@ class AgenciesController < ApplicationController
 
   def create
     @agency = Agency.create(params[:agency])
-    @agency.save
     if @agency.valid?
-      redirect_to :controller=>'agencies', :action=>'index'
+      @agency.save
+      redirect_to :controller =>'agencies', :action => 'index'
     else
-      render :action=>'new'
+      render :action => 'new'
     end
   end
 
@@ -30,15 +31,15 @@ class AgenciesController < ApplicationController
     if @agency.update_attributes(params[:agency])
       redirect_to(agencies_path, :notice => 'Agency has been successfully updated.')
     else
-      render :action=>'new'
+      render :action => 'new'
     end
   end
 
   def update_status
     agency = Agency.find(params[:id])
-    if agency && params[:status]=="Activate"
+    if agency && params[:status] == "Activate"
       agency.update_attribute(:is_active,true)
-    elsif agency && params[:status]=="Deactivate"
+    elsif agency && params[:status] == "Deactivate"
       agency.update_attribute(:is_active, false)
     end
     redirect_to(agencies_path, :notice => 'Agency Status has been successfully changed.')
@@ -51,18 +52,30 @@ class AgenciesController < ApplicationController
       redirect_to(agencies_path, :notice => 'Agency has been Deleted.')
     end
   end
-# assign resource manager
-def assign_resource_manager
-    @agency = Agency.new
+  
+  def assign_resource_manager
+    @role_membership = RoleMembership.new
   end
 
   def update_assign_resource_manager
-    from_user =  User.find_by_ic_number(params[:transfer][:username])
-    agency = Agency.find_by_id(params[:transfer_from][:agency])
-    role = RoleMembership.new(:department_id => 0, :user_id=> from_user.id, :role_id => '5', :status => 'A')
-    agency.update_attribute(:user_id, from_user.id)
-    role.save
-    redirect_to(assign_resource_manager_agencies_path, :notice => 'Resource Manager has been Successfully Assigned.')
+    role_member = RoleMembership.where("user_id = ?  and department_id = ? and role_id = 5 ",params[:role_membership][:user_id],params[:role_membership][:department_id])
+    if role_member && !role_member.empty?
+      render :action => 'assign_resource_manager', :alert => "This user is already a resource manager"
+    else
+      agency = Agency.find(params[:role_membership][:agency])
+      @role_membership = RoleMembership.create(:department_id => params[:role_membership][:department_id],:user_id => params[:role_membership][:user_id], :role_id => '5', :status => 'A')
+      if @role_membership.valid?
+        @role_membership.save
+        agency.update_attribute(:user_id, params[:role_membership][:user_id])
+        redirect_to(role_memberships_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
+      else
+        render :action => 'assign_resource_manager'
+      end
+    end
   end
-# assign resource manager ends here
+
+  def role_memberships
+    @role_memberships = RoleMembership.where("department_id is not null and department_id != 0 ").order("department_id asc").page(params[:page]).per(10)
+  end
+
 end

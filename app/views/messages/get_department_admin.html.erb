@@ -1,11 +1,11 @@
 <div class="form-sec-row">
   <span class="in-box">
-    <%= select(:std,:agency, Agency.where(:deleted => false).collect {|p| [ p.name, p.id ] },:selected=>@agency.id,:prompt => "SELECT A AGENCY") %>
+    <%= select(:std,:agency, Agency.where(:deleted => false).collect {|p| [ p.name, p.id ] },:selected=>@agency.id,:prompt => "Select Agency") %>
   </span>
 </div>
 <div class="form-sec-row">
   <span class="in-box">
-    <%= select(:std,:departments, Department.active.where(:agency_id => "#{@agency.id}").collect {|p| [ p.name, p.id ] },:selected=>@dept.id,:prompt => "SELECT A DEPARTMENT") %>
+    <%= select(:std,:departments, Department.active.where(:agency_id => "#{@agency.id}").collect {|p| [ p.name, p.id ] },:selected=>@dept.id,:prompt => "Select Department") %>
   </span>
 </div>
 <% if @dept_admin && !@dept_admin.blank? %>
