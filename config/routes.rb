@@ -187,6 +187,7 @@ Melaka::Application.routes.draw do
       get 'assign_unit'
       post 'assign_update_unit'
       get 'admin_activation'
+      get 'get_approvers'
       get 'user_activation'
       post 'activate_department_admin'
       post 'activate_department_user'

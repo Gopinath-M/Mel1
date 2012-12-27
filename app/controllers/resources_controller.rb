@@ -120,7 +120,7 @@ class ResourcesController < ApplicationController
   def list_approver
     if params[:id].blank? || params[:id].nil?
       if current_user.is_department_admin?
-        @approve = Approver.active.find_all_by_department_id(current_user.departments)
+        @approve = Approver.find_all_by_department_id(current_user.departments)
       end
     end
   end
@@ -170,8 +170,7 @@ def update_resource_approver
 
   def get_approvers
     @dept = Department.find_by_id(default_department)
-    users = @dept.users.where("user_id != #{params[:approver_id]}")
-    
+    users = @dept.users.where("user_id != #{params[:approver_id]}")    
     render :json=>[users] if users
   end
 

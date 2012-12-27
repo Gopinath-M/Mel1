@@ -445,7 +445,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transfer_username').find('option').remove().end()
-                    $('#transfer_username').append($("<option></option>").attr("value","").text("Select User"));
+                    $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transfer_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -465,7 +465,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transfer_username_id').find('option').remove().end()
-                    $('#transfer_username_id').append($("<option></option>").attr("value","").text("Select User"));
+                    $('#transfer_username_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transfer_username_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -485,49 +485,6 @@ $().ready(function(){
             $("#div_ajax").html(data)
         });
     })
-    $("#role_membership_agency").live("change", function(){
-        if($("#role_membership_agency").val()!="")
-        {
-            $.get("/department_users/get_departments",{
-                agency_id : $("#role_membership_agency").val()
-            }, function(data){
-                if (data[0]!=null)
-                {
-                    $('#role_membership_department_id').find('option').remove().end()
-                    $('#role_membership_department_id').append($("<option></option>").attr("value","").text("Select Department"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#role_membership_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
-                    }
-                }
-            })
-        }
-        else
-        {
-            $('#role_membership_department_id').find('option').remove().end()
-            $('#role_membership_user_id').find('option').remove().end()
-            $('#role_membership_department_id').append($("<option></option>").attr("value","").text("Select Department"));
-            $('#role_membership_user_id').append($("<option></option>").attr("value","").text("Select User"));
-        }
-    });
-    $("#role_membership_department_id").live("change",function(){
-        if($("#role_membership_department_id").val()!="")
-        {
-            $.get("/users/transfer/",{
-                department_id: $("#role_membership_department_id").val()
-            }, function(data){
-                if (data[0]!=null)
-                {
-                    $('#role_membership_user_id').find('option').remove().end()
-                    $('#role_membership_user_id').append($("<option></option>").attr("value","").text("Select User"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#role_membership_user_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
-                    }
-                }
-            })
-        }
-    });
 
     $("#transfer_from_agency").live("change", function(){
         if($("#transfer_from_agency").val()!="")
@@ -538,7 +495,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#from_department_id').find('option').remove().end()
-                    $('#from_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+                    $('#from_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#from_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -550,8 +507,8 @@ $().ready(function(){
         {
             $('#from_department_id').find('option').remove().end()
             $('#transfer_username').find('option').remove().end()
-            $('#from_department_id').append($("<option></option>").attr("value","").text("Select Department"));
-            $('#transfer_username').append($("<option></option>").attr("value","").text("Select User"));
+            $('#from_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
         }
     });
 
@@ -564,7 +521,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#to_department_id').find('option').remove().end()
-                    $('#to_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+                    $('#to_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#to_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -575,7 +532,7 @@ $().ready(function(){
         else
         {
             $('#to_department_id').find('option').remove().end()
-            $('#to_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+            $('#to_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
         }
     });
 
@@ -586,6 +543,7 @@ $().ready(function(){
             if(data[0]!=null)
             {
                 $("#value_new").hide();
+                $("#div_approver_list").hide();
                 $("#user_id").val($("#transfer_username").val())
                 var content="<table><tr><td><u><b>List of Existing Departments :</b></u></td></tr><tr><td><br/></td></tr>";
                 content+=""
@@ -615,8 +573,9 @@ $().ready(function(){
             if(data[0]!=null)
             {
                 $("#value_new").show();
+                $("#div_approver_list").hide();
                 $("#user_id").val($("#transfer_username").val())
-                var content="<table><tr><td><u><b>The User you Selected is a Department Admin, So Please Assign other Department Admin for this department before transfer him.</b></u></td></tr><tr><td><br/></td></tr>";
+                var content="<table><tr><td><u><b>The User you Selected is a Department Admin, So Please Assign other Department Admin for this department before transfering him.</b></u></td></tr><tr><td><br/></td></tr>";
                 content+=""
                 for(i=0; i<data[0].length; i++)
                 {
@@ -626,6 +585,29 @@ $().ready(function(){
                 }
                 content+="</table>"
                 $("#div_admin_transfer").html(content)
+            }
+            else
+            {
+                content+="No Departments Found"
+                $("#div_admin_transfer").html(content)
+            }
+
+        });
+    })
+
+
+    $("#transfer_username").live("change",function(){
+        $.get("/users/get_approvers/",{
+            ic_number: $("#transfer_username").val()
+        }, function(data){
+            if(data[0]!=null)
+            {
+                $("#div_approver_list").show();
+                $("#user_id").val($("#transfer_username").val())
+                var content="<table><tr><td><u><b>The User you selected is a Approver. While tranfering him Depart Admin will take over the Approver Position.</b></u></td></tr><tr><td><br/></td></tr>";
+                content+=""
+                content+="</table>"
+                $("#div_approver_list").html(content)
             }
             else
             {
