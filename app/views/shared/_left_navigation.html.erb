@@ -547,15 +547,7 @@
                     </ul>
                   </div>
                 </li>
-                <li class="menu-item">
-                  <%=link_to "Transport Booking", "javascript:void(0);" , :title=>"Resources Transport Booking" ,:class=>"", :id=>"lnk_resource_transport_booking" ,:onclick=>"leftNavigation(this.id,'div_resource_transport_booking')"%>
-                  <div id ="div_resource_transport_booking" style="display:none;">
-                    <ul>
-                      <li><%=link_to t('left_nav.create'), new_resource_transportation_booking_path %></li>
-                      <li><%=link_to t('left_nav.list'), resource_transportation_bookings_path %></li>
-                    </ul>
-                  </div>
-                </li>
+
                 <li class="menu-item">
                   <%=link_to "Other Resource Booking", "javascript:void(0);" , :title=>"Resource Booking" ,:class=>"", :id=>"lnk_resource_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_bookings')"%>
                   <div id ="div_resource_bookings" style="display:none;">
