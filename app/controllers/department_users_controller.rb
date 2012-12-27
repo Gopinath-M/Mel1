@@ -21,6 +21,10 @@ class DepartmentUsersController < ApplicationController
       if role_member.valid?
         @user.save
         role_member.save
+        if role_member.role_id==5
+          department = Department.find(role_member.department_id)
+          department.agency.update_attribute(:user_id, @user.id) if department
+        end
         @user.activate_user
         #UserMailer.welcomemail_department_user(@user,password_token).deliver
         Stalker.enqueue("#{SPREFIX}.send.welcome", :id => @user.id, :password=> password_token)
