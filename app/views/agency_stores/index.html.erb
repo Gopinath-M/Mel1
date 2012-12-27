@@ -44,8 +44,7 @@
                 <p class="head1">UOM:&nbsp;<%=store.uom%></p>
               <%end%>
                 <%if store.driver_id!=nil%><p class="head1">Driver Name:&nbsp;<%=store.driver.name.camelize%></p><%end%>
-              <p class="head1">Status:&nbsp;<%if store.booked%><span style=color:#336699>Booked</span><%else%><span style=color:#336699>Available</span><%end%></p>
-    <%#end%>
+              <p class="head1">Status:&nbsp;<%if store.booked%><font color='red'>Booked</font><%else%><span style=color:#336699>Available</span><%end%></p>    <%#end%>
             </div>
             <div class="mu-c3">
 

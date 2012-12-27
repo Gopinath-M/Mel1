@@ -16,14 +16,18 @@ class ResourceBookingsController < ApplicationController
         @resource_booking.department_id = params[:department_id]
         @resource_booking.user_id=current_user.id
         @resource_booking.agency_store_id = agency.id
-        if session[:current_role] && (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN  || current_user.is_department_admin? )
+        if current_user.is_department_admin?
           @resource_booking.status = "Approved"
+        elsif current_user.is_super_admin?
+          @resource_booking.priority_booking = true
+          @resource_booking.status = "Processed"
         else
           @resource_booking.status = "New"
         end
         if @resource_booking.valid?
           agency.update_attribute(:booked, true)
           @resource_booking.save
+          if current_user.is_department_admin? && current_user.is_super_admin?
           @approve = Approver.active.find_all_by_department_id(current_user.departments).first
           dept = Department.find_by_id(params[:department_id])
           if !@approve.present?
@@ -32,6 +36,7 @@ class ResourceBookingsController < ApplicationController
           else
             user = User.find_by_id(@approve.user_id)
             UserMailer.send_mail_to_approver_others_for_booking(user,@resource_booking,dept).deliver
+          end
           end
           redirect_to(resource_bookings_path, :notice => "Your Resource booking has been created sucessfully.")
         else
@@ -78,7 +83,9 @@ class ResourceBookingsController < ApplicationController
       @facility = Facility.active.find_all_by_resource_id(@resource_booking.resource_id)
       @details_resource = Resource.active.find_by_id(@resource_booking.resource_id)
       @user = User.find_by_id(@resource_booking.user_id)
+      if !current_user.is_super_admin?
       @dept = Department.find_by_id(default_department)
+      end
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_booking.sub_category_id)
       if @agencystore.present?
         @agency= Agency.find_by_id(@agencystore.agency_id)
@@ -110,7 +117,9 @@ class ResourceBookingsController < ApplicationController
       @facility = Facility.active.find_all_by_resource_id(@resource_booking.resource_id)
       @details_resource = Resource.active.find_by_id(@resource_booking.resource_id)
       @user = User.find_by_id(@resource_booking.user_id)
+      if !current_user.is_super_admin?
       @dept = Department.find_by_id(default_department)
+      end
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_booking.sub_category_id)
       if @agencystore.present?
         @agency= Agency.find_by_id(@agencystore.agency_id)

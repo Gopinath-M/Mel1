@@ -20,7 +20,7 @@
       <span class="in-box">
         <%= f.radio_button :resource_type, 'ict', :checked=>@resource.resource_type=='ict' ? true : false%> <%= f.label :resource_type, "ICT" %>
         <%= f.radio_button :resource_type, 'transport', :checked=>@resource.resource_type=='transport' ? true : false%> <%= f.label :resource_type, "Transport" %>
-        <%= f.radio_button :resource_type, 'room_booking', :checked=>@resource.resource_type=='room_booking' ? true : false%> <%= f.label :resource_type, "Room Booking" %>
+        <%= f.radio_button :resource_type, 'room_booking', :checked=>@resource.resource_type=='room_booking' ? true : false%> <%= f.label :resource_type, "Room" %>
         <%= f.radio_button :resource_type, 'others', :checked=>@resource.resource_type=='others' || @resource.resource_type.nil? ? true : false%> <%= f.label :resource_type, "Others" %>
       </span>
     </div>

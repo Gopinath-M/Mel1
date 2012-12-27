@@ -104,7 +104,7 @@
             </tr>
             <% if current_user.is_resource_manager? && @resource_room_booking.status == "Approved" %>
               <tr>
-                <td><label class="text">Change</label></td>
+                <td><label class="text">Change Room</label></td>
                 <td><span class="in-box">
                     <%= f.select("resource_id",  Resource.where(["sub_category_id = ?",@resource_room_booking.sub_category_id ]).active.collect {|category| [category.resource_no, category.id]}, {:prompt => 'Select Person'})%>
                   </span></td>
@@ -122,7 +122,7 @@
             <% if @resource_room_booking.status == "Approved" && !current_user.is_department_admin? && !@resource_room_booking.updated_by.present?%>
               <% user = User.find(@resource_room_booking.user_id) %>
               <tr>
-                <td><font color="#369"><b><u>Approver Details:-</u></b></font></td>
+                <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
@@ -136,7 +136,7 @@
             <% elsif @resource_room_booking.status == "Approved" && !current_user.is_department_admin? && @resource_room_booking.updated_by.present?%>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
-                <td><font color="#369"><b><u>Approver Details:-</u></b></font></td>
+                <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
@@ -150,7 +150,7 @@
             <% elsif @resource_room_booking.status == "Approved" && current_user.is_department_admin? && !@resource_room_booking.updated_by.present? %>
               <% user = User.find(@resource_room_booking.user_id) %>
               <tr>
-                <td><font color="#369"><b><u>Approver Details:-</u></b></font></td>
+                <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
@@ -164,7 +164,7 @@
             <% elsif @resource_room_booking.status == "Approved" && current_user.is_department_admin? && @resource_room_booking.updated_by.present? %>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
-                <td><font color="#369"><b><u>Approver Details:-</u></b></font></td>
+                <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
@@ -178,7 +178,7 @@
             <%elsif @resource_room_booking.status == "Processed" && !current_user.is_super_admin? %>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
-                <td><font color="#369"><b><u>Processor Details:-</u></b></font></td>
+                <td><font color="#369"><b><u>Processed Details:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
@@ -192,7 +192,7 @@
             <%elsif @resource_room_booking.status == "Processed" && current_user.is_super_admin? && !@resource_room_booking.updated_by.present?%>
               <% user = User.find(@resource_room_booking.user_id) %>
               <tr>
-                <td><font color="#369"><b><u>Processor Details:-</u></b></font></td>
+                <td><font color="#369"><b><u>Processed Details:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
@@ -206,7 +206,7 @@
             <%elsif @resource_room_booking.status == "Processed" && current_user.is_super_admin? && @resource_room_booking.updated_by.present?%>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
-                <td><font color="#369"><b><u>Processor Details:-</u></b></font></td>
+                <td><font color="#369"><b><u>Processed Details:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
@@ -217,54 +217,13 @@
                 <td><b>Processed at</b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
-            <%elsif @resource_room_booking.status == "Returned" && !current_user.is_super_admin? %>
-              <% username = User.find(@resource_room_booking.updated_by) %>
-              <tr>
-                <td><font color="#369"><b><u>Acknowledger Details:-</u></b></font></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td><b>Returned by</b></td>
-                <td><b>&nbsp;<%=username.username%></b></td>
-              </tr>
-              <tr>
-                <td><b>Returned at</b></td>
-                <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
-              </tr>
-            <%elsif @resource_room_booking.status == "Returned" && current_user.is_super_admin? && !@resource_room_booking.updated_by.present?%>
-              <tr>
-                <td><font color="#369"><b><u>Acknowledger Details:-</u></b></font></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td><b>Returned by</b></td>
-                <td><b>&nbsp;<%=current_user.username%></b></td>
-              </tr>
-              <tr>
-                <td><b>Returned at</b></td>
-                <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
-              </tr>
-            <%elsif @resource_room_booking.status == "Returned" && current_user.is_super_admin? && @resource_room_booking.updated_by.present?%>
-              <% username = User.find(@resource_room_booking.updated_by) %>
-              <tr>
-                <td><font color="#369"><b><u>Acknowledger Details:-</u></b></font></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td><b>Returned by</b></td>
-                <td><b>&nbsp;<%=username.username%></b></td>
-              </tr>
-              <tr>
-                <td><b>Returned at</b></td>
-                <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
-              </tr>
             <%end%>
 
             <tr>
             <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
             </tr>
 
-            <% if current_user.is_department_admin? || current_user.is_department_user? %>
+            <% if current_user.is_department_admin? || current_user.is_department_user? || current_user.is_super_admin?%>
               <% if @details_resource.present?%>
                 <tr>
                   <td><font color="#369"><b><u>Resource Details:-</u></b></font></td>
@@ -350,7 +309,7 @@
         <span class="in-box">
           <%= link_to "Back", :back, :class=>"btn1 mr2"%>
           <% if @resource_room_booking.status == "Processed" && @resource_room_booking.user_returned_status? %>
-            <%= f.submit raw('Acknowledge'), :class=>"btn2"%>
+            <%= f.submit raw('Submit'), :class=>"btn2"%>
           <%else%>
             <%= f.submit raw('Submit'), :class=>"btn2"%>
           <%end%>
