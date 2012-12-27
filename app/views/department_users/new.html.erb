@@ -81,7 +81,7 @@
               <%= hidden_field_tag "user_role","admin" %>
               <%=label_tag :role,dept_admin.name%>
             <%else%>
-              <%= select("role", "id", Role.find(:all,:conditions=>["name != 'Super Admin' and name != 'Department Admin'"]).collect {|role| [role.name, role.id]},:prompt=>"Select Role") %>
+              <%= select("role", "id", Role.where("name in (?)",[DISP_USER_ROLE_DEPT_USER,DISP_USER_ROLE_RESOURCE_MANAGER]).collect {|role| [role.name, role.id]},:prompt=>"Select Role") %>
             <%end%>
           </span>
         </div>
