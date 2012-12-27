@@ -91,14 +91,14 @@ class UsersController < ApplicationController
   def update_transfer
     if params[:transfer][:username] != "" && params[:from_department][:id] != "" && params[:to_department][:id]!= "" && params[:transfer_from_agency] != "" && params[:transfer_to_agency] != ""
       user = User.find_by_ic_number(params[:transfer][:username])
-      val = User.find_by_ic_number(params[:transfer][:username_id])
+      use = User.find_by_ic_number(params[:transfer][:username_id])
       departments = user.departments
       s = Department.find_by_id(params[:to_department][:id])
       if user.departments.include?(s)
         redirect_to(transfer_users_path, :alert => "You Cant transfer the User to Already exist department")
       else
         if (params[:transfer][:username_id]).present?
-          rol = RoleMembership.find_by_user_id(val.id)
+          rol = RoleMembership.find_by_user_id(use.id)
           rol.update_attribute(:role_id, '2')
           chan = RoleMembership.find_by_department_id_and_role_id(params[:to_department][:id], 2)
           chan.update_attribute(:role_id, '3')
@@ -108,6 +108,12 @@ class UsersController < ApplicationController
         department = Department.find_by_id(params[:to_department][:id])
         #UserMailer.intimate_user(user,department).deliver
         redirect_to(users_path, :notice => "#{user.first_name} has been transfer to #{department.name}.")
+      end
+      val = Approver.find_by_user_id(user.id)
+      if val.present?
+        dept = Department.find(val.department_id)
+        admin = dept.users.where("role_id = 2").first.id
+        val.update_attribute(:user_id, admin)
       end
     else
       redirect_to(transfer_users_path, :alert => "Please Select the Drop Box listed")
@@ -121,6 +127,12 @@ class UsersController < ApplicationController
       departments=user.departments.active.collect(&:name)
       render :json=>[departments] if departments
     end
+  end
+
+  def get_approvers
+    user = User.find_by_ic_number(params[:ic_number])
+    approvers = Approver.find_by_user_id(user.id)
+    render :json=>[approvers] if approvers
   end
 
   ### Transfer Dept ends here

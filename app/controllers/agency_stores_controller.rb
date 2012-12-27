@@ -89,7 +89,7 @@ class AgencyStoresController < ApplicationController
     if @store.valid?
       @store.save
       SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true) if params[:transport_agency] #params[:ict_agency]
-      redirect_to :controller => 'agency_stores', :action => 'index'
+      redirect_to :controller=>'agency_stores', :action=>'index', :notice => 'Agency Store has been successfully created.'
     else
       render :action => 'new', :notice => 'Resource already added for this Sub category'
     end

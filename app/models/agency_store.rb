@@ -12,5 +12,8 @@ class AgencyStore < ActiveRecord::Base
 #  validates :resource_id, :uniqueness => {:scope => [:resource_id, :sub_category_id]}, :if=>Proc.new{|u| u.resource_type!="Room" || u.resource_type=="Transport" || u.resource_type=="Others" || (u.resource_type=="ICT" && u.serial_no=='')}
 #  validates :serial_no, :uniqueness => {:scope => [:resource_id, :sub_category_id, :serial_no]}, :if=>Proc.new{|u| u.resource_type=="ICT" && u.serial_no!=''}
   validates :resource_id, :uniqueness => {:scope => [:resource_id, :sub_category_id, :agency_id]}, :if=>Proc.new{|u| u.resource_type=="Room"}
+  
+  validates_uniqueness_of :resource_id,:driver_id, :if=>Proc.new{|u| u.resource_type=="Transport"}
+
   scope :active, where(:is_active => true, :deleted => false)
 end

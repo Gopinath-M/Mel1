@@ -36,7 +36,7 @@
                 <% if resource.status == "Processed" && resource.user_id = current_user.id%>
                   <div id="hide_check_box_<%= resource.id %>">
                     <% if !resource.user_returned_status? %>
-                      <label class="text"> Is Returnable?</label>
+                      <label class="text"> Has Returned?</label>
                       <span class="in-box">
                         <%= check_box_tag "user_returned_status[#{resource.id}]","",false,:onchange=>"toreturnroomresource(this.id,#{resource.id})" %>
                       </span>
@@ -49,7 +49,7 @@
           <div class="clear"></div>
 
              <div id="room_box_<%= resource.id %>" style="display:none;">
-                <%= "You have successfully returned resource" %>
+                <%= "You have successfully returned the resource" %>
               </div>
 
           <div class="manage-user-rows box">

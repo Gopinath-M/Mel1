@@ -91,7 +91,8 @@ Melaka::Application.routes.draw do
       get 'user_return_status'
       get 'download_attachments'
       get 'get_vehicle_brands'
-      get 'get_booked_and_available_vehicles'   
+      get 'get_booked_and_available_vehicles'  
+      get 'get_other_agency_vehicles'
     end
   end
 
@@ -187,6 +188,7 @@ Melaka::Application.routes.draw do
       get 'assign_unit'
       post 'assign_update_unit'
       get 'admin_activation'
+      get 'get_approvers'
       get 'user_activation'
       post 'activate_department_admin'
       post 'activate_department_user'

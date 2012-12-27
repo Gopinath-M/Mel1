@@ -9,7 +9,12 @@ module ResourceTransportationBookingsHelper
     #vehicle = Vehicle.find(vehicle_id)
     #driver = Driver.find(vehicle.driver_id)
       
+    user = User.find(rtb.requester_id)
+    if !user.is_resource_manager?
     rtb.update_attributes(:status=>'Approved',:agency_store_id => agency_store.id,:driver_id => driver.id)
+    else
+    rtb.update_attributes(:status=>'Processed',:agency_store_id => agency_store.id,:driver_id => driver.id)
+    end
     agency_store.update_attribute(:booked,true)
     driver.update_attribute(:already_assigned,true)
 
