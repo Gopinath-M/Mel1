@@ -1265,7 +1265,7 @@ $().ready(function(){
     //    var i = $('input').size() + 1;
     var i = 0 + 1;
     $('#add').click(function() {
-        $('<div class="form-sec-row"><label class="text">Serial No '+i+'</label></div><div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div class="form-sec-row"><label class="field">Serial No '+i+'</label></div><div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic[' + i + ']" /></div>').fadeIn('slow').appendTo('.inputs');
         i++;
     });
     //<input type="text" class="field" size=30 name="dynamic[]" value="' + i + '" />
@@ -2309,38 +2309,6 @@ function autoTab(e, element, nextElement)
     }
 }
 
-/*Javascripts Ends*/
-/* Validating Transport Request Approval Form */
-
-function validate_request_approval_form(){
-    if($("#approve_status").val() == "Declined"){
-        var r = confirm("You want to Decline this Request. Continue ?");
-        if (r == false)
-        {
-            return false;
-        }
-    }
-    else if ($("#approve_status").val() == "New"){
-        var r = confirm("You didn't Approve this request. Continue ?");
-        if (r== false)
-        {
-            return false;
-        }
-    }
-    else if ($("#approve_status").val() == "Approved"){
-        if ($("#vehicle_id").val() == ""){
-            alert("Please Select the Vehicle");
-            return false;
-        }
-    }
-    else if ($("#approve_status").val() == "Returned"){
-        var r = confirm("You want to Return this Request. Continue ?")
-        if (r == false)
-        {
-            return false;
-        }
-    }
-}
 
 /*Javascripts Ends*/
 

@@ -37,10 +37,7 @@
 
       <%=  text_field 'service', 'grade'%></span>
   </div>
-<div class="form-sec-row" id="add_selection_box">
-        <%#*<a id="add-selection-box"><b>Add</b></a>%>
-  </div>
-  <div id="std"></div>
+   <%= link_to_add_fields "Add", f, :software_installation_details %>
   <div class="form-sec-row">
     <div class="CenterNav">
       <label class="text">&nbsp;</label>
@@ -50,24 +47,3 @@
     </div>
   </div>
 <%end%>
-   <script type="text/javascript">
-
-  $(document).ready(function(){
-
-    $("#add-selection-box").click(function() {
-    	incre = parseInt($("#total_service_count").val());
-    	if (incre < 3){
-    	incre = incre + 1;
-    	$.get("/software_installations/add_select_boxes",{
-    		val : incre
-    	});
-    	$("#total_service_count").val(incre);
-    	}
-
-    	else
-    	{
-    		alert("No More Additions Permitted");
-    	}
-    });
-  });
-</script>

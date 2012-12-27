@@ -91,7 +91,8 @@ Melaka::Application.routes.draw do
       get 'user_return_status'
       get 'download_attachments'
       get 'get_vehicle_brands'
-      get 'get_booked_and_available_vehicles'   
+      get 'get_booked_and_available_vehicles'  
+      get 'get_other_agency_vehicles'
     end
   end
 

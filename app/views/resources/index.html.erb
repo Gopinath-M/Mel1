@@ -31,8 +31,9 @@
               <div class="mu-c1">
               </div>
               <div class="mu-c2">
-
+                <%sub_category = SubCategory.find(resource.sub_category_id)%>
                 <p class="head1">Resource Type :&nbsp;<%=resource.resource_type.camelize%></p>
+                <p class="head1">Sub Category Name :&nbsp;<%=sub_category.name%></p>
                 <%if resource.vehicle_model != nil%>
                 <p class="head1">Vehicle Model :&nbsp;<%=resource.vehicle_model%></p>
                 <%end%>
@@ -46,9 +47,7 @@
                 <%elsif resource.resource_type == 'ict'%>
                 <p class="head1">Name :&nbsp;<%=resource.name.camelize%></p>
                 <p class="head1">Brand Model :&nbsp;<%=resource.brand_model%></p>
-                <%elsif resource.resource_type == 'others'%>
-                <%sub_category = SubCategory.find(resource.sub_category_id)%>
-                <p class="head1">Sub Category Name :&nbsp;<%=sub_category.name%></p>
+                <%elsif resource.resource_type == 'others'%>                
                 <p class="head1">Name :&nbsp;<%=resource.resource_no%></p>
                 <%end%>
               </div>

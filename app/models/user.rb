@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :created_feeds, :foreign_key=>:actor_id, :class_name=>'ActivityFeed'
   has_many :feed_subscriptions, :foreign_key=>:subscriber_id
   has_many :activity_feeds, :through=>:feed_subscriptions
+  has_many :approvers
 
   #helper for carrier wave
   mount_uploader :avatar, ProfileImageUploader
