@@ -22,6 +22,7 @@ class ResourceTransportationBookingsController < ApplicationController
   end
   
   def get_booked_and_available_vehicles
+    if current_user.is_super_admin?
     booked_vehicles = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
                                             WHERE agency_stores.booked = true
                                             AND resources.vehicle_model_type_id =#{params[:vehicle_model_type_id]}"
@@ -29,7 +30,32 @@ class ResourceTransportationBookingsController < ApplicationController
     available_vehicles = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
                                                WHERE agency_stores.booked = false AND
                                                resources.vehicle_model_type_id=#{params[:vehicle_model_type_id]}"                                         
-    render :json =>{ :booked => booked_vehicles, :available => available_vehicles} 
+    render :json =>{ :booked => booked_vehicles, :available => available_vehicles}     
+    else    
+    available_vehicles = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                               WHERE agency_stores.booked = false  
+                                               AND agency_stores.agency_id =#{current_user.departments[0].agency.id}
+                                               AND resources.vehicle_model_type_id=#{params[:vehicle_model_type_id]}"
+     render :json =>{ :available => available_vehicles} 
+    end
+  end
+
+  def get_other_agency_vehicles
+    vehicles ={}
+
+    available_vehicles = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                               WHERE agency_stores.booked = false  
+                                               AND agency_stores.agency_id != #{current_user.departments[0].agency.id}
+                                               AND resources.vehicle_model_type_id=#{params[:vehicle_model_type_id]}"
+                                             
+    available_vehicles.each do |resource| 
+      ag = AgencyStore.find_by_resource_id(resource.resource_id)      
+      val= resource.vehicle_model.to_s + " : " + resource.resource_no.to_s + " : " + ag.agency.name.to_s
+      vehicles.store(resource.id, val)
+    end
+    render :json=>[vehicles] if vehicles
+   
+    # render :json =>{ :available => available_vehicles}    
   end
   
   def get_vehicles    
@@ -43,16 +69,16 @@ class ResourceTransportationBookingsController < ApplicationController
 
   def create
     @resource_transportation_booking = ResourceTransportationBooking.new(params[:resource_transportation_booking])
+    
     if @resource_transportation_booking.valid?
-      if !current_user.is_super_admin?
-        @resource_transportation_booking.status = "New"
-        @resource_transportation_booking.department_id = current_user.role_memberships.where(:default_dept => true).first.department.id
-        @resource_transportation_booking.requester_id = current_user.id
-        @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
-        @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
-        @resource_transportation_booking.save
-      else        
       
+      if (!session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
+      @approver = Approver.active.find_all_by_department_id(current_user.departments).first
+      @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
+      end
+      
+      if current_user.is_super_admin?
+              
         if params[:vehicle][:model_type_id_available] != ''
           agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_available])
           @resource_transportation_booking.agency_store_id = agency_store.id
@@ -77,14 +103,38 @@ class ResourceTransportationBookingsController < ApplicationController
              redirect_to(new_resource_transportation_booking_path, :alert => "You can't book the Vehicle which is already Processed.")
           end
         end
-        #allocate_resource_for_super_admin_request(@resource_transportation_booking,params[:resource_transportation_booking][:sub_category_id])        
+      elsif (current_user.is_department_admin? || @approver.user_id.to_i == current_user.id if !@approver.blank? || @approver_second.user_id.to_i == current_user.id if !@approver_second.blank?)
+          
+          agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_available])
+          @resource_transportation_booking.agency_store_id = agency_store.id
+          @resource_transportation_booking.driver_id = agency_store.driver_id
+          @resource_transportation_booking.status = "Approved"
+          @resource_transportation_booking.department_id = current_user.role_memberships.where(:default_dept => true).first.department.id
+          @resource_transportation_booking.requester_id = current_user.id
+          @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
+          @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime          
+          @resource_transportation_booking.save
+          agency_store.update_attributes(:booked=>true)
+         
+      else      
+               
+        @resource_transportation_booking.status = "New"
+        @resource_transportation_booking.department_id = current_user.role_memberships.where(:default_dept => true).first.department.id
+        @resource_transportation_booking.requester_id = current_user.id
+        @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
+        @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
+        @resource_transportation_booking.save
+
+        #allocate_resource_for_super_admin_request(@resource_transportation_booking,params[:resource_transportation_booking][:sub_category_id]) 
+       
       end
+      disable_the_sub_category_when_that_sub_category_is_fully_reserved(params[:resource_transportation_booking][:sub_category_id])
 
       if (!session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
-      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+      @approver = Approver.active.find_all_by_department_id(current_user.departments).first
       @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
               
-        if @approve.present?
+        if @approver.present?
           user = User.find(@approver.user_id)
           UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking, @resource_transportation_booking.department_id ).deliver         
         elsif @approve_second.present?
