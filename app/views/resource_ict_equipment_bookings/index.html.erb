@@ -4,48 +4,49 @@
     <%if @resource_ict_equipment_bookings && !@resource_ict_equipment_bookings.empty?%>
       <%  @resource_ict_equipment_bookings.each do |resource_ict_equipment_booking|%>
         <div class="manage-user box">
+          <!--
           <div class="form-sec-row">
             <label class="text heading_blue">User Details:</label>
           </div>
-          <%if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
+          <%#if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
             <div class="form-sec-row">
               <label class="text">Agency Name</label>
               <span class="in-box">
-                <b><%= resource_ict_equipment_booking.department.agency.name %></b>
+                <b><%#= resource_ict_equipment_booking.department.agency.name %></b>
               </span>
             </div>
             <div class="form-sec-row">
               <label class="text">Department Name</label>
               <span class="in-box">
-                <b><%= resource_ict_equipment_booking.department.name %></b>
+                <b><%#= resource_ict_equipment_booking.department.name %></b>
               </span>
             </div>
-          <%end%>
+          <%#end%>
           <div class="form-sec-row">
             <label class="text">IC Number</label>
             <span class="in-box">
-              <b><%= resource_ict_equipment_booking.user.ic_number%></b>
+              <b><%#= resource_ict_equipment_booking.user.ic_number%></b>
             </span>
           </div>
           <div class="form-sec-row">
             <label class="text">First Name</label>
             <span class="in-box">
-              <b><%= resource_ict_equipment_booking.user.first_name%></b>
+              <b><%#= resource_ict_equipment_booking.user.first_name%></b>
             </span>
           </div>
           <div class="form-sec-row">
             <label class="text">Last Number</label>
             <span class="in-box">
-              <b><%= resource_ict_equipment_booking.user.last_name%></b>
+              <b><%#= resource_ict_equipment_booking.user.last_name%></b>
             </span>
           </div>
           <div class="form-sec-row">
             <label class="text">Email</label>
             <span class="in-box">
-              <b><%= resource_ict_equipment_booking.user.email%></b>
+              <b><%#= resource_ict_equipment_booking.user.email%></b>
             </span>
           </div>
-
+          -->
           <div class="form-sec-row">
             <label class="text heading_blue">ICT Equipment Details:</label>
           </div>
@@ -111,7 +112,7 @@
           </div>
           <div class="form-sec-row">
             <label class="text">Status</label>
-            <span class="in-box">
+            <span class="in-box" style="color :<%= (resource_ict_equipment_booking.status == 'New') ? '#FFA500' : ((resource_ict_equipment_booking.status == 'Approved' || resource_ict_equipment_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
               <b><%= resource_ict_equipment_booking.status %></b>
             </span>
           </div>

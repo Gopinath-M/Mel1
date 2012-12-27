@@ -2715,5 +2715,68 @@ $("#requisition_type_id").live("change",function(){
         $("#vpn_for_ict").hide();
     }
 });
+
+  $("#vehicle_model_type_id").live("change", function (){ 
+    if($("#vehicle_model_type_id").val()!= "")
+    {      
+      $.get("/resource_transportation_bookings/get_vehicles",{
+        vehicle_model_type_id : $("#vehicle_model_type_id").val()
+      }, function(data){
+        if (data[0]!=null)
+        {
+          if (data[0].length > 0)
+          {
+            $('#vehicle_id').find('option').remove().end()
+            $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
+            for(var i=0; i<data[0].length;i++)
+            {
+              $('#vehicle_id').append($("<option></option>").attr("value",data[0][i].resource.resource_id).text(data[0][i].resource.vehicle_model +' : '+ data[0][i].resource.resource_no));
+            }
+          }
+          else
+          {
+            $.get("/resource_transportation_bookings/get_other_agency_vehicles",{
+              vehicle_model_type_id : $("#vehicle_model_type_id").val()              
+            },
+            function(data){
+              if (data[0]!=null)
+              {
+                $('#vehicle_id').find('option').remove().end()
+                $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
+                
+                $.each(data[0], function(key, val) {
+                  $('#vehicle_id').append($("<option></option>").attr("value",key).text(val));
+                });
+              }
+              alert("Selected Vehicle Category is not Available in your Agency. Searching in Other Agencies.. ");
+            });
+          }
+        }
+      });
+    }
+    });
+    
+    $("#resource_transportation_booking_sub_category_id").live("change", function(){      
+      if($("#is_department_admin").val() == 1){
+        if($("#resource_transportation_booking_sub_category_id").val() != "")
+        {
+          $.get("/resource_transportation_bookings/get_vehicle_brands",{
+            sub_category_id : $("#resource_transportation_booking_sub_category_id").val()
+          },
+          function(data){
+            if (data[0]!=null)
+            {
+              $("#vehicle_model_type_id").find('option').remove().end()
+              $("#vehicle_model_type_id").append($("<option></option>").attr("value","").text("Select a Vehicle Brand"));
+              for(var i=0; i<data[0].length;i++)
+              {
+                $("#vehicle_model_type_id").append($("<option></option>").attr("value",data[0][i].vehicle_model_type.id).text(data[0][i].vehicle_model_type.name));
+                $("#vehicle_model_type_div").show();
+              }
+            }
+          });
+        }
+      }
+    });
 /*Dynamic Chance for Resource Req ICT Ends */
 

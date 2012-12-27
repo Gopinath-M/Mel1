@@ -3,11 +3,11 @@ class AgencyStoresController < ApplicationController
   before_filter :is_admin, :except=>[:get_resource,:get_agency_resource,:get_other_resource]
 
   def index
-    if params[:resource_id] && params[:resource_id]!='' && params[:resource_id]!=0
+    if params[:resource_id] && params[:resource_id] != '' && params[:resource_id]!=0
       @resource_id = params[:resource_id].to_i
-      @stores=AgencyStore.where(:agency_id=>@resource_id).order.page(params[:page]).per(10)
+      @stores = AgencyStore.where(:agency_id => @resource_id).order.page(params[:page]).per(10)
     else
-      @stores=AgencyStore.order.page(params[:page]).per(10)
+      @stores = AgencyStore.order.page(params[:page]).per(10)
     end
     @resource_id = params[:resource_id].to_i # while selecting Please Select returns string params
     #    if @resource_id == 0
@@ -24,7 +24,7 @@ class AgencyStoresController < ApplicationController
     #      end
     #    end
     if request.xhr?
-      render :layout=>false
+      render :layout => false
     end
 
     
@@ -91,7 +91,7 @@ class AgencyStoresController < ApplicationController
       SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true) if params[:transport_agency] #params[:ict_agency]
       redirect_to :controller=>'agency_stores', :action=>'index', :notice => 'Agency Store has been successfully created.'
     else
-      render :action=>'new', :notice =>'Resource already added for this Sub category'
+      render :action => 'new', :notice => 'Resource already added for this Sub category'
     end
   end
 
@@ -100,15 +100,15 @@ class AgencyStoresController < ApplicationController
     if @store.update_attributes(params[:agency_store])
       redirect_to(agency_stores_path, :notice => 'Agency Store has been successfully updated.')
     else
-      render :action=>'new'
+      render :action => 'new'
     end
   end
 
   def update_status
     store = AgencyStore.find(params[:id])
-    if store && params[:status]=="Activate"
+    if store && params[:status] == "Activate"
       store.update_attribute(:is_active,true)
-    elsif store && params[:status]=="Deactivate"
+    elsif store && params[:status] == "Deactivate"
       store.update_attribute(:is_active, false)
     end
     redirect_to(agency_stores_path, :notice => 'Agency Store has been successfully changed.')
@@ -124,42 +124,42 @@ class AgencyStoresController < ApplicationController
 
   def get_resource
     resources = Resource.find_all_by_sub_category_id(params[:agency_id])
-    render :json=>[resources] if resources
+    render :json => [resources] if resources
   end
 
   def get_categories
-    dept = CategoriesDepartment.find_all_by_department_id(params[:agency_id])
+    dept = CategoriesDepartment.where(:department_id => params[:agency_id])
     if dept == nil || dept.blank?
       @categories = nil
     else
-      @categories = Category.find_all_by_id(dept[0].category_id)
+      @categories = Category.where(:id => dept[0].category_id)
     end
     render :json=>[ @categories] if  @categories
   end
   
   def get_sub_categories
-    subcategories = SubCategory.find_all_by_id(params[:agency_id])
-    render :json=>[ subcategories] if  subcategories
+    subcategories = SubCategory.where(:id => params[:agency_id])
+    render :json => [ subcategories] if  subcategories
   end
 
   def get_vehicles
-    vehicles = Vehicle.find_all_by_vehicle_type_id(params[:vehicle_id])
-    render :json=>[ vehicles] if  vehicles
+    vehicles = Vehicle.where(:vehicle_type_id => params[:vehicle_id])
+    render :json => [ vehicles] if  vehicles
   end
 
   def get_resources
-    agency_stores = AgencyStore.find_by_id(params[:resource_id])
+    agency_stores = AgencyStore.find(params[:resource_id])
     if agency_stores != nil
-      sub_category = SubCategory.find_all_by_id(agency_stores.sub_category_id)
-      render :json=>[ sub_category] if  sub_category
+      sub_category = SubCategory.where(:id => agency_stores.sub_category_id)
+      render :json => [ sub_category] if  sub_category
     else
       sub_category = 0
-      render :json=>[ sub_category] if  sub_category
+      render :json => [ sub_category] if  sub_category
     end
   end
 
   def get_other_sub_categories
-    subcategories = SubCategory.find_all_by_category_id(params[:agency_id])
+    subcategories = SubCategory.where(:category_id => params[:agency_id])
     render :json=>[ subcategories] if  subcategories
   end
 
@@ -173,10 +173,10 @@ class AgencyStoresController < ApplicationController
       if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
         resource = AgencyStore.where("booked = false and sub_category_id = ?",params[:sub_category_id]).collect(&:resource_id)
       else
-        department=Department.find(@current_department)
+        department = Department.find(@current_department)
         resource = AgencyStore.where("booked = false and sub_category_id = ? and agency_id = ? ",params[:sub_category_id],department.agency_id).collect(&:resource_id)
       end
-      resources=[]
+      resources = []
       if resource && !resource.empty?
         resources = Resource.find(resource)
       end
@@ -214,12 +214,18 @@ class AgencyStoresController < ApplicationController
   end
   
   def get_agency_resource
-    resources={}
+    resources = {}
+    if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
+      department = Department.find(@current_department)
+    end
     temp_resources = AgencyStore.where("resource_id = ? and booked = ? ",params[:resource_id],false)
     temp_resources.each do |resource|
-      p resource.inspect
-      val= resource!=nil && resource.serial_no!="" ? resource.serial_no.to_s + "-" +resource.agency.name.to_s : resource.agency.name.to_s
-      resources.store(resource.id, val)
+      if department && department.present? && department.agency_id == resource.agency_id
+        resources.store(resource.id, resource.serial_no.to_s)
+      else
+        val = resource != nil && resource.serial_no != "" ? (resource.serial_no.to_s + "-" +resource.agency.name.to_s) : resource.agency.name.to_s
+        resources.store(resource.id, val)
+      end
     end
     render :json=>[resources] if resources
   end

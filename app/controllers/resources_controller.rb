@@ -20,6 +20,7 @@ class ResourcesController < ApplicationController
       render :layout=>false
     end
   end
+  
   def new
     @resource = Resource.new
   end
@@ -43,12 +44,12 @@ class ResourcesController < ApplicationController
       @resource.category_id = params[:resource_other][:category_id]
       @resource.sub_category_id = params[:resource_other][:sub_category_id]
       @resource.resource_type = params[:resource_type]
-    elsif params[:resource_type]=="ict"
+    elsif params[:resource_type] == "ict"
       @resource = Resource.create(params[:resource])
       @resource.sub_category_id = params[:resource_ict][:sub_category_id]
       @resource.resource_type = params[:resource_type]
     end
-#    @resource.created_by = params[:created_by]
+    @resource.created_by = current_user.id
     if @resource.valid?
       @resource.save
       redirect_to :controller=>'resources', :action=>'index', :notice => 'Resource has been successfully created.'
