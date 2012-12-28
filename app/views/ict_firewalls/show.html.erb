@@ -95,23 +95,26 @@
               </div>
 
               <% services = @ict_firewall.ict_firewall_services %>
-              <% services.each do |ict_firewall_service| %>
 
-                <div style="margin-bottom: 10px;">
-                  <table width="509" border="0" class="app-table" cellspacing="0" cellpadding="0" align="center" color="#329C20">
-                    <tr>
-                      <th color="#329C20" width="30%"><b><%=t('left_nav.service_name')%></b></th>
-                      <th width="30%"><b><%=t('left_nav.way')%></b></th>
-                      <th width="20%"><b><%=t('labels.action')%></b></th>
-                    </tr>
+
+              <div style="margin-bottom: 10px;">
+                <table width="509" border="0" class="app-table" cellspacing="0" cellpadding="0" align="center" color="#329C20">
+                  <tr>
+                    <th color="#329C20" width="30%"><b><%=t('left_nav.service_name')%></b></th>
+                    <th width="30%"><b><%=t('left_nav.way')%></b></th>
+                    <th width="20%"><b><%=t('labels.action')%></b></th>
+
+                  </tr>
+                  <% services.each do |ict_firewall_service| %>
                     <tr>
                       <td><b><%= FacilityIctService.find(ict_firewall_service.facility_ict_service_id).port %></b></td>
                       <td><b><%= ict_firewall_service.one_way? ? 'One Way' : 'Two Way' %></b></td>
                       <td><b><%= ict_firewall_service.approved? ? 'Approved' : 'Not Approved' %></b></td>
                     </tr>
-                  </table>
-                </div>
-              <%end%>
+                  <%end%>
+                </table>
+              </div>
+
 
               <h2 class="b-head"></h2>
 
