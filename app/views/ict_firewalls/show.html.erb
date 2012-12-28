@@ -95,7 +95,7 @@
               </div>
 
               <% services = @ict_firewall.ict_firewall_services %>
-              <% services.each do |ict_firewall_service| %>
+              
 
                 <div style="margin-bottom: 10px;">
                   <table width="509" border="0" class="app-table" cellspacing="0" cellpadding="0" align="center" color="#329C20">
@@ -103,15 +103,15 @@
                       <th color="#329C20" width="30%"><b>Service Name</b></th>
                       <th width="30%"><b>Way</b></th>
                       <th width="20%"><b>Action</b></th>
-                    </tr>
+                    </tr><% services.each do |ict_firewall_service| %>
                     <tr>
                       <td><b><%= FacilityIctService.find(ict_firewall_service.facility_ict_service_id).port %></b></td>
                       <td><b><%= ict_firewall_service.one_way? ? 'One Way' : 'Two Way' %></b></td>
                       <td><b><%= ict_firewall_service.approved? ? 'Approved' : 'Not Approved' %></b></td>
-                    </tr>
+                    </tr><%end%>
                   </table>
                 </div>
-              <%end%>
+              
 
               <h2 class="b-head"></h2>
 
