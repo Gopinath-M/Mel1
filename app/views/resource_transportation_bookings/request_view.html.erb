@@ -103,11 +103,11 @@
                   <tr>
                     <td><b>Number of Passengers</b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.number_of_passengers%></b></td>
-                  </tr>
-                  <tr>
+                  </tr><% if @resource_transportation_booking.attachment.present? %>
+             <tr>
             <td><b>Attachment</b></td><% file = (@resource_transportation_booking.attachment).url(:profile).split("/").last %>
             <td>&nbsp;<b><%= link_to file, download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
-          </tr>
+          </tr><%end%>
                   <tr>
                     <td><b>Remarks</b></td>
                     <td>&nbsp;<b><%=  @resource_transportation_booking.remarks %></b></td>
