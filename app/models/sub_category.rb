@@ -6,6 +6,7 @@ class SubCategory < ActiveRecord::Base
   validates :name, :uniqueness => {:scope => [:category_id, :name]}
   has_many :vehicles
   belongs_to :category
+  has_many :resource_room_bookings
   has_many :resources
   has_many :resource_transportation_bookings
   has_many :resource_ict_equipment_bookings

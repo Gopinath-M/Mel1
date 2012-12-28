@@ -5,6 +5,7 @@ class Resource < ActiveRecord::Base
   belongs_to :sub_category
   has_many :agency_store
   has_many :resource_boookings
+  has_many :resource_room_bookings
   has_many :resource_transport_bookings
 
 #  attr_reader :type

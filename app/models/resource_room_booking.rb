@@ -1,5 +1,12 @@
 class ResourceRoomBooking < ActiveRecord::Base
 
+  belongs_to :sub_category
+  belongs_to :resource
+  belongs_to :agency_store
+  belongs_to :user, :class_name => "User", :foreign_key => "user_id"
+  belongs_to :department
+  belongs_to :user , :class_name => "User", :foreign_key => "updated_by"
+
   validates :purpose,:remarks,:requested_from_date,:requested_to_date,:sub_category_id,:resource_id,:room_capacity, :presence => true
   validate :validate_booking_time, :on=>:create
 

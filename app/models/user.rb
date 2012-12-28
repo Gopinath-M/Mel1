@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :complaint_building_assets
   has_many :complaint_computers
   has_many :resource_ict_equipment_bookings
+  has_many :resource_room_bookings
   has_many :agency  
   has_many :created_feeds, :foreign_key=>:actor_id, :class_name=>'ActivityFeed'
   has_many :feed_subscriptions, :foreign_key=>:subscriber_id
