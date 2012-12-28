@@ -4,13 +4,19 @@ class ResourceRoomBookingsController < ApplicationController
 
   def index
     @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id).order.page(params[:page]).per(5)
+    category
+  end
+
+  def category
+    if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
+      @category = Category.get_category("Room")
+      @booking = CategoriesDepartments.where(:category_id => @category.first.id,:department_id => @current_department) if @category and !@category.empty?
+    end
   end
 
   def new
     @resource_room_booking = ResourceRoomBooking.new
-    if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
-      @booking = CategoriesDepartments.where(:category_id=> "6", :department_id=> @current_department)
-    end
+    category
   end
 
   def edit
@@ -109,7 +115,7 @@ class ResourceRoomBookingsController < ApplicationController
   end
 
   def list_resource_booking
-    if session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER
+    if session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER
       @booking = ResourceRoomBooking.where("department_id=? and status !=?", @current_department, "New").page(params[:page]).per(5)
     else
       @approve = Approver.active.find_all_by_department_id(@current_department).first

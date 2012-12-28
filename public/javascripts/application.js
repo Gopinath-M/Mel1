@@ -2315,12 +2315,12 @@ $().ready(function(){
             alert("Enter Notes");
             return false;
         }
-        else if ($("#ict_network_point_center_id").val() == ""){
+        else if ($("#ict_network_point_location_center_id").val() == ""){
             alert("Select Location Center");
             return false;
         }
-        else if ($("#ict_network_point_work_status").val() == ""){
-            alert("Select Work Status");
+        else if ($("#ict_network_point_ict_wiring_id").val() == ""){
+            alert("Select ICT Wiring");
             return false;
         }
     });

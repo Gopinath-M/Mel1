@@ -413,3 +413,7 @@ span.in-box2  { padding: 5px; width: 132%;}
 .form-sec-row-out span.in-box{ float:left; width:60%;}
 .form-sec-row-out span.in-box input[type="text"],.form-sec-row span.in-box input[type="password"]{ width:81%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
 .form-sec-row-out span.in-box select{ width:85%; padding:5px; border:1px solid #96a6c5}
+/* Developer Styles */
+.size-quan-box-ict-network{width:20px}
+.form-sec-row-ict select {border: 1px solid #96A6C5; padding: 5px;width: 26%;}
+.form-sec-row-ict label.text-ict {float: left;font-weight: 700;width: 151px;}

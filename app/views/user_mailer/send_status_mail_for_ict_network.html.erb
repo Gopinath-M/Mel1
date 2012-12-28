@@ -47,7 +47,7 @@
                   <% @dept = IctNetworkPoint.find_by_department_id(@requisition.department_id) %>
                   <% @dept_name = Department.find(@dept.department_id)%>
                   <% @agency = Agency.find(@dept_name.agency_id) %>
-                  
+
 
                   <% if @agency.present? %>
                     <tr>
@@ -136,10 +136,15 @@
                       <td>&nbsp;<%= @requisition.hardware_quantity%></td>
                     </tr>
                   <%end%>
-                  <% state = State.find_by_id(@requisition.center_id) %>
+                  <% center = FacilityIctAgency.find_by_id(@requisition.location_center_id) %>
+                  <% wiring = FacilityIctWiring.find_by_id(@requisition.ict_wiring_id) %>
                   <tr>
-                    <td><b>State</b></td>
-                    <td>&nbsp;<%= state.name%></td>
+                    <td><b>Location Center</b></td>
+                    <td>&nbsp;<%= center.name%></td>
+                  </tr>
+                  <tr>
+                    <td><b>ICT Wiring</b></td>
+                    <td>&nbsp;<%= wiring.name%></td>
                   </tr>
                   <tr>
                     <td><b>Remarks</b></td>

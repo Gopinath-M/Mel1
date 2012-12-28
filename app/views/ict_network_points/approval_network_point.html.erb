@@ -52,6 +52,7 @@
         </div>
 
         <h2 class="b-head"></h2>
+        <font color="#369" size="3"><br/><b><u>Requisition Details :-</u><br/><br/></b></font>
         <div class="form-sec-row">
           <label class="text">Ticket No</label>
           <span class="in-box"><font color="red"><b>&nbsp;<%= @ict_network.id %>/<%=Time.now.year%></span>
@@ -63,7 +64,6 @@
                 </div>
 
                 </div>
-                <h2 class="b-head"></h2>
 
                 <div class="form-sec-row">
                   <label class="text">Type of Facility</label>
@@ -108,37 +108,37 @@
                   </span>
                 </div>
 
-                <% if @ict_network.status == "Approved"%>
-                  <% username = User.find(@ict_network.updated_by) %>
-                  <h2 class="b-head"></h2>
-                  <div class="form-sec-row">
-                    <label class="text">Approved by</label>
-                    <span class="in-box">
-                      <%= username.username %>
-                    </span>
-                  </div>
-                  <div class="form-sec-row">
-                    <label class="text">Approved at</label>
-                    <span class="in-box">
-                      <%= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
-                    </span>
-                  </div>
-                <%elsif @ict_network.status == "Processed"%>
-                  <% username = User.find(@ict_network.updated_by) %>
-                  <h2 class="b-head"></h2>
-                  <div class="form-sec-row">
-                    <label class="text">Processed by</label>
-                    <span class="in-box">
-                      <%= username.username %>
-                    </span>
-                  </div>
-                  <div class="form-sec-row">
-                    <label class="text">Processed at</label>
-                    <span class="in-box">
-                      <%= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
-                    </span>
-                  </div>
-                <%end%>
+  <%# if @ict_network.status == "Approved"%>
+  <%# username = User.find(@ict_network.updated_by) %>
+  <%#*<h2 class="b-head"></h2>%>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Approved by</label>%>
+  <%#*<span class="in-box">%>
+  <%#= username.username %>
+  <%#*</span>%>
+  <%#*</div>%>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Approved at</label>%>
+  <%#*<span class="in-box">%>
+  <%#= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
+  <%#*</span>%>
+  <%#*</div>%>
+  <%#elsif @ict_network.status == "Processed"%>
+  <%# username = User.find(@ict_network.updated_by) %>
+  <%#*<h2 class="b-head"></h2>%>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Processed by</label>%>
+  <%#*<span class="in-box">%>
+  <%#= username.username %>
+  <%#*</span>%>
+  <%#*</div>%>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Processed at</label>%>
+  <%#*<span class="in-box">%>
+  <%#= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
+  <%#*</span>%>
+  <%#*</div>%>
+  <%#end%>
 
                 <% if @ict_network.status == "Approved" || @ict_network.status == "Processed" || @ict_network.status == "Declined"%>
                   <h2 class="b-head"></h2>
@@ -174,11 +174,19 @@
                     </span>
                   </div>
 
-                  <% state = State.find_by_id(@ict_network.center_id) %>
+                  <% center = FacilityIctAgency.find_by_id(@ict_network.location_center_id) %>
+                  <% wiring = FacilityIctWiring.find_by_id(@ict_network.ict_wiring_id) %>
                   <div class="form-sec-row">
-                    <label class="text">State</label>
+                    <label class="text">Location Center</label>
                     <span class="in-box">
-                      <%= state.name %>
+                      <%= center.name %>
+                    </span>
+                  </div>
+
+                  <div class="form-sec-row">
+                    <label class="text">ICT Wiring</label>
+                    <span class="in-box">
+                      <%= wiring.name %>
                     </span>
                   </div>
 
@@ -220,8 +228,9 @@
 
                 <h2 class="b-head"></h2>
                 <% if @ict_network.status == "New" %>
-                  <font color="#369" size="3"><br/><b><u>Approval Action :-</u><br/><br/></b></font>                  <div class="form-sec-row">
-                    <label class="text"><%= f.label :status,raw("Action"), :class=>"text"%></label>
+                  <font color="#369" size="3"><br/><b><u>Approval Action :-</u><br/><br/></b></font>
+                  <div class="form-sec-row">
+                    <label class="text"><%= f.label :status,raw("Action<span style=color:red>*</span>"), :class=>"text"%></label>
                     <span class="in-box">
                       <%select_options=["Approved","Declined"]%>
                       <%=f.select(:status, options_for_select(select_options))%>
@@ -229,21 +238,14 @@
                   </div>
                   <div class="form-sec-row">
                     <%@dept = Department.find(default_department)%>
-                    <%@users = @dept.users%>
-                    <label class="text"> <%= f.label :person_incharge,raw("Person Incharge"), :class=>"text"%></label>
+                    <%@users = @dept.users.active.where("role_id = 3 or role_id = 2")%>
+                    <label class="text"> <%= f.label :person_incharge,raw("Person Incharge<span style=color:red>*</span>"), :class=>"text"%></label>
                     <span class="in-box">
                       <%= f.select(:person_incharge, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
                     </span>
                   </div>
-                  <div class="form-sec-row">
-                    <label class="text"> <%= f.label :status,raw("Remarks"), :class=>"text"%></label>
-                    <span class="in-box">
-                      <%= f.text_area :remarks, :cols => "20", :rows => "3"%>
-                    </span>
-                  </div>
-
                   <div class="form-sec-row" style="background:#fff; margin-top: 10px;">
-                    <label class="text"> <%= f.label :status,raw("Recommendation Type"), :class=>"text"%></label>
+                    <label class="text"> <%= f.label :status,raw("Recommendation Type<span style=color:red>*</span>"), :class=>"text"%></label>
                     <span class="in-box">
                       <%= f.radio_button :recommendation_type, 'installation', :id=>"check_box_network"%> <b><%= f.label :recommendation_type, "Installation" %></b>
                       <%= f.radio_button :recommendation_type, 'purchase', :id=>"check_box_purchase"%> <b><%= f.label :recommendation_type, "Purchase" %></b>
@@ -260,25 +262,29 @@
                       <tr>
                         <td><%= f.select(:hardware_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
                         <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
-                        <td><b>&nbsp;<%=f.text_field :hardware_quantity, :class=> "size-quan-box-ict"%></b></td>
-                        <td id="req_type_network"><b class="btn2">Install</b></td>
-                        <td id="req_type_purchase"style="display:none;"><b class="btn2">Purchase</b></td>
+                        <td><b>&nbsp;<%=f.text_field :hardware_quantity, :class=> "size-quan-box-ict-network"%></b></td>
+                        <td id="req_type_network"><font color="red"><b>Install</b></font></td></td>
+                        <td id="req_type_purchase"style="display:none;"><font color="red"><b>Purchase</b></font></td>
                       </tr>
                     </table>
 
                   </div>
 
                   <div class="form-sec-row">
-                    <label class="text"> <%= f.label :notes,raw("Notes"), :class=>"text"%></label>
+                    <label class="text"> <%= f.label :notes,raw("Notes<span style=color:red>*</span>"), :class=>"text"%></label>
                     <span class="in-box">
                       <%= f.text_area :notes, :cols => "20", :rows => "3"%>
                     </span>
                   </div>
 
+                  <div class="form-sec-row-ict">
+                    <label class="text-ict"> <%= f.label :center_id,raw("<b>Location Center</b><span style=color:red>*</span>"), :class=>"text"%></label>
+                    <%= f.select(:location_center_id, FacilityIctAgency.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select Center")%> <%= f.select(:ict_wiring_id, FacilityIctWiring.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select ICT Wiring")%>
+                  </div>
                   <div class="form-sec-row">
-                    <label class="text"> <%= f.label :center_id,raw("Location Center"), :class=>"text"%></label>
+                    <label class="text"> <%= f.label :status,raw("Remarks"), :class=>"text"%></label>
                     <span class="in-box">
-                      <%= f.select(:center_id, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select State")%>
+                      <%= f.text_area :remarks, :cols => "20", :rows => "3"%>
                     </span>
                   </div>
 
@@ -288,7 +294,7 @@
                   <label class="text">&nbsp;</label>
                   <span class="in-box">
                     <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-                    <%= f.submit :value=>'Create', :class=>"btn2"%>
+                    <%= f.submit :value=>'Submit', :class=>"btn2"%>
                   </span>
                 </div>
 
