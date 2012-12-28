@@ -46,7 +46,7 @@ class ResourceRoomBookingsController < ApplicationController
         elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
           @resource_room_booking.status = "Approved"
           @resource_room_booking.department_id = params[:department_id]
-        elsif current_user.id == @approve.user_id
+        elsif @approve  && current_user.id == @approve.user_id
           @resource_room_booking.status = "Approved"
           @resource_room_booking.department_id = params[:department_id]
         else
