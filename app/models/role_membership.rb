@@ -13,9 +13,9 @@ class RoleMembership < ActiveRecord::Base
   validate :roles 
 
   def roles
-    if self.role_id == 1
-      errors.add(:user, "cannot create Super Admin")
-    elsif self.role_id == 2
+#    if self.role_id == 1
+#      errors.add(:user, "cannot create Super Admin")
+    if self.role_id == 2
       departments = RoleMembership.where(:department_id => self.department_id, :role_id => 2)
       if departments && !departments.empty?
         errors.add(:user, "cannot create Department Admin, Admin already exist for this Department")

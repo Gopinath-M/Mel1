@@ -3,13 +3,13 @@
     <%=f.error_messages%>
     <div class="clearfix">&nbsp;</div>
     <div class="form-sec-row">
-      <%= f.label :name,raw("Name <span style=color:red>*</span>"), :class=>"text"%>
+      <label class="text"><%=t('labels.name')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :name, :rows=>2, :autofocus => true%>
       </span>
     </div>
     <div class="form-sec-row">
-      <%= f.label :telephone_number,raw("Telephone Number <span style=color:red>*</span>"), :class=>"text"%>
+      <label class="text"><%=t('labels.tel_no')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :telephone_number, :rows=>2, :autofocus => true%>
       </span>
@@ -17,7 +17,7 @@
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :class=>"btn2", :value=>@driver.new_record? ? "Create" : "Update"%>
+        <%= f.submit :class=>"btn2", :value=>@driver.new_record? ? t('labels.create') : t('labels.update')%>
       </span>
     </div>
   </div>

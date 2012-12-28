@@ -4,13 +4,13 @@
   <div class="form-sec">
     <%= hidden_field_tag  :created_by, (current_user.id)%>
     <div class="form-sec-row">
-      <label class="text">Category Name <span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.category_name')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :name%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Is Active</label>
+      <label class="text"><%=t('labels.is_active')%></label>
       <span class="in-box">
         <%= f.check_box :is_active%>
       </span>
@@ -18,7 +18,7 @@
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :value=>@category.new_record? ? "Create" : "Update",:class=>"btn2"%>
+        <%= f.submit :class=>"btn2", :value=>@category.new_record? ? t('labels.create') : t('labels.update')%>
       </span>
     </div>
   </div>

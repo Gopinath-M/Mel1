@@ -45,10 +45,13 @@
           <tr>
             <td><font color="#369"><b><u>Transport Details:-</u></b></font></td>
             <td></td>
-          </tr>
+          </tr> <tr>
+            <td><b>Ticket No</b></td>
+            <td style="color:#BB0802;">&nbsp;<b><%= @resource_transportation_booking.id%>/<%=Time.now.year%></b></td>
+            </tr>
           <tr>
             <td><b>Date of Application</b></td>
-            <td>&nbsp;<b><%=@resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
+            <td>&nbsp;<b><%=  @resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
           </tr>
           <tr>
             <td><b>Purpose</b></td>
@@ -84,12 +87,13 @@
 
           <tr>
             <td><b>Number of Passengers</b></td>
-            <td>&nbsp;<b><%=@resource_transportation_booking.number_of_passengers%></b></td>
+            <td>&nbsp;<b><%= @resource_transportation_booking.number_of_passengers%></b></td>
           </tr>
-          <tr>
-            <td><b>Attachment</b></td>
-            <td>&nbsp;<b><%= link_to 'Download File', download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
-          </tr>
+          <% if @resource_transportation_booking.attachment.present? %>
+             <tr>
+            <td><b>Attachment</b></td><% file = (@resource_transportation_booking.attachment).url(:profile).split("/").last %>
+            <td>&nbsp;<b><%= link_to file, download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
+          </tr><%end%>
           
           <tr>
             <td><b>Remarks</b></td>
@@ -105,8 +109,9 @@
             <td></td>
           </tr>
           <tr>
-            <td><b>Status</b></td>
-            <td>&nbsp;<b><%= @resource_transportation_booking.status %></b></td>
+            <td><b>Status</b></td> <span class="in-box" style="color :<%= (@resource_transportation_booking.status == 'New') ? '#FFA500' : ((@resource_transportation_booking.status == 'Approved' || @resource_transportation_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
+
+            <td>&nbsp;<b><%= @resource_transportation_booking.status %></b></span></td>
           </tr>
           <tr>
             <td><b>Vehicle Type</b></td>

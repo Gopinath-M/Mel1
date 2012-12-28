@@ -47,9 +47,9 @@
             </span>
           </div>
           -->
-          <div class="form-sec-row">
-            <label class="text heading_blue">ICT Equipment Details:</label>
-          </div>
+          <%#*<div class="form-sec-row">%>
+            <%#*<label class="text heading_blue">ICT Equipment Details:</label>%>
+          <%#*</div>%>
           <div class="form-sec-row">
             <label class="text">Date of Application</label>
             <span class="in-box">
@@ -92,18 +92,18 @@
               <b><%= resource_ict_equipment_booking.need_officer ? "Yes" : "No" %></b>
             </span>
           </div>
-          <div class="form-sec-row">
+          <!--div class="form-sec-row">
             <label class="text">Meeting Start Time</label>
             <span class="in-box">
-              <b><%= resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
+              <b><%#= resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div>
           <div class="form-sec-row">
             <label class="text">Meeting End Time</label>
             <span class="in-box">
-              <b><%= resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
+              <b><%#= resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
-          </div>
+          </div-->
           <div class="form-sec-row">
             <label class="text">Notes</label>
             <span class="in-box">

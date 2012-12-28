@@ -20,18 +20,7 @@
                     <td><font color='#369'><b><u>User Details:-</u></b></font></td>
                     <td></td>
                   </tr>
-                  <% if @resource_room_booking.room_attachment.present? %>
-                    <tr>
-                      <td><b>Attachment</b></td>
-                      <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
-                      <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-                        <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
-                      <%else%>
-                        <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
-                        <td>&nbsp;<b><%= link_to file, download_attachments_resource_room_bookings_path(:id=>@resource_room_booking.id) if @resource_room_booking.room_attachment?  %></b></td>
-                      <%end%>
-                    </tr>
-                  <%end%>
+                  
                   <% if @agency.present? %>
                     <tr>
                       <td><b>Agency Name</b></td>
@@ -76,7 +65,7 @@
             </tr>
             <tr>
               <td><b>Ticket No</b></td>
-            <b><td style="color:#BB0802;">&nbsp;<%=@resource_room_booking.id%>/<%=Time.now.year%></td></b>
+            <td style="color:#BB0802;">&nbsp;<b><%=@resource_room_booking.id%>/<%=Time.now.year%></b></td>
             </tr>
             <tr>
               <td><b>Date of Application</b></td>
@@ -97,7 +86,18 @@
             <tr>
               <td><b>Purpose</b></td>
               <td><b>&nbsp;<%=@resource_room_booking.purpose%></b></td>
-            </tr>
+            </tr><% if @resource_room_booking.room_attachment.present? %>
+                    <tr>
+                      <td><b>Attachment</b></td>
+                      <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
+                      <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                        <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
+                      <%else%>
+                        <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
+                        <td>&nbsp;<b><%= link_to file, download_attachments_resource_room_bookings_path(:id=>@resource_room_booking.id) if @resource_room_booking.room_attachment?  %></b></td>
+                      <%end%>
+                    </tr>
+                  <%end%>
             <tr>
               <td><b>Remarks</b></td>
               <td><b>&nbsp;<%=@resource_room_booking.remarks%></b></td>

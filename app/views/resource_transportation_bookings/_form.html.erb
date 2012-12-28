@@ -86,7 +86,13 @@
         </span>
       </div>
     </div>
-    <div class="form-sec-row">
+      <div  class="form-sec-row">
+      <%= f.label :avatar,raw("Upload File"), :class=>"text"%>
+      <span class="in-box">
+        <%= f.file_field :attachment %>
+        <br/>
+      </span>
+    </div>    <div class="form-sec-row">
       <label class="text">Purpose<span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :purpose, :rows=>2, :autofocus => true %>
@@ -134,13 +140,7 @@
         <%= f.text_area :remarks, :rows=>2, :autofocus => true %>
       </span>
     </div>
-    <div  class="form-sec-row">
-      <%= f.label :avatar,raw("Upload File"), :class=>"text"%>
-      <span class="in-box">
-        <%= f.file_field :attachment %>
-        <br/>
-      </span>
-    </div>
+    
 
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
