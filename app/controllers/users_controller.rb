@@ -66,18 +66,22 @@ class UsersController < ApplicationController
   ## Transfer Department Function begins here
   def transfer
     if !params[:department_id].nil? || !params[:department_id].blank?
-      users= Department.find_by_id(params[:department_id]).users.active
-      render :json=>[users] if users
+      if params[:department_users]
+        users= Department.find_by_id(params[:department_id]).users.active.where("role_id = 3")
+      else
+        users= Department.find_by_id(params[:department_id]).users.active
+      end
     end
     if !params[:unit_id].nil?
       users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2")
-      render :json=>[users] if users
     end
+    render :json=>[users] if users
+    
   end
 
   def list_of_user
     if !params[:department_id].nil? || !params[:department_id].blank?
-      users= Department.find_by_id(params[:department_id]).users.active.where("role_id !=2")
+      users= Department.find_by_id(params[:department_id]).users.active.where("role_id != 2")
       render :json=>[users] if users
     end
   end
@@ -200,7 +204,7 @@ class UsersController < ApplicationController
 
 
   ## Assign Unit Starts here
-  def assign_unit    
+  def assign_unit
     if !params[:ic_number].nil?
       @val = params[:transfer_from][:agency]
       user = User.find_by_ic_number(params[:ic_number])
@@ -360,7 +364,7 @@ class UsersController < ApplicationController
 
   def show
     @users = User.find(current_user.id)
-    @service = UserService.find_by_user_id(current_user.id) 
+    @service = UserService.find_by_user_id(current_user.id)
     @service_level = ServiceLevel.find(@service.service_level_id)
     @classification = Classification.find(@service.classification_id)
     @standard = ServiceStandard.find(@service.service_standard_id)
