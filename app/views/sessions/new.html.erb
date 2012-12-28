@@ -54,13 +54,13 @@
               <%= f.password_field :password, :class=>"pass"%>
             </span>
           </p>
-          <%= f.submit t('login.login_in'), :class => "btn1" %>
+          <%= f.submit t('login.login'), :class => "btn1" %>
           <div class="clear"></div>
           <p class="loggedin">
             <%= f.check_box :remember_me %><%= f.label :remember_me,t('login.keep_me_login_in') %>
           </p>
           <p class="forgot-row">
-            <%= link_to t('login.forget_pass'), new_user_password_path,:title=>title="Forgot Your Password?" %>
+            <%= link_to t('login.forget_pass'), new_user_password_path,:title=>"Forgot Your Password?" %>
           </p>
         </div>
       </div>
