@@ -145,7 +145,7 @@
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit "Submit",:class=>"btn2"%>
+        <%= f.submit "Submit",:onclick=>"return validate_transport_form();",:class=>"btn2"%>
       </span>
     </div>
   </div>
@@ -157,7 +157,20 @@
 
 
   <script>
-
+  
+  function validate_transport_form(){
+    if(parseInt($("#is_super_admin").val()) == "1"){
+      if ($("#vehicle_model_type_id_available").val() == '' && $("#vehicle_model_type_id_booked").val() == '' )
+      alert("Please Select a Vehicle");
+      return false;
+    }
+    else if (parseInt($("#is_department_admin").val()) == "1"){
+      if ($("#vehicle_model_type_id_available").val() == '')
+      alert("Please Select a Vehicle");
+      return false;
+    }
+  }
+  
     $("#available_one_way").live('change',function(){
       $("#booked_resource").hide();
       $("#available_resource").show();

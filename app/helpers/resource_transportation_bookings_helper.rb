@@ -6,6 +6,7 @@ module ResourceTransportationBookingsHelper
     rtb = ResourceTransportationBooking.find(id)
     agency_store = AgencyStore.find_by_resource_id(vehicle_id)
     driver = Driver.find(agency_store.driver_id)
+    
     #vehicle = Vehicle.find(vehicle_id)
     #driver = Driver.find(vehicle.driver_id)
       

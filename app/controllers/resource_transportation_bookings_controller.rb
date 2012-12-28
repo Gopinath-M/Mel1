@@ -51,7 +51,7 @@ class ResourceTransportationBookingsController < ApplicationController
     available_vehicles.each do |resource| 
       ag = AgencyStore.find_by_resource_id(resource.resource_id)      
       val= resource.vehicle_model.to_s + " : " + resource.resource_no.to_s + " : " + ag.agency.name.to_s
-      vehicles.store(resource.id, val)
+      vehicles.store(resource.resource_id, val)
     end
     render :json=>[vehicles] if vehicles
    
@@ -72,7 +72,7 @@ class ResourceTransportationBookingsController < ApplicationController
     
     if @resource_transportation_booking.valid?
       
-      if (!session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
+      if (session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
       @approver = Approver.active.find_all_by_department_id(current_user.departments).first
       @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
       end
@@ -84,11 +84,12 @@ class ResourceTransportationBookingsController < ApplicationController
           @resource_transportation_booking.agency_store_id = agency_store.id
           @resource_transportation_booking.driver_id = agency_store.driver_id
           agency_store.update_attributes(:booked=>true)
+          @resource_transportation_booking.status = "Processed"
         else
           agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_booked])
           rtb_old = ResourceTransportationBooking.find(:all,:conditions=>["(status = 'New' or status = 'Approved') and agency_store_id=#{agency_store.id}"])
           if rtb_old.present?
-          rtb_old.update_attributes(:status => 'Cancelled')
+          rtb_old.update_attributes(:status => "Cancelled")
           @resource_transportation_booking.agency_store_id = rtb_old.agency_store_id
           @resource_transportation_booking.driver_id = rtb_old.driver_id      
           @resource_transportation_booking.status = "Processed"
@@ -103,7 +104,7 @@ class ResourceTransportationBookingsController < ApplicationController
              redirect_to(new_resource_transportation_booking_path, :alert => "You can't book the Vehicle which is already Processed.")
           end
         end
-      elsif (current_user.is_department_admin? || @approver.user_id.to_i == current_user.id if !@approver.blank? || @approver_second.user_id.to_i == current_user.id if !@approver_second.blank?)
+      elsif (current_user.is_department_admin?)
           
           agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_available])
           @resource_transportation_booking.agency_store_id = agency_store.id
@@ -145,8 +146,8 @@ class ResourceTransportationBookingsController < ApplicationController
    #       user = dept.users.where("role_id = 2").first
    #       UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver         
     #    end
-     #  redirect_to(resource_transportation_bookings_path, :notice => "Your Transport booking has been created sucessfully.")
-   #   end
+       redirect_to(resource_transportation_bookings_path, :notice => "Your Transport booking has been created sucessfully.")
+#end
 
      
     else
