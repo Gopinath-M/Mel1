@@ -142,8 +142,7 @@
 
                 <% if @ict_network.status == "Approved" || @ict_network.status == "Processed" || @ict_network.status == "Declined"%>
                   <h2 class="b-head"></h2>
-                  <font color="#369" size="2"><br/><b><u>Approval Information :-</u><br/><br/></b></font>
-
+                  <font color="#369" size="3"><br/><b><u>Approval Information :-</u><br/><br/></b></font>
                   <% name = User.find_by_id(@ict_network.person_incharge) %>
                   <div class="form-sec-row">
                     <label class="text">Person Incharge</label>
@@ -262,7 +261,7 @@
                       <tr>
                         <td><%= f.select(:hardware_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
                         <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
-                        <td><b>&nbsp;<%=f.text_field :hardware_quantity, :class=> "size-quan-box-ict-network"%></b></td>
+                        <td><b>&nbsp;<%=f.text_field :hardware_quantity,:onkeypress=>"return isNumberKey(event);",:class=> "size-quan-box-ict-network"%></b></td>
                         <td id="req_type_network"><font color="red"><b>Install</b></font></td></td>
                         <td id="req_type_purchase"style="display:none;"><font color="red"><b>Purchase</b></font></td>
                       </tr>

@@ -105,42 +105,41 @@
                   </span>
                 </div>
 
-                <%# if @ict_network.status == "Approved"%>
-                  <%# username = User.find(@ict_network.updated_by) %>
-                  <%#*<h2 class="b-head"></h2>%>
-                  <%#*<div class="form-sec-row">%>
-                    <%#*<label class="text">Approved by</label>%>
-                    <%#*<span class="in-box">%>
-                      <%#= username.username %>
-                    <%#*</span>%>
-                  <%#*</div>%>
-                  <%#*<div class="form-sec-row">%>
-                    <%#*<label class="text">Approved at</label>%>
-                    <%#*<span class="in-box">%>
-                      <%#= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
-                    <%#*</span>%>
-                  <%#*</div>%>
-                <%#elsif @ict_network.status == "Processed"%>
-                  <%# username = User.find(@ict_network.updated_by) %>
-                  <%#*<h2 class="b-head"></h2>%>
-                  <%#*<div class="form-sec-row">%>
-                    <%#*<label class="text">Processed by</label>%>
-                    <%#*<span class="in-box">%>
-                      <%#= username.username %>
-                    <%#*</span>%>
-                  <%#*</div>%>
-                  <%#*<div class="form-sec-row">%>
-                    <%#*<label class="text">Processed at</label>%>
-                    <%#*<span class="in-box">%>
-                      <%#= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
-                    <%#*</span>%>
-                  <%#*</div>%>
-                <%#end%>
+  <%# if @ict_network.status == "Approved"%>
+  <%# username = User.find(@ict_network.updated_by) %>
+  <%#*<h2 class="b-head"></h2>%>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Approved by</label>%>
+  <%#*<span class="in-box">%>
+  <%#= username.username %>
+  <%#*</span>%>
+  <%#*</div>%>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Approved at</label>%>
+  <%#*<span class="in-box">%>
+  <%#= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
+  <%#*</span>%>
+  <%#*</div>%>
+  <%#elsif @ict_network.status == "Processed"%>
+  <%# username = User.find(@ict_network.updated_by) %>
+  <%#*<h2 class="b-head"></h2>%>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Processed by</label>%>
+  <%#*<span class="in-box">%>
+  <%#= username.username %>
+  <%#*</span>%>
+  <%#*</div>%>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Processed at</label>%>
+  <%#*<span class="in-box">%>
+  <%#= @ict_network.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p") %>
+  <%#*</span>%>
+  <%#*</div>%>
+  <%#end%>
 
                 <% if @ict_network.status == "Approved" || @ict_network.status == "Processed" || @ict_network.status == "Declined"%>
                   <h2 class="b-head"></h2>
-                  <font color="#369" size="2"><br/><b><u>Approval Information :-</u><br/><br/></b></font>
-
+                  <font color="#369" size="3"><br/><b><u>Approval Information :-</u><br/><br/></b></font>
                   <% name = User.find_by_id(@ict_network.person_incharge) %>
                   <div class="form-sec-row">
                     <label class="text">Person Incharge</label>
