@@ -8,7 +8,7 @@
         <div class="form-sec-row">
           <%= f.label :agency, raw("Agency <span style=color:red>*</span>"), :class=>"text" %>
           <span class="in-box">
-            <%=f.select(:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
+            <%=f.select(:agency,  options_from_collection_for_select(Agency.active, 'id','name', @role_membership.agency),:prompt=>"Select Agency") %>
           </span>
         </div>
         <div class="form-sec-row">
