@@ -1,5 +1,5 @@
 <div class="CenterNav">
-    <h2 class="b-head">List of Users</h2>
+    <h2 class="b-head"><%=t('labels.list_of_users')%></h2>
   <% @users.each do |user| %>
     <%=image_tag (user.login_status ? "online.png" : "offline.png"), :alt=>"Image", :width=>"17", :height=>"17"%>&nbsp;&nbsp;
         <%= !user.avatar.nil? && !user.avatar.url(:thumb).nil? ? (image_tag(user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
@@ -14,11 +14,11 @@
   <div class="clearfix">&nbsp;</div>
   <div class="CenterNav">
     <div class="form-sec">   
- <h2 class="b-head">Sending Chat Request</h2><br/>
+ <h2 class="b-head"><%=t('labels.sending_chat_request')%></h2><br/>
     <div id="MessageDiv" style="display: none; height:20px; width: 500px;"></div>
     <br/>
       <div class="form-sec-row">
-        <label class="text">Chat Invitation<span style=color:red>*</span></label>
+        <label class="text"><%=t('labels.chat_invitation')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= text_field_tag :email,"", :id=>"email"%>
         </span>
@@ -26,7 +26,7 @@
       <div class="form-sec-row">
         <label class="text">&nbsp;</label>
         <span class="in-box">
-          <%= submit_tag 'Send Request', :class=>"btn2"%>
+          <%= submit_tag t('labels.send_request'), :class=>"btn2"%>
         </span>
       </div>
     </div>

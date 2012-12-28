@@ -1,6 +1,6 @@
 <div class="clearfix">&nbsp;</div>
 <div class="CenterNav">
-  <% if current_user.is_department_admin? %>
+  <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN %>
     <h2 class="b-head">Resource Room Approval Request</h2>
   <%else%>
     <h2 class="b-head">Resource Room Process Request</h2>

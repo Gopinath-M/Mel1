@@ -17,12 +17,12 @@
   <div class="clearfix">&nbsp;</div>
   <div class="form-sec">
     <div class="form-sec-row">
-      <label class="text">Resource Type <span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.resource_type')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.radio_button :resource_type, 'ict', :checked=>@store.resource_type=='ICT' ? true : false%> <%= f.label :resource_type, "ICT" %>
-        <%= f.radio_button :resource_type, 'transport', :checked=>@store.resource_type=='Transport' ? true : false%> <%= f.label :resource_type, "Transport" %>
-        <%= f.radio_button :resource_type, 'room_booking', :checked=>@store.resource_type=='Room' ? true : false%> <%= f.label :resource_type, "Room" %>
-        <%= f.radio_button :resource_type, 'others', :checked=>@store.resource_type=='Others' || @store.resource_type.nil? ? true : false%> <%= f.label :resource_type, "Others" %>
+        <%= f.radio_button :resource_type, 'transport', :checked=>@store.resource_type=='Transport' ? true : false%> <%= f.label :resource_type, t("labels.transport") %>
+        <%= f.radio_button :resource_type, 'room_booking', :checked=>@store.resource_type=='Room' ? true : false%> <%= f.label :resource_type, t("left_nav.room_booking") %>
+        <%= f.radio_button :resource_type, 'others', :checked=>@store.resource_type=='Others' || @store.resource_type.nil? ? true : false%> <%= f.label :resource_type, t("labels.others") %>
       </span>
     </div>
     <div id="agency_room" style="display:none;">

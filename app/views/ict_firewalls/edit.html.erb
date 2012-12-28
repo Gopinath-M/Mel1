@@ -139,15 +139,17 @@
                     <th width="25%"><b>Action</b></th>
                   </tr>
                   <% services = @ict_firewall.ict_firewall_services %>
-                  <% services.each do |ict_firewall_service| %>
+                  <% services.each_with_index do |ict_firewall_service,index| %>
 
                     <tr>
-                      <td>1</td>
+                      <td><%= index+1 %></td>
                       <td><b>&nbsp;<%=FacilityIctService.find(ict_firewall_service.id).port%></b></td>
                       <td><b>&nbsp;<%= ict_firewall_service.one_way? ? 'One Way' : 'Two Way' %></b></td>
                       <% if @ict_firewall.status == "New" %>
-                        <td> <%= f.radio_button :status, 'Approve',:checked=>true %> <%= f.label :approve_status, "Approve" %>
-                          <%= f.radio_button :status, 'Not Approve'%> <%= f.label :approve_status, "Not Approve" %></td>
+                        <td>
+                          <%= radio_button_tag "status_"+ict_firewall_service.id.to_s, 'Approve',:checked=>true %> <%= f.label :approve_status, "Approve" %>
+                          <%= radio_button_tag "status_"+ict_firewall_service.id.to_s, 'Not Approve'%> <%= f.label :approve_status, "Not Approve" %>
+                        </td>
                       <%else%>
                         <td><b>&nbsp;<%= ict_firewall_service.approved? ? 'Approved' : 'Not Approved' %></b></td>
                       <%end%>
