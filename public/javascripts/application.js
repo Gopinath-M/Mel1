@@ -486,6 +486,53 @@ $().ready(function(){
         });
     })
 
+    $("#role_membership_agency").live("change", function(){
+        if($("#role_membership_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#role_membership_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#role_membership_department_id').find('option').remove().end()
+                    $('#role_membership_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#role_membership_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $('#role_membership_department_id').find('option').remove().end()
+            $('#role_membership_user_id').find('option').remove().end()
+            $('#role_membership_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+        }
+    });
+    
+    $("#role_membership_department_id").live("change",function(){
+        if($("#role_membership_department_id").val()!="")
+        {
+            $.get("/users/transfer/",{
+                department_id: $("#role_membership_department_id").val(),
+                department_users : true
+
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#role_membership_user_id').find('option').remove().end()
+                    $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#role_membership_user_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+    });
+    
     $("#transfer_from_agency").live("change", function(){
         if($("#transfer_from_agency").val()!="")
         {
@@ -2716,67 +2763,67 @@ $("#requisition_type_id").live("change",function(){
     }
 });
 
-  $("#vehicle_model_type_id").live("change", function (){ 
+$("#vehicle_model_type_id").live("change", function (){ 
     if($("#vehicle_model_type_id").val()!= "")
     {      
-      $.get("/resource_transportation_bookings/get_vehicles",{
-        vehicle_model_type_id : $("#vehicle_model_type_id").val()
-      }, function(data){
-        if (data[0]!=null)
-        {
-          if (data[0].length > 0)
-          {
-            $('#vehicle_id').find('option').remove().end()
-            $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
-            for(var i=0; i<data[0].length;i++)
-            {
-              $('#vehicle_id').append($("<option></option>").attr("value",data[0][i].resource.resource_id).text(data[0][i].resource.vehicle_model +' : '+ data[0][i].resource.resource_no));
-            }
-          }
-          else
-          {
-            $.get("/resource_transportation_bookings/get_other_agency_vehicles",{
-              vehicle_model_type_id : $("#vehicle_model_type_id").val()              
-            },
-            function(data){
-              if (data[0]!=null)
-              {
-                $('#vehicle_id').find('option').remove().end()
-                $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
-                
-                $.each(data[0], function(key, val) {
-                  $('#vehicle_id').append($("<option></option>").attr("value",key).text(val));
-                });
-              }
-              alert("Selected Vehicle Category is not Available in your Agency. Searching in Other Agencies.. ");
-            });
-          }
-        }
-      });
-    }
-    });
-    
-    $("#resource_transportation_booking_sub_category_id").live("change", function(){      
-      if($("#is_department_admin").val() == 1){
-        if($("#resource_transportation_booking_sub_category_id").val() != "")
-        {
-          $.get("/resource_transportation_bookings/get_vehicle_brands",{
-            sub_category_id : $("#resource_transportation_booking_sub_category_id").val()
-          },
-          function(data){
+        $.get("/resource_transportation_bookings/get_vehicles",{
+            vehicle_model_type_id : $("#vehicle_model_type_id").val()
+        }, function(data){
             if (data[0]!=null)
             {
-              $("#vehicle_model_type_id").find('option').remove().end()
-              $("#vehicle_model_type_id").append($("<option></option>").attr("value","").text("Select a Vehicle Brand"));
-              for(var i=0; i<data[0].length;i++)
-              {
-                $("#vehicle_model_type_id").append($("<option></option>").attr("value",data[0][i].vehicle_model_type.id).text(data[0][i].vehicle_model_type.name));
-                $("#vehicle_model_type_div").show();
-              }
+                if (data[0].length > 0)
+                {
+                    $('#vehicle_id').find('option').remove().end()
+                    $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#vehicle_id').append($("<option></option>").attr("value",data[0][i].resource.resource_id).text(data[0][i].resource.vehicle_model +' : '+ data[0][i].resource.resource_no));
+                    }
+                }
+                else
+                {
+                    $.get("/resource_transportation_bookings/get_other_agency_vehicles",{
+                        vehicle_model_type_id : $("#vehicle_model_type_id").val()
+                    },
+                    function(data){
+                        if (data[0]!=null)
+                        {
+                            $('#vehicle_id').find('option').remove().end()
+                            $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
+                
+                            $.each(data[0], function(key, val) {
+                                $('#vehicle_id').append($("<option></option>").attr("value",key).text(val));
+                            });
+                        }
+                        alert("Selected Vehicle Category is not Available in your Agency. Searching in Other Agencies.. ");
+                    });
+                }
             }
-          });
+        });
+    }
+});
+    
+$("#resource_transportation_booking_sub_category_id").live("change", function(){      
+    if($("#is_department_admin").val() == 1){
+        if($("#resource_transportation_booking_sub_category_id").val() != "")
+        {
+            $.get("/resource_transportation_bookings/get_vehicle_brands",{
+                sub_category_id : $("#resource_transportation_booking_sub_category_id").val()
+            },
+            function(data){
+                if (data[0]!=null)
+                {
+                    $("#vehicle_model_type_id").find('option').remove().end()
+                    $("#vehicle_model_type_id").append($("<option></option>").attr("value","").text("Select a Vehicle Brand"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $("#vehicle_model_type_id").append($("<option></option>").attr("value",data[0][i].vehicle_model_type.id).text(data[0][i].vehicle_model_type.name));
+                        $("#vehicle_model_type_div").show();
+                    }
+                }
+            });
         }
-      }
-    });
+    }
+});
 /*Dynamic Chance for Resource Req ICT Ends */
 

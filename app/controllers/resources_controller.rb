@@ -118,7 +118,7 @@ class ResourcesController < ApplicationController
   def resource_approver
     @approve = Approver.new()
     @dept = Department.find(default_department)
-    @users = @dept.users.page(params[:page]).per(10) if @dept
+    @users = @dept.users.active.where("role_id = 3 || role_id = 2").page(params[:page]).per(10) if @dept
     fist_approver = Approver.active.find_all_by_department_id(current_user.departments).first
     if fist_approver.present?
       @first = User.find(fist_approver.user_id)

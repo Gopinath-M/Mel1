@@ -175,23 +175,6 @@
                         <td>&nbsp;<b><%= vehicle.vehicle_model+' : '+vehicle.resource_no %></b></td>
                       </tr>
                       <tr>
-
-      <%#*<td><b>Change Vehicle</b></td>%>
-      <%# user = User.find(@resource_transportation_booking.requester_id) %>
-      <%# a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
-      <%# if !a.blank? %>
-      <%#*<td>%>
-      <%#= hidden_field_tag :alternate_vehicle_id,'1' %>
-      <%#= select("vehicle","id", options_from_collection_for_select(Resource.find(:all,:conditions=>["id in (#{a})"]),'id',"resource_no"),{:prompt=>"SELECT A VEHICLE"})%>
-      <%#*</td>%>
-      <%#else%>
-      <%#*<td>&nbsp;<b><%= 'No Vehicles Available' %> <%#= hidden_field_tag :alternate_vehicle_id,'0' %>
-                        <!--</b></td>%>-->
-      <%#end%>
-
-      <%#*</tr>%>
-
-
                       <tr>
                         <td><b>Driver</b></td>
                         <td>&nbsp;
@@ -282,13 +265,13 @@
           <span class="in-box">
             <% if @resource_transportation_booking.status == "New" %>
               <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-              <%= submit_tag "Submit", :class=>"btn1",:onclick=>'return validate_request_approval_form();' %>
+              <%= submit_tag "Submit", :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
             <% elsif @resource_transportation_booking.status == "Approved" %>
               <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-              <%= submit_tag "Submit", :class=>"btn1",:onclick=>'return validate_request_approval_form();' %>
+              <%= submit_tag "Submit", :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
             <% elsif @resource_transportation_booking.status == "Processed" %>
               <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-              <%= submit_tag "Acknowledge", :class=>"btn1",:onclick=>'return validate_request_approval_form();' %>
+              <%= submit_tag "Acknowledge", :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
             <%end%>
           </span>
         </div>
@@ -299,55 +282,9 @@
 <%end%>
 
 <script>
-	
-	    /* Validating Transport Request Approval Form */
-$().ready(function(){
       
-$("#1vehicle_model_type_id").live("change", function(){
-   
+  function validate_request_approval_form(){	
     
-    if($("#vehicle_model_type_id").val()!= "")
-    {     
-      $.get("/resource_transportation_bookings/get_vehicles",{
-        vehicle_model_type_id : $("#vehicle_model_type_id").val()
-      }, function(data){
-        if (data[0]!=null)
-        {
-          if (data[0].length > 0)
-          {
-            $('#vehicle_id').find('option').remove().end()
-            $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
-            for(var i=0; i<data[0].length;i++)
-            {
-              $('#vehicle_id').append($("<option></option>").attr("value",data[0][i].resource.resource_id).text(data[0][i].resource.vehicle_model +' : '+ data[0][i].resource.resource_no));
-            }
-          }
-          else
-          {
-            $.get("/resource_transportation_bookings/get_other_agency_vehicles",{
-              vehicle_model_type_id : $("#vehicle_model_type_id").val()              
-            },
-            function(data){
-              if (data[0]!=null)
-              {
-                $('#vehicle_id').find('option').remove().end()
-                $('#vehicle_id').append($("<option></option>").attr("value","").text("Select a Vehicle"));
-                
-                $.each(data[0], function(key, val) {
-                  $('#vehicle_id').append($("<option></option>").attr("value",key).text(val));
-                });
-              }
-              alert("Selected Vehicle Category is not Available in your Agency. Searching in Other Agencies.. ");
-            });
-          }
-        })
-      }
-    });
-    
-  });
-    
-    function validate_request_approval_form(){	
-  
     if($("#approve_status").val() == "Declined"){
         var r = confirm("You want to Decline this Request. Continue ?");
         if (r == false)
@@ -364,11 +301,11 @@ $("#1vehicle_model_type_id").live("change", function(){
     }
     else if ($("#approve_status").val() == "Approved"){   
     	if ($("#vehicle_model_type_id").val() == ""){       
-          alert("Please Select the Brand");
+          alert("Please Select a Brand");
           return false;
         }    	        
         else if ($("#vehicle_id").val() == ""){
-            alert("Please Select the Vehicle");
+            alert("Please Select a Vehicle");
             return false;
         }
     }
