@@ -169,8 +169,7 @@ class AgencyStoresController < ApplicationController
     #      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
     #      render :json=>[resources] if resources
     #    else
-    
-    if params[:from].nil?
+    if params[:from] != 'agency_store'
       if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
         resource = AgencyStore.where("booked = false and sub_category_id = ?",params[:sub_category_id]).collect(&:resource_id)
       else
@@ -181,7 +180,7 @@ class AgencyStoresController < ApplicationController
       if resource && !resource.empty?
         resources = Resource.find(resource)
       end
-      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
+#      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
     else
       resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
     end
