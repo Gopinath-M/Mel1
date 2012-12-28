@@ -19,22 +19,7 @@
                     <td><font color='#369'><b><u>User Details:-</u></b></font></td>
                     <td></td>
                   </tr>
-                  <% if @resource_booking.attachment.present? %>
-                    <tr>
-                      <td><b>Upload File</b></td>
-                      <% image = @resource_booking.attachment.url(:profile).split(".").last %>
-                      <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-                        <td><%=image_tag(@resource_booking.attachment.url(:profile),:title=>@resource_booking.attachment)%></td>
-                      <%else%>
-                        <% file = (@resource_booking.attachment).url(:profile).split("/").last %>
-                        <td><b>&nbsp;<%= file %></b></td>
-                      <%end%>
-                    </tr>
-                    <tr>
-            <td><b>Attachment</b></td>
-            <td>&nbsp;<b><%= link_to 'Download File', download_attachments_resource_bookings_path(:id=>@resource_booking.id) if @resource_booking.attachment?  %></b></td>
-          </tr>
-                  <%end%>
+                  
                   <% if @agency.present? %>
                     <tr>
                       <td><b>Agency Name</b></td>
@@ -105,10 +90,21 @@
             <tr>
               <td><b>Purpose</b></td>
               <td><b>&nbsp;<%=@resource_booking.purpose%></b></td>
-            </tr>
+            </tr><% if @resource_booking.attachment.present? %>
+                    <tr>
+                      <td><b>Attachment</b></td>
+                      <% image = @resource_booking.attachment.url(:profile).split(".").last %>
+                      <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                        <td><%=image_tag(@resource_booking.attachment.url(:profile),:title=>@resource_booking.attachment)%></td>
+                      <%else%>
+                        <% file = (@resource_booking.attachment).url(:profile).split("/").last %>
+            <td>&nbsp;<b><%= link_to file, download_attachments_resource_bookings_path(:id=>@resource_booking.id) if @resource_booking.attachment?  %></b></td>
+                      <%end%>
+                    </tr>                  
+                  <%end%>
             <tr>
               <td><b>Remarks</b></td>
-              <td><b>&nbsp;<%=@resource_booking.description%></b></td>
+              <td><b>&nbsp;<%=  @resource_booking.description%></b></td>
             </tr>
             <tr>
               <td><b>Quantity</b></td>
@@ -147,7 +143,9 @@
       </tr>
       <tr>
         <td><label class="text"> <%= f.label :location,raw("Status"), :class=>"text"%></label></td>
-        <td><b>&nbsp;<%=@resource_booking.status%></b></td>
+         <span class="in-box" style="color :<%= (@resource_booking.status == 'New') ? '#FFA500' : ((@resource_booking.status == 'Approved' || @resource_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
+
+            <td>&nbsp;<b><%= @resource_booking.status %></b></span></td>
       </tr>
       </table>
       </td>
