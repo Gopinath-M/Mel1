@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :current_department, :current_role
+  before_filter :current_department, :current_role, :set_locale
+
+  def set_locale
+    session[:locale] = params[:locale] if params[:locale]!=nil && params[:locale]!=""
+    I18n.locale = session[:locale]
+    if params[:locale]!=nil && params[:locale]!=""
+      redirect_to :back
+    end
+  end
 
   #redirect user based on sign in count and force user to change password if logged in first time
   def home

@@ -1,6 +1,6 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Transfer Department Users</h2>
+    <h2 class="b-head"><%=t('labels.transfer_department_users')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
       <div class="cu-c1">
@@ -35,14 +35,11 @@
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">
-
-            <input type="button" name="Transfer" value="Transfer" id="transfer_department" class="btn2"></input>
+            <input type="button" name="Transfer" value="<%=t('labels.transfer')%>" id="transfer_department" class="btn2"></input>
           </span>
         </div>
-
-
       <%else%>
-        No User Data Available
+       <%=t('labels.no_data_available')%>
       <%end%>
         </div>
     </div>
