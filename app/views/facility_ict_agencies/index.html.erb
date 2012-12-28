@@ -1,6 +1,6 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Manage Facility Ict Agencies</h2>
+    <h2 class="b-head"><%=t('labels.manage_facility_ict_agency')%></h2>
   <%end%>
   <div id="div_ajax" >
     <%if @facility_ict_agency && !@facility_ict_agency.empty?%>
@@ -13,11 +13,11 @@
                 <p class="head1"><%=ict_agency.name%></p>
               </div>
               <div class="mu-c3">
-                <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>ict_agency.id.to_i%>
+                <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.edit"), :action=>'edit', :id=>ict_agency.id.to_i%>
                 <%if ict_agency.is_active %>
-                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_facility_ict_agencies_path(:id=>ict_agency.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this agency?', :method=>:post, :title=>"Deactive" %>
+                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.deactivate"), update_status_facility_ict_agencies_path(:id=>ict_agency.id, :status=>"Deactivate"), :confirm => t('labels.agen_deact_confirm'), :method=>:post, :title=>t("labels.deactivate")%>
                 <%else%>
-                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_facility_ict_agencies_path(:id=>ict_agency.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this agency?', :method=>:post, :title=>"Activate"%>
+                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.activate"),  update_status_facility_ict_agencies_path(:id=>ict_agency.id,:status=>"Activate"), :confirm => t('labels.agen_act_confirm'), :method=>:post, :title=>t("labels.activate")%>
                 <%end%>
 
               </div>
@@ -27,7 +27,7 @@
         <%end%><div class="manage-user-rows box"><br/><br/>
 <%#= paginate @agencies %></div>
     <%else%>
-      No Agencies Available
+      <%=t('labels.no_data_available')%>
     <%end%>
 <%#*<div><%= paginate @units %>
   </div>

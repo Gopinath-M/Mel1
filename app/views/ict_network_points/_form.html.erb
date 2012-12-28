@@ -24,19 +24,19 @@
 
       <div id="network_for_ict">
         <div class="form-sec-row">
-          <%= f.label :justification,raw("Justification<span style=color:red>*</span>"), :class=>"text"%>
+          <label class="text"><%=t('labels.justification')%><span style=color:red>*</span></label>
           <span class="in-box">
             <td><b>&nbsp;<%= f.text_area :justification, :cols => "30", :rows => "3"%></b></td>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :location,raw("Location<span style=color:red>*</span>"), :class=>"text"%>
+          <label class="text"><%=t('labels.location')%><span style=color:red>*</span></label>
           <span class="in-box">
             <td><b>&nbsp;<%= f.text_area :location, :cols => "20", :rows => "1"%></b></td>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :quantity,raw("Quantity<span style=color:red>*</span>"), :class=>"text"%>
+          <label class="text"><%=t('labels.quantity')%><span style=color:red>*</span></label>
           <td><b>&nbsp;<%=f.text_field :quantity, :onkeypress=>"return isNumberKey(event);", :class=> "size-quan-box-ict"%><%= "Unit" %></b></td>
         </div>
 
@@ -44,7 +44,7 @@
           <div class="CenterNav">
             <label class="text">&nbsp;</label>
             <span class="in-box">
-              <%= f.submit :value=>'Create', :class=>"btn2"%>
+              <%= f.submit :value=>t('left_nav.create'), :class=>"btn2"%>
             </span>
           </div>
         </div>
