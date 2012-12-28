@@ -1,7 +1,7 @@
 <%= form_for(@resource_room_booking, :url=>update_room_booking_resource_room_bookings_path) do |f| %>
   <div class="clearfix">&nbsp;</div>
   <div class="CenterNav">
-    <% if current_user.is_department_admin? %>
+    <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN  %>
       <h2 class="b-head">Resource Room Approval Request</h2>
     <%else%>
       <h2 class="b-head">Resource Room Process Request</h2>
@@ -31,7 +31,7 @@
                       <%end%>
                     </tr>
                   <%end%>
-                  <% if !current_user.is_super_admin? %>
+                  <% if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
                     <% if @agency.present? %>
                       <tr>
                         <td><b>Agency Name</b></td>
@@ -40,7 +40,7 @@
                     <%end%>
                     <tr>
                       <td><b>Department Name</b></td>
-                      <td><b>&nbsp;<%= @dept.name  %></b></td>
+                      <td><b>&nbsp;<%= @resource_room_booking.department.name  if @resource_room_booking.department && session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN%></b></td>
                     </tr>
                   <%end%>
                   <% if @manager.present? %>
@@ -76,7 +76,7 @@
             </tr>
             <tr>
               <td><b>Ticket No</b></td>
-            <b><td style="color:#BB0802;">&nbsp;<%=@resource_room_booking.id%>/<%=Time.now.year%></td></b>
+            <b><td style="color:red;">&nbsp;<%=@resource_room_booking.id%>/<%=Time.now.year%></td></b>
             </tr>
             <tr>
               <td><b>Date of Application</b></td>
@@ -84,7 +84,7 @@
             </tr>
             <tr>
               <td><b>Room Name</b></td>
-              <td><b>&nbsp;<%=@resource.name%></b></td>
+              <td><b>&nbsp;<%=@resource_room_booking.sub_category.name%></b></td>
             </tr>
             <tr>
               <td><b>From Date</b></td>
@@ -112,7 +112,7 @@
             <tr>
             <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
             </tr>
-            <% if @resource_room_booking.status == "Approved" && !current_user.is_department_admin? && !@resource_room_booking.updated_by.present?%>
+            <% if @resource_room_booking.status == "Approved" && session[:current_role] != DISP_USER_ROLE_DEPT_ADMIN && !@resource_room_booking.updated_by.present?%>
               <% user = User.find(@resource_room_booking.user_id) %>
               <tr>
                 <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
@@ -126,7 +126,7 @@
                 <td><b>Approved at</b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
-            <% elsif @resource_room_booking.status == "Approved" && !current_user.is_department_admin? && @resource_room_booking.updated_by.present?%>
+            <% elsif @resource_room_booking.status == "Approved" && session[:current_role] != DISP_USER_ROLE_DEPT_ADMIN && @resource_room_booking.updated_by.present?%>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
                 <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
@@ -140,7 +140,7 @@
                 <td><b>Approved at</b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
-            <% elsif @resource_room_booking.status == "Approved" && current_user.is_department_admin? && !@resource_room_booking.updated_by.present? %>
+            <% elsif @resource_room_booking.status == "Approved" && session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN && !@resource_room_booking.updated_by.present? %>
               <% user = User.find(@resource_room_booking.user_id) %>
               <tr>
                 <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
@@ -154,7 +154,7 @@
                 <td><b>Approved at</b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
-            <% elsif @resource_room_booking.status == "Approved" && current_user.is_department_admin? && @resource_room_booking.updated_by.present? %>
+            <% elsif @resource_room_booking.status == "Approved" && session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN && @resource_room_booking.updated_by.present? %>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
                 <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
@@ -168,7 +168,7 @@
                 <td><b>Approved at</b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
-            <%elsif @resource_room_booking.status == "Processed" && !current_user.is_super_admin? %>
+            <%elsif @resource_room_booking.status == "Processed" && session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
                 <td><font color="#369"><b><u>Processed Details:-</u></b></font></td>
@@ -182,7 +182,7 @@
                 <td><b>Processed at</b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
-            <%elsif @resource_room_booking.status == "Processed" && current_user.is_super_admin? && !@resource_room_booking.updated_by.present?%>
+            <%elsif @resource_room_booking.status == "Processed" && session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN && !@resource_room_booking.updated_by.present?%>
               <% user = User.find(@resource_room_booking.user_id) %>
               <tr>
                 <td><font color="#369"><b><u>Processed Details:-</u></b></font></td>
@@ -196,7 +196,7 @@
                 <td><b>Processed at</b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
-            <%elsif @resource_room_booking.status == "Processed" && current_user.is_super_admin? && @resource_room_booking.updated_by.present?%>
+            <%elsif @resource_room_booking.status == "Processed" && session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN && @resource_room_booking.updated_by.present?%>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
                 <td><font color="#369"><b><u>Processed Details:-</u></b></font></td>
@@ -215,22 +215,22 @@
             <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
             </tr>
 
-            <% if @details_resource.present?%>
+            <% if @resource_room_booking.resource.present?%>
               <tr>
                 <td><font color="#369"><b><u>Resource Details:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
-                <td><b> Room Ex No</b></td>
-                <td><b>&nbsp;<%=@details_resource.resource_no%></b></td>
+                <td><b> Room No</b></td>
+                <td><b>&nbsp;<%=  @resource_room_booking.resource.resource_no%></b></td>
               </tr>
               <tr>
                 <td><b> Location</b></td>
-                <td><b>&nbsp;<%=@details_resource.location%></b></td>
+                <td><b>&nbsp;<%=   @resource_room_booking.resource.location%></b></td>
               </tr>
               <tr>
                 <td><b> Capacity</b></td>
-                <td><b>&nbsp;<%=@details_resource.capacity%></b></td>
+                <td><b>&nbsp;<%=   @resource_room_booking.resource.capacity%></b></td>
               </tr>
             <%end%>
             <% if @facility.present? %>
@@ -266,7 +266,11 @@
       </tr>
       <tr>
         <td><label class="text"> <%= f.label :location,raw("Status"), :class=>"text"%></label></td>
-        <td><b>&nbsp;<%=@resource_room_booking.status%></b></td>
+        <td>
+          <span class="in-box" style="color :<%= (@resource_room_booking.status == 'New') ? '#FFA500' : ((@resource_room_booking.status == 'Approved' || @resource_room_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
+          <b><%=@resource_room_booking.status%></b>
+          </span>
+          </td>
       </tr>
       </table>
       </td>
