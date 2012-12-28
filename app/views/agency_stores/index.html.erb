@@ -1,5 +1,8 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
+     <%if flash[:notice]%>
+    <%=flash[:notice]%>
+    <%end%>
     <h2 class="b-head">Manage Agency Store</h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
@@ -35,7 +38,8 @@
               <%if store.resource_type == 'ICT'%>
                 <p class="head1">Serial No:&nbsp;<%=store.serial_no!=nil ?  store.serial_no : ''%></p>
               <%else%>
-                <p class="head1">Resource No:&nbsp;<%=  (store.resource && store.resource.resource_no!=nil) ? store.resource.resource_no : ''%></p>
+                 <%if store.resource_type == 'Transport'%><p class="head1">Reg No:&nbsp;<%elsif store.resource_type == 'Others'%>Resource Name:&nbsp;<%elsif store.resource_type == 'Room'%>Room No:&nbsp;<%end%>
+                   <%=  (store.resource && store.resource.resource_no!=nil) ? store.resource.resource_no : ''%></p>
               <%end%>
               <%if store.quantity?%>
                 <p class="head1">Quantity:&nbsp;<%=  store.quantity%></p>

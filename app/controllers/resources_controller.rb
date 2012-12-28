@@ -2,20 +2,26 @@ class ResourcesController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
   before_filter :is_admin, :except=>[:get_resources]
   def index
-    department_id = params[:department_id].to_i # while selecting Please Select returns string params
-    if department_id == 0
-      if params[:id].blank? || params[:id].nil?
-        if current_user.is_super_admin?
-          @resources=Resource.page(params[:page]).per(10).order('created_at DESC')
-        else
-          @resources=Resource.where(:department_id=>current_department.id).page(params[:page]).per(1).order('created_at DESC')
-        end
-      else
-        @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(1).order('created_at DESC')
-      end
+ 
+    if params[:sub_category_id] && params[:sub_category_id]!=""
+      @resources=Resource.where(:sub_category_id=>params[:sub_category_id]).page(params[:page]).per(10).order('created_at DESC')
     else
-      @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(1).order('created_at DESC')
+      @resources=Resource.page(params[:page]).per(10).order('created_at DESC')
     end
+#    department_id = params[:department_id].to_i # while selecting Please Select returns string params
+    #    if department_id == 0
+    #      if params[:id].blank? || params[:id].nil?
+    #        if current_user.is_super_admin?
+    #          @resources=Resource.page(params[:page]).per(10).order('created_at DESC')
+    #        else
+    #          @resources=Resource.where(:department_id=>current_department.id).page(params[:page]).per(10).order('created_at DESC')
+    #        end
+    #      else
+    #        @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(10).order('created_at DESC')
+    #      end
+    #    else
+    #      @resources=Resource.where(:sub_category_id=>params[:department_id]).page(params[:page]).per(10).order('created_at DESC')
+    #    end
     if request.xhr?
       render :layout=>false
     end
@@ -33,9 +39,10 @@ class ResourcesController < ApplicationController
     if params[:resource_type] == "room_booking"
       @resource = Resource.create(params[:resource])
       @resource.resource_type = params[:resource_type]
+      @resource.category_id = 6
     elsif  params[:resource_type] =="transport"
       @resource = Resource.create(params[:resource])
-      @resource.category_id = params[:resource_transport][:category_id]
+      @resource.category_id = 7 #params[:resource_transport][:category_id]
       @resource.sub_category_id = params[:resource_transport][:sub_category_id]
       @resource.vehicle_model_type_id = params[:resource_transport][:vehicle_model_type_id]
       @resource.resource_type = params[:resource_type]
@@ -52,7 +59,9 @@ class ResourcesController < ApplicationController
     @resource.created_by = current_user.id
     if @resource.valid?
       @resource.save
-      redirect_to :controller=>'resources', :action=>'index', :notice => 'Resource has been successfully created.'
+      flash[:notice] = 'Resource has been successfully created.'
+      redirect_to :controller=>'resources', :action=>'index'
+
     else
       render :action=>'new'
     end
@@ -126,7 +135,7 @@ class ResourcesController < ApplicationController
     end
   end
 
-def update_resource_approver
+  def update_resource_approver
     if params[:approver1][:id] != params[:approver2][:id]
       dept_admin = User.find_by_id(params[:admin_id])
       department = Department.find_by_id(params[:department_id])
