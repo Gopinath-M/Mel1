@@ -12,7 +12,7 @@
           <font color="#369"><br/><b><% if current_user.username %>Me<%else%><%=current_user.username%><%end%></b></font>
         <%end%>
       </td>
-      <td align="left" width="45%" valign="top" style="vertical-align: top;"><%=convo.content %></td><td align="right" width="20%"><i><%= time_ago_in_words(convo.created_at).gsub('about','') + ' ago' %></i></td>
+      <td align="left" width="45%" valign="top" style="vertical-align: top;"><%=convo.content %></td><td align="right" width="20%"><i><%= time_ago_in_words(convo.created_at).gsub(t('labels.about'),'') + t('labels.ago') %></i></td>
     </tr>
   <%end%>
 </table>

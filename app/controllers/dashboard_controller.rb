@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   include MessagesHelper
-  before_filter :authenticate_user!,:except=>[:set_locale]
+  before_filter :authenticate_user!#,:except=>[:set_locale]
   #  layout 'main_content'
   def index
     if current_user.is_super_admin?
@@ -32,14 +32,14 @@ class DashboardController < ApplicationController
 
   #protected
   
-  def set_locale
-  if params[:locale]
-      session[:locale]= params[:locale]
-      p'hhhhhhhhhhhhhhhhhhhhhhhhh',params[:locale]
-      I18n.locale = session[:locale]
-    end
-    redirect_to dashboard_index_path
-  end
+#  def set_locale
+#  if params[:locale]
+#      session[:locale]= params[:locale]
+#      p'hhhhhhhhhhhhhhhhhhhhhhhhh',params[:locale]
+#      I18n.locale = session[:locale]
+#    end
+#    redirect_to dashboard_index_path
+#  end
   
   
 end

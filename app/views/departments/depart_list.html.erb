@@ -1,9 +1,9 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Manage Departments</h2>
+    <h2 class="b-head"><%=t('labels.manage_dept')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/department_users/new" title="Create Department Admin"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Department Admin</a></div>
+      <div class="cu-c1"><a href="/department_users/new" title="<%=t('labels.create_department_admin')%>"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.create_department_admin')%></a></div>
       <%=hidden_field_tag :department_id, ""%>
     </div>
   <%end%>
@@ -22,11 +22,11 @@
       </div>
       <div class="mu-c3">
         <%if user.status=="Active"%>
-          <%=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+"Deactive" , update_status_users_path(:id=>user.id,:status=>"Deactivate",:department_id=>params[:department_id]), :confirm => 'Do you want to really deactivate this user?', :method=>:post, :title=>"Deactive" %>
+          <%=  link_to image_tag("../images/deactive.jpg", :width=>"14", :height=>"14")+t('labels.deactivate') , update_status_users_path(:id=>user.id,:status=>"Deactivate",:department_id=>params[:department_id]), :confirm => t('labels.dept_list_deactivate_confirm'), :method=>:post, :title=>t('labels.deactivate') %>
         <%elsif user.status=="Deactive" || user.status.nil?%>
-          <%=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+"Activate" , update_status_users_path(:id=>user.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => 'Do you want to really Activate this user?', :method=>:post, :title=>"Activate" %>
+          <%=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+t('labels.activate') , update_status_users_path(:id=>user.id,:status=>"Activate",:department_id=>params[:department_id]), :confirm => t('labels.dept_list_activate_confirm'), :method=>:post, :title=>t('labels.activate') %>
         <%end%>
-        <%=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+"Delete", user_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
+        <%=  link_to image_tag("../images/delete.jpg", :width=>"14", :height=>"14")+t('labels.delete'), user_path(user), :confirm => 'Do you want to Proceed?', :method =>:delete , :title=>"Delete" %>
       </div>
     </div>
   <%end%>

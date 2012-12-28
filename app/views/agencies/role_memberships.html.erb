@@ -1,41 +1,41 @@
 <div class="CenterNav">
   <div class="form-sec">
-    <h2 class="b-head">Manage Agencies</h2>
+    <h2 class="b-head"><%=t(labels.manage_agency)%></h2>
     <%if @role_memberships && !@role_memberships.empty?%>
       <% @role_memberships.each do |role_membership|%>
         <div class="create-user">
           <div class="form-sec-row">
-            <%= label_tag :user_ic_number, raw("IC Number"), :class=>"text" %>
+            <%= label_tag :user_ic_number,t('labels.ic_no'), :class=>"text" %>
             <span class="in-box">
               <%= role_membership.user.ic_number %>
             </span>
           </div>
           <div class="form-sec-row">
-            <%= label_tag :role_id, raw("Role"), :class=>"text" %>
+            <%= label_tag :role_id, t('labels.role'), :class=>"text" %>
             <span class="in-box">
               <%= role_membership.role.name %>
             </span>
           </div>
           <div class="form-sec-row">
-            <%= label_tag :user_id, raw("Login"), :class=>"text" %>
+            <%= label_tag :user_id,  t('labels.login'), :class=>"text" %>
             <span class="in-box">
               <%= role_membership.user.username %>
             </span>
           </div>
           <div class="form-sec-row">
-            <%= label_tag :user_id, raw("Email"), :class=>"text" %>
+            <%= label_tag :user_id,  t('labels.email'), :class=>"text" %>
             <span class="in-box">
               <%= role_membership.user.email %>
             </span>
           </div>
           <div class="form-sec-row">
-            <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+            <%= label_tag :agency_id,  t('labels.agency'), :class=>"text" %>
             <span class="in-box">
               <%= role_membership.department.agency.name %>
             </span>
           </div>
           <div class="form-sec-row">
-            <%= label_tag :department_id, raw("Department"), :class=>"text" %>
+            <%= label_tag :department_id,  t('labels.department'), :class=>"text" %>
             <span class="in-box">
               <%= role_membership.department.name %>
             </span>
@@ -47,7 +47,7 @@
         <%= paginate @role_memberships %>
       </div>
     <%else%>
-      No Agencies Available
+      <%=t('labels.no_agency')%>
     <%end%>
     <div class="create-user">
       <div class="form-sec-row"></div>

@@ -2,7 +2,7 @@ class IctHardwareBookingsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @ict_hardware_bookings=IctHardwareBooking.page(params[:page]).per(4)
+    @ict_hardware_bookings=IctHardwareBooking.where(:booker_id=>current_user.id).page(params[:page]).per(4)
   end
 
   def new
@@ -14,8 +14,8 @@ class IctHardwareBookingsController < ApplicationController
     @ict_hardware_booking=IctHardwareBooking.create(params[:ict_hardware_booking].merge!({:booker_id=>current_user.id, :department_id=>@current_department}))
     if @ict_hardware_booking.valid?
       @ict_hardware_booking.save
-      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-      dept = Department.find_by_id(current_department)
+      @approve = Approver.active.where(:department_id => @current_department).first
+      dept = Department.find(@current_department)
       if !@approve.present?
         user = dept.users.where("role_id = 2").first
         UserMailer.send_mail_to_dept_admin_for_ict_hardware(user,@ict_hardware_booking,dept).deliver
@@ -30,13 +30,20 @@ class IctHardwareBookingsController < ApplicationController
   end
   
   def requests
-    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-    @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
+#    approvers = Approver.active.where(:department_id => @current_department)
+#    if approvers && !approver.empty?
+#      @first_approver = approvers.first.user if approvers.first && approvers.first.user
+#      @second_approver = approvers.first.user if approvers.last && approvers.last.user
+#
+#    end
+#
+    @approve = Approver.active.where(:department_id => @current_department).first
+    @approver_second = Approver.active.where(:department_id => @current_department).last
     if !@approve.present? && !@approver_second.present?
       @ict_hardware_bookings=IctHardwareBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(4)
     else
       users=IctHardwareBookedUser.where(:forward_to => current_user.id).order.page(params[:page]).per(4)
-      @ict_hardware_bookings=users.ict_hardware_booking
+      @ict_hardware_bookings=users.ict_hardware_booking if users && !users.empty?
     end
     if @approve.present?
       @ict_hardware_bookings=IctHardwareBooking.where(:department_id => @approve.department_id).order.page(params[:page]).per(4)

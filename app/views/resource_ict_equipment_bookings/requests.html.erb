@@ -72,25 +72,25 @@
             </span>
           </div>
           <div class="form-sec-row2">
-            <% if @approve.present?  && @approve.user_id == current_user.id && resource.created_at > (Time.now-24.hours) %>
+            <% if @approve.present?  && @approve.user_id == current_user.id && resource.created_at > (Time.now-seconds) %>
               <span class="in-box2">
                 <% if resource.status == "New" %>
                   <%= link_to "Approve Request",approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                 <%end%>
               </span>
-            <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && resource.created_at < (Time.now-48.hours)%>
+            <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && resource.created_at > (Time.now-2*seconds)%>
               <span class="in-box2">
                 <% if resource.status == "New" %>
                   <%= link_to "Approve Request",approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                 <%end%>
               </span>
-            <%elsif current_user.is_department_admin? &&  !@approve.present? %>
+            <%elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN &&  !@approve.present? %>
               <span class="in-box2">
                 <% if resource.status == "New" %>
                   <%= link_to "Approve Request",approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                 <%end%>
               </span>
-            <%elsif current_user.is_resource_manager?%>
+            <%elsif session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER%>
               <span class="in-box2">
                 <% if resource.status == "Approved" %>
                   <%= link_to "Process Request",approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
