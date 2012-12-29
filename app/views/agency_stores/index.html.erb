@@ -18,14 +18,7 @@
 
       </span>
     </div>
-  <%#*<div class="form-sec-row">%>
-  <%#*<label class="text">Select Category <span style=color:red>*</span></label>%>
-  <%#*<span class="in-box">%>
 
-  <%#=select("category","allid", options_from_collection_for_select(Category.active.all, 'id','name'),{:prompt=>"SELECT A CATEGORY"})%>
-
-  <%#*</span>%>
-  <%#*</div>%>
   <%end%>
   <div id="div_ajax" >
     <%if @stores && !@stores.empty?%>
@@ -48,7 +41,7 @@
                 <p class="head1">UOM:&nbsp;<%=store.uom%></p>
               <%end%>
                 <%if store.driver_id!=nil%><p class="head1"><%=t('left_nav.driver_name')%>:&nbsp;<%=store.driver.name.camelize%></p><%end%>
-              <p class="head1">Status:&nbsp;<%if store.booked%><span style="color:'red';">Booked</span><%else%><span style=color:#336699>Available</span><%end%></p>    <%#end%>
+              <p class="head1">Status:&nbsp;<%if store.booked%><span style=color:red>Booked</span><%else%><span style=color:green>Available</span><%end%></p>    <%#end%>
             </div>
             <div class="mu-c3">
 

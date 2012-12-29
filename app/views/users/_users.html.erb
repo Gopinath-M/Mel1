@@ -13,9 +13,9 @@
       </div>
       <div class="mu-c3">
         <%if user.activation_code!=nil%>
-          <%=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+"Approve" , action_name.to_s=="admin_activation" ? activate_department_admin_users_path(:id=>user.id) : activate_department_user_users_path(:id=>user.id), :confirm => 'Do you want to really Approve this user?', :method=>:post, :title=>"Approve" %>
+          <%=  link_to image_tag("../images/active.jpg", :width=>"14", :height=>"14")+t('labels.approve') , action_name.to_s=="admin_activation" ? activate_department_admin_users_path(:id=>user.id) : activate_department_user_users_path(:id=>user.id), :confirm => t('labels.user_app_confirmation'), :method=>:post, :title=>"Approve" %>
         <%else%>
-          <%=  link_to "Approved" , "javascript:void(0);", :title=>"Approved" %>
+          <%=  link_to t('labels.approved') , "javascript:void(0);", :title=>"Approved" %>
         <%end%>
         <%#=  link_to image_tag("../images/edit.jpg", :width=>"14", :height=>"14")+"Edit", edit_user_path(user) , :title=>"Edit" %>
       </div>
@@ -23,5 +23,5 @@
   <%end%>
   <div><%= paginate users %></div>
 <%else%>
-  No Users are Available!
+  <%=t('labels.no_user_available')%>
 <%end%>

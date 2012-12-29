@@ -28,7 +28,7 @@
   </div>
  
   <div class="form-sec-row">
-    <label class="text"><%=t('labels.Serial No')%> <span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.serial_no')%> <span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.text_field :serial_no%>
     </span>
@@ -45,7 +45,7 @@
     <div class="CenterNav">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :value=>t('labels.save'), :class=>"btn2"%>
+        <%= f.submit :class=>"btn2", :value=>@complaint_computer.new_record? ? t('labels.create') : t('labels.update')%>
       </span>
     </div>
   </div>

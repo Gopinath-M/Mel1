@@ -17,13 +17,13 @@
       </div>
     <%end%>
     <div class="form-sec-row">
-      <label class="text"<%=t('labels.sub_category_name')%> <span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.sub_category_name')%> <span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.select(:sub_category_id,  SubCategory.where(:category_id => @category).active.collect {|category| [category.name, category.id]},:prompt=>"Select Sub Category") %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text" id="lb_resource"><%=t('labels.resource')%>  <span style=color:red>*</span></label>
+      <label class="text" id="lb_resource"><%=t('labels.resource_type')%>  <span style=color:red>*</span></label>
       <span class="in-box">
         <%if @resource%>
           <%= f.select(:resource_id,  options_from_collection_for_select(Resource.where("sub_category_id = ? and resource_type = 'ict'",@resource_ict_equipment_booking.sub_category_id), 'id','name',@resource ),{:prompt=>"Select Resource",:onchange=>"alert('testq')"}) %>
@@ -32,13 +32,13 @@
         <%end%>
       </span>
     </div>
-    <div class="form-sec-row">
+    <div class="form-sec-row" id="div_ict_resource_serial_no" style="display:none;">
       <label class="text"><%=t('labels.serial_number')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%if @resource%>
           <%= f.select(:agency_store_id, options_from_collection_for_select(AgencyStore.where(:id=>@resource_ict_equipment_booking.agency_store_id), 'id','serial_no',@resource_ict_equipment_booking.agency_store_id ),:prompt=>"Select a Equipment Category Type") %>
         <%else%>
-          <%= f.select(:agency_store_id, options_from_collection_for_select([], 'id','serial_no' ),:prompt=>"Select Equipment Category Type") %>
+          <%= f.select(:agency_store_id, options_from_collection_for_select([], 'id','serial_no' ),:prompt=>"Select Serial Number") %>
         <%end%>
       </span>
     </div>

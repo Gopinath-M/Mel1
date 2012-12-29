@@ -4,17 +4,36 @@
     <%= form_for(@emergency_references, :url => emergency_reference_users_path, :html => { :method => :put, :multipart => true }) do |f| %>
       <%=f.error_messages%>
       <div class="clearfix">&nbsp;</div>
-      <%if !current_user.is_super_admin?%>
-      <table><tr><td><b><font color="#858585">Step 1 -></font></b></td><td><font color="#858585">Step 2-></font></td><td><h4><b><font color="#336699">Step 3-></font></b></h4></td><td><font color="#858585">Step 4-></font></td><td><font color="#858585">Step 5</font></td></tr></table>
+      <%if !current_user.is_super_admin?%>    
       <h2>Head of Department Information</h2>
       <div class="form-sec-row">
+        <div class="stepsblock">
+                    	<ul>
+                            <li class="step1" title="Step 1">Step 1</li>
+                            <li class="divider"></li>
+                            <li class="step2" title="Step 2">Step 2</li>
+                            <li class="divider"></li>
+                            <li class="step3 active" title="Step 3">Step 3</li>
+                            <li class="divider"></li>
+                            <li class="step4" title="Step 4">Step 4</li>
+                            <li class="divider"></li>
+                            <li class="step5" title="Step 5">Step 5</li>
+                        </ul>
+                    </div>
+      </div><div class="clearfix"></div>
+      <div class="form-sec-row">
          <%= f.label :name,raw("Head of Department Name<span style=color:red>*</span>"), :class=>"text"%>
+
+      <div class="form-sec-row">
+        <label class="text"><%=t('labels.head_of_dept')%> <span style=color:red>*</span></label>
+
         <span class="in-box">
          <%= current_user.departments.first.name%>
         </span>
       </div>
     <div class="form-sec-row">
-       <%= f.label :name,raw("Head Department Position Title<span style=color:red>*</span>"), :class=>"text"%>
+      <label class="text"><%=t('labels.head_dept_position_title')%> <span style=color:red>*</span></label>
+       <%#= f.label :name,raw("Head Department Position Title<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
          <%dept_name = RoleMembership.find_by_department_id_and_role_id(current_user.departments.first.id,2)%>
           <%position = User.find(dept_name.user_id)%>
@@ -25,7 +44,8 @@
         </span>
       </div>
       <div class="form-sec-row">
-         <%= f.label :name,raw("Head Department Email<span style=color:red>*</span>"), :class=>"text"%>
+        <label class="text"><%=t('labels.head_dept_email')%> <span style=color:red>*</span></label>
+         <%#= f.label :name,raw("Head Department Email<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%=position.email%>
         </span>
@@ -34,26 +54,30 @@
       <h2>Emergency Reference </h2>
         <%= f.hidden_field :user_id, :value=>current_user.id %>
       <div class="form-sec-row">
-      <%= f.label :name,raw("Name<span style=color:red>*</span>"), :class=>"text"%>
+       <label class="text"><%=t('labels.name')%> <span style=color:red>*</span></label>
+      <%#= f.label :name,raw("Name<span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= f.text_field :name, :size => 30, :autofocus => true%>
       </span>
     </div>
   <div class="form-sec-row">
-      <%= f.label :address,raw("Address<span style=color:red>*</span>"), :class=>"text"%>
+    <label class="text"><%=t('labels.address')%> <span style=color:red>*</span></label>
+      <%#= f.label :address,raw("Address<span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= f.text_field :address, :size => 30, :autofocus => true%>
       </span>
     </div>
         <div class="form-sec-row">
-      <%= f.label :phone_no,raw("Telephone No<span style=color:red>*</span>"), :class=>"text"%>
+          <label class="text"><%=t('labels.tel_no')%> <span style=color:red>*</span></label>
+      <%#= f.label :phone_no,raw("Telephone No<span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= f.text_field :phone_no, :size => 30, :autofocus => true, :onkeypress=>"return isNumberKey(event);"%>
       </span>
-           <br> <label class="text">&nbsp;</label><span class="in-box"><font color="#858585">(Enter Numbers only)</font></span></br>
+           <br> <label class="text">&nbsp;</label><span class="in-box"><font color="#858585">(<%=t('labels.enter_num_only')%>)</font></span></br>
     </div>
          <div class="form-sec-row">
-      <%= f.label :relation,raw("Relationship<span style=color:red>*</span>"), :class=>"text"%>
+           <label class="text"><%=t('labels.relation_ship')%> <span style=color:red>*</span></label>
+      <%#= f.label :relation,raw("Relationship<span style=color:red>*</span>"), :class=>"text"%>
       <span class="in-box">
         <%= f.text_field :relation, :size => 30, :autofocus => true%>
       </span>
@@ -61,7 +85,7 @@
       <div class="form-sec-row">
         <label class="text">&nbsp;</label>
         <span class="in-box">
-          <%= f.submit "Update Reference" ,:class=>"btn2"%>
+          <%= f.submit t('labels.update_ref') ,:class=>"btn2"%>
         </span>
       </div>
     </div>

@@ -1,15 +1,17 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-   <h2>Step 3 of 5 - Head of Department Information</h2>
+   <h2><%=t('labels.setp_3_of_5')%> - <%=t('labels.head_of_dept_info')%></h2>
       <div class="form-sec-row">
-         <%= f.label :name,raw("Head of Department Name<span style=color:red>*</span>"), :class=>"text"%>
+        <label class="text"><%=t('labels.head_of_dept')%></label>
+         <%#= f.label :name,raw("Head of Department Name<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
          <%= current_user.departments.first.name%>
         </span>
       </div>
     <div class="form-sec-row">
-       <%= f.label :name,raw("Head Department Position Title<span style=color:red>*</span>"), :class=>"text"%>
+      <label class="text"><%=t('labels.head_dept_position_title')%></label>
+       <%#= f.label :name,raw("Head Department Position Title<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
          <%dept_name = RoleMembership.find_by_department_id_and_role_id(current_user.departments.first.id,2)%>
           <%position = User.find(dept_name.user_id)%>
@@ -20,30 +22,31 @@
         </span>
       </div>
       <div class="form-sec-row">
-         <%= f.label :name,raw("Head Department Email<span style=color:red>*</span>"), :class=>"text"%>
+        <label class="text"><%=t('labels.head_dept_email')%></label>
+         <%#= f.label :name,raw("Head Department Email<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%=position.email%>
         </span>
       </div>
       <%end%>
- <h2>Stage 4 - Update User Profile</h2>
+ <h2><%=t('labels.step')%> 4 - <%=t('labels.update_user_profile')%></h2>
 <div class="form-sec-row-out">
-      <label class="text">Level of Service</label>
+      <label class="text"><%=t('labels.level_of_service')%></label>
       <span class="in-box">
         <%= @service_level.stage %></span>
     </div>
  <div class="form-sec-row-out">
-      <label class="text">Classification of Service</label>
+      <label class="text"><%=t('labels.service_classification')%></label>
       <span class="in-box">
         <%= @classification.title %></span>
     </div>
  <div class="form-sec-row-out">
-      <label class="text">Service Standards</label>
+      <label class="text"><%=t('labels.service_std')%></label>
       <span class="in-box">
         <%= @standard.name %></span>
     </div>
  <div class="form-sec-row-out">
-      <label class="text">Appointment</label>
+      <label class="text"><%=t('labels.appointment')%></label>
       <span class="in-box">
         <%= @appointment.name %></span>
     </div>
@@ -53,72 +56,72 @@
         <%= @service.grade_id %></span>
     </div>
  <div class="form-sec-row-out">
-      <label class="text">Position </label>
+      <label class="text"><%=t('labels.position')%> </label>
       <span class="in-box">
         <%= @service.position %></span>
     </div>
   <div class="form-sec-row-out">
-      <label class="text">Salary Scale</label>
+      <label class="text"><%=t('labels.salary_scale')%></label>
       <span class="in-box">
         <%salary_scale =  @service.salary_scale1, @service.salary_scale2 %>
         <%= salary_scale %></span>
     </div>
  <div class="form-sec-row-out">
-      <label class="text">Email </label>
+      <label class="text"><%=t('labels.email')%> </label>
       <span class="in-box">
         <%= @service.email %></span>
     </div>
   <div class="form-sec-row-out">
-      <label class="text">Destination State </label>
+      <label class="text"><%=t('labels.destination_state')%> </label>
       <span class="in-box">
         <%= @state.name %></span>
     </div>
   <div class="form-sec-row-out">
-      <label class="text">City </label>
+      <label class="text"><%=t('labels.city')%> </label>
       <span class="in-box">
         <%= @service.city %></span>
     </div>
  <div class="form-sec-row-out">
-      <label class="text">Postal Code </label>
+      <label class="text"><%=t('labels.zipcode')%> </label>
       <span class="in-box">
         <%= @service.postal_code %></span>
     </div>
   <div class="form-sec-row-out">
-      <label class="text">Office Address</label>
+      <label class="text"><%=t('labels.off_add')%></label>
       <span class="in-box">
         <%= @service.office_address %></span>
     </div>
  <div class="form-sec-row-out">
-      <label class="text">Office Number</label>
+      <label class="text"><%=t('labels.off_no')%></label>
       <span class="in-box">
         <%= @service.office_number %></span>
     </div>
  <div class="form-sec-row-out">
-      <label class="text">Office Fax</label>
+      <label class="text"><%=t('labels.off_fax')%></label>
       <span class="in-box">
         <%= @service.office_fax %></span>
     </div>
   <div class="form-sec-row-out">
-      <label class="text">Date of First Appointment of Public Service </label>
+      <label class="text"><%=t('labels.date_of_first_publilc_appointment')%> </label>
       <span class="in-box">
         <%= @service.first_appointment_to_public_service %></span>
     </div>
   <div class="form-sec-row-out">
-      <label class="text"> Date of First Appointment of the Present Post </label>
+      <label class="text"> <%=t('labels.present_post_date')%> </label>
       <span class="in-box">
         <%= @service.first_appointment_to_present_position %></span>
     </div>
    <div class="form-sec-row-out">
-      <label class="text">  Date of Promotion to Present Grade </label>
+      <label class="text">  <%=t('labels.promotion_grade_date')%> </label>
       <span class="in-box">
         <%= @service.promotion_to_present_grade %></span>
     </div>
  <div class="form-sec-row-out">
-      <label class="text">   Confirmation Date </label>
+      <label class="text">   <%=t('labels.confirmation_date')%> </label>
       <span class="in-box">
         <%= @service.confirmation_date %></span>
     </div>
 
   </div>
-  <li><a href="/users/show_stage" title="Click Next to View Other Stages">View Other Stages </a></li>
+  <li><a href="/users/show_stage" title="Click Next to View Other Stages"><%=t('labels.view_other_stages')%> </a></li>
 </div>

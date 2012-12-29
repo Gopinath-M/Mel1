@@ -1,32 +1,32 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2 class="b-head">ICT Software Installation Approval</h2>
+    <h2 class="b-head"><%=t('labels.ict_software_installation_app')%></h2>
     <%= form_for(@software_installation_detail, :url =>  software_installation_path(:id=>@software_installation_detail.id), :method=>:post) do |f| %>
   <%#=error_messages%>
       <div class="clearfix">&nbsp;</div>
       <div class="form-sec">
-        <font color="#369" size="3"><br/><b><u>Applicant Information :-</u><br/><br/></b></font>
+        <font color="#369" size="3"><br/><b><u><%=t('labels.app_info')%>-</u><br/><br/></b></font>
 
         <% @dept = Department.find_by_id(current_department) %>
         <% @agency = Agency.find_by_id(@dept.agency_id) %>
         <% @user = User.find_by_id(current_user) %>
         <div class="form-sec-row">
-          <label class="text">Agency Name</label>
+          <label class="text"><%=t('labels.agency_name')%></label>
           <span class="in-box"><%= @agency.name  %></span>
         </div>
         <div class="form-sec-row">
-          <label class="text">Department Name</label>
+          <label class="text"><%=t('labels.department_name')%></label>
           <span class="in-box">
             <%= @dept.name  %></span>
         </div>
         <div class="form-sec-row">
-          <label class="text">First Name</label>
+          <label class="text"><%=t('labels.first_name')%></label>
           <span class="in-box">
             <%= @user.first_name %></span>
         </div>
         <div class="form-sec-row">
-          <label class="text">Last Name</label>
+          <label class="text"><%=t('labels.last_name')%></label>
           <span class="in-box"><%= @user.last_name %></span>
         </div>
         <div class="form-sec-row">

@@ -1,87 +1,87 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2>Step 1 of 5 - Update User Profile</h2><br/>
+    <h2><%=t('labels.step_1_of_5')%> - <%=t('labels.update_user_profile')%></h2><br/>
 
     <div class="form-sec-row-out">
-      <label class="text">Name</label>
+      <label class="text"><%=t('labels.name')%></label>
       <span class="in-box">
         <%= @users.username %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text">IC Number</label>
+      <label class="text"><%=t('labels.ic_no')%></label>
       <span class="in-box">
         <%= @users.ic_number %></span>
     </div>
 
     <div class="form-sec-row-out">
-      <label class="text">Marital Status</label>
+      <label class="text"><%=t('labels.marital_status')%></label>
       <span class="in-box">
         <%= @users.marital_status %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text">Gender</label>
+      <label class="text"><%=t('labels.gender')%></label>
       <span class="in-box">
         <%= @users.gender %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text">Address</label>
+      <label class="text"><%=t('labels.address')%></label>
       <span class="in-box">
         <%= @users.address %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text">Postal Code</label>
+      <label class="text"><%=t('labels.zipcode')%></label>
       <span class="in-box">
         <%= @users.zipcode %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text">City</label>
+      <label class="text"><%=t('labels.city')%></label>
       <span class="in-box">
         <%= @users.city %></span>
     </div>
     <% users_state = State.find_by_id(@users.state) %>
       <div class="form-sec-row-out">
-        <label class="text">State</label>
+        <label class="text"><%=t('labels.state')%></label>
         <span class="in-box">
           <%= users_state.name %></span>
       </div>
 
     <div class="form-sec-row-out">
-      <label class="text">HP Number</label>
+      <label class="text"><%=t('labels.hp_num')%></label>
       <span class="in-box">
         <%= @users.hp_number %></span>
     </div>
 
     <div class="form-sec-row-out">
-      <label class="text">Date of Birth</label>
+      <label class="text"><%=t('labels.dob')%></label>
       <span class="in-box">
         <%= @users.date_of_birth %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text">Total Children/Dependent</label>
+      <label class="text"><%=t('labels.total_children_dependent')%></label>
       <span class="in-box">
         <%= @users.child %></span>
     </div>     <h2 class="b-head"></h2><br/> 
-    <a id="showhidetrigger" ><b>Show / Hide Info - Step 2 of 5</b></a><br/>
+    <a id="showhidetrigger" ><b><%=t('labels.show_hide')%> - <%=t('labels.setp_2_of_5')%></b></a><br/>
     <div id="showhidetarget">
-      <h2>Step 2 of 5 - Update User Profile</h2>
+      <h2><%=t('labels.setp_2_of_5')%> - <%=t('labels.update_user_profile')%></h2>
       <div class="form-sec-row-out">
-        <label class="text">Level of Service</label>
+        <label class="text"><%=t('labels.level_of_service')%></label>
         <span class="in-box">
           <%= @service_level.stage %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Classification of Service</label>
+        <label class="text"><%=t('labels.service_classification')%></label>
         <span class="in-box">
           <%= @classification.title %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Service Standards</label>
+        <label class="text"><%=t('labels.service_std')%></label>
         <span class="in-box">
           <%= @standard.name %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Appointment</label>
+        <label class="text"><%=t('labels.appointment')%></label>
         <span class="in-box">
           <%= @appointment.name %></span>
       </div>
@@ -91,128 +91,128 @@
           <%= @service.grade_id %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Position </label>
+        <label class="text"><%=t('labels.position')%> </label>
         <span class="in-box">
           <%= @service.position %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Salary Scale</label>
+        <label class="text"><%=t('labels.salary_scale')%></label>
         <span class="in-box">
           <%salary_scale =  @service.salary_scale1, @service.salary_scale2 %>
           <%= salary_scale %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Email </label>
+        <label class="text"><%=t('labels.email')%> </label>
         <span class="in-box">
           <%= @service.email %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Destination State </label>
+        <label class="text"><%=t('labels.destination_state')%> </label>
         <span class="in-box">
           <%= @state.name %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">City </label>
+        <label class="text"><%=t('labels.city')%> </label>
         <span class="in-box">
           <%= @service.city %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Postal Code </label>
+        <label class="text"><%=t('labels.zipcode')%> </label>
         <span class="in-box">
           <%= @service.postal_code %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Office Address</label>
+        <label class="text"><%=t('labels.off_add')%></label>
         <span class="in-box">
           <%= @service.office_address %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Office Number</label>
+        <label class="text"><%=t('labels.off_no')%></label>
         <span class="in-box">
           <%= @service.office_number %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Office Fax</label>
+        <label class="text"><%=t('labels.off_fax')%></label>
         <span class="in-box">
           <%= @service.office_fax %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Date of First Appointment of Public Service </label>
+        <label class="text"><%=t('labels.date_of_first_publilc_appointment')%></label>
         <span class="in-box">
           <%= @service.first_appointment_to_public_service %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text"> Date of First Appointment of the Present Post </label>
+        <label class="text"> <%=t('labels.present_post_date')%> </label>
         <span class="in-box">
           <%= @service.first_appointment_to_present_position %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">  Date of Promotion to Present Grade </label>
+        <label class="text">  <%=t('labels.promotion_grade_date')%> </label>
         <span class="in-box">
           <%= @service.promotion_to_present_grade %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">   Confirmation Date </label>
+        <label class="text">   <%=t('labels.confirmation_date')%> </label>
         <span class="in-box">
           <%= @service.confirmation_date %></span>
       </div>
     </div>     <h2 class="b-head"></h2><br/>
-    <a id="showhidetriggerstep3" ><b>Show / Hide Info - Step 3 of 5</b></a><br/>
+    <a id="showhidetriggerstep3" ><b><%=t('labels.show_hide')%> - <%=t('labels.setp_3_of_5')%></b></a><br/>
     <div id="showhidetargetstep3">
-      <h2>Step 3 of 5 - Head of Department Information and Emergency Reference</h2><br/>
-      <b><u>Head of Department Details :-</u></b><br/><br/>
+      <h2><%=t('labels.setp_3_of_5')%> - <%=t('labels.hod_emergency_ref_info')%></h2><br/>
+      <b><u><%=t('labels.hod_dept_detail')%> :-</u></b><br/><br/>
        <div class="form-sec-row-out">
-         <label class="text">Name </label>
+         <label class="text"><%=t('labels.name')%> </label>
         <span class="in-box">
          <%= current_user.departments.first.name%>
         </span>
       </div>
     <div class="form-sec-row-out">
-      <label class="text">Position Title</label>
+      <label class="text"><%=t('labels.position_title')%></label>
         <span class="in-box">
         </span>
       </div>
       <div class="form-sec-row-out">
-       <label class="text">E - Mail</label>
+       <label class="text"><%=t('labels.email')%></label>
         <span class="in-box">       
         </span>
       </div><br/>
-      <b><u>Emergency Reference Details :-</u></b><br/>
+      <b><u><%=t('labels.emergency_ref_detail')%> :-</u></b><br/>
       <br/>
       <div class="form-sec-row-out">
-        <label class="text">Name</label>
+        <label class="text"><%=t('labels.name')%></label>
         <span class="in-box">
           <%= @emergency_references.name %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Address</label>
+        <label class="text"><%=t('labels.address')%></label>
         <span class="in-box">
            <%= @emergency_references.address %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Telephone No</label>
+        <label class="text"><%=t('labels.tel_no')%></label>
         <span class="in-box">
            <%= @emergency_references.phone_no %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Relationship</label>
+        <label class="text"><%=t('labels.relation_ship')%></label>
         <span class="in-box">
           <%= @emergency_references.relation %></span>
       </div>      
     </div>
 
     <h2 class="b-head"></h2><br/>
-    <a id="showhidetriggerstep4" ><b>Show / Hide Info - Step 4 of 5</b></a><br/>
+    <a id="showhidetriggerstep4" ><b><%=t('labels.show_hide')%> - <%=t('labels.setp_4_of_5')%></b></a><br/>
     <div id="showhidetargetstep4">
-      <h2>Step 4 of 5 - Declaration Property</h2>
+      <h2><%=t('labels.setp_4_of_5')%> - <%=t('labels.property_declar')%></h2>
       <div class="form-sec-row-out">
-        <label class="text">Year</label>
+        <label class="text"><%=t('labels.year')%></label>
         <span class="in-box">
           <%= @declaration_properties.property_year %></span>
       </div>
       <div class="form-sec-row-out">
       <% if @declaration_properties.property_file.present? %>
-        <label class="text">Attachment</label>
+        <label class="text"><%=t('labels.attachment')%></label>
         <% image = @declaration_properties.property_file.url(:profile).split(".").last %>
         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
           <span class="in-box">
@@ -228,66 +228,66 @@
 
 
     <h2 class="b-head"></h2><br/>
-    <a id="showhidetriggerstep5" ><b>Show / Hide Info - Step 5 of 5</b></a><br/>
+    <a id="showhidetriggerstep5" ><b><%=t('labels.show_hide')%> - <%=t('labels.step_5_of_5')%></b></a><br/>
     <div id="showhidetargetstep5">
-      <h2>Step 5 of 5 - Out Station Request</h2>
+      <h2><%=t('labels.step_5_of_5')%> - <%=t('labels.out_stat_req')%></h2>
 
       <div class="form-sec-row-out">
-        <label class="text">Destination</label>
+        <label class="text"><%=t('labels.destination')%></label>
         <span class="in-box">
-          <% if @outstations.is_out_of_state == true %>Out of State <% else %>Out of Country
+          <% if @outstations.is_out_of_state == true %><%=t('labels.out_of_state')%> <% else %><%=t('labels.out_of_country')%>
           <%end%></span>
       </div>
     <div class="form-sec-row-out">
         <label class="text">Type</label>
         <span class="in-box">
-<% if @outstations.is_official == true %>Official<% else %>Non-Official / Personal
+<% if @outstations.is_official == true %><%=t('labels.official')%><% else %><%=t('labels.non_off_per')%>
           <%end%></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Place Name</label>
+        <label class="text"><%=t('labels.place_name')%></label>
         <span class="in-box">
           <%= @outstations.placename %></span>
       </div>  <% if @outstations.is_out_of_state == true %>
       <% outstations_state = State.find_by_id(@outstations.state) %>
       <div class="form-sec-row-out">
-        <label class="text">State</label>
+        <label class="text"><%=t('labels.state')%></label>
         <span class="in-box">
           <%= outstations_state.name %></span>
       </div><%else%>
       <div class="form-sec-row-out">
-        <label class="text">Country</label>
+        <label class="text"><%=t('labels.country')%></label>
         <span class="in-box">
           <%= @outstations.country %></span>
       </div><%end%>
       <div class="form-sec-row-out">
-        <label class="text">From Date</label>
+        <label class="text"><%=t('labels.from_date')%></label>
         <span class="in-box">
           <%= @outstations.from_date %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">To Date</label>
+        <label class="text"><%=t('labels.to_date')%></label>
         <span class="in-box">
         <%=  @outstations.to_date %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Purpose</label>
+        <label class="text"><%=t('labels.purpose')%></label>
         <span class="in-box">
           <%= @outstations.purpose %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Total Expenditure</label>
+        <label class="text"><%=t('labels.total_exp')%></label>
         <span class="in-box">
           <%= @outstations.total_expenditure %></span>
       </div>
       <div class="form-sec-row-out">
-        <label class="text">Cause Spending</label>
+        <label class="text"><%=t('labels.cause_spending')%></label>
         <span class="in-box">
           <%= @outstations.cause_spending %></span>
       </div>
      <div class="form-sec-row-out">
       <% if @outstations.attachment.present? %>
-        <label class="text">Attachment</label>
+        <label class="text"><%=t('labels.attachment')%></label>
         <% image = @outstations.attachment.url(:profile).split(".").last %>
         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
           <span class="in-box">

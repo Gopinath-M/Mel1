@@ -6,7 +6,7 @@
 
   <%= hidden_field_tag :requisition_type_id, 5 %>
   <div class="form-sec-row">
-        <%= f.label :software_attachment,raw("Upload File"), :class=>"text"%>
+        <%= f.label :software_attachment,t('labels.upload_file'), :class=>"text"%>
         <span class="in-box">
           <%= f.file_field :software_attachment%>
           <%= f.hidden_field :software_attachment_cache %>
@@ -14,35 +14,35 @@
         </span>
       </div>
   <div class="form-sec-row">
-    <label class="text">Software Name<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.software_name')%><span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.select(:facility_ict_software_id, FacilityIctSoftware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Software", :style=> "width:132%;") %>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Name<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.name')%><span style=color:red>*</span></label>
     <span class="in-box">
       <%= text_field 'service', 'name', :value=>current_user.username%></span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Position<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.position')%><span style=color:red>*</span></label>
     <span class="in-box">
 
       <%= text_field 'service', 'position'%>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Grade<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.grade')%><span style=color:red>*</span></label>
     <span class="in-box">
 
       <%=  text_field 'service', 'grade'%></span>
   </div>
-   <%= link_to_add_fields "Add", f, :software_installation_details %>
+   <%= link_to_add_fields t('labels.add'), f, :software_installation_details %>
   <div class="form-sec-row">
     <div class="CenterNav">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :value=>'Save', :class=>"btn2"%>
+        <%= f.submit :value=>t('labels.submit'), :class=>"btn2"%>
       </span>
     </div>
   </div>
