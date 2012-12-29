@@ -39,6 +39,8 @@ class AgencyStoresController < ApplicationController
   end
 
   def create
+    stock_flag =[]
+    stock_flag_errors = []
     if params[:room_agency]
       @store = AgencyStore.new(params[:agency_store])
       @store.resource_type = params[:resource_type]
@@ -56,15 +58,39 @@ class AgencyStoresController < ApplicationController
       #      SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
       #      @store.save
     elsif params[:ict_agency]
-      @store = AgencyStore.new(params[:agency_store])
-      @store.resource_type = "ICT"
-      @store.agency_id = params[:ict][:agency_id]
-      @store.sub_category_id = params[:ict_agency][:sub_category_id]
-      @store.resource_id = params[:ict_agency][:resource_id]
-      #      @store.save
+      stocks=[]
+      if params[:dynamic_serial_no] &&  params[:dynamic_serial_no]!=""
+        serial_nos = params[:dynamic_serial_no]
+        serial_nos.each do |key,value|
+          if value != nil && value != ''
+            store = AgencyStore.new(:resource_type=>"ICT", :agency_id => params[:ict][:agency_id], :sub_category_id =>  params[:ict_agency][:sub_category_id], :resource_id => params[:ict_agency][:resource_id], :serial_no => value )
+            stocks << store
+            if store.valid?
+              stock_flag << "true"
+            else
+              stock_flag_errors<< store.errors.full_messages.to_sentence
+              stock_flag << "false"
+            end
+          end
+        end
+        if stock_flag.include?("false")
+          @store = AgencyStore.new(:resource_type=>"ICT", :agency_id => params[:ict][:agency_id], :sub_category_id =>  params[:ict_agency][:sub_category_id], :resource_id => params[:ict_agency][:resource_id])
+          stock_flag_errors.uniq!
+          flash[:alert] = stock_flag_errors.to_s
+          render :action => 'new'
+        else
+          stocks.each do |stock|
+            stock.save
+          end
+          flash[:notice] = 'Agency Store has been successfully created.'
+          redirect_to :controller=>'agency_stores', :action=>'index'
+        end
+      else
+        @store = AgencyStore.create(:resource_type=>"ICT", :agency_id => params[:ict][:agency_id], :sub_category_id =>  params[:ict_agency][:sub_category_id], :resource_id => params[:ict_agency][:resource_id], :quantity=>params[:ict_agency][:quantity] )
+      end
+
+
     elsif params[:other_agency]
-      
-      #      quantity.times do
       @store = AgencyStore.new(params[:agency_store])
       quantity = params[:agency_store][:quantity].to_i
       @store.resource_type = params[:resource_type]
@@ -75,23 +101,13 @@ class AgencyStoresController < ApplicationController
       @store.serial_no =  params[:dynamic].values.join.to_s if params[:dynamic]
 
     end
-
-    #    store.categories_id = params[:categories_department][:id]
-    #    store.sub_categories_id = params[:sub_categories][:id]
-    #    if params[:dynamic]
-    #    store.serial_no =  params[:text1] + params[:dynamic].to_s
-    #    else
-    #    store.serial_no =  params[:text1]
-    #    end
-    #    store.agency_id = params[:transfer_from][:agency]
-    #    @store.save
     
-    if @store.valid?
+    if @store && @store.valid? && stock_flag.empty?
       @store.save
       SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true) if params[:transport_agency] #params[:ict_agency]
       flash[:notice] = 'Agency Store has been successfully created.'
       redirect_to :controller=>'agency_stores', :action=>'index'
-    else
+    elsif @store &&  !@store.valid? && stock_flag.empty?
       render :action => 'new', :notice => 'Resource already added for this Sub category'
     end
   end
@@ -180,7 +196,7 @@ class AgencyStoresController < ApplicationController
       if resource && !resource.empty?
         resources = Resource.find(resource)
       end
-#      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
+      #      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
     else
       resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
     end
@@ -220,13 +236,25 @@ class AgencyStoresController < ApplicationController
     end
     temp_resources = AgencyStore.where("resource_id = ? and booked = ? ",params[:resource_id],false)
     temp_resources.each do |resource|
+
       if department && department.present? && department.agency_id == resource.agency_id
-        resources.store(resource.id, resource.serial_no.to_s)
-      else
-        val = resource != nil && resource.serial_no != "" ? (resource.serial_no.to_s + "-" +resource.agency.name.to_s) : resource.agency.name.to_s
+        p resource.serial_no.nil?
+        
+        resources.store(resource.id, resource.serial_no.to_s) if !resource.serial_no.nil?
+        resources = "no serial" if resource.serial_no.nil? && resource.quantity==1
+      elsif department && department.present? && department.agency_id != resource.agency_id
+        if resource.serial_no.nil? && resource.quantity==1
+          val = resource.agency.name.to_s if resource != nil
+        else
+          val = resource != nil && resource.serial_no != "" ? (resource.serial_no.to_s + "-" +resource.agency.name.to_s) : resource.agency.name.to_s
+        end
         resources.store(resource.id, val)
+        #else
+        # resources = "no serial"
       end
     end
+    p resources.inspect
+    resources = "no serial" if resources == {}
     render :json=>[resources] if resources
   end
 
