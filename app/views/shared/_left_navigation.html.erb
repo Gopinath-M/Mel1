@@ -386,11 +386,11 @@
                 <%end%>
                 <%if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN%>
                   <li class="menu-item">
-                    <%=link_to "Complaints / Issue Logs", "javascript:void(0);" , :title=>"Complaints / Issue Logs" ,:class=>"", :id=>"lnk_complaints_issue_logs" ,:onclick=>"leftNavigation(this.id,'div_complaints_issue_logs')"%>
+                    <%=link_to t('labels.complaints_issue_logs'), "javascript:void(0);" , :title=>t('labels.complaints_issue_logs') ,:class=>"", :id=>"lnk_complaints_issue_logs" ,:onclick=>"leftNavigation(this.id,'div_complaints_issue_logs')"%>
                     <div id ="div_complaints_issue_logs" style="display:none;">
                       <ul>
-                        <li><%=link_to "Create Building Asset", new_complaint_building_asset_path%></li>
-                        <li><%=link_to "Create Computers", new_complaint_computer_path%></li>
+                        <li><%=link_to t('labels.create_building_asset'), new_complaint_building_asset_path%></li>
+                        <li><%=link_to t('labels.create_computers'), new_complaint_computer_path%></li>
                       </ul>
                     </div>
                   </li>

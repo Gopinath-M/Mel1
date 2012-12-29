@@ -3,7 +3,8 @@
     <h2 class="b-head"><%=t('labels.manage_vendor')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/vendors/new" title="Create Agency"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Vendor</a></div>
+      <div class="cu-c1"><a href="/vendors/new" title=<%=t("labels.create_vendors")%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> 
+<%=t("labels.create_vendors")%> </a></div>
 
     </div>
   <%end%>
@@ -18,11 +19,11 @@
                 <p class="head1"><%=vendor.name%></p>
               </div>
               <div class="mu-c3">
-                <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>vendor.id.to_i%>
+                <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.edit"), :action=>'edit', :id=>vendor.id.to_i%>
                 <%if vendor.is_active %>
-                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_vendors_path(:id=>vendor.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this vendor?', :method=>:post, :title=>"Deactive" %>
+                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.deactivate"), update_status_vendors_path(:id=>vendor.id, :status=>"Deactivate"), :confirm => t('labels.vendor_deact_confirm'), :method=>:post, :title=>t("labels.deactivate") %>
                 <%else%>
-                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_vendors_path(:id=>vendor.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this vendor?', :method=>:post, :title=>"Activate"%>
+                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.activate"),  update_status_vendors_path(:id=>vendor.id,:status=>"Activate"), :confirm => t('labels.vendor_act_confirm'), :method=>:post, :title=>t("labels.activate")%>
                 <%end%>
                
               </div>
@@ -31,7 +32,7 @@
           </div>
         <%end%>
     <%else%>
-      No Vendors Available
+      <%=t('labels.no_data_available')%>
     <%end%>
 <%#*<div><%= paginate @units %>
   </div>

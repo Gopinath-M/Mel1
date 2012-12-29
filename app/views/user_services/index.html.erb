@@ -1,11 +1,11 @@
 <div class="CenterNav">
-  <h2 class="b-head">User Service Information</h2>
+  <h2 class="b-head"><%=t('labels.user_service_info')%></h2>
   <div id="div_ajax" >
     <%if @user_services && !@user_services.empty?%>
       <% @user_services.each do |user_service|%>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Service Level</b></div>
+            <div class="m-c1"><b><%=t('labels.service_level')%></b></div>
             <div class="m-c-second">
               <%= u = ServiceLevel.find(user_service.service_level_id).stage %>
             </div>
@@ -13,7 +13,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Classification Level</b></div>
+            <div class="m-c1"><b><%=t('labels.class_level')%></b></div>
             <div class="m-c-second">
               <%= u = Classification.find(user_service.classification_id).title %>
             </div>
@@ -21,7 +21,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Service Standards</b></div>
+            <div class="m-c1"><b><%=t('labels.service_standards')%></b></div>
             <div class="m-c-second">
               <%= u = ServiceStandard.find(user_service.salary_standard_id).name %>
             </div>
@@ -29,7 +29,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Appointment</b></div>
+            <div class="m-c1"><b><%=t('labels.appointment')%></b></div>
             <div class="m-c-second">
               <%= u = Appointment.find(user_service.appointment_id).name %>
             </div>
@@ -37,7 +37,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Grade </b></div>
+            <div class="m-c1"><b><%=t('labels.grade')%> </b></div>
             <div class="m-c-second">
               <%= user_service.grade_id %>
             </div>
@@ -45,7 +45,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Position</b></div>
+            <div class="m-c1"><b><%=t('labels.position')%></b></div>
             <div class="m-c-second">
               <%= user_service.position %>
             </div>
@@ -53,7 +53,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Official Address</b></div>
+            <div class="m-c1"><b><%=t('labels.off_add')%></b></div>
             <div class="m-c-second">
               <%= user_service.office_address %>
             </div>
@@ -61,7 +61,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Official Number</b></div>
+            <div class="m-c1"><b><%=t('labels.off_no')%></b></div>
             <div class="m-c-second">
               <%= user_service.office_number %>
             </div>
@@ -69,7 +69,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Official Fax</b></div>
+            <div class="m-c1"><b><%=t('labels.off_fax')%></b></div>
             <div class="m-c-second">
               <%= user_service.office_fax %>
             </div>
@@ -77,7 +77,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Postal Code</b></div>
+            <div class="m-c1"><b><%=t('labels.postal_code')%></b></div>
             <div class="m-c-second">
               <%= user_service.postal_code %>
             </div>
@@ -85,7 +85,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>City</b></div>
+            <div class="m-c1"><b><%=t('labels.city')%></b></div>
             <div class="m-c-second">
               <%= user_service.city %>
             </div>
@@ -93,7 +93,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>State</b></div>
+            <div class="m-c1"><b><%=t('labels.state')%></b></div>
             <div class="m-c-second">
               <%= State.find(user_service.state).name %>
             </div>
@@ -104,7 +104,7 @@
 
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>First Appointment of Public Service</b></div>
+            <div class="m-c1"><b><%=t('labels.date_of_1st_app_for_public_ser')%></b></div>
             <div class="m-c-second">
               <%= user_service.first_appointment_to_public_service %>
             </div>
@@ -112,7 +112,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>First Appointment of Present Position</b></div>
+            <div class="m-c1"><b><%=t('labels.date_of_1st_app_of_the_present_post')%></b></div>
             <div class="m-c-second">
               <%= user_service.first_appointment_to_present_position %>
             </div>
@@ -120,7 +120,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Promotion to Present Position</b></div>
+            <div class="m-c1"><b><%=t('labels.date_of_promotion_to_present_grade')%></b></div>
             <div class="m-c-second">
               <%= user_service.promotion_to_present_grade %>
             </div>
@@ -128,7 +128,7 @@
         </div>
         <div id="user_box_<%= user_service.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Confirmation Date</b></div>
+            <div class="m-c1"><b><%=t('labels.confirmation_date')%>e</b></div>
             <div class="m-c-second">
               <%= user_service.confirmation_date %>
             </div>

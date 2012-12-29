@@ -2,17 +2,19 @@
   <%if !request.xhr?%>
 
     <div class="CenterNav">
-      <h2 class="b-head">Assign Department</h2>
+      <h2 class="b-head"><%=t('left_nav.assign_dept')%></h2>
       <div class="create-user">
-        <h2 class="b-head">From</h2>
+        <h2 class="b-head"><%=t('labels.from')%></h2>
         <div class="form-sec-row">
-          <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+          <label class="text"><%=t('left_nav.agency')%></label>
+          <%#= label_tag :agency_id, raw("Agency"), :class=>"text" %>
           <span class="in-box">
             <%= select(:transfer_from,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= label_tag :department_id, raw("Department"), :class=>"text"%>
+          <label class="text"><%=t('labels.department')%></label>
+          <%#= label_tag :department_id, raw("Department"), :class=>"text"%>
           <span class="in-box">
             <%= select(:from_department,:id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
           </span>
@@ -21,7 +23,7 @@
 
       <div class="create-user">
         <div class="form-sec-row">
-          List of Existing Users :<br/><br/>
+          <%=t('labels.list_of_existing_users')%> :<br/><br/>
           <%=hidden_field_tag :username %>
           <span class="in-box">
             <%= select(:transfer, :username, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select User") %>
@@ -34,15 +36,17 @@
       </div>
 
       <div class="create-user">
-        <h2 class="b-head">To</h2>
+        <h2 class="b-head"><%=t('labels.to')%></h2>
         <div class="form-sec-row">
-          <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+           <label class="text"><%=t('left_nav.agency')%></label>
+          <%#= label_tag :agency_id, raw("Agency"), :class=>"text" %>
           <span class="in-box">
             <%= select(:transfer_to,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= label_tag :department_id, raw("Department"), :class=>"text"%>
+          <label class="text"><%=t('labels.department')%></label>
+          <%#= label_tag :department_id, raw("Department"), :class=>"text"%>
           <span class="in-box">
             <%= select(:to_department, :id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
           </span>
@@ -53,7 +57,7 @@
       <div class="form-sec-row">
         <label class="text">&nbsp;</label>
         <span class="in-box"><br/>
-          <%= f.submit raw('Assign'), :class=>"btn2"%>
+          <%= f.submit t('labels.assign'), :class=>"btn2"%>
         </span>
       </div>
     </div>
