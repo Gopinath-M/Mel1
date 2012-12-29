@@ -184,4 +184,8 @@ class ResourcesController < ApplicationController
     render :json=>[users] if users
   end
 
+  def resource_has_serial_no
+    resource = Resource.find(params[:resource_id]) if params[:resource_id]
+    render :json => [resource.has_serial_no? ? true : false]  if resource
+  end
 end
