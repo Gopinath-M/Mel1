@@ -385,6 +385,57 @@ h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-
 .mr2{margin-right:30px;margin-left: 10px;}
 .ui-timepicker-div dt{float:left; padding-right: 10px; }
 .ui-timepicker-div dd{padding-bottom: 10px;}
+/* step styles*/
+
+.stepsblock{
+	padding:10px 0 0 0;
+}
+.stepsblock ul{
+	list-style:none;
+}
+.stepsblock ul li{
+	float:left;
+	text-indent:-9999px;
+	width:83px;
+	height:32px;
+}
+.stepsblock ul li.divider{
+	background:url(../images/img_stepdivider.png) center center no-repeat;
+	width:20px;
+	display:block;
+}
+.stepsblock ul li.step1{
+	background:url(../images/img_step1.png) 0 0 no-repeat;
+}
+.stepsblock ul li.step1.active{
+	background:url(../images/img_step1.png) 0 -32px no-repeat;
+}
+.stepsblock ul li.step2{
+	background:url(../images/img_step2.png) 0 0 no-repeat;
+}
+.stepsblock ul li.step2.active{
+	background:url(../images/img_step2.png) 0 -32px no-repeat;
+}
+.stepsblock ul li.step3{
+	background:url(../images/img_step3.png) 0 0 no-repeat;
+}
+.stepsblock ul li.step3.active{
+	background:url(../images/img_step3.png) 0 -32px no-repeat;
+}
+.stepsblock ul li.step4{
+	background:url(../images/img_step4.png) 0 0 no-repeat;
+}
+.stepsblock ul li.step4.active{
+	background:url(../images/img_step4.png) 0 -32px no-repeat;
+}
+.stepsblock ul li.step5{
+	background:url(../images/img_step5.png) 0 0 no-repeat;
+}
+.stepsblock ul li.step5.active{
+	background:url(../images/img_step5.png) 0 -32px no-repeat;
+}
+
+/* step styles*/
 
 /* Developer Style - Sasi */
 span.in-box2  { padding: 5px; width: 132%;}

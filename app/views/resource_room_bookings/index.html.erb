@@ -1,4 +1,4 @@
-<% if @booking.present? %>
+<% if @booking.present? && session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN%>
   <%if !request.xhr?%>
     <div class="CenterNav">
       <h2 class="b-head"><%=t('labels.list_room_book')%></h2>
