@@ -8,28 +8,29 @@
         <%=f.error_messages%>
         <div class="clearfix">&nbsp;</div>
         <%if current_user.sign_in_count == 1%>
-          <h2>Account Settings</h2>
-           <h2 class="b-head-acc-set">Change Password</h2>
+          <h2><%=t('header.account_setting')%></h2>
+           <h2 class="b-head-acc-set"><%=t('labels.change_password')%></h2>
         <%else%>
-          <h2>CHANGE PASSWORD</h2>
+          <h2><%=t('labels.change_password')%></h2>
          
         <%end%>
 
         <div class="form-sec-row">
-          <%= f.label :current_password, :class=>"text"%>
+          <label class="text"><%=t('labels.current_password')%></label>
           <span class="in-box">
             <%= f.password_field :current_password, :size => 30, :autofocus => true, :class=>'passfiled'%><br/>
-            <i>(we need your current password to confirm your changes)</i>
+            <i><%=t('labels.password_confir_display')%></i>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :password,raw("New password"), :class=>"text"%>
+           <label class="text"><%=t('labels.new_password')%></label>
           <span class="in-box">
             <%= f.password_field :password, :size => 30, :autofocus => true, :class=>'passfiled'%>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :password_confirmation, :class=>"text"%>
+           <label class="text"><%=t('labels.password_confirmation')%></label>
+          <%#= f.label :password_confirmation, :class=>"text"%>
           <span class="in-box">
             <%= f.password_field :password_confirmation, :size => 30, :autofocus => true, :class=>'passfiled'%>
           </span>
@@ -37,7 +38,7 @@
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">
-            <%= f.submit "Submit" ,:class=>"btn2"%>
+            <%= f.submit t('labels.submit') ,:class=>"btn2"%>
           </span>
         </div>
   <%#end%>

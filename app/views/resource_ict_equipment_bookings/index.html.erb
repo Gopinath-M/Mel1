@@ -1,47 +1,47 @@
 <div class="CenterNav">
-  <h2 class="b-head">List Resource ICT Equipment</h2>
+  <h2 class="b-head"><%=t('labels.list_resource_ict_equip')%></h2>
   <div id="div_ajax" >
     <%if @resource_ict_equipment_bookings && !@resource_ict_equipment_bookings.empty?%>
       <%  @resource_ict_equipment_bookings.each do |resource_ict_equipment_booking|%>
         <div class="manage-user box">
           <!--
           <div class="form-sec-row">
-            <label class="text heading_blue">User Details:</label>
+            <label class="text heading_blue"><%=t('labels.user_details')%></label>
           </div>
           <%#if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
             <div class="form-sec-row">
-              <label class="text">Agency Name</label>
+              <label class="text"><%=t('labels.agency_name')%></label>
               <span class="in-box">
                 <b><%#= resource_ict_equipment_booking.department.agency.name %></b>
               </span>
             </div>
             <div class="form-sec-row">
-              <label class="text">Department Name</label>
+              <label class="text"><%=t('labels.department_name')%></label>
               <span class="in-box">
                 <b><%#= resource_ict_equipment_booking.department.name %></b>
               </span>
             </div>
           <%#end%>
           <div class="form-sec-row">
-            <label class="text">IC Number</label>
+            <label class="text"><%=t('labels.ic_no')%></label>
             <span class="in-box">
               <b><%#= resource_ict_equipment_booking.user.ic_number%></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">First Name</label>
+            <label class="text"><%=t('labels.first_name')%></label>
             <span class="in-box">
               <b><%#= resource_ict_equipment_booking.user.first_name%></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Last Number</label>
+            <label class="text"><%=t('labels.last_name')%></label>
             <span class="in-box">
               <b><%#= resource_ict_equipment_booking.user.last_name%></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Email</label>
+            <label class="text"><%=t('labels.email')%></label>
             <span class="in-box">
               <b><%#= resource_ict_equipment_booking.user.email%></b>
             </span>
@@ -51,67 +51,67 @@
             <%#*<label class="text heading_blue">ICT Equipment Details:</label>%>
           <%#*</div>%>
           <div class="form-sec-row">
-            <label class="text">Date of Application</label>
+            <label class="text"><%=t('labels.date_of_app')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.created_at.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Purpose</label>
+            <label class="text"><%=t('labels.purpose')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.purpose %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Location</label>
+            <label class="text"><%=t('labels.location')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.location %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Sub Category</label>
+            <label class="text"><%=t('left_nav.sub_category_name')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.sub_category.name %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Requested From Date</label>
+            <label class="text"><%=t('labels.req_from_date')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Requested To Date</label>
+            <label class="text"><%=t('labels.req_to_date')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Officer Needed</label>
+            <label class="text"><%=t('labels.need_off')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.need_officer ? "Yes" : "No" %></b>
             </span>
           </div>
           <!--div class="form-sec-row">
-            <label class="text">Meeting Start Time</label>
+            <label class="text"><%=t('labels.meeting_from_date')%></label>
             <span class="in-box">
               <b><%#= resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Meeting End Time</label>
+            <label class="text"><%=t('labels.meeting_to_date')%></label>
             <span class="in-box">
               <b><%#= resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div-->
           <div class="form-sec-row">
-            <label class="text">Notes</label>
+            <label class="text"><%=t('labels.notes')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.notes %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">Status</label>
+            <label class="text">t('labels.status')</label>
             <span class="in-box" style="color :<%= (resource_ict_equipment_booking.status == 'New') ? '#FFA500' : ((resource_ict_equipment_booking.status == 'Approved' || resource_ict_equipment_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
               <b><%= resource_ict_equipment_booking.status %></b>
             </span>
@@ -121,7 +121,7 @@
               <% if resource_ict_equipment_booking.status == "Processed" && resource_ict_equipment_booking.user_id = current_user.id%>
                 <div id="div_ict_chk_<%= resource_ict_equipment_booking.id %>" style="display:block;">
                   <% if !resource_ict_equipment_booking.user_returned_status? %>
-                    <label class="text"> Is Returnable?</label>
+                    <label class="text"><%=t('labels.is_return')%></label>
                     <span class="in-box">
                       <%= check_box_tag "user_returned_status[#{resource_ict_equipment_booking.id}]","",false,:onchange=>"returnIctEquipment(this.id,#{resource_ict_equipment_booking.id})" %>
                     </span>
@@ -129,10 +129,10 @@
                 </div>
               <%end%>
               <div id="div_ict_msg_<%= resource_ict_equipment_booking.id %>" style="display:none;">
-                <b class="heading_blue"><%= "You have successfully returned the Resource" %></b>
+                <b class="heading_blue"> "<%=t('labels.return_resource')%>" </b>
               </div>
               <% if resource_ict_equipment_booking.status == "Returned" || resource_ict_equipment_booking.user_returned_status? %>
-                <b class="heading_blue"><%= "You have successfully returned the Resource " %></b>
+                <b class="heading_blue"><%=t('labels.return_resource')%></b>
               <%end%>
             </div>
             <div class="form-sec-row">
@@ -143,7 +143,7 @@
             </div>
             <div class="form-sec-row">
               <span class="in-box">
-                <b style="color:#BB0802;"><%= link_to "Show Info",resource_ict_equipment_booking_path(:id => resource_ict_equipment_booking.id), :method=>:get%></b>
+                <b style="color:#BB0802;"><%= link_to t('labels.show_info'),resource_ict_equipment_booking_path(:id => resource_ict_equipment_booking.id), :method=>:get%></b>
               </span>
             </div>
           </div>
@@ -153,7 +153,7 @@
         <%= paginate @resource_ict_equipment_bookings %>
       </div>
     <%else%>
-      No Resource Booking done
+      <%=t('labels.no_data_available')%>
     <%end%>
   </div>
 </div>

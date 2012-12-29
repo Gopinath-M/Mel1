@@ -1,9 +1,9 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Resource Manager</h2>
+    <h2 class="b-head"><%=t('labels.resource_manager')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/resource_manager/new" title="Create Resource Manager"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Resource Manager</a></div>
+      <div class="cu-c1"><a href="/resource_manager/new" title=<%=t('labels.create_resource_manager')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.create_resource_manager')%></a></div>
 
     </div>
   <%end%>
@@ -20,9 +20,9 @@
               <div class="mu-c3">
                 <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>resource.id.to_i%>
                 <%if resource.is_active %>
-                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_resource_managers_path(:id=>resource.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this resource manager?', :method=>:post, :title=>"Deactive" %>
+                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.deactivate'), update_status_resource_managers_path(:id=>resource.id, :status=>"Deactivate"), :confirm => t('labels.deactivate_res_mgr'), :method=>:post, :title=>t('labels.deactivate') %>
                 <%else%>
-                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_resource_managers_path(:id=>resource.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this resource manager?', :method=>:post, :title=>"Activate"%>
+                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.activate'),  update_status_resource_managers_path(:id=>resource.id,:status=>"Activate"), :confirm => t('labels.activate_res_mgr'), :method=>:post, :title=>t('labels.activate')%>
                 <%end%>
                
               </div>
@@ -31,7 +31,7 @@
           </div>
         <%end%>
     <%else%>
-      No Resource Manager Available
+      <%=t('labels.no_resource_manager_ava')%>
     <%end%>
 <%#*<div><%= paginate @units %>
   </div>

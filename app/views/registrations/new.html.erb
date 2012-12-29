@@ -6,37 +6,37 @@
       <div class="form-sec">
         <%=f.error_messages%>
         <div class="clearfix">&nbsp;</div>
-        <h2>Sign up</h2>
+        <h2><%=t('labels.sign_up')%></h2>
   <%#= f.hidden_field :is_admin,:value=> true%>
   <%#=f.text_field :admin_signup, :value=>true%>
         <div class="form-sec-row">
-          <%= f.label :first_name,raw("First Name"), :class=>"text"%>
+          <%= f.label :first_name,t('labels.first_name'), :class=>"text"%>
           <span class="in-box">
             <%= f.text_field :first_name, :size => 30, :autofocus => true%>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :last_name,raw("Last Name"), :class=>"text"%>
+          <%= f.label :last_name,t('labels.last_name'), :class=>"text"%>
           <span class="in-box">
             <%= f.text_field :last_name, :size => 30, :autofocus => true%>
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text">Display Name</label>
+          <label class="text"><%=t('labels.display_name')%></label>
           <span class="in-box">
             <%= f.text_field :username, :size => 30, :autofocus => true , :type=>"text"%>
-            <i>(This name will be used through out the site)</i>
+            <i><%=t('labels.site_display_name')%></i>
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text">Email <span style=color:red>*</span></label>
+          <label class="text"><%=t('labels.email')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.text_field :email, :size => 30, :autofocus => true, :type=>"text"%>
           </span>
         </div>
 
         <div class="form-sec-row">
-          <label class="text">IC Number<span style=color:red>*</span></label>
+          <label class="text"><%=t('labels.ic_no')%><span style=color:red>*</span></label>
           <span class="in-box">
            <input class="icnumber" type="number"  maxlength="6" size="6" name="num1">&nbsp;-
            <input class="icnumber1" type="number"  maxlength="2" size="2" name="num2">&nbsp;-
@@ -45,38 +45,38 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :city, :class=>"text"%>
+           <label class="text"><%=t('labels.city')%></label>
           <span class="in-box">
             <%= f.text_field :city, :size => 30, :autofocus => true%>
           </span>
         </div>
 
         <div class="form-sec-row">
-          <label class="text">State<span style=color:red>*</span></label>
+          <label class="text"><%=t('labels.state')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select State")%>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :zipcode, :class=>"text"%>
+          <%= label_tag  "users_zipcode", t('labels.zipcode'), :class=>"text" %>
           <span class="in-box">
             <%= f.text_field :zipcode, :size => 5, :maxlength=>5, :autofocus => true%>
           </span>
         </div>
       <div class="form-sec-row">
-        <%= label_tag  "users_role", raw("Role"), :class=>"text" %>
+        <%= label_tag  "users_role", t('labels.role'), :class=>"text" %>
         <span class="in-box">
           <%= select("users","role", Role.where("name != 'Super Admin'").collect {|role| [role.name, role.id]},:prompt=>"Select Role") %>
         </span>
       </div>
         <div class="form-sec-row">
-          <%= label_tag "users_agency", raw("Agency"), :class=>"text" %>
+          <%= label_tag "users_agency", t('labels.agency'), :class=>"text" %>
           <span class="in-box">
             <%= select("users","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= label_tag "users_department", raw("Department"), :class=>"text"%>
+          <%= label_tag "users_department", t('labels.department'), :class=>"text"%>
           <span class="in-box">
             <%= select("users","department", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
           </span>
@@ -88,13 +88,13 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text">Password <span style=color:red>*</span></label>
+          <label class="text"><%=t('labels.password')%>  <span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.password_field :password, :size => 30, :autofocus => true%>
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text">Password confirmation <span style=color:red>*</span></label>
+          <label class="text"><%=t('labels.password_confirmation')%> <span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.password_field :password_confirmation, :size => 30, :autofocus => true%>
           </span>
@@ -102,7 +102,7 @@
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">
-            <%= f.submit "Sign up" ,:class=>"btn2"%>
+            <%= f.submit t('labels.sign_up') ,:class=>"btn2"%>
           </span>
         </div>
       </div>

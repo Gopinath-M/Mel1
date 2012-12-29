@@ -8,20 +8,20 @@
       <% @dept = Department.find_by_id(current_department) %>
       <% @agency = Agency.find_by_id(@dept.agency_id) %>
       <div class="form-sec-row">
-        <label class="text">Agency Name<span style=color:red>*</span></label>
+        <label class="text"><%=t('labels.agency_name')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= @agency.name  %>
         </span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Department Name<span style=color:red>*</span></label>
+        <label class="text"><%=t('labels.department_name')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= @dept.name %>
         </span>
       </div>
     <%end%>
     <div class="form-sec-row">
-      <label class="text">Sub Category <span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.category_name')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.select(:sub_category_id,  SubCategory.where(:category_id => "6").active.collect {|category| [category.name, category.id]},:prompt=>"Select Sub Category") %>
       </span>
@@ -35,7 +35,7 @@
   <%#*</div>%>
 
     <div class="form-sec-row">
-      <%= label_tag :resource_id, raw("Room No"), :class=>"text", :id=>"lb_res_room_booking"%>
+      <%= label_tag :resource_id, t('labels.room_no'), :class=>"text", :id=>"lb_res_room_booking"%>
       <span class="in-box">
         <%= f.select(:resource_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
       </span>
@@ -45,38 +45,38 @@
 
     </div>
     <div class="form-sec-row">
-      <%= f.label :room_attachment,raw("Upload File"), :class=>"text"%>
+      <%= f.label :room_attachment,t('labels.upload_file'), :class=>"text"%>
       <span class="in-box">
         <%= f.file_field :room_attachment%>
         <%= f.hidden_field :room_attachment_cache %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">From Date<span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.from_date')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%=f.text_field :requested_from_date ,:value=>@resource_room_booking && @resource_room_booking.requested_from_date!=nil ? @resource_room_booking.requested_from_date : nil ,:readonly=>true%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">To Date<span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.to_date')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%=f.text_field :requested_to_date,:value=>@resource_room_booking && @resource_room_booking.requested_to_date!=nil ? @resource_room_booking.requested_to_date : nil ,:readonly=>true%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Room Capacity<span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.room_capacity')%><span style=color:red>*</span></label>
       <span class="in-box">
-        <%=f.text_field :room_capacity,:readonly=>true,:size => 10%>
+        <%=f.text_field :room_capacity,:onkeypress=>"return isNumberKey(event);",:readonly=>true,:size => 10%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Purpose<span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.purpose')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_area :purpose, :cols => "1", :rows => "1"%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Remarks<span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_area :remarks, :cols => "10", :rows => "10"%>
       </span>
@@ -84,7 +84,7 @@
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :value=>@resource_room_booking.new_record? ? "Create" : "Update", :class=>"btn2"%>
+        <%= f.submit :class=>"btn2", :value=>@resource_room_booking.new_record? ? t('labels.create') : t('labels.update')%>
       </span>
     </div>
   </div>

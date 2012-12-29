@@ -1,36 +1,36 @@
 <%= form_for @outstation do |f| %>
   <div class="clearfix">&nbsp;
     <div class="CenterNav">
-      <h2 class="b-head">OutStation Request</h2>
+      <h2 class="b-head"><%=t('labels.outstation_request')%></h2>
 
       <% @user_name = User.find(@outstation.user_id) %>
 
       <div class="form-sec-row">
-        <label class="text">First Name</label>
+        <label class="text"><%=t('labels.outstation_request')%></label>
         <span class="in-box">
           <%= @user_name.first_name %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text">Last Name</label>
+        <label class="text"><%=t('labels.outstation_request')%></label>
         <span class="in-box">
           <%= @user_name.last_name %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text">Contact Mobile</label>
+        <label class="text"><%=t('labels.outstation_request')%></label>
         <span class="in-box">
           <%= @user_name.contact_mobile  %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text">IC Number</label>
+        <label class="text"><%=t('labels.outstation_request')%></label>
         <span class="in-box">
           <%= @user_name.ic_number %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text">E - Mail</label>
+        <label class="text"><%=t('labels.outstation_request')%></label>
         <span class="in-box">
           <%= @user_name.email %></span>
       </div>
@@ -38,71 +38,71 @@
       <h2 class="b-head"></h2>
 
       <div class="form-sec-row">
-        <label class="text">Ticket No</label>
+        <label class="text"><%=t('labels.ticket_no')%></label>
         <span class="in-box"><font color="red"><b>&nbsp;<%= @outstation.id %>/<%=Time.now.year%></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Date of Application</label>
+                <label class="text"><%=t('labels.date_of_app')%></label>
                 <span class="in-box"><%= @outstation.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Out Station Type</label>
+                <label class="text"><%=t('labels.outstation_type')%></label>
                 <span class="in-box">
                   <%= @outstation.is_out_of_state? ? 'Out of State' : 'Out of Country' %></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Out Station Type</label>
+                <label class="text"><%=t('labels.outstation_type')%></label>
                 <span class="in-box">
                   <%= @outstation.is_official ? 'Official' : 'Non-Official/Personal' %></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Purpose</label>
+                <label class="text"><%=t('labels.purpose')%></label>
                 <span class="in-box">
                   <%= @outstation.purpose %></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Place Name</label>
+                <label class="text"><%=t('labels.place_name')%></label>
                 <span class="in-box">
                   <%= @outstation.placename %></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">From Date</label>
+                <label class="text"><%=t('labels.from_date')%></label>
                 <span class="in-box">
                   <%= @outstation.from_date %></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">To Date</label>
+                <label class="text"><%=t('labels.to_date')%></label>
                 <span class="in-box">
                   <%= @outstation.to_date%></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Total Expenditure</label>
+                <label class="text"><%=t('labels.outstation_type')%></label>
                 <span class="in-box">
                   <%= @outstation.total_expenditure %></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Cause Spending</label>
+                <label class="text"><%=t('labels.outstation_type')%></label>
                 <span class="in-box">
                   <%= @outstation.cause_spending %></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Status</label>
+                <label class="text"><%=t('labels.status')%></label>
                 <span class="in-box">
                   <% if @outstation.status == "New"%><b><font color='#FFA500'><%= "#{@outstation.status}" %></font></b> <% elsif @outstation.status == "Verified" || @outstation.status == "Recommended" || @outstation.status == "Approved" %>  <b><font color='#329C20'><%= "#{@outstation.status}" %> </font></b><% elsif @outstation.status == "Declined" || @outstation.status == "Returned" || @outstation.status == "Cancelled" %>  <b><font color='red'><%= "#{@outstation.status}" %> </font></b><% end %></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Change Status<span style=color:red>*</span></label>
+                <label class="text"><%=t('labels.change_status')%><span style=color:red>*</span></label>
                 <%if @outstation.status == 'New'%>
                   <span class="in-box">
                     <%= select_tag :status,"<option>Verify</option><option>Decline</option>".html_safe %>
@@ -123,7 +123,7 @@
                 <label class="text">&nbsp;</label>
                 <span class="in-box2">
   <%#= link_to "Back", :back, :class=>"btn1 mr2"%>
-                  <%= f.submit "Submit", :class=>"btn1 mr2"%>
+                  <%= f.submit t('labels.submit'), :class=>"btn1 mr2"%>
                 </span>
               </div>
 
