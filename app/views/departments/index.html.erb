@@ -27,9 +27,9 @@
             <div class="mu-c3">
               <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.edit'), :action=>'edit', :id=>department.id.to_i%>
               <%if department.is_active %>
-                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.deactivate'), update_status_departments_path(:id=>department.id,:status=>"Deactivate") , :confirm => "Are you sure want to Deactivate this Department?" , :method=>:post%>
+                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.deactivate'), update_status_departments_path(:id=>department.id,:status=>"Deactivate") , :confirm => t('labels.dept_deact_confirm') , :method=>:post%>
               <%else%>
-                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.activate'),  update_status_departments_path(:id=>department.id,:status=>"Activate"), :confirm => "Are you sure want to Activate this Department?" , :method=>:post%>
+                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.activate'),  update_status_departments_path(:id=>department.id,:status=>"Activate"), :confirm => t('labels.dept_act_confirm') , :method=>:post%>
               <%end%>
     <%#= link_to image_tag("../images/delete.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Delete", department_path(department), :method=>:delete, :confirm => "Are you sure want to delete?" %>
             </div>
@@ -41,7 +41,7 @@
         </div>
         <div></div>
       <%else%>
-        <%= "Select the Agency to list out the Department" %>
+        <%=t('labels.select_dept_from_list') %>
       <%end%>
     </div>
   </div>

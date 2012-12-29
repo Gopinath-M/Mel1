@@ -149,6 +149,16 @@ function  getResourceforSubcategory(category_id, resource_id)
         $('#'+resource_id).append($("<option></option>").attr("value","").text("Select Resource"));
     }
 }
+var serial_no_count = 1;
+var actual_serial_count = 0;
+function remove_ictSerial(id)
+{
+    $("#ict_serial_id_"+id).remove();
+    actual_serial_count = actual_serial_count-1;
+    alert(actual_serial_count)
+    $("#ict_agency_quantity").val(actual_serial_count)
+}
+
 function getAgencyforResource(resource_id, agency_id)
 {
     if($("#"+resource_id).val()!="")
@@ -177,6 +187,26 @@ function getAgencyforResource(resource_id, agency_id)
     }
 }
 $().ready(function(){
+    $("#ict_agency_resource_id").live('change', function(){
+        if ($("#ict_agency_resource_id").val()!='')
+        {
+            $.get("/resources/resource_has_serial_no",{
+                resource_id : $("#ict_agency_resource_id").val()
+            }, function(data){
+                if (data[0]!=null && data[0]==true)
+                {
+                    $("#ict_agency_quantity").attr("readonly", true)
+
+                    $("#div_dyn_serial_adder").show()
+                }
+                else
+                {
+                    $("#ict_agency_quantity").attr("readonly", false)
+                    $("#div_dyn_serial_adder").hide()
+                }
+            })
+        }
+    })
     $("#ict_hardware_booking_application_category_group").live('click', function(){
         $("#div_ict_hardware_add_more").show();
     })
@@ -1330,6 +1360,14 @@ $().ready(function(){
         }
     });
 
+
+    $('#add_ict_serial').click(function() {
+        //$('<div class="form-sec-row" id=ict_serial_id_'+serial_no_count+'><label class="ict_serial_field"><b>Serial No '+serial_no_count+'</b></label></div><div class="form-sec-row-center"><input type="text" class="field" size=29  name="dynamic_serial_no[' + serial_no_count + ']" /></div> <br/> <div><a href="javascript:void(0);" onclick=remove_ictSerial('+serial_no_count+')>Remove</a></div>').fadeIn('slow').appendTo('.inputs_ict_serial');
+        $('<div class="form-sec-row" id=ict_serial_id_'+serial_no_count+'><label class="text ict_serial_field">Serial No '+serial_no_count+'<span style="color:red">*</span></label><span class="in-box"><span class="ui-watermark-container ui-watermark-input"><label for="agency_store_quantity" class="ui-watermark-label" style="left: 6px; top: 6px; display: none; "></label><input type="text" class="field" size=29  name="dynamic_serial_no[' + serial_no_count + ']" /></span></span><a href="javascript:void(0);" onclick=remove_ictSerial('+serial_no_count+')>Remove</a></div> <br/> ').fadeIn('slow').appendTo('.inputs_ict_serial');
+        serial_no_count++;
+        actual_serial_count += 1;
+        $("#ict_agency_quantity").val(actual_serial_count)
+    });
 
     // here's our click function for when the forms submitted
 

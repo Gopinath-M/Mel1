@@ -1,45 +1,45 @@
 <div class="CenterNav">
   <div class="form-sec">
-    <h2 class="b-head">ICT Firewall Details</h2>
+    <h2 class="b-head"><%=t('labels.ict_firewall_details')%></h2>
     <div class="form-sec">
 
-      <font color="#369" size="3"><br/><b><u>User Details :-</u><br/><br/></b></font>
+      <font color="#369" size="3"><br/><b><u><%=t('labels.user_details')%>:-</u><br/><br/></b></font>
       <% @user_name = User.find(@ict_firewall.user_id) %>
 
       <div class="form-sec-row">
-        <label class="text">First Name</label>
+        <label class="text"><%=t('labels.first_name')%></label>
         <span class="in-box">
           <%= @user_name.first_name %></span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Last Name</label>
+        <label class="text"><%=t('labels.last_name')%></label>
         <span class="in-box"><%= @user_name.last_name %></span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Contact Mobile</label>
+        <label class="text"><%=t('labels.contact_number')%></label>
         <span class="in-box"><%= @user_name.contact_mobile  %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text">IC Number</label>
+        <label class="text"><%=t('labels.ic_no')%></label>
         <span class="in-box">
           <%= @user_name.ic_number %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text">E - Mail</label>
+        <label class="text"><%=t('labels.e-mel')%></label>
         <span class="in-box">
           <%= @user_name.email %></span>
       </div>
 
       <h2 class="b-head"></h2>
       <div class="form-sec-row">
-        <label class="text">Ticket No</label>
+        <label class="text"><%=t('labels.ticket_no')%></label>
         <span class="in-box"><font color="red"><b>&nbsp;<%= @ict_firewall.id %>/<%=Time.now.year%></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Date of Application</label>
+                <label class="text"><%=t('labels.date_of_app')%></label>
                 <span class="in-box"><%= @ict_firewall.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
               </div>
               </div>
@@ -47,71 +47,74 @@
               <h2 class="b-head"></h2>
 
               <div class="form-sec-row">
-                <label class="text">Source Ip</label>
+                <label class="text"><%=t('left_nav.source_ip')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.source_ip %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Destination Ip</label>
+                <label class="text"><%=t('left_nav.Destination_ip')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.destination_ip %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Requested From Date</label>
+                <label class="text"><%=t('left_nav.from_date')%></label>
                 <span class="in-box">
                   <%=  @ict_firewall.requested_from_date.strftime("%d-%m-%Y %H:%M %p") %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Requested to Date</label>
+                <label class="text"><%=t('left_nav.to_date')%></label>
                 <span class="in-box">
                   <%=  @ict_firewall.requested_to_date.strftime("%d-%m-%Y %H:%M %p") %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Justification</label>
+                <label class="text"><%=t('left_nav.justification')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.justification %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Status</label>
+                <label class="text"><%=t('left_nav.status')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.status %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text">Service Information</label>
+                <label class="text"><%=t('left_nav.service_information')%></label>
                 <span class="in-box">                 
                 </span>
               </div>
 
               <% services = @ict_firewall.ict_firewall_services %>
-              
 
-                <div style="margin-bottom: 10px;">
-                  <table width="509" border="0" class="app-table" cellspacing="0" cellpadding="0" align="center" color="#329C20">
-                    <tr>
-                      <th color="#329C20" width="30%"><b>Service Name</b></th>
-                      <th width="30%"><b>Way</b></th>
-                      <th width="20%"><b>Action</b></th>
-                    </tr><% services.each do |ict_firewall_service| %>
+
+              <div style="margin-bottom: 10px;">
+                <table width="509" border="0" class="app-table" cellspacing="0" cellpadding="0" align="center" color="#329C20">
+                  <tr>
+                    <th color="#329C20" width="30%"><b><%=t('left_nav.service_name')%></b></th>
+                    <th width="30%"><b><%=t('left_nav.way')%></b></th>
+                    <th width="20%"><b><%=t('labels.action')%></b></th>
+
+                  </tr>
+                  <% services.each do |ict_firewall_service| %>
                     <tr>
                       <td><b><%= FacilityIctService.find(ict_firewall_service.facility_ict_service_id).port %></b></td>
                       <td><b><%= ict_firewall_service.one_way? ? 'One Way' : 'Two Way' %></b></td>
                       <td><b><%= ict_firewall_service.approved? ? 'Approved' : 'Not Approved' %></b></td>
-                    </tr><%end%>
-                  </table>
-                </div>
-              
+                    </tr>
+                  <%end%>
+                </table>
+              </div>
+
 
               <h2 class="b-head"></h2>
 
@@ -120,7 +123,7 @@
               <div class="form-sec-row2">
                 <label class="text">&nbsp;</label>
                 <span class="in-box2">
-                  <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+                  <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
                 </span>
               </div>
               </div>

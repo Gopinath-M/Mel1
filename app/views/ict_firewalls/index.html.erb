@@ -1,8 +1,8 @@
 <div class="CenterNav">
-  <h2 class="b-head">Requisition ICT Firewall</h2>
+  <h2 class="b-head"><%=t('labels.requstion_ict_fwall')%></h2>
   <% if current_user.is_department_user? %>
   <div class="create-user">
-    <div class="cu-c1"><a href="/ict_network_points/list_to_select_ict" title="Create Requisition for ICT "><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Requisition for ICT</a></div>
+    <div class="cu-c1"><a href="/ict_network_points/list_to_select_ict" title=<%=t('labels.create_req_for_ict')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.create_req_for_ict')%></a></div>
   </div>
   <%end%>
 
@@ -23,7 +23,7 @@
           <div class="clear"></div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Type of Facility</b>
+            <div class="m-c1"><b><%=t('labels.type_of_facility')%></b>
             </div>
             <div class="m-c-second">
               <% name = RequisitionType.find_by_id(resource.requisition_type_id) %>
@@ -34,13 +34,13 @@
 
                 <% if current_user.is_department_admin? || current_user.is_super_admin? %>
                   <span class="in-box">
-                    <%= link_to "Approve",  edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to t('labels.approve'),  edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                   </span>
                 <%end%>
               <%elsif resource.incharge_person == current_user.id %>
                 <%if resource.status == "Approved"%>
                   <span class="in-box">
-                    <%= link_to "Process",  edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to t('labels.process'),  edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                   </span>
                 <%end%>
 
@@ -50,19 +50,19 @@
           <div class="clear"></div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Ticket No</b>
+            <div class="m-c1"><b><%=t('labels.ticket_no')%></b>
             </div>
             <div class="m-c-second">
               <font color="red"><b>&nbsp;<%=resource.id%>/<%=Time.now.year%></b></font>
             </div>
             <div class="m-c3">
-              <b><font color="#336699"><%= link_to "Show Info",ict_firewall_path(:id => resource.id), :method=>:get%></font></b>
+              <b><font color="#336699"><%= link_to t('labels.show_info'),ict_firewall_path(:id => resource.id), :method=>:get%></font></b>
             </div>
           </div>
           <div class="clear"></div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Date of Application</b>
+            <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
             </div>
             <div class="m-c-second">
               &nbsp;<%= resource.created_at.strftime("%a %d %b %Y %I:%M %p")%></font>
@@ -78,7 +78,7 @@
       <%end%> <div class="manage-user-rows box"><br/><br/>
   <%#= paginate @requisition %></div>
       <%else%>
-      No Resources Available
+      <%=t('labels.no_data_available')%>
     <%end%>
   </div>
 </div>

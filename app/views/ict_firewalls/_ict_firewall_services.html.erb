@@ -1,20 +1,20 @@
 <div id="new_selection_id_<%= params[:val]%>">
   <div class="form-sec-row">
-    <label class="text">Service Name<span style=color:red>*</span></label>
+    <label class="text"> <%=t('labels.service_man')%><span style=color:red>*</span></label>
     <span class="in-box">
-      <%= select("ict_facility_service", "#{params[:val]}", FacilityIctService.find(:all,:conditions=>["is_active = true"]).collect {|ict_facility| [ict_facility.port, ict_facility.id]},:prompt=>"Select ICT Service Type") %>
+      <%= select("ict_facility_service", "#{params[:val]}", FacilityIctService.find(:all,:conditions=>["is_active = true"]).collect {|ict_facility| [ict_facility.port, ict_facility.id]},:prompt=>t('left_nav.select_a_ict_service_type')) %>
     </span>
   </div>
 
   <div class="form-sec-row">
-    <label class="text">Type<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.type')%><span style=color:red>*</span></label>
     <span class="in-box">
-	  <%= radio_button_tag "one_way_#{params[:val]}", "one_way", :checked=>true %> <%= label :one_way, "One Way" %>&nbsp;&nbsp;
-	  <%= radio_button_tag "one_way_#{params[:val]}", "two_way" %> <%= label :two_way, "Two Way" %> </span>  
+	  <%= radio_button_tag "one_way_#{params[:val]}", "one_way", :checked=>true %> <%= label :one_way, t('labels.one_way') %>&nbsp;&nbsp;
+	  <%= radio_button_tag "one_way_#{params[:val]}", "two_way" %> <%= label :two_way, t('labels.two_way') %> </span>
     </span>
   </div>
 
-  <a onclick= 'delete_boxes(<%= params[:val]%>)' ><b>Delete</b></a>
+  <a onclick= 'delete_boxes(<%= params[:val]%>)' ><b><%=t('labels.delete') %></b></a>
 </div>
 
 <script type="text/javascript">

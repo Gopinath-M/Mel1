@@ -26,10 +26,16 @@
       <%= f.text_field :brand_model%>
     </span>
   </div>
-<div class="form-sec-row">
+  <div class="form-sec-row">
+    <label class="text">Is Returnable</label>
+    <span class="in-box">
+      <%= f.check_box :is_returnable%>
+    </span>
+  </div>
+  <div class="form-sec-row">
     <label class="text">Is Serial Number Required</label>
     <span class="in-box">
-      <%= f.check_box :is_facilty_avail%>
+      <%= f.check_box :has_serial_no%>
     </span>
   </div>
   <div class="form-sec-row">

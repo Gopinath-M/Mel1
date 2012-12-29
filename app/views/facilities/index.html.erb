@@ -1,9 +1,9 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Manage Facilities</h2>
+    <h2 class="b-head"><%=t("labels.manage_facility")%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/facilities/new" title="Create Facility"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Facility</a></div>
+      <div class="cu-c1"><a href="/facilities/new" title=<%=t("create_facility")%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t("create_facility")%></a></div>
 
     </div>
   <%end%>
@@ -18,11 +18,11 @@
               <p class="head1"><%=resource.name%></p>
             </div>
             <div class="mu-c3">
-              <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>resource.id.to_i%>
+              <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.edit"), :action=>'edit', :id=>resource.id.to_i%>
               <%if resource.is_active %>
-                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_facilities_path(:id=>resource.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this resource?', :method=>:post, :title=>"Deactive" %>
+                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.deactivate"), update_status_facilities_path(:id=>resource.id, :status=>"Deactivate"), :confirm => t("labels.res_deact_confirm"), :method=>:post, :title=>t("labels.deactivate") %>
               <%else%>
-                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_facilities_path(:id=>resource.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this resource?', :method=>:post, :title=>"Activate"%>
+                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.activate"),  update_status_facilities_path(:id=>resource.id,:status=>"Activate"), :confirm => t("labels.res_act_confirm"), :method=>:post, :title=>t("labels.activate")%>
               <%end%>
             </div>
           </div>
@@ -30,7 +30,7 @@
         </div>
       <%end%>
     <%else%>
-      No Resources Available
+      <%=t('labels.no_data_available')%>
     <%end%>
   </div>
 </div>

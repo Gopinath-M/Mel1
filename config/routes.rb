@@ -282,6 +282,7 @@ Melaka::Application.routes.draw do
       get 'resource_approver'
       get 'get_resource_type'
       get 'get_sub_category'
+      get 'resource_has_serial_no'
     end
   end
 

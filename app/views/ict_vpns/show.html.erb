@@ -1,7 +1,7 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2 class="b-head">Requisition ICT - VPN Booking Details</h2>
+    <h2 class="b-head"><%=t('labels.req_ict_vpn_booking_details')%></h2>
 
 
 <%#=error_messages%>
@@ -10,38 +10,38 @@
 
     <div class="form-sec">
 <%# if @manager.present? %>
-      <font color="#369" size="3"><br/><b><u>Applicant Information :-</u><br/><br/></b></font>
+      <font color="#369" size="3"><br/><b><u><%=t('labels.app_info')%></u><br/><br/></b></font>
 
       <% @dept = Department.find_by_id(current_department) %>
       <% @agency = Agency.find_by_id(@dept.agency_id) %>
       <% @ict_vpn = IctVpn.find_by_id(params[:id]) %>
       <% @user = User.find_by_id(@ict_vpn.user_id) %>
       <div class="form-sec-row">
-        <label class="text">Agency Name</label>
+        <label class="text"><%=t('labels.agency_name')%></label>
         <span class="in-box"><%= @agency.name  %></span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Department Name</label>
+        <label class="text"><%=t('labels.department_name')%></label>
         <span class="in-box">
           <%= @dept.name  %></span>
       </div>
       <div class="form-sec-row">
-        <label class="text">User Name</label>
+        <label class="text"><%=t('labels.user_name')%></label>
         <span class="in-box"><%= @user.username %></span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Contact Mobile</label>
+        <label class="text"><%=t('labels.contact_number')%></label>
         <span class="in-box"><%= @user.contact_mobile  %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text">IC Number</label>
+        <label class="text"><%=t('labels.ic_no')%></label>
         <span class="in-box">
           <%= @user.ic_number %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text">E - Mail</label>
+        <label class="text"><%=t('labels.email')%></label>
         <span class="in-box">
           <%= @user.email %></span>
       </div>
@@ -49,12 +49,12 @@
       <h2 class="b-head"></h2>
 
       <div class="form-sec-row">
-        <label class="text">Ticket No</label>
+        <label class="text"><%=t('labels.ticket_no')%></label>
         <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @ict_vpn.id %>/<%=Time.now.year%></b></font></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text">Date of Application</label>
+        <label class="text"><%=t('labels.date_of_app')%></label>
         <span class="in-box"><%= @ict_vpn.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
       </div>
 
@@ -62,7 +62,7 @@
     <h2 class="b-head"></h2>
 
     <div class="form-sec-row">
-      <label class="text">Type of Facility</label>
+      <label class="text"><%=t('labels.type_of_facility')%></label>
       <span class="in-box">
         <%facility_name = IctVpn.find_by_user_id(@ict_vpn.user_id)%>
         <%requisition_name = RequisitionType.find(facility_name.requisition_type_id)%>
@@ -70,23 +70,23 @@
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Term User From</label>
+      <label class="text"><%=t('labels.term_user_from')%></label>
       <span class="in-box">
         <%= @ict_vpn.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %></span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Term User To</label>
+      <label class="text"><%=t('labels.term_user_to')%></label>
       <span class="in-box">
         <%= @ict_vpn.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Justification</label>
+      <label class="text"><%=t('labels.justification')%></label>
       <span class="in-box">
         <%= @ict_vpn.justification %></span>
     </div>
     <div class="form-sec-row">
-      <label class="text">VPN Access To</label>
+      <label class="text"><%=t('labels.vpn_access')%></label>
       <span class="in-box">
         <%sys_name = IctVpn.find_by_system_access_id(@ict_vpn.system_access_id)%>
         <%requisition_name = SystemAccess.find(sys_name.system_access_id)%>
@@ -94,14 +94,14 @@
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Notes</label>
+      <label class="text"><%=t('labels.notes')%></label>
       <span class="in-box">
         <%= @ict_vpn.note %></span>
     </div>
 
     <div class="form-sec-row">
       <% if @ict_vpn.vpn_attachment.present? %>
-        <label class="text">Attachment</label>
+        <label class="text"><%=t('labels.attachment')%></label>
         <% image = @ict_vpn.vpn_attachment.url(:profile).split(".").last %>
         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
           <span class="in-box">
@@ -116,21 +116,21 @@
     <h2 class="b-head"></h2>
     <% if @ict_vpn.status == "Approved" || @ict_vpn.status == "Processed" || @ict_vpn.status == "Declined"%>
 
-      <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
+      <font color="#369" size="3"><br/><b><u><%=t('labels.off_action')%></u><br/><br/></b></font>
     <div class="form-sec-row">
-        <label class="text">Status</label>
+        <label class="text"><%=t('labels.status')%></label>
         <span class="in-box">
           <% if @ict_vpn.status == "New"%><b><font color='#FFA500'><%= @ict_vpn.status %></b></font><% elsif @ict_vpn.status == "Approved" || @ict_vpn.status == "Processed"  %>  <b><font color='#329C20'><%= @ict_vpn.status %></b></font><% elsif @ict_vpn.status == "Declined" || @ict_vpn.status == "Returned"  %>  <b><font color='red'><%= @ict_vpn.status %></b></font><%end%></span>
       </div>
       <% name = User.find_by_id(@ict_vpn.forward_to) %>
       <div class="form-sec-row">
-        <label class="text">Forward To</label>
+        <label class="text"><%=t('labels.forward_to')%></label>
         <span class="in-box">
           <%= name.username %>
         </span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Remarks</label>
+        <label class="text"><%=t('labels.remarks')%></label>
         <span class="in-box">
           <%= @ict_vpn.remarks %></span>
       </div>
@@ -139,7 +139,7 @@
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+        <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
       </span>
     </div>
 

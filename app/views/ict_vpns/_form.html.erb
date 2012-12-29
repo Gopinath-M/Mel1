@@ -2,37 +2,37 @@
  <%=f.error_messages%>
 <%= hidden_field_tag :requisition_type_id, 3 %>
   <div class="form-sec-row">
-    <label class="text">Term User From<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.term_user_from')%><span style=color:red>*</span></label>
     <span class="in-box">
       <%=f.text_field :from_date, :value=>@ict_vpn && @ict_vpn.from_date!=nil ? @ict_vpn.from_date : nil ,:readonly=>true%></span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Term User To<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.term_user_to')%><span style=color:red>*</span></label>
     <span class="in-box">
 
       <%=f.text_field :to_date, :value=>@ict_vpn && @ict_vpn.to_date!=nil ? @ict_vpn.to_date : nil ,:readonly=>true%>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Justification<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.justification')%><span style=color:red>*</span></label>
     <span class="in-box">
 
       <%= f.text_area :justification, :rows =>4%></span>
   </div>
    <div class="form-sec-row">
-          <label class="text">VPN Access<span style=color:red>*</span></label>
+          <label class="text"><%=t('labels.vpn_access')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "Select VPN Access", :style=> "width:132%;") %>
           </span>
       </div>
   <div class="form-sec-row">
-    <label class="text">Note<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.notes')%><span style=color:red>*</span></label>
     <span class="in-box">
 
       <%= f.text_area :note, :rows =>4%></span>
   </div>
    <div class="form-sec-row">
-            <label class="text">Upload File<span style=color:red>*</span></label>
+            <label class="text"><%=t('labels.uploaded_files')%><span style=color:red>*</span></label>
               <span class="in-box">
                 <%= f.file_field :vpn_attachment%>
                 <%= f.hidden_field :vpn_attachment_cache %>
@@ -40,7 +40,7 @@
           </div>
 
   <div class="form-sec-row">
-    <label class="text">Remarks<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.text_area :remarks, :rows =>4%></span>
     <div>
@@ -51,7 +51,7 @@
     <div class="CenterNav">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :value=>'Save', :class=>"btn2"%>
+        <%= f.submit :value=>t('labels.save'), :class=>"btn2"%>
       </span>
     </div>
   </div>
