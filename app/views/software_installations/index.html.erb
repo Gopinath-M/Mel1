@@ -70,7 +70,7 @@
        
 
                 <div class="manage-user-rows box">
-                  <div class="m-c1"><b>Date of Application</b>
+                  <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
                   </div>
                   <div class="m-c2">
                     &nbsp;<%= software.created_at.strftime("%a %d %b %Y %I:%M %p")%></font>
@@ -88,7 +88,7 @@
         <%#= paginate @software_installation %>
       </div>
       <%else%>
-      No Resources Available
+      <%=t('labels.no_data_available')%>
     <%end%>
   </div>
 </div>
