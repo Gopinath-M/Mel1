@@ -3,14 +3,14 @@
   <div class="form-sec-row">
       <label class="text"><%=t("left_nav.sub_category_name")%><span style=color:red>*</span></label>
     <span class="in-box">
-      <%= select("other","sub_category_id",SubCategory.all.collect {|p| [ p.name, p.id ] },:prompt => t("labels.select_sub_category")) %>
+      <%= select("other","sub_category_id",SubCategory.all.collect {|p| [ p.name, p.id ] },:prompt => "Select a Sub Category") %>
     </span>
   </div>
   <div id="sub_list_facility">
     <div class="form-sec-row">
       <%= label_tag :resource_id, t("labels.resource_ex_no"), :class=>"text"%>
       <span class="in-box">
-        <%= select("other", "resource_id", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => t("labels.select_res")) %>
+        <%= select("other", "resource_id", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select a Resource") %>
       </span>
     </div>
   </div>

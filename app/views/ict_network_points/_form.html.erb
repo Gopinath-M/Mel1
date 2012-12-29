@@ -10,7 +10,7 @@
       <% @user = User.find_by_id(current_user.id) %>
 
       <div class="form-sec-row">
-        <%= f.label :ict_network_attachment,raw("Upload File"), :class=>"text"%>
+        <%= f.label :ict_network_attachment,t('labels.upload_file'), :class=>"text"%>
         <span class="in-box">
           <%= f.file_field :ict_network_attachment%>
         </span>
@@ -25,19 +25,19 @@
       <div id="network_for_ict">
         <div class="form-sec-row">
           <label class="text"><%=t('labels.justification')%><span style=color:red>*</span></label>
-          <span class="in-box">
+                 <span class="in-box">
             <td><b>&nbsp;<%= f.text_area :justification, :cols => "30", :rows => "3"%></b></td>
           </span>
         </div>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.location')%><span style=color:red>*</span></label>
-          <span class="in-box">
+                 <span class="in-box">
             <td><b>&nbsp;<%= f.text_area :location, :cols => "20", :rows => "1"%></b></td>
           </span>
         </div>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.quantity')%><span style=color:red>*</span></label>
-          <td><b>&nbsp;<%=f.text_field :quantity, :onkeypress=>"return isNumberKey(event);", :class=> "size-quan-box-ict"%><%= "Unit" %></b></td>
+                 <td><b>&nbsp;<%=f.text_field :quantity, :onkeypress=>"return isNumberKey(event);", :class=> "size-quan-box-ict"%><%= "Unit" %></b></td>
         </div>
 
         <div class="form-sec-row">

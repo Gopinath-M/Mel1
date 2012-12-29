@@ -1,19 +1,19 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Manage Resources</h2>
+    <h2 class="b-head"><%=t('labels.manage_resources')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/resources/new" title="Create Agency"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Resource</a></div>
-    </div>
-    <div class="form-sec-row">
-      <label class="text">Select Category <span style=color:red>*</span></label>
-      <span class="in-box">
+      <div class="cu-c1"><a href="/resources/new" title=<%=t('labels.create_resource')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.create_resource')%></a></div>
+      </div>
+ <div class="form-sec-row">
+        <label class="text"><%=t('labels.select_category')%><span style=color:red>*</span></label>
+        <span class="in-box">
         <%=select("transport_category","id", options_from_collection_for_select(Category.active.all, 'id','name'),{:prompt=>"Select Category"})%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Select Sub Category<span style=color:red>*</span></label>
-      <span class="in-box">
+      <label class="text"><%=t('labels.select_sub_category')%><span style=color:red>*</span></label>
+        <span class="in-box">
         <%=select("resource_sub_category","id", options_from_collection_for_select(SubCategory.active.all, 'id','name'),{:prompt=>"Select Sub Category"})%>
       </span>
     </div>
@@ -66,7 +66,7 @@
         <%= paginate @resources %>
       </div>
     <%else%>
-      No Resources Available
+      <%=t('labels.no_data_available')%>
     <%end%>
   </div>
 </div>

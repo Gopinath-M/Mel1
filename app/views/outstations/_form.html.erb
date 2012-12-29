@@ -23,16 +23,16 @@
     <div class="form-sec-row">
       <%= f.label t('labels.destination'), :class=>"text"%>
       <span class="in-box">
-        <%= f.radio_button :is_out_of_state,'Out of State', :checked => true %> Out of State
-        <%= f.radio_button :is_out_of_state,'Out of Country' %> Out of Country
+        <%= f.radio_button :is_out_of_state,'Out of State', :checked => true %> <%=t('labels.out_of_state')%>
+        <%= f.radio_button :is_out_of_state,'Out of Country' %> <%=t('labels.out_of_country')%>
       </span>
     </div>
 
     <div class="form-sec-row">
       <%= f.label t('labels.type'), :class=>"text"%>
       <span class="in-box">
-        <%= f.radio_button :is_official,'Official',:checked => true %> Official
-        <%= f.radio_button :is_official,'Non-Official/Personal' %> Non-Official/Personal
+        <%= f.radio_button :is_official,'Official',:checked => true %> <%=t('labels.official')%>
+        <%= f.radio_button :is_official,'Non-Official/Personal' %> <%=t('labels.non-offical')%>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
     </div>
 
     <div class="form-sec-row">
-      <label class="text"><%=t('labels.upload_files')%><span style=color:red></span></label>
+      <label class="text"><%=t('labels.upload_file')%><span style=color:red></span></label>
       <span class="in-box">
         <%=f.file_field :attachment %>
       </span>

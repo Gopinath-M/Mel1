@@ -1,6 +1,6 @@
 <%= form_for(@resource) do |f| %>
   <div class="form-sec-row">
-    <label class="text">Resource Sub Category <span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.resource_sub_category')%><span style=color:red>*</span></label>
     <span class="in-box">
       <%= select("resource_ict","sub_category_id",  options_from_collection_for_select(SubCategory.where("category_id = 8").active, 'id','name',@resource.sub_category_id ),:prompt=>"Select Sub Category") %>
     </span>
@@ -9,31 +9,31 @@
   <%= hidden_field_tag :resource_type, ("ict") %>
 
   <div class="form-sec-row">
-    <label class="text">Name <span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.name')%><span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.text_field :name%>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Description <span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.description')%><span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.text_field :description%>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Brand Model <span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.brand_model')%><span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.text_field :brand_model%>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Is Returnable</label>
+    <label class="text"><%=t('labels.is_return')%></label>
     <span class="in-box">
       <%= f.check_box :is_returnable%>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Is Serial Number Required</label>
+    <label class="text"><%=t('labels.is_serial_no')%></label>
     <span class="in-box">
       <%= f.check_box :has_serial_no%>
     </span>

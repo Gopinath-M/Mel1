@@ -1,7 +1,7 @@
 <div class="CenterNav">
   <h2 class="b-head"><%=t('labels.manage_resource_req')%></h2>
   <div class="create-user">
-    <div class="cu-c1"><a href="/ict_network_points/list_to_select_ict" title="Create Requisition for ICT "><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Requisition for ICT</a></div>
+    <div class="cu-c1"><a href="/ict_network_points/list_to_select_ict" title=<%=t('labels.create_req_for_ict')%> ><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.create_req_for_ict')%></a></div>
   </div>
   <div class="form-sec">
 
@@ -11,7 +11,7 @@
       <div class="form-sec-row">
         <%= label "requisition","type_id",t('labels.requisition_type'), :class=>"text"%>
         <span class="in-box">
-          <%= select("requisition","type_id", RequisitionType.all.collect {|p| [ p.name, p.id ] },:prompt => t('labels.select_a_ict_facility'), :style=> "width:132%;") %>
+          <%= select("requisition","type_id", RequisitionType.all.collect {|p| [ p.name, p.id ] },:prompt => "Select ICT Facility", :style=> "width:132%;") %>
         </span>
       </div>
 
