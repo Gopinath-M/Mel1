@@ -2,7 +2,12 @@ class IctHardwareBookingsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @ict_hardware_bookings=IctHardwareBooking.where(:booker_id=>current_user.id).page(params[:page]).per(4)
+    if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+      @ict_hardware_bookings=IctHardwareBooking.where(:booker_id=>current_user.id).page(params[:page]).per(1)
+    else
+      @ict_hardware_bookings=IctHardwareBooking.where(:booker_id=>current_user.id, :department_id => @current_department).page(params[:page]).per(1)
+    end
+    
   end
 
   def new
@@ -11,7 +16,9 @@ class IctHardwareBookingsController < ApplicationController
   end
 
   def create
-    @ict_hardware_booking=IctHardwareBooking.create(params[:ict_hardware_booking].merge!({:booker_id=>current_user.id, :department_id=>@current_department}))
+    @ict_hardware_booking = IctHardwareBooking.create(params[:ict_hardware_booking].merge!({:booker_id=>current_user.id, :department_id=>@current_department}))
+    p params[:ict_hardware_booking][:ict_hardware_booked_users_attributes].keys
+    @ict_hardware_booking.application_category = params[:ict_hardware_booking][:ict_hardware_booked_users_attributes].keys.length >1 ? "Group" : "Individual"
     if @ict_hardware_booking.valid?
       @ict_hardware_booking.save
       @approve = Approver.active.where(:department_id => @current_department).first

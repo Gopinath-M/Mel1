@@ -39,6 +39,23 @@
                     <td>&nbsp;<b><font color='#FFA500'>New</font></b>
                     </td>
                   </tr>
+                  <tr>
+                    <td colspan="2">
+                      <table width="750" border="2" cellspacing="3" cellpadding="3" align="center">
+                        <tr style="font-weight: bold;">
+                          <td>User Name</td><td>Application Type</td><td>Harware Required</td>
+                        </tr>
+                        <%@ict_hardware_booking.ict_hardware_booked_users.each do |booked_user|%>
+                          <tr>
+                            <td><%=  booked_user.user.username%></td>
+                            <td><%=  booked_user.is_replacement? ? "Replacement" : "New"%></td>
+                            <td><%=  booked_user.pc ? "PC" : "" %> <%=  booked_user.printer ? "Printer" : "" %> <%=  booked_user.scanner ? "Scanner" : "" %></td>
+                          </tr>
+                        <%end%>
+                      </table>
+                    </td>
+                  </tr>
+
                 </table>
               </td>
             </tr>

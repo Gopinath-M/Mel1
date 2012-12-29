@@ -43,59 +43,43 @@
               <%=booking.id%>/<%=Time.now.year%>
             </span>
           </div>
-          <%booking.ict_hardware_booked_users.each do |requested_user|%>
-            <h2 class="b-head"></h2>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.name')%></label>
-              <span class="in-box">
-                <%=requested_user.user.full_name%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.department')%></label>
-              <span class="in-box">
-                <%=requested_user.user.departments.first.name%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.requested_type')%></label>
-              <span class="in-box">
-                <%=requested_user.is_replacement? ? "Replacement" : "New"%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.pc')%></label>
-              <span class="in-box">
-                <%=requested_user.pc ? "Yes" : "No"%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.printer')%></label>
-              <span class="in-box">
-                <%=requested_user.printer ? "Yes" : "No"%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.scanner')%></label>
-              <span class="in-box">
-                <%=requested_user.scanner? ? "Yes" : "No"%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.status')%></label>
-              <span class="in-box">
-                <b style="color : <%=requested_user.status=='New' ? '#FFA500' : (requested_user.status == "Approved" || requested_user.status == "Processed" ? '#329C20' : 'red')%>"><%= requested_user.status%></b>
-              </span>
-            </div>
-          <%end%>
+          <table>
+            <tr>
+              <td class="form-sec-row"><label class="text"><%=t('labels.name')%></label></td>
+              <td class="form-sec-row"><label class="text"><%=t('labels.requested_type')%></label></td>
+              <td class="form-sec-row"><label class="text">Hardware Required</label></td>
+              <td class="form-sec-row"><label class="text">Status</label></td>
+            </tr>
+
+            <%booking.ict_hardware_booked_users.each do |requested_user|%>
+             <%= p requested_user.pc ? "PC" : ""%>
+              <tr>
+                <td> <%=requested_user.user.full_name%></td>
+                <td> <%=requested_user.is_replacement? ? "Replacement" : "New"%></td>
+                <td>
+                  <%hardware = []%>
+                 
+                  <%hardware << requested_user.pc ? "PC" : ""%>
+                  <%hardware << requested_user.printer ? "Printer" : ""%>
+                  <%hardware << requested_user.scanner ? "Scanner" : ""%>
+                  <%= hardware.join(",").to_s %>
+                </td>
+                <td>   <span class="in-box">
+                  <b style="color : <%=requested_user.status=='New' ? '#FFA500' : (requested_user.status == "Approved" || requested_user.status == "Processed" ? '#329C20' : 'red')%>"><%= requested_user.status%></b>
+                </span></td>
+
+              </tr>
+              
+            <%end%>
+          </table>
         </div>
         <div class="clear"></div>
       <%end%>
       <div class="manage-user-rows box"><br/><br/>
         <%= paginate @ict_hardware_bookings %>
       </div>
-        <%else%>
-        <%=t('labels.no_data_available')%>
+    <%else%>
+      <%=t('labels.no_data_available')%>
     <%end%>
   </div>
 </div>
