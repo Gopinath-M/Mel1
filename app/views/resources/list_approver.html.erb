@@ -1,9 +1,9 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">List of Approvers</h2>
+    <h2 class="b-head"><%=t('labels.approver_list')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/resources/resource_approver" title="Change Approvers"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Change Approvers</a></div>
+      <div class="cu-c1"><a href="/resources/resource_approver" title=t('labels.change_approver')><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.change_approver')%></a></div>
 
     </div>
   <%end%>
@@ -17,7 +17,7 @@
             <div class="mu-c2">
               <% @user = User.find_by_id(approve.user_id) %>
               <p class="head1">
-               <font color='#329C20'><u><%= "Approver "%><% if i == 1 %>First<%else%>Second<%end%></u><br/></font>
+               <font color='#329C20'><u><%= "Approver "%><% if i == 1 %><%=t('labels.first')%><%else%><%=t('labels.second')%><%end%></u><br/></font>
                 <% i = i+1 %>
                 <%=link_to content_tag(:b, @user.full_name), "javascript:void(0);"%><br/>
                 <%=@user.ic_number%><br/>
@@ -29,7 +29,7 @@
         <%end%>
         <%#= paginate @approve %>
       <%else%>
-        No Approvers
+        <%=t('labels.no_data_available')%>
       <%end%>
   </div>
 </div>

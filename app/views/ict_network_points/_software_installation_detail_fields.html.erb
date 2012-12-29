@@ -1,25 +1,25 @@
 <div id="new_selection_id_<%= params[:val]%>">
   <div class="form-sec-row">
-    <label class="text">Software Name<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.software_name')%><span style=color:red>*</span></label>
     <span class="in-box">
        <%=f.select(:user_id, options_from_collection_for_select(FacilityIctSoftware.all, 'id','name',@ict_hardware_booked_user.user_id),:prompt=>"Select Software")%>
       <%#= select("name", "#{params[:val]}", FacilityIctSoftware.find(:all,:conditions=>["is_active = true"]).collect {ict_software| [ict_software.name, ict_software.id]},:prompt=>"SELECT A SOFTWARE") %>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Name<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.name')%><span style=color:red>*</span></label>
     <span class="in-box">
       <%= text_field 'service', 'name', :value=>current_user.username%></span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Position<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.position')%><span style=color:red>*</span></label>
     <span class="in-box">
 
       <%= text_field 'service', 'position'%>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text">Grade<span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.grade')%><span style=color:red>*</span></label>
     <span class="in-box">
 
       <%=  text_field 'service', 'grade'%></span>

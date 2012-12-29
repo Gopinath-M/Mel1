@@ -2,13 +2,13 @@
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
   <div class="CenterNav">
-    <h2 class="b-head">Approver</h2>
+    <h2 class="b-head"><%=t('labels.approver')%></h2>
 
     <%= hidden_field_tag :department_id, (current_department) %>
     <%= hidden_field_tag :admin_id, (current_user.id) %>
 
     <div class="form-sec-row">
-      <label class="text">First Approver<span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.first_approver')%><span style=color:red>*</span></label>
       <span class="in-box">
         <% if @first.present? %>
           <%= select("approver1","id", @users.collect {|p| [ p.first_name, p.id ] },:selected => @first.id, :prompt => "Select User") %>      </span>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="form-sec-row">
-      <label class="text">Is Active</label>
+      <label class="text"><%=t('labels.is_active')%></label>
       <span class="in-box">
         <%= check_box "active1","id", :checked => true %>
       </span>
@@ -29,7 +29,7 @@
     </div>
 
     <div class="form-sec-row">
-      <label class="text">Second Approver<span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.second_approver')%><span style=color:red>*</span></label>
       <span class="in-box">
         <% if @second.present? %>
           <%= select("approver2","id", @users.collect {|p| [ p.first_name, p.id ] },:selected => @second.id, :prompt => "Select User") %>      </span>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="form-sec-row">
-      <label class="text">Is Active</label>
+      <label class="text"><%=t('labels.is_active')%></label>
       <span class="in-box">
         <%= check_box "active2","id", :checked => true %>
       </span>
@@ -48,7 +48,7 @@
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :value=>'Create', :class=>"btn2"%>
+        <%= f.submit :value=>t('labels.create'), :class=>"btn2"%>
       </span>
     </div>
   </div>

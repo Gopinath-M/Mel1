@@ -27,7 +27,7 @@
       </div>
 
       <div class="form-sec-row">
-        <label class="text"><%=t('labels.e-mel')%></label>
+        <label class="text"><%=t('labels.email')%></label>
         <span class="in-box">
           <%= @user_name.email %></span>
       </div>
@@ -106,8 +106,8 @@
                     </tr>
                     <tr>
                       <td><b><%= FacilityIctService.find(ict_firewall_service.facility_ict_service_id).port %></b></td>
-                      <td><b><%= ict_firewall_service.one_way? ? 'One Way' : 'Two Way' %></b></td>
-                      <td><b><%= ict_firewall_service.approved? ? 'Approved' : 'Not Approved' %></b></td>
+                      <td><b><%= ict_firewall_service.one_way? ? t('labels.one_way') : t('labels.two_way') %></b></td>
+                      <td><b><%= ict_firewall_service.approved? ? t('labels.approved') : t('labels.non_appr') %></b></td>
                     </tr>
                   </table>
                 </div>

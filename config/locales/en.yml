@@ -483,7 +483,7 @@ en:
     way: "way"
     create_req_for_ict: "Create Requisition for ICT"
     application_type: "Application Type"
-    hardware: "Hardware"
+    hardwares: "Hardware"
     pc: "Pc"
     printer: "Printer"
     scanner: "Scanner"
@@ -782,6 +782,20 @@ en:
     process_s/a_request: "Process S/A Request"
     process_vpn_request: "Process VPN Request"
     complaints_issue_logs: "Complaints / Issue Logs"
+    create_building_asset: "Create Building Asset"
+    create_computers: "Create Computers"
+    requisition_details: "Requisition Details"
+    not_appr: "Not Approved"
+    room_booking: "Room Booking"
+    resource: "Select Resource"
+    outstation_request: "Outstation Request"
+    create_request: "Create Request"
+    verify_request: "Verify Request"
+    others_booking: "Others Booking"
+    firewall_request: "Firewall Request"
+    resource: "Resource"
+    ict_wiring: "ICT Wiring"
+    
     
     
     #  activerecord:

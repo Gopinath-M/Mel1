@@ -11,7 +11,7 @@
       <%@ict_firewalls.each do |resource|%>
         <div class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Name</b>
+            <div class="m-c1"><b><%=t('labels.name')%></b>
             </div>
             <div class="m-c-second">
               <%= User.find(resource.user_id).username   %>

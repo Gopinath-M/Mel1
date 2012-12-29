@@ -20,7 +20,7 @@
           <div class="clear"></div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Type of Facility</b>
+            <div class="m-c1"><b></b>
             </div>
             <div class="m-c2">
               <% name = RequisitionType.find_by_id(resource.requisition_type_id) %>
@@ -113,7 +113,7 @@
           <div class="clear"></div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.data_of_app')%></b>
+            <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
             </div>
             <div class="m-c2">
               &nbsp;<%= resource.created_at.strftime("%a %d %b %Y %I:%M %p")%></font>
