@@ -98,10 +98,8 @@ class AgencyStoresController < ApplicationController
       @store.category_id = params[:other_category][:id]
       @store.sub_category_id = params[:other_agency][:sub_category_id]
       @store.resource_id = params[:other_agency][:resource_id]
-      @store.serial_no =  params[:dynamic].values.join.to_s if params[:dynamic]
-
+      @store.serial_no =  params[:dynamic].values.join(',').to_s if params[:dynamic]
     end
-    
     if @store && @store.valid? && stock_flag.empty?
       @store.save
       SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true) if params[:transport_agency] #params[:ict_agency]

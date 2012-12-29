@@ -3,23 +3,28 @@ class ResourceBookingsController < ApplicationController
   
   def new
     @resource_booking=ResourceBooking.new
-    #    @booking = CategoriesDepartments.where("id != 6 and id != 7 and id !=8", :department_id=> current_user.departments.first.id)
+    if !current_user.is_super_admin?
+    @category_avail = CategoriesDepartments.where(:department_id=> current_user.departments.first.id)
+    end
   end
 
   def create
     agency = AgencyStore.find_by_resource_id(params[:resource_booking][:resource_id])
     if !agency.nil?
       if agency.booked == false
-        @resource_booking=ResourceBooking.create(params[:resource_booking])
+        @resource_booking=ResourceBooking.new(params[:resource_booking])
         @resource_booking.category_id = params[:other_booking_category][:id]
         @resource_booking.sub_category_id = params[:other_booking_sub_category][:id]
         @resource_booking.department_id = params[:department_id]
         @resource_booking.user_id=current_user.id
         @resource_booking.agency_store_id = agency.id
+        @resource_booking.created_by = current_user.id
         if current_user.is_department_admin?
+          @resource_booking.approved_date = Time.now
           @resource_booking.status = "Approved"
         elsif current_user.is_super_admin?
           @resource_booking.priority_booking = true
+          @resource_booking.processed_date = Time.now
           @resource_booking.status = "Processed"
         else
           @resource_booking.status = "New"
@@ -124,6 +129,19 @@ class ResourceBookingsController < ApplicationController
       if @agencystore.present?
         @agency= Agency.find_by_id(@agencystore.agency_id)
         @manager= User.find_by_id(@agency.user_id)
+      end
+    end
+    if current_user.is_resource_manager?
+      @booking = ResourceBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
+    else
+      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+      @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
+      if @approve.present?
+        @booking = ResourceBooking.find_all_by_department_id(@approve.department_id)
+      elsif @approver_second.present?
+        @booking = ResourceBooking.where(:department_id => @approver_second.department_id)
+      else
+        @booking = ResourceBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(5)
       end
     end
   end

@@ -4,12 +4,25 @@
     <%= form_for(@users, :url => user_profile_users_path(:id=>@users.id), :html => { :method => :put, :multipart => true }) do |f| %>
       <%=f.error_messages%>
       <div class="clearfix">&nbsp;</div>
-      <table><tr><td><h4><b><font color="#336699"><%=t('labels.step')%> 1-></font></b></h4></td><td><font color="#858585"><%=t('labels.step')%> 2-></font></td><td><font color="#858585"><%=t('labels.step')%> 3-></font></td><td><font color="#858585"><%=t('labels.step')%> 4-></font></td><td><font color="#858585"><%=t('labels.step')%> 5</font></td></tr></table>
-     <div class="clearfix">&nbsp;</div>
       <h2>Update User Profile</h2>
       <div class="form-sec-row">
+      <div class="stepsblock">
+                    	<ul>
+                            <li class="step1 active" title="Step 1">Step 1</li>
+                            <li class="divider"></li>
+                            <li class="step2" title="Step 2">Step 2</li>
+                            <li class="divider"></li>
+                            <li class="step3" title="Step 3">Step 3</li>
+                            <li class="divider"></li>
+                            <li class="step4" title="Step 4">Step 4</li>
+                            <li class="divider"></li>
+                            <li class="step5" title="Step 5">Step 5</li>
+                        </ul>
+                    </div>
+ </div></div> <div class="clearfix">&nbsp;</div>
+      
+      <div class="form-sec-row">
         <label class="text"><%=t('labels.name')%> <span style=color:red>*</span></label>
-        <%#= f.label :username,raw("Name <span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%= f.text_field :username, :size => 30, :autofocus => true%>
         </span>

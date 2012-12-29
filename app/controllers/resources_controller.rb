@@ -180,7 +180,7 @@ class ResourcesController < ApplicationController
 
   def get_approvers
     @dept = Department.find_by_id(default_department)
-    users = @dept.users.where("user_id != #{params[:approver_id]}")    
+    users = @dept.users.where("user_id != #{params[:approver_id]} and role_id = 3 or role_id = 2")
     render :json=>[users] if users
   end
 
