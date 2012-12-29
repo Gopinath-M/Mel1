@@ -43,6 +43,7 @@ Melaka::Application.routes.draw do
   resources :ict_firewalls do
     collection do
       get 'add_select_boxes'
+      get 'download_attachments'
     end
   end
 
