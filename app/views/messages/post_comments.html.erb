@@ -8,10 +8,10 @@
     <div id="message_field_<%= @message.id %>" ><%#= text_field_tag('version',:cols => 20,:onsubmit => "changeIfValid(this);")%></div>
 
     <p class="PM-des">
-      by  <%= @message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(@message.created_at) %> ago
+      <%=t('labels.by')%>  <%= @message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(@message.created_at) %> <%=t('labels.ago')%>
       <% if @message.message_comments.count == 0 %>
         &nbsp; - &nbsp;
-        <a value="<%= @message.id %>" id ="message_<%= @message.id %>" title="Comment" onclick= "insert_text_field(id)">Comment    </a>
+        <a value="<%= @message.id %>" id ="message_<%= @message.id %>" title="Comment" onclick= "insert_text_field(id)"><%=t('labels.comment')%>    </a>
       <%end%>
     </p>
 
@@ -31,7 +31,7 @@
             </div>
             <div class="PM-cmts-txt">
               <p><%= comment.comments %></p>
-              <p class="PM-des">by <a title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> ago</p>
+              <p class="PM-des"><%=t('labels.by')%> <a title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%=t('labels.ago')%></p>
             </div>
           </div>
         <%end%>

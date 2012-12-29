@@ -16,6 +16,6 @@
 <% if @unit_admin && !@unit_admin.blank? %>
   <%= @unit_admin.full_name %>
 <%else%>
-  <%= "Unit Admin is not available" %>
+  <%= t('labels.unit_admin_nt_avail_msg') %>
   <%= hidden_field_tag :unit_admin_not_available,'1' %>
 <%end%>

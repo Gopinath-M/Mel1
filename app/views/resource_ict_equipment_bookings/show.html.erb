@@ -1,69 +1,69 @@
 <div class="clearfix">&nbsp;</div>
 <div class="CenterNav">
   <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN %>
-    <h2 class="b-head">Resource Room Approval Request</h2>
+    <h2 class="b-head"><%=t('labels.resource_room_app_req')%></h2>
   <%else%>
-    <h2 class="b-head">Resource Room Process Request</h2>
+    <h2 class="b-head"><%=t('labels.resource_room_pro_req')%></h2>
   <%end%>
   <div class="manage-user box">
     <div class="form-sec-row">
-      <label class="text heading_blue">User Details:</label>
+      <label class="text heading_blue"><%=t('labels.user_details')%>:</label>
     </div>
     <%if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
       <div class="form-sec-row">
-        <label class="text">Agency Name</label>
+        <label class="text"><%=t('labels.agency_name')%></label>
         <span class="in-box">
           <%= @resource_ict_equipment_booking.agency_store.agency.name%>
         </span>
       </div>
       <div class="form-sec-row">
-        <label class="text">Department Name</label>
+        <label class="text"><%=t('labels.department_name')%></label>
         <span class="in-box">
           <%= @resource_ict_equipment_booking.department.name  %>
         </span>
       </div>
     <%end%>
     <div class="form-sec-row">
-      <label class="text">First Name</label>
+      <label class="text"><%=t('labels.first_name')%></label>
       <span class="in-box">
         <%= @resource_ict_equipment_booking.user.first_name %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Last Name</label>
+      <label class="text"><%=t('labels.last_name')%></label>
       <span class="in-box">
         <%= @resource_ict_equipment_booking.user.last_name %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">IC Number</label>
+      <label class="text"><%=t('labels.ic_no')%></label>
       <span class="in-box">
         <%= @resource_ict_equipment_booking.user.ic_number %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Email</label>
+      <label class="text"><%=t('labels.email')%></label>
       <span class="in-box">
         <%= @resource_ict_equipment_booking.user.email %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text heading_blue">ICT Equipment Details:</label>
+      <label class="text heading_blue"><%=t('labels.ict_eqi_details')%></label>
     </div>
     <div class="form-sec-row">
-      <label class="text">Ticket No</label>
+      <label class="text"><%=t('labels.ticket_no')%></label>
       <span class="in-box">
         <b style="color:red;"><%=@resource_ict_equipment_booking.id%>/<%=Time.now.year%></b>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Date of Application</label>
+      <label class="text"><%=t('labels.date_of_app')%></label>
       <span class="in-box">
         <%=@resource_ict_equipment_booking.created_at.strftime("%a %B %d, %Y %I:%M:%S %p")%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Category Name</label>
+      <label class="text"><%=t('labels.category_name')%></label>
       <span class="in-box">
         <%=@resource_ict_equipment_booking.sub_category.name%>
       </span>
@@ -71,7 +71,7 @@
     <% @name = SubCategory.find(@resource_ict_equipment_booking.sub_category_id)%>
     <%if @name%>
       <div class="form-sec-row">
-        <label class="text">Resource Name</label>
+        <label class="text"><%=t('labels.resource_name')%></label>
         <span class="in-box">
           <%=@name.resources.first.name%>
         </span>
@@ -79,45 +79,45 @@
     <%end%>
 
     <div class="form-sec-row">
-      <label class="text">Serial Number</label>
+      <label class="text"><%=t('labels.serial_no')%></label>
       <span class="in-box">
         <%=@resource_ict_equipment_booking.agency_store.serial_no%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Requested From Date</label>
+      <label class="text"><%=t('labels.req_from_date')%></label>
       <span class="in-box">
         <%=@resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S %p")%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Requested To Date</label>
+      <label class="text"><%=t('labels.req_to_date')%></label>
       <span class="in-box">
         <%=@resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %I:%M:%S %p")%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Meeting Start Time</label>
+      <label class="text"><%=t('labels.meeting_start_time')%></label>
       <span class="in-box">
         <%=@resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %I:%M:%S %p")%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Meeting End Time</label>
+      <label class="text"><%=t('labels.meeting_end_time')%></label>
       <span class="in-box">
         <%=@resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S %p")%>
       </span>
     </div>
     <% if @resource_ict_equipment_booking.status == "Returned" %>
       <div class="form-sec-row">
-        <label class="text">Return Date</label>
+        <label class="text"><%=t('labels.return_date')%></label>
         <span class="in-box">
           <%=@resource_ict_equipment_booking.updated_at.strftime("%a %B %d, %Y %I:%M:%S %p")%>
         </span>
       </div>
     <%end%>
     <div class="form-sec-row">
-      <label class="text">Officer Needed</label>
+      <label class="text"><%=t('labels.officer_needed')%></label>
       <span class="in-box">
         <%=  @resource_ict_equipment_booking.need_officer ? "Yes" : "No"%>
       </span>
@@ -131,30 +131,30 @@
       </div>
     <%end%>
     <div class="form-sec-row">
-      <label class="text">Purpose</label>
+      <label class="text"><%=t('labels.purpose')%></label>
       <span class="in-box">
         <%=@resource_ict_equipment_booking.purpose%>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Remarks</label>
+      <label class="text"><%=t('labels.remarks')%></label>
       <span class="in-box">
         <%=@resource_ict_equipment_booking.notes%>
       </span>
     </div>
     <% if @facility.present? %>
       <div class="form-sec-row">
-        <label class="text heading_blue">Facility Details:</label>
+        <label class="text heading_blue"><%=t('labels.facility_details')%>:</label>
       </div>
       <% @facility.each do |facility| %>
         <div class="form-sec-row">
-          <label class="text">Facility Name</label>
+          <label class="text"><%=t('labels.facility_name')%></label>
           <span class="in-box">
             <%=facility.name%>
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text">Quantity</label>
+          <label class="text"><%=t('labels.quantity')%></label>
           <span class="in-box">
             <%=facility.total_qty%>
           </span>
@@ -162,10 +162,10 @@
       <%end%>
     <%end%>
     <div class="form-sec-row">
-      <label class="text heading_blue">Status Details:</label>
+      <label class="text heading_blue"><%=t('labels.status_details')%></label>
     </div>
     <div class="form-sec-row">
-      <label class="text">Status</label>
+      <label class="text"><%=t('labels.status')%></label>
       <span class="in-box" style="color :<%= (@resource_ict_equipment_booking.status == 'New') ? '#FFA500' : ((@resource_ict_equipment_booking.status == 'Approved' || @resource_ict_equipment_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
         <b><%= @resource_ict_equipment_booking.status %></b>
       </span>
@@ -225,7 +225,7 @@
   <div class="form-sec-row2">
     <label class="text">&nbsp;</label>
     <span class="in-box2">
-      <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+      <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
     </span>
   </div>
 <%#else%>

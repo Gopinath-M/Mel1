@@ -6,7 +6,7 @@
     <%= form_for @message, :url => {:action=>'create'}, :html=> { :multipart=> true, :onSubmit => "return validateMessageForm(event)" } do |f| %>
 
       <div class="wallPost">
-        <h4 class="f-left">Post a note</h4>
+        <h4 class="f-left"><%=t('labels.post_note')%></h4>
         <div class="clear"></div>
         <div class="tArea">
           <span class="arrow"></span>
@@ -20,11 +20,11 @@
 
         <% if current_user && current_user.is_super_admin? %>
 
-<% sticky_msg_count = Message.where(:is_sticky_message=>true,:deleted=>false).count %>
-			<% if sticky_msg_count < 2 %>
-			<span class="in-box"> <b><%= f.check_box :is_sticky_message %></b> </span>
-			<label class="text">Check If it is a Sticky Message?<span style=color:red></span></label>
-			<%end%>
+          <% sticky_msg_count = Message.where(:is_sticky_message=>true,:deleted=>false).count %>
+          <% if sticky_msg_count < 2 %>
+            <span class="in-box"> <b><%= f.check_box :is_sticky_message %></b> </span>
+            <label class="text"><%=t('labels.sticky_msg')%><span style=color:red></span></label>
+          <%end%>
 
           <div class="form-sec-row">
             <span class="in-box">
@@ -44,13 +44,13 @@
 
         <%elsif current_user && current_user.is_department_admin? %>
 
-          <%= 'The Message will be posted to all the users in your Department' %>
+          <%=t('labels.message_post_to_all')%>
           <input type="hidden" id="message_user_select" value="Department Admin Message"/>
 
         <%end%>
 
         <div class="botRow box">
-          <%= f.submit "Submit",:class=>"btn2 in-btn2",:id=>"message_submit_button"  %>
+          <%= f.submit t('labels.submit'),:class=>"btn2 in-btn2",:id=>"message_submit_button"  %>
         </div>
 
       <%end%>
@@ -78,13 +78,13 @@
             <div id="message_field_<%= message.id %>" ></div>
 
             <p class="PM-des">
-              by  <%= message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(message.created_at) %> ago
+              <%=t('labels.by')%>  <%= message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(message.created_at) %> <%=t('labels.ago')%>
               <% if message.message_comments.count == 0 %>
                 &nbsp; - &nbsp;
-                <a value="<%= message.id %>" id ="message_<%= message.id %>" title="Comment" onclick= "insert_text_field(id)">Comment    </a>
+                <a value="<%= message.id %>" id ="message_<%= message.id %>" title="Comment" onclick= "insert_text_field(id)"><%=t('labels.comment')%>   </a>
                 <% if message.user.id == current_user.id %>
                   &nbsp; - &nbsp;
-                  <%= link_to 'Delete', message_path(:id => message.id),:method=>"delete",:confirm=>"Are are sure ?" %>
+                  <%= link_to t('labels.delete'), message_path(:id => message.id),:method=>"delete",:confirm=>t('labels.delete_confirmation') %>
                 <%end%>
               <%end%>
             </p>
@@ -94,7 +94,7 @@
             </div>
             <% if message.message_comments.count > 0 %>
               <div class="PM-cmts box">
-                <h4>Comments</h4>
+                <h4><%=t('labels.comments')%></h4>
                 <% message.message_comments.each do |comment| %>
                   <div class="clear"></div>
                   <div class="PM-cmts-row box">
@@ -103,7 +103,7 @@
                     </div>
                     <div class="PM-cmts-txt">
                       <p><%= comment.comments %></p>
-                      <p class="PM-des">by <a href="#" title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> ago</p>
+                      <p class="PM-des"><%=t('labels.by')%> <a href="#" title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%=t('labels.ago')%></p>
                     </div>
                   </div>
                 <%end%>
@@ -121,10 +121,10 @@
         </div>
       <%end%>
     <%else%>
-      <%= "Messages Not Available" %>
+      <%= t('labels.msg_nt_available') %>
     <%end%>
   </div>
   <div id="old_updates" class="olderRow">
-    <a href="#" title="Old Updates">Old Updates</a>    
+    <a href="#" title="Old Updates"><%=t('labels.old_updates')%></a>
   </div>
 </div>

@@ -2,11 +2,11 @@
 <div class="CenterNav">
   <div class="form-sec">
     <% if (@category_department && !@category_department.blank?)  || session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN %>
-      <h2 class="b-head">Resource ICT Equipment Bookings</h2>
+      <h2 class="b-head"><%=t('labels.resource_ict_equip_book')%></h2>
       <%=render :partial=>"form" %>
     <%else%>
       <div class="form-sec">
-        <h2>Sorry... ICT Equipment Booking Facility is not Available for your Department...</h2>
+        <h2><%=t('labels.denial')%></h2>
       </div>
     <%end%>
   </div>

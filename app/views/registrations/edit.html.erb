@@ -8,60 +8,60 @@
   <%#*<div class="">%>
       <%=f.error_messages%>
       <div class="clearfix">&nbsp;</div>
-      <h2>Edit My Profile</h2>
+      <h2><%=t('labels.edit_my_profile')%></h2>
       <div class="form-sec-row">
-        <%= f.label :first_name,raw("First Name <span style=color:red>*</span>"), :class=>"text"%>
+        <label class="text"><%=t('labels.first_name')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= f.text_field :first_name, :size => 30, :autofocus => true%>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :last_name,raw("Last Name <span style=color:red>*</span>"), :class=>"text"%>
+        <label class="text"><%=t('labels.last_name')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= f.text_field :last_name, :size => 30, :autofocus => true%>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :email,raw("Email <span style=color:red>*</span>"), :class=>"text"%>
+        <label class="text"><%=t('labels.email')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= f.text_field :email, :size => 30, :autofocus => true%>
         </span>
       </div>
 
       <div class="form-sec-row">
-        <%= f.label :username,raw("Display Name <span style=color:red>*</span>"), :class=>"text"%>
+        <label class="text"><%=t('labels.display_name')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= f.text_field :username, :size => 30, :autofocus => true%>
-          <i>(This name will be used through out the site)</i>
+          <i><%=t('labels.site_display_name')%>)</i>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :contact_mobile,raw("Contact Number <span style=color:red>*</span>"), :class=>"text"%>
+        <label class="text"><%=t('labels.contact_number')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= f.text_field :contact_mobile, :size => 30, :autofocus => true%>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :ic_number,raw("IC Number"), :class=>"text"%>
+        <%= f.label :ic_number,t('labels.ic_no'), :class=>"text"%>
         <span class="in-box">
           <%= resource.ic_number %>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :city, :class=>"text"%>
+        <label class="text"><%=t('labels.city')%></label>
         <span class="in-box">
           <%= f.text_field :city, :size => 30, :autofocus => true%>
         </span>
       </div>
 
       <div class="form-sec-row">
-        <%= f.label :state,raw("State <span style=color:red>*</span>"), :class=>"text"%>
+        <label class="text"><%=t('labels.state')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= f.select(:state, options_for_select(State.all.collect {|p| [p.name.upcase, p.id]},resource.state) ,:prompt => "Select Your State")%>
         </span>
       </div>
       <div class="form-sec-row">
-        <%= f.label :zipcode, :class=>"text"%>
+        <label class="text"><%=t('labels.zipcode')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= f.text_field :zipcode, :size => 5,:maxlength=>5, :autofocus => true%>
         </span>
@@ -69,7 +69,7 @@
 
       <% if !resource.departments.empty? %>
         <div class="form-sec-row">
-          <%= f.label :department_id,raw("Department"), :class=>"text"%>
+          <%= f.label :department_id,t('labels.department'), :class=>"text"%>
           <span class="in-box">
             <%=resource.departments.first.name%>
           </span>
@@ -77,7 +77,7 @@
       <% end %>
 
       <div  class="form-sec-row">
-        <%= f.label :avatar , :class=>"text"%>
+        <%= f.label :avatar , t('labels.avatar'),:class=>"text"%>
         <span class="in-box">
           <%= image_tag(resource.avatar_url(:thumb)) if resource.avatar.url.present?%><%= label_tag(resource.avatar_url) if resource.avatar.url.present?%>
   <%#= image_tag(resource.avatar.url) if resource.avatar.url.present?%>
@@ -85,13 +85,13 @@
           <%= f.hidden_field :avatar_cache %>
           <br/>
           <%= f.check_box :remove_avatar %>
-          <%= f.label :remove_avatar %>
+          <%= f.label :remove_avatar, t('labels.remove_avatar') %>
         </span>
       </div>
       <div class="form-sec-row">
         <label class="text">&nbsp;</label>
         <span class="in-box">
-          <%= f.submit "Update Profile" ,:class=>"btn2"%>
+          <%= f.submit t('labels.update_profile') ,:class=>"btn2"%>
         </span>
       </div>
     </div>

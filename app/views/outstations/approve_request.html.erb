@@ -1,12 +1,12 @@
 <div class="CenterNav">
-  <h2 class="b-head">Manage Out Stations</h2>
+  <h2 class="b-head"><%=t('labels.manage_out_station')%></h2>
   <div id="div_ajax" >
     <%if @outstations && !@outstations.empty?%>
       <% @outstations.each do |outstation|%>
 
         <div id="user_box_<%= outstation.id %>" class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Name</b></div>
+            <div class="m-c1"><b><%=t('labels.name')%></b></div>
             <div class="m-c-second">
               <%= User.find_by_id(outstation.user_id).username %>
             </div>
@@ -16,7 +16,7 @@
           </div>
           <div class="clear"></div>
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Ticket No</b>
+            <div class="m-c1"><b><%=t('labels.ticket_no')%></b>
             </div>
             <div class="m-c-second">
               <font color="red"><b>&nbsp;<%= outstation.id%>/<%=Time.now.year%></b></font>
@@ -25,28 +25,28 @@
               <span class="in-box">
                 <% if current_user.is_department_admin? %>
                   <% if outstation.status == "New" %>                
-                    <%= link_to "Verify",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to t('labels.verify'),edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <%end%>
                 <%elsif current_user.is_human_resource_manager? %>
                   <% if outstation.status == "Verified" %>
-                    <%= link_to "Recommend",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to t('labels.recommend'),edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <%end%>
                 <%elsif current_user.is_chief_minister?  %>
                   <% if outstation.status == "Recommended" %>
-                    <%= link_to "Approve",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to t('labels.approve'),edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <%end%>
                 <%elsif current_user.is_datuk_suk? %>
                   <% if outstation.status == "Recommended" %>
-                    <%= link_to "Approve",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to t('labels.approve'),edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <% elsif outstation.status == "New" %>
-                    <%= link_to "Verify",edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
+                    <%= link_to t('labels.verify'),edit_outstation_path(:id => outstation.id), :class=>"btn2 in-btn2"%>
                   <%end%>
                 <%end%>
               </span>
             </div>
           </div>
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Place Name</b>
+            <div class="m-c1"><b><%=t('labels.place_name')%></b>
             </div>
             <div class="m-c-second">
               &nbsp;<%= outstation.placename %>
@@ -58,7 +58,7 @@
           <div class="clear"></div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>From Date</b>
+            <div class="m-c1"><b><%=t('labels.from_date')%></b>
             </div>
             <div class="m-c-second">
               &nbsp;<%= outstation.from_date %>
@@ -69,7 +69,7 @@
           <div class="clear"></div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>To Date</b>
+            <div class="m-c1"><b><%=t('labels.to_date')%></b>
             </div>
             <div class="m-c-second">
               &nbsp;<%= outstation.to_date%>
@@ -80,7 +80,7 @@
           <div class="clear"></div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Date of Application</b>
+            <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
             </div>
             <div class="m-c-second">
               &nbsp;<%= outstation.created_at.strftime("%d-%m-%Y %H:%M %p")%>
