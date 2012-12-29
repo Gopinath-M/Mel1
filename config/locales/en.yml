@@ -788,6 +788,13 @@ en:
     not_appr: "Not Approved"
     room_booking: "Room Booking"
     resource: "Select Resource"
+    outstation_request: "Outstation Request"
+    create_request: "Create Request"
+    verify_request: "Verify Request"
+    others_booking: "Others Booking"
+    firewall_request: "Firewall Request"
+    resource: "Resource"
+    ict_wiring: "ICT Wiring"
     
     
     
