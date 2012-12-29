@@ -1,28 +1,28 @@
 
 <div class="clearfix"></div>
 <div class="CenterNav">
-  <h2 class="b-head">Account Settings</h2></br>
+  <h2 class="b-head"><%=t('header.account_setting')%></h2></br>
   <div class="form-sec">
     <%= form_for(@user, :as => :user, :url => registration_path(:user), :html => { :method => :put}) do |f| %>
       <%=  f.error_messages %>
       <!--BODY START-->
       <div class="change_password">
-        <h2 class="b-head-acc-set">Change Password</h2>
+        <h2 class="b-head-acc-set"><%=t('labels.change_password')%></h2>
         <div class="form-sec-row">
-          <%= f.label :current_password, :class=>"text"%>
+          <%= f.label :current_password,t('labels.current_password') ,:class=>"text"%>
           <span class="in-box">
             <%= f.password_field :current_password, :size => 30, :autofocus => true, :class=>'passfiled'%><br/>
-            <i>(we need your current password to confirm your changes)</i>
+            <i><%=t('labels.password_confir_display')%></i>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :password,raw("New password"), :class=>"text"%>
+          <%= f.label :password,t('labels.current_password'), :class=>"text"%>
           <span class="in-box">
             <%= f.password_field :password, :size => 30, :autofocus => true, :class=>'passfiled'%>
           </span>
         </div>
         <div class="form-sec-row">
-          <%= f.label :password_confirmation, :class=>"text"%>
+          <%= f.label :password_confirmation,t('labels.password_confirmation'), :class=>"text"%>
           <span class="in-box">
             <%= f.password_field :password_confirmation, :size => 30, :autofocus => true, :class=>'passfiled'%>
           </span>
@@ -30,7 +30,7 @@
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">
-            <%= f.submit "Submit" ,:class=>"btn2"%>
+            <%= f.submit t('labels.submit') ,:class=>"btn2"%>
           </span>
         </div>
       </div>
@@ -39,22 +39,22 @@
       <h2 class="b-head-acc-set">Widgets</h2>
       <div class="form-sec-row">
         <%= ff.check_box :profile_status %>
-        <%= ff.label :profile_status, raw('Profile Status'), :class=>"text" %>
-        <i class="state_abbr">(Please Check if your Profile Status as Private)</i>
+        <%= ff.label :profile_status, t('labels.profile_stat'), :class=>"text" %>
+        <i class="state_abbr"><%=t('labels.profile_stat_disp')%></i>
       </div>
       <div class="form-sec-row">
         <%= ff.check_box :widget_one %>
-        <%= ff.label :widget_one, raw('Weather Widget'), :class=>"text" %>
+        <%= ff.label :widget_one, t('labels.weather_widget'), :class=>"text" %>
       </div>
       <div class="form-sec-row">
         <%= ff.check_box :widget_two %>
-        <%= ff.label :widget_two, raw('Prayer Widget'), :class=>"text" %>
+        <%= ff.label :widget_two, t('labels.prayer_widget'), :class=>"text" %>
       </div>
       <%= hidden_field_tag :user_id, (current_user.id)%>
       <div class="form-sec-row">
         <label class="text">&nbsp;</label>
         <span class="in-box">
-          <%= ff.submit :class=>"btn2"%>
+          <%= ff.submit :class=>"btn2", :value=>t('labels.save_user')%>
         </span>
       </div>
     <%end%>
@@ -64,22 +64,22 @@
       <%if departments.length > 1%>
         <h2 class="b-head-acc-set">Change Default Department</h2>
         <div class="form-sec-row">
-          <%= fff.label :department_id, raw('Select Department'), :class=>"text" %>
+           <%= fff.label :department_id,t('labels.select_dept') , :class=>"text" %>
           <%=select(:default,:department_id, departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "Select Department") %>
         </div>
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">
-            <br/> <%= fff.submit "Save Changes", :class=>"btn2"%>
+            <br/> <%= fff.submit t('labels.save_changes'), :class=>"btn2"%>
           </span>
         </div>
       <%end%>
     <%end%>
     <% if current_user.is_super_admin? %>
       <% form_for(@setting, :as => :setting, :url => update_timeline_for_approver_settings_path, :html => { :method => :post}) do |ffff|  %>
-        <h2 class="b-head-acc-set">Time Line for Approval</h2>
+        <h2 class="b-head-acc-set"><%=t('labels.time_line')%></h2>
         <div class="form-sec-row5">
-          <label class="text"><b>Hours & Minutes</b></label>
+          <label class="text"><b><%=t('labels.hours_min')%></b></label>
           <span class="in-box5">
             <%= ffff.time_select :timeline, :default=>Time.now.change(:hour => 12, :min => 00) %>
           </span>
@@ -87,7 +87,7 @@
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">
-            <%= ffff.submit "Submit",:class=>"btn2"%>
+            <%= ffff.submit t('labels.submit'),:class=>"btn2"%>
           </span>
         </div>
       <%end%>

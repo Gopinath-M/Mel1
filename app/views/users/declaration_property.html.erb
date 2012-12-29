@@ -3,14 +3,14 @@
   <div class="form-sec">
     <%=f.error_messages%>
     <div class="clearfix">&nbsp;</div>
-   <table><tr><td><b><font color="#858585">Step 1 -></font></b></td><td><font color="#858585">Step 2-></font></td><td><font color="#858585">Step 3-></font></td><td><h4><b><font color="#336699">Step 4-></font></b></h4></td><td><font color="#858585">Step 5</font></td></tr></table>
-    <h2>Declaration Property</h2>
+   <table><tr><td><b><font color="#858585"><%=t('labels.step')%> 1 -></font></b></td><td><font color="#858585"><%=t('labels.step')%> 2-></font></td><td><font color="#858585"><%=t('labels.step')%> 3-></font></td><td><h4><b><font color="#336699"><%=t('labels.step')%> 4-></font></b></h4></td><td><font color="#858585"><%=t('labels.step')%> 5</font></td></tr></table>
+    <h2><%=t('labels.property_declar')%></h2>
 
     <%= hidden_field_tag :user_id,current_user.id %>
 
 
     <div class="form-sec-row">
-      <label class="text">Year <span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.year')%> <span style=color:red>*</span></label>
       <span class="in-box5">
         <%= select_year(Date.today, :start_year => 2010, :end_year => 2020)%>
       </span>
@@ -18,31 +18,31 @@
 
 
     <div class="form-sec-row">
-      <label class="text">Upload File <span style=color:red></span></label>
+      <label class="text"><%=t('labels.upload_file')%> <span style=color:red></span></label>
       <span class="in-box">
         <%=f.file_field :property_file %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Upload File 1<span style=color:red></span></label>
+      <label class="text"><%=t('labels.upload_file')%> 1<span style=color:red></span></label>
       <span class="in-box">
         <%=f.file_field :property_file1 %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Upload File 2<span style=color:red></span></label>
+      <label class="text"><%=t('labels.upload_file')%> 2<span style=color:red></span></label>
       <span class="in-box">
         <%=f.file_field :property_file2 %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Upload File 3<span style=color:red></span></label>
+      <label class="text"><%=t('labels.upload_file')%> 3<span style=color:red></span></label>
       <span class="in-box">
         <%=f.file_field :property_file3 %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text">Upload File 4<span style=color:red></span></label>
+      <label class="text"><%=t('labels.upload_file')%> 4<span style=color:red></span></label>
       <span class="in-box">
         <%=f.file_field :property_file4 %>
       </span>
@@ -50,14 +50,14 @@
     <div class="form-sec-row">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :class=>"btn2",:value=>'Create'%>
+        <%= f.submit :class=>"btn2",:value=>t('labels.create')%>
       </span>
     </div>
 
   </div>
 <%end%>
   <div class="form-sec-row"> <label class="text">&nbsp;</label>
-     <%=link_to "Go to Step 5", new_outstation_path %>
+     <%=link_to t('labels.go_to_step'), new_outstation_path %>
   </div>
 <%i =1%>
   <div class="form-sec-row">

@@ -1,10 +1,10 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Manage Sub Categories</h2>
+    <h2 class="b-head"><%=t('labels.manage_sub_category')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/sub_categories/new" title="Create Sub Category"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Sub Category</a></div>
- <div class="cu-c2">Select Category:
+      <div class="cu-c1"><a href="/sub_categories/new" title=<%=t('labels.create_sub_category')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.create_sub_category')%></a></div>
+ <div class="cu-c2"><%=t('labels.select_category')%>:
       <%= select("categories","id",  Category.active.collect {|category| [category.name, category.id]},:prompt=>"Select Category") %>
     </div>
     </div>
@@ -20,11 +20,11 @@
               <p class="head1"><%=category.name%></p>
             </div>
             <div class="mu-c3">
-              <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>category.id.to_i%>
+              <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.edit'), :action=>'edit', :id=>category.id.to_i%>
               <%if category.is_active %>
-                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_sub_categories_path(:id=>category.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this Sub Category?', :method=>:post, :title=>"Deactive" %>
+                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.deactivate'), update_status_sub_categories_path(:id=>category.id, :status=>"Deactivate"), :confirm => t('labels.sub_cat_deact_donfirm'), :method=>:post, :title=>t('labels.deactivate') %>
               <%else%>
-                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_sub_categories_path(:id=>category.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this Sub Category?', :method=>:post, :title=>"Activate"%>
+                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.deactivate'),  update_status_sub_categories_path(:id=>category.id,:status=>"Activate"), :confirm => t('labels.sub_cat_act_donfirm'), :method=>:post, :title=>t('labels.deactivate')%>
               <%end%>
 
             </div>
@@ -35,7 +35,7 @@
       <div class="manage-user-rows box"><br/><br/>
         <%= paginate @sub_categories %></div>
       <%else%>
-      No Sub Categories Available
+      <%=t('labels.no_data_available')%>
     <%end%>
 <%#*<div><%= paginate @sub_categories %>
   </div>
