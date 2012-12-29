@@ -5,7 +5,6 @@ class CreateResources < ActiveRecord::Migration
       t.references :category
       t.references :sub_category
       t.references :vehicle_model_type
-      t.string :status
       t.string :resource_type
       t.string :resource_no
       t.text :location
@@ -13,9 +12,11 @@ class CreateResources < ActiveRecord::Migration
       t.integer :capacity
       t.string :description
       t.string :brand_model
-      t.boolean :is_returnable
-      t.boolean :is_facilty_avail, :default => false
       t.integer :created_by
+      t.string :status
+      t.boolean :has_serial_no, :default => false
+      t.boolean :is_returnable, :default => false
+      t.boolean :is_facilty_avail, :default => false
       t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false
       t.timestamps
