@@ -7,10 +7,11 @@ class CreateAgencyStores < ActiveRecord::Migration
       t.references :driver
       t.string :resource_type
       t.references :resource
-      t.integer :quantity
+      t.integer :quantity, :default => 1
+      t.integer :booked_quantity, :default => 0
       t.string :serial_no
       t.integer :uom
-      t.boolean :booked,:default=>false
+      t.boolean :booked,:default => false
       t.timestamps
     end
   end
