@@ -3,7 +3,7 @@ class ResourceRoomBookingsController < ApplicationController
   #  before_filter :is_admin
 
   def index
-    @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id).order.page(params[:page]).per(5)
+    @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id, :department_id => @current_department).order.page(params[:page]).per(5)
     category
   end
 
