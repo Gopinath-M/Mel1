@@ -1,0 +1,97 @@
+<%if !request.xhr?%>
+  <div class="CenterNav">
+    <h2 class="b-head">Event Details</h2>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+    <div class="create-user">
+      <% if current_user.is_super_admin? %>
+      <div class="cu-c1"><a href="/events/new" title="Events"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create an Event</a></div>
+ <%end%>
+    </div>
+
+  <%end%>
+  <div id="div_ajax" >
+    <%if @events && !@events.empty?%>
+      <%@events.each do |event|%>
+        <div class="manage-user box">
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>Event ID</b>
+            </div>
+            <div class="m-c2">
+              <font color="#BB0802"><b><%= event.id%></b></font>
+            </div>
+            <div class="m-c3">
+            </div>
+            <div class="clear"></div>
+          </div>
+
+
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>Event Name</b>
+            </div>
+            <div class="m-c2">
+
+              <font color="#369"><b><%= event.name%></b></font>
+            </div>
+            <div class="m-c3">
+            </div>
+            <div class="clear"></div>
+          </div>
+
+
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>From Date</b>
+            </div>
+            <div class="m-c2">
+              <%= event.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if event.from_date%>
+            </div>
+            <div class="m-c3">
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>To Date</b>
+            </div>
+            <div class="m-c2">
+              <%= event.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if event.to_date%>
+            </div>
+            <div class="m-c3">
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>Venue</b>
+            </div>
+            <div class="m-c2">
+              <%= event.venue%>
+            </div>
+            <div class="m-c3">
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b>Organizer</b>
+            </div>
+            <div class="m-c2">
+              <%= event.organizer%>
+            </div>
+            <div class="m-c3">
+              <b><font color="#336699"><%= link_to "Show Info", event_path(:id => event.id), :method=>:get%></font></b>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <h2 class="b-head"></h2>
+
+      <%end%>
+      <div class="manage-user-rows box"><br/><br/>
+        <%= paginate @events %>
+      </div>
+    <%else%>
+      No Events Available
+    <%end%>
+  </div>
+</div>
