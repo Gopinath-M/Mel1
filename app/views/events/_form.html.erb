@@ -1,0 +1,67 @@
+<%= form_for(@event, :html => { :multipart => true }) do |f| %>
+  <%=f.error_messages%>
+  <div class="clearfix">&nbsp;</div>
+
+  <br/>
+  <div class="form-sec-row">
+    <label class="text">Event Name<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= f.text_field :name%>
+    </span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">From Date<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%=f.text_field :from_date, :value=>@event && @event.from_date!=nil ? @event.from_date : nil ,:readonly=>true%></span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">To Date<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%=f.text_field :to_date, :value=>@event && @event.to_date!=nil ? @event.to_date : nil ,:readonly=>true%>
+    </span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">Venue<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= f.text_field :venue%>
+    </span>
+  </div>
+
+  <div class="form-sec-row">
+    <label class="text">Organizer<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= f.text_field :organizer%>
+    </span>
+  </div>
+
+  <div class="form-sec-row">
+    <label class="text">Description<span style=color:red>*</span></label><br/><br/>
+    <span class="in-box">
+      <%= tinymce(:event, :description, :cols =>2) %>
+    </span>
+  </div>
+  <div class="form-sec-row"><br/>
+    <label class="text">Is Visible<span style=color:red>*</span></label>
+    <span class="in-box">
+
+      <%= f.radio_button :is_active, true, {:id => "radio_click"} %> <%= f.label :is_active, "Yes" %>
+      <%= f.radio_button :is_active, false, {:id => "radio_click"} %> <%= f.label :is_active, "No"  %>
+    </span>
+  </div>
+  <div class="form-sec-row">
+    <label class="text">Event Banner<span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= f.file_field :event_attachment%>
+      <%= f.hidden_field :event_attachment_cache %>
+    </span>
+  </div>
+  <div class="form-sec-row">
+    <div class="CenterNav">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+        <%= f.submit :class=>"btn2", :value=>@event.new_record? ? "Submit" : "Submit"%>
+      </span>
+    </div>
+  </div>
+  <%#*</div>%>
+<%end%>
