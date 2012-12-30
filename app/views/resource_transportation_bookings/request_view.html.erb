@@ -27,7 +27,7 @@
 <%= form_tag :controller=>"resource_transportation_bookings",:action=>"change_resource_status" do %>
   <div class="clearfix">&nbsp;</div>
   <div class="CenterNav">
-    <h2 class="b-head">Resource Transport Approval</h2>
+    <h2 class="b-head"><%=t('labels.resource_transport_approval')%></h2>
     <%= hidden_field_tag :id,(@resource_transportation_booking.id)  %>
     <div class="form-sec">
       <div class="form-sec-row form-sec-row1">
@@ -36,85 +36,85 @@
               <td style=" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333; border-bottom:1px solid #CCC;border-top:1px solid #CCC; padding:10px 0;">
                 <table width="750" border="2" cellspacing="3" cellpadding="3" align="center"><br/>
                   <tr>
-                    <td><font color="#369"><b><u>User Details:-</u></b></font></td>
+                    <td><font color="#369"><b><u><%=t('labels.user_details')%>:-</u></b></font></td>
                     <td></td>
                   </tr>
                   <tr>
-                    <td><b>Agency Name</b></td>
+                    <td><b><%=t('labels.agency_name')%></b></td>
                     <td>&nbsp;<b><%= @requester.departments[0].agency.name.upcase if !@requester.is_super_admin? %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Department Name</b></td>
+                    <td><b><%=t('labels.department_name')%></b></td>
                     <td>&nbsp;<b><%= @requester.departments[0].name if !@requester.is_super_admin? %></b></td>
                   </tr>
                   <tr>
-                    <td><b>First Name</b></td>
+                    <td><b><%=t('labels.first_name')%></b></td>
                     <td>&nbsp;<b><%= @requester.first_name.upcase %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Last Name</b></td>
+                    <td><b><%=t('labels.last_name')%></b></td>
                     <td>&nbsp;<b><%= @requester.last_name.upcase %></b></td>
                   </tr>
                   <tr>
-                    <td><b>IC Number</b></td>
+                    <td><b><%=t('labels.ic_no')%></b></td>
                     <td>&nbsp;<b><%= @requester.ic_number %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Email</b></td>
+                    <td><b><%=t('labels.email')%></b></td>
                     <td>&nbsp;<b><%= @requester.email %></b></td>
                   </tr>
 
                   <tr>
-                    <td><font color="#369"><b><u>Transport Details:-</u></b></font></td>
+                    <td><font color="#369"><b><u><%=t('labels.transport_details')%>:-</u></b></font></td>
                     <td></td>
                   </tr>
                   <tr>
-                    <td><b>Date of Application</b></td>
+                    <td><b><%=t('labels.date_of_app')%></b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p") %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Ticket Number</b></td>
+                    <td><b><%=t('labels.ticket_no')%></b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.id.to_s+'/'+Time.now.year.to_s %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Purpose</b></td>
+                    <td><b><%=t('labels.purpose')%></b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.purpose%></b></td>
                   </tr>
                   <tr>
-                    <td><b>Pick up place</b></td>
+                    <td><b><%=t('labels.pick_up_place')%></b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.pick_up_place%></b></td>
                   </tr>
                   <tr>
-                    <td><b>Destination Location</b></td>
+                    <td><b><%=t('labels.destination_location')%></b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.location%></b></td>
                   </tr>
                   <tr>
-                    <td><b>Destination State</b></td>
+                    <td><b><%=t('labels.destination_state')%></b></td>
                     <td>&nbsp;<b><%= State.find(@resource_transportation_booking.state).name %></b></td>
                   </tr>
                   <tr>
-                    <td><b>From Date</b></td>
+                    <td><b><%=t('labels.from_date')%></b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.requested_from_date.localtime.strftime("%d-%m-%Y %H:%M %p") %></b></td>
                   </tr>
                   <tr>
-                    <td><b>To Date</b></td>
+                    <td><b><%=t('labels.to_date')%></b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.requested_to_date.localtime.strftime("%d-%m-%Y %H:%M %p") %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Number of Passengers</b></td>
+                    <td><b><%=t('labels.no_of_passengers')%></b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.number_of_passengers%></b></td>
                   </tr><% if @resource_transportation_booking.attachment.present? %>
              <tr>
-            <td><b>Attachment</b></td><% file = (@resource_transportation_booking.attachment).url(:profile).split("/").last %>
+            <td><b><%=t('labels.attachment')%></b></td><% file = (@resource_transportation_booking.attachment).url(:profile).split("/").last %>
             <td>&nbsp;<b><%= link_to file, download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></b></td>
           </tr><%end%>
                   <tr>
-                    <td><b>Remarks</b></td>
+                    <td><b><%=t('labels.remarks')%></b></td>
                     <td>&nbsp;<b><%=  @resource_transportation_booking.remarks %></b></td>
                   </tr>
 
                   <tr>
-                    <td><font color="#369"><b><u>Vehicle Details:-</u></b></font></td>
+                    <td><font color="#369"><b><u><%=t('labels.vehicle_details')%>:-</u></b></font></td>
                     <td></td>
                   </tr>
                   <% if (current_user.is_super_admin? || current_user.is_department_admin? ) %>
@@ -146,7 +146,7 @@
 
                     <% if @resource_transportation_booking.status == "Approved" %>
                       <tr>
-                        <td>&nbsp;<b>Change Status</b></td>
+                        <td>&nbsp;<b><%=t('labels.change_status')%></b></td>
                         <td><%= select_tag :approve_status,"<option>Processed</option><option>Declined</option>".html_safe %></td>
                       </tr>
                     <%elsif @resource_transportation_booking.status == "Processed" %>
@@ -155,7 +155,7 @@
 
                     <% if @resource_transportation_booking.resource_returned_from_user? %>
                       <tr>
-                        <td><label class="text"> <%= label :location,raw("Resource Returned From User"), :class=>"text"%></label></td>
+                        <td><label class="text"> <%= label :location,t('labels.resource_returned_from_user'), :class=>"text"%></label></td>
                         <td>&nbsp;<b><%= 'Yes' %></b>
                         </td>
                       </tr>
@@ -163,20 +163,20 @@
 
                   <%end%>
                   <tr>
-                    <td><b>Vehicle Type</b></td>
+                    <td><b><%=t('labels.vehicle_type')%></b></td>
                     <td>&nbsp;<b><%=@resource_transportation_booking.sub_category.name %></b></td>
                   </tr>
 
                   <% if !@resource_transportation_booking.agency_store_id.blank? %>
                     <% if @resource_transportation_booking.status != "Processed" %>
                       <tr>
-                        <td><b>Vehicle Model</b></td>
+                        <td><b><%=t('labels.vehicle_model')%></b></td>
                         <% vehicle = Resource.find(@resource_transportation_booking.agency_store.resource_id) %>
                         <td>&nbsp;<b><%= vehicle.vehicle_model+' : '+vehicle.resource_no %></b></td>
                       </tr>
                       <tr>
                       <tr>
-                        <td><b>Driver</b></td>
+                        <td><b><%=t('labels.driver')%></b></td>
                         <td>&nbsp;
                           <div id="normal" >
                             <% driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
@@ -198,24 +198,24 @@
                       <% vehicle = Resource.find(@resource_transportation_booking.agency_store.resource_id) %>
 
                       <tr>
-                        <td><b>Vehicle</b></td>
+                        <td><b><%=t('labels.vehicle')%></b></td>
                         <td>&nbsp;<b><%= vehicle.vehicle_model+' : '+vehicle.resource_no %></b></td>
                       </tr>
 
                       <% driver = Driver.find(@resource_transportation_booking.driver_id) %>
                       <tr>
-                        <td><b>Driver Name</b></td>
+                        <td><b><%=t('labels.driver_name')%></b></td>
                         <td>&nbsp;<b><%= driver.name %></b></td>
                       </tr>
                       <tr>
-                        <td><b>Driver Phone</b></td>
+                        <td><b><%=t('labels.driver_telephone')%></b></td>
                         <td>&nbsp;<b><%= driver.telephone_number %></b></td>
                       </tr>
 
                     <%end%>
                   <%else%>
                     <tr>
-                      <td><b>Brand Name</b></td>                                       
+                      <td><b><%=t('labels.brand_name')%></b></td>                                       
                       <!--<#% a = AgencyStore.find(:all,:conditions=>["agency_id = ? and sub_category_id = ? and resource_type = ? and booked = ?",current_user.departments[0].agency.id,@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
                       <#% if !a.blank? %>
                         <td>
@@ -235,7 +235,7 @@
                     </tr>
                     
                     <tr>
-                      <td><b>Vehicle</b></td>
+                      <td><b><%=t('labels.vehicle')%></b></td>
                       <% user = User.find(@resource_transportation_booking.requester_id) %>
                       <% a = AgencyStore.find(:all,:conditions=>["sub_category_id = ? and resource_type = ? and booked = ?",@resource_transportation_booking.sub_category_id,'Transport',false]).collect(&:resource_id).join(',') %>
                       <% if !a.blank? %>
@@ -264,14 +264,14 @@
           <label class="text">&nbsp;</label>
           <span class="in-box">
             <% if @resource_transportation_booking.status == "New" %>
-              <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-              <%= submit_tag "Submit", :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
+              <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
+              <%= submit_tag t('labels.submit'), :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
             <% elsif @resource_transportation_booking.status == "Approved" %>
-              <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-              <%= submit_tag "Submit", :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
+              <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
+              <%= submit_tag t('labels.submit'), :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
             <% elsif @resource_transportation_booking.status == "Processed" %>
-              <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-              <%= submit_tag "Acknowledge", :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
+              <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
+              <%= submit_tag t('labels.ack'), :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
             <%end%>
           </span>
         </div>
