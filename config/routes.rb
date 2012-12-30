@@ -33,6 +33,8 @@ Melaka::Application.routes.draw do
   end
   
   resources :vehicle_model_types
+  resources :groups
+  resources :group_members
 
   resources :ict_hardware_bookings do
     collection do

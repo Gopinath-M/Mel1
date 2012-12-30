@@ -56,6 +56,11 @@ class MessagesController < ApplicationController
     @agency, @depts = params[:agency], params[:dept]
     render :layout => false
   end
+  
+  # For Retrieving Unit List
+  def get_groups    
+    render :layout => false
+  end
 
   # For Retrieving Particular Department Admin
   def get_department_admin

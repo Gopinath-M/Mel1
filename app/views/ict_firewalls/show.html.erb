@@ -52,22 +52,6 @@
                   <%= @ict_firewall.source_ip %>
                 </span>
               </div>
-              
-              
-                <div class="form-sec-row">
-                  <% if @ict_firewall.attachment.present? %>
-                    <label class="text">Attachment</label>
-                    <% image = @ict_firewall.attachment.url(:profile).split(".").last %>
-                    <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-                      <span class="in-box">
-                        <%=image_tag(@ict_firewall.attachment.url(:profile),:title=>@ict_network.attachment)%>
-                      <%else%>
-                        <% file = (@ict_firewall.attachment).url(:profile).split("/").last %>
-                        <td>&nbsp;<b><%= link_to file, download_attachments_ict_firewalls_path(:id=>@ict_firewall.id) if @ict_firewall.attachment?  %></b></td>
-                      </span>
-                    <%end%>
-                  <%end%>
-                </div>
                 
               <div class="form-sec-row">
                 <label class="text"><%=t('left_nav.Destination_ip')%></label>
@@ -96,6 +80,21 @@
                   <%= @ict_firewall.justification %>
                 </span>
               </div>
+              
+                <div class="form-sec-row">
+                  <% if @ict_firewall.attachment.present? %>
+                    <label class="text">Attachment</label>
+                    <% image = @ict_firewall.attachment.url(:profile).split(".").last %>
+                    <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                      <span class="in-box">
+                        <%=image_tag(@ict_firewall.attachment.url(:profile),:title=>@ict_network.attachment)%>
+                      <%else%>
+                        <% file = (@ict_firewall.attachment).url(:profile).split("/").last %>
+                        <td>&nbsp;<b><%= link_to file, download_attachments_ict_firewalls_path(:id=>@ict_firewall.id) if @ict_firewall.attachment?  %></b></td>
+                      </span>
+                    <%end%>
+                  <%end%>
+                </div>
 
               <div class="form-sec-row">
                 <label class="text"><%=t('left_nav.status')%></label>
