@@ -21,7 +21,7 @@ class IctFirewallsController < ApplicationController
       @ict_firewall = IctFirewall.new
    end
 
-   def create
+   def create      
       @ict_firewall = IctFirewall.new(params[:ict_firewall])
       @ict_firewall.user_id = current_user.id
       @ict_firewall.source_ip = params[:s1]+'.'+params[:s2]+'.'+params[:s3]+'.'+params[:s4]
@@ -31,16 +31,17 @@ class IctFirewallsController < ApplicationController
       @ict_firewall.requisition_type_id = '2'
       @ict_firewall.requested_from_date = params[:ict_firewall][:requested_from_date].to_datetime
       @ict_firewall.requested_to_date = params[:ict_firewall][:requested_to_date].to_datetime
-
+      
       if @ict_firewall.valid?
-         @ict_firewall.save         
+         @ict_firewall.save
+         ict_firewall = @ict_firewall         
          if params[:ict_facility_service][:id] != ''
-            if params[:one_way] == 'one_way'
+            if params[:ict_firewall][:one_way] == 'one_way'
                t = true
             else
                t = false
             end
-            @ict_facility = IctFirewallService.create(:ict_firewall_id=>@ict_firewall.id,:facility_ict_service_id => params[:ict_facility_service][:id],:one_way=>t)
+            @ict_facility = IctFirewallService.create(:ict_firewall_id => @ict_firewall.id,:facility_ict_service_id => params[:ict_facility_service][:id],:one_way=>t)
 
             n = params[:total_service_count].to_i if params[:total_service_count] != '0'
 
@@ -55,6 +56,18 @@ class IctFirewallsController < ApplicationController
                end
             end
          end
+         
+         
+        @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+        dept = Department.find_by_id(current_user.departments)
+        if !@approve.present?
+          user = dept.users.where("role_id = 2").first
+          UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall,dept).deliver
+        else
+          user = User.find_by_id(@approve.user_id)
+          UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall,dept).deliver
+        end
+    
          redirect_to(ict_firewalls_path, :notice => "Resource Requisition ICT Firewall has been created successfully.")
       else
          render :action=>'new'
@@ -73,16 +86,19 @@ class IctFirewallsController < ApplicationController
       end
 
       if @ict_firewall.status == 'New'
-         @ict_firewall.update_attributes(:remarks => params[:remarks],
-         :status => params[:approve_status],
+         ict_firewall = @ict_firewall
+         @ict_firewall.update_attributes(:remarks=>params[:remarks],:status=>params[:approve_status],
          :incharge_person => params[:forward][:to])
+         
+         UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall).deliver
       end
       @ict_firewall.update_attributes(:status=> params[:approve_status])
+      
       
       @count = IctFirewallService.find_all_by_ict_firewall_id(@ict_firewall.id)
            
       @count.each_with_index do |count,index|
-        if params[:"status_#{index+1}"].to_s == 'Approve'            
+        if params[:"status_#{count.id}"].to_s == 'Approve'            
             t = true
          else            
             t = false
@@ -114,8 +130,9 @@ class IctFirewallsController < ApplicationController
       @ict_firewall = IctFirewall.find(params[:id])
    end
 
-   def change_request_status
-
-   end
+  def download_attachments
+    @message = IctFirewall.find(params[:id])
+    send_file @message.attachment.path
+  end
 
 end

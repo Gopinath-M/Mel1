@@ -1,0 +1,2 @@
+module VehicleModelTypesHelper
+end
