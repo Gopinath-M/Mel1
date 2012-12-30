@@ -2614,7 +2614,7 @@ $("#agency_submit").live("click",function(data){
     else if($("#agency_telephone_number").val()=="")
     {
         alert("Enter the Telephone Number");
-        #return false;
+//        #return false;
     }
     else if($("#agency_fax_number").val()=="")
     {
