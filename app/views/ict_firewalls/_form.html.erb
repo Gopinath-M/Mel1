@@ -36,8 +36,8 @@
   <div class="form-sec-row">
     <label class="text"><%=t('labels.type')%><span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.radio_button :one_way, 'one_way', :checked=>true %> <%= f.label :one_way, "One Way" %>&nbsp;&nbsp;
-      <%= f.radio_button :one_way, 'two_way', :checked=>false %> <%= f.label :two_way, "Two Way" %>
+      <%= radio_button_tag 'one_way', 'one_way', :checked=>true %> <%= f.label :one_way, "One Way" %>&nbsp;&nbsp;
+      <%= radio_button_tag 'one_way', 'two_way', :checked=>false %> <%= f.label :two_way, "Two Way" %>
     </span>
   </div>
 

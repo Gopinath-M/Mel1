@@ -36,7 +36,7 @@ class IctFirewallsController < ApplicationController
          @ict_firewall.save
          ict_firewall = @ict_firewall         
          if params[:ict_facility_service][:id] != ''
-            if params[:ict_firewall][:one_way] == 'one_way'
+            if params[:one_way] == 'one_way'
                t = true
             else
                t = false
