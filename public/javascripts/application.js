@@ -155,7 +155,6 @@ function remove_ictSerial(id)
 {
     $("#ict_serial_id_"+id).remove();
     actual_serial_count = actual_serial_count-1;
-    alert(actual_serial_count)
     $("#ict_agency_quantity").val(actual_serial_count)
 }
 
@@ -166,24 +165,25 @@ function getAgencyforResource(resource_id, agency_id)
         $.get("/agency_stores/get_agency_resource",{
             resource_id : $("#"+resource_id).val()
         }, function(data){
-            if (data[0]!=null)
+            if (data[0]!=null && data[0] != "no serial")
             {
                 $('#'+agency_id).find('option').remove().end()
-                $('#'+agency_id).append($("<option></option>").attr("value","").text("Select Equipment Category Type"));
+                $('#'+agency_id).append($("<option></option>").attr("value","").text("Select Serial Number"));
                 $.each(data[0], function(key, val) {
                     $('#'+agency_id).append($("<option></option>").attr("value",key).text(val));
                 });
-
-            //                for(var i=0; i<data[0].length;i++)
-            //                {
-            //                    $('#'+agency_id).append($("<option></option>").attr("value",data[0][i]).text(data[0][i]));
-            //                }
+                $("#div_ict_resource_serial_no").show()
             }
+            else if(data[0]!=null && data[0] == "no serial")
+            {
+                $("#div_ict_resource_serial_no").hide()
+            }
+
         })
     }
     else{
         $('#'+agency_id).find('option').remove().end()
-        $('#'+agency_id).append($("<option></option>").attr("value","").text("Select Equipment Category Type"));
+        $('#'+agency_id).append($("<option></option>").attr("value","").text("Select Serial Number"));
     }
 }
 $().ready(function(){
@@ -2599,7 +2599,7 @@ $("#agency_submit").live("click",function(data){
     else if($("#agency_telephone_number").val()=="")
     {
         alert("Enter the Telephone Number");
-        return false;
+        #return false;
     }
     else if($("#agency_fax_number").val()=="")
     {
