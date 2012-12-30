@@ -339,6 +339,8 @@ Melaka::Application.routes.draw do
       get 'approval_software_installation'
       get 'resource_booking_approval'
       post 'resource_booking_approval'
+      get 'add_select_boxes'
+      get 'download_attachments'
     end
   end
 
@@ -374,6 +376,39 @@ Melaka::Application.routes.draw do
       put 'approval'
       get 'get_system_types'
       get 'get_system_items'
+    end
+  end
+resources :conversation_groups do
+    collection do
+      get 'conversations'
+      post 'send_request'
+      get 'list_users'
+    end
+  end
+  resources :custom_group_users
+
+  resources :custom_groups do
+    collection do
+      post 'update_status'
+      get 'get_custom_group_names'
+    end
+  end
+
+  resources :events do
+    collection do
+      post 'update_status'
+      get 'hide'
+      get 'hide_index'
+      get 'event_index'
+    end
+  end
+
+  resources :advertisements do
+    collection do
+      post 'update_status'
+      get 'hide'
+      get 'hide_index'
+      get 'advertisement_index'
     end
   end
   # The priority is based upon order of creation:
