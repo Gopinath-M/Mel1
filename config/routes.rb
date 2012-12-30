@@ -31,6 +31,8 @@ Melaka::Application.routes.draw do
       get 'download_attachments'
     end
   end
+  
+  resources :vehicle_model_types
 
   resources :ict_hardware_bookings do
     collection do

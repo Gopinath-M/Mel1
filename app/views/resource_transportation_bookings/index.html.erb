@@ -26,7 +26,7 @@
                 <% if (resource_transportation_booking.requester_id.to_i == current_user.id && resource_transportation_booking.status=="Processed") %>
                   <% if (!resource_transportation_booking.resource_returned_from_user?) %>
                     <div id="user_return_request_<%= resource_transportation_booking.id %>">
-                      <label class="text"> Is Returnable?</label>
+                      <label class="text">Returned?</label>
                       <%= check_box_tag "user_returned_status[#{resource_transportation_booking.id}]","",false,:onclick=>"transport_resource_from_user(#{resource_transportation_booking.id})" %>
                     </div>
                     <div id="transport_booking_<%= resource_transportation_booking.id %>" style="display:none;">
