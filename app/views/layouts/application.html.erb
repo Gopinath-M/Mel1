@@ -32,6 +32,27 @@
       <%= stylesheet_link_tag 'datetime_picker' %>
       <script type="text/javascript">
         $().ready(function(){
+           $("#event_from_date").datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'hh:mm:ss'
+          });
+          $("#event_to_date").datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'HH:mm:ss'
+          });
+          $("#advertisement_from_date").datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'hh:mm:ss'
+          });
+          $("#advertisement_to_date").datetimepicker({
+            controlType: 'select',
+            dateFormat: "D MM d, yy",
+            timeFormat: 'HH:mm:ss'
+          });
+
           $("#ict_vpn_to_date").datetimepicker({
             controlType: 'select',
             dateFormat: "D MM d, yy",
