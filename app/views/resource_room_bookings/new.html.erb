@@ -2,13 +2,13 @@
 <div class="CenterNav">
   <div class="form-sec">
     <% if @booking.present? %>
-      <h2 class="b-head"> Room Booking</h2>
+      <h2 class="b-head"><%=t('labels.room_booking')%></h2>
       <%=render :partial=>"form" %>
     <%elsif current_user.is_super_admin?%>
-      <h2 class="b-head"> Room Booking</h2>
+      <h2 class="b-head"><%=t('labels.room_booking')%></h2>
       <%=render :partial=>"form" %>
     <%else%>
-      <h2 class="b-head">Sorry... Room Booking Facility is not Available for your Department...</h2>
+      <h2 class="b-head"><%=t('labels.denial')%></h2>
     <%end%>
   </div>
 </div>

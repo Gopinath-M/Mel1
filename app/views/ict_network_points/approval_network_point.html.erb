@@ -239,13 +239,13 @@
                   <div class="form-sec-row">
                     <%@dept = Department.find(default_department)%>
                     <%@users = @dept.users.active.where("role_id = 3 or role_id = 2")%>
-                    <label class="text"> <%= f.label :person_incharge,t('labels.person_incharge'), :class=>"text"%></label>
+                    <label class="text"><%=t('labels.person_incharge')%><span style=color:red>*</span></label>
                     <span class="in-box">
                       <%= f.select(:person_incharge, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
                     </span>
                   </div>
                   <div class="form-sec-row" style="background:#fff; margin-top: 10px;">
-                    <label class="text"> <%= f.label :status,t('labels.recommendation_type'), :class=>"text"%></label>
+                    <label class="text"><%=t('labels.recommendation_type')%><span style=color:red>*</span></label>
                     <span class="in-box">
                       <%= f.radio_button :recommendation_type, 'installation', :id=>"check_box_network"%> <b><%= f.label :recommendation_type, t('labels.install') %></b>
                       <%= f.radio_button :recommendation_type, 'purchase', :id=>"check_box_purchase"%> <b><%= f.label :recommendation_type, t('labels.purchase') %></b>
@@ -254,7 +254,7 @@
                   </div>
                   <div id="get_hide" style="display:none; margin-bottom: 10px;"><table width="509" border="0" class="app-table" cellspacing="0" cellpadding="0" align="center" color="#329C20">
                       <tr>
-                        <th color="#329C20" width="30%"><b><%=t('labels.hardware')%></b></th>
+                        <th color="#329C20" width="30%"><b><%=t('labels.hardwares')%></b></th>
                         <th width="30%"><b><%=t('labels.type')%></b></th>
                         <th width="20%"><b><%=t('labels.quantity')%></b></th>
                         <th width="20%"><b><%=t('labels.action')%></b></th>
@@ -263,15 +263,15 @@
                         <td><%= f.select(:hardware_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
                         <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
                         <td><b>&nbsp;<%=f.text_field :hardware_quantity, :class=> "size-quan-box-ict-network"%></b></td>
-                        <td id="req_type_network"><b class="btn2"><%=t('labels.install')%></b></td>
-                        <td id="req_type_purchase"style="display:none;"><b class="btn2"><%=t('labels.purchase')%></b></td>
+                        <td id="req_type_network"><b style="color:red;"><%=t('labels.install')%></b></td>
+                        <td id="req_type_purchase"style="display:none;"><b style="color:red;"><%=t('labels.purchase')%></b></td>
                       </tr>
                     </table>
 
                   </div>
 
                   <div class="form-sec-row">
-                    <label class="text"> <%= f.label :notes,t('labels.notes'), :class=>"text"%></label>
+                    <label class="text"> <%= f.label :notes,t('labels.notes'), :class=>"text"%><span style=color:red>*</span></label>
                     <span class="in-box">
                       <%= f.text_area :notes, :cols => "20", :rows => "3"%>
                     </span>
@@ -282,7 +282,7 @@
                     <%= f.select(:location_center_id, FacilityIctAgency.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select Center")%> <%= f.select(:ict_wiring_id, FacilityIctWiring.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select ICT Wiring")%>
                   </div>
                   <div class="form-sec-row">
-                    <label class="text"><%=t('labels.remarks')%></label>
+                    <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
                     <span class="in-box">
                       <%= f.text_area :remarks, :cols => "20", :rows => "3"%>
                     </span>

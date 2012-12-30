@@ -1,0 +1,39 @@
+<%if !request.xhr?%>
+  <div class="CenterNav">
+    <h2 class="b-head">Manage Vehicle Model Type</h2>    
+    <div class="create-user">
+      <div class="cu-c1"><a href="/vehicle_model_types/new" title="create vehicle model type"><img src="../images/add_user.jpg" width="17" height="16" alt="img" />Create Vehicle Model Type</a></div>
+
+    </div>
+  <%end%>
+  <div id="div_ajax" >
+    <%if @vehicle_model_type && !@vehicle_model_type.empty?%>
+        <%@vehicle_model_type.each do |model_type|%>
+          <div class="manage-user box">
+            <div class="manage-user-row box">
+              <div class="mu-c1">
+              	<p class="head1"><%=model_type.name%></p>
+              </div>
+              <div class="mu-c2">
+                <p class="head1"><%=model_type.sub_category.name %></p>
+              </div>
+              <div class="mu-c3">
+                <%#= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>model_type.id.to_i%>
+                <%if model_type.is_active %>
+                  <%#= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_vehicle_model_types_path(:id=>model_type.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this hardware?', :method=>:post, :title=>"Deactive" %>
+                <%else%>
+                  <%#= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_vehicle_model_types_path(:id=>model_type.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this hardware?', :method=>:post, :title=>"Activate"%>
+                <%end%>
+
+              </div>
+            </div>
+
+          </div>
+        <%end%><div class="manage-user-rows box"><br/><br/>
+<%#= paginate @agencies %></div>
+    <%else%>
+      No Vehicle Model  Available
+    <%end%>
+<%#*<div><%= paginate @units %>
+  </div>
+</div>

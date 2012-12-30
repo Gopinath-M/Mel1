@@ -16,20 +16,12 @@ class ResourceTransportationBooking < ActiveRecord::Base
   
   validates :remarks,:sub_category_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location,:state, :presence => true
   validates_numericality_of :number_of_passengers
-  validate :validate_end_date_before_start_date
-  validate :validate_start_date
+  validate :validate_booking_time
 
-
-  def validate_end_date_before_start_date
-    if self.requested_from_date && self.requested_to_date
-      errors.add(:Error,"From Date Should be Lesser than To Date") if self.requested_from_date > self.requested_to_date
-    end
-  end
-
-  def validate_start_date
-    if self.requested_from_date
-      errors.add(:Error,"From Date should not be lesser than Today") if self.requested_from_date < Date.today
-    end    
+  def validate_booking_time
+    errors.add(:base,"From Date Should be greater than current date and time") if self.requested_from_date!=nil && self.requested_from_date<Time.now
+    errors.add(:base,"To Date Should be greater than current date and time") if self.requested_to_date!=nil && self.requested_to_date<Time.now
+    errors.add(:base,"To Date Should be greater than From date and time") if self.requested_from_date!=nil && self.requested_to_date!=nil && self.requested_from_date>self.requested_to_date
   end
 
   def mail_to_user_regarding_transport_status_updates
