@@ -1,12 +1,12 @@
 <div class="CenterNav">
- <h2 class="b-head">Manage Resource Transport Bookings</h2>
+ <h2 class="b-head"><%=t('labels.resource_transport_approval_list')%></h2>
   <div id="div_ajax" >
     <%if @resource_transportation_bookings && !@resource_transportation_bookings.empty?%>
       <%  @resource_transportation_bookings.each do |resource_transportation_booking|%>
 
         <div class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Name</b>
+            <div class="m-c1"><b><%=t('labels.name')%></b>
             </div>
             <div class="m-c-second">
               <%= User.find_by_id(resource_transportation_booking.requester_id).username %>
@@ -18,7 +18,7 @@
           <div class="clear"></div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b>Car Type</b>
+            <div class="m-c1"><b><%=t('labels.car_type')%></b>
             </div>
             <div class="m-c-second">
               &nbsp;<%= SubCategory.find_by_id(resource_transportation_booking.sub_category_id).name%>
@@ -32,7 +32,7 @@
                 <% if @approve.present?  && @approve.user_id == current_user.id && resource_transportation_booking.created_at > (Time.now-seconds) %>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "New" %>
-                      <%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && resource_transportation_booking.created_at > (Time.now-2*seconds)%>
@@ -40,22 +40,22 @@
                     <% if resource_transportation_booking.status == "New" %>
                       <% val = (resource_transportation_booking.created_at > (Time.now-seconds))  %>
                       <% if !val.present? %>
-                        <%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                        <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                       <%end%>
                     <%end%>
                   </span>
                 <%elsif current_user.is_department_admin? &&  !@approve.present? %>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "New" %>
-                      <%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%elsif current_user.is_resource_manager?%>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "Approved" %>
-                      <%= link_to "Process",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to t('labels.process'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%elsif resource_transportation_booking.user_returned_status? && resource_transportation_booking.status != "Returned" && resource_transportation_booking.status != "Declined" %>
-                      <%= link_to "Return",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to t('labels.return'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%end%>
@@ -65,27 +65,27 @@
                 <% if @approve.present?  && @approve.user_id == current_user.id %>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "New" %>
-                      <%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
                   <span class="in-box">
                     <% if !val.present? %>
-                      <%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%elsif current_user.is_department_admin? &&  !@approve.present? %>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "New" %>
-                      <%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%elsif current_user.is_resource_manager?%>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "Approved" %>
-                      <%= link_to "Process",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to t('labels.process'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%elsif resource_transportation_booking.resource_returned_from_user? && resource_transportation_booking.status != "Returned" && resource_transportation_booking.status != "Declined" %>
-                      <%= link_to "Return",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
+                      <%= link_to t('labels.return'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
                 <%end%>
@@ -95,19 +95,19 @@
         </div>
         <div class="clear"></div>
         <div class="manage-user-rows box">
-          <div class="m-c1"><b>Ticket No</b>
+          <div class="m-c1"><b><%=t('labels.ticket_no')%></b>
           </div>
           <div class="m-c-second">
             <font color="red"><b>&nbsp;<%= resource_transportation_booking.id%>/<%=Time.now.year%></b></font>
           </div>
           <div class="m-c3">
-            <b><font color="#336699"><%= link_to "Show Info",resource_transportation_booking_path(:id => resource_transportation_booking.id), :method=>:get%></font></b>
+            <b><font color="#336699"><%= link_to t('labels.show_info'),resource_transportation_booking_path(:id => resource_transportation_booking.id), :method=>:get%></font></b>
           </div>
         </div>
         <div class="clear"></div>
 
         <div class="manage-user-rows box">
-          <div class="m-c1"><b>From Date</b>
+          <div class="m-c1"><b><%=t('labels.from_date')%></b>
           </div>
           <div class="m-c-second">
             &nbsp;<%= resource_transportation_booking.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
@@ -118,7 +118,7 @@
         <div class="clear"></div>
 
         <div class="manage-user-rows box">
-          <div class="m-c1"><b>To Date</b>
+          <div class="m-c1"><b><%=t('labels.to_date')%></b>
           </div>
           <div class="m-c-second">
             &nbsp;<%= resource_transportation_booking.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
@@ -129,7 +129,7 @@
         <div class="clear"></div>
 
         <div class="manage-user-rows box">
-          <div class="m-c1"><b>Date of Application</b>
+          <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
           </div>
           <div class="m-c-second">
             &nbsp;<%= resource_transportation_booking.created_at.strftime("%d-%m-%Y %H:%M %p")%>
