@@ -22,17 +22,15 @@
                     </div>
       </div><div class="clearfix"></div>
       <div class="form-sec-row">
-         <%= f.label :name,raw("Head of Department Name<span style=color:red>*</span>"), :class=>"text"%>
-
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.head_of_dept')%> <span style=color:red>*</span></label>
-
+         <%= f.label :name,raw("Name"), :class=>"text"%>
         <span class="in-box">
-         <%= current_user.departments.first.name%>
+         <%dept_name = RoleMembership.find_by_department_id_and_role_id(current_user.departments.first.id,2)%>
+          <%admin_name = User.find(dept_name.user_id)%>
+          <%=admin_name.username%>
         </span>
       </div>
     <div class="form-sec-row">
-      <label class="text"><%=t('labels.head_dept_position_title')%> <span style=color:red>*</span></label>
+      <label class="text">Position</label>
        <%#= f.label :name,raw("Head Department Position Title<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
          <%dept_name = RoleMembership.find_by_department_id_and_role_id(current_user.departments.first.id,2)%>
@@ -44,7 +42,7 @@
         </span>
       </div>
       <div class="form-sec-row">
-        <label class="text"><%=t('labels.head_dept_email')%> <span style=color:red>*</span></label>
+        <label class="text">Email </label>
          <%#= f.label :name,raw("Head Department Email<span style=color:red>*</span>"), :class=>"text"%>
         <span class="in-box">
           <%=position.email%>
@@ -93,7 +91,7 @@
   <%#*</div>%>
   <div class="clear"></div>
   <!--BODY END-->
-<%end%>
+<%end%></div>
 
 
 <div class="clearfix"></div>

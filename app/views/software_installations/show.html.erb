@@ -1,7 +1,7 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2 class="b-head"><%=t('labels.req_sotf_install_det')%></h2>
+    <h2 class="b-head"><%=t('labels.req_sotf_install_det')%>:-</h2>
 
 
 <%#=error_messages%>
@@ -14,9 +14,8 @@
 
       <% @dept = Department.find_by_id(current_department) %>
       <% @agency = Agency.find_by_id(@dept.agency_id) %>
-       <% @software_installation = SoftwareInstallation.find(@software_installation_detail.software_installation_id) %>
-
-      <% @user = User.find_by_id(@software_installation_detail.user_id) %>
+     
+      <% @user = User.find_by_id(@software_installation.user_id) %>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.agency_name')%></label>
         <span class="in-box"><%= @agency.name  %></span>
@@ -51,7 +50,7 @@
 
       <div class="form-sec-row">
         <label class="text"><%=t('labels.ticket_no')%></label>
-        <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @software_installation_detail.id %>/<%=Time.now.year%></b></font></span>
+        <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @software_installation.id %>/<%=Time.now.year%></b></font></span>
               </div>
 
               <div class="form-sec-row">
@@ -74,8 +73,6 @@
                     <%end%>
                   <%end%>
                 </div>
-              <h2 class="b-head"></h2>
-
               <div class="form-sec-row">
                 <label class="text"><%=t('labels.type_of_facility')%></label>
                 <span class="in-box">
@@ -84,18 +81,24 @@
                   <%= requisition_name.name %>
                 </span>
               </div>
-              
+                <% @software_installation_detail = SoftwareInstallationDetail.find_all_by_software_installation_id(@software_installation.id) %>
+<% @software_installation_detail.each do |detail|%>
               <div class="form-sec-row">
                 <label class="text"><%=t('labels.name')%></label>
                 <span class="in-box">
-                  <%= @software_installation_detail.name %></span>
+                  <%= detail.name %></span>
               </div>
               
               <div class="form-sec-row">
                 <label class="text"><%=t('labels.position')%></label>
                 <span class="in-box">
-                  <%= @software_installation_detail.position %></span>
+                  <%= detail.position %></span>
               </div>
+     <div class="form-sec-row">
+                <label class="text"><%=t('labels.grade')%></label>
+                <span class="in-box">
+                  <%= detail.grade %></span>
+              </div><%end%>
               <font color="#369" size="3"><br/><b><u><%=t('labels.off_action')%> :-</u><br/><br/></b></font>
               <div class="form-sec-row">
                 <label class="text"><%=t('labels.booking_status')%></label>
@@ -110,11 +113,7 @@
                   <%#= @software_installation.forward_to %></span>
               <%#*</div>%>
 
-              <div class="form-sec-row">
-                <label class="text"><%=t('labels.grade')%></label>
-                <span class="in-box">
-                  <%= @software_installation_detail.grade %></span>
-              </div>
+             
               <h2 class="b-head"></h2>
 <div class="form-sec-row2">
     <label class="text">&nbsp;</label>
