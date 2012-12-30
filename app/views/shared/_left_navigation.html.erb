@@ -67,6 +67,13 @@
               <%=link_to t('labels.ict_facility'), "javascript:void(0);" , :title=>t('labels.ict_facility') ,:class=>"", :id=>"lnk_approve_ict_facility" ,:onclick=>"leftNavigation(this.id,'div_approve_ict_facility')"%>
               <div id="div_approve_ict_facility" style="display:none;">
                 <ul>
+                  <%software_count = approve_software_request('New')%>
+            
+                    <li>
+                      <span class="notifiNo"></span>
+                      <%=link_to 'Approve Software Request', software_installations_path %>
+                    </li>
+                  
                   <%hardware_count = approve_hardware_request('New')%>
                   <%if hardware_count >0 %>
                     <li>
