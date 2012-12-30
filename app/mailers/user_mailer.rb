@@ -217,7 +217,16 @@ class UserMailer < ActionMailer::Base
     @requisition=requisition
     @department=dept
     @software_installation = software_installation
-    mail(:to=>@user.email,:subject =>" Details of ICT Software Installation")
+    mail(:to=>@user.email,:subject =>"Details of ICT Software Installation")
+  end
+  
+  def send_mail_to_user_for_ict_firewall(requester,user,ict_firewall,dept)
+    @requester = requester
+    @user=user
+    @requisition=ict_firewall
+    @department=dept    
+    mail(:to=>@user.email,:subject =>" Details of ICT Firewall Request")
+    mail(:to=>@requester.email,:subject =>" Details of your ICT Firewall Request")
   end
 
   def send_status_mail_for_others_booking(user,ordered_user,room)

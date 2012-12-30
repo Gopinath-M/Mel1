@@ -12,6 +12,8 @@ class CreateIctFirewalls < ActiveRecord::Migration
       t.text :remarks
       t.string :status
       t.integer :incharge_person
+      t.string :attachment
+      t.string :attachment_cache
       t.timestamps
     end
   end

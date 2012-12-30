@@ -1,9 +1,8 @@
 <div class="CenterNav">
- <h2 class="b-head"><%=t('labels.resource_transport_approval_list')%></h2>
+  <h2 class="b-head"><%=t('labels.resource_transport_approval_list')%></h2>
   <div id="div_ajax" >
     <%if @resource_transportation_bookings && !@resource_transportation_bookings.empty?%>
       <%  @resource_transportation_bookings.each do |resource_transportation_booking|%>
-
         <div class="manage-user box">
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.name')%></b>
@@ -16,7 +15,6 @@
             </div>
           </div>
           <div class="clear"></div>
-
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.car_type')%></b>
             </div>
@@ -29,7 +27,7 @@
               <%dt = DateTime.parse(temp)%>
               <% seconds = dt.hour * 3600 + dt.min * 60 %>
               <div class="m-c3">
-                <% if @approve.present?  && @approve.user_id == current_user.id && resource_transportation_booking.created_at > (Time.now-seconds) %>
+                <% if @approver.present?  && @approver.user_id == current_user.id && resource_transportation_booking.created_at > (Time.now-seconds) %>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "New" %>
                       <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
@@ -44,7 +42,7 @@
                       <%end%>
                     <%end%>
                   </span>
-                <%elsif current_user.is_department_admin? &&  !@approve.present? %>
+                <%elsif current_user.is_department_admin? &&  !@approver.present? %>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "New" %>
                       <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
@@ -62,7 +60,7 @@
               </div>
             <%else%>
               <div class="m-c3">
-                <% if @approve.present?  && @approve.user_id == current_user.id %>
+                <% if @approver.present?  && @approver.user_id == current_user.id %>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "New" %>
                       <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
@@ -74,7 +72,7 @@
                       <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
-                <%elsif current_user.is_department_admin? &&  !@approve.present? %>
+                <%elsif current_user.is_department_admin? &&  !@approver.present? %>
                   <span class="in-box">
                     <% if resource_transportation_booking.status == "New" %>
                       <%= link_to t('labels.approve'),request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
@@ -105,7 +103,6 @@
           </div>
         </div>
         <div class="clear"></div>
-
         <div class="manage-user-rows box">
           <div class="m-c1"><b><%=t('labels.from_date')%></b>
           </div>
@@ -116,7 +113,6 @@
           </div>
         </div>
         <div class="clear"></div>
-
         <div class="manage-user-rows box">
           <div class="m-c1"><b><%=t('labels.to_date')%></b>
           </div>
@@ -127,7 +123,6 @@
           </div>
         </div>
         <div class="clear"></div>
-
         <div class="manage-user-rows box">
           <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
           </div>
@@ -139,8 +134,7 @@
         </div>
         <div class="clear"></div>
         <h2 class="b-head"></h2>
-      </div>
-    <%end%><%end%>
-</div>
-
+      <%end%>
+    <%end%>
+  </div>
 </div>

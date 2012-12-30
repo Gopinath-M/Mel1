@@ -2,9 +2,9 @@ class ResourceTransportationBookingsController < ApplicationController
   before_filter :authenticate_user!
   include ResourceTransportationBookingsHelper
   
-  def index
-    #get_booking_records
-   approve_request
+  def index    
+   #approve_request
+   @resource_transportation_bookings = ResourceTransportationBooking.where(:requester_id => "#{current_user.id}").order.page(params[:page]).per(5)
   end
 
   def new
@@ -85,6 +85,11 @@ class ResourceTransportationBookingsController < ApplicationController
           @resource_transportation_booking.driver_id = agency_store.driver_id
           agency_store.update_attributes(:booked=>true)
           @resource_transportation_booking.status = "Processed"
+          @resource_transportation_booking.department_id = '0'
+          @resource_transportation_booking.requester_id = current_user.id
+          @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
+          @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
+          @resource_transportation_booking.save
         else
           agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_booked])
           rtb_old = ResourceTransportationBooking.find(:all,:conditions=>["(status = 'New' or status = 'Approved') and agency_store_id=#{agency_store.id}"])
@@ -105,20 +110,36 @@ class ResourceTransportationBookingsController < ApplicationController
           end
         end
       elsif (current_user.is_department_admin?)
-          
-          agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_available])
-          @resource_transportation_booking.agency_store_id = agency_store.id
-          @resource_transportation_booking.driver_id = agency_store.driver_id
-          @resource_transportation_booking.status = "Approved"
-          @resource_transportation_booking.department_id = current_user.role_memberships.where(:default_dept => true).first.department.id
-          @resource_transportation_booking.requester_id = current_user.id
-          @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
-          @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime          
-          @resource_transportation_booking.save
-          agency_store.update_attributes(:booked=>true)
-         
-      else      
-               
+
+        agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_available])
+        @resource_transportation_booking.agency_store_id = agency_store.id
+        @resource_transportation_booking.driver_id = agency_store.driver_id
+        @resource_transportation_booking.status = "Approved"
+        @resource_transportation_booking.department_id = current_user.role_memberships.where(:default_dept => true).first.department.id
+        @resource_transportation_booking.requester_id = current_user.id
+        @resource_transportation_booking.requested_from_date = (params[:resource_transportation_booking][:requested_from_date]).to_datetime
+        @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
+        @resource_transportation_booking.save
+        agency_store.update_attributes(:booked=>true)
+
+        if (session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
+          @approver = Approver.active.find_all_by_department_id(current_user.departments).first
+          @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
+
+          if @approver.present?
+            user = User.find(@approver.user_id)
+            UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking, @resource_transportation_booking.department_id ).deliver
+          elsif @approve_second.present?
+            user = User.find(@approver.user_id)
+            UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
+          else
+            dept = Department.find_by_id(params[:department_id])
+            user = dept.users.where("role_id = 2").first
+            UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
+          end
+        end
+      else
+
         @resource_transportation_booking.status = "New"
         @resource_transportation_booking.department_id = current_user.role_memberships.where(:default_dept => true).first.department.id
         @resource_transportation_booking.requester_id = current_user.id
@@ -126,30 +147,28 @@ class ResourceTransportationBookingsController < ApplicationController
         @resource_transportation_booking.requested_to_date = (params[:resource_transportation_booking][:requested_to_date]).to_datetime
         @resource_transportation_booking.save
 
-        #allocate_resource_for_super_admin_request(@resource_transportation_booking,params[:resource_transportation_booking][:sub_category_id]) 
-       
+        #allocate_resource_for_super_admin_request(@resource_transportation_booking,params[:resource_transportation_booking][:sub_category_id])
+
+        if (session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
+          @approver = Approver.active.find_all_by_department_id(current_user.departments).first
+          @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
+
+          if @approver.present?
+            user = User.find(@approver.user_id)
+            UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking, @resource_transportation_booking.department_id ).deliver
+          elsif @approve_second.present?
+            user = User.find(@approver.user_id)
+            UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
+          else
+            dept = Department.find_by_id(params[:department_id])
+            user = dept.users.where("role_id = 2").first
+            UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver
+          end
+        end
+
       end
       disable_the_sub_category_when_that_sub_category_is_fully_reserved(params[:resource_transportation_booking][:sub_category_id])
-
-  #    if (session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER)
-   #   @approver = Approver.active.find_all_by_department_id(current_user.departments).first
-   #   @approve_second = Approver.active.find_all_by_department_id(current_user.departments).last
-              
-   #     if @approver.present?
-   #       user = User.find(@approver.user_id)
-   #       UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking, @resource_transportation_booking.department_id ).deliver         
-   #     elsif @approve_second.present?
-   #      user = User.find(@approver.user_id)
-   #       UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver         
-   #     else
-   #       dept = Department.find_by_id(params[:department_id])
-   #       user = dept.users.where("role_id = 2").first
-   #       UserMailer.send_mail_to_dept_admin_for_transport_booking(user,@resource_transportation_booking,@resource_transportation_booking.department_id).deliver         
-    #    end
-       redirect_to(resource_transportation_bookings_path, :notice => "Your Transport booking has been created sucessfully.")
-#end
-
-     
+    
     else
       if !current_user.is_super_admin?
         @category = CategoriesDepartments.where(:category_id=> 7,:department_id=> current_user.role_memberships.where(:default_dept => true).first.department.id)

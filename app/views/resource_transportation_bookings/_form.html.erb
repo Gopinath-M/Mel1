@@ -43,7 +43,7 @@
       <%end%> </span>
     </div>
 
-    <div id="vehicle_model_type_div" style="display:none">
+    <div id="vehicle_model_type_div" style="display:block">
       <div class="form-sec-row" >
         <label class="text"><%=t('labels.vehicle_brand')%><span style=color:red>*</span></label>
         <span class="in-box">
@@ -55,7 +55,7 @@
     </div>
 
 
-    <div id="booked_or_available" style="display:none">
+    <div id="booked_or_available" style="display:block">
       <% if current_user.is_super_admin? %>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.type')%><span style=color:red>*</span></label>
@@ -70,7 +70,7 @@
         <label class="text"><%=t('labels.vehicle_available')%><span style=color:red>*</span></label>
         <span class="in-box">
           <td>
-            <%= select("vehicle","model_type_id_available", options_from_collection_for_select(VehicleModelType.all,'id',"name"),{:prompt=>"Select a Brand"})%>
+            <%= select("vehicle","model_type_id_available", options_from_collection_for_select(VehicleModelType.all,'id',"name"),{:prompt=>"Select a Vehicle"})%>
           </td>
         </span>
       </div>
@@ -81,7 +81,7 @@
         <label class="text"><%=t('labels.vehicle_booked')%><span style=color:red>*</span></label>
         <span class="in-box">
           <td>
-            <%= select("vehicle","model_type_id_booked", options_from_collection_for_select(VehicleModelType.all,'id',"name"),{:prompt=>"Select a Brand"})%>
+            <%= select("vehicle","model_type_id_booked", options_from_collection_for_select(VehicleModelType.all,'id',"name"),{:prompt=>"Select a Vehicle"})%>
           </td>
         </span>
       </div>
@@ -158,16 +158,30 @@
 
   <script>
   
-  function validate_transport_form(){
-    if(parseInt($("#is_super_admin").val()) == "1"){
-      if ($("#vehicle_model_type_id_available").val() == '' && $("#vehicle_model_type_id_booked").val() == '' )
+  function validate_transport_form(){  	
+    if(parseInt($("#is_super_admin").val()) == "1"){   	  
+      if ($("#vehicle_model_type_id_available").val() == '' && $("#vehicle_model_type_id_booked").val() == '' )     {
       alert("Please Select a Vehicle");
-      return false;
+      return false;	
+      } 
+      else
+      {
+      	return true;
+      }
+      
     }
-    else if (parseInt($("#is_department_admin").val()) == "1"){
-      if ($("#vehicle_model_type_id_available").val() == '')
+    else if (parseInt($("#is_department_admin").val()) == "1"){      
+      if ($("#vehicle_model_type_id_available").val() == ''){
       alert("Please Select a Vehicle");
-      return false;
+      return false;	
+      }
+      else
+      {
+      	return true;
+      }      
+    }    
+    else {    	
+    	return true;
     }
   }
   

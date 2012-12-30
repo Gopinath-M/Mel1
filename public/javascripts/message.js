@@ -248,10 +248,38 @@ $().ready(function (){
   }
 
   function validate_ict_firewall_requests(){
-    if ($("#source1").val() == "" || $("#source2").val() == "" || $("#source3").val() == "" || $("#source4").val() == "" || $("#dest1").val() == "" || $("#dest2").val() == "" || $("#dest3").val() == "" || $("#dest4").val() == "" || $("#ict_facility_service_id").val() == "" || $("#ict_firewall_requested_from_date").val() == "" || $("#ict_firewall_requested_to_date").val() == "" || $("#ict_firewall_justification").val() == "")
+    if ($("#source1").val() == "" || $("#source2").val() == "" || $("#source3").val() == "" || $("#source4").val() == "" )      
     {
-      alert("You didn't provide proper details. Please fill all the required fields.");
+      alert("Please Enter Source Ip Correctly");
       return false;
+    }
+    else if ($("#dest1").val() == "" || $("#dest2").val() == "" || $("#dest3").val() == "" || $("#dest4").val() == "")
+     {
+     	alert("Please Enter Destination Ip Correctly");
+      return false;
+     }
+    else if ( $("#ict_facility_service_id").val() == "" )
+    {
+    	alert("Service Name Should not be Empty");
+      return false;
+    }
+    else if ($("#ict_firewall_requested_from_date").val() == "")
+    {
+    	alert("From Date Should not be Empty");
+      return false;
+    }
+    else if ($("#ict_firewall_requested_to_date").val() == "")
+    {
+    	alert("To Date Should not be Empty");
+      return false;
+    }
+    else if ($("#ict_firewall_justification").val() == "")
+    {
+    	alert("Justification Should not be Empty");
+      return false;
+    }
+    else {
+    	return true;
     }
   }
 
