@@ -1,4 +1,17 @@
 malay:
+  activerecord:
+    errors:
+      models:
+        agency:
+          attributes:                        
+            telephone_number:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid" 
+            fax_number:
+              invalid: "Invalid"
+              blank: "Can't be Blank"
+          
+             
   devise:
     failure:
       unauthenticated: 'Anda perlu mendaftar masuk atau mendaftar sebelum meneruskan'
@@ -684,8 +697,8 @@ malay:
     show_info: "Paparkan Info"
     resource_ict_process_list: "Sumber ICT Proses Senarai"
     booked_date: "Tarikh Terkini"
-    approve_request: " Meluluskan Permintaan"
-    process_request: "Permintaan proses"
+    approve_request: "Meluluskan"
+    process_request: "Proses"
     resource_room_app_req: "Permintaan Kelulusan Bilik Sumber"
     resource_room_pro_req: "Bilik Sumber Permintaan Proses"
     officer_needed: "Pegawai Diperlukan"
@@ -797,7 +810,17 @@ malay:
     firewall_request: "Permintaan Firewall"
     resource: "Sumber"
     ict_wiring: "ICT Pendawaian"
-
+    approve_req: "Meluluskan Permintaan"
+    rec_req: "Mengesyorkan Permintaan"
+    out_state: "Outstation: Negeri"
+    out_country: "Outstation: Negara"
+    dept_details: "Jabatan Butiran"
+    dept_info: "Jabatan Info"
+    process_com: "Proses Komputer"
+    process_building_assets: "Proses Aset Bangunan"
+    app_computers: "Meluluskan Komputer"
+    app_building_asset: "Meluluskan Aset Bangunan"
+    
 
 
 

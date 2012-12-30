@@ -17,7 +17,7 @@
                 <%if ict_software.is_active %>
                   <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.deactivate"), update_status_facility_ict_softwares_path(:id=>ict_software.id, :status=>"Deactivate"), :confirm => t("labels.agen_deact_confirm"), :method=>:post, :title=>t("labels.deactivate") %>
                 <%else%>
-                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.activate"),  update_status_facility_ict_softwares_path(:id=>ict_software.id,:status=>"Activate"), :confirm => t("labels.agen_act_confirm"), :method=>:post, :title=>t("labels.Activate")%>
+                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.activate"),  update_status_facility_ict_softwares_path(:id=>ict_software.id,:status=>"Activate"), :confirm => t("labels.agen_act_confirm"), :method=>:post, :title=>t("labels.activate")%>
                 <%end%>
 
               </div>

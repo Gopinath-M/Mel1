@@ -5,7 +5,7 @@
       <%=render :partial=>"form" %>
     <%else%>
       <div class="form-sec">
-        <h2>Sorry... Transport Booking Facility is not Available for your Department...</h2>
+        <h2><%=t('labels.denial_transport')%></h2>
       </div>
     <%end%>
   </div>

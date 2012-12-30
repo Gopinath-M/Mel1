@@ -681,8 +681,8 @@ en:
     show_info: "Show Info"
     resource_ict_process_list: "Resource ICT Process List"
     booked_date: "Booked Date"
-    approve_request: "Approve Request"
-    process_request: "Process Request"
+    approve_request: "Approve"
+    process_request: "Process"
     resource_room_app_req: "Resource Room Approval Request"
     resource_room_pro_req: "Resource Room Process Request"
     officer_needed: "Officer Needed"
@@ -795,7 +795,16 @@ en:
     firewall_request: "Firewall Request"
     resource: "Resource"
     ict_wiring: "ICT Wiring"
-    
+    approve_req: "Approve Request"
+    rec_req: "Recommend Request"
+    out_state: "Outstation : State"
+    out_country: "Outstation: Country"
+    dept_details: "Department details"
+    dept_info: "Department Info"
+    process_com: "Process Computers"
+    process_building_assets: "Process Building Assets"
+    app_computers: "Approve Computers"
+    app_building_asset: "Approve Building Asset"
     
     
     #  activerecord:
