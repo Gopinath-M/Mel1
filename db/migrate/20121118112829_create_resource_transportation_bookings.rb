@@ -9,6 +9,7 @@ class CreateResourceTransportationBookings < ActiveRecord::Migration
       t.string :pick_up_place
       t.string :requester_id
       t.string :attachment
+      t.string :attachment_cache
       t.string :status
       t.text :remarks
       t.string :approver_id      
