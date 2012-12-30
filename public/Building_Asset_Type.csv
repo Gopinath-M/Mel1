@@ -1,10 +1,10 @@
-Building, 1
-Mechanical,2
-Electrical,2
+Building, 0
+Mechanical,1
+Electrical,1
 Meja
 Kerusi
 Penghawa Dingin,2
-Kipas
+Kipas,3
 Televisyen,3
 Sistem PA,3
 Pintu
@@ -13,12 +13,12 @@ Paip
 Mesin Perakam Waktu
 Lampu,3
 Soket Elektrik,3
-Iris (Sistem Kawalan Pintu)
+Iris (Sistem Kawalan Pintu),3
 Lift,2
 Peralatan Tandas
 Tingkap
 Almari/Kabinet
-Suis Elektrik
+Suis Elektrik,3
 Pintu-Tombol Pintu
 Paip-Paip Tandas
 Tandas (Flush Tandas)
@@ -31,13 +31,13 @@ Penghawa Dingin (Tidak Berfungsi)
 Lampu (Terbakar)
 Lampu (Tidak Berfungsi)
 Lampu (Berkelip)
-Asset,1
-Civil,2
+Asset,0
+Civil,1
 Harta Modal
 Inventori
 Kereta
 Lain-lain Inventori
-Cleanliness,1
+Cleanliness,0
 Luar Bangunan
 Dalam Bangunan
 Lain-lain

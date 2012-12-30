@@ -1,6 +1,7 @@
 
 
-  <%@requisition = IctNetworkPoint.where(:user_id => current_user.id).order.page(params[:page]).per(5)%>
+  <%@requisition = IctNetworkPoint.where(:user_id => current_user.id, :department_id => @current_department).order.page(params[:page]).per(5)%>
+<% if @requisition.present? %>
   <div id="div_ajax" >
     <%if @requisition && !@requisition.empty?%>
       <%@requisition.each do |resource|%>
@@ -73,6 +74,9 @@
       <%=t('labels.no_data_available')%>
     <%end%>
   </div>
+<%else%>
+<b><%= " Sorry Requisition Facility for your Department User is not Available" %></b>
+<%end%>
 
 
 

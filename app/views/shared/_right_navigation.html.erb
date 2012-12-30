@@ -24,33 +24,55 @@
             <li><a href="javascript:void(0);" title="<%= t('right_nav.change_req')%>"><%= t('right_nav.change_req')%> </a></li>
           <li><a href="/users/user_profile" title="Out-Station">Outstation Request </a></li></ul>
         </div>
-        <div class="recentEvents box">
-          <h2><%= t('right_nav.up_event')%></h2>
-          <ul>
-            <li>
-              <div class="event-img"><a href="javascript:void(0);" title=""><img src="/images/img_event1.jpg" alt="Image" width="50" height="50" /></a></div>
-              <div class="event-txt">
-                <a href="javascript:void(0);" title="<%= t('right_nav.melaka_info')%>"><%= t('right_nav.melaka_info')%></a>
-                <p><%= t('right_nav.melaka_info_con1')%> </p>
-              </div>
-            </li>
-            <li>
-              <div class="event-img"><a href="javascript:void(0);" title="High level State Govern..."><img src="/images/img_event2.jpg" alt="Image" width="50" height="50" /></a></div>
-              <div class="event-txt">
-                <a href="javascript:void(0);" title="<%= t('right_nav.high_level')%>"><%= t('right_nav.high_level')%></a>
-                <p><%= t('right_nav.high_level_con1')%> </p>
-              </div>
-            </li>
-            <li>
-              <div class="event-img"><a href="javascript:void(0);" title="4th Malaysian State Con..."><img src="/images/img_event3.jpg" alt="Image" width="50" height="50" /></a></div>
-              <div class="event-txt">
-                <a href="javascript:void(0);" title="<%= t('right_nav.malaysia_state')%>"><%= t('right_nav.malaysia_state')%></a>
-                <p><%= t('right_nav.malaysia_state_con1')%> </p>
-              </div>
-            </li>
-          </ul>
+       
+        <div class="recentEvents box"> <%@upcoming_event = Event.where("is_active =? and from_date >=?", true, Time.now).limit(3) %>
+          <% if @upcoming_event.present? %>
+
+            <h2><%= t('right_nav.up_event')%></h2>
+            <ul><% @upcoming_event.each do |upcoming_event| %>
+                <li>
+                  <div class="event-img"><a href="javascript:void(0);" title="">
+                      <% if upcoming_event.event_attachment.present? %>
+                        <% image = upcoming_event.event_attachment.url(:thumb).split(".").last %>
+                        <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                          <span class="in-box">
+                            <%=image_tag(upcoming_event.event_attachment.url,:title=>upcoming_event.event_attachment,:alt=>"Image", :width=>"50", :height=>"50")%>
+
+                          </span>
+                        <%end%>
+                      <%end%></a></div>
+                  <div class="event-txt">
+                    <%=link_to upcoming_event.name, event_path(:id => upcoming_event.id), :method=>:get %>
+                    <p><%= upcoming_event.description.html_safe%> </p>
+                  </div>
+                </li><% if upcoming_event.from_date <= Time.now  %><% upcoming_event.update_attribute(:is_active, false)
+                %><%end%><%end%>
+              <div class="clearfix">&nbsp;</div>
+              <%=link_to "See More", events_path , :style=>"float:right"%>
+            </ul>
+          <%else%>
+            <ul><h2><%= t('right_nav.up_event')%></h2></ul>
+            No Events Available
+          <%end%></div>
+
+        <div class="rAds">
+          <div id="slides">
+            <div class="slides_container">
+
+              <% @advertisements=Advertisement.where("is_active =? and from_date >=?", true, Time.now) %>
+              <% @advertisements.each do |advertisement| %>
+                <div class="slide">
+
+                  <%=link_to  image_tag(advertisement.advertisement_attachment.url,:title=>advertisement.advertisement_attachment, :width=>"400", :height=>"400"), advertisement.web_link%>
+                </div>
+              <%end%>
+            </div>
+          </div>
         </div>
-        <div class="clear"></div>
-        <div class="rAds"><img src="/images/rads.jpg" alt="Image" width="205" height="295" /></div>
-        <%end%>
-    </div>
+
+      </div>
+
+    <%end%>
+
+
+
