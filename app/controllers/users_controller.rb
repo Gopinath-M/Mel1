@@ -155,9 +155,17 @@ class UsersController < ApplicationController
       if user.departments.include?(s)
         redirect_to(assign_department_users_path, :alert => "You cant Assign the User to Already exist department")
       else
-        from_user =  User.find_by_ic_number(params[:transfer][:username])
-        role = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '3', :status => 'A')
-        role.save
+        if params[:transfer][:role_id] == '2'
+           role_id = RoleMembership.find_by_department_id_and_role_id(params[:to_department][:id], '2')
+           role_id.update_attribute(:role_id, 3)
+           from_user =  User.find_by_ic_number(params[:transfer][:username])
+           rol = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '2', :status => 'A')
+           rol.save
+        else
+           from_user =  User.find_by_ic_number(params[:transfer][:username])
+           role = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '3', :status => 'A')
+           role.save
+        end
         department = Department.find_by_id(params[:to_department][:id])
         #UserMailer.intimate_user_assign(user,department).deliver
         redirect_to(users_path, :notice => "#{user.first_name} has been assigned to #{department.name}. ")
@@ -165,7 +173,16 @@ class UsersController < ApplicationController
     else
       redirect_to(assign_department_users_path, :alert => "Please Select the Drop box listed")
     end
+  end
 
+  def get_role_for_admin
+    user = User.find_by_ic_number(params[:ic_number])
+    dept = Department.find(params[:department_id])
+    role = RoleMembership.where(" role_id = ? and department_id = ? and user_id =? ", '2', dept.id, user.id)
+    if role.present?
+      p roles=Role.where("id = 2 or id = 3")
+      render :json=>[roles] if roles
+    end
   end
   
   ## Transfer Unit Function begins here

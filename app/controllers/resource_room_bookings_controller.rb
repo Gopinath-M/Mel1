@@ -3,7 +3,11 @@ class ResourceRoomBookingsController < ApplicationController
   #  before_filter :is_admin
 
   def index
-    @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id, :department_id => @current_department).order.page(params[:page]).per(5)
+    if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+      @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id).order.page(params[:page]).per(5)
+    else
+      @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id, :department_id => @current_department).order.page(params[:page]).per(5)
+    end
     category
   end
 

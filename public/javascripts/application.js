@@ -479,6 +479,7 @@ $().ready(function(){
 
     /*units Master screen end */
     /* Transfer Department */
+
     /*Transfer Departmnet Js Starts*/
 
     $("#from_department_id").live("change",function(){
@@ -497,6 +498,13 @@ $().ready(function(){
                     }
                 }
             })
+        }
+        else
+        {
+            $("#div_dept_transfer").hide();
+            $("#value_assign").hide();
+            $('#transfer_role_id').find('option').remove().end()
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
         }
     });
 
@@ -517,6 +525,13 @@ $().ready(function(){
                     }
                 }
             })
+        }
+        else
+        {
+            $("#div_dept_transfer").hide();
+            $("#value_assign").hide();
+            $('#transfer_role_id').find('option').remove().end()
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
         }
     });
 
@@ -556,7 +571,7 @@ $().ready(function(){
             $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
         }
     });
-    
+
     $("#role_membership_department_id").live("change",function(){
         if($("#role_membership_department_id").val()!="")
         {
@@ -577,7 +592,7 @@ $().ready(function(){
             })
         }
     });
-    
+
     $("#transfer_from_agency").live("change", function(){
         if($("#transfer_from_agency").val()!="")
         {
@@ -635,6 +650,7 @@ $().ready(function(){
             if(data[0]!=null)
             {
                 $("#value_new").hide();
+                $("#value_assign").hide();
                 $("#div_approver_list").hide();
                 $("#user_id").val($("#transfer_username").val())
                 var content="<table><tr><td><u><b>List of Existing Departments :</b></u></td></tr><tr><td><br/></td></tr>";
@@ -667,7 +683,7 @@ $().ready(function(){
                 $("#value_new").show();
                 $("#div_approver_list").hide();
                 $("#user_id").val($("#transfer_username").val())
-                var content="<table><tr><td><u><b>The User you Selected is a Department Admin, So Please Assign other Department Admin for this department before transfering him.</b></u></td></tr><tr><td><br/></td></tr>";
+                var content="<table><tr><td><u><b></b></u></td></tr><tr><td><br/></td></tr>";
                 content+=""
                 for(i=0; i<data[0].length; i++)
                 {
@@ -686,6 +702,55 @@ $().ready(function(){
 
         });
     })
+
+    $("#transfer_username").live("change",function(){
+        if($("#transfer_username").val()!="")
+        {
+            $.get("/users/get_role_for_admin/",{
+                ic_number: $("#transfer_username").val(),
+                department_id: $("#from_department_id").val()
+            }, function(data){
+                if(data[0]!=null)
+                {
+                    $("#value_assign").show();
+                    $("#div_dept_transfer").show();
+                    var content="<table><tr><td><u><b></b></u></td></tr><tr><td><br/></td></tr>";
+                    content+=""
+                    $('#transfer_role_id').find('option').remove().end()
+                    $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Role"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#transfer_role_id').append($("<option></option>").attr("value",data[0][i].role.id).text(data[0][i].role.name));
+                    }
+                    content+="</table>"
+                    $("#div_admin_transfer").html(content)
+                }
+                else
+                {
+                    content+="No Departments Found"
+                    $("#div_admin_transfer").html(content)
+                }
+
+            });
+        }
+        else
+        {
+            $("#value_assign").hide();
+            $('#transfer_role_id').find('option').remove().end()
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+        }
+    });
+
+
+    $("#from_department_id").live("change",function(){
+        if($("#from_department_id").val()!="")
+        {
+            $.get("/users/get_role_for_admin/",{
+                department_id: $("#from_department_id").val()
+            }, function(data){
+                })
+        }
+    });
 
 
     $("#transfer_username").live("change",function(){
