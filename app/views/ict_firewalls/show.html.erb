@@ -47,7 +47,7 @@
               <h2 class="b-head"></h2>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.source_ip')%></label>
+                <label class="text"><%=t('labels.source_ip')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.source_ip %>
                 </span>
@@ -70,42 +70,42 @@
                 </div>
                 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.Destination_ip')%></label>
+                <label class="text"><%=t('labels.Destination_ip')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.destination_ip %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.from_date')%></label>
+                <label class="text"><%=t('labels.from_date')%></label>
                 <span class="in-box">
                   <%=  @ict_firewall.requested_from_date.strftime("%d-%m-%Y %H:%M %p") %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.to_date')%></label>
+                <label class="text"><%=t('labels.to_date')%></label>
                 <span class="in-box">
                   <%=  @ict_firewall.requested_to_date.strftime("%d-%m-%Y %H:%M %p") %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.justification')%></label>
+                <label class="text"><%=t('labels.justification')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.justification %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.status')%></label>
+                <label class="text"><%=t('labels.status')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.status %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.service_information')%></label>
+                <label class="text"><%=t('labels.service_information')%></label>
                 <span class="in-box">                 
                 </span>
               </div>
@@ -115,8 +115,8 @@
                 <div style="margin-bottom: 10px;">
                   <table width="509" border="0" class="app-table" cellspacing="0" cellpadding="0" align="center" color="#329C20">
                     <tr>
-                      <th color="#329C20" width="30%"><b><%=t('left_nav.service_name')%></b></th>
-                      <th width="30%"><b><%=t('left_nav.way')%></b></th>
+                      <th color="#329C20" width="30%"><b><%=t('labels.service_name')%></b></th>
+                      <th width="30%"><b><%=t('labels.way')%></b></th>
                       <th width="20%"><b><%=t('labels.action')%></b></th>
                     </tr>
 					 <% services.each do |ict_firewall_service| %>
