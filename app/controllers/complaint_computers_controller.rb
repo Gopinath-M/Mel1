@@ -2,11 +2,11 @@ class ComplaintComputersController < ApplicationController
   before_filter :authenticate_user!
   def index 
     if current_user && current_user.is_super_admin?
-      @complaint_computer = ComplaintComputer.page(params[:page]).per(2)
+      @complaint_computer = ComplaintComputer.page(params[:page]).per(5)
     elsif current_user && current_user.is_department_admin?
-      @complaint_computer = ComplaintComputer.page(params[:page]).per(2)
+      @complaint_computer = ComplaintComputer.page(params[:page]).per(5)
     else
-      @complaint_computer = ComplaintComputer.where("user_id = ? or forward_to = ?", current_user.id, current_user.id).order.page(params[:page]).per(2)
+      @complaint_computer = ComplaintComputer.where("user_id = ? or forward_to = ?", current_user.id, current_user.id).order.page(params[:page]).per(5)
     end
   end
 
@@ -46,7 +46,9 @@ class ComplaintComputersController < ApplicationController
     @name = ComplaintType.find_by_id(@complaint_computer.complaint_type_id)
     @system_access_name = SystemAccess.find_by_id(@complaint_computer.system_access_id)
     @system_model_name = SystemModelType.find_by_id(@complaint_computer.system_model_type_id)
+    if params[:forward_to] != nil || params[:status] !=nil
     @complaint_computer.update_attributes(params[:complaint_computer])
+    end
     
     if @complaint_computer.update_attributes(params[:complaint_computer])
       ict_email = User.find_by_id(@complaint_computer.forward_to)

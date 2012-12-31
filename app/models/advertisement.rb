@@ -1,4 +1,5 @@
 class Advertisement < ActiveRecord::Base
+ 
   mount_uploader :advertisement_attachment, AdvertisementAttachmentUploader
   belongs_to :user
   validates :web_link, :from_date, :to_date, :advertisement_attachment, :presence =>true

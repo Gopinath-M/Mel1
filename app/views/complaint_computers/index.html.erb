@@ -4,7 +4,6 @@
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
       <div class="cu-c1"><a href="/complaint_computers/new" title="Complaint Computers"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.complaint_computer')%></a></div>
-
     </div>
   <%end%>
   <div id="div_ajax" >
@@ -25,8 +24,6 @@
               <% if complaint_computer.status == "New"%><b><font color='#FFA500'><%= "#{complaint_computer.status}" %></font></b><% elsif complaint_computer.status == "Approved" || complaint_computer.status == "Processed"  %>  <b><font color='#329C20'><%= "#{complaint_computer.status}" %> </font></b><% elsif complaint_computer.status == "Declined" || complaint_computer.status == "Returned"  %>  <b><font color='red'><%= "#{complaint_computer.status}" %> </font></b><% end %>
             </div>
           </div>
-          <div class="clear"></div>
-
 
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.complaint_type')%></b>
@@ -34,7 +31,6 @@
             <div class="m-c2">
               <%= @name.name%>
             </div>
-           
 
             <% time = Setting.find_by_id(1) %>
             <%if time.present?%>
@@ -96,8 +92,6 @@
               </div>
             <%end%>
           </div>
-       
-
 
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.system_type')%></b>
@@ -109,8 +103,6 @@
               <b><font color="#336699"><%= link_to t('labels.show_info'), complaint_computer_path(:id => complaint_computer.id), :method=>:get%></font></b>
             </div>
           </div>
-       
-
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.model_item')%> </b>
             </div>
@@ -118,10 +110,8 @@
               &nbsp;<%= @system_model_name.name%>
             </div>
             <div class="m-c3">
-
             </div>
           </div>
-          <div class="clear"></div>
 
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.ticket_no')%></b>
@@ -130,12 +120,8 @@
               <font color="red" size="3"><b>&nbsp;<%= complaint_computer.id %>/<%=Time.now.year%></b></font>
             </div>
             <div class="m-c3">
-
             </div>
           </div>
-          <div class="clear"></div>
-
-
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
             </div>
@@ -143,10 +129,8 @@
               &nbsp;<%= complaint_computer.created_at.strftime("%a %d %b %Y %I:%M %p")%></font>
             </div>
             <div class="m-c3">
-
             </div>
           </div>
-          <div class="clear"></div>
 
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.serial_no')%></b>
@@ -155,7 +139,6 @@
               &nbsp;<%= complaint_computer.serial_no%>
             </div>
             <div class="m-c3">
-
             </div>
           </div>
           <div class="clear"></div>
@@ -165,7 +148,7 @@
       <%end%> <div class="manage-user-rows box"><br/><br/>
         <%= paginate @complaint_computer %></div>
       <%else%>
-      <%=t('labels.complaints_list')%>
-    <%end%>
+        <%=t('labels.complaints_list')%>
+      <%end%>
   </div>
 </div>

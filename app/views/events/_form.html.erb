@@ -1,7 +1,6 @@
 <%= form_for(@event, :html => { :multipart => true }) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
-
   <br/>
   <div class="form-sec-row">
     <label class="text">Event Name<span style=color:red>*</span></label>
@@ -12,12 +11,12 @@
   <div class="form-sec-row">
     <label class="text">From Date<span style=color:red>*</span></label>
     <span class="in-box">
-      <%=f.text_field :from_date, :value=>@event && @event.from_date!=nil ? @event.from_date : nil ,:readonly=>true%></span>
+      <%=f.text_field :from_date, :value=>@event && @event.from_date!=nil ? @event.from_date : nil,:readonly=>true%></span>
   </div>
   <div class="form-sec-row">
     <label class="text">To Date<span style=color:red>*</span></label>
     <span class="in-box">
-      <%=f.text_field :to_date, :value=>@event && @event.to_date!=nil ? @event.to_date : nil ,:readonly=>true%>
+      <%=f.text_field :to_date, :value=>@event && @event.to_date!=nil ? @event.to_date : nil, :readonly=>true%>
     </span>
   </div>
   <div class="form-sec-row">
@@ -26,14 +25,12 @@
       <%= f.text_field :venue%>
     </span>
   </div>
-
   <div class="form-sec-row">
     <label class="text">Organizer<span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.text_field :organizer%>
     </span>
   </div>
-
   <div class="form-sec-row">
     <label class="text">Description<span style=color:red>*</span></label><br/><br/>
     <span class="in-box">
@@ -43,7 +40,6 @@
   <div class="form-sec-row"><br/>
     <label class="text">Is Visible<span style=color:red>*</span></label>
     <span class="in-box">
-
       <%= f.radio_button :is_active, true, {:id => "radio_click"} %> <%= f.label :is_active, "Yes" %>
       <%= f.radio_button :is_active, false, {:id => "radio_click"} %> <%= f.label :is_active, "No"  %>
     </span>
@@ -63,5 +59,4 @@
       </span>
     </div>
   </div>
-  <%#*</div>%>
 <%end%>

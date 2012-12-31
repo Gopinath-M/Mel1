@@ -2,16 +2,10 @@
 <div class="CenterNav">
   <div class="form-sec">
     <h2 class="b-head"><%=t('labels.req_ict_sys_access_booking_detail')%></h2>
-
-
-<%#=error_messages%>
     <div class="clearfix">&nbsp;</div>
-<%#*<div class="CenterNav">%>
-
     <div class="form-sec">
-<%# if @manager.present? %>
-      <font color="#369" size="3"><br/><b><u>A<%=t('labels.app_info')%></u><br/><br/></b></font>
-
+           <% if !current_user.is_super_admin? %>
+      <font color='#369'><b><u>User Details:-</u></b></font>
       <% @dept = Department.find_by_id(current_department) %>
       <% @agency = Agency.find_by_id(@dept.agency_id) %>
       <% @ict_system_access = IctSystemAccess.find_by_id(params[:id]) %>
@@ -33,34 +27,29 @@
         <label class="text"><%=t('labels.contact_number')%></label>
         <span class="in-box"><%= @user.contact_mobile  %></span>
       </div>
-
       <div class="form-sec-row">
         <label class="text"><%=t('labels.ic_no')%></label>
         <span class="in-box">
           <%= @user.ic_number %></span>
       </div>
-
       <div class="form-sec-row">
         <label class="text"><%=t('labels.email')%></label>
         <span class="in-box">
           <%= @user.email %></span>
       </div>
-
-      <h2 class="b-head"></h2>
-
+      <h2 class="b-head"></h2><br/>
+      <%end%>
+      <font color='#369'><b><u>ICT - System Access Details:-</u></b></font>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.ticket_no')%></label>
         <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @ict_system_access.id %>/<%=Time.now.year%></b></font></span>
       </div>
-
       <div class="form-sec-row">
         <label class="text"><%=t('labels.date_of_app')%></label>
         <span class="in-box"><%= @ict_system_access.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
       </div>
-
     </div>
-    <h2 class="b-head"></h2>
-
+    
     <div class="form-sec-row">
       <label class="text"><%=t('labels.type_of_facility')%></label>
       <span class="in-box">
@@ -79,11 +68,11 @@
     </div>
     <div class="form-sec-row">
       <% if @ict_system_access.system_access_attachment.present? %>
-        <label class="text"><%=t('labels.attachmennt')%></label>
+        <label class="text"><%=t('labels.attachment')%></label>
         <% image = @ict_system_access.system_access_attachment.url(:profile).split(".").last %>
         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
           <span class="in-box">
-            <%=image_tag(@ict_system_access.system_access_attachment.url,:title=>@ict_system_access.system_access_attachment)%>
+            <%=image_tag(@ict_system_access.system_access_attachment.url(:profile),:title=>@ict_system_access.system_access_attachment)%>
           <%else%>
             <% file = (@ict_system_access.system_access_attachment).url.split("/").last %>
             <b>&nbsp;<%= link_to file, download_attachments_ict_system_accesses_path(:id=>@ict_system_access.id) if @ict_system_access.system_access_attachment?  %></b>
@@ -91,13 +80,9 @@
         <%end%>
       <%end%>
     </div>
-
-
-
     <h2 class="b-head"></h2>
     <% if @ict_system_access.status == "Approved" || @ict_system_access.status == "Processed" || @ict_system_access.status == "Declined"%>
-
-      <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
+      <font color="#369" size="3"><br/><b><u><%=t('labels.off_action')%></u><br/><br/></b></font>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.status')%></label>
         <span class="in-box">
@@ -123,6 +108,5 @@
         <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
       </span>
     </div>
-
   </div>
 </div>
