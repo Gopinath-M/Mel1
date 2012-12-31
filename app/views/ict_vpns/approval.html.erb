@@ -179,7 +179,7 @@
         </div>
         <% name = User.find_by_id(@ict_vpn.forward_to) %>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.forward_to')%></label>
+          <label class="text"><%=t('labels.forward_to')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= name.username %>
           </span>

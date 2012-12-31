@@ -1,5 +1,9 @@
 <div class="CenterNav">
-  <h2 class="b-head"><%=t('labels.list_facility_ict_hardware')%></h2>
+  <h2 class="b-head"><%=t('labels.list_facility_ict_hardware1')%></h2>
+  <div class="create-user">
+    <div class="cu-c1">
+      <a href="/ict_network_points/list_to_select_ict" title=<%=t('labels.create_req_for_ict')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.create_req_for_ict')%></a></div>
+  </div>
   <div class="manage-user box">
     <%if !@ict_hardware_bookings.nil?%>
       <%@ict_hardware_bookings.each do |booking|%>
