@@ -7,7 +7,7 @@
           <div class="form-sec-row">
             <label class="text"><%=t('labels.name')%></label>
             <span class="in-box">
-              <%= booking.booker.full_name%>
+              <%= booking.booker.username%>
             </span>
           </div>
           <div class="form-sec-row">
@@ -54,7 +54,7 @@
             </tr>
             <%booking.ict_hardware_booked_users.each do |requested_user|%>
               <tr>
-                <td> <%=requested_user.user.full_name%></td>
+                <td> <%=requested_user.user.username %></td>
                 <td> <%=requested_user.is_replacement? ? "Replacement" : "New"%></td>
                 <td>
                   <%hardware = []%>
@@ -62,7 +62,7 @@
                   <%hardware << (requested_user.printer ? "Printer" : nil)%>
                   <%hardware << (requested_user.scanner ? "Scanner" : nil)%>
                   <% hardware.compact!%>
-                  <%= hardware.join(",").to_s %>
+                  <%= hardware.join(", ").to_s %>
                 </td>
                 <td>
                   <span class="in-box">
@@ -70,7 +70,11 @@
                   </span>
                 </td>
               </tr>
-              <% time = Setting.find(1) %>
+            <%end%>
+
+              <%requested_user = booking.ict_hardware_booked_users.first%>
+
+              <% time = Setting.find_by_id(1) %>
               <%if time.present?%>
                 <% temp = time.timeline.strftime("%H:%M:%S")%>
                 <%dt = DateTime.parse(temp)%>
@@ -80,7 +84,7 @@
                     <label class="text">Action</label>
                     <span class="in-box">
                       <% if requested_user.status == "New" %>
-                        <b><font color="#336699"><%= link_to  t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
+                        <b><font color="#336699"><%= link_to  t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :class=>"btn2 in-btn2"%></b>
                       <%end%>
                     </span>
                   <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && requested_user.created_at > (Time.now-2*seconds)%>
@@ -89,20 +93,20 @@
                       <% if requested_user.status == "New" %>
                         <% val = (requested_user.created_at > (Time.now-seconds))  %>
                         <% if !val.present? %>
-                          <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
+                          <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :class=>"btn2 in-btn2"%></b>
                         <%end%>
                       <%end%>
                     </span>
                   <% elsif requested_user.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
                     <label class="text">Action</label>
                     <span class="in-box">
-                      <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                      <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                     </span>
                   <%end%>
                   <%if requested_user.status == "Approved" && requested_user.forward_to == current_user.id %>
                     <label class="text">Action</label>
                     <span class="in-box">
-                      <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                      <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                     </span>
                   <%end%>
                 </div>
@@ -112,36 +116,34 @@
                     <label class="text">Action</label>
                     <span class="in-box">
                       <% if requested_user.status == "New" %>
-                        <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
+                        <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :class=>"btn2 in-btn2"%></b>
                       <%end%>
                     </span>
                   <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
                     <label class="text">Action</label>
                     <span class="in-box">
                       <% if requested_user.status == "New" %>
-                        <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
+                        <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :class=>"btn2 in-btn2"%></b>
                       <%end%>
                     </span>
                   <% elsif requested_user.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
                     <label class="text">Action</label>
                     <span class="in-box">
-                      <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                      <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                     </span>
                   <%end%>
                   <%if requested_user.status == "Approved" && requested_user.forward_to == current_user.id %>
                     <label class="text">Action</label>
                     <span class="in-box">
-                      <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                      <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                     </span>
                   <%end%>
                 </div>
               <%end%>
-            <%end%>
           </table>
         </div>
         <div class="clear"></div>
       <%end%>
-
       <div class="manage-user-rows box"><br/><br/>
         <%= paginate @ict_hardware_bookings %>
       </div>

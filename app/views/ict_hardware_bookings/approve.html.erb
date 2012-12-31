@@ -1,4 +1,4 @@
-<%= form_for(@ict_hardware_booked_user, :url=>update_request_ict_hardware_bookings_path(:id=>@ict_hardware_booked_user.id)) do |f| %>
+<%= form_for(@ict_hardware_booking, :url=>update_request_ict_hardware_bookings_path(:id=>@ict_hardware_booking.id)) do |f| %>
   <%= f. error_messages%>
   <div class="CenterNav">
     <h2 class="b-head"><%=t('labels.list_facility_ict_hardware')%></h2>
@@ -7,7 +7,7 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.name')%></label>
           <span class="in-box">
-            <%= @ict_hardware_booking.booker.full_name%>
+            <%= @ict_hardware_booking.booker.username%>
           </span>
         </div>
         <div class="form-sec-row">
@@ -38,92 +38,70 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.ticket_no')%></label>
           <span class="in-box">
-            <%=@ict_hardware_booking.id%>/<%=Time.now.year%>
+            <%=  @ict_hardware_booking.id%>/<%=Time.now.year%>
           </span>
         </div>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.date_of_app')%></label>
-          <span class="in-box"><%=@ict_hardware_booking.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
+          <span class="in-box"><%=@ict_hardware_booking.created_at.strftime("%d %b %Y, %I:%M:%S %p")%></span>
         </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.name')%></label>
-          <span class="in-box">
-            <%=@ict_hardware_booked_user.user.full_name%>
-          </span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.department')%></label>
-          <span class="in-box">
-            <%=@ict_hardware_booked_user.user.departments.first.name%>
-          </span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.requested_type')%></label>
-          <span class="in-box">
-            <%=@ict_hardware_booked_user.is_replacement? ? "Replacement" : "New"%>
-          </span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.pc')%></label>
-          <span class="in-box">
-            <%=@ict_hardware_booked_user.pc ? "Yes" : "No"%>
-          </span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.printer')%></label>
-          <span class="in-box">
-            <%=@ict_hardware_booked_user.printer ? "Yes" : "No"%>
-          </span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.scanner')%></label>
-          <span class="in-box">
-            <%=@ict_hardware_booked_user.scanner? ? "Yes" : "No"%>
-          </span>
-        </div>
+
+        <table width="100%">
+          <tr>
+            <td class="form-sec-row1"><label class="text"  style="width:10% ; font-weight: bold;"><%=t('labels.name')%></label></td>
+            <td class="form-sec-row1"><label class="text"  style="width:10% ; font-weight: bold;"><%=t('labels.requested_type')%></label></td>
+            <td class="form-sec-row1"><label class="text"  style="width:10% ; font-weight: bold;">Hardware Required</label></td>
+             <td class="form-sec-row1"><label class="text"  style="width:10% ; font-weight: bold;">Current Status</label></td>
+            <td class="form-sec-row1"><label class="text"  style="width:10% ; font-weight: bold;">Action</label></td>
+          </tr>
+  <%#= f.fields_for :ict_hardware_booked_users do |ff|%>
+          <%@ict_hardware_booking.ict_hardware_booked_users.each do |requested_user|%>
+            <tr>
+              <td> <%=requested_user.user.username%></td>
+              <td> <%=requested_user.is_replacement? ? "Replacement" : "New"%></td>
+              <td>
+                <%hardware = []%>
+                <%hardware << (requested_user.pc ? "PC" : nil)%>
+                <%hardware << (requested_user.printer ? "Printer" : nil)%>
+                <%hardware << (requested_user.scanner ? "Scanner" : nil)%>
+                <% hardware.compact!%>
+                <%= hardware.join(",").to_s %>
+              </td>
+              <td><%=requested_user.status%></td>
+              <td>
+                <%if @ict_hardware_booking.ict_hardware_booked_users.first.status == 'New'%>
+                Approve <%=  radio_button_tag "user[status][#{requested_user.id}]", "Approved" , :checked=>true%>
+                <%else%>
+                Process <%=  radio_button_tag "user[status][#{requested_user.id}]", "Processed" , :checked=>true%>
+                <%end%>
+                Decline <%=  radio_button_tag "user[status][#{requested_user.id}]", "Declined" %>
+              </td>
+            </tr>
+          <%end%>
+        </table>
+        <%if @ict_hardware_booking.ict_hardware_booked_users.first.status!='Approved'%>
+          <div class="form-sec-row">
+            <%dept = Department.find(default_department)%>
+            <%users = dept.users%>
+            <label class="text"> <%=t('labels.forward_to')%><span style=color:red>*</span></label>
+            <span class="in-box">
+              <%= select(:user,:forward_to, users.collect {|p| [ p.username, p.id ] },:prompt => "SELECT A USER") %>
+            </span>
+          </div>
+
+          <div class="form-sec-row">
+            <label class="text"> <%= f.label :status,t('labels.remarks'), :class=>"text"%></label>
+            <span class="in-box">
+              <%= text_area_tag "user[remarks]","", :cols => "20", :rows => "3"%>
+            </span>
+          </div>
+        <%end%>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.status')%></label>
           <span class="in-box">
             <b style="color : <%=@ict_hardware_booked_user.status=='New' ? '#FFA500' : (@ict_hardware_booked_user.status == "Approved" || @ict_hardware_booked_user.status == "Processed" ? '#329C20' : 'red')%>"><%= @ict_hardware_booked_user.status%></b>
           </span>
         </div>
-        <% if @ict_hardware_booked_user.status == "New" %>
-          <font color="#369" size="3"><br/><b><u><%=t('labels.approval_action')%></u><br/><br/></b></font>
-          <div class="form-sec-row">
-            <label class="text"><%= f.label :status,t('labels.action'), :class=>"text"%></label>
-            <span class="in-box">
-              <%select_options=["Approved","Declined"]%>
-              <%=f.select(:status, options_for_select(select_options))%>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <%dept = Department.find(default_department)%>
-            <%users = dept.users%>
-            <label class="text"> <%= f.label :forward_to,t('labels.forward_to'), :class=>"text"%></label>
-            <span class="in-box">
-              <%= f.select(:forward_to, users.collect {|p| [ p.username, p.id ] },:prompt => "SELECT A USER") %>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"> <%= f.label :status,t('labels.remarks'), :class=>"text"%></label>
-            <span class="in-box">
-              <%= f.text_area :remarks, :cols => "20", :rows => "3"%>
-            </span>
-          </div>
-        <%end%>
-        <% if @ict_hardware_booked_user.forward_to.present? %>
-          <% if @ict_hardware_booked_user.status == "Approved"  && @ict_hardware_booked_user.forward_to == current_user.id %>
-            <h2 class="b-head"></h2>
-            <font color="#369" size="3"><br/><b><u><%=t('labels.status')%></u><br/><br/></b></font>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.status')%></label>
-              <span class="in-box">
-                <%select_options=["Processed","Declined"]%>
-                <%=f.select(:status, options_for_select(select_options))%>
-              </span>
-            </div>
-          <%end%>
-        <%end%>
         <div class="form-sec-row">
           <label class="text">&nbsp;</label>
           <span class="in-box">
