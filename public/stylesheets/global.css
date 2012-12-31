@@ -5,11 +5,24 @@
     top: 0;
     z-index: 1000;
 }
+.rAds #slides {
+    left: 0;
+    position: absolute;
+    top: 55px;
+    z-index: 1000;
+}
 .slides_container {
     display: none;
     overflow: hidden;
     position: relative;
     width: 390px;
+    z-index: 1001;
+}
+.rAds .slides_container {
+    display: none;
+    overflow: hidden;
+    position: relative;
+    width: 210px;
     z-index: 1001;
 }
 .slides_container div.slide {
@@ -34,6 +47,15 @@
     float: right;
     height: 7px;
     margin: -20px 15px 0 0;
+    padding: 0;
+    position: relative;
+    z-index: 2222;
+}
+.rAds  .pagination {
+/*    background: url("../images/bg_slide_indicator.png") no-repeat scroll 0 0 transparent;   commented for image missing warning through in console*/
+    float: right;
+    height: 7px;
+    margin: -145px 15px 0 0;
     padding: 0;
     position: relative;
     z-index: 2222;
@@ -81,3 +103,4 @@
     font-size: 13px;
     padding-bottom: 10px;
 }
+
