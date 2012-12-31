@@ -32,7 +32,7 @@ class SoftwareInstallationsController < ApplicationController
     @software_installation_details.user_id = current_user.id
     @software_installation_details.department_id = current_user.departments
     @software_installation_details.save
-  if params[:total_service_count]
+  if params[:service_detail]
     @software_installation_details = SoftwareInstallationDetail.new
     @software_installation_details.software_installation_id = @software_installation.id
     @software_installation_details.facility_ict_software_id = params[:service_detail][:software]
@@ -78,8 +78,9 @@ class SoftwareInstallationsController < ApplicationController
         @software_installation_detail.approve_status = 0
         @software_installation_detail.save
       end
-      @software_installation.user_id = params[:software_installation_detail][:user_id]
+#      @software_installation.user_id = params[:software_installation_detail][:user_id]
       elsif @software_installation.status = 'Approved'
+        @software_installation.person_incharge = params[:software_installation_detail][:user_id]
         @software_installation.status = 'Processed'
       end
       @software_installation.save
