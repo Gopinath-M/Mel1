@@ -12,15 +12,15 @@
   <div id="div_ajax" >
     <%if @software_installation && !@software_installation.empty?%>
       <%@software_installation.each do |software|%>
-    <%@software_installation_detail = SoftwareInstallationDetail.find_all_by_software_installation_id(software.id)%>
-    <%@software_installation_detail.each do |detail|%>
+    <%#@software_installation_detail = SoftwareInstallationDetail.find_all_by_software_installation_id(software.id)%>
+    <%#@software_installation_detail.each do |detail|%>
         <div class="manage-user box">
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.user_name')%></b>
             </div>
             <div class="m-c2">
               <% @name = RequisitionType.find_by_id(software.requisition_type_id)%>
-              <% @user = User.find_all_by_id(detail.user_id) %>
+              <% @user = User.find_all_by_id(software.user_id) %>
               <%= @user[0].username%>
             </div>
             <div class="m-c3">
@@ -39,15 +39,15 @@
              <div class="m-c3">
         <%if software.status == "New"%>
            
-              <% if current_user.is_department_admin? || current_user.is_super_admin? %>
+              <% if current_user.is_department_admin? || current_user.is_super_admin? || @approve_list%>
                 <span class="in-box">
-                  <%= link_to t('labels.approve_request'),  resource_booking_approval_software_installations_path(:id => software.id), :class=>"btn2 in-btn2"%>
+                  <%= link_to t('labels.approve'),  resource_booking_approval_software_installations_path(:id => software.id), :class=>"btn2 in-btn2"%>
                 </span>
               <%end%>
              <%elsif software.user_id == current_user.id %>
               <%if software.status == "Approved"%>
               <span class="in-box">
-                  <%= link_to t('labels.process_request'),  resource_booking_approval_software_installations_path(:id => software.id), :class=>"btn2 in-btn2"%>
+                  <%= link_to t('labels.process'),  resource_booking_approval_software_installations_path(:id => software.id), :class=>"btn2 in-btn2"%>
               </span>
             <%end%>
             
@@ -84,7 +84,7 @@
      
         <h2 class="b-head"></h2>
 
-      <%end%> <%end%><div class="manage-user-rows box"><br/><br/>
+      <%end%> <div class="manage-user-rows box"><br/><br/>
         <%#= paginate @software_installation %>
       </div>
       <%else%>

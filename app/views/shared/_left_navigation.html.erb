@@ -61,33 +61,41 @@
 						<div id ="div_approve_resource_booking" style="display:none;">
 							<ul>
 
-								<%if resource_room_new_count > 0 %>
-								<li>
-									<span class="notifiNo"><%= resource_room_new_count %></span>
-									<%= link_to t('labels.approve_room_request'), list_resource_booking_resource_room_bookings_path %>
-								</li>
-								<%end%>
-								<!--li><a href="javascript:void(0);" title="<%#=t('left_nav.user_transfer_request')%>"><%#=t('left_nav.user_transfer_request')%></a></li-->
-								<%if session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN%>
-								<li>
-									<span class="notifiNo"><%= resource_room_new_count>0 ? resource_room_new_count : '' %></span>
-									<%= link_to t('labels.approve_room_request'), list_resource_booking_resource_room_bookings_path %>
-								</li>
-								<%end%>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<%= link_to t('labels.ict_facility'), "javascript:void(0);" , :title=>t('labels.ict_facility') ,:class=>"", :id=>"lnk_approve_ict_facility" ,:onclick=>"leftNavigation(this.id,'div_approve_ict_facility')"%>
-						<div id="div_approve_ict_facility" style="display:none;">
-							<ul>
-								<% hardware_count = approve_hardware_request('New')%>
-								<%if hardware_count >0 %>
-								<li>
-									<span class="notifiNo"><%= hardware_count %></span>
-									<%= link_to t('labels.approve_H/W_request'), requests_ict_hardware_bookings_path %>
-								</li>
-								<%end%>
+<<<<<<< HEAD
+                  <%if resource_room_new_count > 0 %>
+                    <li>
+                      <span class="notifiNo"><%= resource_room_new_count %></span>
+                      <%= link_to t('labels.approve_room_request'), list_resource_booking_resource_room_bookings_path %>
+                    </li>
+                  <%end%>
+        <!--li><a href="javascript:void(0);" title="<%#=t('left_nav.user_transfer_request')%>"><%#=t('left_nav.user_transfer_request')%></a></li-->
+                  <%if session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN%>
+                    <li>
+                      <span class="notifiNo"><%= resource_room_new_count>0 ? resource_room_new_count : '' %></span>
+                      <%= link_to t('labels.approve_room_request'), list_resource_booking_resource_room_bookings_path %>
+                    </li>
+                  <%end%>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <%=link_to t('labels.ict_facility'), "javascript:void(0);" , :title=>t('labels.ict_facility') ,:class=>"", :id=>"lnk_approve_ict_facility" ,:onclick=>"leftNavigation(this.id,'div_approve_ict_facility')"%>
+              <div id="div_approve_ict_facility" style="display:none;">
+                <ul>
+                  <%software_count = approve_software_request('New')%>
+            
+                    <li>
+                      <span class="notifiNo"></span>
+                      <%=link_to 'Approve Software Request', software_installations_path %>
+                    </li>
+                  
+                  <%hardware_count = approve_hardware_request('New')%>
+                  <%if hardware_count >0 %>
+                    <li>
+                      <span class="notifiNo"><%= hardware_count %></span>
+                      <%=link_to t('labels.approve_H/W_request'), requests_ict_hardware_bookings_path %>
+                    </li>
+                  <%end%>
 
 								<%if ict_network_new_count > 0 %>
 								<li>
