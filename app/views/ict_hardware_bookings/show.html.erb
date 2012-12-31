@@ -7,7 +7,7 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.name')%></label>
           <span class="in-box">
-            <%= @ict_hardware_booking.booker.full_name%>
+            <%= @ict_hardware_booking.booker.username%>
           </span>
         </div>
         <div class="form-sec-row">
@@ -48,7 +48,6 @@
           <label class="text"><%=t('labels.date_of_app')%></label>
           <span class="in-box"><%=@ict_hardware_booking.created_at.strftime("%d %b %Y, %I:%M:%S %p")%></span>
         </div>
-        <%@ict_hardware_booking.ict_hardware_booked_users.each do |requested_user|%>
           <table>
             <tr>
               <td class="form-sec-row"><label class="text"><%=t('labels.name')%></label></td>
@@ -58,7 +57,7 @@
             </tr>
             <%@ict_hardware_booking.ict_hardware_booked_users.each do |requested_user|%>
               <tr>
-                <td> <%=requested_user.user.full_name%></td>
+                <td> <%=requested_user.user.username%></td>
                 <td> <%=requested_user.is_replacement? ? "Replacement" : "New"%></td>
                 <td>
                   <%hardware = []%>
@@ -76,8 +75,6 @@
               </tr>
             <%end%>
           </table>
-
-        <%end%>
       </div>
       <div class="clear"></div>
   <%#end%>

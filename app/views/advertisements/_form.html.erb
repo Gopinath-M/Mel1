@@ -1,7 +1,6 @@
 <%= form_for(@advertisement, :html => { :multipart => true }) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
-
   <br/>
   <div class="form-sec-row">
     <label class="text">Web-site URL<span style=color:red>*</span></label>
@@ -20,11 +19,9 @@
       <%=f.text_field :to_date, :value=>@advertisement && @advertisement.to_date!=nil ? @advertisement.to_date : nil ,:readonly=>true%>
     </span>
   </div>
-  
   <div class="form-sec-row">
     <label class="text">Is Visible<span style=color:red>*</span></label>
     <span class="in-box">
-
       <%= f.radio_button :is_active, true, {:id => "radio_click"} %> <%= f.label :is_active, "Yes" %>
       <%= f.radio_button :is_active, false, {:id => "radio_click"} %> <%= f.label :is_active, "No"  %>
     </span>
@@ -44,5 +41,4 @@
       </span>
     </div>
   </div>
-  <%#*</div>%>
 <%end%>

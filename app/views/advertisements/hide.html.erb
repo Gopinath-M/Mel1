@@ -2,52 +2,47 @@
 <div class="CenterNav">
   <div class="form-sec">
     <h2>Advertisement Details</h2><br/>
-
     <div class="form-sec-row-out">
       <label class="text">Advertisement Web-site URL</label>
       <span class="in-box">
-       <a href=<%= @advertisements.web_link%>><b><%= @advertisements.web_link%></b></a></span>
+        <a href=<%= @advertisements.web_link%>><b><%= @advertisements.web_link%></b></a></span>
     </div>
     <div class="form-sec-row-out">
       <label class="text">From Date</label>
       <span class="in-box">
         <%= @advertisements.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @advertisements.from_date %></span>
     </div>
-
     <div class="form-sec-row-out">
       <label class="text">To Date</label>
       <span class="in-box">
         <%= @advertisements.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @advertisements.to_date %></span>
-    </div>
- 
-          <% advertisement_user_name = User.find_by_id(@advertisements.created_by) %>
+    </div> 
+    <% advertisement_user_name = User.find_by_id(@advertisements.created_by) %>
     <div class="form-sec-row-out">
       <label class="text">Created By</label>
       <span class="in-box">
         <%= advertisement_user_name.username %></span>
     </div>
-     <div class="form-sec-row-out">
+    <div class="form-sec-row-out">
       <% if @advertisements.advertisement_attachment.present? %>
         <label class="text">Attachment</label>
         <% image = @advertisements.advertisement_attachment.url(:profile).split(".").last %>
         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
           <span class="in-box">
             <%=image_tag(@advertisements.advertisement_attachment.url(:profile),:title=>@advertisements.advertisement_attachment)%>
-         
+
           </span>
         <%end%>
       <%end%>
     </div>
-      <div class="form-sec-row-out">
-        <label class="text">Is Visible</label>
-        <span class="in-box">
-          <% if @advertisements.is_active == true %>
-
-            Yes <% else %>
-            No
-          <%end%></span>
-      </div>
-
+    <div class="form-sec-row-out">
+      <label class="text">Is Visible</label>
+      <span class="in-box">
+        <% if @advertisements.is_active == true %>
+          Yes <% else %>
+          No
+        <%end%></span>
+    </div>
     <h2 class="b-head"></h2><br/>
   </div>
 </div>

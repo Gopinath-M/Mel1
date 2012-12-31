@@ -1,38 +1,38 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!
+     
   def index
-    @events = Event.where("is_active =? and from_date >=?", true, Time.now).page(params[:page]).per(1)
-  end
-  def hide_index
-    @events = Event.where("is_active =?", false).page(params[:page]).per(1)
+    @events = Event.where("is_active =? and from_date >=?", true, Time.now).page(params[:page]).per(5)
   end
 
-   def event_index
+  def hide_index
+    @events = Event.where("is_active =?", false).page(params[:page]).per(5)
+  end
+
+  def event_index
     @events=nil
     if params[:id].blank? || params[:id].nil?
-      @events=Event.where(:deleted => false).order.page(params[:page]).per(15)
-    end
-  end
-
-  def create   
-    @event = Event.new(params[:event])
-    @event.created_by = current_user.id
-
-    if @event.valid?
-      @event.save
-      redirect_to(new_event_path, :notice => "Event has been created successfully.")
-    else
-      render :action=>'new'
+      @events=Event.where(:deleted => false).order.page(params[:page]).per(10)
     end
   end
 
   def new
-    @event = Event.new
+    @event = Event.new(params[:event])
   end
 
-   def show
+  def create   
+    @event = Event.create(params[:event])
+    @event.created_by = current_user.id
+    if @event.valid?
+      redirect_to(list_event_events_path, :notice => "Event has been created successfully.")
+    else
+      render :action=>'new'
+    end
+  end  
+
+  def show
     if !params[:id].nil?
-       @events = Event.find(params[:id])
+      @events = Event.find(params[:id])
     end
   end
 
@@ -42,16 +42,12 @@ class EventsController < ApplicationController
     end
   end
 
-
-
   def edit
     @event = Event.find(params[:id])
   end
 
-
   def update
     @event = Event.find(params[:id]) if params[:id]
-
     @event.update_attribute(:updated_by, current_user.id)
     if @event.update_attributes(params[:event])
       redirect_to(event_index_events_path, :notice => 'Event has been successfully updated.')
@@ -76,5 +72,9 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to(event_index_events_path, :notice => 'Event has been Deleted.')
     end
+  end
+
+  def list_event
+    
   end
 end

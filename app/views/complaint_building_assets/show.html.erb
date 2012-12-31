@@ -1,65 +1,60 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2 class="b-head"><%=t('labels.complaint_builing_asset_booking_details')%></h2>
+    <h2 class="b-head">
+      <%=t('labels.complaint_builing_asset_booking_details')%></h2>
 
-
-<%#=error_messages%>
     <div class="clearfix">&nbsp;</div>
-<%#*<div class="CenterNav">%>
-
     <div class="form-sec">
-<%# if @manager.present? %>
-      <font color="#369" size="3"><br/><b><u><%=t('labels.application_helper')%>-</u><br/><br/></b></font>
+  <% if !current_user.is_super_admin? %>
+      <font color='#369'><b><u>User Details:-</u></b></font>
+     
+        <% @dept = Department.find_by_id(current_department) %>
+        <% @agency = Agency.find_by_id(@dept.agency_id) %>
+        <% @complaint_building_asset = ComplaintBuildingAsset.find_by_id(params[:id]) %>
+        <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.agency_name')%></label>
+          <span class="in-box"><%= @agency.name  %></span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.department_name')%></label>
+          <span class="in-box">
+            <%= @dept.name  %></span>
+        </div>
 
-      <% @dept = Department.find_by_id(current_department) %>
-      <% @agency = Agency.find_by_id(@dept.agency_id) %>
-      <% @complaint_building_asset = ComplaintBuildingAsset.find_by_id(params[:id]) %>
-      <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.agency_name')%></label>
-        <span class="in-box"><%= @agency.name  %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.department_name')%></label>
-        <span class="in-box">
-          <%= @dept.name  %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.user_name')%></label>
-        <span class="in-box"><%= @user.username %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.contact_mob')%></label>
-        <span class="in-box"><%= @user.contact_mobile  %></span>
-      </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.user_name')%></label>
+          <span class="in-box"><%= @user.username %></span>
+        </div>
 
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.ic_no')%></label>
-        <span class="in-box">
-          <%= @user.ic_number %></span>
-      </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.contact_mob')%></label>
+          <span class="in-box"><%= @user.contact_mobile  %></span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.ic_no')%></label>
+          <span class="in-box">
+            <%= @user.ic_number %></span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.email')%></label>
+          <span class="in-box">
+            <%= @user.email %></span>
+        </div>
 
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.email')%></label>
-        <span class="in-box">
-          <%= @user.email %></span>
-      </div>
-
-      <h2 class="b-head"></h2>
-
+        <h2 class="b-head"></h2><br/>
+      <%end%>
+      <font color='#369'><b><u>Complaint - Building Asset Details:-</u></b></font>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.ticket_no')%></label>
         <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @complaint_building_asset.id %>/<%=Time.now.year%></b></font></span>
       </div>
-
       <div class="form-sec-row">
         <label class="text"><%=t('labels.date_of_app')%></label>
         <span class="in-box"><%= @complaint_building_asset.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
       </div>
-
     </div>
-    <h2 class="b-head"></h2>
 
     <div class="form-sec-row">
       <label class="text"><%=t('left_nav.category')%></label>
@@ -81,7 +76,6 @@
       <span class="in-box">
         <%= @item_name.name %></span>
     </div>
-
     <div class="form-sec-row">
       <label class="text"><%=t('labels.location')%></label>
       <span class="in-box">
@@ -97,9 +91,6 @@
       <span class="in-box">
         <%= @complaint_building_asset.serial_no %></span>
     </div>
-
-
-
     <h2 class="b-head"></h2>
     <% if @complaint_building_asset.status == "Approved" || @complaint_building_asset.status == "Processed" || @complaint_building_asset.status == "Declined"%>
 
@@ -119,81 +110,76 @@
             Yes <% else %>
             No
           <%end%></span>
-      </div>    <h2 class="b-head"></h2>
+      </div>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.act_to_be_taken')%></label>
         <span class="in-box">
           <% if @complaint_building_asset.action_taken == false %>
-
             Internal <% else %>
             External
           <%end%></span>
       </div>
 
+
       <% @vendor_name = Vendor.find_by_id(@complaint_building_asset.vendor_id) %>
-<% if @complaint_building_asset.action_taken == true && @complaint_building_asset.status == "Approved"%>
-  
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.vendor_name')%></label>
-            <span class="in-box">
-              <%= @vendor_name.name if @complaint_building_asset.vendor_id %></span>
-          </div>
-
-      <%end%>
-      <% if @complaint_building_asset.action_taken == true && @complaint_building_asset.status == "Processed"%>
-       
-       <div class="form-sec-row">
-            <label class="text"><%=t('labels.vendor_name')%></label>
-            <span class="in-box">
-              <%= @vendor_name.name if @complaint_building_asset.vendor_id %></span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.given_date')%></label>
-            <span class="in-box">
-
-              <%= @complaint_building_asset.given_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @complaint_building_asset.given_date %></span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.receipt_date')%></label>
-            <span class="in-box">
-              <%= @complaint_building_asset.receipt_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @complaint_building_asset.receipt_date%></span>
-          </div>
-
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.comments')%></label>
-            <span class="in-box">
-              <%= @complaint_building_asset.comments if @complaint_building_asset.comments %></span>
-          </div>
-
-          <h2 class="b-head"></h2>
-           
-      <%end%>
-
+      <% if @complaint_building_asset.action_taken == true && @complaint_building_asset.status == "Approved"%>
+        <font color='#369'><b><u>Issue Log - Building Asset Details:-</u></b></font>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.status')%></label>
+          <label class="text"><%=t('labels.vendor_name')%></label>
           <span class="in-box">
-            <% if @complaint_building_asset.status == "New"%><b><font color='#FFA500'><%= @complaint_building_asset.status %></b></font><% elsif @complaint_building_asset.status == "Approved" || @complaint_building_asset.status == "Processed"  %>  <b><font color='#329C20'><%= @complaint_building_asset.status %></b></font><% elsif @complaint_building_asset.status == "Declined" || @complaint_building_asset.status == "Returned"  %>  <b><font color='red'><%= @complaint_building_asset.status %></b></font><%end%></span>
+            <%= @vendor_name.name if @complaint_building_asset.vendor_id %></span>
         </div>
-        <% name = User.find_by_id(@complaint_building_asset.forward_to) %>
+      <%end%>
+      <% if @complaint_building_asset.action_taken == true && @complaint_building_asset.status == "Processed"%><br/>
+        <font color='#369'><b><u>Issue Log - Building Asset Details:-</u></b></font>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.forward_to')%></label>
+          <label class="text"><%=t('labels.vendor_name')%></label>
           <span class="in-box">
-            <%= name.username %>
-          </span>
+            <%= @vendor_name.name if @complaint_building_asset.vendor_id %></span>
         </div>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.remarks')%></label>
+          <label class="text"><%=t('labels.given_date')%></label>
           <span class="in-box">
-            <%= @complaint_building_asset.remarks %></span>
+            <%= @complaint_building_asset.given_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @complaint_building_asset.given_date %></span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.receipt_date')%></label>
+          <span class="in-box">
+            <%= @complaint_building_asset.receipt_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @complaint_building_asset.receipt_date%></span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.comments')%></label>
+          <span class="in-box">
+            <%= @complaint_building_asset.comments if @complaint_building_asset.comments %></span>
         </div>
         <h2 class="b-head"></h2>
+
       <%end%>
+
       <div class="form-sec-row">
-        <label class="text">&nbsp;</label>
+        <label class="text"><%=t('labels.status')%></label>
         <span class="in-box">
-          <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
+          <% if @complaint_building_asset.status == "New"%><b><font color='#FFA500'><%= @complaint_building_asset.status %></b></font><% elsif @complaint_building_asset.status == "Approved" || @complaint_building_asset.status == "Processed"  %>  <b><font color='#329C20'><%= @complaint_building_asset.status %></b></font><% elsif @complaint_building_asset.status == "Declined" || @complaint_building_asset.status == "Returned"  %>  <b><font color='red'><%= @complaint_building_asset.status %></b></font><%end%></span>
+      </div>
+      <% name = User.find_by_id(@complaint_building_asset.forward_to) %>
+      <div class="form-sec-row">
+        <label class="text"><%=t('labels.forward_to')%></label>
+        <span class="in-box">
+          <%= name.username %>
         </span>
       </div>
-
+      <div class="form-sec-row">
+        <label class="text"><%=t('labels.remarks')%></label>
+        <span class="in-box">
+          <%= @complaint_building_asset.remarks %></span>
+      </div>
+      <h2 class="b-head"></h2>
+    <%end%>
+    <div class="form-sec-row">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+        <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
+      </span>
     </div>
   </div>
+</div>

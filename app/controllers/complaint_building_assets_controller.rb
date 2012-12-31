@@ -2,11 +2,11 @@ class ComplaintBuildingAssetsController < ApplicationController
   before_filter :authenticate_user!
   def index    
     if current_user && current_user.is_super_admin?
-      @complaint_building_asset = ComplaintBuildingAsset.page(params[:page]).per(2)
+      @complaint_building_asset = ComplaintBuildingAsset.page(params[:page]).per(5)
     elsif current_user && current_user.is_department_admin?
-      @complaint_building_asset = ComplaintBuildingAsset.page(params[:page]).per(2)
+      @complaint_building_asset = ComplaintBuildingAsset.page(params[:page]).per(5)
     else
-      @complaint_building_asset = ComplaintBuildingAsset.where("user_id = ? or forward_to = ?", current_user.id, current_user.id).order.page(params[:page]).per(2)
+      @complaint_building_asset = ComplaintBuildingAsset.where("user_id = ? or forward_to = ?", current_user.id, current_user.id).order.page(params[:page]).per(5)
     end
   end
 
@@ -47,8 +47,9 @@ class ComplaintBuildingAssetsController < ApplicationController
     @category_name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id) if @complaint_building_asset.building_asset_type_id
     @type_name = BuildingAssetType.find_by_id(@complaint_building_asset.type_id)
     @item_name = BuildingAssetType.find_by_id(@complaint_building_asset.item_id)
+    if params[:forward_to] != nil || params[:status] !=nil
     @complaint_building_asset.update_attributes(params[:complaint_building_asset])
-    
+    end
     if @complaint_building_asset.update_attributes(params[:complaint_building_asset])
       ict_email = User.find_by_id(@complaint_building_asset.forward_to)
       UserMailer.send_mail_to_complaint_building_asset(ict_email, @complaint_building_asset, @category_name, @type_name, @item_name, current_user).deliver

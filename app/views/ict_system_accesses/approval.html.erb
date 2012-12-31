@@ -2,138 +2,151 @@
 <div class="CenterNav">
   <div class="form-sec">
     <h2 class="b-head">  <%=t('labels.req_ict_sys_acc_book_for_app')%></h2>
-
     <%= form_for(@ict_system_access, :url=>ict_system_access_path(:id=>@ict_system_access.id), :method => :put) do |f| %>
-  <%#=error_messages%>
       <div class="clearfix">&nbsp;</div>
-  <%#*<div class="CenterNav">%>
-
       <div class="form-sec">
-  <%# if @manager.present? %>
-        <font color="#369" size="3"><br/><b><u><%=t('labels.app_info')%></u><br/><br/></b></font>
-
-        <% @dept = Department.find_by_id(current_department) %>
-        <% @agency = Agency.find_by_id(@dept.agency_id) %>
-        <% @ict_system_access = IctSystemAccess.find_by_id(params[:id]) %>
-        <% @user = User.find_by_id(@ict_system_access.user_id) %>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.agency_name')%></label>
-          <span class="in-box"><%= @agency.name  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.department_name')%></label>
-          <span class="in-box">
-            <%= @dept.name  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.user_name')%></label>
-          <span class="in-box"><%= @user.username %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.contact_number')%></label>
-          <span class="in-box"><%= @user.contact_mobile  %></span>
-        </div>
-
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.ic_no')%></label>
-          <span class="in-box">
-            <%= @user.ic_number %></span>
-        </div>
-
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.email')%></label>
-          <span class="in-box">
-            <%= @user.email %></span>
-        </div>
-
-        <h2 class="b-head"></h2>
-
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.ticket_no')%></label>
-          <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @ict_system_access.id %>/<%=Time.now.year%></b></font></span>
-        </div>
-
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.date_of_app')%></label>
-          <span class="in-box"><%= @ict_system_access.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
-        </div>
-
-      </div>
-      <h2 class="b-head"></h2>
-
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.type_of_facility')%></label>
-        <span class="in-box">
-          <%facility_name = IctSystemAccess.find_by_user_id(@ict_system_access.user_id)%>
-          <%requisition_name = RequisitionType.find(facility_name.requisition_type_id)%>
-          <%= requisition_name.name %>
-        </span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.required_sys')%></label>
-        <span class="in-box">
-          <%sys_name = IctSystemAccess.find_by_system_access_id(@ict_system_access.system_access_id)%>
-          <%requisition_name = SystemAccess.find(sys_name.system_access_id)%>
-          <%= requisition_name.name %>
-        </span>
-      </div>
-      <div class="form-sec-row">
-        <% if @ict_system_access.system_access_attachment.present? %>
-          <label class="text"><%=t('labels.attachment')%></label>
-          <% image = @ict_system_access.system_access_attachment.url(:profile).split(".").last %>
-          <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-            <span class="in-box">
-              <%=image_tag(@ict_system_access.system_access_attachment.url,:title=>@ict_system_access.system_access_attachment)%>
-            <%else%>
-              <% file = (@ict_system_access.system_access_attachment).url.split("/").last %>
-              <b>&nbsp;<%= link_to file, download_attachments_ict_system_accesses_path(:id=>@ict_system_access.id) if @ict_system_access.system_access_attachment?  %></b>
-            </span>
-          <%end%>
-        <%end%>
-      </div>
-      <h2 class="b-head"></h2>
-      <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
-
-      <% if @ict_system_access.status == "New" %>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.booking_status')%><span style=color:red>*</span></label>
-          <span class="in-box">
-            <%= f.select :status, options_for_select([["Select Status", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_system_access.status) %>
-
-          </span>
-        </div>
-        <%@dept = Department.find(default_department)%>
-        <%@users = @dept.users%>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.forward_to')%><span style=color:red>*</span></label>
-          <span class="in-box">
-            <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
-          </span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
-          <span class="in-box">
-            <%= f.text_area :remarks, :rows =>4%></span>
-        </div>
-        <div class="form-sec-row">
-          <div class="CenterNav">
-            <label class="text">&nbsp;</label>
-            <span class="in-box">
-              <%= f.submit :value=>t('labels.submit'), :class=>"btn2"%>
-            </span>
-          </div>
-        </div>
-
-      <% elsif @ict_system_access.status == "Approved" %>
-        <% if @ict_system_access.forward_to.present? %>
+        <% if !current_user.is_super_admin? %>
+          <font color='#369'><b><u>User Details</u></b></font>
+          <% @dept = Department.find_by_id(current_department) %>
+          <% @agency = Agency.find_by_id(@dept.agency_id) %>
+          <% @ict_system_access = IctSystemAccess.find_by_id(params[:id]) %>
+          <% @user = User.find_by_id(@ict_system_access.user_id) %>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.booking_status')%><span style=color:red>*</span></label>
+            <label class="text"><%=t('labels.agency_name')%></label>
+            <span class="in-box"><%= @agency.name  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.department_name')%></label>
             <span class="in-box">
-              <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @ict_system_access.status) %>
+              <%= @dept.name  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.user_name')%></label>
+            <span class="in-box"><%= @user.username %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.contact_number')%></label>
+            <span class="in-box"><%= @user.contact_mobile  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.ic_no')%></label>
+            <span class="in-box">
+              <%= @user.ic_number %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.email')%></label>
+            <span class="in-box">
+              <%= @user.email %></span>
+          </div>
+          <h2 class="b-head"></h2><br/>
+          <%end%>
+          <font color='#369'><b><u>ICT - System Access Details:-</u></b></font>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.ticket_no')%></label>
+            <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @ict_system_access.id %>/<%=Time.now.year%></b></font></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.date_of_app')%></label>
+            <span class="in-box"><%= @ict_system_access.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
+          </div>
+        </div>
+
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.type_of_facility')%></label>
+          <span class="in-box">
+            <%facility_name = IctSystemAccess.find_by_user_id(@ict_system_access.user_id)%>
+            <%requisition_name = RequisitionType.find(facility_name.requisition_type_id)%>
+            <%= requisition_name.name %>
+          </span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.required_sys')%></label>
+          <span class="in-box">
+            <%sys_name = IctSystemAccess.find_by_system_access_id(@ict_system_access.system_access_id)%>
+            <%requisition_name = SystemAccess.find(sys_name.system_access_id)%>
+            <%= requisition_name.name %>
+          </span>
+        </div>
+        <div class="form-sec-row">
+          <% if @ict_system_access.system_access_attachment.present? %>
+            <label class="text"><%=t('labels.attachment')%></label>
+            <% image = @ict_system_access.system_access_attachment.url(:profile).split(".").last %>
+            <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+              <span class="in-box">
+                <%=image_tag(@ict_system_access.system_access_attachment.url(:profile),:title=>@ict_system_access.system_access_attachment)%>
+              <%else%>
+                <% file = (@ict_system_access.system_access_attachment).url.split("/").last %>
+                <b>&nbsp;<%= link_to file, download_attachments_ict_system_accesses_path(:id=>@ict_system_access.id) if @ict_system_access.system_access_attachment?  %></b>
+              </span>
+            <%end%>
+          <%end%>
+        </div>
+        <h2 class="b-head"></h2>
+        <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
+        <% if @ict_system_access.status == "New" %>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.booking_status')%></label>
+            <span class="in-box">
+              <%= f.select :status, options_for_select([["Select Status", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_system_access.status) %>
+
             </span>
           </div>
-
-
+          <%@dept = Department.find(default_department)%>
+          <%@users = @dept.users%>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.forward_to')%></label>
+            <span class="in-box">
+              <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
+            </span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.remarks')%></label>
+            <span class="in-box">
+              <%= f.text_area :remarks, :rows =>4%></span>
+          </div>
+          <div class="form-sec-row">
+            <div class="CenterNav">
+              <label class="text">&nbsp;</label>
+              <span class="in-box">
+                <%= f.submit :value=>t('labels.submit'), :class=>"btn2"%>
+              </span>
+            </div>
+          </div>
+        <% elsif @ict_system_access.status == "Approved" %>
+          <% if @ict_system_access.forward_to.present? %>
+            <div class="form-sec-row">
+              <label class="text"><%=t('labels.booking_status')%></label>
+              <span class="in-box">
+                <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @ict_system_access.status) %>
+              </span>
+            </div>
+            <% name = User.find_by_id(@ict_system_access.forward_to) %>
+            <div class="form-sec-row">
+              <label class="text"><%=t('labels.forward_to')%></label>
+              <span class="in-box">
+                <%= name.username %>
+              </span>
+            </div>
+            <div class="form-sec-row">
+              <label class="text"><%=t('labels.remarks')%></label>
+              <span class="in-box">
+                <%= f.text_area :remarks, :rows =>4%></span>
+            </div>
+            <div class="form-sec-row">
+              <div class="CenterNav">
+                <label class="text">&nbsp;</label>
+                <span class="in-box">
+                  <%= f.submit :value=>t('labels.update'), :class=>"btn2"%>
+                </span>
+              </div>
+            </div>
+          <%end%>
+        <% else %>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.status')%></label>
+            <span class="in-box">
+              <% if @ict_system_access.status == "New"%><b><font color='#FFA500'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Approved" || @ict_system_access.status == "Processed"  %>  <b><font color='#329C20'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Declined" || @ict_system_access.status == "Returned"  %>  <b><font color='red'><%= @ict_system_access.status %></b></font><%end%></span>
+          </div>
           <% name = User.find_by_id(@ict_system_access.forward_to) %>
           <div class="form-sec-row">
             <label class="text"><%=t('labels.forward_to')%></label>
@@ -142,51 +155,21 @@
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
+            <label class="text"><%=t('labels.remarks')%></label>
             <span class="in-box">
-              <%= f.text_area :remarks, :rows =>4%></span>
+              <%= @ict_system_access.remarks %></span>
           </div>
+          <h2 class="b-head"></h2>
           <div class="form-sec-row">
-            <div class="CenterNav">
-              <label class="text">&nbsp;</label>
-              <span class="in-box">
-                <%= f.submit :value=>t('labels.update'), :class=>"btn2"%>
-              </span>
-            </div>
+            <label class="text">&nbsp;</label>
+            <span class="in-box">
+              <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
+            </span>
           </div>
         <%end%>
-
-      <% else %>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.status')%></label>
-          <span class="in-box">
-            <% if @ict_system_access.status == "New"%><b><font color='#FFA500'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Approved" || @ict_system_access.status == "Processed"  %>  <b><font color='#329C20'><%= @ict_system_access.status %></b></font><% elsif @ict_system_access.status == "Declined" || @ict_system_access.status == "Returned"  %>  <b><font color='red'><%= @ict_system_access.status %></b></font><%end%></span>
-        </div>
-        <% name = User.find_by_id(@ict_system_access.forward_to) %>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.forward_to')%></label>
-          <span class="in-box">
-            <%= name.username %>
-          </span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.remarks')%></label>
-          <span class="in-box">
-            <%= @ict_system_access.remarks %></span>
-        </div>
-        <h2 class="b-head"></h2>
-        <div class="form-sec-row">
-          <label class="text">&nbsp;</label>
-          <span class="in-box">
-            <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
-          </span>
-        </div>
-      <%end%>
-
+      </div>
     </div>
-  </div>
-
-<%end%>
+  <%end%>
 
 
 

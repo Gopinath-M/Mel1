@@ -2,7 +2,6 @@
 <div class="CenterNav">
   <div class="form-sec">
     <h2>Event Details</h2><br/>
-
     <div class="form-sec-row-out">
       <label class="text">Event Name</label>
       <span class="in-box">
@@ -13,7 +12,6 @@
       <span class="in-box">
         <%= @events.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p")  %></span>
     </div>
-
     <div class="form-sec-row-out">
       <label class="text">To Date</label>
       <span class="in-box">
@@ -46,8 +44,7 @@
         <% image = @events.event_attachment.url(:profile).split(".").last %>
         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
           <span class="in-box">
-            <%=image_tag(@events.event_attachment.url(:profile),:title=>@events.event_attachment)%>
-         
+            <%=image_tag(@events.event_attachment.url(:profile),:title=>@events.event_attachment)%>         
           </span>
         <%end%>
       <%end%>
@@ -56,12 +53,10 @@
         <label class="text">Is Visible</label>
         <span class="in-box">
           <% if @events.is_active == true %>
-
             Yes <% else %>
             No
           <%end%></span>
       </div>
-
     <h2 class="b-head"></h2><br/>
   </div>
 </div>

@@ -1,16 +1,18 @@
 class AdvertisementsController < ApplicationController
   before_filter :authenticate_user!
+  
+  
   def index
-    @advertisements = Advertisement.where("is_active =? and from_date >=?", true, Time.now).page(params[:page]).per(3)
+    @advertisements = Advertisement.where("is_active =? and from_date >=?", true, Time.now).page(params[:page]).per(5)
   end
   def hide_index
-    @advertisements = Advertisement.where("is_active =? ", false).page(params[:page]).per(3)
+    @advertisements = Advertisement.where("is_active =? ", false).page(params[:page]).per(5)
   end
 
-   def advertisement_index
+  def advertisement_index
     @advertisements=nil
     if params[:id].blank? || params[:id].nil?
-      @advertisements=Advertisement.where(:deleted => false).order.page(params[:page]).per(15)
+      @advertisements=Advertisement.where(:deleted => false).order.page(params[:page]).per(10)
     end
   end
 
@@ -20,7 +22,7 @@ class AdvertisementsController < ApplicationController
 
     if @advertisement.valid?
       @advertisement.save
-      redirect_to(new_advertisement_path, :notice => "Advertisement has been created successfully.")
+      redirect_to(list_advertisement_advertisements_path, :notice => "Advertisement has been created successfully.")
     else
       render :action=>'new'
     end
@@ -32,7 +34,7 @@ class AdvertisementsController < ApplicationController
 
   def show
     if !params[:id].nil?
-     @advertisements=Advertisement.find(params[:id])
+      @advertisements=Advertisement.find(params[:id])
     end
   end
 
@@ -74,5 +76,9 @@ class AdvertisementsController < ApplicationController
     if @advertisement.save
       redirect_to(advertisement_index_advertisements_path, :notice => 'Advertisement has been Deleted.')
     end
+  end
+
+  def list_advertisement
+
   end
 end

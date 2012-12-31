@@ -5,6 +5,7 @@ class CreateSoftwareInstallations < ActiveRecord::Migration
       t.string :status
       t.string :software_attachment
       t.references :user
+      t.integer :person_incharge
       t.integer :updated_by
       t.timestamps
     end

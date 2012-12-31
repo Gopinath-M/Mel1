@@ -1,7 +1,7 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
   <%end%>
-     <%@ict_system_access = IctSystemAccess.where(:user_id => current_user.id).order.page(params[:page]).per(5)%>
+  <%@ict_system_access = IctSystemAccess.where(:user_id => current_user.id).order.page(params[:page]).per(5)%>
   <div id="div_ajax" >
     <%if @ict_system_access && !@ict_system_access.empty?%>
       <%@ict_system_access.each do |ict_system_access|%>
@@ -10,19 +10,15 @@
             <% @sys_name = SystemAccess.find_by_id(ict_system_access.system_access_id)%>
             <% @name = RequisitionType.find_by_id(ict_system_access.requisition_type_id)%>
             <% @user = User.find_by_id(ict_system_access.user_id) %>
-
             <div class="m-c1"><b><%=t('labels.user_name')%></b>
             </div>
             <div class="m-c2">
-
               <%= @user.username%>
             </div>
-             <div class="m-c3">
+            <div class="m-c3">
               <% if ict_system_access.status == "New"%><b><font color='#FFA500'><%= "#{ict_system_access.status}" %></font></b><% elsif ict_system_access.status == "Approved" || ict_system_access.status == "Processed"  %>  <b><font color='#329C20'><%= "#{ict_system_access.status}" %> </font></b><% elsif ict_system_access.status == "Declined" || ict_system_access.status == "Returned"  %>  <b><font color='red'><%= "#{ict_system_access.status}" %> </font></b><% end %>
             </div>
           </div>
-     <div class="clear"></div>
-
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.type_of_facility')%></b>
             </div>
@@ -89,8 +85,6 @@
               </div>
             <%end%>
           </div>
-          <div class="clear"></div>
-
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.system_acc_to')%></b>
             </div>
@@ -101,9 +95,6 @@
               <b><font color="#336699"><%= link_to t('labels.show_info'), ict_system_access_path(:id => ict_system_access.id), :method=>:get%></font></b>
             </div>
           </div>
-          <div class="clear"></div>
-
-
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.ticket_no')%></b>
             </div>
@@ -111,11 +102,8 @@
               <font color="red" size="3"><b>&nbsp;<%= ict_system_access.id %>/<%=Time.now.year%></b></font>
             </div>
             <div class="m-c3">
-
             </div>
           </div>
-          <div class="clear"></div>
-
 
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
@@ -124,17 +112,14 @@
               &nbsp;<%= ict_system_access.created_at.strftime("%a %d %b %Y %I:%M %p")%></font>
             </div>
             <div class="m-c3">
-
             </div>
           </div>
-          <div class="clear"></div>
-          </div>
+        </div>
         <h2 class="b-head"></h2> <%end%>
       <div class="manage-user-rows box"><br/><br/>
         <%= paginate @ict_system_access %></div>
-
-    <%else%>
-      <%=t('labels.no_data_available')%>
-    <%end%>
+      <%else%>
+        <%=t('labels.no_data_available')%>
+      <%end%>
   </div>
 </div>

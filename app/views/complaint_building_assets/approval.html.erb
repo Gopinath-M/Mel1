@@ -2,64 +2,55 @@
 <div class="CenterNav">
   <div class="form-sec">
     <h2 class="b-head"><%=t('labels.complaint_building_title')%></h2>
-
     <%= form_for(@complaint_building_asset, :url=>complaint_building_asset_path(:id=>@complaint_building_asset.id), :method => :put) do |f|%>
-  <%#=error_messages%>
       <div class="clearfix">&nbsp;</div>
-  <%#*<div class="CenterNav">%>
-
       <div class="form-sec">
-  <%# if @manager.present? %>
-        <font color="#369" size="3"><br/><b><u><%=t('labels.application_helper')%>-</u><br/><br/></b></font>
+        <% if !current_user.is_super_admin? %>
+          <font color='#369'><b><u>User Details:-</u></b></font>
 
-        <% @dept = Department.find_by_id(current_department) %>
-        <% @agency = Agency.find_by_id(@dept.agency_id) %>
-        <% @complaint_building_asset = ComplaintBuildingAsset.find_by_id(params[:id]) %>
-        <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.agency_name')%></label>
-          <span class="in-box"><%= @agency.name  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.department_name')%></label>
-          <span class="in-box">
-            <%= @dept.name  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.user_name')%></label>
-          <span class="in-box"><%= @user.username %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.contact_mob')%></label>
-          <span class="in-box"><%= @user.contact_mobile  %></span>
-        </div>
-
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.ic_no')%></label>
-          <span class="in-box">
-            <%= @user.ic_number %></span>
-        </div>
-
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.email')%></label>
-          <span class="in-box">
-            <%= @user.email %></span>
-        </div>
-
-        <h2 class="b-head"></h2>
-
+          <% @dept = Department.find_by_id(current_department) %>
+          <% @agency = Agency.find_by_id(@dept.agency_id) %>
+          <% @complaint_building_asset = ComplaintBuildingAsset.find_by_id(params[:id]) %>
+          <% @user = User.find_by_id(@complaint_building_asset.user_id) %>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.agency_name')%></label>
+            <span class="in-box"><%= @agency.name  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.department_name')%></label>
+            <span class="in-box">
+              <%= @dept.name  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.user_name')%></label>
+            <span class="in-box"><%= @user.username %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.contact_mob')%></label>
+            <span class="in-box"><%= @user.contact_mobile  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.ic_no')%></label>
+            <span class="in-box">
+              <%= @user.ic_number %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.email')%></label>
+            <span class="in-box">
+              <%= @user.email %></span>
+          </div>
+          <h2 class="b-head"></h2><br/>
+        <%end%>
+        <font color='#369'><b><u>Complaint - Building Asset Details:-</u></b></font>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.ticket_no')%></label>
           <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @complaint_building_asset.id %>/<%=Time.now.year%></b></font></span>
         </div>
-
         <div class="form-sec-row">
           <label class="text"><%=t('labels.date_of_app')%></label>
           <span class="in-box"><%= @complaint_building_asset.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
         </div>
-
       </div>
-      <h2 class="b-head"></h2>
 
       <div class="form-sec-row">
         <label class="text"><%=t('left_nav.category')%></label>
@@ -81,7 +72,6 @@
         <span class="in-box">
           <%= @item_name.name %></span>
       </div>
-
       <div class="form-sec-row">
         <label class="text"><%=t('labels.location')%></label>
         <span class="in-box">
@@ -97,19 +87,13 @@
         <span class="in-box">
           <%= @complaint_building_asset.serial_no %></span>
       </div>
-
-
       <h2 class="b-head"></h2>
       <font color="#369" size="3"><br/><b><u><%=t('labels.off_act')%> :-</u><br/><br/></b></font>
-
-
-
 
       <% if @complaint_building_asset.status == "New" %>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.repair_act')%><span style=color:red>*</span></label>
           <span class="in-box">
-
             <%= f.radio_button :repair_action, true %> <%= f.label :repair_action, "Yes" %>
             <%= f.radio_button :repair_action, false %> <%= f.label :repair_action, "No" %>
           </span>
@@ -117,7 +101,6 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.spare_parts_req')%><span style=color:red>*</span></label>
           <span class="in-box">
-
             <%= f.radio_button :spare_part_action, true %> <%= f.label :spare_part_action, "Yes" %>
             <%= f.radio_button :spare_part_action, false %> <%= f.label :spare_part_action, "No" %>
           </span>
@@ -125,7 +108,6 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.act_to_be_taken')%><span style=color:red>*</span></label>
           <span class="in-box">
-
             <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, "External" %>
             <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, "Internal"  %>
           </span>
@@ -138,12 +120,10 @@
             </span>
           </div>
         </div>
-
         <div class="form-sec-row">
           <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.select :status, options_for_select([["Select Status", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @complaint_building_asset.status) %>
-
           </span>
         </div>
         <%@dept = Department.find(default_department)%>
@@ -173,7 +153,6 @@
           <div class="form-sec-row">
             <label class="text"><%=t('labels.repair_act')%><span style=color:red>*</span></label>
             <span class="in-box">
-
               <%= f.radio_button :repair_action, true %> <%= f.label :repair_action, "Yes" %>
               <%= f.radio_button :repair_action, false %> <%= f.label :repair_action, "No" %>
             </span>
@@ -181,7 +160,6 @@
           <div class="form-sec-row">
             <label class="text"><%=t('labels.spare_parts_req')%><span style=color:red>*</span></label>
             <span class="in-box">
-
               <%= f.radio_button :spare_part_action, true %> <%= f.label :spare_part_action, "Yes" %>
               <%= f.radio_button :spare_part_action, false %> <%= f.label :spare_part_action, "No" %>
             </span>
@@ -189,7 +167,6 @@
           <div class="form-sec-row">
             <label class="text"><%=t('labels.act_to_be_taken')%><span style=color:red>*</span></label>
             <span class="in-box">
-
               <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, "External" %>
               <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, "Internal"  %>
             </span>
@@ -225,15 +202,16 @@
             </span>
           </div>
 
+
           <% name = User.find_by_id(@complaint_building_asset.forward_to) %>
           <div class="form-sec-row">
             <label class="text"><%=t('labels.forward_to')%></label>
             <span class="in-box">
-              <%= name.username %>
+              <%= name.username%>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
+            <label class="text"><%=t('labels.remarks')%></label>
             <span class="in-box">
               <%= @complaint_building_asset.remarks%></span>
           </div>
@@ -290,10 +268,8 @@
           </span>
         </div>
       <%end%>
-
     </div>
   </div>
-
 <%end%>
 
 

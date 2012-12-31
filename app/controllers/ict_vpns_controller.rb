@@ -2,16 +2,16 @@ class IctVpnsController < ApplicationController
   before_filter :authenticate_user!
   def index
     if current_user && current_user.is_super_admin?
-      @ict_vpn = IctVpn.page(params[:page]).per(2)
+      @ict_vpn = IctVpn.page(params[:page]).per(5)
     elsif current_user && current_user.is_department_admin?
-      @ict_vpn = IctVpn.page(params[:page]).per(2)
+      @ict_vpn = IctVpn.page(params[:page]).per(5)
     else
-      @ict_vpn = IctVpn.where("user_id = ? or forward_to = ?", current_user.id, current_user.id).order.page(params[:page]).per(2)
+      @ict_vpn = IctVpn.where("user_id = ? or forward_to = ?", current_user.id, current_user.id).order.page(params[:page]).per(5)
        
     end
   end
 
-  def new
+   def new
     @ict_vpn=IctVpn.new
   end
 
@@ -22,7 +22,6 @@ class IctVpnsController < ApplicationController
     @ict_vpn.department_id = current_user.departments
     if @ict_vpn.valid?
       @ict_vpn.save
-
       @approve = Approver.active.find_all_by_department_id(current_user.departments).first
       dept = Department.find_by_id(current_user.departments)
       @requisition_ict_vpn=RequisitionType.find(@ict_vpn.requisition_type_id)

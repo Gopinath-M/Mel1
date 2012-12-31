@@ -1,6 +1,6 @@
-<%= form_for(IctVpn.new, :html => { :method => :post, :multipart => true }) do |f| %>
- <%=f.error_messages%>
-<%= hidden_field_tag :requisition_type_id, 3 %>
+<%= form_for(IctVpn.new, :html => { :multipart => true }) do |f| %>
+  <%=f.error_messages%>
+  <%= hidden_field_tag :requisition_type_id, 3 %>
   <div class="form-sec-row">
     <label class="text"><%=t('labels.term_user_from')%><span style=color:red>*</span></label>
     <span class="in-box">
@@ -16,28 +16,26 @@
   <div class="form-sec-row">
     <label class="text"><%=t('labels.justification')%><span style=color:red>*</span></label>
     <span class="in-box">
-
       <%= f.text_area :justification, :rows =>4%></span>
   </div>
-   <div class="form-sec-row">
-          <label class="text"><%=t('labels.vpn_access')%><span style=color:red>*</span></label>
-          <span class="in-box">
-            <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "Select VPN Access", :style=> "width:132%;") %>
-          </span>
-      </div>
+  <div class="form-sec-row">
+    <label class="text"><%=t('labels.vpn_access')%><span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "Select VPN Access", :style=> "width:132%;") %>
+    </span>
+  </div>
   <div class="form-sec-row">
     <label class="text"><%=t('labels.notes')%><span style=color:red>*</span></label>
     <span class="in-box">
-
       <%= f.text_area :note, :rows =>4%></span>
   </div>
-   <div class="form-sec-row">
-            <label class="text"><%=t('labels.upload_file')%><span style=color:red>*</span></label>
-              <span class="in-box">
-                <%= f.file_field :vpn_attachment%>
-                <%= f.hidden_field :vpn_attachment_cache %>
-              </span>
-          </div>
+  <div class="form-sec-row">
+    <label class="text"><%=t('labels.upload_file')%><span style=color:red>*</span></label>
+    <span class="in-box">
+      <%= f.file_field :vpn_attachment%>
+      <%= f.hidden_field :vpn_attachment_cache %>
+    </span>
+  </div>
 
   <div class="form-sec-row">
     <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
@@ -55,5 +53,4 @@
       </span>
     </div>
   </div>
-  <%#*</div>%>
 <%end%>

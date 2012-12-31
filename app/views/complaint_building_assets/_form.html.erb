@@ -1,17 +1,14 @@
 <%= form_for(@complaint_building_asset, :html => { :method => :post, :multipart => true }) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
-  <%#*<div class="CenterNav">%>
-
   <div class="form-sec">
-  <%# if @manager.present? %>
-
   </div>
   <br/>
   <div class="form-sec-row">
     <label class="text"><%=t('left_nav.category')%><span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.select(:building_asset_type_id, BuildingAssetType.where("parent_type_id=?", 0).collect {|p| [ p.name, p.id] },:prompt => "Select Category", :style=> "width:132%;") %>    </span>
+      <%= f.select(:building_asset_type_id, BuildingAssetType.where("parent_type_id=?", 0).collect {|p| [ p.name, p.id] },:prompt => "Select Category", :style=> "width:132%;") %>
+    </span>
   </div>
   <div class="form-sec-row">
     <label class="text"><%=t('labels.type')%><span style=color:red>*</span></label>
@@ -43,7 +40,6 @@
     <span class="in-box">
       <%= f.text_area :reason, :rows =>4%></span>
     <div>
-
     </div>
   </div>
   <div class="form-sec-row">
@@ -54,5 +50,4 @@
       </span>
     </div>
   </div>
-  <%#*</div>%>
 <%end%>
