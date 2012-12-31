@@ -262,7 +262,7 @@
                       <tr>
                         <td><%= f.select(:hardware_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
                         <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
-                        <td><b>&nbsp;<%=f.text_field :hardware_quantity, :class=> "size-quan-box-ict-network"%></b></td>
+                        <td><b>&nbsp;<%=f.text_field :hardware_quantity, :onkeypress=>"return isNumberKey(event);",:class=> "size-quan-box-ict-network"%></b></td>
                         <td id="req_type_network"><b style="color:red;"><%=t('labels.install')%></b></td>
                         <td id="req_type_purchase"style="display:none;"><b style="color:red;"><%=t('labels.purchase')%></b></td>
                       </tr>

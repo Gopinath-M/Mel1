@@ -1,16 +1,5 @@
 malay:
-  activerecord:
-    errors:
-      models:
-        agency:
-          attributes:                        
-            telephone_number:
-              blank: "Tidak Boleh kosong"
-              invalid: "Invalid" 
-            fax_number:
-              invalid: "Invalid"
-              blank: "Can't be Blank"
-          
+
              
   devise:
     failure:
@@ -19,7 +8,7 @@ malay:
     wel: "Dialu-Alukan Untuk Melaka Intranet Portal"
     corridor: "Koridor Untuk Komunikasi Yang Berkesan"
     keep_me_login_in: "Menjaga saya kekal dilog masuk"
-    forget_pass: "Lupa kata laluan?"
+    forget_pass: "Terlupa kata laluan anda?"
     login : "Log Masuk Dalam"
 
   welcome:
@@ -165,6 +154,7 @@ malay:
     other_req: "Permintaan Lain-lain"
     category: "Kategori"
     sub_category: "Sub Kategori"
+    vehicle_brands: "Jenama kenderaan"
 
   labels:
     create_agency: "Daftar Agensi"
@@ -300,7 +290,8 @@ malay:
     default_name: "Nama Ini Akan Digunakan Di Seluruh Tapak"
     edit_my_profile: "Edit Profil Saya"
     no_reso_available: "Tiada Sumber Available"
-    requstion_ict_fwall: "Rekuisisi ICT Firewall"
+    requstion_ict_fwall: "Meluluskan Rekuisisi ICT Firewall"
+    requstion_ict_firewall: "Rekuisisi ICT Firewall"
     denial: "Maaf ...Kemudahan Tempahan Bilik Tidak Sesuai Untuk Jabatan anda ..."
     denial_transport: "Maaf ...Pengangkutan Kemudahan Tempahan tidak Tersedia untuk Jabatan anda ..."
 
@@ -456,7 +447,7 @@ malay:
     other_res_pro_req: "Sumber Lain Proses Permintaan"
     download_file: "Memuat turun fail"
     res_det: "Sumber Butiran"
-    approver: "Approver"
+    approver: "Meluluskan"
     select_a_user: "Pilih Panduan A"
     first: "Awal"
     second: "Akhir"
@@ -464,7 +455,8 @@ malay:
     position: "Jawatan"
     grade: "gred"
     type_of_facility: "Jenis Kemudahan"
-    req_software_install: "Rekuisisi Pemasangan Perisian"
+    req_software_install: "Meluluskan Pemasangan Perisian Rekuisisi"
+    req_software_install1: "Rekuisisi Pemasangan Perisian"
     user_name: "Nama Pengguna"
     ict_software_installation_app: "Kelulusan Pemasangan Perisian ICT"
     app_info: "Maklumat Pemohon:"
@@ -514,19 +506,20 @@ malay:
     install: "Pasang"
     location_center: "Lokasi Pusat"
     select_a_state: "Pilih Negeri"
-    please_select_the_drop_box: "Sila Pilih kotak drop senaraikan Requisition paricular"
-    manage_ict_req: "Mengurus Requisition ICT"
+    please_select_the_drop_box: "Sila Pilih kotak drop senaraikan Rekuisition paricular"
+    manage_ict_req: "Mengurus Rekuisition ICT"
     select_a_ict_facility: "Select A Kemudahan ICT"
-    resource_req_for_net_point: "Requisition Sumber untuk Point Rangkaian"
-    manage_resource_req: "Mengurus Requisition Sumber"
+    resource_req_for_net_point: "Rekuisition Sumber untuk Point Rangkaian"
+    manage_resource_req: "Mengurus Rekuisition Sumber"
     requisition_type: "Jenis rekuisisi"
     app_for_net_point: "Kelulusan untuk Point Rangkaian"
-    ict_network_point_list: "Point Senarai Rangkaian ICT"
+    ict_network_point_list: "Meluluskan Point Senarai Rangkaian ICT"
     app_category: "Kategori permohonan"
     individual: "individu"
     group: "Kumpulan"
     add_user: "Tambah pengguna"
-    list_facility_ict_hardware: "Senaraikan Kemudahan Perkakasan ICT"
+    list_facility_ict_hardware: "Meluluskan ICT Perkakasan Kemudahan"
+    list_facility_ict_hardware1: "Rekuisition Perkakasan Kemudahan ICT"
     requested_type: "Jenis diminta"
     approval_action: "Tindakan kelulusan"
     edit_ict_hardware_facility: "Edit ICT Perkakasan Kemudahan"
@@ -536,15 +529,17 @@ malay:
     term_user_to: "Panduan Jangka Kepada"
     vpn_access: "VPN Access"
     req_ict: "rekuisisi ICT -"
-    req_ict_vpn: "rekuisisi ICT - VPN"
-    resource_req_ict_facility: "Sumber Requisition ICT Kemudahan"
+    req_ict_vpn: "Meluluskan Rekuisisi ICT - VPN"
+    req_ict_vpn1: "Rekuisisi ICT - VPN"
+    resource_req_ict_facility: "Sumber Rekuisition ICT Kemudahan"
     req_ict_vpn_booking_details: "Rekuisisi ICT - Tempahan Butiran VPN"
     app_info: "Maklumat permohonan: -"
     required_sys: "Sistem diperlukan"
     select_required_sys: "Pilih Sistem Diperlukan"
     system_acc_to: "Akses Sistem"
     req_ict_sys_acc_book_for_app: "Rekuisisi ICT - Sistem Akses Tempahan Kelulusan"
-    list_of_req_ict_sys_access: "Senarai Permintaan ICT - Sistem Access"
+    list_of_req_ict_sys_access: "Meluluskan Rekuisition ICT - Sistem Access"
+    list_of_req_ict_sys_access1: "Rekuisition ICT - Sistem Access"
     create_req_for_ict: "Daftar Rekuisisi ICT"
     req_ict_sys_access_booking_detail: "Rekuisisi ICT - Sistem Tempahan akses Details"
     req_type: "Jenis rekuisisi"
@@ -820,7 +815,151 @@ malay:
     process_building_assets: "Proses Aset Bangunan"
     app_computers: "Meluluskan Komputer"
     app_building_asset: "Meluluskan Aset Bangunan"
+    no_events_available: "Tiada Peristiwa Available"
+    approve_res_booking: "Meluluskan Tempahan Sumber"
+    process_res_booking: "Proses Sumber Tempahan"
+    edit_vehicle_model_type: "Edit Jenama Kenderaan "
+    vehicle_name: "Kenderaan Nama"
+    manage_vehicle_model_type: "Mengurus Jenama Kenderaan"
+    create_vehicle_model_type: "Mewujudkan Jenama Kenderaan"
+    group_name: "Kumpulan Nama"
+    manage_group: "Uruskan Kumpulan"
+    create_group: "Buat Kumpulan"
+    other_resource_booking: "Tempahan OtherResource"  
+    transport_booking: "Tranpsort tempahan"          
+
     
+    
+  activerecord:
+    models:
+    attributes:
+   # errors:
+    #  header: "Medan Tidak Sah"
+     # message: "Membetulkan kesilapan-kesilapan berikut dan cuba lagi."
+      models:                           
+    models:
+      category: "Category"
+      sub_category: "SubCategory"
+      vendor: "Vendor"
+      unit: "Unit"
+      agency: "Agency"
+      driver: "Driver"
+      facility: "Facility"	
+    attributes:
+      category: 
+        name: "Nama Kategori"
+      sub_category:
+        name: "Nama Sub Kategori"
+        category_id: "kategori"
+      vendor:
+        name: "Nama"
+        address: "Alamat tidak"
+        contact_no: "Nombor Telefon"
+      unit:
+        agency: "Nama Agensi"
+        name: "Nama"
+        address: "Alamat tidak"
+        telephone_number: "Nombor Telefon"
+        department_id: "Nama Jabatan"
+        fax_number: "Nombor fax"
+      agency:
+        name: "Nama"
+        address: "Alamat tidak"
+        telephone_number: "Nombor Telefon"
+        fax_no: "Nombor Fax" 
+      driver:
+        name: "Nama"
+        telephone_number: "Nombor Telefon"
+      facility:
+        name: "nama"
+        total_qty: "Jumlah Kuantiti"
+    errors:
+    # header: "Medan Tidak Sah"
+     # message: "Membetulkan kesilapan-kesilapan berikut dan cuba lagi."
+      models:
+        category:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"          
+        sub_category:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            category_id:
+              blank: "Tidak Boleh kosong"
+        vendor:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            address:
+              blank: "Tidak Boleh kosong"
+            contact_no:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
+        unit:
+          attributes:
+            agency:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            name:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            address:
+              blank: "Tidak Boleh kosong"
+            telephone_number:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
+            department_id:
+              blank: "Tidak Boleh kosong"
+              #invalid: "Invalid"
+            fax_number:
+              #blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
+        agency:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            address:
+              blank: "Tidak Boleh kosong"
+            telephone_number:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
+            fax_no:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid" 
 
 
+        driver:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            telephone_number:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
+complaint_building_asset:
+          attributes:
+            building_asset_type_id:
+              blank: "Tidak Boleh kosong"
+            type_id:
+              blank: "Tidak Boleh kosong"
+            item_id:
+              blank: "Tidak Boleh kosong"
+            location:
+              blank: "Tidak Boleh kosong"
+            serial_no:
+              blank: "Tidak Boleh kosong"
+            reason:
+              blank: "Tidak Boleh kosong"
+facility:
+  attributes:
+    name:
+     blank: "Tidak Boleh kosong"
+     taken: "telah diambil"
+     total_qty:
+          blank: "Tidak Boleh kosong"
 

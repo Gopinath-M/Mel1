@@ -1,7 +1,7 @@
 <%= form_for(@ict_hardware_booked_user, :url=>update_request_ict_hardware_bookings_path(:id=>@ict_hardware_booked_user.id)) do |f| %>
   <%= f. error_messages%>
   <div class="CenterNav">
-    <h2 class="b-head"><%=t('labels._list_facility_ict_hardware')%></h2>
+    <h2 class="b-head"><%=t('labels.list_facility_ict_hardware')%></h2>
     <div class="manage-user box">
       <div class="manage-user-row box">
         <div class="form-sec-row">
@@ -88,7 +88,7 @@
           </span>
         </div>
         <% if @ict_hardware_booked_user.status == "New" %>
-          <font color="#369" size="3"><br/><b><u>t('labels.approval_action')</u><br/><br/></b></font>
+          <font color="#369" size="3"><br/><b><u><%=t('labels.approval_action')%></u><br/><br/></b></font>
           <div class="form-sec-row">
             <label class="text"><%= f.label :status,t('labels.action'), :class=>"text"%></label>
             <span class="in-box">
@@ -114,7 +114,7 @@
         <% if @ict_hardware_booked_user.forward_to.present? %>
           <% if @ict_hardware_booked_user.status == "Approved"  && @ict_hardware_booked_user.forward_to == current_user.id %>
             <h2 class="b-head"></h2>
-            <font color="#369" size="3"><br/><b><u>t('labels.status')</u><br/><br/></b></font>
+            <font color="#369" size="3"><br/><b><u><%=t('labels.status')%></u><br/><br/></b></font>
             <div class="form-sec-row">
               <label class="text"><%=t('labels.status')%></label>
               <span class="in-box">
