@@ -96,18 +96,12 @@
                       <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
-                <% elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN%>
+                <% elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN && !@approve.present? && !@approver_second.present?%>
                   <span class="in-box">
                     <% if resource.status == "New" %>
                       <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
-                  </span>
-                <%elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN &&  !@approve.present? %>
-                  <span class="in-box">
-                    <% if resource.status == "New" %>
-                      <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
-                    <%end%>
-                  </span>
+                  </span>                
                 <%elsif current_user.is_resource_manager?%>
                   <span class="in-box">
                     <% if resource.status == "Approved" %>
