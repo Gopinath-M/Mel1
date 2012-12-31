@@ -16,6 +16,12 @@ class UserMailer < ActionMailer::Base
     mail(:to=>@user.email,:subject =>"Transfer User to Department")
   end
 
+  def intimate_user_assign(user,department)
+    @user=user
+    @department=department
+    mail(:to=>@user.email,:subject =>"Transfer User to Department")
+  end
+
   def activation_mail_to_department_admin(user)
     @user=user
     mail(:to=>@user.email,:subject =>"#{@user.full_name}! Your Account has been Activated Successfully ")
@@ -266,7 +272,7 @@ class UserMailer < ActionMailer::Base
     mail(:to=>@user.email,:subject =>"Timeline Expire Intimation")
   end
 
-    def send_mail_to_dept_admin_for_transport_booking(user,resource_transport_booking,dept)
+  def send_mail_to_dept_admin_for_transport_booking(user,resource_transport_booking,dept)
     @user=user
     @requisition= resource_transport_booking
     @department = dept

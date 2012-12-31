@@ -1,6 +1,6 @@
 class ResourcesController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin, :except=>[:get_resources]
+  before_filter :is_admin, :except=>[:get_resources,:resource_approver,:list_approver,:get_approvers,:update_resource_approver]
   def index
  
     if params[:sub_category_id] && params[:sub_category_id]!=""
