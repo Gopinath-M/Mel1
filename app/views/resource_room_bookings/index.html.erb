@@ -98,7 +98,8 @@
       <%else%>
         <%=t('labels.no_data_available')%>
       <%end%>
-    </div>
+    </div><div class="manage-user-rows box"><br/><br/>
+      <%= paginate @resource_room_bookings %></div>
   </div>
 <%else%>
   <h2 class="b-head">Sorry... Room Booking Facility is not Available for your Department...</h2>

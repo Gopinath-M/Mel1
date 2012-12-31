@@ -54,13 +54,13 @@
                       <%end%>
                     <%end%>
                   </span>
-                <% elsif session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN%>
+                <% elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN%>
                   <span class="in-box">
                     <% if resource.status == "New" %>
                       <% val = (resource.created_at > (Time.now-seconds)) %>
                       <% val1 = (resource.created_at > (Time.now-2*seconds)) %>
                       <% if !val.present? && !val1.present? %>
-                        <% user = User.find(@second_approver.user_id) %>
+                        <% user = User.find(@approver_second.user_id) %>
                         <%  UserMailer.timeline_expire_mail_to_approver(user).deliver %>
                         <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                       <%end%>
@@ -96,7 +96,7 @@
                       <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>
-                <% elsif session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN%>
+                <% elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN%>
                   <span class="in-box">
                     <% if resource.status == "New" %>
                       <%= link_to "Approve",room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>

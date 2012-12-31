@@ -2,7 +2,11 @@ class ResourceIctEquipmentBookingsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @resource_ict_equipment_bookings=ResourceIctEquipmentBooking.where(:user_id=>current_user.id).order.page(params[:page]).per(10)
+    if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+      @resource_ict_equipment_bookings=ResourceIctEquipmentBooking.where(:user_id=>current_user.id).order.page(params[:page]).per(10)
+    else
+      @resource_ict_equipment_bookings = ResourceIctEquipmentBooking.where(:user_id => current_user.id, :department_id=>@current_department).order.page(params[:page]).per(10)
+    end
   end
   
   def category
@@ -19,51 +23,53 @@ class ResourceIctEquipmentBookingsController < ApplicationController
     category
 
 
-    agency = AgencyStore.find(params[:resource_ict_equipment_booking][:agency_store_id]) if params[:resource_ict_equipment_booking] && !params[:resource_ict_equipment_booking][:agency_store_id].blank?
-    if !agency.nil?
-      if agency.booked == false
-        @resource=params[:resource_ict_equipment_booking][:resource_id]
-        if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
-          department_id = 0
-        else
-          department_id = @current_department
-        end
-        @resource_ict_equipment_booking = ResourceIctEquipmentBooking.create(params[:resource_ict_equipment_booking].merge!({:department_id=>department_id,:user_id=>current_user.id}))
-        if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
-          @resource_ict_equipment_booking.status = "Processed"
-        elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
-          @resource_ict_equipment_booking.status = "Approved"
-        else
-          @resource_ict_equipment_booking.status = "New"
-        end   
-        if @resource_ict_equipment_booking.valid?
-          @resource_ict_equipment_booking.save
-          if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
-            #            department_id=
-            #              resource_manager = RoleMembership.find_by_department_id_and_role_id(agency.department_id,5)
-            #            UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
-          else
-            dept = Department.find(@current_department)
-            @approve = Approver.active.find_all_by_department_id(@current_department).first
-            if !@approve.present?
-              user = dept.users.where("role_id = 2").first
-              UserMailer.send_mail_to_dept_admin_for_ict_equipment_booking(user,@resource_ict_equipment_booking,dept).deliver
-            else
-              user = User.find(@approve.user_id)
-              UserMailer.send_mail_to_approver_for_ict_equipment_booking(user,@resource_ict_equipment_booking,dept).deliver
-            end
-          end
-          agency.update_attribute(:booked, true)
-          redirect_to resource_ict_equipment_bookings_path, :notice => "Your ICT Equipment booking has been created sucessfully."
-        else
-          render :action=>'new'
-        end
-      else
-        render :action=>'new' , :alert => "You can't book already booked ICT Equipment, Please try other."
+    @resource=params[:resource_ict_equipment_booking][:resource_id]
+    department_id = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? 0 : @current_department
+    dept = Department.find(@current_department)
+    create_flag = false
+    quantifiable = false
+    if !params[:resource_ict_equipment_booking][:agency_store_id].blank?
+      agency_store = AgencyStore.find(params[:resource_ict_equipment_booking][:agency_store_id])
+      if agency_store.booked == false
+        create_flag = true
       end
     else
-      render :action=>'new' , :alert => "Resource selected is not available in your Store."
+      agency_store = AgencyStore.where(:resource_id => params[:resource_ict_equipment_booking][:resource_id], :sub_category_id => params[:resource_ict_equipment_booking][:sub_category_id], :agency_id => dept.agency_id).first
+      if agency_store.quantity != agency_store.booked_quantity && agency_store.quantity > agency_store.booked_quantity
+        create_flag = true
+        quantifiable = true
+      end
     end
+    @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id, :agency_store_id => agency_store.id}))
+    if create_flag
+      @resource_ict_equipment_booking.status = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? "Processed" : ((session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN) ? "Approved" : "New")
+      if @resource_ict_equipment_booking.valid?
+        @resource_ict_equipment_booking.save
+        if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN && session[:current_role] != DISP_USER_ROLE_DEPT_ADMIN
+            
+          first_approver = Approver.active.where(:department_id => @current_department).first
+          if !first_approver.present?
+            user = dept.users.where("role_id = 2").first
+            UserMailer.send_mail_to_dept_admin_for_ict_equipment_booking(user,@resource_ict_equipment_booking,dept).deliver
+          else
+            UserMailer.send_mail_to_approver_for_ict_equipment_booking(first_approver.user,@resource_ict_equipment_booking, dept).deliver
+          end
+        end
+        if !quantifiable
+          agency_store.update_attribute(:booked, true)
+        else
+          agency_store.update_attribute(:booked_quantity, agency_store.booked_quantity+1)
+        end
+        redirect_to resource_ict_equipment_bookings_path, :notice => "Your ICT Equipment booking has been created sucessfully."
+      else
+        render :action=>'new'
+      end
+    else
+      render :action=>'new' , :alert => "You can't book already booked ICT Equipment, Please try other."
+    end
+    #  else
+    #    render :action => 'new' , :alert => "Resource selected is not available in your Store."
+    #  end
   end
 
   #  def approval_details(ict_equipment)
