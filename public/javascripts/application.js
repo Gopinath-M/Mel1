@@ -2628,7 +2628,7 @@ $("#resource_booking_submit").live("click",function(){
 
 /* Requisition for Software Validation Starts*/
 $("#software_installation_submit").live("click",function(){
-    if ($("#software_installation_facility_ict_software_id").val() == ""){
+    if ($("#name_service_detail").val() == ""){
         alert("Select Software Type");
         return false;
     }
