@@ -104,16 +104,13 @@ $().ready(function (){
             $("#message_section").html(data);
             alert("Message Posted");
           });
-
-
         }
       }
     });
 
     /* Message User Type Select Combo Box */
 
-    $("#message_user_select").live("change", function (){
-
+    $("#message_user_select").live("change", function (){			
       if($("#message_user_select").val() == "Select Agency" || $("#message_user_select").val() == "Select Department" || $("#message_user_select").val() == "Select Dept Admin" || $("#message_user_select").val() == "Select Unit" || $("#message_user_select").val() == "Select Unit Admin")
       {
         $.get("/messages/get_agencies",{
@@ -125,7 +122,7 @@ $().ready(function (){
         });
       }
       else if ($("#message_user_select").val() == "Select Group")
-      {      	
+      { 
       	$.get("/messages/get_groups",{          
         },
         function(data){

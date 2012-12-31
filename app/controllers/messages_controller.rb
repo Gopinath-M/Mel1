@@ -57,7 +57,7 @@ class MessagesController < ApplicationController
     render :layout => false
   end
   
-  # For Retrieving Unit List
+  # For Retrieving Group List
   def get_groups    
     render :layout => false
   end
