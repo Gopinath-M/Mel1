@@ -53,21 +53,21 @@
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.source_ip')%></label>
+                <label class="text"><%=t('labels.source_ip')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.source_ip %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.Destination_ip')%></label>
+                <label class="text"><%=t('labels.Destination_ip')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.destination_ip %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.from_date')%></label>
+                <label class="text"><%=t('labels.from_date')%></label>
                 <span class="in-box">
                   <%=  @ict_firewall.requested_from_date.strftime("%d-%m-%Y %H:%M %p") %>
                 </span>
@@ -81,7 +81,7 @@
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.justification')%></label>
+                <label class="text"><%=t('labels.justification')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.justification %>
                 </span>
@@ -105,14 +105,14 @@
                 
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.status')%></label>
+                <label class="text"><%=t('labels.status')%></label>
                 <span class="in-box">
                   <%= @ict_firewall.status %>
                 </span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.booking_status')%><span style=color:red>*</span></label>
+                <label class="text"><%=t('labels.booking_status')%><span style=color:red>*</span></label>
                 <%if @ict_firewall.status == 'New'%>
                   <span class="in-box">
                     <%= select_tag :approve_status,"<option>Approved</option><option>Declined</option>".html_safe %>
@@ -126,14 +126,14 @@
 
               <% if (@ict_firewall.status != "Approved") %>
                 <div class="form-sec-row">
-                  <label class="text"><%=t('left_nav.forward_to')%></label>
+                  <label class="text"><%=t('labels.forward_to')%></label>
                   <span class="in-box">
                     <%= select("forward","to", @users.collect {|p| [ p.first_name, p.id ] }, :prompt => "Select User") %>
                   </span>
                 </div>
 
                 <div class="form-sec-row">
-                  <label class="text"><%=t('left_nav.remarks')%></label>
+                  <label class="text"><%=t('labels.remarks')%></label>
                   <span class="in-box">
                     <%= text_area_tag 'remarks',nil,:rows => 3 %>
                   </span>
@@ -141,7 +141,7 @@
               <%end%>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('left_nav.service_information')%></label>
+                <label class="text"><%=t('labels.service_information')%></label>
                 <span class="in-box">
                 </span>
               </div>
@@ -150,8 +150,8 @@
                 <table width="520" border="0" class="app-table" cellspacing="0" cellpadding="0" align="center" color="#329C20">                <tr>
                     <th color="#329C20" width="5%"><b>No</b></th>
 
-                    <th width="15%"><b><%=t('left_nav.service_name')%></b></th>
-                    <th width="20%"><b><%=t('left_nav.way')%></b></th>
+                    <th width="15%"><b><%=t('labels.service_name')%></b></th>
+                    <th width="20%"><b><%=t('labels.way')%></b></th>
                     <th width="25%"><b><%=t('labels.action')%></b></th>
                   </tr>
                   <% services = @ict_firewall.ict_firewall_services %>
@@ -160,14 +160,14 @@
                     <tr>
                       <td><%= index+1 %></td>
                       <td><b>&nbsp;<%= FacilityIctService.find(ict_firewall_service.facility_ict_service_id).port %></b></td>
-                      <td><b>&nbsp;<%= ict_firewall_service.one_way? ? 'One Way' : 'Two Way' %></b></td>
+                      <td><b>&nbsp;<%= ict_firewall_service.one_way? ? t('labels.one_way') : t('labels.two_way') %></b></td>
                       <% if @ict_firewall.status == "New" %>
                         <td>
                           <%= radio_button_tag "status_"+ict_firewall_service.id.to_s, 'Approve',:checked=>true %> <%= f.label :approve_status, "Approve" %>
                           <%= radio_button_tag "status_"+ict_firewall_service.id.to_s, 'Not Approve'%> <%= f.label :approve_status, "Not Approve" %>
                         </td>
                       <%else%>
-                        <td><b>&nbsp;<%= ict_firewall_service.approved? ? 'Approved' : 'Not Approved' %></b></td>
+                        <td><b>&nbsp;<%= ict_firewall_service.approved? ? t('labels.approved') : t('labels.non_appr') %></b></td>
                       <%end%>
                     </tr>
                   <%end%>
