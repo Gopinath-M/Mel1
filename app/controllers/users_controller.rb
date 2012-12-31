@@ -53,7 +53,7 @@ class UsersController < ApplicationController
         if !params[:unit_id].nil?
           @users = Unit.find(params[:unit_id]).users.where("role_id !=2").page(params[:page]).per(10).order('created_at DESC')
         else
-          @users=User.joins(:roles).where("users.deleted = false and roles.name = 'Department user'").page(params[:page]).per(10).order('created_at DESC')
+          @users=User.joins(:roles).where("role_id = 3").page(params[:page]).per(10).order('created_at DESC')
         end
         @department_id=params[:department_id]
       end
@@ -324,10 +324,10 @@ class UsersController < ApplicationController
     if department_id != 0
       department = Department.find_by_id(params[:department_id])
       #@users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
-      @users = User.where(:deleted=>false).page(params[:page]).per(10)
+      @users = User.joins(:roles).where("role_id = 2").page(params[:page]).per(10)
     else
       #@users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
-      @users = User.where(:deleted=>false).page(params[:page]).per(10)
+      @users = User.joins(:roles).where("role_id = 2").page(params[:page]).per(10)
       @department_id=params[:department_id]
     end
     if request.xhr?
