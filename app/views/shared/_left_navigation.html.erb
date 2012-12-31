@@ -283,6 +283,15 @@
                         </ul>
                       </div>
                     </li>
+                    <li class="menu-item">
+                      <%=link_to t('left_nav.vehicle_brands'), "javascript:void(0);" , :title=>t('left_nav.vehicle_brands') ,:class=>"", :id=>"lnk_vehicle_model_type" ,:onclick=>"leftNavigation(this.id,'div_vehicle_model_type')"%>
+                      <div id ="div_vehicle_model_type" style="display:none;">
+                        <ul>
+                          <li><%= link_to t('left_nav.create'), new_vehicle_model_type_path %></li>
+                          <li><%= link_to t('left_nav.list'), vehicle_model_types_path %></li>
+                        </ul>
+                      </div>
+                    </li>
                   <%end%>
                   <li class="menu-item">
                     <%=link_to t('left_nav.facility'), "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_facility" ,:onclick=>"leftNavigation(this.id,'div_facility')"%>
