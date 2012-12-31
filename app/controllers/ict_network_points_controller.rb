@@ -1,5 +1,5 @@
 class IctNetworkPointsController < ApplicationController
-
+  before_filter :authenticate_user!
   def index
     @requisition = IctNetworkPoint.where(:user_id => current_user.id).order.page(params[:page]).per(4)
   end
@@ -20,7 +20,7 @@ class IctNetworkPointsController < ApplicationController
     requisition.department_id = params[:department_id]
     requisition.status = "New"
     requisition.save
-    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+    @approve = Approver.active.find_all_by_department_id(@current_department).first
     dept = Department.find_by_id(params[:department_id])
     if !@approve.present?
       user = dept.users.where("role_id = 2").first
@@ -37,10 +37,10 @@ class IctNetworkPointsController < ApplicationController
   end
 
   def list_ict_network
-    @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-    @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
+    @approve = Approver.active.find_all_by_department_id(@current_department).first
+    @approver_second = Approver.active.find_all_by_department_id(@current_department).last
     if !@approve.present? && !@approver_second.present?
-      @list_network_point = IctNetworkPoint.where(:department_id => current_user.departments).order.page(params[:page]).per(4)
+      @list_network_point = IctNetworkPoint.where(:department_id => @current_department).order.page(params[:page]).per(4)
     else
       @list_network_point = IctNetworkPoint.where(:person_incharge => current_user.id).order.page(params[:page]).per(4)
     end

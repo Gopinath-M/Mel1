@@ -3,9 +3,9 @@ class IctHardwareBookingsController < ApplicationController
 
   def index
     if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
-      @ict_hardware_bookings=IctHardwareBooking.where(:booker_id=>current_user.id).page(params[:page]).per(1)
+      @ict_hardware_bookings=IctHardwareBooking.where(:booker_id=>current_user.id).page(params[:page]).per(10)
     else
-      @ict_hardware_bookings=IctHardwareBooking.where(:booker_id=>current_user.id, :department_id => @current_department).page(params[:page]).per(1)
+      @ict_hardware_bookings=IctHardwareBooking.where(:booker_id=>current_user.id, :department_id => @current_department).page(params[:page]).per(10)
     end
     
   end
@@ -25,11 +25,12 @@ class IctHardwareBookingsController < ApplicationController
       dept = Department.find(@current_department)
       if !@approve.present?
         user = dept.users.where("role_id = 2").first
-        UserMailer.send_mail_to_dept_admin_for_ict_hardware(user,@ict_hardware_booking,dept).deliver
+#        UserMailer.send_mail_to_dept_admin_for_ict_hardware(user,@ict_hardware_booking,dept).deliver
       else
         user = User.find_by_id(@approve.user_id)
-        UserMailer.send_mail_to_approver_for_ict_hardware(user,@ict_hardware_booking,dept).deliver
+#        UserMailer.send_mail_to_approver_for_ict_hardware(user,@ict_hardware_booking,dept).deliver
       end
+      UserMailer.send_mail_to_dept_admin_for_ict_hardware(user,@ict_hardware_booking,dept).deliver
       redirect_to(ict_hardware_bookings_path, :notice => "Resource Requisition ICT Hardware has been booked.")
     else
       render :action=>'new'
@@ -37,15 +38,15 @@ class IctHardwareBookingsController < ApplicationController
   end
   
   def requests
-#    approvers = Approver.active.where(:department_id => @current_department)
-#    if approvers && !approver.empty?
-#      @first_approver = approvers.first.user if approvers.first && approvers.first.user
-#      @second_approver = approvers.first.user if approvers.last && approvers.last.user
-#
-#    end
-#
+    approvers = Approver.active.where(:department_id => @current_department)
+    if approvers && !approvers.empty?
+      @first_approver = approvers.first
+      @second_approver = approvers.last
+    end
+    
     @approve = Approver.active.where(:department_id => @current_department).first
     @approver_second = Approver.active.where(:department_id => @current_department).last
+
     if !@approve.present? && !@approver_second.present?
       @ict_hardware_bookings=IctHardwareBooking.where(:department_id => current_user.departments).order.page(params[:page]).per(4)
     else
@@ -61,7 +62,7 @@ class IctHardwareBookingsController < ApplicationController
   end
 
   def approve
-    @ict_hardware_booked_user=IctHardwareBookedUser.find(params[:id])
+    @ict_hardware_booked_user = IctHardwareBookedUser.find(params[:id])
     @ict_hardware_booking=@ict_hardware_booked_user.ict_hardware_booking
   end
 
@@ -72,6 +73,10 @@ class IctHardwareBookingsController < ApplicationController
     ordered_user = @ict_hardware_booked_user.ict_hardware_booking.booker
     UserMailer.send_status_mail_for_ict_hardware(user, ordered_user, @ict_hardware_booked_user.ict_hardware_booking,@ict_hardware_booked_user).deliver
     redirect_to(requests_ict_hardware_bookings_path, :notice => 'Your ICT Hardware booking Status has been successfully updated.')
+  end
+
+  def show
+    @ict_hardware_booking = IctHardwareBooking.find(params[:id])
   end
 
 end

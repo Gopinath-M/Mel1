@@ -227,6 +227,7 @@ $().ready(function (){
   }
 
   function validateMessageForm(){
+  	
     if ($("#message_message").val() == "")
     {
       alert("Looks like you didn't write anything in the message area.");
@@ -237,11 +238,11 @@ $().ready(function (){
       alert("Select User Level");
       return false;
     }
-    else if ($("#std_agency").val() == "SELECT AN AGENCY"){
+    else if ($("#std_agency").val() == ""){
       alert("Select Agency Level");
       return false;
     }
-    else if ($("#std_departments").val() == "SELECT A DEPARTMENT"){
+    else if ($("#std_departments").val() == ""){
       alert("Select Department Level");
       return false
     }
