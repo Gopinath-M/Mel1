@@ -229,6 +229,7 @@ Melaka::Application.routes.draw do
       get 'get_agencies'
       get 'get_departments'
       get 'get_units'
+      get 'get_groups'
       get 'get_department_admin'
       get 'get_unit_admin'
       get 'post_messages'
