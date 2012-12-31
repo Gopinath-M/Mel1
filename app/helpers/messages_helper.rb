@@ -42,9 +42,17 @@ module MessagesHelper
     when current_user.is_super_admin?
       @messages = Message.where(:sender=>"#{current_user.id}",:deleted=>false).order("is_sticky_message desc,updated_at desc")
     when current_user.is_department_admin?
+      if !group.blank?
       @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (department_id in (#{dept_id}) and message_type = 'DeptAdmin' and send_to_dept_admins = true) or (message_type='Group' and (group_id in (#{group}))) or (agency_id in (#{agency_id})) ))"],:order => "is_sticky_message desc,updated_at desc")
-    when current_user.is_department_user?      
-      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and group_id = 0 and send_to_dept_admins = false and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (agency_id in (#{agency_id}) and send_to_dept_admins = false) or (message_type='Group' and (group_id in (#{group})) )))"],:order => "is_sticky_message desc,updated_at desc")      
+      else
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (department_id in (#{dept_id}) and message_type = 'DeptAdmin' and send_to_dept_admins = true) or (agency_id in (#{agency_id})) ))"],:order => "is_sticky_message desc,updated_at desc")
+      end   
+    when current_user.is_department_user?
+      if !group.blank?      
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and group_id = 0 and send_to_dept_admins = false and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (agency_id in (#{agency_id}) and send_to_dept_admins = false) or (message_type='Group' and (group_id in (#{group})) )))"],:order => "is_sticky_message desc,updated_at desc")
+      else
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (department_id in (#{dept_id}) and message_type = 'DeptAdmin' and send_to_dept_admins = true) or (agency_id in (#{agency_id})) ))"],:order => "is_sticky_message desc,updated_at desc")
+      end      
     end
   end
   
