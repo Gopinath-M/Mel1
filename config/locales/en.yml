@@ -3,7 +3,7 @@ en:
     wel: "Welcome to Melaka Intranet Portal"
     corridor: "The Corridor for Effective Communication"
     keep_me_login_in: "Keep me logged in"
-    forget_pass: "Forget your password?"
+    forget_pass: "Forgot your password?"
     login : "Login"
 
   welcome:
@@ -149,6 +149,7 @@ en:
     other_req: "Other Request"
     category: "Category"
     sub_category: "Sub Categories"
+    vehicle_brands: "Vehicle Brand"
 
   labels:
     create_agency: "Create Agency"
@@ -284,7 +285,8 @@ en:
     browse: "Browse"
     default_name: "This Name Will Be Used Throughout The Site"
     edit_my_profile: "Edit My Profile"
-    requstion_ict_fwall: "Requisition ICT Firewall"
+    requstion_ict_fwall: "Approve Requisition ICT Firewall"
+    requstion_ict_firewall: "Requisition ICT Firewall"
     denial: "Sorry... Room Booking Facility Not Available For your Department..."
     denial_transport: "Sorry... Transport Booking Facility is not Available for your Department..."
 
@@ -449,7 +451,8 @@ en:
     position: "Position"
     grade: "Grade"
     type_of_facility: "Type Of Facility "
-    req_software_install: "Requisition Software Installation"
+    req_software_install: "Approve Requisition Software Installation"
+    req_software_install1: "Requisition Software Installation"
     user_name: "User Name"
     ict_software_installation_app: "ICT Software Installation Approval"
     app_info: "Applicant Information :"
@@ -506,12 +509,13 @@ en:
     manage_resource_req: "Manage Resource  Requisition"
     requisition_type: "Requisition Type"
     app_for_net_point: "Approval for Network Point"
-    ict_network_point_list: "ICT Network Point List"
+    ict_network_point_list: "Approve ICT Network Point List"
     app_category: "Application Category"
     individual: "Individual"
     group: "Group"
     add_user: "Add user"
-    list_facility_ict_hardware: "List  ICT Hardware Facility"
+    list_facility_ict_hardware: "Approve Requisition ICT Hardware Facility"
+    list_facility_ict_hardware1: "Requisition ICT Hardware Facility"
     requested_type: "Requested Type"
     approval_action: "Approval Action"
     edit_ict_hardware_facility: "Edit ICT Hardware Facility"
@@ -521,7 +525,8 @@ en:
     term_user_to: "Term User To"
     vpn_access: "VPN Access"
     req_ict: "Requisition ICT -"
-    req_ict_vpn: "Requisition ICT - VPN"
+    req_ict_vpn: "Approve Requisition ICT - VPN"
+    req_ict_vpn1: "Requisition ICT - VPN"
     resource_req_ict_facility: "Resource Requisition ICT Facility"
     req_ict_vpn_booking_details: "Requisition ICT - VPN Booking Details"
     app_info: "Application information:-"
@@ -529,7 +534,8 @@ en:
     select_required_sys: "Select Required System"
     system_acc_to: "System Access To"
     req_ict_sys_acc_book_for_app: "Requisition ICT - System Access Booking for Approval"
-    list_of_req_ict_sys_access: "List of Requisition ICT - System Access"
+    list_of_req_ict_sys_access: "Approve Requisition ICT - System Access"
+    list_of_req_ict_sys_access1: "Requisition ICT - System Access"
     create_req_for_ict: "Create Requisition for ICT"
     req_ict_sys_access_booking_detail: "Requisition ICT - System Access Booking Details"
     req_type: "Requisition Type"
@@ -570,7 +576,7 @@ en:
     manage_out_station: "Manage Out Stations"
     verify: "Verify"
     recommend: "Recommend"
-    outstation_request: "Out Station Request"
+    outstation_request: "Outstation Request"
     outstation_type: "Out Station Type"
     change_status: "Change Status"
     outstation_details: "Out Station Details"
@@ -805,8 +811,21 @@ en:
     process_building_assets: "Process Building Assets"
     app_computers: "Approve Computers"
     app_building_asset: "Approve Building Asset"
+    no_events_available: "No Events Available"
+    approve_res_booking: "Approve Resource Booking"
+    process_res_booking: "Process Resource Booking"
+    edit_vehicle_model_type: "Edit Vehicle Brand"
+    vehicle_name: "Vehicle Name"
+    manage_vehicle_model_type: "Manage Vehicle Brand"
+    create_vehicle_model_type: "Create Vehicle Brand"
+    group_name: "Group Name"
+    manage_group: "Manage Groups"
+    create_group: "Create Group"
+    other_resource_booking: "OtherResource booking"
+    transport_booking: "Tranpsort booking"      
+
     
-    
+
     #  activerecord:
 #    attributes:
 #      user:

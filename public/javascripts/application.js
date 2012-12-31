@@ -59,6 +59,28 @@ function leftNavigation(link_id, div_id)
     }
 //    $("#"+div_id).toggle();
 }
+function RightNavigation(link_id, div_id)
+{
+    $("div.resourceApps ul li div").hide();
+    $("div.resourceApps ul li a").each(function(index) {
+        if ($(this).attr("id")!=link_id)
+        {
+            $(this).removeClass('selected')
+        }
+    });
+    if($("#"+link_id).hasClass('selected'))
+    {
+        $("#"+link_id).removeClass("selected")
+        $("#"+div_id).hide();
+    }
+    else
+    {
+        $("#"+link_id).addClass("selected")
+        $("#"+div_id).toggle('fast');
+    }
+//    $("#"+div_id).toggle();
+}
+
 //function getDepartmentforAgency(agency_id, department_id)
 //{
 ////    alert("comes to dept")

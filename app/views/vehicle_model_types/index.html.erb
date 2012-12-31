@@ -1,8 +1,8 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">Manage Vehicle Model Type</h2>    
+    <h2 class="b-head"><%=t('labels.manage_vehicle_model_type')%></h2>    
     <div class="create-user">
-      <div class="cu-c1"><a href="/vehicle_model_types/new" title="create vehicle model type"><img src="../images/add_user.jpg" width="17" height="16" alt="img" />Create Vehicle Model Type</a></div>
+      <div class="cu-c1"><a href="/vehicle_model_types/new" title=<%=t('labels.create_vehicle_model_type')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.create_vehicle_model_type')%></a></div>
 
     </div>
   <%end%>
@@ -32,7 +32,7 @@
         <%end%><div class="manage-user-rows box"><br/><br/>
 <%#= paginate @agencies %></div>
     <%else%>
-      No Vehicle Model  Available
+      <%=t('labels.no_data_available')%>
     <%end%>
 <%#*<div><%= paginate @units %>
   </div>
