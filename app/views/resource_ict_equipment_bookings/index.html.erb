@@ -111,7 +111,7 @@
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text">t('labels.status')</label>
+            <label class="text"><%=t('labels.status')%></label>
             <span class="in-box" style="color :<%= (resource_ict_equipment_booking.status == 'New') ? '#FFA500' : ((resource_ict_equipment_booking.status == 'Approved' || resource_ict_equipment_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
               <b><%= resource_ict_equipment_booking.status %></b>
             </span>

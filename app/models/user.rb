@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
   has_many :feed_subscriptions, :foreign_key=>:subscriber_id
   has_many :activity_feeds, :through=>:feed_subscriptions
   has_many :approvers
+  has_many :groups
+  #has_many :group_members
+  #has_many :groups, :through => :group_members
+    
 
   #helper for carrier wave
   mount_uploader :avatar, ProfileImageUploader

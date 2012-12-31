@@ -90,7 +90,7 @@ class IctFirewallsController < ApplicationController
          @ict_firewall.update_attributes(:remarks=>params[:remarks],:status=>params[:approve_status],
          :incharge_person => params[:forward][:to])
          
-         UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall).deliver
+         #UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall).deliver
       end
       @ict_firewall.update_attributes(:status=> params[:approve_status])
       
