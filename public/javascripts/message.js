@@ -93,7 +93,7 @@ $().ready(function (){
             $("#message_section").html(data);
             alert("Message Posted");
           });
-        }
+        }        
         else
         {
           $.get("/messages/post_messages",{
@@ -124,10 +124,19 @@ $().ready(function (){
           $("#user_type_select_div").html(data);
         });
       }
+      else if ($("#message_user_select").val() == "Select Group")
+      {      	
+      	$.get("/messages/get_groups",{          
+        },
+        function(data){
+          $("#user_type_select_group_div").show();
+          $("#user_type_select_group_div").html(data);
+        });
+      }
       else
       {
         $("#user_type_select_div").hide();
-
+        $("#user_type_select_group_div").hide();
       }
     });
 
@@ -218,27 +227,30 @@ $().ready(function (){
   }
 
   function validateMessageForm(){
-
     if ($("#message_message").val() == "")
     {
       alert("Looks like you didn't write anything in the message area.");
       return false;
-    }
+    }    
     else if ($("#message_user_select").val() == "Please Select")
-    {
+    {   	
       alert("Select User Level");
       return false;
     }
-    else if ($("std_agency").val() == "SELECT AN AGENCY"){
+    else if ($("#std_agency").val() == "SELECT AN AGENCY"){
       alert("Select Agency Level");
       return false;
     }
-    else if ($("std_departments").val() == "SELECT A DEPARTMENT"){
+    else if ($("#std_departments").val() == "SELECT A DEPARTMENT"){
       alert("Select Department Level");
       return false
     }
-    else if ($("std_units").val() == "SELECT AN UNIT"){
+    else if ($("#std_units").val() == "SELECT AN UNIT"){
       alert("Select Unit Level");
+      return false
+    }  
+    else if ($("#std_group").val() == ""){      
+      alert("Select Group Level");
       return false
     }
     else

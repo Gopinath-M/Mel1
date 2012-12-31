@@ -110,8 +110,8 @@ class UsersController < ApplicationController
         role = RoleMembership.find_by_user_id(user.id)
         role.update_attribute(:department_id, params[:to_department][:id])
         department = Department.find_by_id(params[:to_department][:id])
-        #UserMailer.intimate_user(user,department).deliver
-        redirect_to(users_path, :notice => "#{user.first_name} has been transfer to #{department.name}.")
+        UserMailer.intimate_user(user,department).deliver
+        redirect_to(users_path, :notice => "#{user.first_name} has been transfered to #{department.name} Department.")
       end
       val = Approver.find_by_user_id(user.id)
       if val.present?
@@ -156,19 +156,22 @@ class UsersController < ApplicationController
         redirect_to(assign_department_users_path, :alert => "You cant Assign the User to Already exist department")
       else
         if params[:transfer][:role_id] == '2'
-           role_id = RoleMembership.find_by_department_id_and_role_id(params[:to_department][:id], '2')
-           role_id.update_attribute(:role_id, 3)
-           from_user =  User.find_by_ic_number(params[:transfer][:username])
-           rol = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '2', :status => 'A')
-           rol.save
+          role_id = RoleMembership.find_by_department_id_and_role_id(params[:to_department][:id], '2')
+          role_id.update_attribute(:role_id, 3)
+          from_user =  User.find_by_ic_number(params[:transfer][:username])
+          rol = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '2', :status => 'A')
+          rol.save
+          department = Department.find_by_id(params[:to_department][:id])
+          redirect_to(users_path, :notice => "#{user.first_name} has been assigned as Admin to this #{department.name} Department. And the Already Existing Admin role has been changed as User..")
         else
-           from_user =  User.find_by_ic_number(params[:transfer][:username])
-           role = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '3', :status => 'A')
-           role.save
+          from_user =  User.find_by_ic_number(params[:transfer][:username])
+          role = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '3', :status => 'A')
+          role.save
+          department = Department.find_by_id(params[:to_department][:id])
+          redirect_to(users_path, :notice => "#{user.first_name} has been assigned as Dept Userto #{department.name}. ")
         end
         department = Department.find_by_id(params[:to_department][:id])
-        #UserMailer.intimate_user_assign(user,department).deliver
-        redirect_to(users_path, :notice => "#{user.first_name} has been assigned to #{department.name}. ")
+        UserMailer.intimate_user_assign(user,department).deliver
       end
     else
       redirect_to(assign_department_users_path, :alert => "Please Select the Drop box listed")

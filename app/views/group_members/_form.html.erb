@@ -1,0 +1,25 @@
+<%= form_for(@group_member, :as => :group_member) do |f| %>
+<div class="form-sec">
+	<%= f.error_messages%>
+
+	<div id="booked_resource">
+		<div class="form-sec-row" >
+			<label class="text"><%= Group %><span style=color:red>*</span></label>
+			<span class="in-box"> <td> <%=f.select(:group_id, options_from_collection_for_select(Group.find_all_by_user_id(current_user.id), 'id','name'),:prompt=>"Select Group") %> </td> </span>
+		</div>
+	</div>
+
+	<div id="booked_resource">
+		<div class="form-sec-row" >
+			<label class="text"><%= User %><span style=color:red>*</span></label>
+			<span class="in-box"> <td>  
+		    <%=f.select(:user_id, options_from_collection_for_select(@users, 'id','first_name'),:prompt=>"Select GroupMember") %> </td> </span>
+		</div>
+	</div>
+
+	<div class="form-sec-row">
+		<label class="text">&nbsp;</label>
+		<span class="in-box"> <%= f.submit "Submit",:class=>"btn2"%> </span>
+	</div>
+</div>
+<%end%>
