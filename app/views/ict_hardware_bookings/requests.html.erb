@@ -26,7 +26,6 @@
           <div class="form-sec-row">
             <label class="text"><%=t('labels.department')%></label>
             <span class="in-box">
-
               <%= department.name%>
             </span>
           </div>
@@ -39,133 +38,115 @@
           <div class="form-sec-row">
             <label class="text"><%=t('labels.ticket_no')%></label>
             <span class="in-box">
-              <%=booking.id%>/<%=Time.now.year%>
+              <b style="color:red;"><%=booking.id%>/<%=Time.now.year%></b>
             </span>
           </div>
           <div class="form-sec-row">
             <label class="text"><%=t('labels.date_of_app')%></label>
-            <span class="in-box"><%=booking.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
+            <span class="in-box"><%=booking.created_at.strftime("%d %b %Y, %I:%M:%S %p")%></span>
           </div>
-          <%booking.ict_hardware_booked_users.each do |requested_user|%>
-            <h2 class="b-head"></h2>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.name')%></label>
-              <span class="in-box">
-                <%=requested_user.user.full_name%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.department')%></label>
-              <span class="in-box">
-                <%=requested_user.user.departments.first.name%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.requested_type')%></label>
-              <span class="in-box">
-                <%=requested_user.is_replacement? ? "Replacement" : "New"%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.pc')%></label>
-              <span class="in-box">
-                <%=requested_user.pc ? "Yes" : "No"%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.printer')%></label>
-              <span class="in-box">
-                <%=requested_user.printer ? "Yes" : "No"%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.scanner')%></label>
-              <span class="in-box">
-                <%=requested_user.scanner? ? "Yes" : "No"%>
-              </span>
-            </div>
-            <div class="form-sec-row">
-              <label class="text"><%=t('labels.status')%></label>
-              <span class="in-box">
-                <b style="color : <%=requested_user.status=='New' ? '#FFA500' : (requested_user.status == "Approved" || requested_user.status == "Processed" ? '#329C20' : 'red')%>"><%= requested_user.status%></b>
-              </span>
-            </div>
-
-            <% time = Setting.find_by_id(1) %>
-            <%if time.present?%>
-              <% temp = time.timeline.strftime("%H:%M:%S")%>
-              <%dt = DateTime.parse(temp)%>
-              <% seconds = dt.hour * 3600 + dt.min * 60 %>
-              <div  class="form-sec-row">
-                <% if @approve.present?  && @approve.user_id == current_user.id  && requested_user.created_at > (Time.now-seconds)%>
-                  <label class="text">Action</label>
+          <table>
+            <tr>
+              <td class="form-sec-row"><label class="text"><%=t('labels.name')%></label></td>
+              <td class="form-sec-row"><label class="text"><%=t('labels.requested_type')%></label></td>
+              <td class="form-sec-row"><label class="text">Hardware Required</label></td>
+              <td class="form-sec-row"><label class="text">Status</label></td>
+            </tr>
+            <%booking.ict_hardware_booked_users.each do |requested_user|%>
+              <tr>
+                <td> <%=requested_user.user.full_name%></td>
+                <td> <%=requested_user.is_replacement? ? "Replacement" : "New"%></td>
+                <td>
+                  <%hardware = []%>
+                  <%hardware << (requested_user.pc ? "PC" : nil)%>
+                  <%hardware << (requested_user.printer ? "Printer" : nil)%>
+                  <%hardware << (requested_user.scanner ? "Scanner" : nil)%>
+                  <% hardware.compact!%>
+                  <%= hardware.join(",").to_s %>
+                </td>
+                <td>
                   <span class="in-box">
-                    <% if requested_user.status == "New" %>
-                      <b><font color="#336699"><%= link_to  t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
-                    <%end%>
+                    <b style="color : <%=requested_user.status=='New' ? '#FFA500' : (requested_user.status == "Approved" || requested_user.status == "Processed" ? '#329C20' : 'red')%>"><%= requested_user.status%></b>
                   </span>
-                <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && requested_user.created_at > (Time.now-2*seconds)%>
-                  <label class="text">Action</label>
-                  <span class="in-box">
-                    <% if requested_user.status == "New" %>
-                      <% val = (requested_user.created_at > (Time.now-seconds))  %>
-                      <% if !val.present? %>
+                </td>
+              </tr>
+              <% time = Setting.find(1) %>
+              <%if time.present?%>
+                <% temp = time.timeline.strftime("%H:%M:%S")%>
+                <%dt = DateTime.parse(temp)%>
+                <% seconds = dt.hour * 3600 + dt.min * 60 %>
+                <div  class="form-sec-row">
+                  <% if @approve.present?  && @approve.user_id == current_user.id  && requested_user.created_at > (Time.now-seconds)%>
+                    <label class="text">Action</label>
+                    <span class="in-box">
+                      <% if requested_user.status == "New" %>
+                        <b><font color="#336699"><%= link_to  t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
+                      <%end%>
+                    </span>
+                  <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && requested_user.created_at > (Time.now-2*seconds)%>
+                    <label class="text">Action</label>
+                    <span class="in-box">
+                      <% if requested_user.status == "New" %>
+                        <% val = (requested_user.created_at > (Time.now-seconds))  %>
+                        <% if !val.present? %>
+                          <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
+                        <%end%>
+                      <%end%>
+                    </span>
+                  <% elsif requested_user.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
+                    <label class="text">Action</label>
+                    <span class="in-box">
+                      <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                    </span>
+                  <%end%>
+                  <%if requested_user.status == "Approved" && requested_user.forward_to == current_user.id %>
+                    <label class="text">Action</label>
+                    <span class="in-box">
+                      <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                    </span>
+                  <%end%>
+                </div>
+              <%else%>
+                <div  class="form-sec-row">
+                  <% if @approve.present?  && @approve.user_id == current_user.id %>
+                    <label class="text">Action</label>
+                    <span class="in-box">
+                      <% if requested_user.status == "New" %>
                         <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
                       <%end%>
-                    <%end%>
-                  </span>
-                <% elsif requested_user.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
-                  <label class="text">Action</label>
-                  <span class="in-box">
-                    <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
-                  </span>
-                <%end%>
-                <%if requested_user.status == "Approved" && requested_user.forward_to == current_user.id %>
-                  <label class="text">Action</label>
-                  <span class="in-box">
-                    <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
-                  </span>
-                <%end%>
-              </div>
-            <%else%>
-              <div  class="form-sec-row">
-                <% if @approve.present?  && @approve.user_id == current_user.id %>
-                  <label class="text">Action</label>
-                  <span class="in-box">
-                    <% if requested_user.status == "New" %>
-                      <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
-                    <%end%>
-                  </span>
-                <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
-                  <label class="text">Action</label>
-                  <span class="in-box">
-                    <% if requested_user.status == "New" %>
-                      <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
-                    <%end%>
-                  </span>
-                <% elsif requested_user.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
-                  <label class="text">Action</label>
-                  <span class="in-box">
-                    <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
-                  </span>
-                <%end%>
-                <%if requested_user.status == "Approved" && requested_user.forward_to == current_user.id %>
-                  <label class="text">Action</label>
-                  <span class="in-box">
-                    <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
-                  </span>
-                <%end%>
-              </div>
+                    </span>
+                  <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
+                    <label class="text">Action</label>
+                    <span class="in-box">
+                      <% if requested_user.status == "New" %>
+                        <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :class=>"btn2 in-btn2"%></b>
+                      <%end%>
+                    </span>
+                  <% elsif requested_user.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
+                    <label class="text">Action</label>
+                    <span class="in-box">
+                      <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                    </span>
+                  <%end%>
+                  <%if requested_user.status == "Approved" && requested_user.forward_to == current_user.id %>
+                    <label class="text">Action</label>
+                    <span class="in-box">
+                      <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => requested_user.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                    </span>
+                  <%end%>
+                </div>
+              <%end%>
             <%end%>
-          <%end%>
+          </table>
         </div>
         <div class="clear"></div>
       <%end%>
+
       <div class="manage-user-rows box"><br/><br/>
         <%= paginate @ict_hardware_bookings %>
       </div>
-        <%else%>
-        <%=t('labels.no_request_found')%>
+    <%else%>
+      <%=t('labels.no_request_found')%>
     <%end%>
   </div>
 </div>
