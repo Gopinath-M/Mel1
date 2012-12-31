@@ -1,74 +1,70 @@
 Building, 0
 Mechanical,1
 Electrical,1
-Meja
-Kerusi
+Meja,35
+Kerusi,35
 Penghawa Dingin,2
 Kipas,3
 Televisyen,3
 Sistem PA,3
-Pintu
+Pintu,35
 Telefon,3
-Paip
+Paip,35
 Mesin Perakam Waktu
 Lampu,3
 Soket Elektrik,3
 Iris (Sistem Kawalan Pintu),3
 Lift,2
-Peralatan Tandas
-Tingkap
-Almari/Kabinet
+Peralatan Tandas,35
+Tingkap,35
+Almari/Kabinet,35
 Suis Elektrik,3
-Pintu-Tombol Pintu
-Paip-Paip Tandas
-Tandas (Flush Tandas)
-Tandas (Paip)
-Tandas (Penutup Tandas)
-Tiada Bekalan Elektrik
-Penghawa Dingin (Tidak Sejuk)
-Penghawa Dingin (Bocor)
-Penghawa Dingin (Tidak Berfungsi)
-Lampu (Terbakar)
-Lampu (Tidak Berfungsi)
-Lampu (Berkelip)
+Pintu-Tombol Pintu,35
+Paip-Paip Tandas,35
+Tandas (Flush Tandas),35
+Tandas (Paip),35
+Tandas (Penutup Tandas),35
+Tiada Bekalan Elektrik,3
+Penghawa Dingin (Tidak Sejuk),2
+Penghawa Dingin (Bocor),2
+Penghawa Dingin (Tidak Berfungsi),2
+Lampu (Terbakar),3
+Lampu (Tidak Berfungsi),3
+Lampu (Berkelip),3
 Asset,0
 Civil,1
-Harta Modal
-Inventori
-Kereta
-Lain-lain Inventori
+Harta Modal,34
+Inventori,34
+Kereta,36
+Lain-lain Inventori,37
 Cleanliness,0
-Luar Bangunan
-Dalam Bangunan
-Lain-lain
-Tong Sampah
-Longkang
-Pasu Bunga
+Luar Bangunan,40
+Dalam Bangunan,40
+Lain-lain,42
+Tong Sampah,41
+Longkang,41
+Pasu Bunga,42
 Tempat Kenderaan
-Kawasan Padang
-Syiling
-Laluan Susur Gajah
-Bumbung
-Karpet
-Tong Sampah
-Telefon
-Kerusi
-Dinding
-Cermin Tingkap
-Cermin Pintu/Dinding
-Lantai
-Pintu
-Sinki
-Mangkuk Tandas
-Kipas
-Tingkap
-Cermin
-Senitizer Bin
-Syiling
-Tempat wuduk
-Tandas
-Kerusi Tetamu
-Testing 1
-Testing 2
-Testing 3
-Testing 4
+Kawasan Padang,41
+Syiling,41
+Laluan Susur Gajah,41
+Bumbung,41
+Karpet,42
+Tong Sampah,42
+Kerusi,42
+Dinding,42
+Cermin Tingkap,42
+Cermin Pintu/Dinding,42
+Lantai,42
+Pintu,42
+Sinki,42
+Mangkuk Tandas,42
+Kipas,42
+Tingkap,42
+Cermin,42
+Senitizer Bin,42
+Syiling,42
+Tempat Wuduk,42
+Tandas,42
+Kerusi Tetamu,42
+Test,3

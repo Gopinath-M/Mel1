@@ -1,0 +1,23 @@
+<div class="CenterNav">
+  <h2 class="b-head"><%= 'Manage Groups' %></h2>
+  <div class="create-user">
+    <div class="cu-c1"><a href="/groups/new" title=<%= 'Create Group' %>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%= 'Create Group'%></a></div>
+
+  </div>
+  <div id="div_ajax" >
+    <%if @groups && !@groups.empty?%>
+      <%  @groups.each do |group|%>
+        <div class="manage-user box">
+          <div class="manage-user-row box">
+            <div class="mu-c1">
+            </div>
+            <div class="mu-c2">
+              <p class="head1">
+                <b><%= group.name %></b><br/>                
+            </div>            
+          </div>
+        </div>
+      <%end%>
+    <%end%>
+  </div>
+</div>

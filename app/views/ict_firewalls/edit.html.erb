@@ -40,6 +40,7 @@
 
 
       <h2 class="b-head"></h2>
+      <font color="#369" size="3"><br/><b><u><%= 'Requisition Details' %>:-</u><br/><br/></b></font>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.ticket_no')%></label>
         <span class="in-box"><font color="red"><b>&nbsp;<%= @ict_firewall.id %>/<%=Time.now.year%></span>
@@ -50,8 +51,6 @@
                 <span class="in-box"><%= @ict_firewall.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
               </div>
               </div>
-
-              <h2 class="b-head"></h2>
 
               <div class="form-sec-row">
                 <label class="text"><%=t('labels.source_ip')%></label>

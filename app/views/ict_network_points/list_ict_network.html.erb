@@ -45,7 +45,21 @@
                     <% if resource.status == "New" %>
                       <% val = (resource.created_at > (Time.now-seconds))  %>
                       <% if !val.present? %>
+                        <% user = User.find(@approve.user_id) %>
+                        <% UserMailer.timeline_expire_mail_to_approver(user).deliver %>
                         <b><font color="#336699"><%= link_to t('labels.approve_request'),approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                      <%end%>
+                    <%end%>
+                  </span>
+                <% elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN%>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <% val = (resource.created_at > (Time.now-seconds)) %>
+                      <% val1 = (resource.created_at > (Time.now-2*seconds)) %>
+                      <% if !val.present? && !val1.present? %>
+                        <% user = User.find(@approver_second.user_id) %>
+                        <%  UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+                        <b><font color="#336699"><%= link_to "Approve",approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
                       <%end%>
                     <%end%>
                   </span>
@@ -71,7 +85,7 @@
                 <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
                   <span class="in-box">
                     <% if resource.status == "New" %>
-                        <b><font color="#336699"><%= link_to t('labels.approve_request'),approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                      <b><font color="#336699"><%= link_to t('labels.approve_request'),approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
                     <%end%>
                   </span>
                 <% elsif resource.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
@@ -128,7 +142,7 @@
 
       <%end%> <div class="manage-user-rows box"><br/><br/>
         <%= paginate @list_network_point %></div>
-      <%else%>
+    <%else%>
       <%=t('labels.no_data_available')%>
     <%end%>
   </div>

@@ -59,7 +59,7 @@
                 </div>
 
                 </div>
-                <h2 class="b-head"></h2>
+               
 
                 <div class="form-sec-row">
                   <label class="text"><%=t('labels.type_of_facility')%></label>
@@ -81,9 +81,12 @@
                     <td>1</td>
                     <td><b>&nbsp;<%=software_name.name%></b></td>
                     <td><b>&nbsp;<%=@software_installation_detail.name%>&nbsp;|&nbsp;<%=@software_installation_detail.position%>&nbsp;|&nbsp;<%=@software_installation_detail.grade%></b></td>
+                    <%if @software_installation_detail.approve_status == nil%>
                     <td> <%= f.radio_button :approve_status, 'Approve'%> <%= f.label :approve_status, t('labels.approve') %>
                     <%= f.radio_button :approve_status, 'Not Approve'%> <%= f.label :approve_status, t('labels.not_approve') %></td>
-                   
+                    <%else%>
+                    <td><%if @software_installation_detail.approve_status %>Approved<%else%>Not Approved<%end%></td>
+                   <%end%>
 
                   </tr>
                 </table>
@@ -120,7 +123,7 @@
                   <div class="form-sec-row">
                     <label class="text"><%=t('labels.forward_to')%><span style=color:red>*</span></label>
                     <span class="in-box">
-                      <%= f.select(:user_id, @users.collect {|p| [ p.first_name, p.id ] },:prompt => "Select User") %>
+                      <%= f.select(:user_id, @users.where("role_id = 2 or role_id = 3").collect {|p| [ p.first_name, p.id ] },:prompt => "Select User") %>
                     </span>
                   </div>
                 <%end%>
