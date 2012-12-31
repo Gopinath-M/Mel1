@@ -52,7 +52,7 @@
           </ul>
         </div>
         <div class="clear"></div>
-        <%if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER %>
+        <%#if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER %>
           <div class="leftNav-links box">
             <h2><%= t('left_nav.alerts')%></h2>
             <ul>
@@ -168,7 +168,7 @@
     <%#end%>
             </ul>
           </div>
-        <%end%>
+        <%#end%>
         <div class="clear"></div>
         <div class="leftNav-links box">
           <%if (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN )%>
@@ -309,7 +309,7 @@
                     </div>
                   </li>
                   <!--li class="menu-item">
-                    <%#=link_to t('left_nav.facility_ict_softwares'), "javascript:void(0);" , :title=>"Facility Ict Softwares" ,:class=>"", :id=>"lnk_facility_ict_softwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_softwares')"%>
+        <%#=link_to t('left_nav.facility_ict_softwares'), "javascript:void(0);" , :title=>"Facility Ict Softwares" ,:class=>"", :id=>"lnk_facility_ict_softwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_softwares')"%>
                     <div id ="div_facility_ict_softwares" style="display:none;">
                       <ul>
                         <li><%#=link_to t('left_nav.create'), new_facility_ict_software_path%></li>
@@ -396,6 +396,19 @@
                   </li>
                 <%end%>
                 <%if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN%>
+                  <li class="menu-item">
+                    <%= link_to t('left_nav.ict_req'), "javascript:void(0);" , :title=>t('left_nav.ict_req'),:class=>"", :id=>"lnk_requisition_network_point" ,:onclick=>"leftNavigation(this.id,'div_requisition_network_point')"%>
+                    <div id ="div_requisition_network_point" style="display:none;">
+                      <ul>
+                        <li>
+                          <%= link_to t('left_nav.create'), list_to_select_ict_ict_network_points_path%>
+                        </li>
+                        <li>
+                          <%= link_to t('left_nav.list'), selected_list_ict_ict_network_points_path%>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                   <li class="menu-item">
                     <%=link_to t('labels.complaints_issue_logs'), "javascript:void(0);" , :title=>t('labels.complaints_issue_logs') ,:class=>"", :id=>"lnk_complaints_issue_logs" ,:onclick=>"leftNavigation(this.id,'div_complaints_issue_logs')"%>
                     <div id ="div_complaints_issue_logs" style="display:none;">
@@ -562,7 +575,7 @@
       <li>
       %>
       <%# support_count = Outstation.where(:status=>"New").count  %>
-                          <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+                        <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
       <%#=link_to "Verify Request", approve_request_outstations_path%>
       <%#*
       </li>%>
@@ -682,7 +695,7 @@
                   </div>
                 </li>
               <%end%>
-              <%if current_user && (session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_USER)%>
+              <%if (session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] == DISP_USER_ROLE_DEPT_USER)%>
                 <li class="menu-item">
                   <%= link_to t('left_nav.ict_equip_book'), "javascript:void(0);" , :title=>t('left_nav.ict_equip_book') ,:class=>"", :id=>"lnk_resource_ict_bookings" ,:onclick=>"leftNavigation(this.id,'div_resource_ict_bookings')"%>
                   <div id ="div_resource_ict_bookings" style="display:none;">

@@ -10,6 +10,11 @@ malay:
     keep_me_login_in: "Menjaga saya kekal dilog masuk"
     forget_pass: "Terlupa kata laluan anda?"
     login : "Log Masuk Dalam"
+  errors_date:
+    date_greater: "Dari Tarikh Perlu lebih besar daripada tarikh dan waktu semasa"
+    from_date_greater: "Ke Tarikh Perlu lebih besar daripada tarikh dan waktu semasa"
+    to_date_greater: "Ke Tarikh Perlu lebih besar daripada Dari tarikh dan masa"
+
 
   welcome:
     title: "Tajuk"
@@ -826,26 +831,41 @@ malay:
     manage_group: "Uruskan Kumpulan"
     create_group: "Buat Kumpulan"
     other_resource_booking: "Tempahan OtherResource"  
-    transport_booking: "Tranpsort tempahan"          
+    transport_booking: "Tranpsort Tempahan"
+    ict_book: "Tempahan ICT"
+    room_booking: "Tempahan Bilik" 
+    create_group_memb: "Buat Ahli Kumpulan"
+    manage_group_memb: "Mengurus Ahli Kumpulan"          
 
     
     
   activerecord:
     models:
     attributes:
-   # errors:
-    #  header: "Medan Tidak Sah"
-     # message: "Membetulkan kesilapan-kesilapan berikut dan cuba lagi."
       models:                           
-    models:
-      category: "Category"
-      sub_category: "SubCategory"
-      vendor: "Vendor"
-      unit: "Unit"
-      agency: "Agency"
-      driver: "Driver"
-      facility: "Facility"	
+ #   models:
+     # category: "Category"
+     # sub_category: "SubCategory"
+     # vendor: "Vendor"
+     # unit: "Unit"
+     # agency: "Agency"
+     # driver: "Driver"
+     # facility: "Facility"	
     attributes:
+      emergency_reference:
+        name: "Nama"
+        address: "Alamat tidak"
+        phone_no: "Nombor telefon"
+        relation: "Berhubung"
+      cms_page:
+        title: "Tajuk"
+        content: "kandungan"
+      department:
+        agency_id: "Nama Agensi"
+        name: "nama"
+        address: "Alamat tidak"
+        telephone_number: "Nombor Telefon"
+        fax_number: "Nombor fax"
       category: 
         name: "Nama Kategori"
       sub_category:
@@ -862,26 +882,115 @@ malay:
         telephone_number: "Nombor Telefon"
         department_id: "Nama Jabatan"
         fax_number: "Nombor fax"
+      vehicle_type:
+        name: "Nama"
+      advertisement:
+        web_link: "Pautan web"
+        from_date: "Dari tarikh"
+        to_date: "Setakat"
+        advertisement_attachment: "Lampiran iklan"
+      vehicle_model:
+        name: "Nama"
+        sub_category: "Sub Kategori"
       agency:
         name: "Nama"
         address: "Alamat tidak"
         telephone_number: "Nombor Telefon"
-        fax_no: "Nombor Fax" 
+        fax_number: "Nombor Fax" 
       driver:
         name: "Nama"
         telephone_number: "Nombor Telefon"
       facility:
         name: "nama"
         total_qty: "Jumlah Kuantiti"
+      vehicle:
+        model_name: "Nama"
+        registration_number: "Nombor pendaftaran"
+        driver_id: "Pemandu id"
+      agency_store:
+        agency_id: "Agensi id"
+        resource_id: "Sumber id"
+        driver_id: "Pemandu id"
+        serial_no: "Nombor siri"
     errors:
-    # header: "Medan Tidak Sah"
-     # message: "Membetulkan kesilapan-kesilapan berikut dan cuba lagi."
+      header: "Medan Tidak Sah"
+      message: "Membetulkan kesilapan-kesilapan berikut dan cuba lagi."
       models:
+        emergency_reference:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+            address: 
+              blank: "Tidak Boleh kosong"
+            phone_no:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
+            relation:
+              blank: "Tidak Boleh kosong"   
+        cms_page:
+          attributes:
+            title:
+              blank: "Tidak Boleh kosong"
+            content:
+              blank: "Tidak Boleh kosong"
+        department:
+          attributes:
+            agency_id:
+              blank: "Tidak Boleh kosong"
+            name:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            address:
+              blank: "Tidak Boleh kosong"
+            telephone_number:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
+            fax_number:
+              invalid: "Invalid"
+        vehicle:
+          model_name:
+            blank: "Tidak Boleh kosong"
+          registration_number:
+            blank: "Tidak Boleh kosong"
+          driver_id:
+            blank: "Tidak Boleh kosong"
+        advertisement:
+          attributes:
+            web_link:
+              blank: "Tidak Boleh kosong"
+            from_date:
+              blank: "Tidak Boleh kosong"
+            to_date:
+              blank: "Tidak Boleh kosong"
+            advertisement_attachment:
+              blank: "Tidak Boleh kosong"
+        vehicle_model:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+            sub_category:
+              blank: "Tidak Boleh kosong"
+        vehicle_type:
+          attributes:
+            blank: "Tidak Boleh kosong"
+        agency_store:
+          attributes:
+            agency_id:
+              blank: "Tidak Boleh kosong"
+              taken: "Telah diambil"
+            resource_id:
+              blank: "Tidak Boleh kosong"
+              taken: "Telah diambil"
+            driver_id:
+              blank: "Tidak Boleh kosong"
+              taken: "Telah diambil"
+            serial_no:
+              blank: "Telah diambil"
         category:
           attributes:
             name:
               blank: "Tidak Boleh kosong"
-              taken: "telah diambil"          
+              taken: "Telah diambil"          
         sub_category:
           attributes:
             name:
@@ -915,7 +1024,7 @@ malay:
             department_id:
               blank: "Tidak Boleh kosong"
               #invalid: "Invalid"
-            fax_number:
+            fax_no:
               #blank: "Tidak Boleh kosong"
               invalid: "Invalid"
         agency:
@@ -928,7 +1037,7 @@ malay:
             telephone_number:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid"
-            fax_no:
+            fax_number:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid" 
 

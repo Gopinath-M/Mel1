@@ -17,10 +17,22 @@
           <%end%>
           <h2><%= t('right_nav.res_apps')%></h2>
           <ul>
-            <li><a href="javascript:void(0);" title="<%= t('right_nav.res_booking')%>"><%= t('right_nav.res_booking')%> </a></li>
+            <li>
+              <%=link_to t('right_nav.res_booking'), "javascript:void(0);" , :title=>t('labels.approve_res_booking') ,:class=>"", :id=>"lnk_right_nav_resource_booking" ,:onclick=>"RightNavigation(this.id,'div_right_nav_resource_booking')"%>
+
+              <div id ="div_right_nav_resource_booking" style="display:none;">
+                <ul>
+                  <li><%=link_to t('labels.room_booking'),resource_room_bookings_path%></li>
+                  <li><%=link_to t('labels.ict_book'),resource_ict_equipment_bookings_path%></li>
+                  <li><%=link_to t('labels.transport_booking'),resource_transportation_bookings_path%></li>
+                  <li><%=link_to t('labels.other_resource_booking'),resource_bookings_path%></li>
+                </ul>
+              </div>
+
+            </li>
             <li><a href="javascript:void(0);" title="<%= t('right_nav.complaints')%>/<%= t('right_nav.issue_log')%>"><%= t('right_nav.complaints')%> / <%= t('right_nav.issue_log')%></a></li>
             <li><a href="/ict_network_points/selected_list_ict" title="<%=t('left_nav.resource_requisition')%>"><%=t('left_nav.resource_requisition')%> </a></li>
-            <li><a href="/users/user_profile" title="Out-Station">Outstation Request </a></li></ul>
+            <li><a href="/users/user_profile" title="Out-Station"><%=t('labels.outstation_request')%></a></li></ul>
         </div>
 
         <div class="recentEvents box"> <%@upcoming_event = Event.where("is_active =? and from_date >=?", true, Time.now).limit(3) %>
@@ -50,7 +62,7 @@
             </ul>
           <%else%>
             <ul><h2><%= t('right_nav.up_event')%></h2></ul>
-            No Events Available
+            <%=t('labels.no_events_available')%>
           <%end%></div>
 
         <div class="rAds">

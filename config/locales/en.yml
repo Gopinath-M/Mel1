@@ -5,7 +5,10 @@ en:
     keep_me_login_in: "Keep me logged in"
     forget_pass: "Forgot your password?"
     login : "Login"
-
+  errors_date:
+    date_greater: "From Date Should be greater than current date and time"
+    from_date_greater: "To Date Should be greater than current date and time"
+    to_date_greater: "To Date Should be greater than From date and time"
   welcome:
     title: "Title"
     news: "Today's News"
@@ -397,7 +400,7 @@ en:
     user_name: "User Name"
     contact_mob: "Contact Mobile"
   #  ticket_no: "Ticket no"
-    date_of_app: "Date of Application"
+  #  date_of_app: "Date of Application"
     off_act: "Officer Action"
     repair_act: "Repair Action"
     spare_parts_req: "Spare Parts Required"
@@ -443,7 +446,7 @@ en:
     other_res_pro_req: "Other Resource Process Request"
     download_file: "Download File"
     res_det: "Resource Details"
-  #  approver: "Approver"
+    approver: "Approver"
     select_a_user: "Select A User"
     first: "First"
     second: "Second"
@@ -671,7 +674,7 @@ en:
     user_details: "User Details"
     ict_eqi_details: "ICT Equipment Details:"
     ticket_no: "Ticket No"
-    date_of_app: "Date Of Application"
+    date_of_app: "Date of Application"
     resource_name: "Resource Name"
     return_date: "Return Date"
     assign_officer: "Assign Officer"
@@ -822,15 +825,14 @@ en:
     manage_group: "Manage Groups"
     create_group: "Create Group"
     other_resource_booking: "OtherResource booking"
-    transport_booking: "Tranpsort booking"      
+    transport_booking: "Transport Booking"
+    ict_book: "ICT Booking"
+    room_booking: "Room Booking" 
+    create_group_memb: "Create Group Member"
+    manage_group_memb: "Manage Group Member"   
 
     
 
-    #  activerecord:
-#    attributes:
-#      user:
-#        lastname: ""
-#        username: "Mani"
 
 
 
