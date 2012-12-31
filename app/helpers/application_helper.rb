@@ -91,7 +91,7 @@ module ApplicationHelper
     return first_approver.present? && second_approver.present? && (second_approver.user_id == current_user.id || first_approver.user_id == current_user.id) ? booking_status : 0
   end
   def approve_software_request(status)
-    booking_status = SoftwareInstallation.joins(:software_installation_details).where("department_id= ? and status=?", @current_department, 'New').count
+    booking_status = SoftwareInstallation.joins(:software_installation_details).where("department_id= ? and status=?", @current_department, status).count
     first_approver = Approver.where(:department_id => @current_department).first
     second_approver = Approver.where(:department_id => @current_department).last
     return first_approver.present? && second_approver.present? && (second_approver.user_id == current_user.id || first_approver.user_id == current_user.id) ? booking_status : 0
