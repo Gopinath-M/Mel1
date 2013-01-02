@@ -25,7 +25,7 @@
   <%end%>
 
   <div class="form-sec-row">
-    <label class="text"><%=t('labels.resource')%><span style=color:red>*</span></label>
+    <label class="text"><%=t('left_nav.sub_category_name')%><span style=color:red>*</span></label>
     <span class="in-box"> <% if !current_user.is_super_admin? %>
       <% if (current_user.is_department_admin?) %>
       <%= hidden_field_tag 'is_department_admin', 1 %>      
@@ -135,7 +135,7 @@
     <div class="form-sec-row">
       <label class="text"><%=t('labels.no_of_passengers')%><span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.text_field :number_of_passengers, :autofocus => true %>
+        <%= f.text_field :number_of_passengers,:onkeypress=>"return isNumberKey(event);", :autofocus => true %>
       </span>
     </div>
     <div class="form-sec-row">
