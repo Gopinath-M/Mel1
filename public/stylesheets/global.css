@@ -8,7 +8,7 @@
 .rAds #slides {
     left: 0;
     position: absolute;
-    top: 55px;
+    top: 5px;
     z-index: 1000;
 }
 .slides_container {

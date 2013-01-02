@@ -102,12 +102,13 @@ class SoftwareInstallationsController < ApplicationController
   end
 
   def resource_booking_approval
-   @software_installation_detail=SoftwareInstallationDetail.find(params[:id])
-   @software_installation=SoftwareInstallation.find(@software_installation_detail.software_installation_id)
+    @software_installation=SoftwareInstallation.find(params[:id])
+   @software_installation_detail=SoftwareInstallationDetail.find_all_by_software_installation_id(@software_installation.id)
    @requisition=RequisitionType.find(@software_installation.requisition_type_id)
-    if @software_installation_detail.update_attributes(params[:software_installation])
-      software_email = User.find(@software_installation_detail.user_id)
-      UserMailer.ict_software(software_email, @software_installation_detail, @requisition, current_user).deliver
+#    if @software_installation_detail.update_attributes(params[:software_installation])
+if @software_installation.update_attributes(params[:software_installation])
+      software_email = User.find(@software_installation.user_id)
+      UserMailer.ict_software(software_email, @software_installation, @requisition, current_user).deliver
 #      redirect_to(software_installations_path, :notice => 'Booked Requisition Software Installation has been updated and Mail has been sent successfully')
     else
       render :action=>'new'
