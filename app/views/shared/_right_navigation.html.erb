@@ -65,16 +65,15 @@
             <%=t('labels.no_events_available')%>
           <%end%></div>
 
-        <div class="rAds">
-             <h2><%= t('left_nav.advertisement')%></h2>
-          <div id="slides">
+<div class="rAds">
+            <div id="slides"><br/>
+
             <div class="slides_container">
-
-              <% @advertisements=Advertisement.where("is_active =? and from_date >=?", true, Time.now) %>
+              <% @advertisements=Advertisement.where("is_active =? and to_date >=?", true, Time.now) %>
               <% @advertisements.each do |advertisement| %>
-                <div class="slide">
-
-                  <%=link_to  image_tag(advertisement.advertisement_attachment.url,:title=>advertisement.advertisement_attachment, :width=>"200", :height=>"200"), advertisement.web_link%>
+                      <div class="slide">
+                         <h2><%= t('left_nav.advertisement')%></h2>
+                  <%=link_to  image_tag(advertisement.advertisement_attachment.url,:title=>advertisement.advertisement_attachment, :width=>"210", :height=>"210"), advertisement.web_link%>
                 </div>
               <%end%>
             </div>

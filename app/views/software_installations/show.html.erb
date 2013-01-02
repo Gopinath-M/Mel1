@@ -83,7 +83,7 @@
               </div>
                 <% @software_installation_detail = SoftwareInstallationDetail.find_all_by_software_installation_id(@software_installation.id) %>
 <% @software_installation_detail.each do |detail|%>
-    <%software_name = FacilityIctSoftware.find(detail.software_installation_id)%>
+    <%software_name = FacilityIctSoftware.find(detail.facility_ict_software_id)%>
               <div class="form-sec-row">
                 <label class="text"><%=t('labels.name')%></label>
                 <span class="in-box">
