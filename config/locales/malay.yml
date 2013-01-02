@@ -1,6 +1,10 @@
 malay:
-
-             
+  views:
+    pagination:
+      first: "First"
+      last: "Lepas"
+      next: "Seterusnya"
+      previous: "Sebelum"          
   devise:
     failure:
       unauthenticated: 'Anda perlu mendaftar masuk atau mendaftar sebelum meneruskan'
@@ -835,7 +839,9 @@ malay:
     ict_book: "Tempahan ICT"
     room_booking: "Tempahan Bilik" 
     create_group_memb: "Buat Ahli Kumpulan"
-    manage_group_memb: "Mengurus Ahli Kumpulan"          
+    manage_group_memb: "Mengurus Ahli Kumpulan"
+    facilities: "Kemudahan"
+     
 
     
     
@@ -907,6 +913,12 @@ malay:
         model_name: "Nama"
         registration_number: "Nombor pendaftaran"
         driver_id: "Pemandu id"
+      complaint_computer:
+        complaint_type_id: "Jenis id aduan"
+        system_access_id: "Sistem akses id"
+        system_model_type_id: "Model sistem jenis id"
+        serial_no: "Bersiri tidak"
+        reason: "Sebab"
       agency_store:
         agency_id: "Agensi id"
         resource_id: "Sumber id"
@@ -927,6 +939,18 @@ malay:
               invalid: "Invalid"
             relation:
               blank: "Tidak Boleh kosong"   
+        complaint_computer:
+          attributes:
+            complaint_type_id:
+              blank: "Tidak Boleh kosong"
+            system_access_id:
+              blank: "Tidak Boleh kosong"
+            system_model_type_id:
+              blank: "Tidak Boleh kosong"
+            serial_no:
+              blank: "Tidak Boleh kosong"            
+            reason:
+              blank: "Tidak Boleh kosong"
         cms_page:
           attributes:
             title:
@@ -946,6 +970,7 @@ malay:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid"
             fax_number:
+              blank: "Tidak Boleh kosong"           
               invalid: "Invalid"
         vehicle:
           model_name:
@@ -1040,8 +1065,6 @@ malay:
             fax_number:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid" 
-
-
         driver:
           attributes:
             name:
@@ -1050,7 +1073,7 @@ malay:
             telephone_number:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid"
-complaint_building_asset:
+        complaint_building_asset:
           attributes:
             building_asset_type_id:
               blank: "Tidak Boleh kosong"
@@ -1064,11 +1087,11 @@ complaint_building_asset:
               blank: "Tidak Boleh kosong"
             reason:
               blank: "Tidak Boleh kosong"
-facility:
-  attributes:
-    name:
-     blank: "Tidak Boleh kosong"
-     taken: "telah diambil"
-     total_qty:
-          blank: "Tidak Boleh kosong"
+        facility:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            total_qty:
+              blank: "Tidak Boleh kosong"
 

@@ -240,7 +240,7 @@
                 </li>
                 <%if current_user && (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN)%>
                   <li class="menu-item">
-                    <%=link_to t('left_nav.category'), "javascript:void(0);" , :title=>t('left_nav.category') ,:class=>"", :id=>"lnk_category" ,:onclick=>"leftNavigation(this.id,'div_category')"%>
+                    <%=link_to t('left_nav.category_name'), "javascript:void(0);" , :title=>t('left_nav.category') ,:class=>"", :id=>"lnk_category" ,:onclick=>"leftNavigation(this.id,'div_category')"%>
                     <div id ="div_category" style="display:none;">
                       <ul>
                         <li><%=link_to t('left_nav.create'), new_category_path%></li>
@@ -267,7 +267,7 @@
                     </div>
                   </li>
                   <li class="menu-item">
-                    <%=link_to t('left_nav.resource'), "javascript:void(0);" , :title=>t('left_nav.resource') ,:class=>"", :id=>"lnk_resources" ,:onclick=>"leftNavigation(this.id,'div_resources')"%>
+                    <%=link_to t('dashboard.resource'), "javascript:void(0);" , :title=>t('left_nav.resource') ,:class=>"", :id=>"lnk_resources" ,:onclick=>"leftNavigation(this.id,'div_resources')"%>
                     <div id ="div_resources" style="display:none;">
                       <ul>
                         <li><%= link_to t('left_nav.create'), new_resource_path %></li>
@@ -296,7 +296,7 @@
                     </li>
                   <%end%>
                   <li class="menu-item">
-                    <%=link_to t('left_nav.facility'), "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_facility" ,:onclick=>"leftNavigation(this.id,'div_facility')"%>
+                    <%=link_to t('labels.facilities'), "javascript:void(0);" , :title=>"Admin" ,:class=>"", :id=>"lnk_facility" ,:onclick=>"leftNavigation(this.id,'div_facility')"%>
                     <div id ="div_facility" style="display:none;">
                       <ul>
                         <li>

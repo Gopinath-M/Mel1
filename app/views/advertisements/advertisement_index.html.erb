@@ -1,10 +1,10 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">List of Advertisements</h2>
+    <h2 class="b-head"><%=t('labels.list_of_advertise')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
       <% if current_user.is_super_admin? %>
-        <div class="cu-c1"><a href="/advertisements/new" title="Create Advertisement"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Advertisement</a></div>
+        <div class="cu-c1"><a href="/advertisements/new" title=<%=t('labels.create_adv')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.create_adv')%></a></div>
       <%end%>
     </div>
   <%end%>
@@ -19,11 +19,11 @@
               <p class="head1"><a href=<%= advertisement.web_link%>><b><%= advertisement.web_link%></b></a></p>
             </div>
             <div class="mu-c3">
-              <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>advertisement.id.to_i%>
+              <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.edit'), :action=>'edit', :id=>advertisement.id.to_i%>
               <%if advertisement.is_active %>
-                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_advertisements_path(:id=>advertisement.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this Advertisement?', :method=>:post, :title=>"Deactive" %>
+                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.deactivate'), update_status_advertisements_path(:id=>advertisement.id, :status=>"Deactivate"), :confirm => t('labels.adv_deact_confirm'), :method=>:post, :title=>t('labels.deactivate') %>
               <%else%>
-                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_advertisements_path(:id=>advertisement.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this Advertisement?', :method=>:post, :title=>"Activate"%>
+                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.activate'),  update_status_advertisements_path(:id=>advertisement.id,:status=>"Activate"), :confirm => t('labels.adv_act_confirm'), :method=>:post, :title=>t('labels.activate')%>
               <%end%>
             </div>
           </div>
@@ -32,7 +32,7 @@
       <%end%><div class="manage-user-rows box"><br/><br/>
         <%= paginate @advertisements %></div>
       <%else%>
-      No Advertisements Available
+      <%=t('labels.no_adv_available')%>
     <%end%>
 
   </div>
