@@ -85,22 +85,22 @@
         <font color="#369" size="3"><br/><b><u>Officer Action :-</u><br/><br/></b></font>
         <% if @ict_system_access.status == "New" %>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.booking_status')%></label>
+            <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.select :status, options_for_select([["Select Status", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_system_access.status) %>
+              <%= f.select :status, options_for_select([["Select Status"], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_system_access.status) %>
 
             </span>
           </div>
           <%@dept = Department.find(default_department)%>
           <%@users = @dept.users%>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.forward_to')%></label>
+            <label class="text"><%=t('labels.forward_to')%><span style=color:red>*</span></label>
             <span class="in-box">
               <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.remarks')%></label>
+            <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
             <span class="in-box">
               <%= f.text_area :remarks, :rows =>4%></span>
           </div>
@@ -108,16 +108,16 @@
             <div class="CenterNav">
               <label class="text">&nbsp;</label>
               <span class="in-box">
-                <%= f.submit :value=>t('labels.submit'), :class=>"btn2"%>
+                <%= f.submit :value=>t('labels.submit'), :class=>"btn2", :onclick => "return ict_system_accesses();"%>
               </span>
             </div>
           </div>
         <% elsif @ict_system_access.status == "Approved" %>
           <% if @ict_system_access.forward_to.present? %>
             <div class="form-sec-row">
-              <label class="text"><%=t('labels.booking_status')%></label>
+              <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>
               <span class="in-box">
-                <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @ict_system_access.status) %>
+                <%= f.select :status, options_for_select([["Select Status"],["Processed", "Processed"], ["Declined", "Declined"]], @ict_system_access.status) %>
               </span>
             </div>
             <% name = User.find_by_id(@ict_system_access.forward_to) %>
@@ -128,7 +128,7 @@
               </span>
             </div>
             <div class="form-sec-row">
-              <label class="text"><%=t('labels.remarks')%></label>
+              <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
               <span class="in-box">
                 <%= f.text_area :remarks, :rows =>4%></span>
             </div>
@@ -136,7 +136,7 @@
               <div class="CenterNav">
                 <label class="text">&nbsp;</label>
                 <span class="in-box">
-                  <%= f.submit :value=>t('labels.update'), :class=>"btn2"%>
+                  <%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return ict_system_accesses();"%>
                 </span>
               </div>
             </div>
@@ -170,6 +170,32 @@
       </div>
     </div>
   <%end%>
+
+<script type="text/javascript">
+  function ict_system_accesses() {
+
+    var a = document.getElementById("ict_system_access_status");
+    var b = document.getElementById("ict_system_access_forward_to");
+    var c = document.getElementById("ict_system_access_remarks");
+
+    if (a.value == "Select Status" )
+    {
+      alert ("Select Status");
+      return false;
+    }
+    else if (b.value == "" )
+    {
+      alert ("Select User");
+      return false;
+    }
+    else if (c.value == "" )
+    {
+      alert("Enter Remarks");
+      return false;
+    }
+    return true;
+  }
+</script>
 
 
 

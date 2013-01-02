@@ -6,42 +6,42 @@
       <div class="clearfix">&nbsp;</div>
 
       <div class="form-sec">
-         <% if !current_user.is_super_admin? %>
-        <font color='#369'><b><u>User Details:-</u></b></font>
-        <% @dept = Department.find_by_id(current_department) %>
-        <% @agency = Agency.find_by_id(@dept.agency_id) %>
-        <% @complaint_computer = ComplaintComputer.find_by_id(params[:id]) %>
-        <% @user = User.find_by_id(@complaint_computer.user_id) %>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.agency_name')%></label>
-          <span class="in-box"><%= @agency.name  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.department_name')%></label>
-          <span class="in-box">
-            <%= @dept.name  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.user_name')%></label>
-          <span class="in-box"><%= @user.username %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.contact_mob')%></label>
-          <span class="in-box"><%= @user.contact_mobile  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.ic_no')%></label>
-          <span class="in-box">
-            <%= @user.ic_number %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.email')%></label>
-          <span class="in-box">
-            <%= @user.email %></span>
-        </div>
-        <h2 class="b-head"></h2>
-<br/><%end%>
-      <font color='#369'><b><u>Complaint - Computers Details:-</u></b></font>
+        <% if !current_user.is_super_admin? %>
+          <font color='#369'><b><u>User Details:-</u></b></font>
+          <% @dept = Department.find_by_id(current_department) %>
+          <% @agency = Agency.find_by_id(@dept.agency_id) %>
+          <% @complaint_computer = ComplaintComputer.find_by_id(params[:id]) %>
+          <% @user = User.find_by_id(@complaint_computer.user_id) %>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.agency_name')%></label>
+            <span class="in-box"><%= @agency.name  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.department_name')%></label>
+            <span class="in-box">
+              <%= @dept.name  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.user_name')%></label>
+            <span class="in-box"><%= @user.username %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.contact_mob')%></label>
+            <span class="in-box"><%= @user.contact_mobile  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.ic_no')%></label>
+            <span class="in-box">
+              <%= @user.ic_number %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.email')%></label>
+            <span class="in-box">
+              <%= @user.email %></span>
+          </div>
+          <h2 class="b-head"></h2>
+          <br/><%end%>
+        <font color='#369'><b><u>Complaint - Computers Details:-</u></b></font>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.ticket_no')%></label>
           <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @complaint_computer.id %>/<%=Time.now.year%></b></font></span>
@@ -87,7 +87,7 @@
 
       <% if @complaint_computer.status == "New" %>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.act_to_be_taken')%></label>
+          <label class="text"><%=t('labels.act_to_be_taken')%><span style=color:red>*</span></label>
           <span class="in-box">
 
             <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, "External" %>
@@ -96,29 +96,29 @@
         </div>
         <div id="officer">
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.vendor_name')%></label>
+            <label class="text"><%=t('labels.vendor_name')%><span style=color:red>*</span></label>
             <span class="in-box">
               <%= f.select(:vendor_id, Vendor.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Vendor Name", :style=> "width:132%;") %>
             </span>
           </div>
         </div>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.status')%></label>
+          <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.select :status, options_for_select([["Select Status", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @complaint_computer.status) %>
+            <%= f.select :status, options_for_select([["Select Status"], ["Approved", "Approved"], ["Declined", "Declined"]], @complaint_computer.status) %>
 
           </span>
         </div>
         <%@dept = Department.find(default_department)%>
         <%@users = @dept.users%>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.forward_to')%></label>
+          <label class="text"><%=t('labels.forward_to')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.remarks')%></label>
+          <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.text_area :remarks, :rows =>4%></span>
         </div>
@@ -126,7 +126,7 @@
           <div class="CenterNav">
             <label class="text">&nbsp;</label>
             <span class="in-box">
-              <%= f.submit :value=>t('labels.update'), :class=>"btn2"%>
+              <%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return complaints();"%>
             </span>
           </div>
         </div>
@@ -135,7 +135,7 @@
         <% if @complaint_computer.forward_to.present? %>
 
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.act_to_be_taken')%></label>
+            <label class="text"><%=t('labels.act_to_be_taken')%><span style=color:red>*</span></label>
             <span class="in-box">
 
               <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, "External" %>
@@ -144,32 +144,32 @@
           </div>
           <div id="officer">
             <div class="form-sec-row">
-              <label class="text"><%=t('labels.vendor_name')%></label>
+              <label class="text"><%=t('labels.vendor_name')%><span style=color:red>*</span></label>
               <span class="in-box">
                 <%= f.select(:vendor_id, Vendor.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Vendor Name", :style=> "width:132%;") %>
               </span>
             </div>
             <div class="form-sec-row">
-              <label class="text"><%=t('labels.given_date')%></label>
+              <label class="text"><%=t('labels.given_date')%><span style=color:red>*</span></label>
               <span class="in-box">
-                <%=f.text_field :given_date, :value=>@complaint_building_asset && @complaint_building_asset.given_date!=nil ? @complaint_building_asset.given_date : nil ,:readonly=>true%></span>
+                <%=f.text_field :given_date, :value=>@complaint_computer && @complaint_computer.given_date!=nil ? @complaint_computer.given_date : nil ,:readonly=>true%></span>
             </div>
             <div class="form-sec-row">
-              <label class="text"><%=t('labels.receipt_date')%></label>
+              <label class="text"><%=t('labels.receipt_date')%><span style=color:red>*</span></label>
               <span class="in-box">
-                <%=f.text_field :receipt_date, :value=>@complaint_building_asset && @complaint_building_asset.receipt_date!=nil ? @complaint_building_asset.receipt_date : nil ,:readonly=>true%>
+                <%=f.text_field :receipt_date, :value=>@complaint_computer && @complaint_computer.receipt_date!=nil ? @complaint_computer.receipt_date : nil ,:readonly=>true%>
               </span>
             </div>
             <div class="form-sec-row">
-              <label class="text"><%=t('labels.comments')%></label>
+              <label class="text"><%=t('labels.comments')%><span style=color:red>*</span></label>
               <span class="in-box">
                 <%= f.text_area :comments, :rows =>4%></span>
             </div>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.status')%></label>
+            <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @complaint_computer.status) %>
+              <%= f.select :status, options_for_select([["Select Status"],["Processed", "Processed"], ["Declined", "Declined"]], @complaint_computer.status) %>
             </span>
           </div>
 
@@ -189,7 +189,7 @@
             <div class="CenterNav">
               <label class="text">&nbsp;</label>
               <span class="in-box">
-                <%= f.submit :value=>t('labels.update'), :class=>"btn2"%>
+                <%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return approval_complaints();"%>
               </span>
             </div>
           </div>
@@ -239,13 +239,10 @@
       var radio_value = $(this).val();
 
       if( $('#radio_click').is(':checked') ==true) {
-
-        alert($('#radio_click').is(':checked'))
         $("#officer").show();
       }
 
       else {
-        alert($('#radio_click').is(':checked'))
         $("#officer").hide();
       }
     });
@@ -259,4 +256,79 @@
 
 
   });
+</script>
+
+
+<script type="text/javascript">
+  function complaints() {
+    var a = document.getElementById("radio_click");
+    var b = document.getElementById("complaint_computer_vendor_id");
+    var c = document.getElementById("complaint_computer_status");
+    var d = document.getElementById("complaint_computer_forward_to");
+    var e = document.getElementById("complaint_computer_remarks");
+
+    if ((a.checked == true) && (b.value == "" ))
+    {
+      alert ("Select Vendor Name");
+      return false;
+    }
+    else if (c.value == "Select Status" )
+    {
+      alert ("Select Status");
+      return false;
+    }
+    else if (d.value == "" )
+    {
+      alert ("Select User");
+      return false;
+    }
+    else if (e.value == "" )
+    {
+      alert("Enter Remarks");
+      return false;
+    }
+    return true;
+  }
+  function approval_complaints()
+  {
+
+    var a = document.getElementById("radio_click");
+    var b = document.getElementById("complaint_computer_vendor_id");
+    var c = document.getElementById("complaint_computer_given_date");
+    var d = document.getElementById("complaint_computer_receipt_date");
+    var e = document.getElementById("complaint_computer_comments");
+    var f = document.getElementById("complaint_computer_status");
+
+    if ((a.checked == true) && (b.value == "" ))
+    {
+      alert ("Select Vendor Name");
+      return false;
+    }
+    else  if ((a.checked == true) && (c.value == "" ))
+    {
+      alert ("Select Proper Given Date & Time");
+      return false;
+    }
+    else if ((a.checked == true) && (d.value == "" ))
+    {
+      alert ("Select Proper Receipt Date & Time");
+      return false;
+    }
+    else if ((a.checked == true) && (e.value == "" ))
+    {
+      alert ("Enter Comments");
+      return false;
+    }
+    else if (((a.checked == true) && (f.value == "Select Status" )))
+    {
+      alert("Select Status");
+      return false;
+    }
+    else if (((a.checked == false) && (f.value == "Select Status" )))
+    {
+      alert("Select Status");
+      return false;
+    }
+    return true;
+  }
 </script>

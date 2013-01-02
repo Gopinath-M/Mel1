@@ -123,7 +123,7 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.select :status, options_for_select([["Select Status", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @complaint_building_asset.status) %>
+            <%= f.select :status,  options_for_select([["Select Status"], ["Approved", "Approved"], ["Declined", "Declined"]], @complaint_building_asset.status) %>
           </span>
         </div>
         <%@dept = Department.find(default_department)%>
@@ -144,7 +144,7 @@
           <div class="CenterNav">
             <label class="text">&nbsp;</label>
             <span class="in-box">
-              <%= f.submit :value=>t('labels.update'), :class=>"btn2"%>
+              <%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return complaints();"%>
             </span>
           </div>
         </div>
@@ -175,7 +175,7 @@
             <div class="form-sec-row">
               <label class="text"><%=t('labels.vendor_name')%><span style=color:red>*</span></label>
               <span class="in-box">
-                <%= f.select(:vendor_id, Vendor.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Vendor Name", :style=> "width:132%;") %>
+                <%= f.select(:vendor_id, Vendor.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Vendor Name", :style=> "width:132%;", :onclick => "return complaints();") %>
               </span>
             </div>
             <div class="form-sec-row">
@@ -198,7 +198,7 @@
           <div class="form-sec-row">
             <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @complaint_building_asset.status) %>
+              <%= f.select :status, options_for_select([["Select Status"],["Processed", "Processed"], ["Declined", "Declined"]], @complaint_building_asset.status) %>
             </span>
           </div>
 
@@ -219,7 +219,7 @@
             <div class="CenterNav">
               <label class="text">&nbsp;</label>
               <span class="in-box">
-                <%= f.submit :value=>t('labels.update'), :class=>"btn2"%>
+                <%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return approval_complaints();"%>
               </span>
             </div>
           </div>
@@ -283,13 +283,10 @@
       var radio_value = $(this).val();
 
       if( $('#radio_click').is(':checked') ==true) {
-
-        alert($('#radio_click').is(':checked'))
         $("#officer").show();
       }
 
       else {
-        alert($('#radio_click').is(':checked'))
         $("#officer").hide();
       }
     });
@@ -303,4 +300,78 @@
 
 
   });
+</script>
+
+<script type="text/javascript">
+function complaints() {
+  var a = document.getElementById("radio_click");
+  var b = document.getElementById("complaint_building_asset_vendor_id");
+  var c = document.getElementById("complaint_building_asset_status");
+  var d = document.getElementById("complaint_building_asset_forward_to");
+  var e = document.getElementById("complaint_building_asset_remarks");
+
+ if ((a.checked == true) && (b.value == "" ))
+  {
+    alert ("Select Vendor Name");
+   return false;
+  }
+  else if (c.value == "Select Status" )
+  {
+    alert ("Select Status");
+     return false;
+  }
+   else if (d.value == "" )
+  {
+    alert ("Select User");
+     return false;
+  }
+  else if (e.value == "" )
+    {
+      alert("Enter Remarks");
+       return false;
+    }
+     return true;
+}
+function approval_complaints()
+{
+
+  var a = document.getElementById("radio_click");
+  var b = document.getElementById("complaint_building_asset_vendor_id");
+  var c = document.getElementById("complaint_building_asset_given_date");
+  var d = document.getElementById("complaint_building_asset_receipt_date");
+  var e = document.getElementById("complaint_building_asset_comments");
+  var f = document.getElementById("complaint_building_asset_status");
+
+  if ((a.checked == true) && (b.value == "" ))
+  {
+    alert ("Select Vendor Name");
+    return false;
+  }
+  else  if ((a.checked == true) && (c.value == "" ))
+  {
+    alert ("Select Proper Given Date & Time");
+    return false;
+  }
+  else if ((a.checked == true) && (d.value == "" ))
+  {
+    alert ("Select Proper Receipt Date & Time");
+     return false;
+  }
+   else if ((a.checked == true) && (e.value == "" ))
+  {
+    alert ("Enter Comments");
+     return false;
+  }
+  else if (((a.checked == true) && (f.value == "Select Status" )))
+    {
+      alert("Select Status");
+       return false;
+    }
+    else if (((a.checked == false) && (f.value == "Select Status" )))
+    {
+      alert("Select Status");
+       return false;
+    }
+     return true;
+}
 </script>
