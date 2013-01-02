@@ -114,7 +114,7 @@
 .bg2{background-image: url(../images/bg_rightnav2.jpg) !important;}
 .pageContainer h2{ font-size:14px; font-weight:bold; color:#BB0802; line-height:25px; margin-bottom:5px;}
 .LCNav-con{ float:left; width:735px; overflow:hidden;}
-.leftNav{ float:left; width:180px; margin-top:10px; padding-bottom:30px; position:relative;}
+.leftNav{ float:left; width:180px; margin-top:10px; padding-bottom:30px; position:relative; padding-bottom: 105px;}
 .profInfo{ padding-bottom:10px;}
 .profInfo-img{ padding-bottom:10px;}
 .profInfo img{ display:block; margin:0 auto;}
