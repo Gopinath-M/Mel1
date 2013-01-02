@@ -163,7 +163,7 @@ button.ui-button::-moz-focus-inner {
 .ui-datepicker {
     display: none;
     padding: 0.2em 0.2em 0;
-    width: 17em;
+    width: 20em;
 }
 .ui-datepicker .ui-datepicker-header {
     padding: 0.2em 0;
@@ -232,7 +232,7 @@ button.ui-button::-moz-focus-inner {
 .ui-datepicker td span, .ui-datepicker td a {
     display: block;
     padding: 0.2em;
-    text-align: right;
+    text-align: center;
     text-decoration: none;
 }
 .ui-datepicker .ui-datepicker-buttonpane {

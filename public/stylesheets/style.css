@@ -114,7 +114,7 @@
 .bg2{background-image: url(../images/bg_rightnav2.jpg) !important;}
 .pageContainer h2{ font-size:14px; font-weight:bold; color:#BB0802; line-height:25px; margin-bottom:5px;}
 .LCNav-con{ float:left; width:735px; overflow:hidden;}
-.leftNav{ float:left; width:180px; margin-top:10px; padding-bottom:30px; position:relative;}
+.leftNav{ float:left; width:180px; margin-top:10px; padding-bottom:30px; position:relative; padding-bottom: 105px;}
 .profInfo{ padding-bottom:10px;}
 .profInfo-img{ padding-bottom:10px;}
 .profInfo img{ display:block; margin:0 auto;}
@@ -388,8 +388,8 @@ h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-
 .chat-tbox textarea{ border:1px solid #CCC; padding:2px; width:82%; margin-right:3px; height:30px; font-size:12px; overflow:auto; float:left;}
 .chat-tbox input[type="submit"]{ padding: 0; width:14%; height:35px;float:left; border:0; font-weight:bold; background:url(/images/chat_btn.jpg); font-size:11px; color:#FFF; cursor:pointer;}
 .mr2{margin-right:30px;margin-left: 10px;}
-.ui-timepicker-div dt{float:left; padding-right: 10px; }
-.ui-timepicker-div dd{padding-bottom: 10px;float:left;}
+.ui-timepicker-div dt{float:left; padding-right: 2px; }
+.ui-timepicker-div dd{padding-bottom: 10px;float:left; padding-right: 10px;}
 /* step styles*/
 
 .stepsblock{
