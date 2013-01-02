@@ -15,16 +15,16 @@
 //
 
 function remove_fields(link) {
-  $(link).previous("input[type=hidden]").value = "1";
-  $(link).up(".fields").hide();
+    $(link).previous("input[type=hidden]").value = "1";
+    $(link).up(".fields").hide();
 }
 
 function add_fields(link, association, content) {
-  var new_id = new Date().getTime();
-  var regexp = new RegExp("new_" + association, "g")
-  $(link).up().insert({
-    before: content.replace(regexp, new_id)
-  });
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g")
+    $(link).up().insert({
+        before: content.replace(regexp, new_id)
+    });
 }
 
 function remove_fields(link) {
@@ -2431,24 +2431,8 @@ $().ready(function(){
             alert("Select Person Incharge");
             return false;
         }
-        else if ($("#ict_network_point_remarks").val() == ""){
-            alert("Enter Remarks");
-            return false;
-        }
         else if ($("#check_box_network").val() == ""){
             alert("Select Recommondation Type");
-            return false;
-        }
-        else if ($("#ict_network_point_hardware_id").val() == ""){
-            alert("Select Hardware Type");
-            return false;
-        }
-        else if ($("#ict_network_point_type_id").val() == ""){
-            alert("Select Hardware Port");
-            return false;
-        }
-        else if ($("#ict_network_point_hardware_quantity").val() == ""){
-            alert("Enter Hardware Quantity");
             return false;
         }
         else if ($("#ict_network_point_notes").val() == ""){
@@ -2462,6 +2446,24 @@ $().ready(function(){
         else if ($("#ict_network_point_ict_wiring_id").val() == ""){
             alert("Select ICT Wiring");
             return false;
+        }
+        else if ($("#ict_network_point_remarks").val() == ""){
+            alert("Enter Remarks");
+            return false;
+        }
+        if(( $('#check_box_network').is(':checked') ==true) || ( $('#check_box_purchase').is(':checked') ==true)){
+            if ($("#ict_network_point_hardware_id").val() == ""){
+                alert("Select Hardware Type");
+                return false;
+            }
+            else if ($("#ict_network_point_type_id").val() == ""){
+                alert("Select Hardware Port");
+                return false;
+            }
+            else if ($("#ict_network_point_hardware_quantity").val() == ""){
+                alert("Enter Hardware Quantity");
+                return false;
+            }
         }
     });
 /* Resource Requisition validation for ICT ends*/
@@ -2701,7 +2703,7 @@ $("#agency_submit").live("click",function(data){
     else if($("#agency_telephone_number").val()=="")
     {
         alert("Enter the Telephone Number");
-//        #return false;
+    //        #return false;
     }
     else if($("#agency_fax_number").val()=="")
     {
