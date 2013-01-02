@@ -65,25 +65,25 @@ class SoftwareInstallationsController < ApplicationController
     redirect_to(software_installations_path, :notice => 'Requisition for Software Installation created sucessfully')
   end
   def update
-    @software_installation_detail=SoftwareInstallationDetail.find_by_id(params[:id])
-    @software_installation=SoftwareInstallation.find(@software_installation_detail.software_installation_id)
+    @software_installation=SoftwareInstallation.find(params[:id])
+    @software_installation_detail=SoftwareInstallationDetail.find_all_by_software_installation_id(@software_installation.id)
     @requisition=RequisitionType.find(@software_installation.requisition_type_id)
-    if @software_installation_detail.update_attributes(params[:software_installation_detail])
-      if @software_installation.status == 'New'
-      @software_installation.status = 'Approved'
-      if params[:software_installation_detail][:approve_status] == "Approve"
-        @software_installation_detail.approve_status = 1
-        @software_installation_detail.save
+    if params[:status][:id] == 'Approved'
+    @software_installation.person_incharge = params[:software][:person_incharge]
+    @software_installation.status == 'New'
+    @software_installation.status = 'Approved'
+    if params[:software_installation_detail][:approve_status] == "Approve"
+        @software_installation_detail[0].approve_status = 1
+        @software_installation_detail[0].save
       else
-        @software_installation_detail.approve_status = 0
-        @software_installation_detail.save
+        @software_installation_detail[0].approve_status = 0
+        @software_installation_detail[0].save
       end
-#      @software_installation.user_id = params[:software_installation_detail][:user_id]
-      elsif @software_installation.status = 'Approved'
-        @software_installation.person_incharge = params[:software_installation_detail][:user_id]
-        @software_installation.status = 'Processed'
-      end
-      @software_installation.save
+    else
+       @software_installation.status = 'Processed'
+    end
+     if @software_installation.valid?
+    @software_installation.save
       software_email = User.find_by_id(@software_installation.user_id)
      UserMailer.ict_software(software_email, @software_installation_detail, @requisition, current_user).deliver
       redirect_to(software_installations_path, :notice => 'Requisition for Software Installation has been updated and Mail has been sent successfully')

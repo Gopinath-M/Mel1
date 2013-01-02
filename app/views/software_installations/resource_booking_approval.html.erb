@@ -115,7 +115,7 @@
                   <div class="form-sec-row">
                     <label class="text"><%=t('labels.forward_to')%><span style=color:red>*</span></label>
                     <span class="in-box">
-                      <%= f.select(:user_id, @users.where("role_id = 2 or role_id = 3").collect {|p| [ p.first_name, p.id ] },:prompt => "Select User") %>
+                      <%= select('software', 'person_incharge', @users.where("role_id = 2 or role_id = 3").collect {|p| [ p.first_name, p.id ] },:prompt => "Select User") %>
                     </span>
                   </div>
                 <%end%>
