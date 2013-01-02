@@ -404,6 +404,7 @@ resources :conversation_groups do
       get 'hide'
       get 'hide_index'
       get 'event_index'
+      get 'list_event'
     end
   end
 
@@ -413,6 +414,8 @@ resources :conversation_groups do
       get 'hide'
       get 'hide_index'
       get 'advertisement_index'
+      get 'list_advertisement'
+
     end
   end
   # The priority is based upon order of creation:
