@@ -17,11 +17,11 @@ class DepartmentUsersController < ApplicationController
       @admin='admin'
     end
     if @user.valid?
-      role_member = @user.role_memberships.create(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
+      role_member = @user.role_memberships.new(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
       if role_member.valid?
         @user.save
         role_member.save
-        if role_member.role_id==5
+        if role_member.role_id == 5
           department = Department.find(role_member.department_id)
           department.agency.update_attribute(:user_id, @user.id) if department
         end
