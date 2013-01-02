@@ -18,7 +18,7 @@
                 <p class="head1"><%=model_type.sub_category.name %></p>
               </div>
               <div class="mu-c3">
-                <%#= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>model_type.id.to_i%>
+                <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>model_type.id.to_i%>
                 <%if model_type.is_active %>
                   <%#= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_vehicle_model_types_path(:id=>model_type.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this hardware?', :method=>:post, :title=>"Deactive" %>
                 <%else%>
