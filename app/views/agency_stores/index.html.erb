@@ -25,6 +25,9 @@
               <%if store.resource_type == 'ICT' && store.resource.has_serial_no?%>
                 <p class="head1"><%=t('labels.serial_no')%>:&nbsp;<%=store.serial_no!=nil ?  store.serial_no : ''%></p>
               <%end%>
+               <%if store.resource_type == 'Transport'%>
+                <p class="head1"><%=t('labels.vehicle_brand')%>:&nbsp;<%= VehicleModelType.find(store.resource.vehicle_model_type_id).name %></p>
+              <%end%>
               <%if store.resource_type != 'ICT'%>
                 <p class="head1"><%=t('labels.resource_no')%>:&nbsp;<%=  (store.resource && store.resource.resource_no!=nil) ? store.resource.resource_no : ''%></p>
               <%end%>
