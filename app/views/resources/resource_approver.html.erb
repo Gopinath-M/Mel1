@@ -20,7 +20,12 @@
     <div class="form-sec-row">
       <label class="text"><%=t('labels.is_active')%></label>
       <span class="in-box">
-        <%= check_box "active1","id", :checked => true %>
+        <% val = Approver.find_all_by_department_id(@current_department).first %>
+        <% if val.is_active == false %>
+          <%= check_box "active1","id", :checked => false %>
+        <%else%>
+          <%= check_box "active1","id", :checked => true %>
+        <%end%>
       </span>
     </div>
 
@@ -41,7 +46,12 @@
     <div class="form-sec-row">
       <label class="text"><%=t('labels.is_active')%></label>
       <span class="in-box">
-        <%= check_box "active2","id", :checked => true %>
+        <% val1 = Approver.find_all_by_department_id(@current_department).last %>
+        <% if val1.is_active == false %>
+          <%= check_box "active2","id", :checked => false %>
+        <%else%>
+          <%= check_box "active2","id", :checked => true %>
+        <%end%>
       </span>
     </div>
 

@@ -13,9 +13,14 @@
         <div class="manage-user box">
           <div class="manage-user-row box">
             <div class="mu-c1">
+              <% if resource.resource_type == "room_booking"%><%=image_tag("/images/icon_room.png", :alt=>"Room", :title=> "Room")%><% elsif resource.resource_type == "transport" %>  <%=image_tag("/images/icon_transportation.png", :alt=>"Transport", :title=> "Transport")%><% elsif resource.resource_type == "ict"  %> <%=image_tag("/images/icon_ICT.png", :alt=>"ICT", :title=> "ICT")%> <% elsif resource.resource_type == "others"  %> <%=image_tag("/images/icon_othercategories.png", :alt=>"Others", :title=> "Others")%> <%end%>
             </div>
             <div class="mu-c2">
-              <p class="head1"><%=resource.name%></p>
+              <%sub_category = SubCategory.find(resource.sub_category_id)%>
+              <p class="head1">Resource Type :&nbsp;<%=resource.resource_type.camelize%></p>
+              <p class="head1">Sub Category :&nbsp;<%=sub_category.name%></p>
+              <p class="head1">Name :&nbsp;<%=resource.name%></p>
+              <p class="head1">Quantity :&nbsp;<%=resource.total_qty%></p>
             </div>
             <div class="mu-c3">
               <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +t("labels.edit"), :action=>'edit', :id=>resource.id.to_i%>
