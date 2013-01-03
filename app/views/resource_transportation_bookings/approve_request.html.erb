@@ -73,7 +73,7 @@
 						<%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
 						<%end%> </span>
 					<% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
-					<span class="in-box"> <% if !val.present? %>
+					<span class="in-box"> <% if resource_transportation_booking.status == "New" %>
 						<%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
 						<%end%> </span>
 					<% elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN && !@approve.present? &&  !@approve_second.present? %>
