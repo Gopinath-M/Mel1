@@ -43,7 +43,7 @@
       <%end%> </span>
     </div>
 
-    <% if !current_user.is_department_user? %>
+    <% if !current_user.is_department_user? && !current_user.is_resource_manager? %>
     <div id="vehicle_model_type_div" style="display:block">
       <div class="form-sec-row" >
         <label class="text"><%=t('labels.vehicle_brand')%><span style=color:red>*</span></label>
@@ -108,22 +108,24 @@
         <%= f.text_field :pick_up_place, :size => 30, :autofocus => true %>
       </span>
     </div>
+    
     <div class="form-sec-row">
-      <label class="text"><%=t('labels.from_date')%><span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.req_from_date')%><span style=color:red>*</span></label>
       <span class="in-box">
-        <%=f.text_field :requested_from_date ,:readonly=>true %>
+        <%=f.text_field :requested_from_date, :value=> @resource_transportation_booking.requested_from_date!=nil ? @resource_transportation_booking.requested_from_date.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true %>
       </span>
     </div>
     <div class="form-sec-row">
-      <label class="text"><%=t('labels.to_date')%><span style=color:red>*</span></label>
+      <label class="text"><%=t('labels.req_to_date')%><span style=color:red>*</span></label>
       <span class="in-box">
-        <%=f.text_field :requested_to_date,:readonly=>true %>
+        <%=f.text_field :requested_to_date, :value=> @resource_transportation_booking.requested_to_date!=nil ? @resource_transportation_booking.requested_to_date.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%>
       </span>
     </div>
+
     <div class="form-sec-row">
       <label class="text"><%=t('labels.destination_state')%><span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:state,options_from_collection_for_select(State.all, 'id','name' ), :prompt => "Select Your State")%>
+        <%= f.select(:state,options_from_collection_for_select(State.all, 'id','name',@resource_transportation_booking.state), :prompt => "Select Your State")%>
       </span>
     </div>
     <div class="form-sec-row">

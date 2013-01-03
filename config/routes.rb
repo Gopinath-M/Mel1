@@ -203,7 +203,7 @@ Melaka::Application.routes.draw do
       post 'update_account_setting'
       post 'update_default_department'
       get 'admin'
-      put 'user_profile'
+      post 'update_user_profile'
       get 'user_profile'
       get 'emergency_reference'
       put 'emergency_reference'
