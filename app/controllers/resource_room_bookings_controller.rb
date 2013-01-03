@@ -1,7 +1,6 @@
 class ResourceRoomBookingsController < ApplicationController
   before_filter :authenticate_user!
   #  before_filter :is_admin
-
   def index
     if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
       @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id).order.page(params[:page]).per(5)
@@ -126,7 +125,7 @@ class ResourceRoomBookingsController < ApplicationController
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last
       if @approve.present?
         @booking = ResourceRoomBooking.where(:department_id => @approve.department_id).page(params[:page]).per(5)
-        #          @booking = ResourceRoomBooking.find(:all, :conditions=>["department_id = ? and created_at >= ?",@approve.department_id,Time.now-seconds])
+      #          @booking = ResourceRoomBooking.find(:all, :conditions=>["department_id = ? and created_at >= ?",@approve.department_id,Time.now-seconds])
       elsif @approver_second.present?
         @booking = ResourceRoomBooking.where(:department_id => @approver_second.department_id).page(params[:page]).per(5)
       elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
@@ -195,10 +194,17 @@ class ResourceRoomBookingsController < ApplicationController
   end
 
   def get_resources
+    brands = {}
     if !params[:sub_category_id].nil?
-      resoures = Resource.find_all_by_sub_category_id(params[:sub_category_id])
-      #      resoures = Resource.find_all_by_sub_category_id(category.sub_category_id)
-      render :json=>[resoures] if resoures
+      resources = Resource.find_all_by_sub_category_id(params[:sub_category_id])
+
+      resources.each do |resource| 
+        brand = VehicleModelType.find(resource.vehicle_model_type_id)
+        val= brand.name.to_s + " : " + resource.vehicle_model.to_s + " : " + resource.resource_no.to_s 
+        brands.store(resource.id,val)
+      end
+
+      render :json=>[brands] if brands
     end
   end
 
