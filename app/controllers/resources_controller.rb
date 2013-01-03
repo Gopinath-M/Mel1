@@ -119,10 +119,10 @@ class ResourcesController < ApplicationController
     @approve = Approver.new()
     @dept = Department.find(default_department)
     @users = @dept.users.active.where("role_id = 3 or role_id = 2").page(params[:page]).per(10) if @dept
-    fist_approver = Approver.active.find_all_by_department_id(current_user.departments).first
+    fist_approver = Approver.find_all_by_department_id(current_user.departments).first
     if fist_approver.present?
       @first = User.find(fist_approver.user_id)
-      second_approver = Approver.active.find_all_by_department_id(current_user.departments).last
+      second_approver = Approver.find_all_by_department_id(current_user.departments).last
       @second = User.find(second_approver.user_id)
     end
   end

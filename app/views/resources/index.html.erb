@@ -24,6 +24,8 @@
         <div class="manage-user box">
           <div class="manage-user-row box">
             <div class="mu-c1">
+                            <% if resource.resource_type == "room_booking"%><%=image_tag("/images/icon_room.png", :alt=>"Room", :title=> "Room")%><% elsif resource.resource_type == "transport" %>  <%=image_tag("/images/icon_transportation.png", :alt=>"Transport", :title=> "Transport")%><% elsif resource.resource_type == "ict"  %> <%=image_tag("/images/icon_ICT.png", :alt=>"ICT", :title=> "ICT")%> <% elsif resource.resource_type == "others"  %> <%=image_tag("/images/icon_othercategories.png", :alt=>"Others", :title=> "Others")%> <%end%>
+
             </div>
             <div class="mu-c2">
               <%sub_category = SubCategory.find(resource.sub_category_id)%>
