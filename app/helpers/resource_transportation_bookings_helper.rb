@@ -70,14 +70,16 @@ module ResourceTransportationBookingsHelper
     as = AgencyStore.find(rtb.agency_store_id)
     as1 = AgencyStore.find_by_driver_id(driver.id)
 
-    vehicle_driver = Driver.find(as.driver_id)
+    #vehicle_driver = Driver.find(as.driver_id)
 
     rtb.update_attributes(:status=>'Processed',:request_processed_date=>Time.now,:driver_id=>driver.id)
     #vehicle_driver.update_attribute(:already_assigned,false)
+    if !as1.blank?
     as1.update_attribute(:booked,true)
+    end
     driver.update_attribute(:already_assigned,true)
 
-    # disable_the_sub_category_when_that_sub_category_is_fully_reserved(id)
+    disable_the_sub_category_when_that_sub_category_is_fully_reserved(as.sub_category_id)
     
   end
 
