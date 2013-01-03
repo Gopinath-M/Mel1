@@ -2690,7 +2690,7 @@ $("#ict_network_point_submit").live("click",function(){
 $("#agency_submit").live("click",function(data){
     if ($("#agency_name").val()=="")
     {
-        alert("Enter Agency name");
+        alert("Enter Agency Name");
         return false;
     }
     else if ($("#agency_address").val()=="")
