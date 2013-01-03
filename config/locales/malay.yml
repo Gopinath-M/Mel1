@@ -1,4 +1,6 @@
 malay:
+  javascript:
+    alert_agency_name: "Masukkan Nama Agensi"
   views:
     pagination:
       first: "First"
@@ -13,13 +15,19 @@ malay:
     corridor: "Koridor Untuk Komunikasi Yang Berkesan"
     keep_me_login_in: "Menjaga saya kekal dilog masuk"
     forget_pass: "Terlupa kata laluan anda?"
-    login : "Log Masuk Dalam"
+    login: "Log Masuk Dalam"
   errors_date:
     date_greater: "Dari Tarikh Perlu lebih besar daripada tarikh dan waktu semasa"
     from_date_greater: "Ke Tarikh Perlu lebih besar daripada tarikh dan waktu semasa"
     to_date_greater: "Ke Tarikh Perlu lebih besar daripada Dari tarikh dan masa"
-
-
+    from_meeting_time_greater: "Dari Masa Mesyuarat Perlu lebih besar daripada tarikh dan waktu semasa"
+    to_meeting_time_greater: "Untuk Masa Mesyuarat Sekiranya menjadi lebih besar daripada tarikh dan waktu semasa"
+    to_meeting_greater_from: "Untuk Tarikh Mesyuarat Hendaklah lebih besar daripada Dari tarikh dan masa"
+    meeting_start_time: "Mesyuarat Masa Mula harus lebih besar daripada From Date"
+    meeting_end_time: "Mesyuarat Masa Tamat harus lebih besar daripada Dating"
+    date_of_birth: "Tarikh Lahir Sekiranya kurang daripada tarikh dan waktu semasa"
+    hardware_replace: "Pilih Jika Perkakasan adalah Penggantian atau New"
+    select_one_hardware: "Pilih sekurang-kurangnya satu perkakasan yang diperlukan bagi rekuisisi"
   welcome:
     title: "Tajuk"
     news: "Berita Hari Ini"
@@ -72,10 +80,10 @@ malay:
     messages: "Mesej"
     chat: "Berbual"
     events: "Peristiwa"
-    find_user : "Termasuk pengguna"
-    uploaded_files : "Fail Yang Dimuat Naik"
-    alerts : "Amaran"
-    user_transfer_request : "Permintaan Pengguna Pemindahan"
+    find_user: "Termasuk pengguna"
+    uploaded_files: "Fail Yang Dimuat Naik"
+    alerts: "Amaran"
+    user_transfer_request: "Permintaan Pengguna Pemindahan"
     complaints: "Aduan"
     resource_requisition: "Rekuisisi Sumber"
     issue_log: "Log Isu"
@@ -150,7 +158,7 @@ malay:
     department_details: "Jabatan Butiran"
     view_vendors: "Melihat Vendor"
     view_resources: "Melihat Sumber"
-    my_new_letter : "Surat Berita Saya"
+    my_new_letter: "Surat Berita Saya"
     view_events: "Melihat Peristiwa"
     trans_booking: "Tempahan Pengangkutan"
     other_resource_booking: "Lain-lain Sumber Tempahan"
@@ -185,7 +193,7 @@ malay:
     select_sub_category: "Pilih Sub Kategori"
     quantity: "Kuantiti"
     transport: "Pengangkutan"
-    others : "Lain"
+    others: "Lain"
     add: "Tambah"
     remove: "Buang"
     remove_all: "Keluarkan Semua Nombor Siri"
@@ -205,7 +213,7 @@ malay:
     city: "Bandar"
     state: "Negeri"
     zipcode: "Kod Zip"
-    role : "Peranan"
+    role: "Peranan"
     create_admin: "Daftar Admin"
     create_user: "Daftar Pengguna"
     create_category: "Daftar Kategori"
@@ -841,6 +849,57 @@ malay:
     create_group_memb: "Buat Ahli Kumpulan"
     manage_group_memb: "Mengurus Ahli Kumpulan"
     facilities: "Kemudahan"
+    event_name: "Nama Acara"
+    venue: "Tempat"
+    Organizer: "Penganjur"
+    is_visible: "Boleh Dilihat"
+    event_banner: "Banner acara"
+    edit_event_details: "Edit butiran acara"
+    list_of_events: "Senarai Acara"
+    create_event: "Buat Acara"
+    event_deact_confirm: "Adakah anda ingin benar-benar menyahaktifkan Nama Acara ini?"
+    event_act_confirm: "Adakah anda ingin benar-benar mengaktifkan Nama Acara?"
+    in_visible_evt_detail: "Acara Butiran Tidak Kelihatan"
+    list_in_visible_evt_detail: "Senarai Butir-butir Acara Yang Tidak Dapat Dilihat"
+    created_by: "Dibuat Oleh"
+    event_id: "ID Acara"
+    event_detail: "Acara Butiran"
+    web_site_url: "URL Laman Web"
+    list_of_advertise: "Senarai Iklan"
+    list_of_invisible_advertise: "Senarai Butiran Iklan Ghaib"
+    create_adv: "Buat Iklan"
+    adv_deact_confirm: "Adakah anda ingin benar-benar menyahaktifkan Iklan ini?"
+    adv_act_confirm: "Adakah anda ingin benar-benar mengaktifkan Iklan ini?"
+    edit_adv_detail: "Edit Butiran Iklan"
+    invisible_adv_details: "Iklan Butiran Tidak Kelihatan"
+    adv_web_url: "URL Iklan Laman Web"
+    adv_id: "ID Iklan"
+    adv_detail: "Iklan Details"
+    event_not_available: "Tiada Peristiwa Available"
+    list_event_details: "Senarai Butiran Acara"
+    visible_events: "Acara Dilihat"
+    invisible_events: "Peristiwa Ghaib"
+    no_adv_available: "Tiada Iklan Available"
+    list_of_adv_details: "Senarai Butiran Iklan"
+    visible_adv: "Iklan Nyata"
+    invisible_adv: "Iklan Tidak Kelihatan"
+    vehicle_details: "Kenderaan Butiran"
+    vehicle: "Kenderaan"
+    app_details: "Diluluskan Details"
+    app_by: "Diluluskan Oleh"
+    app_at: "Diluluskan Pada"
+    pro_details: "Diproses Details"
+    pro_by: "Diproses Oleh"
+    pro_at: "Diproses Di"
+    res_room_app_list: "Senarai Sumber Bilik Kelulusan"
+    res_room_pro_list: "Senarai Sumber Bilik Proses"
+    change_room: "Perubahan Bilik"
+    succ_return_msg: "Anda telah berjaya dikembalikan sumber"
+    denial_room: "Maaf ...Bilik Kemudahan Tempahan tidak Tersedia untuk Jabatan anda ..."
+    return_ed: "Returned?"
+    group_members: "Ahli Kumpulan"
+    vehicle_registration: "Pendaftaran Kenderaan"
+    vehicle: "kenderaan"
      
 
     
@@ -858,6 +917,26 @@ malay:
      # driver: "Driver"
      # facility: "Facility"	
     attributes:
+      complaint_building_asset:
+        building_asset_type_id: "Jenis bangunan aset"
+        type_id: "Jenis"
+        item_id: "Perkara"
+        location: "Lokasi"
+        serial_no: "Nombor Siri"
+        reason: "Sebab"
+      event:
+        name: "Nama"
+        from_date: "Dari tarikh"
+        to_date: "Setakat"
+        venue: "Tempat"
+        organizer: "Penganjur"
+        description: "Penerangan"
+        event_attachment: "Lampiran acara"
+      user:
+        username: "Nama Pengguna"
+        ic_number: "No Kad Pengenalan"
+        email: "E-mel"
+        contact_mobile: "Hubungi Mudah Alih"
       emergency_reference:
         name: "Nama"
         address: "Alamat tidak"
@@ -924,10 +1003,87 @@ malay:
         resource_id: "Sumber id"
         driver_id: "Pemandu id"
         serial_no: "Nombor siri"
+      group:
+        name: "Nama"
+      group_member:
+        user_id: "id pengguna"
+      resource_ict_equipment_booking:
+        sub_category_id: "Sub Kategori"
+        agency_store_id: "Kedai Agensi"
+        purpose: "Tujuan"
+        location: "Lokasi"
+        requested_from_date: "Diminta From Date"
+        requested_to_date: "Diminta Sehingga Tarikh"
+        meeting_start_time: "Mesyuarat Start Time"
+        meeting_end_time: "Mesyuarat Masa Tamat"   
+      message:
+        message: "Mesej"
+      outstation:
+        placename: "Nama tempat"
+        from_date: "From date"
+        to_date: "To date"
+        purpose: "Tujuan"
     errors:
       header: "Medan Tidak Sah"
       message: "Membetulkan kesilapan-kesilapan berikut dan cuba lagi."
       models:
+        outstation:
+          attributes:
+            placename:
+              blank: "Tidak Boleh kosong" 
+            from_date:
+              blank: "Tidak Boleh kosong" 
+            to_date:
+              blank: "Tidak Boleh kosong" 
+            purpose:
+              blank: "Tidak Boleh kosong" 
+        message:
+          attributes:
+            message:
+              blank: "Tidak Boleh kosong" 
+        group_member:
+          attributes:
+            user_id:
+              taken: "telah diambil"    
+        resource_ict_equipment_booking:
+          attributes:
+            sub_category_id:
+              blank: "Tidak Boleh kosong"
+            agency_store_id:
+              blank: "Tidak Boleh kosong"
+            purpose:
+              blank: "Tidak Boleh kosong"
+              too_short: "Mesti mengandungi minimum empat aksara"
+            location:
+              blank: "Tidak Boleh kosong"
+              too_short: "Mesti mengandungi minimum empat aksara"
+            requested_from_date:
+              blank: "Tidak Boleh kosong"
+            requested_to_date:
+              blank: "Tidak Boleh kosong"
+            meeting_start_time:
+              blank: "Tidak Boleh kosong"
+            meeting_end_time:
+              blank: "Tidak Boleh kosong"
+        group:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+        user:
+          attributes:
+            username:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            ic_number:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+            email:
+              blank: "Tidak Boleh kosong"
+              taken: "telah diambil"
+              invalid: "Invalid"
+            contact_mobile:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
         emergency_reference:
           attributes:
             name:
@@ -939,6 +1095,22 @@ malay:
               invalid: "Invalid"
             relation:
               blank: "Tidak Boleh kosong"   
+        event:
+          attributes:
+            name:
+              blank: "Tidak Boleh kosong"
+            from_date:
+              blank: "Tidak Boleh kosong"
+            to_date:
+              blank: "Tidak Boleh kosong"
+            venue:
+              blank: "Tidak Boleh kosong"
+            organizer:
+              blank: "Tidak Boleh kosong"
+            description:
+              blank: "Tidak Boleh kosong"
+            event_attachment:
+              blank: "Tidak Boleh kosong"
         complaint_computer:
           attributes:
             complaint_type_id:

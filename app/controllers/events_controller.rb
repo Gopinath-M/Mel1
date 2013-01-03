@@ -74,7 +74,6 @@ class EventsController < ApplicationController
     end
   end
 
-  def list_event
-    
+  def list_event    
   end
 end

@@ -130,7 +130,7 @@
 
             <% driver = Driver.find(@resource_transportation_booking.driver_id) %>
             <tr>
-              <td><b><%=t('labels.driver_name')%></b></td>
+              <td><b><%=t('left_nav.driver_name')%></b></td>
               <td>&nbsp;<b><%= driver.name %></b></td>
             </tr>
             <tr>
@@ -148,7 +148,7 @@
   <div class="form-sec-row2">
     <label class="text">&nbsp;</label>
     <span class="in-box2">
-      <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+      <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
     </span>
   </div></div>
 <%#end%>

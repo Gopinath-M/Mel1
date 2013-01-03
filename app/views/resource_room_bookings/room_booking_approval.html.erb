@@ -2,9 +2,9 @@
   <div class="clearfix">&nbsp;</div>
   <div class="CenterNav">
     <% if current_user.is_department_admin? %>
-      <h2 class="b-head">Resource Room Approval</h2>
+      <h2 class="b-head"><%=t('labels.res_room_app')%></h2>
     <%else%>
-      <h2 class="b-head">Resource Room Process</h2>
+      <h2 class="b-head"><%=t('labels.res_room_pro')%></h2>
     <%end%>
     <%= hidden_field_tag :updated_by,(current_user.id)  %>
     <%= hidden_field_tag :resource_book_id,(@resource_room_booking.id)  %>
@@ -17,40 +17,40 @@
               <td style=" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333; border-bottom:1px solid #CCC;border-top:1px solid #CCC; padding:10px 0;">
                 <table width="750" border="2" cellspacing="3" cellpadding="3" align="center"><br/>
                   <tr>
-                    <td><font color='#369'><b><u>User Details:-</u></b></font></td>
+                    <td><font color='#369'><b><u><%=t('labels.user_details')%>:-</u></b></font></td>
                     <td></td>
                   </tr>
                   
                   <% if @agency.present? %>
                     <tr>
-                      <td><b>Agency Name</b></td>
+                      <td><b><%=t('labels.agency_name')%></b></td>
                       <td><b>&nbsp;<%= @agency.name  %></b></td>
                     </tr>
                   <%end%>
                   <tr>
-                    <td><b>Department Name</b></td>
+                    <td><b><%=t('labels.department_name')%></b></td>
                     <td><b>&nbsp;<%= @dept.name  %></b></td>
                   </tr>
                   <% if @manager.present? %>
                     <tr>
-                      <td><b>Resource Manager</b></td>
+                      <td><b><%=t('labels.res_manager')%></b></td>
                       <td><b>&nbsp;<%= @manager.first_name  %></b></td>
                     </tr>
                   <%end%>
                   <tr>
-                    <td><b>First Name</b></td>
+                    <td><b><%=t('labels.first_name')%></b></td>
                     <td><b>&nbsp;<%= @user.first_name %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Last Name</b></td>
+                    <td><b><%=t('labels.last_name')%></b></td>
                     <td><b>&nbsp;<%= @user.last_name %></b></td>
                   </tr>
                   <tr>
-                    <td><b>IC Number</b></td>
+                    <td><b><%=t('labels.ic_no')%></b></td>
                     <td><b>&nbsp;<%= @user.ic_number %></b></td>
                   </tr>
                   <tr>
-                    <td><b>Email</b></td>
+                    <td><b><%=t('labels.email')%></b></td>
                     <td><b>&nbsp;<%= @user.email %></b></td>
                   </tr>
 
@@ -60,35 +60,35 @@
 
 
             <tr>
-              <td><font color="#369"><b><u>Room Details:-</u></b></font></td>
+              <td><font color="#369"><b><u><%=t('labels.room_details')%>:-</u></b></font></td>
               <td></td>
             </tr>
             <tr>
-              <td><b>Ticket No</b></td>
+              <td><b><%=t('labels.ticket_no')%></b></td>
             <td style="color:#BB0802;">&nbsp;<b><%=@resource_room_booking.id%>/<%=Time.now.year%></b></td>
             </tr>
             <tr>
-              <td><b>Date of Application</b></td>
+              <td><b><%=t('labels.date_of_app')%></b></td>
               <td><b>&nbsp;<%=@resource_room_booking.created_at.strftime("%a %d %b %Y %I:%M %p")%></b></td>
             </tr>
             <tr>
-              <td><b>Room Name</b></td>
+              <td><b><%=t('labels.room_name')%></b></td>
               <td><b>&nbsp;<%=@resource.name%></b></td>
             </tr>
             <tr>
-              <td><b>Booking Date</b></td>
+              <td><b><%=t('labels.booking_Date')%></b></td>
               <td><b>&nbsp;<%=@resource_room_booking.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
             </tr>
             <tr>
-              <td><b>Return Date</b></td>
+              <td><b><%=t('labels.ret_date')%></b></td>
               <td><b>&nbsp;<%=@resource_room_booking.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
             </tr>
             <tr>
-              <td><b>Purpose</b></td>
+              <td><b><%=t('labels.purpose')%></b></td>
               <td><b>&nbsp;<%=@resource_room_booking.purpose%></b></td>
             </tr><% if @resource_room_booking.room_attachment.present? %>
                     <tr>
-                      <td><b>Attachment</b></td>
+                      <td><b><%=t('labels.attachment')%></b></td>
                       <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
                       <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
                         <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
@@ -99,19 +99,19 @@
                     </tr>
                   <%end%>
             <tr>
-              <td><b>Remarks</b></td>
+              <td><b><%=t('labels.remarks')%></b></td>
               <td><b>&nbsp;<%=@resource_room_booking.remarks%></b></td>
             </tr>
             <% if current_user.is_resource_manager? && @resource_room_booking.status == "Approved" %>
               <tr>
-                <td><label class="text">Change Room</label></td>
+                <td><label class="text"><%=t('labels.change_room')%></label></td>
                 <td><span class="in-box">
                     <%= f.select("resource_id",  Resource.where(["sub_category_id = ?",@resource_room_booking.sub_category_id ]).active.collect {|category| [category.resource_no, category.id]}, {:prompt => 'Select Person'})%>
                   </span></td>
               </tr>
             <%end%>
             <tr>
-              <td id="dis_col" style="display:none;"><label class="text">Details</label></td>
+              <td id="dis_col" style="display:none;"><label class="text"><%=t('labels.details')%></label></td>
               <td><div id="details_resource_id" style="display:none;">
                 </div></td>
             </tr>
@@ -122,99 +122,99 @@
             <% if @resource_room_booking.status == "Approved" && !current_user.is_department_admin? && !@resource_room_booking.updated_by.present?%>
               <% user = User.find(@resource_room_booking.user_id) %>
               <tr>
-                <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
+                <td><font color="#369"><b><u><%=t('labels.app_details')%>:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
-                <td><b>Approved by</b></td>
+                <td><b><%=t('labels.app_by')%></b></td>
                 <td><b>&nbsp;<%=user.username%></b></td>
               </tr>
               <tr>
-                <td><b>Approved at</b></td>
+                <td><b><%=t('labels.app_at')%></b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
             <% elsif @resource_room_booking.status == "Approved" && !current_user.is_department_admin? && @resource_room_booking.updated_by.present?%>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
-                <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
+                <td><font color="#369"><b><u><%=t('labels.app_details')%>:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
-                <td><b>Approved by</b></td>
+                <td><b><%=t('labels.app_by')%></b></td>
                 <td><b>&nbsp;<%=username.username%></b></td>
               </tr>
               <tr>
-                <td><b>Approved at</b></td>
+                <td><b><%=t('labels.app_at')%></b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
             <% elsif @resource_room_booking.status == "Approved" && current_user.is_department_admin? && !@resource_room_booking.updated_by.present? %>
               <% user = User.find(@resource_room_booking.user_id) %>
               <tr>
-                <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
+                <td><font color="#369"><b><u><%=t('labels.app_details')%>:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
-                <td><b>Approved by</b></td>
+                <td><b><%=t('labels.app_by')%></b></td>
                 <td><b>&nbsp;<%=user.username%></b></td>
               </tr>
               <tr>
-                <td><b>Approved at</b></td>
+                <td><b><%=t('labels.app_at')%></b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
             <% elsif @resource_room_booking.status == "Approved" && current_user.is_department_admin? && @resource_room_booking.updated_by.present? %>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
-                <td><font color="#369"><b><u>Approved Details:-</u></b></font></td>
+                <td><font color="#369"><b><u><%=t('labels.app_details')%>:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
-                <td><b>Approved by</b></td>
+                <td><b><%=t('labels.app_by')%></b></td>
                 <td><b>&nbsp;<%=username.username%></b></td>
               </tr>
               <tr>
-                <td><b>Approved at</b></td>
+                <td><b><%=t('labels.app_at')%></b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
             <%elsif @resource_room_booking.status == "Processed" && !current_user.is_super_admin? %>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
-                <td><font color="#369"><b><u>Processed Details:-</u></b></font></td>
+                <td><font color="#369"><b><u><%=t('labels.pro_details')%>:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
-                <td><b>Processed by</b></td>
+                <td><b><%=t('labels.pro_by')%></b></td>
                 <td><b>&nbsp;<%=username.username%></b></td>
               </tr>
               <tr>
-                <td><b>Processed at</b></td>
+                <td><b><%=t('labels.pro_at')%></b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
             <%elsif @resource_room_booking.status == "Processed" && current_user.is_super_admin? && !@resource_room_booking.updated_by.present?%>
               <% user = User.find(@resource_room_booking.user_id) %>
               <tr>
-                <td><font color="#369"><b><u>Processed Details:-</u></b></font></td>
+                <td><font color="#369"><b><u><%=t('labels.pro_details')%>:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
-                <td><b>Processed by</b></td>
+                <td><b><%=t('labels.pro_by')%></b></td>
                 <td><b>&nbsp;<%=user.username%></b></td>
               </tr>
               <tr>
-                <td><b>Processed at</b></td>
+                <td><b><%=t('labels.pro_at')%></b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
             <%elsif @resource_room_booking.status == "Processed" && current_user.is_super_admin? && @resource_room_booking.updated_by.present?%>
               <% username = User.find(@resource_room_booking.updated_by) %>
               <tr>
-                <td><font color="#369"><b><u>Processed Details:-</u></b></font></td>
+                <td><font color="#369"><b><u><%=t('labels.pro_details')%>:-</u></b></font></td>
                 <td></td>
               </tr>
               <tr>
-                <td><b>Processed by</b></td>
+                <td><b><%=t('labels.pro_by')%></b></td>
                 <td><b>&nbsp;<%=username.username%></b></td>
               </tr>
               <tr>
-                <td><b>Processed at</b></td>
+                <td><b><%=t('labels.pro_at')%></b></td>
                 <td><b>&nbsp;<%=@resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
               </tr>
             <%end%>
@@ -226,19 +226,19 @@
             <% if current_user.is_department_admin? || current_user.is_department_user? || current_user.is_super_admin?%>
               <% if @details_resource.present?%>
                 <tr>
-                  <td><font color="#369"><b><u>Resource Details:-</u></b></font></td>
+                  <td><font color="#369"><b><u><%=t('labels.res_det')%>:-</u></b></font></td>
                   <td></td>
                 </tr>
                 <tr>
-                  <td><b> Room Ex No</b></td>
+                  <td><b><%=t('labels.room_ex_no')%></b></td>
                   <td><b>&nbsp;<%=@details_resource.resource_no%></b></td>
                 </tr>
                 <tr>
-                  <td><b> Location</b></td>
+                  <td><b> <%=t('labels.location')%></b></td>
                   <td><b>&nbsp;<%=@details_resource.location%></b></td>
                 </tr>
                 <tr>
-                  <td><b> Capacity</b></td>
+                  <td><b> <%=t('labels.capacity')%></b></td>
                   <td><b>&nbsp;<%=@details_resource.capacity%></b></td>
                 </tr>
               <%end%>
@@ -250,23 +250,23 @@
               </tr>
 
               <tr>
-                <td><font color="#369"><b><u>Facility Details:-</u></b></font></td>
+                <td><font color="#369"><b><u><%=t('labels.facility_details')%>:-</u></b></font></td>
                 <td></td>
               </tr>
               <% @facility.each do |facility| %>
                 <tr>
-                  <td><b> Facility Name</b></td>
+                  <td><b><%=t('labels.facility_name')%></b></td>
                   <td><b>&nbsp;<%=facility.name%></b></td>
                 </tr>
                 <tr>
-                  <td><b> Quantity</b></td>
+                  <td><b><%=t('labels.quantity')%></b></td>
                   <td><b>&nbsp;<%=facility.total_qty%></b></td>
                 </tr>
               <%end%>
             <%end%>
 
             <tr>
-              <td><font color="#369"><b><u>Status Details:-</u></b></font></td>
+              <td><font color="#369"><b><u><%=t('labels.status_details')%>:-</u></b></font></td>
               <td></td>
             </tr>
             <tr>
@@ -307,11 +307,11 @@
       <div class="form-sec-row">
         <label class="text">&nbsp;</label>
         <span class="in-box">
-          <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+          <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
           <% if @resource_room_booking.status == "Processed" && @resource_room_booking.user_returned_status? %>
-            <%= f.submit raw('Submit'), :class=>"btn2"%>
+            <%= f.submit t('labels.submit'), :class=>"btn2"%>
           <%else%>
-            <%= f.submit raw('Submit'), :class=>"btn2"%>
+            <%= f.submit t('labels.submit'), :class=>"btn2"%>
           <%end%>
         </span>
       </div>

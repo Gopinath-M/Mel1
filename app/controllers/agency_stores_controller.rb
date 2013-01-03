@@ -203,7 +203,6 @@ class AgencyStoresController < ApplicationController
   end
 
   def get_other_resource
-    
     if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
       agency_resources = AgencyStore.where("booked = false and sub_category_id = ?",params[:sub_category_id])#.collect(&:resource_id)
     else
@@ -234,12 +233,9 @@ class AgencyStoresController < ApplicationController
     end
     temp_resources = AgencyStore.where("resource_id = ? and booked = ? ",params[:resource_id],false)
     temp_resources.each do |resource|
-
       if department && department.present? && department.agency_id == resource.agency_id
-        p resource.serial_no.nil?
-        
         resources.store(resource.id, resource.serial_no.to_s) if !resource.serial_no.nil?
-        resources = "no serial" if resource.serial_no.nil? && resource.quantity==1
+        resources = "no serial" if resource.serial_no.nil? && resource.quantity == 1
       elsif department && department.present? && department.agency_id != resource.agency_id
         if resource.serial_no.nil? && resource.quantity==1
           val = resource.agency.name.to_s if resource != nil
@@ -247,8 +243,6 @@ class AgencyStoresController < ApplicationController
           val = resource != nil && resource.serial_no != "" ? (resource.serial_no.to_s + "-" +resource.agency.name.to_s) : resource.agency.name.to_s
         end
         resources.store(resource.id, val)
-        #else
-        # resources = "no serial"
       end
     end
     p resources.inspect

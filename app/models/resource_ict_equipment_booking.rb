@@ -11,15 +11,15 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
   validate :validate_booking_time, :on=>:create
 
   def validate_booking_time
-    errors.add(:base,"From Date Should be greater than current date and time") if self.requested_from_date!=nil && self.requested_from_date<Time.now
-    errors.add(:base,"To Date Should be greater than current date and time") if self.requested_to_date!=nil && self.requested_to_date<Time.now
-    errors.add(:base,"To Date Should be greater than From date and time") if self.requested_from_date!=nil && self.requested_to_date!=nil && self.requested_from_date>self.requested_to_date
-    errors.add(:base,"From Meeting Time Should be greater than current date and time") if self.meeting_start_time!=nil && self.meeting_start_time<Time.now
-    errors.add(:base,"To Meeting Date Should be greater than current date and time") if self.meeting_end_time!=nil && self.meeting_end_time<Time.now
-    errors.add(:base,"To Meeting Date Should be greater than From date and time") if self.meeting_start_time!=nil && self.meeting_end_time!=nil && self.meeting_start_time>self.meeting_end_time
-    errors.add(:base,"From Date Should be greater than current date and time") if self.requested_from_date!=nil && self.requested_from_date<Time.now
-    errors.add(:base,"From Meeting Time should be greater than From Date") if self.requested_from_date!=nil && self.meeting_start_time!=nil  && self.meeting_start_time < self.requested_from_date
-    errors.add(:base,"Meeting End Time should be greater than To Date") if self.requested_to_date!=nil && self.meeting_end_time!=nil  && self.meeting_end_time > self.requested_to_date
+    errors.add(:base,(I18n.translate!('errors_date.date_greater'))) if self.requested_from_date!=nil && self.requested_from_date<Time.now
+    errors.add(:base,(I18n.translate!('errors_date.from_date_greater'))) if self.requested_to_date!=nil && self.requested_to_date<Time.now
+    errors.add(:base,(I18n.translate!('errors_date.to_date_greater'))) if self.requested_from_date!=nil && self.requested_to_date!=nil && self.requested_from_date>self.requested_to_date
+    errors.add(:base,(I18n.translate!('errors_date.from_meeting_time_greater'))) if self.meeting_start_time!=nil && self.meeting_start_time<Time.now
+    errors.add(:base,(I18n.translate!('errors_date.to_meeting_time_greater'))) if self.meeting_end_time!=nil && self.meeting_end_time<Time.now
+    errors.add(:base,(I18n.translate!('errors_date.to_meeting_greater_from'))) if self.meeting_start_time!=nil && self.meeting_end_time!=nil && self.meeting_start_time>self.meeting_end_time
+    errors.add(:base,(I18n.translate!('errors_date.date_greater'))) if self.requested_from_date!=nil && self.requested_from_date<Time.now
+    errors.add(:base,(I18n.translate!('errors_date.meeting_start_time'))) if self.requested_from_date!=nil && self.meeting_start_time!=nil  && self.meeting_start_time < self.requested_from_date
+    errors.add(:base,(I18n.translate!('errors_date.meeting_end_time'))) if self.requested_to_date!=nil && self.meeting_end_time!=nil  && self.meeting_end_time > self.requested_to_date
   end
   
 end

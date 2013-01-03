@@ -7,39 +7,39 @@
       <div class="clearfix">&nbsp;</div>
       <div class="form-sec">
         <% if !current_user.is_super_admin? %>
-        <font color='#369'><b><u>User Details:-</u></b></font>
-        <% @dept = Department.find_by_id(current_department) %>
-        <% @agency = Agency.find_by_id(@dept.agency_id) %>
-        <% @ict_vpn = IctVpn.find_by_id(params[:id]) %>
-        <% @user = User.find_by_id(@ict_vpn.user_id) %>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.agency_name')%></label>
-          <span class="in-box"><%= @agency.name  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.department_name')%></label>
-          <span class="in-box">
-            <%= @dept.name  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.user_name')%></label>
-          <span class="in-box"><%= @user.username %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.contact_number')%></label>
-          <span class="in-box"><%= @user.contact_mobile  %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.ic_no')%></label>
-          <span class="in-box">
-            <%= @user.ic_number %></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><%=t('labels.email')%></label>
-          <span class="in-box">
-            <%= @user.email %></span>
-        </div>
-        <h2 class="b-head"></h2><br/>
+          <font color='#369'><b><u>User Details:-</u></b></font>
+          <% @dept = Department.find_by_id(current_department) %>
+          <% @agency = Agency.find_by_id(@dept.agency_id) %>
+          <% @ict_vpn = IctVpn.find_by_id(params[:id]) %>
+          <% @user = User.find_by_id(@ict_vpn.user_id) %>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.agency_name')%></label>
+            <span class="in-box"><%= @agency.name  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.department_name')%></label>
+            <span class="in-box">
+              <%= @dept.name  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.user_name')%></label>
+            <span class="in-box"><%= @user.username %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.contact_number')%></label>
+            <span class="in-box"><%= @user.contact_mobile  %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.ic_no')%></label>
+            <span class="in-box">
+              <%= @user.ic_number %></span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.email')%></label>
+            <span class="in-box">
+              <%= @user.email %></span>
+          </div>
+          <h2 class="b-head"></h2><br/>
         <%end%>
         <font color='#369'><b><u>ICT - VPN Details:-</u></b></font>
 
@@ -112,21 +112,21 @@
       <font color="#369" size="3"><br/><b><u><%=t('labels.off_action')%></u><br/><br/></b></font>
       <% if @ict_vpn.status == "New" %>
         <div class="form-sec-row">
-          <label class="text">Status</label>
+          <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.select :status, options_for_select([["Select Status", -1], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_vpn.status) %>
+            <%= f.select :status, options_for_select([["Select Status"], ["Approved", "Approved"], ["Declined", "Declined"]], @ict_vpn.status) %>
           </span>
         </div>
         <%@dept = Department.find(default_department)%>
         <%@users = @dept.users%>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.forward_to')%></label>
+          <label class="text"><%=t('labels.forward_to')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.select(:forward_to, @users.collect {|p| [ p.username, p.id ] },:prompt => "Select User") %>
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.remarks')%></label>
+          <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.text_area :remarks, :rows =>4%></span>
         </div>
@@ -134,7 +134,7 @@
           <div class="CenterNav">
             <label class="text">&nbsp;</label>
             <span class="in-box">
-              <%= f.submit :value=>t('labels.update'), :class=>"btn2"%>
+              <%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return ict_vpns();"%>
             </span>
           </div>
         </div>
@@ -142,9 +142,9 @@
       <% elsif @ict_vpn.status == "Approved" %>
         <% if @ict_vpn.forward_to.present? %>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.status')%></label>
+            <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.select :status, options_for_select([["Select Status", -1],["Processed", "Processed"], ["Declined", "Declined"]], @ict_vpn.status) %>
+              <%= f.select :status, options_for_select([["Select Status"],["Processed", "Processed"], ["Declined", "Declined"]], @ict_vpn.status) %>
             </span>
           </div>
 
@@ -157,7 +157,7 @@
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.remarks')%></label>
+            <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
             <span class="in-box">
               <%= f.text_area :remarks, :rows =>4%></span>
           </div>
@@ -165,7 +165,7 @@
             <div class="CenterNav">
               <label class="text">&nbsp;</label>
               <span class="in-box">
-                <%= f.submit :value=>t('labels.update'), :class=>"btn2"%>
+                <%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return ict_vpns();"%>
               </span>
             </div>
           </div>
@@ -202,4 +202,29 @@
 <%end%>
 
 
+<script type="text/javascript">
+  function ict_vpns() {
+  
+    var a = document.getElementById("ict_vpn_status");
+    var b = document.getElementById("ict_vpn_forward_to");
+    var c = document.getElementById("ict_vpn_remarks");
+
+    if (a.value == "Select Status" )
+    {
+      alert ("Select Status");
+      return false;
+    }
+    else if (b.value == "" )
+    {
+      alert ("Select User");
+      return false;
+    }
+    else if (c.value == "" )
+    {
+      alert("Enter Remarks");
+      return false;
+    }
+    return true;
+  }
+</script>
 

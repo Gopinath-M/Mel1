@@ -144,14 +144,17 @@ class ResourcesController < ApplicationController
       if @val.present? && @second.present?
         user = User.find_by_id(params[:approver1][:id])
         @val.update_attribute(:user_id, params[:approver1][:id])
+        @val.update_attribute(:is_active, params[:active1][:id])
         UserMailer.send_update_mail_to_approver1(user,dept_admin,department).deliver
         val = User.find_by_id(params[:approver2][:id])
         temp = User.find_by_ic_number(params[:approver2][:id])
         if val.present?
           @second.update_attribute(:user_id, val.id)
+          @second.update_attribute(:is_active, params[:active2][:id])
           UserMailer.send_update_mail_to_approver2(val,dept_admin,department).deliver
         elsif temp.present?
           @second.update_attribute(:user_id, temp.id)
+          @second.update_attribute(:is_active, params[:active2][:id])
           UserMailer.send_update_mail_to_approver2_temp(temp,dept_admin,department).deliver
         end
         redirect_to(list_approver_resources_path, :notice => 'Approver has been Updated.')

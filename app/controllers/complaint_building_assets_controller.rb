@@ -42,7 +42,7 @@ class ComplaintBuildingAssetsController < ApplicationController
 
   end
 
-  def update
+  def update   
     @complaint_building_asset=ComplaintBuildingAsset.find_by_id(params[:id])
     @category_name = BuildingAssetType.find_by_id(@complaint_building_asset.building_asset_type_id) if @complaint_building_asset.building_asset_type_id
     @type_name = BuildingAssetType.find_by_id(@complaint_building_asset.type_id)

@@ -160,20 +160,21 @@
                   </div>
 
                   <% hardware = FacilityIctHardware.find_by_id(@ict_network.hardware_id) %>
-                  <div class="form-sec-row">
-                    <label class="text"><%=t('labels.hardwares')%></label>
-                    <span class="in-box">
-                      <%= hardware.name %>
-                    </span>
-                  </div>
+                  <% if hardware.present? %>
+                    <div class="form-sec-row">
+                      <label class="text"><%=t('labels.hardwares')%></label>
+                      <span class="in-box">
+                        <%= hardware.name %>
+                      </span>
+                    </div>
 
-                  <div class="form-sec-row">
-                    <label class="text"><%=t('labels.hardware_quantity')%></label>
-                    <span class="in-box">
-                      <%= @ict_network.hardware_quantity %>
-                    </span>
-                  </div>
-
+                    <div class="form-sec-row">
+                      <label class="text"><%=t('labels.hardware_quantity')%></label>
+                      <span class="in-box">
+                        <%= @ict_network.hardware_quantity %>
+                      </span>
+                    </div>
+                  <%end%>
                   <% center = FacilityIctAgency.find_by_id(@ict_network.location_center_id) %>
                   <% wiring = FacilityIctWiring.find_by_id(@ict_network.ict_wiring_id) %>
                   <div class="form-sec-row">
@@ -249,7 +250,7 @@
                     <span class="in-box">
                       <%= f.radio_button :recommendation_type, 'installation', :id=>"check_box_network"%> <b><%= f.label :recommendation_type, t('labels.install') %></b>
                       <%= f.radio_button :recommendation_type, 'purchase', :id=>"check_box_purchase"%> <b><%= f.label :recommendation_type, t('labels.purchase') %></b>
-                      <%= f.radio_button :recommendation_type, 'no recommendation', :id=>"check_box_no_recd"%> <b><%= f.label :recommendation_type, t('labels.no_recommendation') %></b>
+                      <%= f.radio_button :recommendation_type, 'no recommendation', :checked=>true, :id=>"check_box_no_recd"%> <b><%= f.label :recommendation_type, t('labels.no_recommendation') %></b>
                     </span>
                   </div>
                   <div id="get_hide" style="display:none; margin-bottom: 10px;"><table width="509" border="0" class="app-table" cellspacing="0" cellpadding="0" align="center" color="#329C20">

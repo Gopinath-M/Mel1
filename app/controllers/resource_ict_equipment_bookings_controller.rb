@@ -21,11 +21,9 @@ class ResourceIctEquipmentBookingsController < ApplicationController
 
   def create
     category
-
-
     @resource=params[:resource_ict_equipment_booking][:resource_id]
     department_id = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? 0 : @current_department
-    dept = Department.find(@current_department)
+    dept = Department.find(@current_department) if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
     create_flag = false
     quantifiable = false
     if !params[:resource_ict_equipment_booking][:agency_store_id].blank?
@@ -34,19 +32,28 @@ class ResourceIctEquipmentBookingsController < ApplicationController
         create_flag = true
       end
     else
-      agency_store = AgencyStore.where(:resource_id => params[:resource_ict_equipment_booking][:resource_id], :sub_category_id => params[:resource_ict_equipment_booking][:sub_category_id], :agency_id => dept.agency_id).first
-      if agency_store.quantity != agency_store.booked_quantity && agency_store.quantity > agency_store.booked_quantity
+      if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
+        agency_store = AgencyStore.where(:resource_id => params[:resource_ict_equipment_booking][:resource_id], :sub_category_id => params[:resource_ict_equipment_booking][:sub_category_id], :agency_id => dept.agency_id).first
+      else
+        agency_store = AgencyStore.where(:resource_id => params[:resource_ict_equipment_booking][:resource_id], :sub_category_id => params[:resource_ict_equipment_booking][:sub_category_id]).first
+      end
+
+      if agency_store && agency_store.quantity != agency_store.booked_quantity && agency_store.quantity > agency_store.booked_quantity
         create_flag = true
         quantifiable = true
       end
     end
-    @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id, :agency_store_id => agency_store.id}))
+if agency_store.nil?
+    @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id})) 
+else
+    @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id, :agency_store_id => agency_store.id})) 
+
+end
     if create_flag
       @resource_ict_equipment_booking.status = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? "Processed" : ((session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN) ? "Approved" : "New")
       if @resource_ict_equipment_booking.valid?
         @resource_ict_equipment_booking.save
         if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN && session[:current_role] != DISP_USER_ROLE_DEPT_ADMIN
-            
           first_approver = Approver.active.where(:department_id => @current_department).first
           if !first_approver.present?
             user = dept.users.where("role_id = 2").first
@@ -58,7 +65,11 @@ class ResourceIctEquipmentBookingsController < ApplicationController
         if !quantifiable
           agency_store.update_attribute(:booked, true)
         else
-          agency_store.update_attribute(:booked_quantity, agency_store.booked_quantity+1)
+          if (agency_store.quantity - agency_store.booked_quantity) > 1
+            agency_store.update_attribute(:booked_quantity, agency_store.booked_quantity+1)
+          else
+            agency_store.update_attributes(:booked_quantity => agency_store.booked_quantity+1, :booked => true)
+          end
         end
         redirect_to resource_ict_equipment_bookings_path, :notice => "Your ICT Equipment booking has been created sucessfully."
       else
@@ -107,16 +118,16 @@ class ResourceIctEquipmentBookingsController < ApplicationController
     if @resource_ict_equipment_booking
       agency_store = @resource_ict_equipment_booking.agency_store
       agency_store.update_attribute(:booked, false) if (params[:resource_ict_equipment_booking][:status] == "Returned" ||  params[:resource_ict_equipment_booking][:status] == "Declined")
-      status=params[:resource_ict_equipment_booking][:status].downcase
-      params[:resource_ict_equipment_booking]["#{status}_date"]=Time.now
-      if @resource_ict_equipment_booking.update_attributes(params[:resource_ict_equipment_booking].merge!({:approver_id=>current_user.id}))
-        resource_manager = RoleMembership.find_by_department_id_and_role_id(@resource_ict_equipment_booking.department_id,5)
+      status = params[:resource_ict_equipment_booking][:status].downcase
+      params[:resource_ict_equipment_booking]["#{status}_date"] = Time.now
+      if @resource_ict_equipment_booking.update_attributes(params[:resource_ict_equipment_booking].merge!({:approver_id => current_user.id}))
+        resource_manager = RoleMembership.find_by_department_id_and_role_id(@resource_ict_equipment_booking.department_id, 05)
         #UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
-        UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
+        UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user, @resource_ict_equipment_booking.user, @resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
         redirect_to(requests_resource_ict_equipment_bookings_path, :notice => 'Your ICT Equipment Status has been successfully updated.')
       else
         approval_details(@resource_ict_equipment_booking)
-        render :action=>'approve_request', :id=>params[:id]
+        render :action=>'approve_request', :id => params[:id]
       end
     end
   end
@@ -125,6 +136,11 @@ class ResourceIctEquipmentBookingsController < ApplicationController
     ict_equipment = ResourceIctEquipmentBooking.find(params[:ict_equipment_id])
     if params[:user_returned_status] == "true"
       if ict_equipment.update_attributes(:user_returned_status=> true, :returned_date=>Time.now)
+        if ict_equipment.agency_store.quantity > 1
+          ict_equipment.agency_store.update_attributes(:booked => false, :booked_quantity => ict_equipment.agency_store.booked_quantity-1)
+        else
+          ict_equipment.agency_store.update_attribute(:booked => false)
+        end
         render :json=>["Success"]
       else
         render :json=>["Error"]

@@ -44,7 +44,7 @@
                   <%= link_to t('labels.approve'),  resource_booking_approval_software_installations_path(:id => software.id), :class=>"btn2 in-btn2"%>
                 </span>
               <%end%>
-             <%elsif software.user_id == current_user.id %>
+             <%elsif software.person_incharge == current_user.id %>
               <%if software.status == "Approved"%>
               <span class="in-box">
                   <%= link_to t('labels.process'),  resource_booking_approval_software_installations_path(:id => software.id), :class=>"btn2 in-btn2"%>

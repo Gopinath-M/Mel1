@@ -34,6 +34,7 @@
               <%end%>
               <p class="head1">Sub Category Name :&nbsp;<%=sub_category.name%></p>
               <%if resource.vehicle_model != nil%>
+                <p class="head1">Vehicle Brand :&nbsp;<%= VehicleModelType.find(resource.vehicle_model_type_id).name %></p>
                 <p class="head1">Vehicle Model :&nbsp;<%=resource.vehicle_model%></p>
               <%end%>
               <%if resource.location != nil%>

@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   validate :validate_date_of_birth, :if=>Proc.new {|u| u.date_of_birth!=nil }
 
   def validate_date_of_birth
-    errors.add(:base,"Date of Birth Should be less than current date and time") if self.date_of_birth!=nil && self.date_of_birth>=Date.today
+    errors.add(:base,(I18n.translate!('errors_date.date_of_birth'))) if self.date_of_birth!=nil && self.date_of_birth>=Date.today
   end
 
   #  validates :avatar,    :file_size => {:maximum => 0.5.megabytes.to_i}, :if=>Proc.new {|u| !u.avatar.blank?}

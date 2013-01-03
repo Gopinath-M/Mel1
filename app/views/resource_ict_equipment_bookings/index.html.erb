@@ -50,48 +50,38 @@
           <%#*<div class="form-sec-row">%>
             <%#*<label class="text heading_blue">ICT Equipment Details:</label>%>
           <%#*</div>%>
+          
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.date_of_app')%></label>
+            <label class="text"><%=t('labels.name')%></label>
             <span class="in-box">
-              <b><%= resource_ict_equipment_booking.created_at.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
+              <b><%= resource_ict_equipment_booking.user.first_name%></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.purpose')%></label>
-            <span class="in-box">
-              <b><%= resource_ict_equipment_booking.purpose %></b>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.location')%></label>
-            <span class="in-box">
-              <b><%= resource_ict_equipment_booking.location %></b>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('left_nav.sub_category_name')%></label>
+            <label class="text"><%=t('left_nav.resource')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.sub_category.name %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.req_from_date')%></label>
+            <label class="text"><%=t('labels.from_date')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.req_to_date')%></label>
+            <label class="text"><%=t('labels.to_date')%></label>
             <span class="in-box">
               <b><%= resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.need_off')%></label>
+         <div class="form-sec-row">
+            <label class="text"><%=t('labels.date_of_app')%></label>
             <span class="in-box">
-              <b><%= resource_ict_equipment_booking.need_officer ? "Yes" : "No" %></b>
+              <b><%= resource_ict_equipment_booking.created_at.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div>
+         
           <!--div class="form-sec-row">
             <label class="text"><%=t('labels.meeting_from_date')%></label>
             <span class="in-box">
@@ -104,12 +94,7 @@
               <b><%#= resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S %p") %></b>
             </span>
           </div-->
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.notes')%></label>
-            <span class="in-box">
-              <b><%= resource_ict_equipment_booking.notes %></b>
-            </span>
-          </div>
+          
           <div class="form-sec-row">
             <label class="text"><%=t('labels.status')%></label>
             <span class="in-box" style="color :<%= (resource_ict_equipment_booking.status == 'New') ? '#FFA500' : ((resource_ict_equipment_booking.status == 'Approved' || resource_ict_equipment_booking.status == 'Processed') ? '#329C20' : 'red' )%>">

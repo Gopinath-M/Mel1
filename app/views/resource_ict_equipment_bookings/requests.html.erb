@@ -17,22 +17,11 @@
               <%= @user.first_name%>
             </span>
           </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.category_name')%></label>
-            <span class="in-box">
-              <%= @name.name%>
-            </span>
-          </div>
+          
           <div class="form-sec-row">
             <label class="text"><%=t('labels.resource_name')%></label>
             <span class="in-box">
               <%= @name.resources.first.name%>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.serial_number')%></label>
-            <span class="in-box">
-              <%= resource.agency_store.serial_no%>
             </span>
           </div>
           <div class="form-sec-row">
@@ -42,27 +31,22 @@
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.req_from_date')%></label>
+            <label class="text"><%=t('labels.from_date')%></label>
             <span class="in-box">
-              <%= resource.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S %p")%>
+              <%= resource.requested_from_date.strftime("%d-%m-%Y %H:%M %p")%>
+            </span>
+          </div>
+         
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.to_date')%></label>
+            <span class="in-box">
+              <%= resource.requested_to_date.strftime("%d-%m-%Y %H:%M %p")%>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.meeting_from_date')%></label>
+            <label class="text"><%=t('labels.date_of_app')%></label>
             <span class="in-box">
-              <%= resource.meeting_start_time.strftime("%a %B %d, %Y %I:%M:%S %p")%>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.meeting_to_date')%></label>
-            <span class="in-box">
-              <%= resource.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S %p")%>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.booked_date')%></label>
-            <span class="in-box">
-              <%=resource.created_at.strftime("%a %B %d, %Y %I:%M:%S %p")%>
+              <%=resource.created_at.strftime("%d-%m-%Y %H:%M %p")%>
             </span>
           </div>
           <div class="form-sec-row">
@@ -102,7 +86,7 @@
           </div>
           <div class="form-sec-row">
             <span class="in-box">
-              <b color="#336699"><%= link_to "t('labels.show_info')",resource_ict_equipment_booking_path(:id => resource.id), :method=>:get%></b>
+              <b color="#336699"><%= link_to t('labels.show_info'),resource_ict_equipment_booking_path(:id => resource.id), :method=>:get%></b>
             </span>
           </div>
           <div class="mu-c3">
