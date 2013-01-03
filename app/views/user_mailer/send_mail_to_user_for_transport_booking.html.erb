@@ -94,7 +94,7 @@
                     <td>&nbsp;<% if @requisition.status == "New"%><b><font color='#FFA500'><%= @requisition.status %></font></b><% elsif @requisition.status == "Approved" || @requisition.status == "Processed"  %>  <b><font color='#329C20'><%= @requisition.status %> </font></b><% elsif @requisition.status == "Declined" || @requisition.status == "Returned"  %>  <b><font color='red'><%= @requisition.status %> </font></b><% end %>
                     </td>
                   </tr>
-                  <% if @requisition.status == "Approved" || @requisition.status == "Processed" || @requistion.status == "Returned" %>
+                  <% if @requisition.status == "Approved" || @requisition.status == "Processed" || @requisition.status == "Returned" %>
                   <tr>
                     <td><b>Vehicle Brand</b></td>                    
                     <td>&nbsp;<%= VehicleModelType.find(@requisition.agency_store.resource.vehicle_model_type_id).name %>
