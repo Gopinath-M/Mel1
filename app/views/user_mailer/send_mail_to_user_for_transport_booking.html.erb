@@ -97,19 +97,19 @@
                   <% if @requisition.status == "Approved" || @requisition.status == "Processed" || @requistion.status == "Returned" %>
                   <tr>
                     <td><b>Vehicle Brand</b></td>                    
-                    <td>&nbsp;<% VehicleModelType.find(@requisition.agency_store.vehicle_model_type_id).name %>
+                    <td>&nbsp;<%= VehicleModelType.find(@requisition.agency_store.resource.vehicle_model_type_id).name %>
                     </td>
                   </tr>
                   
                   <tr>
                     <td><b>Vehicle Model</b></td>
-                    <td>&nbsp;<% Resource.find(@requisition.agency_store.resource_id).vehicle_model %>
+                    <td>&nbsp;<%= Resource.find(@requisition.agency_store.resource_id).vehicle_model %>
                     </td>
                   </tr>
                   
                    <tr>
                     <td><b>Vehicle Registration</b></td>
-                    <td>&nbsp;<% Resource.find(@requisition.agency_store.resource_id).resource_no %>
+                    <td>&nbsp;<%= Resource.find(@requisition.agency_store.resource_id).resource_no %>
                     </td>
                   </tr>
                   <% driver = Driver.find(@requisition.driver_id) %>
@@ -134,7 +134,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <b>Requested From Date</b>
+                      <b>Requested To Date</b>
                     </td>
                     <td>&nbsp;<%= @requisition.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
                     </td>

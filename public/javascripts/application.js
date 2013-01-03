@@ -1994,7 +1994,7 @@ $().ready(function(){
     })
 
 
-    $("#transport_agency_sub_category_id").live("change", function(){
+    $("#transport_agency_sub_category_id").live("change", function(){    	
         if($("#transport_agency_sub_category_id").val()!="")
         {
             $.get("/resource_room_bookings/get_resources",{
@@ -2003,11 +2003,10 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transport_agency_resource_id').find('option').remove().end()
-                    $('#transport_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));
-                    for(var i=0; i<data[0].length;i++)
-                    {
-                        $('#transport_agency_resource_id').append($("<option></option>").attr("value",data[0][i].resource.id).text(data[0][i].resource.resource_no));
-                    }
+                    $('#transport_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));                    
+                    $.each(data[0], function(key, val) {
+                        $('#transport_agency_resource_id').append($("<option></option>").attr("value",key).text(val));
+                      });
                 }
             })
         }
