@@ -14,7 +14,7 @@ class ResourceTransportationBooking < ActiveRecord::Base
 
   attr_accessible :status,:agency_store_id,:driver_id,:remarks,:state,:sub_category_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location,:attachment
   
-  validates :remarks,:sub_category_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location,:state, :presence => true
+  validates :sub_category_id,:purpose,:number_of_passengers,:pick_up_place,:requested_from_date,:requested_to_date,:location,:state, :presence => true
   validates_numericality_of :number_of_passengers
   validate :validate_booking_time
 
