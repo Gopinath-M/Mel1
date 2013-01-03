@@ -9,10 +9,11 @@
           <b><%= current_user.departments.first.agency.name.upcase if current_user.departments && !current_user.departments.empty? %></b>
         </span>
       </div>
+   <%department = Department.find(@current_department)%>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.department')%><span style=color:red></span></label>
         <span class="in-box">
-          <b><%= current_user.departments.first.name if current_user.departments && !current_user.departments.empty?%></b>
+          <b><%= department.name if department && department.present?%></b>
         </span>
       </div>
     <%end%>

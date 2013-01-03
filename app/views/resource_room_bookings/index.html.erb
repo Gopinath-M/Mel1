@@ -4,7 +4,7 @@
       <h2 class="b-head"><%=t('labels.list_room_book')%></h2>
       <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
       <div class="create-user">
-        <div class="cu-c1"><a href="/resource_room_bookings/new" title="<%=t('labels.create_resource_room_booking')%>"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Resource Room Booking</a></div>
+        <div class="cu-c1"><a href="/resource_room_bookings/new" title="<%=t('labels.create_resource_room_booking')%>"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.create_resource_room_booking')%></a></div>
       </div>
     <%end%>
     <div id="div_ajax" >
@@ -24,7 +24,7 @@
             </div>
             <div class="clear"></div>
             <div class="manage-user-rows box">
-              <div class="m-c1"><b>Room Name</b>
+              <div class="m-c1"><b><%=t('labels.room_name')%></b>
               </div>
               <div class="m-c2">
                 <% @name = SubCategory.find_by_id(resource.sub_category_id)%>
@@ -35,7 +35,7 @@
                   <% if resource.status == "Processed" && resource.user_id = current_user.id%>
                     <div id="hide_check_box_<%= resource.id %>">
                       <% if !resource.user_returned_status? %>
-                        <label class="text">Returned?</label>
+                        <label class="text"><%=t('labels.return_ed')%></label>
                         <span class="in-box">
                           <%= check_box_tag "user_returned_status[#{resource.id}]","",false,:onchange=>"toreturnroomresource(this.id,#{resource.id})" %>
                         </span>
@@ -47,7 +47,7 @@
             </div>
             <div class="clear"></div>
             <div id="room_box_<%= resource.id %>" style="display:none;">
-              <%= "You have successfully returned the resource" %>
+              <%=t('labels.succ_return_msg')%>
             </div>
             <div class="manage-user-rows box">
               <div class="m-c1"><b><%=t('labels.ticket_no')%></b>
@@ -102,5 +102,5 @@
       <%= paginate @resource_room_bookings %></div>
   </div>
 <%else%>
-  <h2 class="b-head">Sorry... Room Booking Facility is not Available for your Department...</h2>
+  <h2 class="b-head"><%=t('labels.denial_room')%></h2>
 <%end%>
