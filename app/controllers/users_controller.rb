@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
-  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference, :declaration_property, :download_attachments, :show]
+  before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference, :declaration_property, :download_attachments, :show, :update]
   
   #Activate or Deactivate a particular User
   def update_status
@@ -340,17 +340,17 @@ class UsersController < ApplicationController
   end
   #Out station module
   def user_profile
-    @users = User.find(current_user.id)
-    if params[:commit] == 'Update Profile'
-      @users.update_attributes(params[:user])
-      if @users.valid?
+    @user = User.find(current_user.id)
+  end
+  def update
+      @user = User.find(current_user.id)
+      if @user.valid?
+      @user.update_attributes(params[:user])
         redirect_to :controller =>'user_services', :action => 'new'
       else
         render :action =>'user_profile'
       end
-    end
   end
-  
   def emergency_reference
     @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
     if @emergency_references != nil

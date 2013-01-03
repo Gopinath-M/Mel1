@@ -28,7 +28,9 @@
           </div>
           <div class="clear"></div>
         </div>
-      <%end%>
+      <%end%> <div class="manage-user-rows box"><br/><br/>
+        <%= paginate @facility %>
+      </div>
     <%else%>
       <%=t('labels.no_data_available')%>
     <%end%>

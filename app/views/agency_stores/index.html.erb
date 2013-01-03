@@ -38,6 +38,7 @@
               <p class="head1">Status:&nbsp;<%if store.booked%><span style=color:red>Booked</span><%else%><span style=color:green>Available</span><%end%></p>    <%#end%>
             </div>
             <div class="mu-c3">
+                <% if store.resource_type == "Room"%><%=image_tag("/images/icon_room.png", :alt=>"Room", :title=> "Room")%><% elsif store.resource_type == "Transport" %>  <%=image_tag("/images/icon_transportation.png", :alt=>"Transport", :title=> "Transport")%><% elsif store.resource_type == "ICT"  %> <%=image_tag("/images/icon_ICT.png", :alt=>"ICT", :title=> "ICT")%> <% elsif store.resource_type == "Others"  %> <%=image_tag("/images/icon_othercategories.png", :alt=>"Others", :title=> "Others")%> <%end%>
             </div>
           </div>
           <div class="clear"></div>
