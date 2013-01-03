@@ -41,6 +41,7 @@ class IctVpnsController < ApplicationController
   end
 
   def update
+    
     @ict_vpn=IctVpn.find_by_id(params[:id])
     @requisition_ict_vpn=RequisitionType.find(@ict_vpn.requisition_type_id)
     @system_access_ict_vpn=SystemAccess.find(@ict_vpn.system_access_id)

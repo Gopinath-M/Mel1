@@ -1,7 +1,6 @@
 class AdvertisementsController < ApplicationController
   before_filter :authenticate_user!
-  
-  
+    
   def index
     @advertisements = Advertisement.where("is_active =? and from_date >=?", true, Time.now).page(params[:page]).per(5)
   end

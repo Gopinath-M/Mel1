@@ -1,46 +1,46 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2><%=t('labels.event_detail')%></h2><br/>
+    <h2>Event Details</h2><br/>
     <div class="form-sec-row-out">
-      <label class="text"><%=t('labels.event_name')%></label>
+      <label class="text">Event Name</label>
       <span class="in-box">
         <%= @events.name %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text"><%=t('labels.from_date')%></label>
+      <label class="text">From Date</label>
       <span class="in-box">
         <%= @events.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p")  %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text"><%=t('labels.to_date')%></label>
+      <label class="text">To Date</label>
       <span class="in-box">
         <%= @events.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p")  %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text"><%=t('labels.venue')%></label>
+      <label class="text">Venue</label>
       <span class="in-box">
         <%= @events.venue %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text"><%=t('labels.Organizer')%></label>
+      <label class="text">Organizer</label>
       <span class="in-box">
         <%= @events.organizer %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text"><%=t('labels.description')%></label>
+      <label class="text">Description</label>
       <span class="in-box">
         <%= @events.description.html_safe %></span>
     </div>
           <% event_user_name = User.find_by_id(@events.created_by) %>
     <div class="form-sec-row-out">
-      <label class="text"><%=t('labels.created_by')%></label>
+      <label class="text">Created By</label>
       <span class="in-box">
         <%= event_user_name.username %></span>
     </div>
      <div class="form-sec-row-out">
       <% if @events.event_attachment.present? %>
-        <label class="text"><%=t('labels.event_banner')%></label>
+        <label class="text">Event Banner</label>
         <% image = @events.event_attachment.url(:profile).split(".").last %>
         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
           <span class="in-box">
@@ -50,7 +50,7 @@
       <%end%>
     </div>
       <div class="form-sec-row-out">
-        <label class="text"><%=t('labels.is_visible')%></label>
+        <label class="text">Is Visible</label>
         <span class="in-box">
           <% if @events.is_active == true %>
             Yes <% else %>
