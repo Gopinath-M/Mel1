@@ -11,10 +11,22 @@
         <% resource_transport_new_count = generic_model_status_count(ResourceTransportationBooking, "New")%>
         <% resource_other_new_count = generic_model_status_count(ResourceBooking, "New")%>
         <% ict_network_new_count = generic_model_status_count(IctNetworkPoint,'New')%>
+
+        <% resource_room_returned_count = generic_model_status_count(ResourceRoomBooking, "Returned") %>
         <% resource_room_process_count = generic_model_status_count(ResourceRoomBooking, "Approved") %>
+        <%resource_manager_room_count = resource_room_returned_count + resource_room_process_count%>
+
+        <% resource_ict_returned_count = generic_model_status_count(ResourceIctEquipmentBooking, "Returned")%>
         <% resource_ict_process_count = generic_model_status_count(ResourceIctEquipmentBooking, "Approved")%>
+        <%resource_manager_ict_count = resource_ict_returned_count + resource_ict_process_count%>
+
+        <% resource_transport_returned_count = generic_model_status_count(ResourceTransportationBooking, "Returned")%>
         <% resource_transport_process_count = generic_model_status_count(ResourceTransportationBooking, "Approved")%>
+        <%resource_manager_transport_count = resource_transport_returned_count + resource_transport_process_count%>
+
+        <% resource_other_returned_count = generic_model_status_count(ResourceBooking, "Returned")%>
         <% resource_other_process_count = generic_model_status_count(ResourceBooking, "Approved")%>
+        <%resource_manager_other_count = resource_other_returned_count + resource_other_process_count%>
 
         <div id="control">
           <a id="controlbtn" class="open" href="javascript:void(0);" alt="Side Panel"><%= t('left_nav.side_panel')%></a>
@@ -68,19 +80,19 @@
                 <div id ="div_process_resource_booking" style="display:none;">
                   <ul>
                     <li>
-                      <span class="notifiNo"><%= resource_transport_process_count > 0 ? resource_transport_process_count : '' %></span>
+                      <span class="notifiNo"><%= resource_manager_transport_count > 0 ? resource_manager_transport_count : '' %></span>
                       <%=link_to t('left_nav.travel_req'),approve_request_resource_transportation_bookings_path%>
                     </li>
                     <li>
-                      <span class="notifiNo"><%= resource_room_process_count > 0 ? resource_room_process_count : '' %></span>
+                      <span class="notifiNo"><%= resource_manager_room_count > 0 ? resource_manager_room_count : '' %></span>
                       <%=link_to t('labels.room_booking'), list_resource_booking_resource_room_bookings_path%>
                     </li>
                     <li>
-                      <span class="notifiNo"><%= resource_ict_process_count > 0 ? resource_ict_process_count : '' %></span>
+                      <span class="notifiNo"><%= resource_manager_ict_count > 0 ? resource_manager_ict_count : '' %></span>
                       <%=link_to t('left_nav.ict_equip_book'), requests_resource_ict_equipment_bookings_path%>
                     </li>
                     <li>
-                      <span class="notifiNo"><%= resource_other_process_count > 0 ? resource_other_process_count : '' %></span>
+                      <span class="notifiNo"><%= resource_manager_other_count > 0 ? resource_manager_other_count : '' %></span>
                       <%=link_to t('labels.others_booking'), list_resource_booking_resource_bookings_path%>
                     </li>
                   </ul>
@@ -138,12 +150,12 @@
                   <li>
                     <% ict_vpn_count = generic_model_status_count(IctVpn,'Approved') %>
                     <span class="notifiNo"> <%=  ict_vpn_count > 0 ? ict_vpn_count : ''%></span>
-                    <%=link_to t('left_nav.vpn_req'), ict_vpns_path %>
+                    <%=link_to t('left_nav.vpn_req'), list_vpn_ict_vpns_path %>
                   </li>
                   <li>
                     <% ict_system_access_count = generic_model_status_count(IctSystemAccess,'Approved') %>
                     <span class="notifiNo"> <%=  ict_system_access_count > 0 ? ict_system_access_count : ''%></span>
-                    <%=link_to t('left_nav.sys_access_req'), ict_system_accesses_path %>
+                    <%=link_to t('left_nav.sys_access_req'), list_system_access_ict_system_accesses_path %>
                   </li>
                 </ul>
               </div>
@@ -173,17 +185,15 @@
                   <li>
                     <% ict_vpn_count = generic_model_status_count(IctVpn,'New') %>
                     <span class="notifiNo"> <%=  ict_vpn_count > 0 ? ict_vpn_count : ''%></span>
-                    <%=link_to t('left_nav.vpn_req'), ict_vpns_path %>
+                    <%=link_to t('left_nav.vpn_req'), list_vpn_ict_vpns_path %>
                   </li>
                   <li>
                     <% ict_system_access_count = generic_model_status_count(IctSystemAccess,'New') %>
                     <span class="notifiNo"> <%=  ict_system_access_count > 0 ? ict_system_access_count : ''%></span>
-                    <%=link_to t('left_nav.sys_access_req'), ict_system_accesses_path %>
+                    <%=link_to t('left_nav.sys_access_req'), list_system_access_ict_system_accesses_path %>
                   </li>
                 </ul>
               </div>
-
-
             </li>
             <li>
               <%=link_to t('labels.complaints_issue_logs'), "javascript:void(0);" , :title=>"Approve Complaint" ,:class=>"", :id=>"lnk_approve_complaint" ,:onclick=>"leftNavigation(this.id,'div_approve_complaint')"%>
@@ -192,19 +202,19 @@
                   <li>
                     <%complaint_building_asset_count = generic_model_status_count(ComplaintBuildingAsset,'New')%>
                     <span class="notifiNo"><%= complaint_building_asset_count > 0 ? complaint_building_asset_count : '' %></span>
-                    <%=link_to t('labels.app_building_asset'), complaint_building_assets_path %>
+                    <%=link_to t('labels.app_building_asset'), list_complaint_building_asset_complaint_building_assets_path %>
                   </li>
                   <li>
                     <%complaint_computer_count = generic_model_status_count(ComplaintComputer,'New')%>
                     <span class="notifiNo"><%= complaint_computer_count > 0 ? complaint_computer_count : '' %></span>
-                    <%=link_to t('labels.app_computers'), complaint_computers_path %>
+                    <%=link_to t('labels.app_computers'), list_complaint_computer_complaint_computers_path %>
                   </li>
                   <% building_user= generic_model_person_incharge(ComplaintBuildingAsset,"forward_to")%>
                   <%if building_user.present?%>
                     <li>
                       <%building_count = generic_model_status_count(ComplaintBuildingAsset,'Approved')%>
                       <span class="notifiNo"><%= building_count > 0 ? building_count : '' %></span>
-                      <%=link_to t('labels.process_building_assets'), complaint_building_assets_path %>
+                      <%=link_to t('labels.process_building_assets'), list_complaint_building_asset_complaint_building_assets_path %>
                     </li>
                   <%end%>
                   <% computer_user = generic_model_person_incharge(ComplaintComputer,"forward_to")%>
@@ -212,7 +222,7 @@
                     <li>
                       <%computer_count = generic_model_status_count(ComplaintComputer,'Approved')%>
                       <span class="notifiNo"><%= computer_count > 0 ? computer_count : '' %></span>
-                      <%=link_to t('labels.process_com'), complaint_computers_path %>
+                      <%=link_to t('labels.process_com'), list_complaint_computer_complaint_computers_path %>
                     </li>
                   <%end%>
                 </ul>
@@ -473,7 +483,9 @@
                     <div id ="div_complaints_issue_logs" style="display:none;">
                       <ul>
                         <li><%=link_to t('labels.create_building_asset'), new_complaint_building_asset_path%></li>
+                        <li><%=link_to t('labels.list_building_asset'), complaint_building_assets_path%></li>
                         <li><%=link_to t('labels.create_computers'), new_complaint_computer_path%></li>
+                        <li><%=link_to t('labels.list_computers'), complaint_computers_path%></li>
                       </ul>
                     </div>
                   </li>
@@ -868,7 +880,13 @@
                         <%= link_to t('labels.create_building_asset'), new_complaint_building_asset_path%>
                       </li>
                       <li>
+                        <%= link_to t('labels.list_building_asset'), complaint_building_assets_path%>
+                      </li>
+                      <li>
                         <%= link_to t('labels.create_computers'), new_complaint_computer_path%>
+                      </li>
+                      <li>
+                        <%= link_to t('labels.list_computers'), complaint_computers_path%>
                       </li>
                     </ul>
                   </div>
