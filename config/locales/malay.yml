@@ -1054,7 +1054,8 @@ malay:
     group_members: "Ahli Kumpulan"
     vehicle_registration: "Pendaftaran Kenderaan"
     vehicle: "kenderaan"
-     
+    manage_trans_booking: "Mengurus Tempahan Pengangkutan"
+    manage_trans_req: "Mengurus Permintaan Pengangkutan" 
 
     
     

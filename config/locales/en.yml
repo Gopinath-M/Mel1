@@ -237,7 +237,7 @@ en:
     remarks: "Remarks"
     upload_file: "Upload File"
     resource_transport_book: "Resource Transportation Bookings"
-    resource_transport_approval_list: "Resource transport Approval List"
+    resource_transport_approval_list: "Resource Transport Approval List"
     resource_ex_no: "Resource Ex No"
     total_quanty: "Total Quantity"
     create_facility: "Create facility"
@@ -899,6 +899,8 @@ en:
     group_members: "Group Members"
     vehicle_registration: "Vehicle Registration"
     vehicle: "Vehicle"
+    manage_trans_booking: "Manage Transport Bookings"
+    manage_trans_req: "Manage Transport Request"
 
   
 
