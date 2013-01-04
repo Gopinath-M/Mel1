@@ -31,9 +31,15 @@ class IctSystemAccessesController < ApplicationController
       @requisition_ict_system_access=RequisitionType.find(@ict_system_access.requisition_type_id)
       @system_access_ict_system_access=SystemAccess.find(@ict_system_access.system_access_id)
       if !@approve.present?
+        ict_email = User.find_by_id(@ict_system_access.user_id)
+        UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
+
         ict_email = dept.users.where("role_id = 2").first
         UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
       else
+        ict_email = User.find_by_id(@ict_system_access.user_id)
+        UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
+
         ict_email = User.find_by_id(@approve.user_id)
         UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
       end
@@ -55,6 +61,9 @@ class IctSystemAccessesController < ApplicationController
     if @ict_system_access.update_attributes(params[:ict_system_access])
       ict_email = User.find_by_id(@ict_system_access.forward_to)
       UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
+      ict_email = User.find_by_id(@ict_system_access.user_id)
+      UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
+
 
       redirect_to(ict_system_accesses_path, :notice => 'Booked Resource ICT System Access has been updated and Mail has been sent successfully')
     else

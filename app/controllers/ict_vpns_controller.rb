@@ -11,7 +11,7 @@ class IctVpnsController < ApplicationController
     end
   end
 
-   def new
+  def new
     @ict_vpn=IctVpn.new
   end
 
@@ -27,9 +27,15 @@ class IctVpnsController < ApplicationController
       @requisition_ict_vpn=RequisitionType.find(@ict_vpn.requisition_type_id)
       @system_access_ict_vpn=SystemAccess.find(@ict_vpn.system_access_id)
       if !@approve.present?
+        ict_email = User.find_by_id(@ict_vpn.user_id)
+        UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
+    
         ict_email = dept.users.where("role_id = 2").first
         UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
       else
+        ict_email = User.find_by_id(@ict_vpn.user_id)
+        UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
+
         ict_email = User.find_by_id(@approve.user_id)
         UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
       end
@@ -50,6 +56,9 @@ class IctVpnsController < ApplicationController
     if @ict_vpn.update_attributes(params[:ict_vpn])
       ict_email = User.find_by_id(@ict_vpn.forward_to)
       UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
+      ict_email = User.find_by_id(@ict_vpn.user_id)
+      UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
+
       redirect_to(ict_vpns_path, :notice => 'Booked Requisition ICT VPN has been updated and Mail has been sent successfully')
     else
       render :action=>'new'

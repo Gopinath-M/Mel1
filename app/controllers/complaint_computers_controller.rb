@@ -27,9 +27,15 @@ class ComplaintComputersController < ApplicationController
       @system_access_name = SystemAccess.find_by_id(@complaint_computer.system_access_id)
       @system_model_name = SystemModelType.find_by_id(@complaint_computer.system_model_type_id)
       if !@approve.present?
+        ict_email = User.find_by_id(@complaint_computer.user_id)
+        UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
+
         ict_email = dept.users.where("role_id = 2").first
         UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
       else
+        ict_email = User.find_by_id(@complaint_computer.user_id)
+        UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
+
         ict_email = User.find_by_id(@approve.user_id)
         UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
       end
@@ -47,11 +53,13 @@ class ComplaintComputersController < ApplicationController
     @system_access_name = SystemAccess.find_by_id(@complaint_computer.system_access_id)
     @system_model_name = SystemModelType.find_by_id(@complaint_computer.system_model_type_id)
     if params[:forward_to] != nil || params[:status] !=nil
-    @complaint_computer.update_attributes(params[:complaint_computer])
+      @complaint_computer.update_attributes(params[:complaint_computer])
     end
     
     if @complaint_computer.update_attributes(params[:complaint_computer])
       ict_email = User.find_by_id(@complaint_computer.forward_to)
+      UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
+      ict_email = User.find_by_id(@complaint_computer.user_id)
       UserMailer.send_mail_to_complaint_computer(ict_email, @complaint_computer, @name, @system_access_name, @system_model_name, current_user).deliver
 
       redirect_to(complaint_computers_path, :notice => 'Complained Computers Status has been updated and Mail has been sent successfully')
