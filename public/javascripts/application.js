@@ -513,7 +513,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transfer_username').find('option').remove().end()
-                    $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    $('#transfer_username').append($("<option></option>").attr("value","").text("Select User"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transfer_username').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -526,7 +526,7 @@ $().ready(function(){
             $("#div_dept_transfer").hide();
             $("#value_assign").hide();
             $('#transfer_role_id').find('option').remove().end()
-            $('#transfer_role_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Department"));
         }
     });
 
@@ -540,7 +540,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#transfer_username_id').find('option').remove().end()
-                    $('#transfer_username_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    $('#transfer_username_id').append($("<option></option>").attr("value","").text("Select User"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#transfer_username_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -553,7 +553,7 @@ $().ready(function(){
             $("#div_dept_transfer").hide();
             $("#value_assign").hide();
             $('#transfer_role_id').find('option').remove().end()
-            $('#transfer_role_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Department"));
         }
     });
 
@@ -577,7 +577,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#role_membership_department_id').find('option').remove().end()
-                    $('#role_membership_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#role_membership_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#role_membership_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -589,8 +589,8 @@ $().ready(function(){
         {
             $('#role_membership_department_id').find('option').remove().end()
             $('#role_membership_user_id').find('option').remove().end()
-            $('#role_membership_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
-            $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+            $('#role_membership_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+            $('#role_membership_user_id').append($("<option></option>").attr("value","").text("Select User"));
         }
     });
 
@@ -605,7 +605,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#role_membership_user_id').find('option').remove().end()
-                    $('#role_membership_user_id').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+                    $('#role_membership_user_id').append($("<option></option>").attr("value","").text("Select User"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#role_membership_user_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
@@ -624,7 +624,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#from_department_id').find('option').remove().end()
-                    $('#from_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#from_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#from_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -636,8 +636,8 @@ $().ready(function(){
         {
             $('#from_department_id').find('option').remove().end()
             $('#transfer_username').find('option').remove().end()
-            $('#from_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
-            $('#transfer_username').append($("<option></option>").attr("value","").text("SELECT AN USER"));
+            $('#from_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+            $('#transfer_username').append($("<option></option>").attr("value","").text("Select User"));
         }
     });
 
@@ -650,7 +650,7 @@ $().ready(function(){
                 if (data[0]!=null)
                 {
                     $('#to_department_id').find('option').remove().end()
-                    $('#to_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+                    $('#to_department_id').append($("<option></option>").attr("value","").text("Select Department"));
                     for(var i=0; i<data[0].length;i++)
                     {
                         $('#to_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
@@ -661,7 +661,7 @@ $().ready(function(){
         else
         {
             $('#to_department_id').find('option').remove().end()
-            $('#to_department_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#to_department_id').append($("<option></option>").attr("value","").text("Select Department"));
         }
     });
 
@@ -759,7 +759,7 @@ $().ready(function(){
         {
             $("#value_assign").hide();
             $('#transfer_role_id').find('option').remove().end()
-            $('#transfer_role_id').append($("<option></option>").attr("value","").text("SELECT A DEPARTMENT"));
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Department"));
         }
     });
 
