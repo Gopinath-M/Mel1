@@ -11,6 +11,11 @@
         <% resource_transport_new_count = generic_model_status_count(ResourceTransportationBooking, "New")%>
         <% resource_other_new_count = generic_model_status_count(ResourceBooking, "New")%>
         <% ict_network_new_count = generic_model_status_count(IctNetworkPoint,'New')%>
+        <% resource_room_process_count = generic_model_status_count(ResourceRoomBooking, "Approved") %>
+        <% resource_ict_process_count = generic_model_status_count(ResourceIctEquipmentBooking, "Approved")%>
+        <% resource_transport_process_count = generic_model_status_count(ResourceTransportationBooking, "Approved")%>
+        <% resource_other_process_count = generic_model_status_count(ResourceBooking, "Approved")%>
+
         <div id="control">
           <a id="controlbtn" class="open" href="javascript:void(0);" alt="Side Panel"><%= t('left_nav.side_panel')%></a>
         </div>
@@ -57,38 +62,57 @@
           <h2><%= t('left_nav.alerts')%></h2>
           <ul>
   <%# if (current_user.is_datuk_suk? || current_user.is_department_admin? || current_user.is_suk_deputy? || current_user.is_human_resource_manager? || current_user.is_chief_minister?) %>
-            <li>
-              <%if session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER%>
+            <%if session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER %>
+              <li>
+                <%=link_to t('labels.process_res_booking'), "javascript:void(0);" , :title=>t('labels.process_res_booking') ,:class=>"", :id=>"lnk_process_resource_booking" ,:onclick=>"leftNavigation(this.id,'div_process_resource_booking')"%>
+                <div id ="div_process_resource_booking" style="display:none;">
+                  <ul>
+                    <li>
+                      <span class="notifiNo"><%= resource_transport_process_count > 0 ? resource_transport_process_count : '' %></span>
+                      <%=link_to t('left_nav.travel_req'),approve_request_resource_transportation_bookings_path%>
+                    </li>
+                    <li>
+                      <span class="notifiNo"><%= resource_room_process_count > 0 ? resource_room_process_count : '' %></span>
+                      <%=link_to t('labels.room_booking'), list_resource_booking_resource_room_bookings_path%>
+                    </li>
+                    <li>
+                      <span class="notifiNo"><%= resource_ict_process_count > 0 ? resource_ict_process_count : '' %></span>
+                      <%=link_to t('left_nav.ict_equip_book'), requests_resource_ict_equipment_bookings_path%>
+                    </li>
+                    <li>
+                      <span class="notifiNo"><%= resource_other_process_count > 0 ? resource_other_process_count : '' %></span>
+                      <%=link_to t('labels.others_booking'), list_resource_booking_resource_bookings_path%>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            <%else%>
+              <li>
                 <%=link_to t('labels.approve_res_booking'), "javascript:void(0);" , :title=>t('labels.approve_res_booking') ,:class=>"", :id=>"lnk_approve_resource_booking" ,:onclick=>"leftNavigation(this.id,'div_approve_resource_booking')"%>
-              <%else%>
-                <%=link_to t('labels.process_res_booking'), "javascript:void(0);" , :title=>t('labels.process_res_booking') ,:class=>"", :id=>"lnk_approve_resource_booking" ,:onclick=>"leftNavigation(this.id,'div_approve_resource_booking')"%>
-              <%end%>
+                <div id ="div_approve_resource_booking" style="display:none;">
+                  <ul>
+                    <li>
+                      <span class="notifiNo"><%= resource_transport_new_count > 0 ? resource_transport_new_count : '' %></span>
+                      <%=link_to t('left_nav.travel_req'),approve_request_resource_transportation_bookings_path%>
+                    </li>
+                    <li>
+                      <span class="notifiNo"><%= resource_room_new_count > 0 ? resource_room_new_count : '' %></span>
+                      <%=link_to t('labels.room_booking'), list_resource_booking_resource_room_bookings_path%>
+                    </li>
+                    <li>
+                      <span class="notifiNo"><%= resource_ict_new_count > 0 ? resource_ict_new_count : '' %></span>
+                      <%=link_to t('left_nav.ict_equip_book'), requests_resource_ict_equipment_bookings_path%>
+                    </li>
+                    <li>
+                      <span class="notifiNo"><%= resource_other_new_count > 0 ? resource_other_new_count : '' %></span>
+                      <%=link_to t('labels.others_booking'), list_resource_booking_resource_bookings_path%>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            <%end%>
 
-              <div id ="div_approve_resource_booking" style="display:none;">
-                <ul>
-                  <li>
-                    <span class="notifiNo"><%= resource_transport_new_count > 0 ? resource_transport_new_count : '' %></span>
-                    <%=link_to t('left_nav.travel_req'),approve_request_resource_transportation_bookings_path%>
-                  </li>
-                  <li>
-                    <span class="notifiNo"><%= resource_room_new_count > 0 ? resource_room_new_count : '' %></span>
-                    <%=link_to t('labels.approve_room_request'), list_resource_booking_resource_room_bookings_path%>
-                  </li>
-                  <li>
-                    <span class="notifiNo"><%= resource_ict_new_count > 0 ? resource_ict_new_count : '' %></span>
-                    <%=link_to t('left_nav.ict_equip_book'), requests_resource_ict_equipment_bookings_path%>
-                  </li>
-                  <li>
-                    <span class="notifiNo"><%= resource_other_new_count > 0 ? resource_other_new_count : '' %></span>
-                    <%=link_to t('labels.others_booking'), list_resource_booking_resource_bookings_path%>
-                  </li>
-                </ul>
-              </div>
-            </li>
             <li>
-
-
-
               <%=link_to t('labels.process_ict_facility'), "javascript:void(0);" , :title=>t('labels.ict_facility') ,:class=>"", :id=>"lnk_process_ict_facility" ,:onclick=>"leftNavigation(this.id,'div_process_ict_facility')"%>
               <div id="div_process_ict_facility" style="display:none;">
                 <ul>
@@ -610,7 +634,7 @@
       <li>
       %>
       <%# support_count = Outstation.where(:status=>"New").count  %>
-              <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+          <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
       <%#=link_to "Verify Request", approve_request_outstations_path%>
       <%#*
       </li>%>

@@ -78,9 +78,7 @@ module ResourceTransportationBookingsHelper
     as1.update_attribute(:booked,true)
     end
     driver.update_attribute(:already_assigned,true)
-
-    disable_the_sub_category_when_that_sub_category_is_fully_reserved(as.sub_category_id)
-    
+    disable_the_sub_category_when_that_sub_category_is_fully_reserved(as.sub_category_id)    
   end
 
   def decline_scenario(id)
