@@ -1056,6 +1056,9 @@ malay:
     vehicle: "kenderaan"
     manage_trans_booking: "Mengurus Tempahan Pengangkutan"
     manage_trans_req: "Mengurus Permintaan Pengangkutan" 
+    trans_req_details: "Pengangkutan Details Permintaan"
+    trans_approve_req: "Pengangkutan Meluluskan Permintaan"
+    trans_process_req: "Permintaan Proses Angkutan"
 
     
     

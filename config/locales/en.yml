@@ -900,8 +900,10 @@ en:
     vehicle_registration: "Vehicle Registration"
     vehicle: "Vehicle"
     manage_trans_booking: "Manage Transport Bookings"
-    manage_trans_req: "Manage Transport Request"
-
+    manage_trans_req: "Manage Transport Requests"
+    trans_req_details: "Transport Request Details"
+    trans_approve_req: "Transport Approve Request"
+    trans_process_req: "Transport Process Request" 
   
 
 
