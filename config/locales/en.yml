@@ -72,6 +72,12 @@ en:
     message_list: "No new Messages"
 
   left_nav:
+    list_building_asset: "List Building Asset"
+    list_computer: "List Computer"
+    list_vpn: "List VPN"
+    list_system_access: "List System Access"
+    change_event: "Change Event"
+    change_advertisement: "Change Advertisement"
     public: "Public"
     private: "Private"
     daily_updates: "Daily Updates"
@@ -903,7 +909,8 @@ en:
     manage_trans_req: "Manage Transport Requests"
     trans_req_details: "Transport Request Details"
     trans_approve_req: "Transport Approve Request"
-    trans_process_req: "Transport Process Request" 
+    trans_process_req: "Transport Process Request"
+    no_user_available: "No User Available"   
   
 
 
