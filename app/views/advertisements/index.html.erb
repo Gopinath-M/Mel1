@@ -1,10 +1,10 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head"><%=t('labels.list_of_adv_details')%></h2>
+    <h2 class="b-head">List of Advertisement Details</h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
       <% if current_user.is_super_admin? %>
-        <div class="cu-c1"><a href="/advertisements/new" title=<%=t('labels.create_adv')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.create_adv')%></a></div>
+        <div class="cu-c1"><a href="/advertisements/new" title="Advertisements"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create an Advertisement</a></div>
       <%end%>
     </div>
   <%end%>
@@ -13,7 +13,7 @@
       <%@advertisements.each do |advertisement|%>
         <div class="manage-user box">
           <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.adv_id')%></b>
+            <div class="m-c1"><b>Advertisement ID</b>
             </div>
             <div class="m-c2">
               <font color="#BB0802"><b><%= advertisement.id%></b></font>
@@ -23,7 +23,7 @@
           </div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.web_site_url')%>/b>
+            <div class="m-c1"><b>Web-site URL</b>
             </div>
             <div class="m-c2">
               <a href=<%= advertisement.web_link%>><b><%= advertisement.web_link%></b></a>
@@ -33,7 +33,7 @@
           </div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.from_date')%></b>
+            <div class="m-c1"><b>From Date</b>
             </div>
             <div class="m-c2">
               <%= advertisement.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if advertisement.from_date%>
@@ -43,13 +43,13 @@
           </div>
 
           <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.to_date')%></b>
+            <div class="m-c1"><b>To Date</b>
             </div>
             <div class="m-c2">
               <%= advertisement.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if advertisement.to_date%>
             </div>
             <div class="m-c3">
-              <b><font color="#336699"><%= link_to t('labels.show_info'), advertisement_path(:id => advertisement.id), :method=>:get%></font></b>
+              <b><font color="#336699"><%= link_to "Show Info", advertisement_path(:id => advertisement.id), :method=>:get%></font></b>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
         <%= paginate @advertisements %>
       </div>
     <%else%>
-      <%=t('labels.no_adv_available')%>
+      No Events Available
     <%end%>
   </div>
 </div>

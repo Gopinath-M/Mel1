@@ -88,5 +88,18 @@ class ComplaintBuildingAssetsController < ApplicationController
     render :json=>[building_asset_types] if building_asset_types
   end
 
+  def list_complaint_building_asset
+    @approve = Approver.active.find_all_by_department_id(@current_department).first
+    @approver_second = Approver.active.find_all_by_department_id(@current_department).last
+    if !@approve.present? && !@approver_second.present?
+      @list_complaint_building_asset = ComplaintBuildingAsset.where(:department_id => @current_department).order.page(params[:page]).per(4)
+    else
+      @list_complaint_building_asset = ComplaintBuildingAsset.where(:forward_to => current_user.id).order.page(params[:page]).per(4)
+    end
+    if @approve.present?
+      @list_complaint_building_asset = ComplaintBuildingAsset.where(:department_id => @approve.department_id).order.page(params[:page]).per(4)
+    end
+  end
+
 end
 
