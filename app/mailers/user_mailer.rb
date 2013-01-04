@@ -276,7 +276,7 @@ class UserMailer < ActionMailer::Base
     @user=user
     @requisition= resource_transport_booking
     @department = dept
-    mail(:to=>@user.email,:subject =>" Details of Resource Transport Booking")
+    mail(:to=>@user.email,:subject =>"Details of Resource Transport Booking")
   end
 
   def send_mail_to_user_for_transport_booking(user,resource_transport_booking)

@@ -94,6 +94,37 @@
                     <td>&nbsp;<% if @requisition.status == "New"%><b><font color='#FFA500'><%= @requisition.status %></font></b><% elsif @requisition.status == "Approved" || @requisition.status == "Processed"  %>  <b><font color='#329C20'><%= @requisition.status %> </font></b><% elsif @requisition.status == "Declined" || @requisition.status == "Returned"  %>  <b><font color='red'><%= @requisition.status %> </font></b><% end %>
                     </td>
                   </tr>
+                  <% if @requisition.status == "Approved" || @requisition.status == "Processed" || @requisition.status == "Returned" %>
+                  <tr>
+                    <td><b>Vehicle Brand</b></td>                    
+                    <td>&nbsp;<%= VehicleModelType.find(@requisition.agency_store.resource.vehicle_model_type_id).name %>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td><b>Vehicle Model</b></td>
+                    <td>&nbsp;<%= Resource.find(@requisition.agency_store.resource_id).vehicle_model %>
+                    </td>
+                  </tr>
+                  
+                   <tr>
+                    <td><b>Vehicle Registration</b></td>
+                    <td>&nbsp;<%= Resource.find(@requisition.agency_store.resource_id).resource_no %>
+                    </td>
+                  </tr>
+                  <% driver = Driver.find(@requisition.driver_id) %>
+                  <tr>
+                    <td><b>Driver Name</b></td>
+                    <td>&nbsp;<%= driver.name %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Driver Telephone</b></td>
+                    <td>&nbsp;<%= driver.telephone_number %>
+                    </td>
+                  </tr>
+                  
+                  <%end%>
                   <tr>
                     <td>
                       <b>Requested From Date</b>
@@ -103,7 +134,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <b>Requested From Date</b>
+                      <b>Requested To Date</b>
                     </td>
                     <td>&nbsp;<%= @requisition.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
                     </td>

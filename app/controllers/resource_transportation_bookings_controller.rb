@@ -92,9 +92,10 @@ class ResourceTransportationBookingsController < ApplicationController
           redirect_to(resource_transportation_bookings_path, :notice => "Your Transport booking has been created sucessfully.")
         else
           agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_booked])
-          rtb_old = ResourceTransportationBooking.find(:all,:conditions=>["(status = 'New' or status = 'Approved') and agency_store_id=#{agency_store.id}"])
+          rtb_old = ResourceTransportationBooking.find(:first,:conditions=>["(status = 'New' or status = 'Approved') and agency_store_id=#{agency_store.id}"])
+          #rtb_old = ResourceTransportationBooking.where("agency_store_id = #{agency_store.id} and (status='New' or status='Approved'")
           if rtb_old.present?
-            rtb_old.update_attributes(:status => "Cancelled")
+            rtb_old.update_attribute(:status,"Cancelled")
             @resource_transportation_booking.agency_store_id = rtb_old.agency_store_id
             @resource_transportation_booking.driver_id = rtb_old.driver_id
             @resource_transportation_booking.status = "Processed"

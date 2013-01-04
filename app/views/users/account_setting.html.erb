@@ -81,7 +81,7 @@
         <div class="form-sec-row5">
           <label class="text"><b><%=t('labels.hours_min')%></b></label>
           <span class="in-box5">
-            <%= ffff.time_select :timeline, :default=>Time.now.change(:hour => 12, :min => 00) %>
+              <%= ffff.time_select :timeline, :default=>Time.now.change(:hour => !@setting.nil? ? @setting.timeline.strftime("%H") : 12, :min => !@setting.nil? ? @setting.timeline.strftime("%M") : 00) %>
           </span>
         </div><br/>
         <div class="form-sec-row">

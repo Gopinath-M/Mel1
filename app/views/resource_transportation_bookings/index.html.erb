@@ -88,6 +88,11 @@
           <div class="clear"></div>
           <h2 class="b-head"></h2>
         </div>
-      <%end%><%end%>
+      <%end%>
+      <div class="manage-user-rows box"><br/><br/>
+        <%= paginate @resource_transportation_bookings %></div>
+        <%else%>
+        <%=t('labels.no_data_available')%>
+      <%end%>
   </div>
 </div>

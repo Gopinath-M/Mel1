@@ -96,7 +96,7 @@
                   </span>
                 <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
                   <span class="in-box">
-                    <% if !val.present? %>
+                    <% if resource.status == "New" %>
                       <%= link_to t('labels.approve_request'),room_booking_approval_resource_room_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
                     <%end%>
                   </span>

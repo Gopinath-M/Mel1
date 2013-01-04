@@ -473,3 +473,5 @@ span.in-box2  { padding: 5px; width: 132%;}
 .size-quan-box-ict-network{width:20px}
 .form-sec-row-ict select {border: 1px solid #96A6C5; padding: 5px;width: 26%;}
 .form-sec-row-ict label.text-ict {float: left;font-weight: 700;width: 151px;}
+.manage-user-row .mu-c2-map {float: left;margin-left: 10px; width: 38%; margin-top:13px}
+.manage-user-row .mu-c3-map {float: right; width: 39%; margin-top:13px}
