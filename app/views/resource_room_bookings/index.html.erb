@@ -18,7 +18,7 @@
                 <% @user = User.find_by_id(resource.user_id) %>
                 <%= @user.username %>
               </div>
-              <div class="m-c3">
+              <div class="m-c3-second">
                 <% if resource.status == "New"%><b><font color='#FFA500'><%= "#{resource.status}" %></font></b><% elsif resource.status == "Approved" || resource.status == "Processed"  %>  <b><font color='#329C20'><%= "#{resource.status}" %> </font></b><% elsif resource.status == "Declined" || resource.status == "Returned"  %>  <b><font color='red'><%= "#{resource.status}" %> </font></b><% end %>
               </div>
             </div>
@@ -30,7 +30,7 @@
                 <% @name = SubCategory.find_by_id(resource.sub_category_id)%>
                 <%=@name.name%>
               </div>
-              <div class="m-c3">
+              <div class="m-c3-second">
                 <div class="form-sec-row">
                   <% if resource.status == "Processed" && resource.user_id = current_user.id%>
                     <div id="hide_check_box_<%= resource.id %>">
@@ -55,7 +55,7 @@
               <div class="m-c2">
                 <font color="red"><b>&nbsp;<%=resource.id%>/<%=Time.now.year%></b></font>
               </div>
-              <div class="m-c3">
+              <div class="m-c3-second">
                 <b><font color="#336699"><%= link_to t('labels.show_info'),resource_room_booking_path(:id => resource.id), :method=>:get%></font></b>
               </div>
             </div>
