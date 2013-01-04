@@ -40,6 +40,7 @@ class ResourceRoomBookingsController < ApplicationController
   end
 
   def create
+    category
     #    p from_date = params[:resource_room_booking][:requested_from_date].to_datetime.to_s
     #    p to_date = params[:resource_room_booking][:requested_to_date].to_datetime.to_s
     agency = AgencyStore.find_by_resource_id(params[:resource_room_booking][:resource_id])

@@ -17,7 +17,7 @@
               <%= @user.first_name%>
             </span>
           </div>
-          
+
           <div class="form-sec-row">
             <label class="text"><%=t('labels.resource_name')%></label>
             <span class="in-box">
@@ -36,7 +36,7 @@
               <%= resource.requested_from_date.strftime("%d-%m-%Y %H:%M %p")%>
             </span>
           </div>
-         
+
           <div class="form-sec-row">
             <label class="text"><%=t('labels.to_date')%></label>
             <span class="in-box">
@@ -55,35 +55,132 @@
               <b><%= resource.status%></b>
             </span>
           </div>
-          <div class="form-sec-row2">
-            <% if @approve.present?  && @approve.user_id == current_user.id && resource.created_at > (Time.now-seconds) %>
-              <span class="in-box2">
-                <% if resource.status == "New" %>
-                  <%= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b><%=t('labels.room_name')%></b>
+            </div>
+            <div class="m-c2">
+              <% @name = SubCategory.find_by_id(resource.sub_category_id)%>
+              <%=@name.name%>
+            </div>
+
+            <% time = Setting.find_by_id(1) %>
+            <% if time.present? %>
+              <% temp = time.timeline.strftime("%H:%M:%S")%>
+              <%dt = DateTime.parse(temp)%>
+              <% seconds = dt.hour * 3600 + dt.min * 60 %>
+
+              <div class="m-c3">
+                <% if @approve.present?  && @approve.user_id == current_user.id && resource.created_at > (Time.now-seconds) %>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <%= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%end%>
+                  </span>
+                <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && resource.created_at > (Time.now-2*seconds)%>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <% val = (resource.created_at > (Time.now-seconds))  %>
+                      <% if !val.present? %>
+                        <% if @approve.present?%>
+                          <% user = User.find(@approve.user_id) %>
+                          <% UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+                        <%end%>
+                        <%= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%end%>
+                    <%end%>
+                  </span>
+                <%elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN &&  @approve.nil? && @approver_second.nil? %>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <%= link_to "Approve",approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%end%>
+                  </span>
+                <% elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN%>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <% val = (resource.created_at > (Time.now-seconds)) %>
+                      <% val1 = (resource.created_at > (Time.now-2*seconds)) %>
+                      <% if !val.present? && !val1.present? %>
+                        <% if @approver_second.present?%>
+                          <% user = User.find(@approver_second.user_id) %>
+                          <%  UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+                        <%end%>
+                        <%= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                      <%end%>
+                    <%end%>
+                  </span>
+                <%elsif current_user.is_resource_manager?%>
+                  <span class="in-box">
+                    <% if resource.status == "Approved" %>
+                      <%= link_to t('labels.process_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%elsif resource.user_returned_status? && resource.status != "Returned" && resource.status != "Declined" %>
+                      <%= link_to t('labels.acknowledge'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%end%>
+                  </span>
                 <%end%>
-              </span>
-            <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id && resource.created_at > (Time.now-2*seconds)%>
-              <span class="in-box2">
-                <% if resource.status == "New" %>
-                  <%= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+              </div>
+            <%else%>
+              <div class="m-c3">
+                <% if @approve.present?  && @approve.user_id == current_user.id %>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <%= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%end%>
+                  </span>
+                <% elsif @approver_second.present?  && @approver_second.user_id == current_user.id %>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <%= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%end%>
+                  </span>
+                <% elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN && !@approve.present? && !@approver_second.present?%>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <%= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%end%>
+                  </span>
+                <%elsif current_user.is_resource_manager?%>
+                  <span class="in-box">
+                    <% if resource.status == "Approved" %>
+                      <%= link_to t('labels.process_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%elsif resource.user_returned_status? && resource.status != "Returned" && resource.status != "Declined" %>
+                      <%= link_to t('labels.acknowledge'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                    <%end%>
+                  </span>
                 <%end%>
-              </span>
-            <%elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN &&  !@approve.present? %>
-              <span class="in-box2">
-                <% if resource.status == "New" %>
-                  <%= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
-                <%end%>
-              </span>
-            <%elsif session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER%>
-              <span class="in-box2">
-                <% if resource.status == "Approved" %>
-                  <%= link_to t('labels.process_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
-                <%elsif resource.user_returned_status? && resource.status != "Returned" && resource.status != "Declined" %>
-                  <%= link_to t('labels.ack'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
-                <%end%>
-              </span>
+              </div>
             <%end%>
           </div>
+
+          <%#*<div class="form-sec-row2">%>
+            <%# if @approve.present?  && @approve.user_id == current_user.id && resource.created_at > (Time.now-seconds) %>
+              <%#*<span class="in-box2">%>
+                <%# if resource.status == "New" %>
+                  <%#= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                <%#end%>
+              <%#*</span>%>
+            <%# elsif @approver_second.present?  && @approver_second.user_id == current_user.id && resource.created_at > (Time.now-2*seconds)%>
+              <%#*<span class="in-box2">%>
+                <%# if resource.status == "New" %>
+                  <%#= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                <%#end%>
+              <%#*</span>%>
+            <%#elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN &&  !@approve.present? %>
+              <%#*<span class="in-box2">%>
+                <%# if resource.status == "New" %>
+                  <%#= link_to t('labels.approve_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                <%#end%>
+              <%#*</span>%>
+            <%#elsif session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER%>
+              <%#*<span class="in-box2">%>
+                <%# if resource.status == "Approved" %>
+                  <%#= link_to t('labels.process_request'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                <%#elsif resource.user_returned_status? && resource.status != "Returned" && resource.status != "Declined" %>
+                  <%#= link_to t('labels.ack'),approve_request_resource_ict_equipment_bookings_path(:id => resource.id), :class=>"btn2 in-btn2"%>
+                <%#end%>
+              <%#*</span>%>
+            <%#end%>
+          <%#*</div>%>
           <div class="form-sec-row">
             <span class="in-box">
               <b color="#336699"><%= link_to t('labels.show_info'),resource_ict_equipment_booking_path(:id => resource.id), :method=>:get%></b>
