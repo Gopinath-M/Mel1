@@ -1,10 +1,10 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">List of Events</h2>
+    <h2 class="b-head"><%=t('labels.list_of_events')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
       <% if current_user.is_super_admin? %>
-        <div class="cu-c1"><a href="/events/new" title="Create Event"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> Create Event</a></div>
+        <div class="cu-c1"><a href="/events/new" title=<%=t('labels.create_event')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.create_event')%></a></div>
       <%end%>
     </div>
   <%end%>
@@ -19,11 +19,11 @@
               <p class="head1"><%=event.name%></p>
             </div>
             <div class="mu-c3">
-              <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Edit", :action=>'edit', :id=>event.id.to_i%>
+              <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.edit'), :action=>'edit', :id=>event.id.to_i%>
               <%if event.is_active %>
-                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_events_path(:id=>event.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this Event Name?', :method=>:post, :title=>"Deactive" %>
+                <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.deactivate'), update_status_events_path(:id=>event.id, :status=>"Deactivate"), :confirm => t('labels.event_deact_confirm'), :method=>:post, :title=>t('labels.deactivate') %>
               <%else%>
-                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_events_path(:id=>event.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this Event Name?', :method=>:post, :title=>"Activate"%>
+                <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.activate'),  update_status_events_path(:id=>event.id,:status=>"Activate"), :confirm => t('labels.event_act_confirm'), :method=>:post, :title=>t('labels.activate')%>
               <%end%>
             </div>
           </div>
@@ -31,7 +31,7 @@
       <%end%><div class="manage-user-rows box"><br/><br/>
         <%= paginate @events %></div>
       <%else%>
-      No Events Available
+      <%= t('labels.event_not_available')%>
     <%end%>
 
   </div>
