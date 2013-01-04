@@ -2,7 +2,7 @@
 
 <h2 class="b-head"><%=t('labels.resource_transport_book')%></h2>
 <%= form_for(@resource_transportation_booking, :as => :resource_transportation_booking,  :url => resource_transportation_bookings_path, :html => {:multipart => true} ,:method=>:post) do |f| %>
-<div class="form-sec">
+<div class="form-sec">  
   <%=f.error_messages%>
 
   <div class="clearfix">&nbsp;</div>
@@ -20,8 +20,8 @@
       <b><%= current_user.departments.first.name.upcase %></b>
     </span>
   </div>
-  <% @approver = Approver.active.find_all_by_department_id(current_user.departments).first %>
-  <% @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last %>
+  <% @approver = Approver.active.find_all_by_department_id(@current_department).first %>
+  <% @approver_second = Approver.active.find_all_by_department_id(@current_department).last %>
   <%end%>
 
   <div class="form-sec-row">
@@ -30,7 +30,7 @@
       <% if (current_user.is_department_admin?) %>
       <%= hidden_field_tag 'is_department_admin', 1 %>      
       <%end%>
-      <% if (@approver.present? and @approver.user_id.to_i == current_user.id || @approver_second.present? and @approver.user_id.to_i == current_user.id) %>
+      <% if (@approver.present? and @approver.user_id.to_i == current_user.id || @approver_second.present? and @approver_second.user_id.to_i == current_user.id) %>
       <%= hidden_field_tag 'is_department_admin', 1 %>      
       <%end%>
       <%= f.select(:sub_category_id, SubCategory.where(:category_id=>7,:is_available=>true,:is_active=>true).collect {|sub_category| [sub_category.name, sub_category.id]},:prompt=>"Select Sub Category Type") %>
@@ -43,7 +43,7 @@
       <%end%> </span>
     </div>
 
-    <% if !current_user.is_department_user? && !current_user.is_resource_manager? %>
+    <% if ((!current_user.is_department_user? && !current_user.is_resource_manager?) || (@approver.user_id == current_user.id || @approver_second.user_id == current_user.id) ) %>
     <div id="vehicle_model_type_div" style="display:block">
       <div class="form-sec-row" >
         <label class="text"><%=t('labels.vehicle_brand')%><span style=color:red>*</span></label>

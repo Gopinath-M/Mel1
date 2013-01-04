@@ -46,7 +46,7 @@
                         <% image = upcoming_event.event_attachment.url(:thumb).split(".").last %>
                         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
                           <span class="in-box">
-                            <%=image_tag(upcoming_event.event_attachment.url,:title=>upcoming_event.event_attachment,:alt=>"Image", :width=>"50", :height=>"50")%>
+                            <%=link_to image_tag(upcoming_event.event_attachment.url,:title=>upcoming_event.event_attachment,:alt=>"Image", :width=>"50", :height=>"50"), event_path(:id => upcoming_event.id)%>
 
                           </span>
                         <%end%>
