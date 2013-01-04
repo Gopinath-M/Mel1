@@ -80,7 +80,11 @@ module ApplicationHelper
   end
 
   def ict_hardware_status_count(status)
-    booking_status=IctHardwareBooking.joins(:ict_hardware_booked_users).where("department_id= ? and ict_hardware_booked_users.status=?", @current_department, status).count
+    if status == "Approved"
+      booking_status=IctHardwareBooking.joins(:ict_hardware_booked_users).where("department_id = ? and ict_hardware_booked_users.status = ? and ict_hardware_booked_users.forward_to = ?", @current_department, "Approved", current_user.id ).count
+    else
+      booking_status = IctHardwareBooking.joins(:ict_hardware_booked_users).where("department_id= ? and ict_hardware_booked_users.status=?", @current_department, status).count
+    end
     return booking_status
   end
 
@@ -90,12 +94,14 @@ module ApplicationHelper
     second_approver = Approver.where(:department_id => @current_department).last
     return first_approver.present? && second_approver.present? && (second_approver.user_id == current_user.id || first_approver.user_id == current_user.id) ? booking_status : 0
   end
+  
   def approve_software_request(status)
     booking_status = SoftwareInstallation.joins(:software_installation_details).where("department_id= ? and status=?", @current_department, status).count
     first_approver = Approver.where(:department_id => @current_department).first
     second_approver = Approver.where(:department_id => @current_department).last
     return first_approver.present? && second_approver.present? && (second_approver.user_id == current_user.id || first_approver.user_id == current_user.id) ? booking_status : 0
   end
+
   def generic_model_approve_request(model_name,status)
     booking_status = model_name.where("department_id = ? and status = ?", @current_department, status).count
     first_approver = Approver.where(:department_id => @current_department).first

@@ -1,15 +1,64 @@
 malay:
-  javascript:
-    alert_agency_name: "Masukkan Nama Agensi"
   views:
     pagination:
       first: "First"
       last: "Lepas"
       next: "Seterusnya"
       previous: "Sebelum"          
+  errors:
+    messages:
+      expired: "telah tamat, sila meminta satu yang baru "
+      not_found: "tidak dijumpai"
+      already_confirmed: "telah disahkan, sila cuba melog masuk"
+      not_locked: "tidak dikunci"
+      not_saved:
+        one: "1 kesilapan dilarang% {sumber} daripada diselamatkan:"
+        other: "% {count} kesilapan yang dilarang ini% {sumber} dari diselamatkan:"
   devise:
     failure:
-      unauthenticated: 'Anda perlu mendaftar masuk atau mendaftar sebelum meneruskan'
+      already_authenticated: 'Anda sudah dilog masuk'
+      unauthenticated: 'Anda perlu log masuk atau mendaftar sebelum meneruskan.'
+      unconfirmed: 'Anda perlu mengesahkan akaun anda sebelum meneruskan.'
+      locked: 'Akaun anda dikunci.'
+      invalid: 'Tidak sah IC-Nombor atau Kata Laluan.'
+      invalid_token: 'Token pengesahan tidak sah.'
+      timeout: 'Sesi anda telah tamat tempoh, sila log masuk sekali lagi untuk meneruskan.'
+      inactive: 'Akaun anda masih belum diaktifkan.'
+    sessions:
+      signed_in: 'Ditandatangani dengan jayanya.'
+      signed_out: 'Dilog keluar dengan jayanya.'
+    passwords:
+      send_instructions: 'Anda akan menerima e-mel dengan arahan mengenai bagaimana untuk menetapkan semula kata laluan anda dalam beberapa minit.'
+      updated: 'Kata laluan anda telah berubah dengan jayanya. Anda sekarang telah log masuk.'
+      updated_not_active: 'Kata laluan anda telah berubah dengan jayanya.'
+      send_paranoid_instructions: "Jika e-mel anda wujud pada pangkalan data kami, anda akan menerima link pemulihan kata laluan e-mel anda."
+    confirmations:
+      send_instructions: 'Anda akan menerima e-mel dengan arahan tentang bagaimana untuk mengesahkan akaun anda dalam beberapa minit.'
+      send_paranoid_instructions: 'Jika e-mel anda wujud pada pangkalan data kami, anda akan menerima e-mel dengan arahan tentang bagaimana untuk mengesahkan akaun anda dalam beberapa minit.'
+      confirmed: 'Akaun anda telah berjaya disahkan. Anda sekarang telah log masuk.'
+    registrations:
+      signed_up: 'Selamat Datang!Anda telah mendaftar dengan jayanya.'
+      inactive_signed_up: 'Anda telah mendaftar dengan jayanya. Walau bagaimanapun, kita tidak dapat mendaftar anda masuk kerana akaun anda adalah% {sebab}.'
+      updated: 'Anda mengemas kini akaun anda dengan jayanya.'
+      destroyed: 'Bye! Akaun anda telah berjaya dibatalkan. Kami berharap untuk melihat anda sekali lagi tidak lama lagi.'
+      reasons:
+        inactive: 'aktif'
+        unconfirmed: 'belum disahkan'
+        locked: 'dikunci'
+    unlocks:
+      send_instructions: 'Anda akan menerima e-mel dengan arahan tentang bagaimana untuk membuka akaun anda dalam beberapa minit.'
+      unlocked: 'Akaun anda telah berjaya dibuka. Anda sekarang telah log masuk.'
+      send_paranoid_instructions: 'Jika akaun anda wujud, anda akan menerima e-mel dengan arahan tentang bagaimana untuk membuka kuncinya dalam beberapa minit.'
+    omniauth_callbacks:
+      success: 'Berjaya kuasa daripada% {jenis} akaun.'
+      failure: 'Tidak boleh membenarkan anda dari% {jenis} kerana "% {sebab}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'pengesahan arahan'
+      reset_password_instructions:
+        subject: 'Reset arahan kata laluan'
+      unlock_instructions:
+        subject: 'Buka Arahan'
   login:
     wel: "Dialu-Alukan Untuk Melaka Intranet Portal"
     corridor: "Koridor Untuk Komunikasi Yang Berkesan"
@@ -28,6 +77,13 @@ malay:
     date_of_birth: "Tarikh Lahir Sekiranya kurang daripada tarikh dan waktu semasa"
     hardware_replace: "Pilih Jika Perkakasan adalah Penggantian atau New"
     select_one_hardware: "Pilih sekurang-kurangnya satu perkakasan yang diperlukan bagi rekuisisi"
+    role_memb_dept_admin: "Tidak boleh mencipta Admin Jabatan, Admin sudah wujud bagi Jabatan ini"
+    role_memb_dept_user_without_admin: "Tidak boleh mencipta pengguna Jabatan tanpa Jabatan Admin"
+    res_man_already_exist: "Tidak boleh mencipta Pengurus Sumber, Pengurus sudah wujud untuk Agensi ini"
+    already_as_res_manager: "Tidak boleh mencipta Pengurus Sumber, pengguna ini telah adalah Pengurus Sumber"
+    outstation_date_less: "Dari Tarikh Perlu Lesser daripada Dating"
+    outstation_date_not_less: "Dari Tarikh tidak perlu menjadi kurang daripada Hari ini"
+    state_blank: "Negeri tidak boleh menjadi kosong"
   welcome:
     title: "Tajuk"
     news: "Berita Hari Ini"
@@ -804,6 +860,7 @@ malay:
     sub_cat_deact_donfirm: "Adakah anda ingin benar-benar Nyahaktifkan Sub Kategori ini?"
     approve_room_request: "Meluluskan Permintaan Bilik"
     ict_facility: "Kemudahan ICT"
+    process_ict_facility: "Proses ICT Kemudahan"
     process_n/w_request: "Proses N/W Permintaan"
     process_s/a_request: "Proses S/A Permintaan"
     process_vpn_request: "Proses VPN Permintaan"
@@ -915,8 +972,28 @@ malay:
      # unit: "Unit"
      # agency: "Agency"
      # driver: "Driver"
-     # facility: "Facility"	
+     # facility: "Facility"
+       ict_hardware_booking: "Ict Hardware Booking" 
+       ict_hardware_booked_user: "ICT perkakasan ditempah pengguna"	
     attributes:
+      user_service:
+        service_level_id: "Service level "
+        classification_id: "Classification"
+        grade_id: "Grade"
+        service_standard_id: "Service standard"
+        appointment_id: "Appointment"
+        salary_scale1: "Salary scale1"
+        salary_scale2: "Salary scale2"
+        email: "Email"
+        office_address: "Office address"
+        office_number: "Office number"
+        office_fax: "Office fax "
+        postal_code: "Postal code"
+        city: "City"
+        state: "State"
+        recent_salary: "Recent salary "
+        first_appointment_to_public_service: "First appointment to public service"
+        first_appointment_to_present_position: "First appointment to present position"
       complaint_building_asset:
         building_asset_type_id: "Jenis bangunan aset"
         type_id: "Jenis"
@@ -991,17 +1068,17 @@ malay:
       vehicle:
         model_name: "Nama"
         registration_number: "Nombor pendaftaran"
-        driver_id: "Pemandu id"
+        driver_id: "Pemandu"
       complaint_computer:
-        complaint_type_id: "Jenis id aduan"
-        system_access_id: "Sistem akses id"
-        system_model_type_id: "Model sistem jenis id"
+        complaint_type_id: "Jenis Aduan"
+        system_access_id: "Sistem akses"
+        system_model_type_id: "Model sistem jenis"
         serial_no: "Bersiri tidak"
         reason: "Sebab"
       agency_store:
-        agency_id: "Agensi id"
-        resource_id: "Sumber id"
-        driver_id: "Pemandu id"
+        agency_id: "Agensi"
+        resource_id: "Sumber"
+        driver_id: "Pemandu"
         serial_no: "Nombor siri"
       group:
         name: "Nama"
@@ -1018,15 +1095,250 @@ malay:
         meeting_end_time: "Mesyuarat Masa Tamat"   
       message:
         message: "Mesej"
+      role_membership:
+        role_id: "Peranan"
+        user_id: "Pengguna"
+        department_id: "Jabatan"   
+      ict_vpn:
+        requisition_type_id: "Jenis rekuisisi"
+        system_access_id: "Akses Sistem"
+        from_date: "From Date"
+        to_date: "To Date"
+        justification: "Justifikasi"
+        note: "Nota"
+      ict_system_access:
+        requisition_type_id: "Jenis rekuisisi"
+        system_access_id: "Akses Sistem"
+      ict_network_point:
+        requisition_type_id: "Jenis rekuisisi"
+        justification: "Justifikasi"
+        location: "Lokasi"
+        quantity: "Kuantiti"
       outstation:
         placename: "Nama tempat"
         from_date: "From date"
         to_date: "To date"
         purpose: "Tujuan"
+      resource_booking:
+        resource_id: "Sumber"
+        category_id: "Kategori"
+        sub_category_id: "Sub Kategori"
+        name: "Nama"
+        purpose: "Tujuan"
+        description: "Penerangan"
+        quantity: "kuantiti"
+        requested_from_date: "Diminta Daripada Tarikh"
+        requested_to_date: "Diminta Untuk Tarikh"
+      room:
+        name: "Nama"
+        location: "Lokasi"
+        extension_no: "Nombor Sambungan"
+      resource_transportation_booking:
+        status: "Status"
+        agency_store_id: "Kedai Agensi"
+        driver_id: "Pemandu"
+        remarks: "Catatan"
+        state: "Negeri"
+        sub_category_id: "Sub Kategori"
+        purpose: "Tujuan"
+        number_of_passengers: "Bilangan Penumpang"
+        pick_up_place: "Mengambil Tempat"
+        requested_from_date: "Diminta From Date"
+        requested_to_date: "Diminta Sehingga Tarikh"
+        location: "Lokasi"
+      resource:
+        sub_category_id: "Sub Kategori"
+        resource_no: "Jenis Sumber"
+        name: "Nama"
+        description: "Penerangan"
+        brand_model: "Model Jenama"
+      resource_room_booking:
+        purpose: "Tujuan"
+        remarks: "Catatan"
+        requested_from_date: "Diminta Daripada Tarikh"
+        requested_to_date: "Diminta Untuk Tarikh"
+        sub_category_id: "Sub Kategori"
+        resource_id: "Sumber"
+        room_capacity: "Kapasiti Bilik"
+      ict_hardware_booking:
+        ict_hardware_booked_users: "ICT perkakasan ditempah pengguna"
+          
+      ict_hardware_booked_user:
+        user_id: "pengguna"
     errors:
       header: "Medan Tidak Sah"
       message: "Membetulkan kesilapan-kesilapan berikut dan cuba lagi."
       models:
+        ict_hardware_booking:
+          attributes:
+            ict_hardware_booked_users:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
+        ict_hardware_booked_user:
+          attributes:
+            user_id:
+              blank: "Tidak Boleh kosong"
+              invalid: "Invalid"
+        resource:
+          attributes:
+            sub_category_id:
+              blank: "Tidak Boleh kosong" 
+            resource_no: 
+              blank: "Tidak Boleh kosong" 
+            name: 
+              blank: "Tidak Boleh kosong" 
+              too_short: "minimum ialah 3 huruf"
+              taken: "Telah Diambil"
+            description: 
+              blank: "Tidak Boleh kosong"
+              too_short: "minimum ialah 3 huruf"
+            brand_model:
+              blank: "Tidak Boleh kosong"
+              too_short: "minimum ialah 4 huruf"
+        user_service:
+          attributes:         
+            service_level_id:
+              blank: "Tidak Boleh kosong" 
+            classification_id:
+              blank: "Tidak Boleh kosong" 
+            grade_id: 
+              blank: "Tidak Boleh kosong"
+            service_standard_id:
+              blank: "Tidak Boleh kosong" 
+            appointment_id: 
+              blank: "Tidak Boleh kosong"
+            salary_scale1:
+              blank: "Tidak Boleh kosong"
+            salary_scale2:
+              blank: "Tidak Boleh kosong" 
+            email: 
+              blank: "Tidak Boleh kosong"
+              taken: "tidak sah"
+            office_address:
+              blank: "Tidak Boleh kosong" 
+            office_number:
+              blank: "Tidak Boleh kosong" 
+            office_fax:
+              blank: "Tidak Boleh kosong" 
+            postal_code:
+              blank: "Tidak Boleh kosong" 
+            city:
+              blank: "Tidak Boleh kosong" 
+            state:
+              blank: "Tidak Boleh kosong" 
+            recent_salary: 
+              blank: "Tidak Boleh kosong"
+            first_appointment_to_public_service:
+              blank: "Tidak Boleh kosong" 
+            first_appointment_to_present_position:
+              blank: "Tidak Boleh kosong" 
+        resource_transportation_booking:
+          attributes:
+            status:
+              blank: "Tidak Boleh kosong"
+            agency_store_id:
+              blank: "Tidak Boleh kosong"
+            driver_id:
+              blank: "Tidak Boleh kosong"
+            remarks:
+              blank: "Tidak Boleh kosong"
+            state:
+              blank: "Tidak Boleh kosong"
+            sub_category_id:
+              blank: "Tidak Boleh kosong"
+            purpose:
+              blank: "Tidak Boleh kosong"
+            number_of_passengers:
+              blank: "Tidak Boleh kosong"
+            pick_up_place:
+              blank: "Tidak Boleh kosong"
+            requested_from_date:
+              blank: "Tidak Boleh kosong"
+            requested_to_date:
+              blank: "Tidak Boleh kosong"
+            location:
+              blank: "Tidak Boleh kosong"
+        room:
+          name:
+            blank: "Tidak Boleh kosong"
+          location:
+            blank: "Tidak Boleh kosong"
+          extension_no:
+            blank: "Tidak Boleh kosong"
+        resource_booking:
+          attributes:
+            resource_id:
+              blank: "Tidak Boleh kosong"
+            category_id:
+              blank: "Tidak Boleh kosong"
+            sub_category_id:
+              blank: "Tidak Boleh kosong"
+            name:
+              blank: "Tidak Boleh kosong"
+            purpose:
+              blank: "Tidak Boleh kosong"
+            description:
+              blank: "Tidak Boleh kosong"
+            quantity:
+              blank: "Tidak Boleh kosong"
+            requested_from_date:
+              blank: "Tidak Boleh kosong"
+            requested_to_date:
+              blank: "Tidak Boleh kosong"
+        resource_room_booking:
+          attributes:
+            purpose:
+              blank: "Tidak Boleh kosong"
+            remarks:
+              blank: "Tidak Boleh kosong"
+            requested_from_date:
+              blank: "Tidak Boleh kosong"
+            requested_to_date:
+              blank: "Tidak Boleh kosong"
+            sub_category_id:
+              blank: "Tidak Boleh kosong"
+            resource_id:
+              blank: "Tidak Boleh kosong"
+            room_capacity:
+              blank: "Tidak Boleh kosong"
+        role_memebership:
+          attributes:
+            role_id:
+              blank: "Tidak Boleh kosong"
+            user_id:
+              blank: "Tidak Boleh kosong"
+            department_id:
+              blank: "Tidak Boleh kosong"
+        ict_vpn:
+          attributes:
+            requisition_type_id:
+              blank: "Tidak Boleh kosong"
+            system_access_id:
+              blank: "Tidak Boleh kosong"
+            from_date:
+              blank: "Tidak Boleh kosong"
+            to_date:
+              blank: "Tidak Boleh kosong"
+            justification:
+              blank: "Tidak Boleh kosong"
+            note:
+              blank: "Tidak Boleh kosong"
+        ict_system_access:
+          attributes:
+            requisition_type_id:
+              blank: "Tidak Boleh kosong"
+            system_access_id:
+              blank: "Tidak Boleh kosong"
+        ict_network_point:
+          attributes:
+            requisition_type_id:
+              blank: "Tidak Boleh kosong"
+            justification:
+              blank: "Tidak Boleh kosong"
+            location:
+              blank: "Tidak Boleh kosong"
+            quantity:
+              blank: "Tidak Boleh kosong"
         outstation:
           attributes:
             placename:

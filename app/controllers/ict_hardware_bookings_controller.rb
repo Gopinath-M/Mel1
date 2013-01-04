@@ -40,12 +40,12 @@ class IctHardwareBookingsController < ApplicationController
     @approve = Approver.active.where(:department_id => @current_department).first
     @approver_second = Approver.active.where(:department_id => @current_department).last
     if !@approve.present? && !@approver_second.present?
-      @ict_hardware_bookings=IctHardwareBooking.where(:department_id => @current_user_department).order.page(params[:page]).per(5)
+      @ict_hardware_bookings=IctHardwareBooking.where(:department_id => @current_department).order.page(params[:page]).per(5)
     else
       bookings=IctHardwareBookedUser.where(:forward_to => current_user.id).collect(&:ict_hardware_booking_id)
       @ict_hardware_bookings=IctHardwareBooking.find(bookings) if bookings && !bookings.empty?
     end
-    if @approve.present?
+    if @approve && @approve.present?
       @ict_hardware_bookings = IctHardwareBooking.where(:department_id => @approve.department_id).order.page(params[:page]).per(5)
     end
   end
@@ -77,7 +77,7 @@ class IctHardwareBookingsController < ApplicationController
         booking.update_attributes!(:status => params[:user][:status]["#{booking.id}"], :remarks=>params[:user][:remarks])
         UserMailer.send_status_mail_for_ict_hardware(booking.officer, @ict_hardware_booking.booker, @ict_hardware_booking,booking).deliver
       end
-       redirect_to(requests_ict_hardware_bookings_path, :notice => 'Your ICT Hardware booking Status has been successfully updated.')
+      redirect_to(requests_ict_hardware_bookings_path, :notice => 'Your ICT Hardware booking Status has been successfully updated.')
     else
       flash[:alert]="Select user to process request"
       render :action=>"approve" , :id=>@ict_hardware_booking.id

@@ -300,7 +300,7 @@ class UsersController < ApplicationController
   
   def account_setting
     @user = User.find(current_user.id)
-    @setting = Setting.find(1)
+    @setting = Setting.find_by_id(1)
   end
 
   def update_account_setting
