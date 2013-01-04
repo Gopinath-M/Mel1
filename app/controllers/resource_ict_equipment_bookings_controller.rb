@@ -43,12 +43,11 @@ class ResourceIctEquipmentBookingsController < ApplicationController
         quantifiable = true
       end
     end
-if agency_store.nil?
-    @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id})) 
-else
-    @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id, :agency_store_id => agency_store.id})) 
-
-end
+    if agency_store.nil?
+      @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id}))
+    else
+      @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id, :agency_store_id => agency_store.id}))
+    end
     if create_flag
       @resource_ict_equipment_booking.status = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? "Processed" : ((session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN) ? "Approved" : "New")
       if @resource_ict_equipment_booking.valid?
@@ -120,6 +119,13 @@ end
       agency_store.update_attribute(:booked, false) if (params[:resource_ict_equipment_booking][:status] == "Returned" ||  params[:resource_ict_equipment_booking][:status] == "Declined")
       status = params[:resource_ict_equipment_booking][:status].downcase
       params[:resource_ict_equipment_booking]["#{status}_date"] = Time.now
+      if params[:resource_ict_equipment_booking][:status] == "Returned"
+        if @resource_ict_equipment_booking.agency_store.quantity > 1
+          @resource_ict_equipment_booking.agency_store.update_attributes(:booked => false, :booked_quantity => @resource_ict_equipment_booking.agency_store.booked_quantity-1)
+        else
+          @resource_ict_equipment_booking.agency_store.update_attribute(:booked => false)
+        end
+      end
       if @resource_ict_equipment_booking.update_attributes(params[:resource_ict_equipment_booking].merge!({:approver_id => current_user.id}))
         resource_manager = RoleMembership.find_by_department_id_and_role_id(@resource_ict_equipment_booking.department_id, 05)
         #UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
@@ -136,11 +142,6 @@ end
     ict_equipment = ResourceIctEquipmentBooking.find(params[:ict_equipment_id])
     if params[:user_returned_status] == "true"
       if ict_equipment.update_attributes(:user_returned_status=> true, :returned_date=>Time.now)
-        if ict_equipment.agency_store.quantity > 1
-          ict_equipment.agency_store.update_attributes(:booked => false, :booked_quantity => ict_equipment.agency_store.booked_quantity-1)
-        else
-          ict_equipment.agency_store.update_attribute(:booked => false)
-        end
         render :json=>["Success"]
       else
         render :json=>["Error"]
