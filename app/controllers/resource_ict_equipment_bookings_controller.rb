@@ -123,7 +123,7 @@ class ResourceIctEquipmentBookingsController < ApplicationController
         if @resource_ict_equipment_booking.agency_store.quantity > 1
           @resource_ict_equipment_booking.agency_store.update_attributes(:booked => false, :booked_quantity => @resource_ict_equipment_booking.agency_store.booked_quantity-1)
         else
-          @resource_ict_equipment_booking.agency_store.update_attribute(:booked => false)
+          @resource_ict_equipment_booking.agency_store.update_attribute(:booked , false)
         end
       end
       if @resource_ict_equipment_booking.update_attributes(params[:resource_ict_equipment_booking].merge!({:approver_id => current_user.id}))
