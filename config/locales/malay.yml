@@ -227,6 +227,12 @@ malay:
     message_list: "Tiada Mesej Baru"
 
   left_nav:
+    list_building_asset: "Senarai Bangunan Aset"
+    list_computer: "Komputer Senarai"
+    list_vpn: "Senarai VPN"
+    list_system_access: "Senarai Akses Sistem"
+    change_event: "Perubahan Acara"
+    change_advertisement: "Perubahan Iklan"
     public: "Awam"
     private: "Swasta"
     daily_updates: "Update Harian"
@@ -1059,6 +1065,7 @@ malay:
     trans_req_details: "Pengangkutan Details Permintaan"
     trans_approve_req: "Pengangkutan Meluluskan Permintaan"
     trans_process_req: "Permintaan Proses Angkutan"
+    no_user_available: "Tiada Pengguna Available"  
 
     
     
