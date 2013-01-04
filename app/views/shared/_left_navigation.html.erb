@@ -634,7 +634,7 @@
       <li>
       %>
       <%# support_count = Outstation.where(:status=>"New").count  %>
-          <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+      <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
       <%#=link_to "Verify Request", approve_request_outstations_path%>
       <%#*
       </li>%>
@@ -662,7 +662,12 @@
                           <li>
                             <%=link_to t('left_nav.create'), new_event_path%>
                           </li>
-
+                          <li>
+                            <%=link_to t('left_nav.list'), list_event_events_path%>
+                          </li>
+                          <li>
+                            <%=link_to t('left_nav.change_event'), event_index_events_path%>
+                          </li>
                         </ul>
                       </div>
                     </li>
@@ -672,7 +677,12 @@
                           <li>
                             <%=link_to t('left_nav.create'), new_advertisement_path%>
                           </li>
-
+                          <li>
+                            <%=link_to t('left_nav.list'), list_advertisement_advertisements_path%>
+                          </li>
+                          <li>
+                            <%=link_to t('left_nav.change_advertisement'), advertisement_index_advertisements_path%>
+                          </li>
                         </ul>
                       </div>
                     </li>
