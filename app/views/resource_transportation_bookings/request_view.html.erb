@@ -33,7 +33,13 @@
 	&nbsp;
 </div>
 <div class="CenterNav">
-	<h2 class="b-head"><%= t('labels.resource_transport_approval')%></h2>
+	<h2 class="b-head">
+          <%if @resource_transportation_booking.status=="New"%>
+             <%= t('labels.trans_approve_req')%>
+                <%else%>
+              <%= t('labels.trans_process_req')%>
+           <%end%>
+        </h2>
 	<%= hidden_field_tag :id,(@resource_transportation_booking.id)  %>
 	<div class="form-sec">
 		<div class="form-sec-row form-sec-row1">
