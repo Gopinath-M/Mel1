@@ -1,4 +1,101 @@
 malay:
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%B %d, %Y'
+      short: ! '%b %d'
+    month_names:
+    -
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: tentang 1 Jam
+        other: tentang %{count} Jam
+      about_x_months:
+        one: tentang 1 Bulan
+        other: tentang %{count} Bulan
+      about_x_years:
+        one: tentang 1 Tahun
+        other: tentang %{count} Tahun
+      almost_x_years:
+        one: hampir 1 Tahun
+        other: hampir %{count} Tahun
+      half_a_minute: half a Minit
+      less_than_x_minutes:
+        one: kurang daripada seminit
+        other: kurang daripada %{count} Minit
+      less_than_x_seconds:
+        one: kurang daripada 1 Saat
+        other: kurang daripada %{count} Saat
+      over_x_years:
+        one: lebih daripada satu Tahun
+        other: lebih %{count} Tahun
+      x_days:
+        one: 1 Hari
+        other: ! '%{count} Hari'
+      x_minutes:
+        one: 1 Minit
+        other: ! '%{count} Minit'
+      x_months:
+        one: 1 Bulan
+        other: ! '%{count} Bulan'
+      x_seconds:
+        one: 1 Saat
+        other: ! '%{count} Saat'
+    prompts:
+      day: Hari
+      hour: Jam
+      minute: Minit
+      month: Bulan
+      second: saat
+      year: Tahun
+      
   views:
     pagination:
       first: "First"
