@@ -20,12 +20,12 @@ class RoleMembership < ActiveRecord::Base
     if self.role_id == 2
       departments = RoleMembership.where(:department_id => self.department_id, :role_id => 2)
       if departments && !departments.empty?
-        errors.add(:user, "cannot create Department Admin, Admin already exist for this Department")
+        errors.add(:user, (I18n.translate!('errors_date.role_memb_dept_admin')))
       end
     elsif self.role_id == 3
       departments = RoleMembership.where(:department_id => self.department_id, :role_id => 2)
       if departments && departments.empty?
-        errors.add(:user, "cannot create Department User without Department Admin")
+        errors.add(:user, (I18n.translate!('errors_date.role_memb_dept_user_without_admin')))
       end
     elsif self.role_id == 5
       department = Department.find(self.department_id)
@@ -34,12 +34,12 @@ class RoleMembership < ActiveRecord::Base
         members = RoleMembership.where("department_id in (?) and role_id = 5", departments)
         p members.inspect
         if members && !members.empty?
-          errors.add(:user, "cannot create Resource Manager, Manager already exists for this Agency")
+          errors.add(:user, (I18n.translate!('errors_date.res_man_already_exist')))
         end
       else
         user_roles=RoleMembership.where(:user_id => self.user_id, :role_id => 5)
         if user_roles && !user_roles.empty?
-          errors.add(:user, "cannot create Resource Manager, this user has already is a Resource Manager")
+          errors.add(:user, (I18n.translate!('errors_date.already_as_res_manager')))
         end
       end
     end

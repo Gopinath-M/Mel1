@@ -11,19 +11,19 @@ class Outstation < ActiveRecord::Base
 
 #  def validate_end_date_before_start_date
 #    if self.from_date && self.to_date
-#      errors.add(:Error,"From Date Should be Lesser than To Date") if self.from_date > self.to_date
+#      errors.add(:Error,(I18n.translate!('errors_date.outstation_date_less'))) if self.from_date > self.to_date
 #    end
 #  end
 #
 #  def validate_start_date
 #    if self.from_date
-#      errors.add(:Error,"From Date should not be lesser than Today") if self.from_date < Date.today
+#      errors.add(:Error,(I18n.translate!('errors_date.outstation_date_not_less'))) if self.from_date < Date.today
 #    end
 #  end
 
   def state_present_or_not
     if self.is_out_of_state?
-      errors.add(:Error,"State Can't be Blank") if self.state == ''
+      errors.add(:Error,(I18n.translate!('errors_date.state_blank'))) if self.state == ''
     end
   end
 end
