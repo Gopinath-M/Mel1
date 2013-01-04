@@ -34,7 +34,7 @@ en:
   header:
     home: "Home"
     keyword: "Keyword..."
-    logo: "Logo"
+    logo: "logo"
     account_setting: "Account Settings"
     logout: "Logout"
     help: "Help"
