@@ -89,4 +89,17 @@ class IctSystemAccessesController < ApplicationController
     send_file @ict_system_access.system_access_attachment.path
   end
 
+  def list_system_access
+    @approve = Approver.active.find_all_by_department_id(@current_department).first
+    @approver_second = Approver.active.find_all_by_department_id(@current_department).last
+    if !@approve.present? && !@approver_second.present?
+      @list_system_access = IctSystemAccess.where(:department_id => @current_department).order.page(params[:page]).per(4)
+    else
+      @list_system_access = IctSystemAccess.where(:forward_to => current_user.id).order.page(params[:page]).per(4)
+    end
+    if @approve.present?
+      @list_system_access = IctSystemAccess.where(:department_id => @approve.department_id).order.page(params[:page]).per(4)
+    end
+  end
+
 end

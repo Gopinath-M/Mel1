@@ -82,4 +82,17 @@ class IctVpnsController < ApplicationController
     send_file @ict_vpn.vpn_attachment.path
   end
 
+
+   def list_vpn
+    @approve = Approver.active.find_all_by_department_id(@current_department).first
+    @approver_second = Approver.active.find_all_by_department_id(@current_department).last
+    if !@approve.present? && !@approver_second.present?
+      @list_vpn = IctVpn.where(:department_id => @current_department).order.page(params[:page]).per(4)
+    else
+      @list_vpn = IctVpn.where(:forward_to  => current_user.id).order.page(params[:page]).per(4)
+    end
+    if @approve.present?
+      @list_vpn = IctVpn.where(:department_id => @approve.department_id).order.page(params[:page]).per(4)
+    end
+  end
 end

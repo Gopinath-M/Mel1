@@ -354,6 +354,7 @@ Melaka::Application.routes.draw do
       get 'approval'
       put 'approval'
       get 'download_attachments'
+      get 'list_vpn'
     end
 
   end
@@ -363,6 +364,7 @@ Melaka::Application.routes.draw do
       get 'approval'
       put 'approval'
       get 'download_attachments'
+      get 'list_system_access'
     end
   end
 
@@ -372,6 +374,7 @@ Melaka::Application.routes.draw do
       put 'approval'
       get 'get_categories'
       get 'get_categories_types'
+      get 'list_complaint_building_asset'
     end
   end
 
@@ -381,6 +384,7 @@ Melaka::Application.routes.draw do
       put 'approval'
       get 'get_system_types'
       get 'get_system_items'
+      get 'list_complaint_computer'
     end
   end
 resources :conversation_groups do
