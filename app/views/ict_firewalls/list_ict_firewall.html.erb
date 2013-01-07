@@ -1,0 +1,142 @@
+<div class="CenterNav">
+  <h2 class="b-head"><%=t('labels.requstion_ict_fwall')%></h2>
+  <% if current_user.is_department_user? %>
+  <div class="create-user">
+    <div class="cu-c1"><a href="/ict_network_points/list_to_select_ict" title=<%=t('labels.create_req_for_ict')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.create_req_for_ict')%></a></div>
+  </div>
+  <%end%>
+
+  <div id="div_ajax" >
+    <%if @ict_firewalls && !@ict_firewalls.empty?%>
+      <%@ict_firewalls.each do |resource|%>
+        <div class="manage-user box">
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b><%=t('labels.name')%></b>
+            </div>
+            <div class="m-c-second">
+              <%= User.find(resource.user_id).username   %>
+            </div>
+            <div class="m-c3">
+              <% if resource.status == "New"%><b><font color='#FFA500'><%= "#{resource.status}" %></font></b><% elsif resource.status == "Approved" || resource.status == "Processed"  %>  <b><font color='#329C20'><%= "#{resource.status}" %> </font></b><% elsif resource.status == "Declined" || resource.status == "Returned"  %>  <b><font color='red'><%= "#{resource.status}" %> </font></b><% end %>
+            </div>
+          </div>
+          <div class="clear"></div>
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b><%=t('labels.type_of_facility')%></b>
+            </div>
+            <div class="m-c2">
+              <% name = RequisitionType.find_by_id(resource.requisition_type_id) %>
+              <%=name.name%>
+            </div>
+
+            <% time = Setting.find_by_id(1) %>
+            <%if time.present?%>
+              <% temp = time.timeline.strftime("%H:%M:%S")%>
+              <%dt = DateTime.parse(temp)%>
+              <% seconds = dt.hour * 3600 + dt.min * 60 %>
+
+              <div class="m-c3">
+                <% if @first_approver.present?  && @first_approver.user_id == current_user.id && resource.created_at > (Time.now-seconds) %>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <b><font color="#336699"><%= link_to t('labels.approve_request'),edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                    <%end%>
+                  </span>
+                <% elsif @second_approver.present?  && @second_approver.user_id == current_user.id && resource.created_at > (Time.now-2*seconds)%>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <% val = (resource.created_at > (Time.now-seconds))  %>
+                      <% if !val.present? %>
+                        <% user = User.find(@first_approver.user_id) %>
+                        <% UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+                        <b><font color="#336699"><%= link_to t('labels.approve_request'),edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                      <%end%>
+                    <%end%>
+                  </span>
+                <% elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN%>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <% val = (resource.created_at > (Time.now-seconds)) %>
+                      <% val1 = (resource.created_at > (Time.now-2*seconds)) %>
+                      <% if !val.present? && !val1.present? %>
+                        <% user = User.find(@second_approver.user_id) %>
+                        <%  UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+                        <b><font color="#336699"><%= link_to "Approve",edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                      <%end%>
+                    <%end%>
+                  </span>
+                <% elsif resource.status == "New" && current_user.is_department_admin? &&  !@first_approver.present?%>
+                  <span class="in-box">
+                    <b><font color="#336699"><%= link_to t('labels.approve_request'),edit_ict_firewall_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                  </span>
+                <%end%>
+                <%if resource.status == "Approved" && resource.incharge_person == current_user.id %>
+                  <span class="in-box">
+                    <b><font color="#336699"><%= link_to t('labels.process_request'),edit_ict_firewall_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                  </span>
+                <%end%>
+              </div>
+            <%else%>
+              <div class="m-c3">              	
+                <% if @first_approver.present?  && @first_approver.user_id.to_i == current_user.id %>                
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <b><font color="#336699"><%= link_to t('labels.approve_request'),edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                    <%end%>
+                  </span>
+                <% elsif @second_approver.present?  && @second_approver.user_id.to_i == current_user.id %>
+                  <span class="in-box">
+                    <% if resource.status == "New" %>
+                      <b><font color="#336699"><%= link_to t('labels.approve_request'),edit_ict_firewall_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
+                    <%end%>
+                  </span>
+                <% elsif resource.status == "New" && current_user.is_department_admin? &&  !@first_approver.present?  && !@second_approver.present?%>
+                  <span class="in-box">
+                    <b><font color="#336699"><%= link_to t('labels.approve_request'),edit_ict_firewall_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                  </span>
+                <%end%>
+                <%if resource.status == "Approved" && resource.incharge_person == current_user.id %>
+                  <span class="in-box">
+                    <b><font color="#336699"><%= link_to t('labels.process_request'),edit_ict_firewall_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
+                  </span>
+                <%end%>
+              </div>
+            <%end%>
+          </div>
+          <div class="clear"></div>
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b><%=t('labels.ticket_no')%></b>
+            </div>
+            <div class="m-c-second">
+              <font color="red"><b>&nbsp;<%=resource.id%>/<%=Time.now.year%></b></font>
+            </div>
+            <div class="m-c3">
+              <b><font color="#336699"><%= link_to t('labels.show_info'),ict_firewall_path(:id => resource.id), :method=>:get%></font></b>
+            </div>
+          </div>
+          <div class="clear"></div>
+
+          <div class="manage-user-rows box">
+            <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
+            </div>
+            <div class="m-c-second">
+              &nbsp;<%= resource.created_at.strftime("%d-%m-%Y %H:%M %p")%></font>
+            </div>
+            <div class="m-c3">
+            </div>
+          </div>
+          <div class="clear"></div>
+
+        </div>
+        <h2 class="b-head"></h2>
+
+      <%end%> <div class="manage-user-rows box"><br/><br/>
+  <%#= paginate @requisition %></div>
+      <%else%>
+      <%=t('labels.no_data_available')%>
+    <%end%>
+  </div>
+</div>
+
