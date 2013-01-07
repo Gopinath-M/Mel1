@@ -120,7 +120,10 @@ class ResourceRoomBookingsController < ApplicationController
 
   def list_resource_booking
     if session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER
-      @booking = ResourceRoomBooking.where("department_id=? and status !=?", @current_department, "New").page(params[:page]).per(5)
+      #@booking = ResourceRoomBooking.where("department_id=? and status !=?", @current_department, "New").page(params[:page]).per(5)
+      agency = Department.find(@current_department).agency
+      depts = agency.departments.collect(&:id).join(',')
+      @booking = ResourceRoomBooking.where("department_id in (#{depts}) and status !=?", "New").page(params[:page]).per(5) 
     else
       @approve = Approver.active.find_all_by_department_id(@current_department).first
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last

@@ -190,29 +190,11 @@ class ResourceTransportationBookingsController < ApplicationController
     end
   end
 
-  # For Approval
-  def approve_request_1
-    if current_user.is_resource_manager?
-      @resource_transportation_bookings = ResourceTransportationBooking.where("department_id=? and status !=? or
-      (requester_id = '#{current_user.id}' and status = 'New')", @current_department, "New")
-    #@resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
-    else
-      @approver = Approver.active.find_all_by_department_id(@current_department).first
-      @approver_second = Approver.active.find_all_by_department_id(@current_department).last
-
-      if @approver.present? && @approver.user_id.to_i == current_user.id
-        @resource_transportation_bookings = ResourceTransportationBooking.find_all_by_department_id(@approver.department_id)
-      elsif @approver_second.present? && @approver_second.user_id.to_i == current_user.id
-        @resource_transportation_bookings = ResourceTransportationBooking.where(:department_id => @approver_second.department_id)
-      else
-        @resource_transportation_bookings = ResourceTransportationBooking.where(:department_id => current_user.departments)
-      end
-    end
-  end
-
   def approve_request
-    if session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER
-      @resource_transportation_bookings = ResourceTransportationBooking.where("department_id=? and status !=?", @current_department, "New").page(params[:page]).per(5)
+    if session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER      
+      agency = Department.find(@current_department).agency
+      depts = agency.departments.collect(&:id).join(',')      
+      @resource_transportation_bookings = ResourceTransportationBooking.where("department_id in (#{depts}) and status !=?", "New").page(params[:page]).per(5)
     else
       @approve = Approver.active.find_all_by_department_id(@current_department).first
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last
