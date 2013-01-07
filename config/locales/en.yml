@@ -910,7 +910,9 @@ en:
     trans_req_details: "Transport Request Details"
     trans_approve_req: "Transport Approve Request"
     trans_process_req: "Transport Process Request"
-    no_user_available: "No User Available"   
+    no_user_available: "No User Available"
+    application_details: "Application Details"
+
   
 
 

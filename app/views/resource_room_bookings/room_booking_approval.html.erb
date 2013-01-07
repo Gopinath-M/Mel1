@@ -20,7 +20,7 @@
                     <td><font color='#369'><b><u><%=t('labels.user_details')%>:-</u></b></font></td>
                     <td></td>
                   </tr>
-                  
+
                   <% if @agency.present? %>
                     <tr>
                       <td><b><%=t('labels.agency_name')%></b></td>
@@ -60,12 +60,12 @@
 
 
             <tr>
-              <td><font color="#369"><b><u><%=t('labels.room_details')%>:-</u></b></font></td>
+              <td><font color="#369"><b><u><%=t('labels.application_details')%>:-</u></b></font></td>
               <td></td>
             </tr>
             <tr>
               <td><b><%=t('labels.ticket_no')%></b></td>
-            <td style="color:#BB0802;">&nbsp;<b><%=@resource_room_booking.id%>/<%=Time.now.year%></b></td>
+              <td style="color:#BB0802;">&nbsp;<b><%=@resource_room_booking.id%>/<%=Time.now.year%></b></td>
             </tr>
             <tr>
               <td><b><%=t('labels.date_of_app')%></b></td>
@@ -87,27 +87,57 @@
               <td><b><%=t('labels.purpose')%></b></td>
               <td><b>&nbsp;<%=@resource_room_booking.purpose%></b></td>
             </tr><% if @resource_room_booking.room_attachment.present? %>
-                    <tr>
-                      <td><b><%=t('labels.attachment')%></b></td>
-                      <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
-                      <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-                        <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
-                      <%else%>
-                        <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
-                        <td>&nbsp;<b><%= link_to file, download_attachments_resource_room_bookings_path(:id=>@resource_room_booking.id) if @resource_room_booking.room_attachment?  %></b></td>
-                      <%end%>
-                    </tr>
-                  <%end%>
+              <tr>
+                <td><b><%=t('labels.attachment')%></b></td>
+                <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
+                <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                  <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
+                <%else%>
+                  <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
+                  <td>&nbsp;<b><%= link_to file, download_attachments_resource_room_bookings_path(:id=>@resource_room_booking.id) if @resource_room_booking.room_attachment?  %></b></td>
+                <%end%>
+              </tr>
+            <%end%>
             <tr>
               <td><b><%=t('labels.remarks')%></b></td>
               <td><b>&nbsp;<%=@resource_room_booking.remarks%></b></td>
             </tr>
+
+            <tr>
+            <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+            </tr>
+
+
+            <tr>
+              <td><font color="#369"><b><u><%=t('labels.room_details')%>:-</u></b></font></td>
+              <td></td>
+            </tr>
+
+            <% if @details_resource.present? %>
+              <tr>
+                <td><b><%=t('labels.room_no')%></b></td>
+                <td><b>&nbsp;<%=@details_resource.resource_no%></b></td>
+              </tr>
+              <tr>
+                <td><b><%=t('labels.capacity')%></b></td>
+                <td><b>&nbsp;<%=@details_resource.capacity%></b></td>
+              </tr>
+              <tr>
+                <td><b><%=t('labels.location')%></b></td>
+                <td><b>&nbsp;<%=@details_resource.location%></b></td>
+              </tr>
+            <%end%>
             <% if current_user.is_resource_manager? && @resource_room_booking.status == "Approved" %>
               <tr>
-                <td><label class="text"><%=t('labels.change_room')%></label></td>
-                <td><span class="in-box">
-                    <%= f.select("resource_id",  Resource.where(["sub_category_id = ?",@resource_room_booking.sub_category_id ]).active.collect {|category| [category.resource_no, category.id]}, {:prompt => 'Select Person'})%>
-                  </span></td>
+                <% val = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id, :conditions=>["booked = ?", false]) %>
+                <% if val.present? %>
+                  <td><label class="text"><%=t('labels.change_room')%></label></td>
+                  <td><span class="in-box">
+                      <%= select("resource_val", "id",  Resource.where(:id => val.resource_id ).active.collect {|category| [category.resource_no, category.id]},:prompt=>"Select Room")%>
+                    <%else%>
+                      <%= select("resource_val", "id",  Resource.active.collect {|p| [ p.name, p.id ] },:prompt=>"Select Room")%>
+                    </span></td>
+                <%end%>
               </tr>
             <%end%>
             <tr>
