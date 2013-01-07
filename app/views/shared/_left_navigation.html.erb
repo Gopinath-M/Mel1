@@ -980,21 +980,21 @@
                     <ul>
                       <% if (session[:current_role] == DISP_USER_ROLE_DATUK_SUK  || session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role] == DISP_USER_ROLE_SUK_DEPUTY) %>
                         <li>
-                          <% support_count = Outstation.where("status = ? and out_of_state = ?","New",false).count  %>
+                          <% support_count = Outstation.where("status = ? and is_out_of_state = ?","New",false).count  %>
                           <span class="notifiNo"><%= support_count>0 ? support_count : ''%> </span>
                           <%= link_to t('labels.verify_request'), approve_request_for_state_outstations_path%>
                         </li>
                       <%end%>
                       <% if session[:current_role] == DISP_USER_ROLE_HUMAN_RESOURCE%>
                         <li>
-                          <% review_count = Outstation.where("status = ? and out_of_state = ?","Verified",false).count  %>
+                          <% review_count = Outstation.where("status = ? and is_out_of_state = ?","Verified",false).count  %>
                           <span class="notifiNo"><%= review_count>0 ? review_count : ''%> </span>
                           <%= link_to t('labels.rec_req'), approve_request_for_state_outstations_path%>
                         </li>
                       <%end%>
                       <% if (session[:current_role] == DISP_USER_ROLE_DATUK_SUK || session[:current_role] == DISP_USER_ROLE_CHIEF_MINISTER) %>
                         <li>
-                          <% approve_count = Outstation.where("status = ? and out_of_state = ?","Reviewed",false).count  %>
+                          <% approve_count = Outstation.where("status = ? and is_out_of_state = ?","Reviewed",false).count  %>
                           <span class="notifiNo"><%= approve_count>0 ? approve_count : ''%> </span>
                           <%= link_to t('left_nav.approve_req'), approve_request_for_state_outstations_path%>
                         </li>
