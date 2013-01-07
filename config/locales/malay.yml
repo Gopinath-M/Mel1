@@ -1066,7 +1066,7 @@ malay:
     trans_approve_req: "Pengangkutan Meluluskan Permintaan"
     trans_process_req: "Permintaan Proses Angkutan"
     no_user_available: "Tiada Pengguna Available"  
-
+    dependent: "Bergantung" 
     
     
   activerecord:
