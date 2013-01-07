@@ -1,31 +1,31 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <h2>Advertisement Details</h2><br/>
+    <h2><%=t('labels.adv_detail')%></h2><br/>
     <div class="form-sec-row-out">
-      <label class="text">Advertisement Web-site URL</label>
+      <label class="text"><%=t('labels.adv_web_url')%></label>
       <span class="in-box">
         <a href=<%= @advertisements.web_link%>><b><%= @advertisements.web_link%></b></a></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text">From Date</label>
+      <label class="text"><%=t('labels.from_date')%></label>
       <span class="in-box">
         <%= @advertisements.from_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @advertisements.from_date %></span>
     </div>
     <div class="form-sec-row-out">
-      <label class="text">To Date</label>
+      <label class="text"><%=t('labels.to_date')%></label>
       <span class="in-box">
         <%= @advertisements.to_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @advertisements.to_date %></span>
     </div>
     <% advertisement_user_name = User.find_by_id(@advertisements.created_by) %>
     <div class="form-sec-row-out">
-      <label class="text">Created By</label>
+      <label class="text"><%=t('labels.created_by')%></label>
       <span class="in-box">
         <%= advertisement_user_name.username %></span>
     </div>
     <div class="form-sec-row-out">
       <% if @advertisements.advertisement_attachment.present? %>
-        <label class="text">Attachment</label>
+        <label class="text"><%=t('labels.attachment')%></label>
         <% image = @advertisements.advertisement_attachment.url(:profile).split(".").last %>
         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
           <span class="in-box">
@@ -36,7 +36,7 @@
       <%end%>
     </div>
     <div class="form-sec-row-out">
-      <label class="text">Is Visible</label>
+      <label class="text"><%=t('labels.is_visible')%></label>
       <span class="in-box">
         <% if @advertisements.is_active == true %>
           Yes <% else %>
