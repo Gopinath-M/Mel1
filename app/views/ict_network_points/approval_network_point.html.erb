@@ -272,14 +272,16 @@
                   </div>
 
                   <div class="form-sec-row">
-                    <label class="text"> <%= f.label :notes,t('labels.notes'), :class=>"text"%><span style=color:red>*</span></label>
+                    <label class="text"><%=t('labels.notes')%><span style=color:red>*</span></label> 
+                    <!--<label class="text"> <%= f.label :notes,t('labels.notes'), :class=>"text"%><span style=color:red>*</span></label>-->
                     <span class="in-box">
                       <%= f.text_area :notes, :cols => "20", :rows => "3"%>
                     </span>
                   </div>
 
                   <div class="form-sec-row-ict">
-                    <label class="text-ict"> <%= f.label :center_id,raw("<b>Location Center</b><span style=color:red>*</span>"), :class=>"text"%></label>
+                    <label class="text-ict"><%=t('labels.location_center')%><span style=color:red>*</span></label> 
+                   <!-- <label class="text-ict"> <%= f.label :center_id,raw("<b>Location Center</b><span style=color:red>*</span>"), :class=>"text"%></label>-->
                     <%= f.select(:location_center_id, FacilityIctAgency.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select Center")%> <%= f.select(:ict_wiring_id, FacilityIctWiring.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select ICT Wiring")%>
                   </div>
                   <div class="form-sec-row">
