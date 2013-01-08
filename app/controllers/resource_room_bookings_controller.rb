@@ -121,13 +121,13 @@ class ResourceRoomBookingsController < ApplicationController
       #@booking = ResourceRoomBooking.where("department_id=? and status !=?", @current_department, "New").page(params[:page]).per(5)
       agency = Department.find(@current_department).agency
       depts = agency.departments.collect(&:id).join(',')
-      @booking = ResourceRoomBooking.where("department_id in (#{depts}) and status !=?", "New").page(params[:page]).per(5) 
+      @booking = ResourceRoomBooking.where("department_id in (#{depts}) and status !=?", "New").page(params[:page]).per(5)
     else
       @approve = Approver.active.find_all_by_department_id(@current_department).first
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last
       if @approve.present?
         @booking = ResourceRoomBooking.where(:department_id => @approve.department_id).page(params[:page]).per(5)
-        #          @booking = ResourceRoomBooking.find(:all, :conditions=>["department_id = ? and created_at >= ?",@approve.department_id,Time.now-seconds])
+      #          @booking = ResourceRoomBooking.find(:all, :conditions=>["department_id = ? and created_at >= ?",@approve.department_id,Time.now-seconds])
       elsif @approver_second.present?
         @booking = ResourceRoomBooking.where(:department_id => @approver_second.department_id).page(params[:page]).per(5)
       elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
@@ -145,13 +145,15 @@ class ResourceRoomBookingsController < ApplicationController
     if params[:resource_room_booking][:status] == "Returned" ||  params[:resource_room_booking][:status] == "Declined"
       agency_store.update_attribute(:booked, false)
     end
-    if params[:resource_val][:id] != ""
-      agency_store = AgencyStore.find_by_resource_id(room.resource_id)
-      agency_store.update_attribute(:booked, false)
-      store = AgencyStore.find_by_resource_id(params[:resource_val][:id])
-      store.update_attribute(:booked, true)
-      room.update_attribute(:resource_id, params[:resource_val][:id])
-    end    
+    if room.status == "Approved"
+      if params[:resource_val][:id] != ""
+        agency_store = AgencyStore.find_by_resource_id(room.resource_id)
+        agency_store.update_attribute(:booked, false)
+        store = AgencyStore.find_by_resource_id(params[:resource_val][:id])
+        store.update_attribute(:booked, true)
+        room.update_attribute(:resource_id, params[:resource_val][:id])
+      end
+    end
     @user = User.find(room.user_id)
     if @user.roles.first.name == "Resource Manager"
       room.update_attribute(:status, 'Processed')
@@ -207,9 +209,9 @@ class ResourceRoomBookingsController < ApplicationController
     if !params[:sub_category_id].nil?
       resources = Resource.find_all_by_sub_category_id(params[:sub_category_id])
 
-      resources.each do |resource| 
+      resources.each do |resource|
         brand = VehicleModelType.find(resource.vehicle_model_type_id)
-        val= brand.name.to_s + " : " + resource.vehicle_model.to_s + " : " + resource.resource_no.to_s 
+        val= brand.name.to_s + " : " + resource.vehicle_model.to_s + " : " + resource.resource_no.to_s
         brands.store(resource.id,val)
       end
 
