@@ -248,7 +248,9 @@
 .form-sec{}
 .form-sec h2{ border-bottom:1px  solid #CCC; padding:5px 0 10px 0; margin-bottom:10px; font-size:18px; display:block;}
 .form-sec-row{ overflow:hidden; padding:5px 0}
+.form-sec-row1{ overflow:hidden; padding:3px 0}
 .form-sec-row label.text{ float:left; width:150px; font-weight:bold;}
+.form-sec-row1 label.text{ float:left; width:125px; font-weight:bold;}
 .form-sec-row span.in-box{ float:left; width:60%;}
 .form-sec-row span.in-box input[type="text"],.form-sec-row span.in-box input[type="password"]{ width:81%; margin-right:10%; padding:5px; border:1px solid #96a6c5}
 .form-sec-row span.in-box select{ width:85%; padding:5px; border:1px solid #96a6c5}
@@ -258,7 +260,7 @@
 #pr-time{ margin-bottom:10px !important;}
 #pr-time table{ width:205px !important;border: 1px solid #CFD8E2 !important;}
 #pr-time table tr:first-of-type { display:none !important;}
-
+ss
 .mb20{ margin-bottom:20px;}
 h2.b-head{ border-bottom:1px  solid #CCC; padding:5px 0 10px 0; margin-bottom:5px; font-size:18px; display:block;}
 h2.b-head a{ float:right; padding:1px 10px 1px 5px; background:url(../images/add_user_bg.jpg); border:1px solid #c4c4c4; color:#323232;}
