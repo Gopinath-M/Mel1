@@ -335,6 +335,8 @@ malay:
     vehicle_brands: "Jenama kenderaan"
 
   labels:
+    search_results: "Carian keputusan"
+    no_search_results: "Tiada Keputusan Ditemui"
     create_agency: "Daftar Agensi"
     edit_agency: "Kemaskini Agensi"
     agency_name: "Nama Agensi"
@@ -1077,6 +1079,7 @@ malay:
     create_other_booking: "Buat Lain Tempahan"
     no_groups_available: "No Kumpulan Yang Disediakan"
     hardware_required: "Perkakasan Diperlukan"
+    non_appr: "Bukan Meluluskan"
     
   activerecord:
     models:

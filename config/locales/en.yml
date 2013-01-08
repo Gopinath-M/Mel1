@@ -180,6 +180,8 @@ en:
     vehicle_brands: "Vehicle Brand"
 
   labels:
+    search_results: "Search Results"
+    no_search_results: "No Results Found"
     create_agency: "Create Agency"
     edit_agency: "Edit Agency"
     agency_name: "Agency Name"
@@ -635,10 +637,10 @@ en:
     update_ref: "Update Reference"
     enter_num_only: "Enter Numbers Only"
     se_1_of_5: "Step 1 of 5"
-    setp_2_of_5: "Step 2 of 5"
-    setp_3_of_5: "Step 3 of 5"
-    setp_4_of_5: "Step 4 of 5"
-    setp_5_of_5: "Step 5 of 5"
+    step_2_of_5: "Step 2 of 5"
+    step_3_of_5: "Step 3 of 5"
+    step_4_of_5: "Step 4 of 5"
+    step_5_of_5: "Step 5 of 5"
     update_user_profile: "Update User Profile"
     marital_status: "Marital Status"
     gender: "Gender"
@@ -922,6 +924,7 @@ en:
     create_other_booking: "Create Others Booking"
     no_groups_available: "No Groups Available"
     hardware_required: "Hardware Required"
+    non_appr: "Non Approve"
   
 
 
