@@ -11,6 +11,16 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,:ic_number, :first_name, :last_name, :username,:city, :state,:zipcode, :department_id, :is_admin, :avatar, :avatar_cache, :remove_avatar, :role_id, :widget_one, :widget_two, :profile_status, :contact_mobile, :gender, :marital_status, :date_of_birth, :hp_number, :address, :child
 
+  def self.current_role
+    Thread.current[:user]
+  end
+  def self.current_role=(user)
+    Thread.current[:user] = user
+  end
+
+
+
+  
   #Associations
   has_many :role_memberships
   has_many :roles, :through => :role_memberships
@@ -41,7 +51,7 @@ class User < ActiveRecord::Base
   #feed_template :destroyed => "feeds/user/destroyed"
 
   #Validations
-#  validates :ic_number, :zipcode, :city, :state, :presence=>true
+  #  validates :ic_number, :zipcode, :city, :state, :presence=>true
   validates_integrity_of :avatar
   validates_processing_of :avatar
   validates_uniqueness_of :username , :if=>Proc.new {|u| !u.username.blank?}
@@ -189,14 +199,14 @@ class User < ActiveRecord::Base
     self.update_attribute(:ips, new.join(", ")) unless new == existing
   end
 
-   def feed_for_create_user
+  def feed_for_create_user
     feed = User.find(self.id).created_feeds.build
     feed.for = "User"
     feed.feed_type = "created"
     feed.feed_objects << FeedObject.convert(:user => self)
     subscribers = []  
     super_admin = Role.where("roles.name ='Super Admin'").first.users  
-     super_admin.each do |a|
+    super_admin.each do |a|
       subscribers << a unless subscribers.index(a)
     end     
     subscribers.uniq.each do |s|

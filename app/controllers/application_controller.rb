@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
       else
         @current_department ||= default_department
       end
+              Department.current_department = @current_department
     end
   end
   
@@ -40,10 +41,12 @@ class ApplicationController < ActionController::Base
     if current_user && (!current_user.is_super_admin?)
       department = Department.find(@current_department) if @current_department
       current_role_membership = RoleMembership.find_by_user_id_and_department_id(current_user.id,department.id) if department
+      User.current_role = current_role_membership.role.name if current_role_membership
       session[:current_role] = current_role_membership.role.name if current_role_membership
       return current_role_membership.role.name if current_role_membership
     elsif current_user && current_user.is_super_admin?
       current_user_role = Role.find_by_name(DISP_USER_ROLE_SUPER_ADMIN)
+      User.current_role = current_user_role.name if current_user_role
       session[:current_role] = current_user_role.name if current_user_role
       return current_user_role.name if current_user_role
     end
