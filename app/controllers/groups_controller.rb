@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
   end
 
   def edit
+    @group = Group.find(params[:id])
   end
 
   def show
@@ -24,6 +25,16 @@ class GroupsController < ApplicationController
     else
       render :action => 'new'
     end
+  end
+  
+  def update_status
+    group = Group.find(params[:id])
+    if group && params[:status]=="Activate"
+      group.update_attribute(:is_active,1)
+    elsif group && params[:status]=="Deactivate"
+      group.update_attribute(:is_active,0)
+    end
+    redirect_to(groups_path, :notice => 'Group Status has been successfully changed.')
   end
 
 end
