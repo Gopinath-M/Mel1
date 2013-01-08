@@ -17,7 +17,7 @@
       <tr>
         <td><table width="500" border="0" cellspacing="0" cellpadding="0" align="center">
             <tr>
-              <td>
+              <td colspan = "2">
                 <h1 style=" font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#0e385f; margin:0; padding:10px 0 0px 0;">Hi&nbsp;&nbsp;<%=@user.username%>,</h1>
               </td>
             </tr>
@@ -30,8 +30,8 @@
               <td><br/><br/></td>
             </tr>
             <tr>
-              <td style=" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333; border-bottom:1px solid #CCC;border-top:1px solid #CCC; padding:10px 0;">
-                <table width="750" border="2" cellspacing="3" cellpadding="3" align="center"><h3><font color="red"><center><u>Requisition ICT - <%=  @sub_cat_type.name %> Booking Details</u></center></font></h3><br/>
+              <td style=" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333; padding:10px 0;">
+                <table width="750" border="2" cellspacing="3" cellpadding="3" align="center"><h3><font color="red"><center><u>Requisition ICT - <%=  @requisition.sub_category.name %> Booking Details</u></center></font></h3><br/>
                   <tr>
                     <td>
                       <font color="#369"><b><u>Application Details:-</u></b></font>
@@ -48,7 +48,7 @@
                   <tr>
                     <td>
                       <b>Sub Category Type</b>
-                    </td><td>&nbsp;<%= @sub_cat_type.name %></td>
+                    </td><td>&nbsp;<%= @requisition.sub_category.name %></td>
                   </tr>
                   <tr>
                     <td>
@@ -68,7 +68,7 @@
                     <td>
                       <b>Officer Need</b>
                     </td>
-                    <td>&nbsp;<%= @requisition.need_officer%>
+                    <td>&nbsp;<%= @requisition.need_officer ? "Yes" : "No"%>
                     </td>
                   </tr>
                   <tr>

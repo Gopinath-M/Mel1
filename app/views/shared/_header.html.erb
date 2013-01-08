@@ -68,7 +68,13 @@
             <ul>
               <li class="globe"><a href="javascript:void(0);" title="Notification"><span>17</span></a></li>
               <li class="msg"><a href="javascript:void(0);" title="Messages"></a></li>
-              <li class="member"><a href="javascript:void(0);" title="Members"></a></li>
+              <li class="member">
+              <% count = User.find(:all, :conditions=>["login_status = ? and id !=?",'1', current_user.id]).count %>
+                <a href="/conversations" title="Online Users">
+                <%if count > 0%>
+                  <span><%= count %></span>
+                <%end%></a>
+            </li>
             </ul>
           </div>
         </div>
