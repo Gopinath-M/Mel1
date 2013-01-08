@@ -214,7 +214,14 @@ class User < ActiveRecord::Base
     end
     feed.save! 
   end
- 
+
+  define_index do
+    indexes :first_name
+    indexes :last_name
+    indexes :ic_number
+  end
+
+  
   private
 
   def update_avatar_attributes
