@@ -284,5 +284,12 @@ class UserMailer < ActionMailer::Base
     @requisition= resource_transport_booking    
     mail(:to=>@user.email,:subject =>"Your Transport Booking Request was #{@requisition.status}")
   end
+
+  def resource_booking_notification(user,booking,dept)
+    @user=user
+    @requisition= booking
+    @department = dept
+    mail(:to=>@user.email,:subject =>"Details of Ict Equipment  Booking")
+  end
   
 end
