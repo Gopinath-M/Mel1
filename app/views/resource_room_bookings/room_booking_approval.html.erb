@@ -127,15 +127,16 @@
                 <td><b>&nbsp;<%=@details_resource.location%></b></td>
               </tr>
             <%end%>
-            <% if current_user.is_resource_manager? && @resource_room_booking.status == "Approved" %>
+            <% if current_user.is_resource_manager? && @resource_room_booking.status== "Approved" %>
               <tr>
-                <% val = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id, :conditions=>["booked = ?", false]) %>
-                <% if val.present? %>
+                <% @val = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                            WHERE agency_stores.booked =false AND agency_stores.sub_category_id = #{@resource_room_booking.sub_category_id}" %>
+                <% if @val.present? %>
                   <td><label class="text"><%=t('labels.change_room')%></label></td>
                   <td><span class="in-box">
-                      <%= select("resource_val", "id",  Resource.where(:id => val.resource_id ).active.collect {|category| [category.resource_no, category.id]},:prompt=>"Select Room")%>
+                      <%= select("resource_val", "id",  @val.collect {|category| [category.resource_no, category.id]},:prompt=>"Select Room")%>
                     <%else%>
-                      <%= select("resource_val", "id",  Resource.active.collect {|p| [ p.name, p.id ] },:prompt=>"Select Room")%>
+                      <%= select("resource_val", "id",Resource.active.collect {|p| [ p.name, p.id ] },:prompt=>"Select Room")%>
                     </span></td>
                 <%end%>
               </tr>

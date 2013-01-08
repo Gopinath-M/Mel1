@@ -44,7 +44,15 @@
 			</div>
 			
 			<div id="user_type_select_group_div"></div>
-
+			
+			<%elsif current_user.is_department_user? %>
+			
+			<div class="form-sec-row">
+				<span class="in-box"> <%= select_tag :message_user_select,"<option>Please Select</option><option>Select Group</option>".html_safe %> </span>
+				<%# <option>All Unit Admins</option><option>Select Unit</option><option>Select Unit Admin</option> %>
+			</div>
+						<div id="user_type_select_group_div"></div>
+			
 			<%end%>
 
 			<div class="botRow box">
@@ -66,7 +74,7 @@
 			<div class="postedMsg-txt">
 				<p class="head1">
 					<b> <% if message.is_sticky_message?%> <font color='#329C20'><%= message.message %> </font> <%else%>
-					<%= message.message%>
+					<%= message.message %>
 					<%end%> </b>
 					<br />
 				</p>
@@ -123,8 +131,5 @@
 		<%else%>
 		<%= t('labels.msg_nt_available') %>
 		<%end%>
-	</div>
-	<div id="old_updates" class="olderRow">
-		<a href="#" title="Old Updates"><%= t('labels.old_updates')%></a>
 	</div>
 </div>

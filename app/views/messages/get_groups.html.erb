@@ -1,5 +1,5 @@
 <div >
 	<div class="form-sec-row">
-		<span class="in-box"> <%= select(:std,:group, Group.where(:user_id => current_user.id).collect {|p| [ p.name, p.id ] },:prompt => "Select a Group") %> </span>
+		<span class="in-box"> <%= select(:std,:group, Group.where(:is_active=>true,:user_id=>current_user.id).collect {|p| [ p.name, p.id ] },:prompt => "Select a Group") %> </span>
 	</div>
 </div>
