@@ -1,0 +1,10 @@
+<div class="CenterNav">
+  <%if @users && !@users.empty?%>
+    <h2 class="b-head"><%=t('labels.search_results')%></h2>
+    <%= render :partial => 'search_results' %>
+  <%else%>
+    <h2 class="b-head"><%=t('labels.no_search_results')%></h2>
+  <%end%>
+  <div class="form-sec-row">
+  </div>
+</div>

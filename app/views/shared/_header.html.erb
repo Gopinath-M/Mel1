@@ -84,13 +84,14 @@
             <a href="/dashboard?locale=malay" title="Malay"><%=image_tag("/images/flag_melaka.png", :alt=>"Malay" ,:width=>"16", :border=>"0" ,:height=>"11")%></a>
           </div>
           <div class="search">
-            <form method="get" name="form2" id="form2" action="">
+            <%= render :partial =>"/searches/search_form" %>
+            <!--form method="get" name="form2" id="form2" action="">
               <input name="search" type="submit" class="but-search" value="." />
               <p class="formRow f-right">
                 <label for="kywd" class="ui-watermark-label-pass"><%=t('header.keyword')%></label>
                 <span class="shadow-input"><input name="kywd" id="kywd" type="text" value="" class="pass" /> </span>
               </p>
-            </form>
+            </form-->
           </div>
         </div>
 
