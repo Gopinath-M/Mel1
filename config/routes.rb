@@ -16,6 +16,8 @@ Melaka::Application.routes.draw do
     get "/logout"=> "sessions#destroy", :as => :destroy_user_session
     get "/privacy_setting", :to => "registrations#privacy_setting", :as=> :privacy_setting_registrations
   end
+  get "/search" => "searches#search"
+  post "/search" => "searches#results"
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
 
   resources :feeds, :only=>[:index]
@@ -387,7 +389,7 @@ Melaka::Application.routes.draw do
       get 'list_complaint_computer'
     end
   end
-resources :conversation_groups do
+  resources :conversation_groups do
     collection do
       get 'conversations'
       post 'send_request'
