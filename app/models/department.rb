@@ -20,7 +20,12 @@ class Department < ActiveRecord::Base
   #named_scopes comes here
   scope :active, where(:is_active=>true,:deleted => false).order("name asc")
   scope :all_undeleted, where(:deleted => false).order("name asc")
-
+  def self.current_department
+    Thread.current[:department]
+  end
+  def self.current_department=(user)
+    Thread.current[:department] = user
+  end
   #  define_index do
   #    indexes :name,  :sortable => true
   #  end

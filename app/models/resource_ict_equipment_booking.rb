@@ -9,6 +9,21 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
   validates :sub_category_id,:agency_store_id,:purpose,:location, :requested_from_date, :requested_to_date,:meeting_start_time,:meeting_end_time, :presence=>true
   validates :purpose,:location, :length => { :minimum => 4 }, :if=>Proc.new {|u| !u.location.blank? || !u.purpose.blank? }
   validate :validate_booking_time, :on=>:create
+  after_create :send_notification
+
+  def send_notification
+    department = Department.find(Department.current_department) if User.current_role != DISP_USER_ROLE_SUPER_ADMIN
+    if User.current_role != DISP_USER_ROLE_SUPER_ADMIN && User.current_role != DISP_USER_ROLE_DEPT_ADMIN
+      first_approver = Approver.active.where(:department_id => department.id).first
+      if !first_approver.present?
+        user = department.users.where("role_id = 2").first
+        UserMailer.resource_booking_notification(user,self,department).deliver
+      else
+        UserMailer.resource_booking_notification(first_approver.user,self, department).deliver
+      end
+    end
+    User.current_role != DISP_USER_ROLE_SUPER_ADMIN ? UserMailer.resource_booking_notification(self.user,self,department).deliver : UserMailer.resource_booking_notification(self.user,self,nil).deliver
+  end
 
   def validate_booking_time
     errors.add(:base,(I18n.translate!('errors_date.date_greater'))) if self.requested_from_date!=nil && self.requested_from_date<Time.now
