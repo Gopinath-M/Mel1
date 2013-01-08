@@ -1066,12 +1066,12 @@ malay:
     trans_req_details: "Pengangkutan Details Permintaan"
     trans_approve_req: "Pengangkutan Meluluskan Permintaan"
     trans_process_req: "Permintaan Proses Angkutan"
-    no_user_available: "Tiada Pengguna Available"  
+    no_user_available: "Tiada Pengguna Available"
+    application_details: "Permohonan Butiran"
     dependent: "Bergantung" 
     list_other_booking: "Senarai Lain Tempahan"
     has_returned: "Telah Dikembalikan"
     create_other_booking: "Buat Lain Tempahan"
-    
     
   activerecord:
     models:

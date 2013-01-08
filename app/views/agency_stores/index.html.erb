@@ -31,8 +31,8 @@
               <%if store.resource_type != 'ICT'%>
                 <p class="head1"><%=t('labels.resource_no')%>:&nbsp;<%=  (store.resource && store.resource.resource_no!=nil) ? store.resource.resource_no : ''%></p>
               <%end%>
-              <%if store.quantity?%>
-                <p class="head1"><%=t('labels.quantity')%>:&nbsp;<%=  store.quantity%></p>
+              <%if store.resource.capacity?%>
+                <p class="head1"><%=t('labels.quantity')%>:&nbsp;<%=  store.resource.capacity%></p>
               <%end%>
               <%if store.uom?%>
                 <p class="head1">UOM:&nbsp;<%=store.uom%></p>

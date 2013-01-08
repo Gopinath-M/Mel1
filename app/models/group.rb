@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base  
   has_many :group_members
   #has_many :users, :through => :group_members
-  validate :name,:presence => true
+  validates :name,:presence => true,:uniqueness=> true
 end
