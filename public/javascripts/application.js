@@ -1817,6 +1817,42 @@ $().ready(function(){
         }
 
     })
+
+
+    $("#resource_val_id").live("change",function(){
+        if ($("#resource_val_id").val()!=null && $("#resource_val_id").val()!='')
+        {
+            $.get("/resource_room_bookings/get_details_for_resource/",{
+                resource_id: $("#resource_val_id").val()
+            }, function(data){
+                if(data[0]!=null)
+                {
+                    $("#dis_col").show();
+                    $("#details_resource_id").show();
+                    var content="";
+                    content+=""
+                    content+= "<tr><td><b>Location</b></td><td><font color='#369'><b>"+data[0].resource.location+"</b></font></td></tr>"
+                    content+= "<tr><td><b>Capacity</b></td><td><font color='#369'><b>"+data[0].resource.capacity+"</b></font></td></tr>"
+                    content+="</table>"
+                    $('#resource_room_booking_room_capacity').val(data[0].resource.capacity);
+                    $("#details_resource_id").html(content)
+                }
+                else
+                {
+                    content+="No Departments Found"
+                    $("#details_resource_id").hide();
+                    $("#details_resource_id").html(content)
+                    $("#dis_col").hide();
+                }
+
+            });
+        }
+        else
+        {
+            $("#dis_col").hide();
+            $("#details_resource_id").hide();
+        }
+    })
     /*room booking script ends */
 
     /* faclity page */
@@ -2006,7 +2042,7 @@ $().ready(function(){
                     $('#transport_agency_resource_id').append($("<option></option>").attr("value","").text("Select Resource"));                    
                     $.each(data[0], function(key, val) {
                         $('#transport_agency_resource_id').append($("<option></option>").attr("value",key).text(val));
-                      });
+                    });
                 }
             })
         }

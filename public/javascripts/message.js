@@ -247,10 +247,17 @@ $().ready(function (){
       alert("Select Unit Level");
       return false
     }  
-    else if ($("#std_group").val() == ""){      
-      alert("Select Group Level");
-      return false
-    }
+    else if ($("#std_group").val() == "") {      
+      if ($('#user_type_select_group_div').css('display') == 'block') 
+          {
+      	  	alert("Please Select Group");
+		  	return false;
+		  }
+		  else
+		  {
+		  	return true;	
+		  }      
+		  }
     else
     {
       return true;

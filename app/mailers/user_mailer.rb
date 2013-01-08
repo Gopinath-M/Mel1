@@ -231,7 +231,7 @@ class UserMailer < ActionMailer::Base
     @user=user
     @requisition=ict_firewall
     @department=dept    
-    mail(:to=>@user.email,:subject =>" Details of ICT Firewall Request")
+    mail(:to=>@user.email,:subject =>"ICT Firewall Request Details")
     mail(:to=>@requester.email,:subject =>" Details of your ICT Firewall Request")
   end
 
