@@ -56,17 +56,31 @@ class IctFirewallsController < ApplicationController
                end
             end
          end
-         
-         
-        @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-        dept = Department.find_by_id(current_user.departments)
-        if !@approve.present?
-          user = dept.users.where("role_id = 2").first
+        
+		@approver_first = Approver.active.find_all_by_department_id(@current_department).first
+        @approver_second = Approver.active.find_all_by_department_id(@current_department).last
+        
+        dept = Department.find_by_id(@current_department)
+        if @approver_first.present?
+          user = User.find_by_id(@approver_first.user_id)          
+          UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall,dept).deliver
+        elsif @approver_second.present?
+          user = User.find_by_id(@approver_second.user_id)          
           UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall,dept).deliver
         else
-          user = User.find_by_id(@approve.user_id)
+          user = dept.users.where("role_id = 2").first
           UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall,dept).deliver
-        end
+        end 
+         
+        #@approve = Approver.active.find_all_by_department_id(current_user.departments).first
+        #dept = Department.find_by_id(current_user.departments)
+        #if !@approve.present?
+        #  user = dept.users.where("role_id = 2").first
+        #  UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall,dept).deliver
+        #else
+        #  user = User.find_by_id(@approve.user_id)
+        #  UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall,dept).deliver
+        #end
     
          redirect_to(ict_firewalls_path, :notice => "Resource Requisition ICT Firewall has been created successfully.")
       else
@@ -126,9 +140,18 @@ class IctFirewallsController < ApplicationController
       @users = @dept.users
    end
 
-   def approve_request
-      @ict_firewall = IctFirewall.find(params[:id])
-   end
+  def list_ict_firewall
+    @first_approver = Approver.active.find_all_by_department_id(@current_department).first
+    @second_approver = Approver.active.find_all_by_department_id(@current_department).last
+    if !@first_approver.present? && !@second_approver.present?
+      @ict_firewalls = IctFirewall.where(:department_id => @current_department).order.page(params[:page]).per(4)
+    else
+      @ict_firewalls = IctFirewall.where(:person_incharge => current_user.id).order.page(params[:page]).per(4)
+    end
+    if @first_approver.present?
+      @ict_firewalls = IctFirewall.where(:department_id => @first_approver.department_id).order.page(params[:page]).per(4)      
+    end
+  end
 
   def download_attachments
     @message = IctFirewall.find(params[:id])

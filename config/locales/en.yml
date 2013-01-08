@@ -72,6 +72,7 @@ en:
     message_list: "No new Messages"
 
   left_nav:
+    approve_req: "Approve Request"
     list_building_asset: "List Building Asset"
     list_computer: "List Computer"
     list_vpn: "List VPN"
@@ -593,7 +594,7 @@ en:
     out_of_state: "Out of State"
     out_of_country: "Out of Country"
     official: "Official"
-    non-offical: "Non-Official/Personal"
+    non-official: "Non-Official/Personal"
     place_name: "Place Name"
     total_exp: "Total Expenditure"
     country: "Country"
@@ -630,7 +631,7 @@ en:
     relation_ship: "Relationship"
     update_ref: "Update Reference"
     enter_num_only: "Enter Numbers Only"
-    setp_1_of_5: "Step 1 of 5"
+    se_1_of_5: "Step 1 of 5"
     setp_2_of_5: "Step 2 of 5"
     setp_3_of_5: "Step 3 of 5"
     setp_4_of_5: "Step 4 of 5"
@@ -912,7 +913,10 @@ en:
     trans_process_req: "Transport Process Request"
     no_user_available: "No User Available"
     application_details: "Application Details"
-
+    dependent: "Dependent" 
+    list_other_booking: "List Others Bookings"
+    has_returned: "Has Returned"
+    create_other_booking: "Create Others Booking"
   
 
 

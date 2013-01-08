@@ -10,12 +10,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121223065348) do
+ActiveRecord::Schema.define(:version => 20130107090222) do
 
   create_table "activity_feeds", :force => true do |t|
     t.string   "for"
     t.string   "feed_type"
     t.integer  "actor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "advertisements", :force => true do |t|
+    t.string   "web_link"
+    t.datetime "from_date"
+    t.datetime "to_date"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.string   "advertisement_attachment"
+    t.boolean  "is_active",                :default => true
+    t.boolean  "deleted",                  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,7 +61,8 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
     t.integer  "driver_id"
     t.string   "resource_type"
     t.integer  "resource_id"
-    t.integer  "quantity"
+    t.integer  "quantity",        :default => 1
+    t.integer  "booked_quantity", :default => 0
     t.string   "serial_no"
     t.integer  "uom"
     t.boolean  "booked",          :default => false
@@ -64,6 +78,18 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
   add_index "agency_stores", ["serial_no"], :name => "index_agency_stores_on_serial_no"
   add_index "agency_stores", ["sub_category_id"], :name => "index_agency_stores_on_sub_category_id"
   add_index "agency_stores", ["updated_at"], :name => "index_agency_stores_on_updated_at"
+
+  create_table "application_statuses", :force => true do |t|
+    t.string   "module_name"
+    t.string   "module_type"
+    t.integer  "module_resource_id"
+    t.string   "status"
+    t.string   "remarks"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "appointments", :force => true do |t|
     t.string   "name"
@@ -167,6 +193,18 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
     t.datetime "updated_at"
   end
 
+  create_table "conversation_groups", :force => true do |t|
+    t.integer  "from_groupid"
+    t.integer  "to_groupid"
+    t.integer  "from_userid"
+    t.integer  "to_userid"
+    t.integer  "department_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "conversations", :force => true do |t|
     t.integer  "from_userid"
     t.integer  "to_userid"
@@ -246,6 +284,22 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
   create_table "equipment_categories", :force => true do |t|
     t.string   "name"
     t.boolean  "is_active",  :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.datetime "from_date"
+    t.datetime "to_date"
+    t.string   "venue"
+    t.string   "organizer"
+    t.text     "description"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.string   "event_attachment"
+    t.boolean  "is_active",        :default => true
+    t.boolean  "deleted",          :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -337,6 +391,25 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
     t.datetime "updated_at"
   end
 
+  create_table "group_members", :force => true do |t|
+    t.integer  "group_id"
+    t.string   "user_id"
+    t.boolean  "is_active",  :default => true
+    t.boolean  "deleted",    :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.string   "department_id"
+    t.boolean  "is_active",     :default => true
+    t.boolean  "deleted",       :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "ict_firewall_services", :force => true do |t|
     t.integer  "ict_firewall_id"
     t.integer  "facility_ict_service_id"
@@ -358,6 +431,8 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
     t.text     "remarks"
     t.string   "status"
     t.integer  "incharge_person"
+    t.string   "attachment"
+    t.string   "attachment_cache"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -406,7 +481,8 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
     t.integer  "updated_by"
     t.integer  "hardware_id"
     t.integer  "type_id"
-    t.integer  "center_id"
+    t.integer  "location_center_id"
+    t.integer  "ict_wiring_id"
     t.string   "hardware_quantity"
     t.string   "work_status"
     t.text     "notes"
@@ -626,6 +702,7 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
     t.string   "pick_up_place"
     t.string   "requester_id"
     t.string   "attachment"
+    t.string   "attachment_cache"
     t.string   "status"
     t.text     "remarks"
     t.string   "approver_id"
@@ -655,7 +732,7 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
     t.string   "name"
     t.integer  "category_id"
     t.integer  "sub_category_id"
-    t.string   "status"
+    t.integer  "vehicle_model_type_id"
     t.string   "resource_type"
     t.string   "resource_no"
     t.text     "location"
@@ -663,11 +740,13 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
     t.integer  "capacity"
     t.string   "description"
     t.string   "brand_model"
-    t.boolean  "is_returnable"
-    t.boolean  "is_facilty_avail", :default => false
     t.integer  "created_by"
-    t.boolean  "is_active",        :default => true
-    t.boolean  "deleted",          :default => false
+    t.string   "status"
+    t.boolean  "has_serial_no",         :default => false
+    t.boolean  "is_returnable",         :default => false
+    t.boolean  "is_facilty_avail",      :default => false
+    t.boolean  "is_active",             :default => true
+    t.boolean  "deleted",               :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -800,6 +879,18 @@ ActiveRecord::Schema.define(:version => 20121223065348) do
   create_table "system_model_types", :force => true do |t|
     t.string   "name"
     t.integer  "system_access_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "templates", :force => true do |t|
+    t.string   "name"
+    t.string   "template_type"
+    t.text     "content"
+    t.integer  "department_id"
+    t.integer  "user_id"
+    t.string   "interested_objects"
+    t.string   "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

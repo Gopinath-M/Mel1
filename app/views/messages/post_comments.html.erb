@@ -13,6 +13,10 @@
         &nbsp; - &nbsp;
         <a value="<%= @message.id %>" id ="message_<%= @message.id %>" title="Comment" onclick= "insert_text_field(id)"><%=t('labels.comment')%>    </a>
       <%end%>
+      <% if @message.user.id == current_user.id %>
+					&nbsp; - &nbsp;
+					<%= link_to t('labels.delete'), message_path(:id => @message.id),:method=>"delete",:confirm=>t('labels.delete_confirmation') %>
+				<%end%>
     </p>
 
 
@@ -31,7 +35,9 @@
             </div>
             <div class="PM-cmts-txt">
               <p><%= comment.comments %></p>
-              <p class="PM-des"><%=t('labels.by')%> <a title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%=t('labels.ago')%></p>
+              <p class="PM-des"><%=t('labels.by')%> <a title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%=t('labels.ago')%>
+              	
+              </p>
             </div>
           </div>
         <%end%>
