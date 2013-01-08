@@ -1,7 +1,7 @@
 class AddPersonInchargeToSoftwareInstallations < ActiveRecord::Migration
-  def change
+  def self.up
 
-add_column :person_incharge,  :integer
+    add_column :software_installations, :person_incharge,  :integer
 
-end
+  end
 end
