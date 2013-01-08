@@ -43,7 +43,7 @@ class IctHardwareBookingsController < ApplicationController
       @ict_hardware_bookings=IctHardwareBooking.where(:department_id => @current_department).order.page(params[:page]).per(5)
     else
       bookings=IctHardwareBookedUser.where(:forward_to => current_user.id).collect(&:ict_hardware_booking_id)
-      @ict_hardware_bookings=IctHardwareBooking.find(bookings) if bookings && !bookings.empty?
+      @ict_hardware_bookings=IctHardwareBooking.where("id in (?)",bookings).order.page(params[:page]).per(5) if bookings && !bookings.empty?
     end
     if @approve && @approve.present?
       @ict_hardware_bookings = IctHardwareBooking.where(:department_id => @approve.department_id).order.page(params[:page]).per(5)
