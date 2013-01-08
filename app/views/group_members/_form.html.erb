@@ -13,7 +13,7 @@
 		<div class="form-sec-row" >
 			<label class="text"><%=t('labels.user')%><span style=color:red>*</span></label>
 			<span class="in-box"> <td>  
-		    <%=f.select(:user_id, options_from_collection_for_select(@users, 'id','first_name'),:prompt=>"Select Group Member") %> </td> </span>
+		    <%=f.select(:user_id, options_from_collection_for_select(@users, 'id','username'),:prompt=>"Select Group Member") %> </td> </span>
 		</div>
 	</div>
 

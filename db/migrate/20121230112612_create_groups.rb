@@ -3,7 +3,7 @@ class CreateGroups < ActiveRecord::Migration
     create_table :groups do |t|
       t.string :name
       t.references :user
-      t.string :department_id 
+      t.integer :department_id 
       t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false     
       t.timestamps
