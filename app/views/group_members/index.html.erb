@@ -7,21 +7,27 @@
   <div id="div_ajax" >
     <%if @groups&& !@groups.empty?%>
       <%  @groups.each do |group| %>
-      <% group.group_members.each do |group_member| %>
-        <div class="manage-user box">
-          <div class="manage-user-row box">
-            <div class="mu-c1">
+        <% group.group_members.each do |group_member| %>
+          <div class="manage-user box">
+            <div class="manage-user-row box">
+              <div class="mu-c1">
+                <p class="head1"><font color="#369"><b><%= group.name %></b></font>
+                </p>
+              </div>
+              <div class="mu-c2">
+                <p class="head1"><%= User.find(group_member.user_id).username %></p>
+              </div>
+              <div class="mu-c3">
+                <%if group.is_active %>
+                  <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Deactivate", update_status_groups_path(:id=>group.id, :status=>"Deactivate"), :confirm => 'Do you want to really deactivate this Group Name?', :method=>:post, :title=>"Deactive" %>
+                <%else%>
+                  <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Activate",  update_status_groups_path(:id=>group.id,:status=>"Activate"), :confirm => 'Do you want to really Activate this Group Name?', :method=>:post, :title=>"Activate"%>
+                <%end%>
+
+              </div>
             </div>
-            <div class="mu-c2">
-              <p class="head1">
-                <b><%= User.find(group_member.user_id).first_name %></b></p><br/>                                
-            </div> 
-            <div class="mu-c3">
-            	<b><%= group.name %></b><br/>
-            </div>           
           </div>
-        </div>
-      <%end%> <%end%>
+        <%end%> <%end%>
     <%end%>
   </div>
 </div>

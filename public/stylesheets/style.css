@@ -363,6 +363,10 @@ h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-
 .btn3{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:3px 15px 3px; font-size:11px; color:#fff; overflow:visible; height:24px;}
 .btn3:hover{ color:#f2c0b7;} /* chat online send button */
 
+.btn4{ cursor:pointer; border:0 none; background: url(../images/btn1.png) no-repeat 0 0; padding:3px 15px 3px; font-size:11px; color:#fff; overflow:visible; height:24px;}
+.btn4:hover{ color:#f2c0b7;} /* chat online send button */
+
+
 .form-sec-row1 tr, .form-sec-row1 td{border:1px solid #ccc;}
 .form-sec-row1 td{width:100px;}
 .form-sec-row1 tr, .form-sec-row1 table{width:500px !important;}

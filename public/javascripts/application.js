@@ -866,6 +866,18 @@ $().ready(function(){
         });
     })
 
+    /* Chat - List of Groups */
+
+    $("#standard6_department_id").live("change",function(){
+      
+        $.get("/conversation_groups/",{
+            department_id: $("#standard6_department_id").val()
+        }, function(data){
+            $("#department_id").val($("#standard6_department_id").val())
+            $("#div_ajax").html(data)
+          
+        });
+    })
 
     $("#standard4_department_id").live("change", function(){
         if($("#standard4_department_id").val()!="")
@@ -1761,6 +1773,29 @@ $().ready(function(){
         }
     });
 
+        /* Chat Apps Code */
+
+    $("#btn4").live("click",function(){
+        if ($("#content").val() == ""){
+            alert("Message shouldn't be blank...");
+            $("#content").focus();
+            return false;
+        }
+        else
+        {
+            //            alert("Message sent...");
+            $.ajax({
+                complete: function(){
+                    
+                    $('#chat-msg').load('/conversation_groups/'+jsUserID);                   
+                // Handle the complete event
+                }
+            // ......
+            });
+
+        }
+    });
+
     /* resource room booking script */
     $("#resource_room_booking_sub_category_id").live("change", function(){
         getResourceforSubcategory('resource_room_booking_sub_category_id', 'resource_room_booking_resource_id')
@@ -1999,6 +2034,38 @@ $().ready(function(){
                 department_id: $("#standard5_department_id").val()
             }, function(data){
                 $("#department_id").val($("#standard5_department_id").val())
+                $("#div_ajax").html(data)
+            })
+        }
+    });
+    /* chat user ends*/
+
+     /* Chat User List based on Depart & Agency Starts */
+    $("#transfer_agency").live("change", function(){
+        if($("#transfer_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#transfer_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#standard6_department_id').find('option').remove().end()
+                    $('#standard6_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#standard6_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $('#standard6_department_id').find('option').remove().end()
+            $('#standard6_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+            $.get("/conversation_groups/",{
+                department_id: $("#standard6_department_id").val()
+            }, function(data){
+                $("#department_id").val($("#standard6_department_id").val())
                 $("#div_ajax").html(data)
             })
         }
@@ -2814,6 +2881,19 @@ $("#complaint_building_asset_building_asset_type_id").live("change", function(){
     }
 
 });
+
+   /* Custom Group Chat */
+
+     $("#group_member_group_id").live("change",function(){
+        $.get("/conversation_groups/",{
+            group_id: $("#group_member_group_id").val()
+        }, function(data){
+
+            $("#group_id").val($("#group_member_group_id").val())
+            $("#div_ajax").html(data)
+
+        });
+    })
 
 $("#complaint_building_asset_type_id").live("change", function(){
     if($("#complaint_building_asset_type_id").val()!="")

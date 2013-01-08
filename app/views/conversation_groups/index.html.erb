@@ -1,6 +1,6 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">List of Users for Custom Groups&nbsp;&nbsp;[&nbsp;<%=image_tag ("online.png"), :alt=>"Image", :width=>"17", :height=>"17"%>&nbsp;Online - &nbsp;<%=image_tag ("offline.png"), :alt=>"Image", :width=>"17", :height=>"17"%>&nbsp;Offline&nbsp;]</h2>
+    <h2 class="b-head">List of Groups</h2>
     <br/>
     <%if current_user.is_super_admin? %>
       <div class="form-sec-row">
@@ -15,62 +15,53 @@
       <%= label_tag :department_id, raw("Department"), :class=>"text"%>
       <span class="in-box">
         <%if current_user.is_super_admin? %>
-          <%= select(:standard5,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+          <%= select(:standard6,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
         <%else%>
-       
-          <%= select(:standard5,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
+
+          <%= select(:standard6,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
 
         <%end%>
       </span>
     </div>
-
-    <div class="form-sec-row">
-      <label class="text">Group Name</label>
-      <span class="in-box">
-        <%= select(:custom_group_user, :custom_group_id, CustomGroup.all.collect {|p| [ p.group_name, p.id ] }, :prompt => "Select Group Name", :style=> "width:132%;") %>
-      </span>
-    </div>
     <br/>
   <%end%>
-  <div id="div_ajax">
-    <%if @users && !@users.empty?%>
-      <%@users.each do |user|%>
-        <div class="manage-user-row box">
-          <div class="mu-c2"><% custom_group_user = CustomGroupUser.find_by_assign_user_id_and_department_id(user.id, current_user.departments) %>
-            <p class="head1">  <% custom_groups = CustomGroup.find_by_id(custom_group_user.custom_group_id)  %>
- <b>Group Name</b>&nbsp;<font color="#369"><%=  link_to "#{custom_groups.group_name}", conversation_group_path(user.id), :id => custom_groups.group_name , :class => "online_users", :target => '_blank'%></font>&nbsp;&nbsp;&nbsp;<br/><%=image_tag (user.login_status ? "online.png" : "offline.png"), :alt=>"Image", :width=>"17", :height=>"17"%>&nbsp;&nbsp;
-              <%= !user.avatar.nil? && !user.avatar.url(:thumb).nil? ? (image_tag(user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
-              <font color="#BB0802"><b><%=  user.username%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;
-              <br/>
-              <%=user.ic_number%><br/>
-              <b><%=user.email%></b>
-            </p>
-            <p><font color="#369"><b><%=user.departments.first.name%></b></font></p>
-          </div>
-        </div><%end%>
-      <div class="manage-user-rows box"><br/><br/>
-        <%= paginate @users %></div>
-    <%elsif @custom_group_users && !@custom_group_users.empty?%>
-      <%  @custom_group_users.each do |val| %>
-        <% user = User.find_by_id(val.assign_user_id) %>
-        <div class="manage-user-row box">
-          <div class="mu-c2"><% custom_group_user = CustomGroupUser.find_by_assign_user_id_and_custom_group_id(val.assign_user_id, val.custom_group_id) %>
-            <p class="head1">  <% custom_groups = CustomGroup.find_by_id(custom_group_user.custom_group_id)  %>
-              <b>Group Name</b>&nbsp;<font color="#369"><%=  link_to "#{custom_groups.group_name}", conversation_group_path(user.id), :id => custom_groups.group_name , :class => "online_users", :target => '_blank'%></font>&nbsp;&nbsp;&nbsp;<br/><%=image_tag (user.login_status ? "online.png" : "offline.png"), :alt=>"Image", :width=>"17", :height=>"17"%>&nbsp;&nbsp;
-              <%= !user.avatar.nil? && !user.avatar.url(:thumb).nil? ? (image_tag(user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
-              <font color="#BB0802"><b><%=  user.username%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;
-              <br/>
-              <%=user.ic_number%><br/>
-              <b><%=user.email%></b>
-            </p>
-            <p><font color="#369"><b><%=user.departments.first.name%></b></font></p>
-          </div>
-        </div><%end%>
-      <div class="manage-user-rows box"><br/><br/>
-  <%= paginate @custom_group_users %></div>
-    <%else%><br/>
-      No User Data Available
-    <%end%>
 
+
+  <div id="div_ajax">
+
+<% if !current_user.is_super_admin? %>
+      <%if @group_names && !@group_names.empty?%>
+        <%  @group_names.each do |group_names|%>
+          <div class="manage-user-row box">
+            <div class="mu-c2">
+              <% if group_names.user_id == current_user.id %>
+                <% group = Group.find_by_id(group_names.group_id) %>
+                <p><b><font color="#369"><b><%=  link_to "#{group.name}", conversation_group_path(group.id), :id => group.name , :class => "online_users", :target => '_blank'%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;</b></p>
+              <%else%>
+                <p><b><font color="#369"><b><%=  link_to "#{group_names.name}", conversation_group_path(group_names.id), :id => group_names.name , :class => "online_users", :target => '_blank'%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;</b></p>
+              <%end%>
+            </div>
+          </div>
+        <%end%>
+      <%else%><br/>
+        <%=t('labels.no_group_available')%>
+      <%end%>    
+    
+      <%else%>
+       <%if @group_name_admins && !@group_name_admins.empty?%>
+        <%  @group_name_admins.each do |group_name_admins|%>
+          <div class="manage-user-row box">
+            <div class="mu-c2">
+                <p><b><font color="#369"><b><%=  link_to "#{group_name_admins.name}", conversation_group_path(group_name_admins.id), :id => group_name_admins.name , :class => "online_users", :target => '_blank'%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;</b></p>
+
+            </div>
+          </div>
+        <%end%>
+      <%else%><br/>
+        <%=t('labels.no_group_available')%>
+      <%end%>
+      <%end%>
   </div>
+  <%if !request.xhr?%>
   </div>
+<%end%>

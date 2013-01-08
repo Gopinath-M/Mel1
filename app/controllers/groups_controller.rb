@@ -26,15 +26,32 @@ class GroupsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
+  def update
+    @group = Group.find(params[:id]) if params[:id]
+    if @group.update_attributes(params[:group])
+      redirect_to(groups_path, :notice => 'Group Name has been successfully updated.')
+    else
+      render :action=>'new'
+    end
+  end
+
   def update_status
     group = Group.find(params[:id])
     if group && params[:status]=="Activate"
-      group.update_attribute(:is_active,1)
+      group.update_attribute(:is_active,true)
     elsif group && params[:status]=="Deactivate"
-      group.update_attribute(:is_active,0)
+      group.update_attribute(:is_active, false)
     end
-    redirect_to(groups_path, :notice => 'Group Status has been successfully changed.')
+    redirect_to(groups_path, :notice => 'Group Name Status has been successfully changed.')
+  end
+
+  def destroy
+    @group = Group.find(params[:id])
+    @group.deleted = true
+    if @group.save
+      redirect_to(groups_path, :notice => 'Group Name has been Deleted.')
+    end
   end
 
 end

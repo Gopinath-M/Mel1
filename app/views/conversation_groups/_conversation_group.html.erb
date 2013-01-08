@@ -1,21 +1,15 @@
-<table width ="100%" cellpadding="0" cellspacing="5" align="center" >    
-  <%@conversation_group.each do |convo|%>
+<% @conversation_group_name.each do |conversation_group_name|%>
+  <% user_name = User.find_by_id(conversation_group_name.user_id) %>
+  <table width ="100%" cellpadding="0" cellspacing="5" align="center" >
     <tr>
-      <td width="30%" align="left">
-        <%if convo.from_userid==@user.id %>
-          <%image_url= !@user.avatar.nil? && !@user.avatar.url(:thumb).nil? ? (image_tag(@user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
-          <%=image_url%>
-          <font color="#369"><br/><b><%=@user.username%></b></font>
-        <%elsif convo.to_userid==@user.id%>
-          <%image_url= !current_user.avatar.nil? && !current_user.avatar.url(:thumb).nil? ? (image_tag(current_user.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
-          <%=image_url%>
-          <font color="#369"><br/><b><% if current_user.username %>Me<%else%><%=current_user.username%><%end%></b></font>
-        <%end%>
-      </td>
-      <td align="left" width="45%" valign="top" style="vertical-align: top;"><%=convo.content %></td><td align="right" width="20%"><i><%= time_ago_in_words(convo.created_at).gsub('about','') + ' ago' %></i></td>
+      <td width="30%" align="left"> <%image_url= !user_name.avatar.nil? && !user_name.avatar.url(:thumb).nil? ? (image_tag(user_name.avatar.url(:thumb), :alt=>"Image", :width=>"30", :height=>"30")) : (image_tag "no_photo_small.jpg", :alt=>"Image", :width=>"30", :height=>"30")  %>
+        <%=image_url%><br/>
+        <font color="#369"><b><%= user_name.username %></b></font></td>
+      <td width="30%" align="left"><%= conversation_group_name.content %></td>
+      <td width="30%" align="left"><%= time_ago_in_words(conversation_group_name.created_at).gsub('about','') + ' ago' %></td>
     </tr>
-  <%end%>
-</table>
+  </table><h2 class="b-head"></h2>
+<%end%>
 
 
 
