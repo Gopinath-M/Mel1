@@ -55,6 +55,9 @@
               <% count = User.find(:all, :conditions=>["login_status = ? and id !=?",'1', current_user.id]).count %>
               <a href="/conversations" title="<%= t('left_nav.chat')%>"><%= image_tag "chat_icon.png" , :width=>"16", :height=>"16", :alt=>"Chat"%><span class="notifiNo"><%= count %></span><%= t('left_nav.chat')%></a>
             </li>
+             <li>              
+              <a href="/conversation_groups" title="<%= t('left_nav.chat')%>"><%= image_tag "group_chat.png" , :width=>"16", :height=>"16", :alt=>"Group Chat"%><%= t('left_nav.group_chat')%></a>
+            </li>
             <li>
               <a href="javascript:void(0);" title="<%= t('left_nav.events')%>"><%= image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%><%= t('left_nav.events')%></a>
             </li>

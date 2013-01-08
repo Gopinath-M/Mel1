@@ -1,61 +1,36 @@
-<h2 class="b-head"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Custom Group Chat - Room / History</b></h2><br/><br/>
- <% @conversation_group_name = ConversationGroup.all %>
+<h2 class="b-head"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Group Chat - Room</b></h2><br/><br/>
 
 
-      <% group_name_from = CustomGroup.find_by_id_and_department_id_and_is_active(@conversation_group_name, current_user.departments,true) %>
+
+<% @conversation_group_name = ConversationGroup.find_all_by_from_groupid_and_to_groupid_and_department_id(@group_names.id, @group_names.id, @current_department) %>
+
+<div class="clearfix"></div>
 
 
-<p><h2><b><font color="#369">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Custom Group Name - <%= group_name_from.group_name %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=image_tag (@user.login_status ? "Online.ico" : "Offline.ico"), :alt=>"Image", :width=>"10", :height=>"10"%>&nbsp;&nbsp;
-      <%=@user.username%>&nbsp;&nbsp;&nbsp; <% if current_user.is_super_admin? %>[&nbsp;<%=@user.roles.first.name%>&nbsp;]<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Department Name - <%=@user.departments.first.name%><%end%>
-    </font></b> </h2></p>
-<!-- CHAT DESIGN -->
-
-
-<div class="chat" id="<%=@user.username%>">
+<div class="chat" id="<%=@group_names.name%>">
   <div class="chat-head">
-    <a href="#" class="ch-name"> <%=image_tag (@user.login_status ? "online.png" : "offline.png"), :alt=>"Image", :width=>"17", :height=>"17"%>&nbsp;
-      <%=@user.username%>&nbsp;&nbsp;</a>
-    <a  id="closelink" class="ch-close" title="Close">Close</a>
-    <a  id="restore" class="ch-square" title="Restore" >Restore</a>
-    <a  id="minimize" class="ch-minas" title="Minimize">Minimize</a>
+    <a href="#" class="ch-name">
+      <%=@group_names.name%>&nbsp;&nbsp;</a>
+    <a  id="closelink" class="ch-close" title="Close"><%=t('labels.close')%></a>
+    <a  id="restore" class="ch-square" title="Restore" ><%=t('labels.restore')%></a>
+    <a  id="minimize" class="ch-minas" title="Minimize"><%=t('labels.minimize')%></a>
   </div>
-  <div class="chat-msg-box" id="<%=@user.username%>" >
+  <div class="chat-msg-box" id="<%=@group_names.name%>" >
     <div class="chat-msg" id="chat-msg">
-    <p><% @conversation_group_name = ConversationGroup.all %>
-
-    <% @conversation_group_name.each do |conversation_group_name|%>
-        <% user_name_from = User.find_by_id(conversation_group_name.from_userid) %>
-      <% user_name_to = User.find_by_id(conversation_group_name.to_userid)%>
-      <table width ="100%" cellpadding="0" cellspacing="5" align="center" >
-
-    <tr>
-      <td width="30%" align="left"><b>User Name From</b></td> <td width="30%" align="left"><%= user_name_from.username %></td>
-    </tr>
-    <tr>
-      <td width="30%" align="left"><b>User Name To</b></td> <td width="30%" align="left"><%= user_name_to.username %></td>
-    </tr>
-    <tr>
-      <td width="30%" align="left"><b>Messages</b></td> <td width="30%" align="left"><%= conversation_group_name.content %></td>
-    </tr>
-     <tr>
-      <td width="30%" align="left"><b>Sent at</b></td> <td width="30%" align="left"><%= time_ago_in_words(conversation_group_name.created_at).gsub('about','') + ' ago' %></td>
-    </tr>
-      </table>
-
-      <h2 class="b-head"></h2>
-    <%end%></p>
+      <p class="ch-date">
+        <%=render :partial=>"conversation_group"%>
+      </p>
       <div class="clearfix"></div>
     </div>
-    <div class="chat-tbox"> <span class="in-box"><%= form_for ConversationGroup.new, :remote => true do |f| %>
-          <%=f.hidden_field :to_userid, :value=>@user.id%>
-      
-        <% @custom_group_name = CustomGroupUser.find_all_by_assign_user_id(@user.id) %>
-    <%#=@custom_group_name.inspect%>
-          <%=f.hidden_field :from_groupid, :value=>@custom_group_name[0].custom_group_id%>
-  <%=f.hidden_field :to_groupid, :value=>@custom_group_name[0].custom_group_id%>
+    <div class="chat-tbox">
+      <span class="in-box"><%= form_for ConversationGroup.new, :remote => true do |f| %>
+          <%=f.hidden_field :from_groupid, :value=>@group_names.id%>
+          <%=f.hidden_field :to_groupid, :value=>@group_names.id%>
           <div class="form-sec-row" id="form-sec-row">
-            <%= f.text_area :content, :id => :content, :rows => 2, :cols => 30, :autofocus => true %> <%= f.submit raw("Send"), :id=>"btn3", :class=>"btn3"%>
-          <% end %> </div> </span>
+            <%= f.text_area :content, :id => :content, :rows => 2, :cols => 30, :autofocus => true %> <%= f.submit raw("Send"), :id=>"btn4", :class=>"btn4"%>
+          <% end %>
+        </div>
+      </span>
     </div>
   </div>
 </div>
@@ -67,7 +42,7 @@
 
 
 <script type="text/javascript">
-  var jsUserID = <%= @user.id %>;
+  var jsUserID = <%= @group_name.id %>;
 
   $(document).ready(function() {
 
@@ -80,8 +55,8 @@
     });
     refresh_alerts = setInterval(function () {
       if (isScrolling){
-        $('.chat-msg').load('/conversation_groups/'+jsUserID).scrollTop(lastScrollPos);
-
+   
+        $('#chat-msg').load('/conversation_groups/'+jsUserID).scrollTop(lastScrollPos);
       }
     }, 10000);
     isScrolling = false;
@@ -89,14 +64,14 @@
 
     $("tr:last").css({backgroundColor: '#FEEDEB', fontWeight: 'bolder'});
 
-   
- 
+
+
   });
 
 
   $('.ch-close').click(function() {
     $('.chat').toggle();
-  
+
   });
 
   $('.ch-minas').click(function() {
@@ -109,4 +84,3 @@
 
 
 </script>
-
