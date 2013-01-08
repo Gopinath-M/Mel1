@@ -1,0 +1,21 @@
+<% if @users && !@users.empty?%>
+  <%@users.each do |user|%>
+    <div class="mu-c2">
+      <p class="head1">
+        First Name: <%=link_to content_tag(:b, user.first_name), "javascript:void(0);"%><br/>
+        Last Name: <%=link_to content_tag(:b, user.last_name), "javascript:void(0);"%><br/>
+        IC Number: <%=user.ic_number%><br/>
+        Email: <%=link_to content_tag(:b, user.email), "javascript:void(0);", :title=>user.email%><br/>
+        <%user.role_memberships.each do |role_member|%>
+          Role: <%=role_member.role.name%><br/>
+          Department: <%=role_member.department.name%><br/><br/>
+        <%end%>
+
+      </p>
+    </div>
+    <h2 class="b-head"></h2>
+  <%end%>
+  <%#*<div class="manage-user-rows box"><br/><br/>%>
+  <%#= paginate @users  if @users%>
+  <%#*</div>%>
+<%end%>

@@ -1,0 +1,6 @@
+<%= form_tag "/search", :html => {:method => :post} do %>
+  <p class="formRow f-right">
+    <span class="shadow-input"><%=text_field_tag :term, params[:term]%></span>
+  </p>
+  <%=submit_tag("submit", :class=>"but-search")%>
+<%end%>
