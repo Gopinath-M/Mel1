@@ -33,8 +33,17 @@ Melaka::Application.routes.draw do
   end
   
   resources :vehicle_model_types
-  resources :groups
-  resources :group_members
+  resources :groups do
+    collection do
+      post 'update_status'
+    end
+  end
+
+  resources :group_members do
+    collection do
+      post 'update_status'
+    end
+  end
 
   resources :ict_hardware_bookings do
     collection do
@@ -392,6 +401,7 @@ resources :conversation_groups do
       get 'conversations'
       post 'send_request'
       get 'list_users'
+     
     end
   end
   resources :custom_group_users
