@@ -6,31 +6,31 @@
       <% @user_name = User.find(@outstation.user_id) %>
 
       <div class="form-sec-row">
-        <label class="text"><%=t('labels.outstation_request')%></label>
+        <label class="text"><%=t('labels.first_name')%></label>
         <span class="in-box">
           <%= @user_name.first_name %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text"><%=t('labels.outstation_request')%></label>
+        <label class="text"><%=t('labels.last_name')%></label>
         <span class="in-box">
           <%= @user_name.last_name %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text"><%=t('labels.outstation_request')%></label>
+        <label class="text"><%=t('labels.contact_number')%></label>
         <span class="in-box">
           <%= @user_name.contact_mobile  %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text"><%=t('labels.outstation_request')%></label>
+        <label class="text"><%=t('labels.ic_no')%></label>
         <span class="in-box">
           <%= @user_name.ic_number %></span>
       </div>
 
       <div class="form-sec-row">
-        <label class="text"><%=t('labels.outstation_request')%></label>
+        <label class="text"><%=t('labels.email')%></label>
         <span class="in-box">
           <%= @user_name.email %></span>
       </div>
@@ -48,7 +48,7 @@
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('labels.outstation_type')%></label>
+                <label class="text"><%=t('labels.destination')%></label>
                 <span class="in-box">
                   <%= @outstation.is_out_of_state? ? 'Out of State' : 'Out of Country' %></span>
               </div>
@@ -84,13 +84,13 @@
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('labels.outstation_type')%></label>
+                <label class="text"><%=t('labels.total_exp')%></label>
                 <span class="in-box">
                   <%= @outstation.total_expenditure %></span>
               </div>
 
               <div class="form-sec-row">
-                <label class="text"><%=t('labels.outstation_type')%></label>
+                <label class="text"><%=t('labels.cause_spending')%></label>
                 <span class="in-box">
                   <%= @outstation.cause_spending %></span>
               </div>
