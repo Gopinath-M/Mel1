@@ -146,7 +146,7 @@ class IctFirewallsController < ApplicationController
     if !@first_approver.present? && !@second_approver.present?
       @ict_firewalls = IctFirewall.where(:department_id => @current_department).order.page(params[:page]).per(4)
     else
-      @ict_firewalls = IctFirewall.where(:person_incharge => current_user.id).order.page(params[:page]).per(4)
+      @ict_firewalls = IctFirewall.where(:incharge_person => current_user.id).order.page(params[:page]).per(4)
     end
     if @first_approver.present?
       @ict_firewalls = IctFirewall.where(:department_id => @first_approver.department_id).order.page(params[:page]).per(4)      

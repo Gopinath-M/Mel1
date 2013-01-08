@@ -1,6 +1,5 @@
 class UserMailer < ActionMailer::Base
   default :from => "from@example.com"
-  
   def welcomemail_department_user(user,password)
     begin
       @user=user
@@ -9,6 +8,7 @@ class UserMailer < ActionMailer::Base
     rescue Exception=>e
     end
   end
+
   # Transfer Dept email to user
   def intimate_user(user,department)
     @user=user
@@ -26,6 +26,7 @@ class UserMailer < ActionMailer::Base
     @user=user
     mail(:to=>@user.email,:subject =>"#{@user.full_name}! Your Account has been Activated Successfully ")
   end
+
   #Chat invitation
   def welcomemail_chat_user(emailchecking,resource_user)
     @user=emailchecking
@@ -33,7 +34,6 @@ class UserMailer < ActionMailer::Base
     mail(:from=>@resource_user.email,:to=>@user.email,:subject =>"#{@resource_user.username}! has been sent request to join for chat ")
   end
 
- 
   def ict_software(ict_email, ict_vpn, requisition_ict_software, requisition_user)
     @user = ict_email
     @ict_vpn = ict_vpn
@@ -136,7 +136,6 @@ class UserMailer < ActionMailer::Base
     mail(:to=>@user.email,:subject =>" Details of ICT Network Point")
   end
 
-
   #  ict_hardware
 
   #  ict_hardware
@@ -147,8 +146,6 @@ class UserMailer < ActionMailer::Base
     mail(:to=>@user.email,:subject =>" Details of ICT Hardware")
   end
 
-
-
   def send_status_mail_for_ict_hardware(user,ordered_user,ict_hardware,ict_hardware_booked_user)
     @user=user
     @ordered_user=ordered_user
@@ -156,9 +153,6 @@ class UserMailer < ActionMailer::Base
     @ict_hardware_booked_user=ict_hardware_booked_user
     mail(:to=>@user.email,:subject =>" Resource Requisition for ICT network Point Requisition",:bcc=>@ordered_user.email)
   end
-
-
-
 
   def send_mail_to_approver_for_ict_hardware(user, ict_hardware_booking, dept)
     @user=user
@@ -195,7 +189,7 @@ class UserMailer < ActionMailer::Base
     @requisition=room
     mail(:to=>@user.email,:subject =>" Resource Room Bookking Status Update")
   end
-  
+
   def send_mail_to_approver_others_for_booking(user,resource_booking,dept)
     @user=user
     @requisition= resource_booking
@@ -225,12 +219,12 @@ class UserMailer < ActionMailer::Base
     @software_installation = software_installation
     mail(:to=>@user.email,:subject =>"Details of ICT Software Installation")
   end
-  
+
   def send_mail_to_user_for_ict_firewall(requester,user,ict_firewall,dept)
     @requester = requester
     @user=user
     @requisition=ict_firewall
-    @department=dept    
+    @department=dept
     mail(:to=>@user.email,:subject =>"ICT Firewall Request Details")
     mail(:to=>@requester.email,:subject =>" Details of your ICT Firewall Request")
   end
@@ -241,6 +235,7 @@ class UserMailer < ActionMailer::Base
     @requisition=room
     mail(:to=>@user.email,:subject =>"Others Resource Booking Status Update",:bcc=>@ordered_user.email)
   end
+
   def send_mail_to_approver_for_ict_equipment_booking(user,ict_equipment_booking,dept)
     @user=user
     @requisition= ict_equipment_booking
@@ -267,11 +262,6 @@ class UserMailer < ActionMailer::Base
     mail(:to=>@user.email,:subject =>"Timeline Expire Intimation")
   end
 
-  def timeline_expire_mail_to_approver(user)
-    @user = user
-    mail(:to=>@user.email,:subject =>"Timeline Expire Intimation")
-  end
-
   def send_mail_to_dept_admin_for_transport_booking(user,resource_transport_booking,dept)
     @user=user
     @requisition= resource_transport_booking
@@ -281,8 +271,14 @@ class UserMailer < ActionMailer::Base
 
   def send_mail_to_user_for_transport_booking(user,resource_transport_booking)
     @user=user
-    @requisition= resource_transport_booking    
+    @requisition= resource_transport_booking
     mail(:to=>@user.email,:subject =>"Your Transport Booking Request was #{@requisition.status}")
+  end
+
+  def send_mail_to_resource_manager_for_transport_booking(user,resource_transport_booking)
+    @user=user
+    @requisition= resource_transport_booking
+    mail(:to=>@user.email,:subject =>"You have received a Transport Booking Process Request")
   end
 
   def resource_booking_notification(user,booking,dept)
@@ -291,5 +287,5 @@ class UserMailer < ActionMailer::Base
     @department = dept
     mail(:to=>@user.email,:subject =>"Details of Ict Equipment  Booking")
   end
-  
+
 end
