@@ -227,6 +227,7 @@ malay:
     message_list: "Tiada Mesej Baru"
 
   left_nav:
+    group_chat: "Kumpulan Chat"
     approve_req: "Meluluskan Permintaan"
     list_building_asset: "Senarai Bangunan Aset"
     list_computer: "Komputer Senarai"
@@ -470,6 +471,8 @@ malay:
     requstion_ict_fwall: "Meluluskan Rekuisisi ICT Firewall"
     requstion_ict_firewall: "Rekuisisi ICT Firewall"
     denial: "Maaf ...Kemudahan Tempahan Bilik Tidak Sesuai Untuk Jabatan anda ..."
+    denial_other: "Maaf ...Lain-lain Tempahan Kemudahan Bilik Tidak Sesuai Untuk Jabatan anda ..."
+    denial_ict: "Maaf ...Peralatan Tempahan Kemudahan ICT Tidak Sesuai Untuk Jabatan anda ..."
     denial_transport: "Maaf ...Pengangkutan Kemudahan Tempahan tidak Tersedia untuk Jabatan anda ..."
 
     select_an_agency: "Pilih agensi"
@@ -1071,6 +1074,8 @@ malay:
     list_other_booking: "Senarai Lain Tempahan"
     has_returned: "Telah Dikembalikan"
     create_other_booking: "Buat Lain Tempahan"
+    no_groups_available: "No Kumpulan Yang Disediakan"
+    hardware_required: "Perkakasan Diperlukan"
     
     
   activerecord:
