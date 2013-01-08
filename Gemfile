@@ -17,11 +17,12 @@ gem 'private_pub'  #chat online
 gem 'stalker'
 gem 'country-select'
 #gem 'i18n'
-#gem 'riddle','1.2.1'
+gem 'riddle','1.2.1'
 #gem 'thinking-sphinx', :git => 'http://github.com/freelancing-god/thinking-sphinx.git', :require => 'thinking_sphinx'
-#gem "thinking-sphinx", "~> 2.0.0"
+gem "thinking-sphinx", "~> 2.0.0"
 #gem 'thinking-sphinx', :git => 'git://github.com/pat/thinking-sphinx.git'
-#gem 'rdoc'
+gem 'rdoc'
+gem 'mongrel', '1.2.0.pre2'
 
 
 #gem 'postgres', '~>0.8.1'
@@ -46,7 +47,7 @@ gem 'country-select'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
   group :development, :test do
-    gem 'rspec-rails'
+    gem 'rspec-rails', '2.11.0'
     gem 'capybara'
     gem 'email_spec'
   end
