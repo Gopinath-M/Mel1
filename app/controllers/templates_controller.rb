@@ -1,5 +1,8 @@
 class TemplatesController < ApplicationController
- 
+
+  def new
+    @template = Template.new
+  end
   def create   
     @template = Template.create(params[:template])
     @template.user_id = current_user.id
@@ -10,6 +13,10 @@ class TemplatesController < ApplicationController
     end
   end
 
+  def edit
+    @template = Template.find(params[:id])
+  end
+  
   def update
     @template = Template.find(params[:id])
     if @template.update_attributes(params[:template])

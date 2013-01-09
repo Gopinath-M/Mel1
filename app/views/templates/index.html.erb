@@ -1,0 +1,35 @@
+
+<div class="CenterNav">
+  <h2 class="b-head"><%=t('labels.templates_all')%></h2>
+  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+  <div class="create-user">
+    <div class="cu-c1">
+    </div>
+
+  </div>
+  <div class="manage-user box">
+
+
+    <%if @templates && !@templates.empty?%>
+      <%@templates.each do |template|%>
+        <div class="manage-user-row box">
+          <div class="mu-c1">
+          </div>
+          <div class="mu-c2">
+            <p class="head1"><%= template.name%></p>
+          </div>
+          <div class="mu-c3">
+            <%= link_to image_tag("../images/edit.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.edit'), :action=>'edit', :id=>template.id.to_i%>
+
+            <%= link_to image_tag("../images/delete.jpg",:width=>"14",:height=>"14",:alt=>"img") +"Delete", template_path(template), :method=>:delete, :confirm => "Are you sure want to delete?" %>
+          </div>
+        </div>
+      <%end%>
+
+    <%else%>
+      <%=t('labels.no_data_available')%>
+    <%end%>
+
+  </div>
+</div>
+
