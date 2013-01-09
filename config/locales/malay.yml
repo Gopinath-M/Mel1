@@ -341,6 +341,7 @@ malay:
     template_add: "Tambah"
     template_add_fields: "Tambah Bidang"
     templates_all: "Senarai Template"
+    template_list: "Senarai Template"
     template_create: "Buat Templat"
     template_edit: "Kemaskini Templat"
     search_results: "Carian keputusan"

@@ -187,6 +187,7 @@ en:
     template_add_fields: "Add Fields"
     templates_all: "List Template"
     template_create: "Create Template"
+    template_list: "List Template"
     template_edit: "Edit Template"
     search_results: "Search Results"
     no_search_results: "No Results Found"

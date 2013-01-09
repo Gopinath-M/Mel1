@@ -55,7 +55,7 @@
               <% count = User.find(:all, :conditions=>["login_status = ? and id !=?",'1', current_user.id]).count %>
               <a href="/conversations" title="<%= t('left_nav.chat')%>"><%= image_tag "chat_icon.png" , :width=>"16", :height=>"16", :alt=>"Chat"%><span class="notifiNo"><%= count %></span><%= t('left_nav.chat')%></a>
             </li>
-             <li>              
+            <li>
               <a href="/conversation_groups" title="<%= t('left_nav.chat')%>"><%= image_tag "group_chat.png" , :width=>"16", :height=>"16", :alt=>"Group Chat"%><%= t('left_nav.group_chat')%></a>
             </li>
             <li>
@@ -64,11 +64,11 @@
             <!--li>
               <a href="/search/" title="<%#= t('left_nav.find_user')%>"><%#= image_tag "icn_user.png" , :width=>"16", :height=>"16", :alt=>"Find User"%><%#= t('left_nav.find_user')%></a>
             </li-->
-            <%#if session[:current_role] && session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN%>
-              <!--li>
-                <a href="javascript:void(0);" title="<%#= t('left_nav.uploaded_files')%>"><%#= image_tag "attach.png" , :width=>"16", :height=>"16", :alt=>"Upload Files"%><%#= t('left_nav.uploaded_files')%></a>
-              </li-->
-            <%#end%>
+  <%#if session[:current_role] && session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN%>
+            <!--li>
+              <a href="javascript:void(0);" title="<%#= t('left_nav.uploaded_files')%>"><%#= image_tag "attach.png" , :width=>"16", :height=>"16", :alt=>"Upload Files"%><%#= t('left_nav.uploaded_files')%></a>
+            </li-->
+  <%#end%>
           </ul>
         </div>
         <div class="clear"></div>
@@ -669,6 +669,21 @@
                   <li>
                     <a href="javascript:void(0);" title="<%#= t('left_nav.email_temp')%>"><%#= t('left_nav.email_temp')%></a>
                   </li-->
+                  <li>
+                    <%= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
+                    <div id ="div_template" style="display:none;">
+                      <ul>
+                        <li>
+                        <li>
+                          <%= link_to t('left_nav.create'), new_template_path%>
+                        </li>
+                        <li>
+                          <%= link_to t('left_nav.list'), templates_path%>
+                        </li>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                   <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
 
                     <li class="menu-item"> <%=link_to t('left_nav.events'), "javascript:void(0);" , :title=>t('left_nav.events') ,:class=>"", :id=>"lnk_events" ,:onclick=>"leftNavigation(this.id,'div_events')"%>
@@ -928,11 +943,11 @@
                   <%end%>
                 <%end%>
 
-                <%#if current_user && (session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_USER)%>
-                  <!--li>
-                    <a href="javascript:void(0);" title="<%#= t('labels.dept_details')%>"><%#= t('labels.dept_details')%></a>
-                  </li-->
-                <%#end%>
+      <%#if current_user && (session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_USER)%>
+                <!--li>
+                  <a href="javascript:void(0);" title="<%#= t('labels.dept_details')%>"><%#= t('labels.dept_details')%></a>
+                </li-->
+      <%#end%>
                 <%if current_user && (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN)%>
                   <li>
                     <a href="javascript:void(0);" title="<%= t('left_nav.view_vendors')%>"><%= t('left_nav.view_vendors')%></a>
@@ -1003,6 +1018,21 @@
                   </div>
                 </li>
               <%end%>
+              <li>
+                <%= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
+                <div id ="div_template" style="display:none;">
+                  <ul>
+                    <li>
+                    <li>
+                      <%= link_to t('left_nav.create'), new_template_path%>
+                    </li>
+                    <li>
+                      <%= link_to t('left_nav.list'), templates_path%>
+                    </li>
+                    </li>
+                  </ul>
+                </div>
+              </li>
               <!--li>
                 <a href="javascript:void(0);" title="<%#= t('left_nav.my_new_letter')%>"><%#= t('left_nav.my_new_letter')%></a>
               </li>
