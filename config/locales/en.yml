@@ -180,6 +180,14 @@ en:
     vehicle_brands: "Vehicle Brand"
 
   labels:
+    template_name: "Name"
+    template_subject: "Subject"
+    template_type: "Template Type"
+    template_add: "Add"
+    template_add_fields: "Add Fields"
+    templates_all: "List Template"
+    template_create: "Create Template"
+    template_edit: "Edit Template"
     search_results: "Search Results"
     no_search_results: "No Results Found"
     create_agency: "Create Agency"
@@ -922,7 +930,7 @@ en:
     list_other_booking: "List Others Bookings"
     has_returned: "Has Returned"
     create_other_booking: "Create Others Booking"
-    no_groups_available: "No Groups Available"
+    no_group_available: "No Groups Available"
     hardware_required: "Hardware Required"
     non_appr: "Non Approve"
   

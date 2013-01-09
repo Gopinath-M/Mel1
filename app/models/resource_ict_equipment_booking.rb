@@ -24,7 +24,7 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
       first_approver = Approver.active.where(:department_id => department.id).first
       if !first_approver.present?
       role = Role.find_by_name(DISP_USER_ROLE_DEPT_ADMIN)
-        admin_user = role.role_memberships.where(:department_id => self.user.current_department).first.user
+        admin_user = role.role_memberships.where(:department_id => Department.current_department).first.user
         UserMailer.resource_booking_notification(admin_user,self,department).deliver
       else
         UserMailer.resource_booking_notification(first_approver.user,self, department).deliver

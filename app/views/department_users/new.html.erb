@@ -116,7 +116,7 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.role')%></label>
           <span class="in-box">
-            <%= select("role", "id", Role.where("name in (?)",[DISP_USER_ROLE_DEPT_USER,DISP_USER_ROLE_RESOURCE_MANAGER]).collect {|role| [role.name, role.id]},:prompt=>"Select Role") %>
+            <%= select("role", "id", Role.where("name in (?)",[DISP_USER_ROLE_DEPT_USER]).collect {|role| [role.name, role.id]},:prompt=>"Select Role") %>
           </span>
         </div>
         <div class="form-sec-row">
