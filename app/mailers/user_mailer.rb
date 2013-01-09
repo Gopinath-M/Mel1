@@ -119,7 +119,14 @@ class UserMailer < ActionMailer::Base
     @user=user
     @ordered_user=ordered_user
     @requisition=network
-    mail(:to=>@user.email,:subject =>" Resource Requisition for ICT network Point Requisition",:bcc=>@ordered_user.email)
+    mail(:to=>@ordered_user.email,:subject =>" Resource Requisition for ICT network Point Requisition")
+  end
+
+  def send_status_mail_to_person_incharge_for_ict_network(user,ordered_user,network)
+    @user=user
+    @ordered_user=ordered_user
+    @requisition=network
+    mail(:to=>@user.email,:subject =>" Resource Requisition for ICT network Point Requisition")
   end
 
   def send_mail_to_dept_admin_for_ict_network(user,requisition,dept)
@@ -135,6 +142,14 @@ class UserMailer < ActionMailer::Base
     @department=dept
     mail(:to=>@user.email,:subject =>" Details of ICT Network Point")
   end
+
+  def send_mail_to_user_for_ict_network(ordered_user,requisition,dept)
+    @user=ordered_user
+    @requisition=requisition
+    @department=dept
+    mail(:to=>@user.email,:subject =>" Details of ICT Network Point")
+  end
+
 
   #  ict_hardware
 
@@ -162,6 +177,13 @@ class UserMailer < ActionMailer::Base
   end
 
   #ict_hardware end
+  def send_mail_to_user_for_room_booking(ordered_user,resource_room_booking,dept)
+    @user=ordered_user
+    @requisition= resource_room_booking
+    @department = dept
+    mail(:to=>@user.email,:subject =>" Details of Resource Room Booking")
+  end
+
   def send_mail_to_approver_for_room_booking(user,resource_room_booking,dept)
     @user=user
     @requisition= resource_room_booking

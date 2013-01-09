@@ -76,26 +76,34 @@ class ResourceRoomBookingsController < ApplicationController
               UserMailer.send_mail_to_approver_for_room_booking(user,@resource_room_booking,dept).deliver
             end
           end
+          ordered_user = User.find_by_id(@resource_room_booking.user_id)
+          UserMailer.send_mail_to_user_for_room_booking(ordered_user,@resource_room_booking,dept).deliver
           redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
         else
           render :action => 'new'
         end
       else
-        if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
-          @room = ResourceRoomBooking.find_all_by_resource_id(params[:resource_room_booking][:resource_id], :conditions=>["user_id != ?", 1]).last
-          @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
-          @resource_room_booking.agency_store_id = agency.id
+        redirect_to(new_resource_room_booking_path, :alert => "You cant book the Already Reserved Room, Please try other.")
+      end
+    elsif session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+      val = AgencyStore.find_by_resource_id(params[:room][:type_id_booked])
+      @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
+      if @resource_room_booking.valid?
+        @room = ResourceRoomBooking.find_all_by_resource_id(params[:room][:type_id_booked], :conditions=>["(status = 'New' or status = 'Approved') and agency_store_id=#{val.id} and user_id != ?", 1]).last
+        if @room.present?
+          @room.update_attribute(:status, "Cancelled")
+          @resource_room_booking.resource_id = params[:room][:type_id_booked]
+          @resource_room_booking.agency_store_id = val.id
           @resource_room_booking.status = "Processed"
           @resource_room_booking.user_id = params[:user_id]
           @resource_room_booking.department_id = '0'
           @resource_room_booking.save
-          if @room.present?
-            @room.update_attribute(:status, "Cancelled")
-          end
           redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been created sucessfully.")
         else
-          redirect_to(new_resource_room_booking_path, :alert => "You cant book the Already Reserved Room, Please try other.")
+          redirect_to(new_resource_room_booking_path, :alert => "You can't book the Room which is already Processed.")
         end
+      else
+        render :action => 'new'
       end
     else
       redirect_to(new_resource_room_booking_path, :alert => "Resource selected is not available in your Store.")
@@ -127,7 +135,7 @@ class ResourceRoomBookingsController < ApplicationController
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last
       if @approve.present?
         @booking = ResourceRoomBooking.where(:department_id => @approve.department_id).page(params[:page]).per(5)
-      #          @booking = ResourceRoomBooking.find(:all, :conditions=>["department_id = ? and created_at >= ?",@approve.department_id,Time.now-seconds])
+        #          @booking = ResourceRoomBooking.find(:all, :conditions=>["department_id = ? and created_at >= ?",@approve.department_id,Time.now-seconds])
       elsif @approver_second.present?
         @booking = ResourceRoomBooking.where(:department_id => @approver_second.department_id).page(params[:page]).per(5)
       elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
@@ -227,6 +235,19 @@ class ResourceRoomBookingsController < ApplicationController
   def download_attachments
     @message = ResourceRoomBooking.find(params[:id])
     send_file @message.room_attachment.path
+  end
+
+  def get_booked_rooms
+    if current_user.is_super_admin?
+      booked_rooms = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                            WHERE agency_stores.booked = true
+                                            AND resources.sub_category_id =#{params[:sub_category_id]}"
+      available_rooms = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                               WHERE agency_stores.booked = false AND
+                                               resources.sub_category_id=#{params[:sub_category_id]}"
+
+      render :json =>{ :booked => booked_rooms, :available => available_rooms}
+    end
   end
 
 end

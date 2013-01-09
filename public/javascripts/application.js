@@ -1773,7 +1773,7 @@ $().ready(function(){
         }
     });
 
-        /* Chat Apps Code */
+    /* Chat Apps Code */
 
     $("#btn4").live("click",function(){
         if ($("#content").val() == ""){
@@ -2040,7 +2040,7 @@ $().ready(function(){
     });
     /* chat user ends*/
 
-     /* Chat User List based on Depart & Agency Starts */
+    /* Chat User List based on Depart & Agency Starts */
     $("#transfer_agency").live("change", function(){
         if($("#transfer_agency").val()!="")
         {
@@ -2752,6 +2752,23 @@ $("#resource_booking_submit").live("click",function(){
 });
 /* Resource Other Booking Validation Ends*/
 
+/* Resource Room Booking Validation Starts*/
+$("#resource_room_booking_submit").live("click",function(){
+    if($('#available_two_way').is(':checked') ==true){
+        if ($("#room_type_id_booked").val() == ""){
+            alert("Select Resource Type");
+            return false;
+        }
+    }
+    else if($('#available_one_way').is(':checked') ==true){
+        if ($("#resource_room_booking_resource_id").val() == ""){
+            alert("Select Resource Type");
+            return false;
+        }
+    }
+});
+/* Resource Room Booking Validation Ends*/
+
 /* Requisition for Software Validation Starts*/
 $("#software_installation_submit").live("click",function(){
     if ($("#name_service_detail").val() == ""){
@@ -2882,18 +2899,18 @@ $("#complaint_building_asset_building_asset_type_id").live("change", function(){
 
 });
 
-   /* Custom Group Chat */
+/* Custom Group Chat */
 
-     $("#group_member_group_id").live("change",function(){
-        $.get("/conversation_groups/",{
-            group_id: $("#group_member_group_id").val()
-        }, function(data){
+$("#group_member_group_id").live("change",function(){
+    $.get("/conversation_groups/",{
+        group_id: $("#group_member_group_id").val()
+    }, function(data){
 
-            $("#group_id").val($("#group_member_group_id").val())
-            $("#div_ajax").html(data)
+        $("#group_id").val($("#group_member_group_id").val())
+        $("#div_ajax").html(data)
 
-        });
-    })
+    });
+})
 
 $("#complaint_building_asset_type_id").live("change", function(){
     if($("#complaint_building_asset_type_id").val()!="")
