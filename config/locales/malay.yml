@@ -335,6 +335,14 @@ malay:
     vehicle_brands: "Jenama kenderaan"
 
   labels:
+    template_name: "Nama"
+    template_subject: "Subjek"
+    template_type: "Jenis Templat"
+    template_add: "Tambah"
+    template_add_fields: "Tambah Bidang"
+    templates_all: "Senarai Template"
+    template_create: "Buat Templat"
+    template_edit: "Kemaskini Templat"
     search_results: "Carian keputusan"
     no_search_results: "Tiada Keputusan Ditemui"
     create_agency: "Daftar Agensi"
@@ -1077,7 +1085,7 @@ malay:
     list_other_booking: "Senarai Lain Tempahan"
     has_returned: "Telah Dikembalikan"
     create_other_booking: "Buat Lain Tempahan"
-    no_groups_available: "No Kumpulan Yang Disediakan"
+    no_group_available: "No Kumpulan Yang Disediakan"
     hardware_required: "Perkakasan Diperlukan"
     non_appr: "Bukan Meluluskan"
     
