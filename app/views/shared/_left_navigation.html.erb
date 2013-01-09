@@ -59,7 +59,7 @@
               <a href="/conversation_groups" title="<%= t('left_nav.chat')%>"><%= image_tag "group_chat.png" , :width=>"16", :height=>"16", :alt=>"Group Chat"%><%= t('left_nav.group_chat')%></a>
             </li>
             <li>
-              <a href="javascript:void(0);" title="<%= t('left_nav.events')%>"><%= image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%><%= t('left_nav.events')%></a>
+              <a href="/events" title="<%= t('left_nav.events')%>"><%= image_tag "icn_calendar.png" , :width=>"16", :height=>"16", :alt=>"Calendar"%><%= t('left_nav.events')%></a>
             </li>
             <!--li>
               <a href="/search/" title="<%#= t('left_nav.find_user')%>"><%#= image_tag "icn_user.png" , :width=>"16", :height=>"16", :alt=>"Find User"%><%#= t('left_nav.find_user')%></a>
@@ -928,11 +928,11 @@
                   <%end%>
                 <%end%>
 
-                <%if current_user && (session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_USER)%>
-                  <li>
-                    <a href="javascript:void(0);" title="<%= t('labels.dept_details')%>"><%= t('labels.dept_details')%></a>
-                  </li>
-                <%end%>
+                <%#if current_user && (session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_USER)%>
+                  <!--li>
+                    <a href="javascript:void(0);" title="<%#= t('labels.dept_details')%>"><%#= t('labels.dept_details')%></a>
+                  </li-->
+                <%#end%>
                 <%if current_user && (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN)%>
                   <li>
                     <a href="javascript:void(0);" title="<%= t('left_nav.view_vendors')%>"><%= t('left_nav.view_vendors')%></a>
@@ -1010,7 +1010,7 @@
                 <a href="javascript:void(0);" title="<%#= t('left_nav.email_temp')%>"><%#= t('left_nav.email_temp')%></a>
               </li-->
               <li>
-                <a href="javascript:void(0);" title="<%= t('left_nav.view_events')%>"><%= t('left_nav.view_events')%></a>
+                <a href="/events" title="<%= t('left_nav.view_events')%>"><%= t('left_nav.view_events')%></a>
               </li>
             </ul>
           <%end%>
