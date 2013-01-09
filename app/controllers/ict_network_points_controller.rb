@@ -29,6 +29,8 @@ class IctNetworkPointsController < ApplicationController
       user = User.find_by_id(@approve.user_id)
       UserMailer.send_mail_to_approver_for_ict_network(user,requisition,dept).deliver
     end
+    ordered_user = User.find_by_id(requisition.user_id)
+    UserMailer.send_mail_to_user_for_ict_network(ordered_user,requisition,dept).deliver
     if requisition.valid?
       redirect_to :controller=>'ict_network_points', :action=>'index'
     else
@@ -63,6 +65,7 @@ class IctNetworkPointsController < ApplicationController
     user = User.find_by_id(network.person_incharge)
     ordered_user = User.find_by_id(network.user_id)
     UserMailer.send_status_mail_for_ict_network(user,ordered_user,network).deliver
+    UserMailer.send_status_mail_to_person_incharge_for_ict_network(user,ordered_user,network).deliver
     redirect_to(list_ict_network_ict_network_points_path, :notice => 'Your ICT Network Point Status has been successfully updated.')
   end
 

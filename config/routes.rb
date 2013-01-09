@@ -163,6 +163,7 @@ Melaka::Application.routes.draw do
       get 'get_list_of_facility'
       get 'list_resource_booking'
       get 'resource_room_booking_approval'
+      get 'get_booked_rooms'
       get 'room_booking_approval'
       put 'update_room_booking'
       get 'get_resources'
