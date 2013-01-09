@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   end
 
   def hide_index
-    @events = Event.where("is_active =?", false).page(params[:page]).per(5)
+    @events = Event.where("is_active =? or from_date <=?", false, Time.now).page(params[:page]).per(5)
   end
 
   def event_index
@@ -22,7 +22,6 @@ class EventsController < ApplicationController
 
   def create   
     @event = Event.create(params[:event])
-    @event.created_by = current_user.id
     if @event.valid?
       @event.save
       redirect_to(list_event_events_path, :notice => "Event has been created successfully.")

@@ -12,13 +12,13 @@
       </div>
     <%end%>
     <div class="form-sec-row">
-      <%= label_tag :department_id, raw("Department"), :class=>"text"%>
+      <%= label_tag :department_id, raw("Current Department"), :class=>"text"%>
       <span class="in-box">
         <%if current_user.is_super_admin? %>
           <%= select(:standard6,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
         <%else%>
-
-          <%= select(:standard6,:department_id, current_user.departments.collect {|p| [ p.name, p.id ] },:selected => default_department,:prompt => "SELECT A DEPARTMENT") %>
+          <% department_name = Department.find(@current_department) %>
+          <%= department_name.name %>
 
         <%end%>
       </span>
@@ -29,30 +29,29 @@
 
   <div id="div_ajax">
 
-<% if !current_user.is_super_admin? %>
+    <% if !current_user.is_super_admin? %>
       <%if @group_names && !@group_names.empty?%>
         <%  @group_names.each do |group_names|%>
-          <div class="manage-user-row box">
-            <div class="mu-c2">
-              <% if group_names.user_id == current_user.id %>
-                <% group = Group.find_by_id(group_names.group_id) %>
+          <% group = Group.find_by_id(group_names.group_id) %>
+          <% department_name = Department.find(group.department_id) %>
+          <% if department_name.id == @current_department %>
+            <div class="manage-user-row box">
+              <div class="mu-c2">
                 <p><b><font color="#369"><b><%=  link_to "#{group.name}", conversation_group_path(group.id), :id => group.name , :class => "online_users", :target => '_blank'%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;</b></p>
-              <%else%>
-                <p><b><font color="#369"><b><%=  link_to "#{group_names.name}", conversation_group_path(group_names.id), :id => group_names.name , :class => "online_users", :target => '_blank'%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;</b></p>
-              <%end%>
+                <b><%= department_name.name %></b>
+              </div>
             </div>
-          </div>
+          <%end%>
         <%end%>
       <%else%><br/>
         <%=t('labels.no_group_available')%>
-      <%end%>    
-    
-      <%else%>
-       <%if @group_name_admins && !@group_name_admins.empty?%>
+      <%end%>
+    <%else%>
+      <%if @group_name_admins && !@group_name_admins.empty?%>
         <%  @group_name_admins.each do |group_name_admins|%>
           <div class="manage-user-row box">
             <div class="mu-c2">
-                <p><b><font color="#369"><b><%=  link_to "#{group_name_admins.name}", conversation_group_path(group_name_admins.id), :id => group_name_admins.name , :class => "online_users", :target => '_blank'%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;</b></p>
+              <p><b><font color="#369"><b><%=  link_to "#{group_name_admins.name}", conversation_group_path(group_name_admins.id), :id => group_name_admins.name , :class => "online_users", :target => '_blank'%>&nbsp;&nbsp;&nbsp; </b></font>&nbsp;&nbsp;</b></p>
 
             </div>
           </div>
@@ -60,7 +59,7 @@
       <%else%><br/>
         <%=t('labels.no_group_available')%>
       <%end%>
-      <%end%>
+    <%end%>
   </div>
   <%if !request.xhr?%>
   </div>

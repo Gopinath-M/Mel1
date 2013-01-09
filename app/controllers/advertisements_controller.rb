@@ -2,10 +2,10 @@ class AdvertisementsController < ApplicationController
   before_filter :authenticate_user!
     
   def index
-    @advertisements = Advertisement.where("is_active =? and from_date >=?", true, Time.now).page(params[:page]).per(5)
+    @advertisements = Advertisement.where("is_active =? and to_date >=?", true, Time.now).page(params[:page]).per(5)
   end
   def hide_index
-    @advertisements = Advertisement.where("is_active =? ", false).page(params[:page]).per(5)
+    @advertisements = Advertisement.where("is_active =? or to_date <=?", false, Time.now).page(params[:page]).per(5)
   end
 
   def advertisement_index
@@ -17,8 +17,6 @@ class AdvertisementsController < ApplicationController
 
   def create
     @advertisement = Advertisement.new(params[:advertisement])
-    @advertisement.created_by = current_user.id
-
     if @advertisement.valid?
       @advertisement.save
       redirect_to(list_advertisement_advertisements_path, :notice => "Advertisement has been created successfully.")
