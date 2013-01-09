@@ -226,7 +226,13 @@ class UserMailer < ActionMailer::Base
     @requisition=ict_firewall
     @department=dept
     mail(:to=>@user.email,:subject =>"ICT Firewall Request Details")
-    mail(:to=>@requester.email,:subject =>" Details of your ICT Firewall Request")
+    mail(:to=>@requester.email,:subject =>"Details of your ICT Firewall Request")
+  end
+
+  def send_mail_to_user_for_ict_firewall_booking(user,ict_firewall)    
+    @user=user
+    @requisition=ict_firewall    
+    mail(:to=>@user.email,:subject =>"ICT Firewall Request Details")    
   end
 
   def send_status_mail_for_others_booking(user,ordered_user,room)
