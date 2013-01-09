@@ -8,6 +8,7 @@ class ResourceTransportationBooking < ActiveRecord::Base
   belongs_to :sub_category
   belongs_to :agency_store
 
+  after_save :mail_to_user_regarding_transport_status_updates
   after_update :mail_to_user_regarding_transport_status_updates
 
   #Validations
@@ -26,6 +27,6 @@ class ResourceTransportationBooking < ActiveRecord::Base
 
   def mail_to_user_regarding_transport_status_updates
     user = User.find(self.requester_id)
-    UserMailer.send_mail_to_user_for_transport_booking(user,self).deliver
+    UserMailer.send_mail_to_user_for_transport_booking(user,self).deliver!
   end
 end
