@@ -20,7 +20,7 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
   
   def send_notification
     department = Department.find(Department.current_department) if User.current_role != DISP_USER_ROLE_SUPER_ADMIN
-   if self.user.current_role != DISP_USER_ROLE_SUPER_ADMIN && self.user.current_role != DISP_USER_ROLE_DEPT_ADMIN
+   if User.current_role != DISP_USER_ROLE_SUPER_ADMIN && User.current_role != DISP_USER_ROLE_DEPT_ADMIN
       first_approver = Approver.active.where(:department_id => department.id).first
       if !first_approver.present?
       role = Role.find_by_name(DISP_USER_ROLE_DEPT_ADMIN)
