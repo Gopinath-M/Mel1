@@ -234,6 +234,11 @@ class ResourceTransportationBookingsController < ApplicationController
       else
         @resource_transportation_booking.update_attribute(:status,"Processed")
       end
+      
+       agency = Agency.find(@resource_transportation_booking.agency_store.agency_id)        
+        if !agency.user_id.nil?
+          UserMailer.send_mail_to_resource_manager_for_transport_booking(agency.user,@resource_transportation_booking).deliver #if agency && agency.user  #if resource_manager && resource_manager.user && !resource_manager.user.blank?
+        end
 
     elsif params[:approve_status] == "Returned"
       return_scenario(params[:id])

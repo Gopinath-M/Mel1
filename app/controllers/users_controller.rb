@@ -369,13 +369,14 @@ class UsersController < ApplicationController
 
   def declaration_property
     @property_file = DeclarationProperty.new(params[:declaration_property])
-    if params[:commit]
+    if params[:commit]      
       @property_file.property_year = params[:date][:year]
       @property_file.user_id = current_user.id
       if @property_file.valid?
         @property_file.save
         #      redirect_to :controller =>'outstations', :action=>'new'
       end
+      @property_file = DeclarationProperty.new(params[:declaration_property])
     end
   end
   def download_attachments

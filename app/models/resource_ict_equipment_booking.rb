@@ -10,14 +10,22 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
   validates :purpose,:location, :length => { :minimum => 4 }, :if=>Proc.new {|u| !u.location.blank? || !u.purpose.blank? }
   validate :validate_booking_time, :on=>:create
   after_create :send_notification
+  after_save :send_user_notification
 
+  def send_user_notification
+    if self.status_changed?
+      UserMailer.resource_booking_notification(self.user,self,nil).deliver
+    end
+  end
+  
   def send_notification
     department = Department.find(Department.current_department) if User.current_role != DISP_USER_ROLE_SUPER_ADMIN
-    if User.current_role != DISP_USER_ROLE_SUPER_ADMIN && User.current_role != DISP_USER_ROLE_DEPT_ADMIN
+   if self.user.current_role != DISP_USER_ROLE_SUPER_ADMIN && self.user.current_role != DISP_USER_ROLE_DEPT_ADMIN
       first_approver = Approver.active.where(:department_id => department.id).first
       if !first_approver.present?
-        user = department.users.where("role_id = 2").first
-        UserMailer.resource_booking_notification(user,self,department).deliver
+      role = Role.find_by_name(DISP_USER_ROLE_DEPT_ADMIN)
+        admin_user = role.role_memberships.where(:department_id => self.user.current_department).first.user
+        UserMailer.resource_booking_notification(admin_user,self,department).deliver
       else
         UserMailer.resource_booking_notification(first_approver.user,self, department).deliver
       end
