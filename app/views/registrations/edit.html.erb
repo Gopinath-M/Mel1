@@ -68,10 +68,11 @@
       </div>
 
       <% if !resource.departments.empty? %>
+        <%department = Department.find(@current_department)%>
         <div class="form-sec-row">
           <%= f.label :department_id,t('labels.department'), :class=>"text"%>
           <span class="in-box">
-            <%=resource.departments.first.name%>
+            <%=department.name%>
           </span>
         </div>
       <% end %>
