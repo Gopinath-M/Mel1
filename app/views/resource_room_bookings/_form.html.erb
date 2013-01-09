@@ -27,18 +27,34 @@
       </span>
     </div>
 
-  <%#*<div class="form-sec-row">%>
-  <%#*<label class="text">Resource Ex No <span style=color:red>*</span></label>%>
-  <%#*<span class="in-box">%>
-  <%#= f.select(:resource_id,  Resource.where(:resource_type => "room_booking").active.collect {|category| [category.resource_no, category.id]},:prompt=>"SELECT A RESOURCE NAME") %>
-  <%#*</span>%>
-  <%#*</div>%>
+    <div id="booked_or_available" style="display:block">
+      <% if current_user.is_super_admin? %>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.type')%><span style=color:red>*</span></label>
+          <span class="in-box">
+            <%= radio_button_tag 'available', 'one_way', :checked=>true %><%= label t('labels.available'),t('labels.available') %>&nbsp;&nbsp;
+            <%= radio_button_tag 'available', 'two_way'  %><%= label t('labels.booked'),t('labels.already_booked') %>
+          </span>
+        </div>
+      <%end%>
 
-    <div class="form-sec-row">
-      <%= label_tag :resource_id, t('labels.room_no'), :class=>"text", :id=>"lb_res_room_booking"%>
-      <span class="in-box">
-        <%= f.select(:resource_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
-      </span>
+      <div id="available_resource" class="form-sec-row" >
+        <div class="form-sec-row">
+          <%= label_tag :resource_id, t('labels.room_no'), :class=>"text", :id=>"lb_res_room_booking"%>
+          <span class="in-box">
+            <%= f.select(:resource_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div id="booked_resource" style="display:none">
+      <div class="form-sec-row">
+        <%= label_tag :resource_id, t('labels.room_no'), :class=>"text", :id=>"lb_res_room_booking"%>
+        <span class="in-box">
+          <%= select("room","type_id_booked", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
+        </span>
+      </div>
     </div>
 
     <div id="list_facility">
@@ -48,7 +64,7 @@
       <%= f.label :room_attachment,t('labels.upload_file'), :class=>"text"%>
       <span class="in-box">
         <%= f.file_field :room_attachment%>
-        <%#= f.hidden_field :room_attachment_cache %>
+  <%#= f.hidden_field :room_attachment_cache %>
       </span>
     </div>
     <div class="form-sec-row">
@@ -89,3 +105,37 @@
     </div>
   </div>
 <%end%>
+
+<script>
+  $("#available_one_way").live('change',function(){
+    $("#booked_resource").hide();
+    $("#available_resource").show();
+  });
+
+  $("#available_two_way").live('change',function(){
+    $("#available_resource").hide();
+    $("#booked_resource").show();
+  });
+
+  $("#resource_room_booking_sub_category_id").live("change", function(){
+    if($("#resource_room_booking_sub_category_id").val() != ""){
+
+      $.get("/resource_room_bookings/get_booked_rooms",{
+        sub_category_id : $("#resource_room_booking_sub_category_id").val()
+      },
+      function(data){
+        if (data['booked']!=null)
+        {
+          $("#room_type_id_booked").find('option').remove().end()
+          $("#room_type_id_booked").append($("<option></option>").attr("value","").text("Select Room"));
+          for(var i=0; i<data['booked'].length;i++)
+          {
+            $("#room_type_id_booked").append($("<option></option>").attr("value",data['booked'][i].resource.resource_id).text(data['booked'][i].resource.resource_no));
+            $("#room_type_id_booked").show();
+          }
+        }
+        $("#booked_or_available").show();
+      })
+    }
+  });
+</script>
