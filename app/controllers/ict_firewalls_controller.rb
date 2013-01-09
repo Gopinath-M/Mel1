@@ -4,13 +4,14 @@ class IctFirewallsController < ApplicationController
 
    def index
       #@ict_firewalls = IctFirewall.all
-      if current_user.is_resource_manager?
-         @ict_firewalls = IctFirewall.find(:all, :conditions => ["status != 'New'"])
-      elsif current_user.is_department_admin?
-         @ict_firewalls = IctFirewall.where(:department_id => current_user.departments)
-      else
-         @ict_firewalls = IctFirewall.find(:all,:conditions=>["user_id = ? or incharge_person = ?",current_user.id,current_user.id])
-      end
+      #if current_user.is_resource_manager?
+      #   @ict_firewalls = IctFirewall.find(:all, :conditions => ["status != 'New'"])
+      #elsif current_user.is_department_admin?
+      #   @ict_firewalls = IctFirewall.where(:department_id => current_user.departments)
+      #else
+      #   @ict_firewalls = IctFirewall.find(:all,:conditions=>["user_id = ? or incharge_person = ?",current_user.id,current_user.id])
+      #end
+      @ict_firewalls = IctFirewall.where(:user_id => current_user.id).order.page(params[:page]).per(4)
    end
 
    def add_select_boxes
@@ -105,8 +106,9 @@ class IctFirewallsController < ApplicationController
          :incharge_person => params[:forward][:to])
          
          #UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall).deliver
-      end
+      else
       @ict_firewall.update_attributes(:status=> params[:approve_status])
+      end
       
       
       @count = IctFirewallService.find_all_by_ict_firewall_id(@ict_firewall.id)
@@ -123,7 +125,7 @@ class IctFirewallsController < ApplicationController
       #@ict_firewall_service = IctFirewallService.find_by_ict_firewall_id(params[:id])
       #@ict_firewall_service.update_attribute(:approved,t)
       
-      redirect_to(ict_firewalls_path, :notice => "Resource Requisition ICT Firewall has been updated successfully.")
+      redirect_to(list_ict_firewall_ict_firewalls_path, :notice => "Resource Requisition ICT Firewall has been updated successfully.")
    end
 
    def destroy

@@ -138,7 +138,7 @@
                   <li>
                     <%  firewall_count = generic_model_status_count(IctFirewall,'Approved')%>
                     <span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
-                    <%=  link_to t('labels.firewall_request'), ict_firewalls_path %>
+                    <%=  link_to t('labels.firewall_request'), list_ict_firewall_ict_firewalls_path %>
                   </li>
                   <li>
                     <% ict_network_new_approved_count = generic_model_status_count(IctNetworkPoint,'Approved')%>
@@ -174,7 +174,7 @@
                   <li>
                     <%  firewall_count = generic_model_status_count(IctFirewall,'New')%>
                     <span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
-                    <%=  link_to t('labels.firewall_request'), ict_firewalls_path %>
+                    <%=  link_to t('labels.firewall_request'), list_ict_firewall_ict_firewalls_path %>
                   </li>
                   <li>
                     <span class="notifiNo"><%= ict_network_new_count > 0 ? ict_network_new_count : '' %></span>
@@ -571,7 +571,7 @@
                         <li>
                           <%  firewall_count = generic_model_status_count(IctFirewall,'New')%>
                           <span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
-                          <%=  link_to t('labels.firewall_request'), ict_firewalls_path %>
+                          <%=  link_to t('labels.firewall_request'), list_ict_firewall_ict_firewalls_path %>
                         </li>
                         <li>
                           <span class="notifiNo"><%= ict_network_new_count > 0 ? ict_network_new_count : '' %></span>
