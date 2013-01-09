@@ -3,31 +3,31 @@
   <div class="clearfix">&nbsp;</div>
   <br/>
   <div class="form-sec-row">
-    <label class="text"><%=t('labels.web_site_url')%><span style=color:red>*</span></label>
+    <label class="text">Web-site URL<span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.text_field :web_link%>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text"><%=t('labels.from_date')%><span style=color:red>*</span></label>
+    <label class="text">From Date<span style=color:red>*</span></label>
     <span class="in-box">
       <%=f.text_field :from_date, :value=>@advertisement && @advertisement.from_date!=nil ? @advertisement.from_date : nil ,:readonly=>true%></span>
   </div>
   <div class="form-sec-row">
-    <label class="text"><%=t('labels.to_date')%><span style=color:red>*</span></label>
+    <label class="text">To Date<span style=color:red>*</span></label>
     <span class="in-box">
       <%=f.text_field :to_date, :value=>@advertisement && @advertisement.to_date!=nil ? @advertisement.to_date : nil ,:readonly=>true%>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text"><%=t('labels.is_visible')%><span style=color:red>*</span></label>
+    <label class="text">Is Visible<span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.radio_button :is_active, true, {:id => "radio_click"} %> <%= f.label :is_active, "Yes" %>
       <%= f.radio_button :is_active, false, {:id => "radio_click"} %> <%= f.label :is_active, "No"  %>
     </span>
   </div>
   <div class="form-sec-row">
-    <label class="text"><%=t('labels.upload_file')%><span style=color:red>*</span></label>
+    <label class="text">Upload File<span style=color:red>*</span></label>
     <span class="in-box">
       <%= f.file_field :advertisement_attachment%>
       <%= f.hidden_field :advertisement_attachment_cache %>
@@ -37,7 +37,7 @@
     <div class="CenterNav">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :class=>"btn2", :value=>@advertisement.new_record? ? t('labels.create') : t('labels.submit')%>
+        <%= f.submit :class=>"btn2", :value=>@advertisement.new_record? ? "Submit" : "Submit"%>
       </span>
     </div>
   </div>
