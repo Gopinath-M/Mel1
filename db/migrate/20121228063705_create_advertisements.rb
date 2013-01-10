@@ -4,9 +4,8 @@ class CreateAdvertisements < ActiveRecord::Migration
       t.string :web_link
       t.datetime :from_date
       t.datetime :to_date
-      t.integer :created_by
-      t.integer :updated_by
       t.string :advertisement_attachment
+      t.string :advertisement_attachment_cache
       t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false
       t.timestamps
