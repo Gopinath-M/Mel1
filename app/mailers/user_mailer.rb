@@ -316,4 +316,10 @@ class UserMailer < ActionMailer::Base
     mail(:to=>@user.email,:subject =>"Details of Ict Equipment  Booking")
   end
 
+  def room_auto_return_status_mail_to_user(mail)
+    @requisition = mail
+    @user = User.find_by_id(@requisition.user_id)
+    mail(:to=>@user.email,:subject =>"Your Room Booking Request has been Auto Returned to Agency Store")
+  end
+
 end

@@ -40,7 +40,7 @@
 
       <div id="available_resource" class="form-sec-row" >
         <div class="form-sec-row">
-          <%= label_tag :resource_id, t('labels.room_no'), :class=>"text", :id=>"lb_res_room_booking"%>
+          <label class="text"><%=t('labels.room_name')%><span style=color:red>*</span></label>
           <span class="in-box">
             <%= f.select(:resource_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
           </span>
@@ -50,7 +50,7 @@
 
     <div id="booked_resource" style="display:none">
       <div class="form-sec-row">
-        <%= label_tag :resource_id, t('labels.room_no'), :class=>"text", :id=>"lb_res_room_booking"%>
+          <label class="text"><%=t('labels.room_name')%><span style=color:red>*</span></label>
         <span class="in-box">
           <%= select("room","type_id_booked", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
         </span>

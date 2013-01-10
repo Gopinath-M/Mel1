@@ -20,16 +20,16 @@
                     <td></td>
                   </tr>
 
-                    <% if @agency.present? %>
-                  <tr>
-                    <td><b><%=t('labels.agency_name')%></b></td>
-                    <td><b>&nbsp;<%= @agency.name  %></b></td>
-                  </tr>
-                    <%end%> <% if @dept.present? %>
-                  <tr>
-                    <td><b><%=t('labels.department_name')%></b></td>
-                    <td><b>&nbsp;<%= @dept.name  %></b></td>
-                  </tr><%end%>
+                  <% if @agency.present? %>
+                    <tr>
+                      <td><b><%=t('labels.agency_name')%></b></td>
+                      <td><b>&nbsp;<%= @agency.name  %></b></td>
+                    </tr>
+                  <%end%> <% if @dept.present? %>
+                    <tr>
+                      <td><b><%=t('labels.department_name')%></b></td>
+                      <td><b>&nbsp;<%= @dept.name  %></b></td>
+                    </tr><%end%>
                   <% if @manager.present? %>
                     <tr>
                       <td><b><%=t('labels.res_manager')%></b></td>
@@ -64,7 +64,7 @@
               <td><b><%=t('labels.date_of_app')%></b></td>
               <td><b>&nbsp;<%=@resource_booking.created_at.strftime("%a %d %b %Y %I:%M %p")%></b></td>
             </tr>
-            
+
             <tr>
               <td><b><%=t('labels.booking_Date')%></b></td>
               <td><b>&nbsp;<%=@resource_booking.requested_from_date%></b></td>
@@ -77,21 +77,23 @@
               <td><b><%=t('labels.purpose')%></b></td>
               <td><b>&nbsp;<%=@resource_booking.purpose%></b></td>
             </tr>             <% if @resource_booking.attachment.present? %>
-                    <tr>
-                      <td><b><%=t('labels.attachment')%></b></td>
-                      <% image = @resource_booking.attachment.url(:profile).split(".").last %>
-                      <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-                        <td><%=image_tag(@resource_booking.attachment.url(:profile),:title=>@resource_booking.attachment)%></td>
-                      <%else%>
-                        <% file = (@resource_booking.attachment).url(:profile).split("/").last %>
-            <td>&nbsp;<b><%= link_to file, download_attachments_resource_bookings_path(:id=>@resource_booking.id) if @resource_booking.attachment?  %></b></td>
-                      <%end%>
-                    </tr>                  
-                  <%end%>
-            <tr>
-              <td><b><%=t('labels.remarks')%></b></td>
-              <td><b>&nbsp;<%=@resource_booking.description%></b></td>
-            </tr>
+              <tr>
+                <td><b><%=t('labels.attachment')%></b></td>
+                <% image = @resource_booking.attachment.url(:profile).split(".").last %>
+                <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                  <td><%=image_tag(@resource_booking.attachment.url(:profile),:title=>@resource_booking.attachment)%></td>
+                <%else%>
+                  <% file = (@resource_booking.attachment).url(:profile).split("/").last %>
+                  <td>&nbsp;<b><%= link_to file, download_attachments_resource_bookings_path(:id=>@resource_booking.id) if @resource_booking.attachment?  %></b></td>
+                <%end%>
+              </tr>
+            <%end%>
+            <% if @resource_booking.description.present? %>
+              <tr>
+                <td><b><%=t('labels.remarks')%></b></td>
+                <td><b>&nbsp;<%=@resource_booking.description%></b></td>
+              </tr>
+            <%end%>
             <% if current_user.is_resource_manager? && @resource_booking.status == "Approved" %>
               <tr>
                 <td><label class="text"><%=t('labels.change')%></label></td>
@@ -159,7 +161,7 @@
         <label class="text">&nbsp;</label>
         <span class="in-box">
           <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
-         <% if @resource_booking.status == "Processed" && @resource_booking.user_returned_status? %>
+          <% if @resource_booking.status == "Processed" && @resource_booking.user_returned_status? %>
             <%= f.submit t('labels.acknowledge'), :class=>"btn2"%>
           <%else%>
             <%= f.submit t('labels.submit'), :class=>"btn2"%>

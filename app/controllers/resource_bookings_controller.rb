@@ -4,7 +4,7 @@ class ResourceBookingsController < ApplicationController
   def new
     @resource_booking=ResourceBooking.new
     if !current_user.is_super_admin?
-    @category_avail = CategoriesDepartments.where(:department_id=> current_user.departments.first.id)
+      @category_avail = CategoriesDepartments.where(:department_id=> current_user.departments.first.id)
     end
   end
 
@@ -33,15 +33,15 @@ class ResourceBookingsController < ApplicationController
           agency.update_attribute(:booked, true)
           @resource_booking.save
           if current_user.is_department_admin? && current_user.is_super_admin?
-          @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-          dept = Department.find_by_id(params[:department_id])
-          if !@approve.present?
-            user = dept.users.where("role_id = 2").first
-            UserMailer.send_mail_to_dept_admin_for_others_booking(user,@resource_booking,dept).deliver
-          else
-            user = User.find_by_id(@approve.user_id)
-            UserMailer.send_mail_to_approver_others_for_booking(user,@resource_booking,dept).deliver
-          end
+            @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+            dept = Department.find_by_id(params[:department_id])
+            if !@approve.present?
+              user = dept.users.where("role_id = 2").first
+              UserMailer.send_mail_to_dept_admin_for_others_booking(user,@resource_booking,dept).deliver
+            else
+              user = User.find_by_id(@approve.user_id)
+              UserMailer.send_mail_to_approver_others_for_booking(user,@resource_booking,dept).deliver
+            end
           end
           redirect_to(resource_bookings_path, :notice => "Your Resource booking has been created sucessfully.")
         else
@@ -49,6 +49,24 @@ class ResourceBookingsController < ApplicationController
         end
       else
         redirect_to(new_resource_booking_path, :alert => "You cant book the Already Reserved Resource, Please try other.")
+      end
+    elsif session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
+      val = AgencyStore.find_by_resource_id(params[:other][:type_id_booked])
+      @other = ResourceBooking.find_all_by_resource_id(params[:other][:type_id_booked], :conditions=>["(status = 'New' or status = 'Approved') and agency_store_id=#{val.id} and user_id != ?", 1]).last
+      if @other.present?
+        @other.update_attribute(:status, "Cancelled")
+        @resource_booking = ResourceBooking.new(params[:resource_booking])
+        @resource_booking.category_id = params[:other_booking_category][:id]
+        @resource_booking.sub_category_id = params[:other_booking_sub_category][:id]
+        @resource_booking.resource_id = params[:other][:type_id_booked]
+        @resource_booking.agency_store_id = val.id
+        @resource_booking.status = "Processed"
+        @resource_booking.user_id = params[:user_id]
+        @resource_booking.department_id = '0'
+        @resource_booking.save
+        redirect_to(resource_bookings_path, :notice => "Resource Booking has been created sucessfully.")
+      else
+        redirect_to(new_resource_booking_path, :alert => "You can't book the Resource which is already Processed.")
       end
     else
       redirect_to(new_resource_booking_path, :alert => "Resource selected is not available in your Store.")
@@ -89,7 +107,7 @@ class ResourceBookingsController < ApplicationController
       @details_resource = Resource.active.find_by_id(@resource_booking.resource_id)
       @user = User.find_by_id(@resource_booking.user_id)
       if !current_user.is_super_admin?
-      @dept = Department.find_by_id(default_department)
+        @dept = Department.find_by_id(default_department)
       end
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_booking.sub_category_id)
       if @agencystore.present?
@@ -123,7 +141,7 @@ class ResourceBookingsController < ApplicationController
       @details_resource = Resource.active.find_by_id(@resource_booking.resource_id)
       @user = User.find_by_id(@resource_booking.user_id)
       if !current_user.is_super_admin?
-      @dept = Department.find_by_id(default_department)
+        @dept = Department.find_by_id(default_department)
       end
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_booking.sub_category_id)
       if @agencystore.present?
@@ -145,6 +163,7 @@ class ResourceBookingsController < ApplicationController
       end
     end
   end
+  
   def update_resource_booking
     others = ResourceBooking.find_by_id(params[:resource_book_id])
     agency_store = AgencyStore.find_by_resource_id(params[:resource_id])
@@ -193,8 +212,22 @@ class ResourceBookingsController < ApplicationController
     facilities = Facility.active.find_all_by_resource_id(params[:resource_id])
     render :json=>[facilities] if facilities
   end
+  
   def get_details_for_resource
     resources = Resource.find(params[:resource_id])
     render :json=>[resources] if resources
+  end
+
+  def get_booked
+    if current_user.is_super_admin?
+      booked_rooms = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                            WHERE agency_stores.booked = true
+                                            AND resources.sub_category_id =#{params[:sub_category_id]}"
+      available_rooms = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+                                               WHERE agency_stores.booked = false AND
+                                               resources.sub_category_id=#{params[:sub_category_id]}"
+
+      render :json =>{ :booked => booked_rooms, :available => available_rooms}
+    end
   end
 end

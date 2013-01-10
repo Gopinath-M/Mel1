@@ -15,7 +15,7 @@
   <div class="form-sec-row">
     <label class="text"><%=t('left_nav.resource')%><span style=color:red>*</span></label>
     <span class="in-box">
-      <%= select("room_agency","resource_id", Resource.where('resource_no  is not null').active.collect {|category| [category.resource_no, category.id]},:prompt=>"Select Resource") %>
+      <%= select("room_agency","resource_id", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
     </span>
   </div>
   <div class="form-sec-row">

@@ -19,7 +19,7 @@
                     <td><font color='#369'><b><u><%=t('labels.user_details')%>:-</u></b></font></td>
                     <td></td>
                   </tr>
-                  
+
                   <% if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
                     <% if @agency.present? %>
                       <tr>
@@ -65,7 +65,7 @@
             </tr>
             <tr>
               <td><b><%=t('labels.ticket_no')%></b></td>
-            <td style="color:red;">&nbsp;<b><%=@resource_room_booking.id%>/<%=Time.now.year%></b></td>
+              <td style="color:red;">&nbsp;<b><%=@resource_room_booking.id%>/<%=Time.now.year%></b></td>
             </tr>
             <tr>
               <td><b><%=t('labels.date_of_app')%></b></td>
@@ -93,21 +93,23 @@
               <td><b><%=t('labels.purpose')%></b></td>
               <td><b>&nbsp;<%=@resource_room_booking.purpose%></b></td>
             </tr><% if @resource_room_booking.room_attachment.present? %>
-                    <tr>
-                      <td><b><%=t('labels.attachment')%></b></td>
-                      <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
-                      <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-                        <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
-                      <%else%>
-                        <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
-                        <td>&nbsp;<b><%= link_to file, download_attachments_resource_room_bookings_path(:id=>@resource_room_booking.id) if @resource_room_booking.room_attachment?  %></b></td>
-                      <%end%>
-                    </tr>
-                  <%end%>
-            <tr>
-              <td><b><%=t('labels.remarks')%></b></td>
-              <td><b>&nbsp;<%=@resource_room_booking.remarks%></b></td>
-            </tr>
+              <tr>
+                <td><b><%=t('labels.attachment')%></b></td>
+                <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
+                <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                  <td><%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%></td>
+                <%else%>
+                  <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
+                  <td>&nbsp;<b><%= link_to file, download_attachments_resource_room_bookings_path(:id=>@resource_room_booking.id) if @resource_room_booking.room_attachment?  %></b></td>
+                <%end%>
+              </tr>
+            <%end%>
+            <% if @resource_room_booking.remarks.present? %>
+              <tr>
+                <td><b><%=t('labels.remarks')%></b></td>
+                <td><b>&nbsp;<%=@resource_room_booking.remarks%></b></td>
+              </tr>
+            <%end%>
 
             <tr>
             <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
@@ -221,7 +223,7 @@
                 <td></td>
               </tr>
               <tr>
-                <td><b><%=t('labels.room_no')%></b></td>
+                <td><b><%=t('labels.room_name')%></b></td>
                 <td><b>&nbsp;<%=  @resource_room_booking.resource.resource_no%></b></td>
               </tr>
               <tr>
@@ -268,9 +270,9 @@
         <td><label class="text"> <%= f.label :location,raw("Status"), :class=>"text"%></label></td>
         <td>
           <span class="in-box" style="color :<%= (@resource_room_booking.status == 'New') ? '#FFA500' : ((@resource_room_booking.status == 'Approved' || @resource_room_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
-          <b><%=@resource_room_booking.status%></b>
+            <b><%=@resource_room_booking.status%></b>
           </span>
-          </td>
+        </td>
       </tr>
       </table>
       </td>

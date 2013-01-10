@@ -30,7 +30,7 @@
                 <% @name = SubCategory.find_by_id(resource.sub_category_id)%>
                 <%=@name.name%>
               </div>
-              <div class="m-c3-second">
+              <div class="m-c3-third">
                 <div class="form-sec-row">
                   <% if resource.status == "Processed" && resource.user_id = current_user.id%>
                     <div id="hide_check_box_<%= resource.id %>">
@@ -44,6 +44,10 @@
                   <%end%>
                 </div>
               </div>
+              <div class="m-c3-second">
+                <div id="room_box_<%= resource.id %>" style="display:none; width: 112px;margin-right: -62px;">
+                  <font color="#336699"><b><%=t('labels.resource_returned')%></b></font>
+                </div></div>
             </div>
             <div class="clear"></div>
             <div class="manage-user-rows box">

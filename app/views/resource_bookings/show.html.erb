@@ -19,17 +19,17 @@
                     <td><font color='#369'><b><u><%=t('labels.user_details')%>:-</u></b></font></td>
                     <td></td>
                   </tr>
-                  
+
                   <% if @agency.present? %>
                     <tr>
                       <td><b><%=t('labels.agency_name')%></b></td>
                       <td><b>&nbsp;<%= @agency.name  %></b></td>
                     </tr>
                   <%end%><% if @dept.present? %>
-                  <tr>
-                    <td><b><%=t('labels.department_name')%></b></td>
-                    <td><b>&nbsp;<%= @dept.name  %></b></td>
-                  </tr><%end%>
+                    <tr>
+                      <td><b><%=t('labels.department_name')%></b></td>
+                      <td><b>&nbsp;<%= @dept.name  %></b></td>
+                    </tr><%end%>
                   <% if @manager.present? %>
                     <tr>
                       <td><b><%=t('labels.res_manager')%></b></td>
@@ -91,21 +91,23 @@
               <td><b><%=t('labels.purpose')%></b></td>
               <td><b>&nbsp;<%=@resource_booking.purpose%></b></td>
             </tr><% if @resource_booking.attachment.present? %>
-                    <tr>
-                      <td><b><%=t('labels.upload_file')%></b></td>
-                      <% image = @resource_booking.attachment.url(:profile).split(".").last %>
-                      <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-                        <td><%=image_tag(@resource_booking.attachment.url(:profile),:title=>@resource_booking.attachment)%></td>
-                      <%else%>
-                        <% file = (@resource_booking.attachment).url(:profile).split("/").last %>
-            <td>&nbsp;<b><%= link_to file, download_attachments_resource_bookings_path(:id=>@resource_booking.id) if @resource_booking.attachment?  %></b></td>
-                      <%end%>
-                    </tr>                  
-                  <%end%>
-            <tr>
-              <td><b><%=t('labels.remarks')%></b></td>
-              <td><b>&nbsp;<%=  @resource_booking.description%></b></td>
-            </tr>
+              <tr>
+                <td><b><%=t('labels.upload_file')%></b></td>
+                <% image = @resource_booking.attachment.url(:profile).split(".").last %>
+                <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                  <td><%=image_tag(@resource_booking.attachment.url(:profile),:title=>@resource_booking.attachment)%></td>
+                <%else%>
+                  <% file = (@resource_booking.attachment).url(:profile).split("/").last %>
+                  <td>&nbsp;<b><%= link_to file, download_attachments_resource_bookings_path(:id=>@resource_booking.id) if @resource_booking.attachment?  %></b></td>
+                <%end%>
+              </tr>
+            <%end%>
+            <% if @resource_booking.description.present? %>
+              <tr>
+                <td><b><%=t('labels.remarks')%></b></td>
+                <td><b>&nbsp;<%=  @resource_booking.description%></b></td>
+              </tr>
+            <%end%>
             <tr>
               <td><b><%=t('labels.quantity')%></b></td>
               <td><b>&nbsp;<%=@resource_booking.quantity%></b></td>
@@ -143,9 +145,9 @@
       </tr>
       <tr>
         <td><label class="text"> <%= f.label :location,t('labels.status'), :class=>"text"%></label></td>
-         <span class="in-box" style="color :<%= (@resource_booking.status == 'New') ? '#FFA500' : ((@resource_booking.status == 'Approved' || @resource_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
+      <span class="in-box" style="color :<%= (@resource_booking.status == 'New') ? '#FFA500' : ((@resource_booking.status == 'Approved' || @resource_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
 
-            <td>&nbsp;<b><%= @resource_booking.status %></b></span></td>
+        <td>&nbsp;<b><%= @resource_booking.status %></b></span></td>
       </tr>
       </table>
       </td>
