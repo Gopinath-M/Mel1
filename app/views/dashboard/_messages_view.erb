@@ -19,7 +19,7 @@
                             by  <%= message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(message.created_at) %> ago
           <% if message.message_comments.count == 0 %>
             &nbsp; - &nbsp;
-            <%= link_to 'View ', messages_path %>
+            <%= link_to 'View ', new_message_path %>
           <%end%>
         </p>
 
