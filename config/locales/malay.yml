@@ -1089,6 +1089,9 @@ malay:
     no_group_available: "No Kumpulan Yang Disediakan"
     hardware_required: "Perkakasan Diperlukan"
     non_appr: "Bukan Meluluskan"
+    list_of_groups: "Senarai Kumpulan"
+    current_dept: "Jabatan Semasa"
+    group_chat_room: "Kumpulan Chat - Bilik" 
     
   activerecord:
     models:

@@ -7,6 +7,7 @@ class CreateIctSystemAccesses < ActiveRecord::Migration
       t.references :department
       t.references :system_access
       t.string :system_access_attachment
+      t.string :system_access_attachment_cache
       t.string :status, :default => "New"
       t.integer :forward_to
       t.text :remarks
