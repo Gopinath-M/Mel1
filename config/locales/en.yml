@@ -934,6 +934,10 @@ en:
     no_group_available: "No Groups Available"
     hardware_required: "Hardware Required"
     non_appr: "Non Approve"
+    list_of_groups: "List of Groups"
+    current_dept: "Current Department"
+    group_chat_room: "Group Chat - Room"
+
   
 
 
