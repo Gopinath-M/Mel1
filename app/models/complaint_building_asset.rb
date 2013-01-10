@@ -4,4 +4,5 @@ class ComplaintBuildingAsset < ActiveRecord::Base
    validates_inclusion_of :spare_part_action, :in => [true, false]
    validates :building_asset_type_id, :type_id, :item_id, :location, :serial_no, :reason, :presence => true
    has_many :building_asset_types
+   validates :serial_no, :numericality => { :only_integer => true }
 end

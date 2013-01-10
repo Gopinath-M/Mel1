@@ -1,21 +1,21 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
-    <h2 class="b-head">List of Groups</h2>
+    <h2 class="b-head"><%= t('labels.list_of_groups')%></h2>
     <br/>
     <%if current_user.is_super_admin? %>
       <div class="form-sec-row">
-        <%= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+        <%= label_tag :agency_id, t('labels.agency1'), :class=>"text" %>
         <span class="in-box">
-          <%= select(:transfer,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"SELECT AN AGENCY") %>
+          <%= select(:transfer,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"Select an Agency") %>
           <br/><br/>
         </span>
       </div>
     <%end%>
     <div class="form-sec-row">
-      <%= label_tag :department_id, raw("Current Department"), :class=>"text"%>
+      <%= label_tag :department_id, t('labels.current_dept'), :class=>"text"%>
       <span class="in-box">
         <%if current_user.is_super_admin? %>
-          <%= select(:standard6,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "SELECT A DEPARTMENT") %>
+          <%= select(:standard6,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select a Department") %>
         <%else%>
           <% department_name = Department.find(@current_department) %>
           <%= department_name.name %>
