@@ -3,27 +3,36 @@
       <%=@user.username%>&nbsp;&nbsp;&nbsp; <% if current_user.is_super_admin? %>[&nbsp;<%=@user.roles.first.name%>&nbsp;]<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=t('labels.department_name')%> - <%=@user.departments.first.name%><%end%>
     </font></b> </h2></p>
 <!-- CHAT DESIGN -->
+
 <div class="chat" id="<%=@user.username%>">
   <div class="chat-head">
     <a href="#" class="ch-name"> <%=image_tag (@user.login_status ? "online.png" : "offline.png"), :alt=>"Image", :width=>"17", :height=>"17"%>&nbsp;
-      <%=@user.username%>&nbsp;&nbsp;</a>
+      <%=@user.username%>&nbsp;&nbsp;
+    </a>
     <a  id="closelink" class="ch-close" title="Close"><%=t('labels.close')%></a>
     <a  id="restore" class="ch-square" title="Restore" ><%=t('labels.restore')%></a>
     <a  id="minimize" class="ch-minas" title="Minimize"><%=t('labels.minimize')%></a>
+    <% @conversation = Conversation.where("from_userid =? and to_userid =?", current_user.id, @user.id).last %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white"><b>Message for you </b><%= @conversation.content if !@conversation.nil? %><b>...</b></font></marquee>
+
   </div>
-  <div class="chat-msg-box" id="<%=@user.username%>" >
-    <div class="chat-msg" id="chat-msg">
-      <p class="ch-date"> <%=render :partial=>"conversation"%></p>
-      <div class="clearfix"></div>
+  <blink>
+    <div class="chat-msg-box" id="<%=@user.username%>" >
+      <div class="chat-msg" id="chat-msg">
+        <p class="ch-date"><blink><%=render :partial=>"conversation"%></blink></p>
+        <div class="clearfix"></div>
+      </div>
+      <div class="chat-tbox"> <span class="in-box"><%= form_for Conversation.new, :remote => true do |f| %>
+            <%=f.hidden_field :to_userid, :value=>@user.id%>
+            <div class="form-sec-row" id="form-sec-row">
+              <%= f.text_area :content, :id => :content, :rows => 2, :cols => 30, :autofocus => true %> <%= f.submit t('labels.send'), :id=>"btn3", :class=>"btn3"%>
+            <% end %> </div> </span>
+      </div>
     </div>
-    <div class="chat-tbox"> <span class="in-box"><%= form_for Conversation.new, :remote => true do |f| %>
-          <%=f.hidden_field :to_userid, :value=>@user.id%>
-          <div class="form-sec-row" id="form-sec-row">
-            <%= f.text_area :content, :id => :content, :rows => 2, :cols => 30, :autofocus => true %> <%= f.submit t('labels.send'), :id=>"btn3", :class=>"btn3"%>
-          <% end %> </div> </span>
-    </div>
-  </div>
+  </blink>
 </div>
+
+
+
 
 
 
@@ -35,33 +44,23 @@
   var jsUserID = <%= @user.id %>;
 
   $(document).ready(function() {
-
     var isScrolling = true;
-
     $('.chat-msg').on('scroll', function() {
       isScrolling = true;
       lastScrollPos = this.scrollTop;
-
     });
     refresh_alerts = setInterval(function () {
       if (isScrolling){
         $('.chat-msg').load('/conversations/'+jsUserID).scrollTop(lastScrollPos);
-
       }
     }, 10000);
     isScrolling = false;
-
-
-    $("tr:last").css({backgroundColor: '#FEEDEB', fontWeight: 'bolder'});
-
-   
- 
+    $("tr:last").css({backgroundColor: '#FEEDEB', fontWeight: 'bolder'}); 
   });
 
 
   $('.ch-close').click(function() {
-    $('.chat').toggle();
-  
+    $('.chat').toggle();  
   });
 
   $('.ch-minas').click(function() {
@@ -72,6 +71,20 @@
     $(".chat-msg-box").show();
   });
 
+
+  function blink() {
+    var blinks = document.getElementsByTagName('blink');
+    for (var i = blinks.length - 1; i >= 0; i--) {
+      var s = blinks[i];
+      s.style.visibility = (s.style.visibility === 'visible') ? 'hidden' : 'visible';
+    }    
+    window.setTimeout(blink, 100000);
+    $(".chat-msg-box").show();
+  }
+  if (document.addEventListener) document.addEventListener("DOMContentLoaded", blink, false);
+  else if (window.addEventListener) window.addEventListener("load", blink, false);
+  else if (window.attachEvent) window.attachEvent("onload", blink);
+  else window.onload = blink;
 
 </script>
 

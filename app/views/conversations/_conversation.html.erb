@@ -28,7 +28,7 @@
       var s = blinks[i];
       s.style.visibility = (s.style.visibility === 'visible') ? 'hidden' : 'visible';
     }
-    window.setTimeout(clink, 1000);
+    window.setTimeout(clink, 100000);
   }
   if (document.addEventListener) document.addEventListener("DOMContentLoaded", clink, false);
   else if (window.addEventListener) window.addEventListener("load", clink, false);
