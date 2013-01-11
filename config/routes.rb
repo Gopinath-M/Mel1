@@ -248,6 +248,7 @@ Melaka::Application.routes.draw do
       get 'get_unit_admin'
       get 'post_messages'
       get 'post_comments'
+      get 'download_attachments'
     end
   end
     
