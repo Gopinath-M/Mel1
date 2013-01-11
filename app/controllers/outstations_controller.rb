@@ -80,7 +80,11 @@ class OutstationsController < ApplicationController
       status = 'Declined'
     end
     @outstation.update_attribute(:status,status)
-    redirect_to(approve_request_outstations_path, :notice => 'Outstation Request has been successfully updated.')
+    if @outstation.is_out_of_state?
+      redirect_to(approve_request_for_state_outstations_path, :notice => 'Outstation Request has been successfully updated.')
+    else
+      redirect_to(approve_request_outstations_path, :notice => 'Outstation Request has been successfully updated.')
+    end    
   end
 
 end
