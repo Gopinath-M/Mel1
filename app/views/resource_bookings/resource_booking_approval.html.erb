@@ -1,7 +1,7 @@
 <%= form_for(@resource_booking, :url=>update_resource_booking_resource_bookings_path) do |f| %>
   <div class="clearfix">&nbsp;</div>
   <div class="CenterNav">
-    <% if current_user.is_department_admin?  %>
+    <% if session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN   %>
       <h2 class="b-head">Resource Approval</h2>
     <%else%>
       <h2 class="b-head">Resource Process</h2>
@@ -133,7 +133,7 @@
               <%select_options=["Approved","Declined"]%>
               <%=f.select(:status, options_for_select(select_options))%>
             </span></td>
-        <% elsif current_user.is_department_admin? && !@approve.present?%>
+        <% elsif session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN  && !@approve.present?%>
           <td><span class="in-box">
               <%select_options=["Approved","Declined"]%>
               <%=f.select(:status, options_for_select(select_options))%>
