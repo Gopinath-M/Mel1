@@ -15,11 +15,11 @@
                 </tr>
                 <tr>
                   <td><b><%=t('labels.agency_name')%></b></td>
-                  <td>&nbsp;<b><%= @requester.departments[0].agency.name.upcase if !@requester.is_super_admin? %></b></td>
+                  <td>&nbsp;<b><%= Department.find_by_id(current_department).agency.name.upcase if !@requester.is_super_admin? %></b></td>
                 </tr>
                 <tr>
                   <td><b><%=t('labels.department_name')%></b></td>
-                  <td>&nbsp;<b><%= @requester.departments[0].name if !@requester.is_super_admin? %></b></td>
+                  <td>&nbsp;<b><%= Department.find_by_id(current_department).name.upcase if !@requester.is_super_admin? %></b></td>
                 </tr>
                 <tr>
                   <td><b><%=t('labels.ic_no')%></b></td>
