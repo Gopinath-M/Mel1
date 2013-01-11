@@ -1093,6 +1093,7 @@ malay:
     current_dept: "Jabatan Semasa"
     group_chat_room: "Kumpulan Chat - Bilik"
     room_name: "Nama bilik"
+    other_name: "Maaf ...Tempahan Kemudahan Sumber Lain-lain tidak Tersedia bagi Jabatan anda ..."
     
   activerecord:
     models:

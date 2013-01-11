@@ -15,19 +15,22 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.department_name')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= current_user.departments.first.name %>
+            <% dept = Department.find_by_id(@current_department) %>
+            <%= dept.name %>
           </span>
         </div>
       <%end%>
       <div class="form-sec-row">
-        <label class="text"><%=t('labels.select_category_name')%> <span style=color:red>*</span></label>
+        <label class="text"><%=t('labels.select_category')%> <span style=color:red>*</span></label>
         <span class="in-box">
           <%if !@resource_booking.new_record?%>
             <%resource=@resource if @resource && !@resource.blank?%>
-            <%category=resource.category%>
             <%=select("other_booking_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7 and id !=8").active.all, 'id','name',category.id),{:prompt=>"Select Category"})%>
-          <%else%>
+          <%elsif current_user.is_super_admin? %>
             <%=select("other_booking_category","id", options_from_collection_for_select(Category.where("id != 6 and id != 7 and id !=8").active.all, 'id','name'),{:prompt=>"Select Category"})%>
+          <%else%>
+            <% @category = Category.find_by_sql "SELECT * FROM categories_departments INNER JOIN categories ON categories.id = categories_departments.category_id WHERE categories_departments.category_id != 6 AND categories_departments.category_id != 7 AND categories_departments.category_id != 8 AND categories_departments.department_id = #{@current_department}" %>
+            <%=select("other_booking_category","id", @category.collect {|category| [category.name, category.id]}, {:prompt=>"Select Category"})%>
           <%end%>
         </span>
       </div>
