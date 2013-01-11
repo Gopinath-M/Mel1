@@ -10,6 +10,7 @@ class CreateResourceRoomBookings < ActiveRecord::Migration
       t.timestamp :requested_from_date
       t.timestamp :requested_to_date
       t.boolean :user_returned_status
+      t.boolean :user_notification_mail, :default => false
       t.integer :room_capacity
       t.string :purpose
       t.text :remarks

@@ -7,9 +7,8 @@ class CreateEvents < ActiveRecord::Migration
       t.string :venue
       t.string :organizer
       t.text :description
-      t.integer :created_by
-      t.integer :updated_by
       t.string :event_attachment
+      t.string :event_attachment_cache
       t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false
 

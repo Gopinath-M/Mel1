@@ -55,11 +55,11 @@
 						</tr>
 						<tr>
 							<td><b><%= t('labels.agency_name')%></b></td>
-							<td>&nbsp;<b><%= @requester.departments[0].agency.name.upcase if !@requester.is_super_admin? %></b></td>
+							<td>&nbsp;<b><%= Department.find_by_id(current_department).agency.name.upcase if !@requester.is_super_admin? %></b></td>
 						</tr>
 						<tr>
 							<td><b><%= t('labels.department_name')%></b></td>
-							<td>&nbsp;<b><%= @requester.departments[0].name if !@requester.is_super_admin? %></b></td>
+							<td>&nbsp;<b><%= Department.find_by_id(current_department).name.upcase if !@requester.is_super_admin? %></b></td>
 						</tr>
 						<tr>
 							<td><b><%= t('labels.first_name')%></b></td>
@@ -138,10 +138,10 @@
 							<td> <%= select_tag :approve_status,"<option>Approved</option><option>Declined</option>".html_safe %> </td>
 						</tr>
 						<% elsif (current_user.is_department_user? && !current_user.is_resource_manager?) %>
-						<% @approver = Approver.active.find_all_by_department_id(current_user.departments).first %>
-						<% @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last %>
+						<% @approver = Approver.active.find_all_by_department_id(current_department).first %>
+						<% @approver_second = Approver.active.find_all_by_department_id(current_department).last %>
 
-						<% if (@approver.user_id.to_i == current_user.id || @approver_second.user_id.to_i == current_user.id) %>
+						<% if ((@approver.present? && @approver.user_id.to_i == current_user.id) || (@approver_second.present? && @approver_second.user_id.to_i == current_user.id)) %>
 						<tr>
 							<td><label class="text"> <%= label :location,raw("Status"), :class=>"text"%></label></td>
 							<td> <%= select_tag :approve_status,"<option>Approved</option><option>Declined</option>".html_safe %> </td>

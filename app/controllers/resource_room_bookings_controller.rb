@@ -215,15 +215,20 @@ class ResourceRoomBookingsController < ApplicationController
   def get_resources
     brands = {}
     if !params[:sub_category_id].nil?
-      resources = Resource.find_all_by_sub_category_id(params[:sub_category_id])
-
-      resources.each do |resource|
-        brand = VehicleModelType.find(resource.vehicle_model_type_id)
-        val= brand.name.to_s + " : " + resource.vehicle_model.to_s + " : " + resource.resource_no.to_s
-        brands.store(resource.id,val)
+      val = SubCategory.find(params[:sub_category_id])
+      @category = Category.get_category("Transportation")
+      if val.category_id == @category.first.id
+        resources = Resource.find_all_by_sub_category_id(params[:sub_category_id])
+        resources.each do |resource|
+          brand = VehicleModelType.find(resource.vehicle_model_type_id)
+          val= brand.name.to_s + " : " + resource.vehicle_model.to_s + " : " + resource.resource_no.to_s
+          brands.store(resource.id,val)
+        end
+        render :json=>[brands] if brands
+      else
+        resoures = Resource.active.find_all_by_sub_category_id(params[:sub_category_id])
+        render :json=>[resoures] if resoures
       end
-
-      render :json=>[brands] if brands
     end
   end
 

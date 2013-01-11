@@ -10,19 +10,22 @@ class MessagesController < ApplicationController
   end
 
   #Creating a New Message Instance
-  def new
+  def new   
+    collect_messages 
     @message = Message.new
   end
 
   #Creating a New Message
   def create
-    message = Message.new(params[:message])
-    if message.valid?
+    @message = Message.new(params[:message])
+    if @message.valid?
+      message = @message
       create_messages(params[:message_user_select],message)
       message.attachment = params[:file] if params[:file]       
-      redirect_to messages_path
+      redirect_to new_message_path
     else
-      render :action => 'index'
+      collect_messages      
+      render :action => 'new'
     end
   end
 
@@ -112,6 +115,12 @@ class MessagesController < ApplicationController
   def destroy
     @message = Message.find(params[:id]).update_attribute(:deleted,true)    
     redirect_to messages_path
+  end
+  
+  #Download Attachments
+  def download_attachments
+    @message = Message.find(params[:id])
+    send_file @message.attachment.path
   end
   
 end

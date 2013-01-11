@@ -1093,6 +1093,7 @@ malay:
     current_dept: "Jabatan Semasa"
     group_chat_room: "Kumpulan Chat - Bilik"
     password: "Kata Laluan"
+    room_name: "Nama bilik"
     
   activerecord:
     models:

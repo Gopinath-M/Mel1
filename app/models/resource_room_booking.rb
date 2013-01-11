@@ -17,4 +17,21 @@ class ResourceRoomBooking < ActiveRecord::Base
   end
 
   mount_uploader :room_attachment, RoomAttachmentUploader
+
+  def self.auto_return
+    puts "something"
+    @room = ResourceRoomBooking.all
+    time = Time.now
+    @room.each do |mail|
+      if time > mail.requested_to_date
+        mail.update_attribute(:status, "Returned")
+        if mail.user_notification_mail == false
+          UserMailer.room_auto_return_status_mail_to_user(mail).deliver
+        end
+        mail.update_attribute(:user_notification_mail,true)
+      end
+    end
+  end
+
+
 end

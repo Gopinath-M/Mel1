@@ -21,6 +21,7 @@ gem "thinking-sphinx", "~> 2.0.0"
 gem 'rdoc'
 gem 'mongrel', '1.2.0.pre2'
 gem 'rake', '0.9.2.2'
+gem 'rufus-scheduler'
 
 #gem 'postgres', '~>0.8.1'
 #gem 'postgres-pr', '~>0.6.3'

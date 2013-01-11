@@ -25,6 +25,7 @@ Melaka::Application.routes.draw do
   resources :resource_bookings do
     collection do
       get 'get_other_sub_categories'
+      get 'get_booked'
       get 'get_resources'
       get 'resource_booking_approval'
       get 'list_resource_booking'
@@ -247,6 +248,7 @@ Melaka::Application.routes.draw do
       get 'get_unit_admin'
       get 'post_messages'
       get 'post_comments'
+      get 'download_attachments'
     end
   end
     
