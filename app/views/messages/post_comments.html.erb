@@ -1,56 +1,165 @@
-<div id="post_message_<%= @message.id %>" class="postedMsg-row box">
-  <div class="postedMsg-img">
-    <a href="#" title="Social Welfare Department of Melaka"><img src="images/img_user2.jpg" alt="Image" width="60" height="60" /></a>
-  </div>
-  <div class="postedMsg-txt">
-    <p class="head1"><a href="#" title="Social Welfare Department of Melaka"><b><%= @message.message %> </b></a> <br /> </p>
-    <div class=""></div>
-    <div id="message_field_<%= @message.id %>" ><%#= text_field_tag('version',:cols => 20,:onsubmit => "changeIfValid(this);")%></div>
+<% if @message.attachment.blank? %>
+<div id="post_@message_<%= @message.id %>" class="postedMsg-row box">
+	<div class="postedMsg-img">
+		<% if @message.user.avatar.blank?%>
+		<a href="#" title="<%= @message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="60" height="60" /></a>
+		<%else%>
+		<%= image_tag(@message.user.avatar.url(:profile),:height=>60,:width=>60) %>
+		<%end%>
 
-    <p class="PM-des">
-      <%=t('labels.by')%>  <%= @message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(@message.created_at) %> <%=t('labels.ago')%>
-      <% if @message.message_comments.count == 0 %>
-        &nbsp; - &nbsp;
-        <a value="<%= @message.id %>" id ="message_<%= @message.id %>" title="Comment" onclick= "insert_text_field(id)"><%=t('labels.comment')%>    </a>
-      <%end%>
-      <% if @message.user.id == current_user.id %>
-					&nbsp; - &nbsp;
-					<%= link_to t('labels.delete'), message_path(:id => @message.id),:method=>"delete",:confirm=>t('labels.delete_confirmation') %>
-				<%end%>
-    </p>
+	</div>
+	<div class="postedMsg-txt">
+		<p class="head1">
+			<b> <% if @message.is_sticky_message?%> <font color='#329C20'><%= @message.message %> </font> <%else%>
+			<%= @message.message %>
+			<%end%> </b>
+			<br />
+		</p>
+		<div class=""></div>
+		<div id="@message_field_<%= @message.id %>" ></div>
 
+		<p class="PM-des">
+			<%= t('labels.by')%>  <%= @message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(@message.created_at) %> <%= t('labels.ago')%>
+			<% if @message.message_comments.count == 0 %>
+			&nbsp; - &nbsp;
+			<a value="<%= @message.id %>" id ="@message_<%= @message.id %>" title="Comment" onclick= "insert_text_field(id)"><%= t('labels.comment')%> </a>
+			<%end%>
+			<% if @message.user.id.to_i == current_user.id.to_i %>
+			&nbsp; - &nbsp;
+			<%= link_to t('labels.delete'), message_path(:id => @message.id),:method=>"delete",:confirm=>t('labels.delete_confirmation') %>
+			<%end%>
+		</p>
 
-    <div id ="comments_section_message_<%= @message.id %>">
+		<div id ="comments_section_@message_<%= @message.id %>">
 
-    </div>
-    <% if @message.message_comments.count > 0 %>
-      <div class="PM-cmts box">
+		</div>
+		<% if @message.message_comments.count > 0 %>
+		<div class="PM-cmts box">
 
-        <h4>Comments</h4>
-        <% @message.message_comments.each do |comment| %>
-          <div class="clear"></div>
-          <div class="PM-cmts-row box">
-            <div class="PM-cmts-img">
-              <a title="Melaka"><img src="images/img_user3.jpg" alt="Image" width="30" height="30" /></a>
-            </div>
-            <div class="PM-cmts-txt">
-              <p><%= comment.comments %></p>
-              <p class="PM-des"><%=t('labels.by')%> <a title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%=t('labels.ago')%>
-              	
-              </p>
-            </div>
-          </div>
-        <%end%>
-        <div class="clear"></div>
-        <div class="PM-cmts-post">
-          <p class="formRow">
-            <label for="cmts" class="ui-watermark-label-pass"></label>
-            <textarea name="cmts" id="post_comment_<%= @message.id %>" rows="" cols=""></textarea>
-          </p>
-          <input type="submit" id="post_comment" onclick='submit_post_comment(<%=@message.id%>)' class="btn2 in-btn2" value="Post" title="Post" name="post" />
-        </div>
-      </div>
-    <%end%>
+			<h4>Comments</h4>
+			<% @message.message_comments.each do |comment| %>
+			<div class="clear"></div>
+			<div class="PM-cmts-row box">
+				<div class="PM-cmts-img">
+					<% if comment.user.avatar.blank?%>
+					<a href="#" title="<%= comment.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="30" height="30" /></a>
+					<%else%>
+					<%= image_tag(comment.user.avatar.url(:profile),:height=>30,:width=>30) %>
+					<%end%>
+				</div>
+				<div class="PM-cmts-txt">
+					<p>
+						<%= comment.comments %>
+					</p>
+					<p class="PM-des">
+						<%= t('labels.by')%> <a title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%= t('labels.ago')%>
 
-  </div>
+					</p>
+				</div>
+			</div>
+			<%end%>
+			<div class="clear"></div>
+			<div class="PM-cmts-post">
+				<p class="formRow">
+					<label for="cmts" class="ui-watermark-label-pass"></label>
+					<textarea name="cmts" id="post_comment_<%= @message.id %>" rows="" cols=""></textarea>
+				</p>
+				<input type="submit" id="post_comment" onclick='submit_post_comment(<%= @message.id%>)' class="btn2 in-btn2" value="Post" title="Post" name="post" />
+			</div>
+		</div>
+		<%end%>
+
+	</div>
 </div>
+</div>
+<%else%>
+<div id="post_@message_<%= @message.id %>" class="postedMsg-row box">
+	<div class="postedMsg-img">
+		<% if @message.user.avatar.blank?%>
+		<a href="#" title="<%= @message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="60" height="60" /></a>
+		<%else%>
+		<%= image_tag(@message.user.avatar.url(:profile),:height=>60,:width=>60) %>
+		<%end%>
+
+	</div>
+	<div class="postedMsg-txt">
+		<p class="head1">
+			<% image = @message.attachment.url(:profile).split("/").last %>
+			<b><a title="<%= @message.user.first_name.capitalize %>"><%= @message.user.first_name.capitalize %></b></a><b> shared </b><a title="<%= image %>"> <%= image %> </a>
+		</p>
+		<div class="PM-shared">
+			<div class="PM-shared-img">
+				<% image = @message.attachment.url(:profile).split(".").last %>
+				<% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+				<span class="in-box"> <%= link_to image_tag(@message.attachment.url(:thumb),:title=> @message.attachment), download_attachments_messages_path(:id=>@message.id) %>
+					<%elsif image == "txt" %> <td>&nbsp;<b><%= link_to image_tag('/images/notepad.jpg'), download_attachments_messages_path(:id=>@message.id) if @message.attachment?  %></b></td> </span>
+				<%elsif image == "doc" %>
+				<td>&nbsp;<b><%= link_to image_tag('/images/img_document.jpg'), download_attachments_messages_path(:id=>@message.id) if @message.attachment?  %></b></td> </span>
+				<%elsif image == "pdf" %>
+				<td>&nbsp;<b><%= link_to image_tag('/images/pdf.jpg'), download_attachments_messages_path(:id=>@message.id) if @message.attachment?  %></b></td> </span>
+				<%elsif image == "xls" %>
+				<td>&nbsp;<b><%= link_to image_tag('/images/excel.jpg'), download_attachments_messages_path(:id=>@message.id) if @message.attachment?  %></b></td> </span>
+				<%end%>
+			</div>
+			<div class="PM-shared-txt">
+				<p class="head1">
+					<b> <% if @message.is_sticky_message?%> <font color='#329C20'><%= @message.message %> </font> <%else%>
+					<%= @message.message %>
+					<%end%> </b>
+					<br />
+				</p>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div id="@message_field_<%= @message.id %>" ></div>
+		<p class="PM-des">
+			<%= t('labels.by')%>  <%= @message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(@message.created_at) %> <%= t('labels.ago')%>
+			<% if @message.message_comments.count == 0 %>
+			&nbsp; - &nbsp;
+			<a value="<%= @message.id %>" id ="@message_<%= @message.id %>" title="Comment" onclick= "insert_text_field(id)"><%= t('labels.comment')%> </a>
+			<% if @message.user.id.to_i == current_user.id.to_i %>
+			&nbsp; - &nbsp;
+			<%= link_to t('labels.delete'), message_path(:id => @message.id),:method=>"delete",:confirm=>t('labels.delete_confirmation') %>
+			<%end%>
+			<%end%>
+		</p>
+		<div id ="comments_section_@message_<%= @message.id %>">
+
+		</div>
+		<div class="clear"></div>
+		<% if @message.message_comments.count > 0 %>
+		<div class="PM-cmts box">
+			<h4><%= t('labels.comments')%></h4>
+			<% @message.message_comments.each do |comment| %>
+			<div class="clear"></div>
+			<div class="PM-cmts-row box">
+				<div class="PM-cmts-img">
+					<% if comment.user.avatar.blank?%>
+					<a href="#" title="<%= comment.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="30" height="30" /></a>
+					<%else%>
+					<%= image_tag(comment.user.avatar.url(:profile),:height=>30,:width=>30) %>
+					<%end%>
+				</div>
+				<div class="PM-cmts-txt">
+					<p>
+						<%= comment.comments %>
+					</p>
+					<p class="PM-des">
+						<%= t('labels.by')%> <a href="#" title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%= t('labels.ago')%>
+					</p>
+				</div>
+			</div>
+			<%end%>
+			<div class="clear"></div>
+			<div class="PM-cmts-post">
+				<p class="formRow">
+					<label for="cmts" class="ui-watermark-label-pass"></label>
+					<textarea class="posting_comments_<%= @message.id %>" name="cmts_area_<%= @message.id %>" id="post_comment_<%= @message.id %>" rows="" cols=""></textarea>
+				</p>
+				<input type="submit" id="post_comment" onclick='submit_post_comment(<%= @message.id%>)' class="btn2 in-btn2" value="Post" title="Post" name="post" />
+			</div>
+		</div>
+		<%end%>
+	</div>
+</div>
+<%end%>

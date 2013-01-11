@@ -2725,10 +2725,6 @@ $("#resource_booking_submit").live("click",function(){
         alert("Select Sub Category");
         return false;
     }
-    else if ($("#resource_booking_resource_id").val() == ""){
-        alert("Select Resource");
-        return false;
-    }
     else if ($("#resource_booking_requested_from_date").val() == ""){
         alert("Enter From Date");
         return false;
@@ -2745,9 +2741,17 @@ $("#resource_booking_submit").live("click",function(){
         alert("Enter Purpose");
         return false;
     }
-    else if ($("#resource_booking_description").val() == ""){
-        alert("Enter Description");
-        return false;
+    if($('#available_two_way').is(':checked') ==true){
+        if ($("#other_type_id_booked").val() == ""){
+            alert("Select Resource Type");
+            return false;
+        }
+    }
+    else if($('#available_one_way').is(':checked') ==true){
+        if ($("#resource_booking_resource_id").val() == ""){
+            alert("Select Resource Type");
+            return false;
+        }
     }
 });
 /* Resource Other Booking Validation Ends*/

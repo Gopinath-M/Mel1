@@ -1,6 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'rufus/scheduler'
+
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
@@ -13,9 +15,9 @@ module Melaka
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.      
-      config.autoload_paths += ["#{config.root}/lib"] 
+    config.autoload_paths += ["#{config.root}/lib"]
       
-      require 'activity_feed_extensions'
+    require 'activity_feed_extensions'
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -39,5 +41,11 @@ module Melaka
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    scheduler = Rufus::Scheduler.start_new
+    scheduler.every("10s") do
+      ResourceRoomBooking.auto_return
+    end
+
   end
 end

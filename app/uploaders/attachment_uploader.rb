@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 class AttachmentUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
@@ -9,7 +8,6 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
-
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
@@ -29,9 +27,12 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
-    process :resize_to_limit => [130, 130] 
-    #process :convert => 'jpg'    
+  version :thumb, :if => :image? do
+    process :resize_to_limit => [130, 130]  
+  end
+
+  version :profile, :if => :image? do
+    process :resize_to_limit => [40, 40]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -40,14 +41,20 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png pdf doc xls txt xlsx odt rtf docx ppt)
   end
 
-#  def set_content_type(*args)
-#    self.file.instance_variable_set(:@content_type, "image/png")
-#  end
+  #  def set_content_type(*args)
+  #    self.file.instance_variable_set(:@content_type, "image/png")
+  #  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+  protected
+
+  def image?(new_file)
+    new_file.content_type.include? 'image'
+  end
 
 end

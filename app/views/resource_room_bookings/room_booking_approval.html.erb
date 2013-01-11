@@ -98,11 +98,12 @@
                 <%end%>
               </tr>
             <%end%>
-            <tr>
-              <td><b><%=t('labels.remarks')%></b></td>
-              <td><b>&nbsp;<%=@resource_room_booking.remarks%></b></td>
-            </tr>
-
+            <% if @resource_room_booking.remarks.present? %>
+              <tr>
+                <td><b><%=t('labels.remarks')%></b></td>
+                <td><b>&nbsp;<%=@resource_room_booking.remarks%></b></td>
+              </tr>
+            <%end%>
             <tr>
             <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
             </tr>
@@ -115,7 +116,7 @@
 
             <% if @details_resource.present? %>
               <tr>
-                <td><b><%=t('labels.room_no')%></b></td>
+                <td><b><%=t('labels.room_name')%></b></td>
                 <td><b>&nbsp;<%=@details_resource.resource_no%></b></td>
               </tr>
               <tr>
@@ -130,7 +131,7 @@
             <% if current_user.is_resource_manager? && @resource_room_booking.status== "Approved" %>
               <tr>
                 <% @val = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
-                                            WHERE agency_stores.booked =false AND agency_stores.sub_category_id = #{@resource_room_booking.sub_category_id}" %>
+    WHERE agency_stores.booked =false AND agency_stores.sub_category_id = #{@resource_room_booking.sub_category_id}" %>
                 <% if @val.present? %>
                   <td><label class="text"><%=t('labels.change_room')%></label></td>
                   <td><span class="in-box">
@@ -261,7 +262,7 @@
                   <td></td>
                 </tr>
                 <tr>
-                  <td><b><%=t('labels.room_ex_no')%></b></td>
+                  <td><b><%=t('labels.room_name')%></b></td>
                   <td><b>&nbsp;<%=@details_resource.resource_no%></b></td>
                 </tr>
                 <tr>

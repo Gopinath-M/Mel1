@@ -5,19 +5,19 @@
     <div class="form-sec">
       <%= hidden_field_tag :user_id, (current_user.id) %>
       <%if !current_user.is_super_admin?%>
-    <%= hidden_field_tag :department_id, (current_department) %>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.agency_name')%><span style=color:red>*</span></label>
-      <span class="in-box">
-       <%= current_user.departments.first.agency.name.upcase %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.department_name')%><span style=color:red>*</span></label>
-      <span class="in-box">
-         <%= current_user.departments.first.name %>
-      </span>
-    </div>
+        <%= hidden_field_tag :department_id, (current_department) %>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.agency_name')%><span style=color:red>*</span></label>
+          <span class="in-box">
+            <%= current_user.departments.first.agency.name.upcase %>
+          </span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.department_name')%><span style=color:red>*</span></label>
+          <span class="in-box">
+            <%= current_user.departments.first.name %>
+          </span>
+        </div>
       <%end%>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.select_category_name')%> <span style=color:red>*</span></label>
@@ -34,27 +34,48 @@
       <div class="form-sec-row">
         <label class="text"><%=t('labels.select_sub_category_name')%>  <span style=color:red>*</span></label>
         <span class="in-box">
-
           <%= select("other_booking_sub_category","id",  SubCategory.active.collect {|category| [category.name, category.id]},:prompt=>"Select Sub Category") %>
-           
         </span>
       </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.resource')%><span style=color:red>*</span></label>
-        <span class="in-box">
-          
-          <%= f.select(:resource_id, Resource.where('resource_no  is not null').active.collect {|category| [category.resource_no, category.id]},:prompt=>"Select Resource") %>
-        </span>
+
+      <div id="booked_or_available" style="display:block">
+        <% if current_user.is_super_admin? %>
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.type')%><span style=color:red>*</span></label>
+            <span class="in-box">
+              <%= radio_button_tag 'available', 'one_way', :checked=>true %><%= label t('labels.available'),t('labels.available') %>&nbsp;&nbsp;
+              <%= radio_button_tag 'available', 'two_way'  %><%= label t('labels.booked'),t('labels.already_booked') %>
+            </span>
+          </div>
+        <%end%>
+
+        <div id="available_resource" class="form-sec-row" >
+          <div class="form-sec-row">
+            <label class="text"><%=t('labels.resource')%><span style=color:red>*</span></label>
+            <span class="in-box">
+              <%= f.select(:resource_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
+            </span>
+          </div>
+        </div>
       </div>
-      <%#if !current_user.is_super_admin?%>
-        <%#*<div class="form-sec-row">%>
-          <%#*<label class="text">Select Department <span style=color:red>*</span></label>%>
-          <%#*<span class="in-box">%>
-            <%#departments=current_user.departments.where(:deleted => false)%>
-            <%#=f.select(:department_id,  departments.collect {|category| [category.name, category.id]},:prompt=>"SELECT A DEPARTMENT") %>
-          <%#*</span>%>
-        <%#*</div>%>
-      <%#end%>
+
+      <div id="booked_resource" style="display:none">
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.resource')%><span style=color:red>*</span></label>
+          <span class="in-box">
+            <%= select("other","type_id_booked", Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Resource") %>
+          </span>
+        </div>
+      </div>
+  <%#if !current_user.is_super_admin?%>
+  <%#*<div class="form-sec-row">%>
+  <%#*<label class="text">Select Department <span style=color:red>*</span></label>%>
+  <%#*<span class="in-box">%>
+  <%#departments=current_user.departments.where(:deleted => false)%>
+  <%#=f.select(:department_id,  departments.collect {|category| [category.name, category.id]},:prompt=>"SELECT A DEPARTMENT") %>
+  <%#*</span>%>
+  <%#*</div>%>
+  <%#end%>
   <%#*<div class="form-sec-row">%>
   <%#*<label class="text">Name <span style=color:red>*</span></label>%>
   <%#*<span class="in-box">%>
@@ -93,7 +114,7 @@
         </span>
       </div>
       <div class="form-sec-row">
-        <label class="text"><%=t('labels.remarks')%> <span style=color:red>*</span></label>
+        <label class="text"><%=t('labels.remarks')%></label>
         <span class="in-box">
           <%= f.text_field :description%>
         </span>
@@ -107,3 +128,38 @@
     </div>
   </div>
 <%end%>
+
+
+<script>
+  $("#available_one_way").live('change',function(){
+    $("#booked_resource").hide();
+    $("#available_resource").show();
+  });
+
+  $("#available_two_way").live('change',function(){
+    $("#available_resource").hide();
+    $("#booked_resource").show();
+  });
+
+  $("#other_booking_sub_category_id").live("change", function(){
+    if($("#other_booking_sub_category_id").val() != ""){
+
+      $.get("/resource_bookings/get_booked",{
+        sub_category_id : $("#other_booking_sub_category_id").val()
+      },
+      function(data){
+        if (data['booked']!=null)
+        {
+          $("#other_type_id_booked").find('option').remove().end()
+          $("#other_type_id_booked").append($("<option></option>").attr("value","").text("Select Resource"));
+          for(var i=0; i<data['booked'].length;i++)
+          {
+            $("#other_type_id_booked").append($("<option></option>").attr("value",data['booked'][i].resource.resource_id).text(data['booked'][i].resource.resource_no));
+            $("#other_type_id_booked").show();
+          }
+        }
+        $("#booked_or_available").show();
+      })
+    }
+  });
+</script>
