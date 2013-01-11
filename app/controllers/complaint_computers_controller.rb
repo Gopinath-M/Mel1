@@ -17,12 +17,11 @@ class ComplaintComputersController < ApplicationController
   def create
     @complaint_computer=ComplaintComputer.create(params[:complaint_computer])
     @complaint_computer.user_id = current_user.id
-    @complaint_computer.department_id = current_user.departments
-    
+    @complaint_computer.department_id = @current_department
     if @complaint_computer.valid?
       @complaint_computer.save
-      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-      dept = Department.find_by_id(current_user.departments)
+      @approve = Approver.active.find_all_by_department_id(@current_department).first
+      dept = Department.find_by_id(@current_department)
       @name = ComplaintType.find_by_id(@complaint_computer.complaint_type_id)
       @system_access_name = SystemAccess.find_by_id(@complaint_computer.system_access_id)
       @system_model_name = SystemModelType.find_by_id(@complaint_computer.system_model_type_id)
@@ -82,9 +81,8 @@ class ComplaintComputersController < ApplicationController
   def get_system_types
     system_accesses = SystemAccess.where("complaint_type_id =?", params[:system_access_id]).order('name asc')
     render :json=>[system_accesses ] if system_accesses
-
-
   end
+  
   def get_system_items
     system_model_types = SystemModelType.where("system_access_id =?",params[:system_model_type_id]).order('name asc')
     render :json=>[system_model_types] if system_model_types
@@ -102,5 +100,4 @@ class ComplaintComputersController < ApplicationController
       @list_complaint_computer = ComplaintComputer.where(:department_id => @approve.department_id).order.page(params[:page]).per(4)
     end
   end
-
 end
