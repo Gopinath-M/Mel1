@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
   before_filter :is_admin, :except=>[:account_setting,:update_account_setting,:update_default_department, :user_profile, :emergency_reference, :declaration_property, :download_attachments, :show, :update]
-  
   #Activate or Deactivate a particular User
   def update_status
     @user = User.find(params[:id])
@@ -17,7 +16,7 @@ class UsersController < ApplicationController
   def edit
     @user=User.find(params[:id])
   end
-  
+
   #Destroy a particular User
   def destroy
     @user = User.find(params[:id])
@@ -62,7 +61,7 @@ class UsersController < ApplicationController
       render :layout=>false
     end
   end
-  
+
   ## Transfer Department Function begins here
   def transfer
     if !params[:department_id].nil? || !params[:department_id].blank?
@@ -76,7 +75,7 @@ class UsersController < ApplicationController
       users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2")
     end
     render :json=>[users] if users
-    
+
   end
 
   def list_of_user
@@ -146,7 +145,7 @@ class UsersController < ApplicationController
       render :json=>[users] if users
     end
   end
-  
+
   def update_assign
     if params[:transfer][:username] != "" && params[:from_department][:id] != "" && params[:to_department][:id]!= "" && params[:transfer_from_agency] != "" && params[:transfer_to_agency] != ""
       user = User.find_by_ic_number(params[:transfer][:username])
@@ -187,7 +186,7 @@ class UsersController < ApplicationController
       render :json=>[roles] if roles
     end
   end
-  
+
   ## Transfer Unit Function begins here
 
   def transfer_unit
@@ -221,7 +220,6 @@ class UsersController < ApplicationController
     end
   end
   ## Transfer Unit Function ends here
-
 
   ## Assign Unit Starts here
   def assign_unit
@@ -288,7 +286,7 @@ class UsersController < ApplicationController
       redirect_to :action=>"admin_activation"
     end
   end
-  
+
   def activate_department_user
     user=User.find(params[:id]) if params[:id]
     if user
@@ -297,7 +295,7 @@ class UsersController < ApplicationController
       redirect_to :action=>"user_activation"
     end
   end
-  
+
   def account_setting
     @user = User.find(current_user.id)
     @setting = Setting.find_by_id(1)
@@ -327,7 +325,7 @@ class UsersController < ApplicationController
       #@users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
       @users = User.joins(:roles).where("role_id = 2").page(params[:page]).per(10)
     else
-      #@users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
+    #@users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
       @users = User.joins(:roles).where("role_id = 2").page(params[:page]).per(10)
       @department_id=params[:department_id]
     end
@@ -339,19 +337,22 @@ class UsersController < ApplicationController
   def online_users
     @users = User.find(:all, :conditions => ["username != ?", current_user.username])
   end
+
   #Out station module
   def user_profile
     @user = User.find(current_user.id)
   end
+
   def update
-      @user = User.find(current_user.id)
-      if @user.valid?
+    @user = User.find(current_user.id)
+    if @user.valid?
       @user.update_attributes(params[:user])
-        redirect_to :controller =>'user_services', :action => 'new'
-      else
-        render :action =>'user_profile'
-      end
+      redirect_to :controller =>'user_services', :action => 'new'
+    else
+      render :action =>'user_profile'
+    end
   end
+
   def emergency_reference
     @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
     if @emergency_references != nil
@@ -369,16 +370,17 @@ class UsersController < ApplicationController
 
   def declaration_property
     @property_file = DeclarationProperty.new(params[:declaration_property])
-    if params[:commit]      
+    if params[:commit]
       @property_file.property_year = params[:date][:year]
       @property_file.user_id = current_user.id
       if @property_file.valid?
-        @property_file.save
-        #      redirect_to :controller =>'outstations', :action=>'new'
+      @property_file.save
+      #      redirect_to :controller =>'outstations', :action=>'new'
       end
       @property_file = DeclarationProperty.new(params[:declaration_property])
     end
   end
+
   def download_attachments
     @download = DeclarationProperty.find(params[:id])
     send_file @download.property_file.path
@@ -387,21 +389,24 @@ class UsersController < ApplicationController
   def show
     @users = User.find(current_user.id)
     @service = UserService.find_by_user_id(current_user.id)
-    @service_level = ServiceLevel.find(@service.service_level_id)
-    @classification = Classification.find(@service.classification_id)
-    @standard = ServiceStandard.find(@service.service_standard_id)
-    @appointment = Appointment.find(@service.appointment_id)
-    @state = State.find(@service.state)
+    if @service.present?
+      @service_level = ServiceLevel.find(@service.service_level_id)
+      @classification = Classification.find(@service.classification_id)
+      @standard = ServiceStandard.find(@service.service_standard_id)
+      @appointment = Appointment.find(@service.appointment_id)
+      @state = State.find(@service.state)
+    end
     #    @grade = Grade.find(@service.grade_id)
     @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
     @declaration_properties = DeclarationProperty.find_by_user_id(current_user.id)
     @outstations = Outstation.find_by_user_id(current_user.id)
 
   end
+
   def show_stage
     @emergency_reference = EmergencyReference.find(current_user.id)
     @property_file = DeclarationProperty.find_all_by_user_id(current_user.id)
   end
-  # out station module methods ends here
+# out station module methods ends here
 
 end

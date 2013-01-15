@@ -1,4 +1,4 @@
-<h2 class="b-head"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=t('labels.group_chat_room')%></b></h2><br/><br/>
+<h2 class="b-head"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Group Chat - Room</b></h2><br/><br/>
 
 
 
@@ -14,25 +14,30 @@
     <a  id="closelink" class="ch-close" title="Close"><%=t('labels.close')%></a>
     <a  id="restore" class="ch-square" title="Restore" ><%=t('labels.restore')%></a>
     <a  id="minimize" class="ch-minas" title="Minimize"><%=t('labels.minimize')%></a>
+
+    <% @conversation_group = ConversationGroup.where("from_groupid=? and to_groupid=?", @group_names.id, @group_names.id).last %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white"><b>Message for you </b><%= @conversation_group.content if !@conversation_group.nil? %><b>...</b></font></marquee>
+
   </div>
-  <div class="chat-msg-box" id="<%=@group_names.name%>" >
-    <div class="chat-msg" id="chat-msg">
-      <p class="ch-date">
-        <%=render :partial=>"conversation_group"%>
-      </p>
-      <div class="clearfix"></div>
+  <blink>
+    <div class="chat-msg-box" id="<%=@group_names.name%>" >
+      <div class="chat-msg" id="chat-msg">
+        <p class="ch-date">
+          <%=render :partial=>"conversation_group"%>
+        </p>
+        <div class="clearfix"></div>
+      </div>
+      <div class="chat-tbox">
+        <span class="in-box"><%= form_for ConversationGroup.new, :remote => true do |f| %>
+            <%=f.hidden_field :from_groupid, :value=>@group_names.id%>
+            <%=f.hidden_field :to_groupid, :value=>@group_names.id%>
+            <div class="form-sec-row" id="form-sec-row">
+              <%= f.text_area :content, :id => :content, :rows => 2, :cols => 30, :autofocus => true %> <%= f.submit raw("Send"), :id=>"btn4", :class=>"btn4"%>
+            <% end %>
+          </div>
+        </span>
+      </div>
     </div>
-    <div class="chat-tbox">
-      <span class="in-box"><%= form_for ConversationGroup.new, :remote => true do |f| %>
-          <%=f.hidden_field :from_groupid, :value=>@group_names.id%>
-          <%=f.hidden_field :to_groupid, :value=>@group_names.id%>
-          <div class="form-sec-row" id="form-sec-row">
-            <%= f.text_area :content, :id => :content, :rows => 2, :cols => 30, :autofocus => true %> <%= f.submit raw("Send"), :id=>"btn4", :class=>"btn4"%>
-          <% end %>
-        </div>
-      </span>
-    </div>
-  </div>
+  </blink>
 </div>
 
 
@@ -43,35 +48,24 @@
 
 <script type="text/javascript">
   var jsUserID = <%= @group_name.id %>;
-
   $(document).ready(function() {
-
     var isScrolling = true;
-
     $('.chat-msg').on('scroll', function() {
       isScrolling = true;
       lastScrollPos = this.scrollTop;
-
     });
     refresh_alerts = setInterval(function () {
-      if (isScrolling){
-   
+      if (isScrolling){   
         $('#chat-msg').load('/conversation_groups/'+jsUserID).scrollTop(lastScrollPos);
       }
     }, 10000);
     isScrolling = false;
-
-
     $("tr:last").css({backgroundColor: '#FEEDEB', fontWeight: 'bolder'});
-
-
-
   });
 
 
   $('.ch-close').click(function() {
     $('.chat').toggle();
-
   });
 
   $('.ch-minas').click(function() {
@@ -83,4 +77,20 @@
   });
 
 
+  function blink() {
+    var blinks = document.getElementsByTagName('blink');
+    for (var i = blinks.length - 1; i >= 0; i--) {
+      var s = blinks[i];
+      s.style.visibility = (s.style.visibility === 'visible') ? 'hidden' : 'visible';
+    }
+    window.setTimeout(blink, 100000);
+    $(".chat-msg-box").show();
+  }
+  if (document.addEventListener) document.addEventListener("DOMContentLoaded", blink, false);
+  else if (window.addEventListener) window.addEventListener("load", blink, false);
+  else if (window.attachEvent) window.attachEvent("onload", blink);
+  else window.onload = blink;
+
+  
 </script>
+

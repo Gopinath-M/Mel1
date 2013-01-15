@@ -17,13 +17,12 @@ class IctVpnsController < ApplicationController
 
   def create
     @ict_vpn = IctVpn.create(params[:ict_vpn])
-    @ict_vpn.requisition_type_id = params[:requisition_type_id]
     @ict_vpn.user_id = current_user.id
-    @ict_vpn.department_id = current_user.departments
+    @ict_vpn.department_id = @current_department
     if @ict_vpn.valid?
       @ict_vpn.save
-      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-      dept = Department.find_by_id(current_user.departments)
+      @approve = Approver.active.find_all_by_department_id(@current_department).first
+      dept = Department.find_by_id(@current_department)
       @requisition_ict_vpn=RequisitionType.find(@ict_vpn.requisition_type_id)
       @system_access_ict_vpn=SystemAccess.find(@ict_vpn.system_access_id)
       if !@approve.present?
