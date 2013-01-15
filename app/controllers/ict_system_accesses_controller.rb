@@ -20,14 +20,14 @@ class IctSystemAccessesController < ApplicationController
     @ict_system_access=IctSystemAccess.create(params[:ict_system_access])
     @ict_system_access.requisition_type_id = params[:requisition_type_id]
     @ict_system_access.user_id = current_user.id
-    @ict_system_access.department_id = current_user.departments
+    @ict_system_access.department_id = @current_department
 
 
     if @ict_system_access.valid?
       @ict_system_access.save
 
-      @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-      dept = Department.find_by_id(current_user.departments)
+      @approve = Approver.active.find_all_by_department_id(@current_department).first
+      dept = Department.find_by_id(@current_department)
       @requisition_ict_system_access=RequisitionType.find(@ict_system_access.requisition_type_id)
       @system_access_ict_system_access=SystemAccess.find(@ict_system_access.system_access_id)
       if !@approve.present?
