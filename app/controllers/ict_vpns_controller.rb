@@ -17,6 +17,7 @@ class IctVpnsController < ApplicationController
 
   def create
     @ict_vpn = IctVpn.create(params[:ict_vpn])
+    @ict_vpn.requisition_type_id = params[:requisition_type_id]
     @ict_vpn.user_id = current_user.id
     @ict_vpn.department_id = @current_department
     if @ict_vpn.valid?
@@ -82,7 +83,7 @@ class IctVpnsController < ApplicationController
   end
 
 
-   def list_vpn
+  def list_vpn
     @approve = Approver.active.find_all_by_department_id(@current_department).first
     @approver_second = Approver.active.find_all_by_department_id(@current_department).last
     if !@approve.present? && !@approver_second.present?

@@ -135,16 +135,16 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
+          <label class="text"><%=t('labels.remarks')%></label>
           <span class="in-box">
-            <%= f.text_area :remarks, :rows =>4%></span>
+            <%= @complaint_building_asset.remarks %></span>
         </div>
 
         <div class="form-sec-row">
           <div class="CenterNav">
             <label class="text">&nbsp;</label>
             <span class="in-box">
-              <%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return complaints();"%>
+              <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>&nbsp;&nbsp;&nbsp;&nbsp;<%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return complaints();"%>
             </span>
           </div>
         </div>
@@ -219,7 +219,7 @@
             <div class="CenterNav">
               <label class="text">&nbsp;</label>
               <span class="in-box">
-                <%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return approval_complaints();"%>
+                <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>&nbsp;&nbsp;&nbsp;&nbsp;<%= f.submit :value=>t('labels.update'), :class=>"btn2", :onclick => "return approval_complaints();"%>
               </span>
             </div>
           </div>

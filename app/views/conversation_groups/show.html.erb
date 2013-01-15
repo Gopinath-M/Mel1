@@ -15,10 +15,10 @@
     <a  id="restore" class="ch-square" title="Restore" ><%=t('labels.restore')%></a>
     <a  id="minimize" class="ch-minas" title="Minimize"><%=t('labels.minimize')%></a>
 
-    <% @conversation_group = ConversationGroup.where("from_groupid=? and to_groupid=?", @group_names.id, @group_names.id).last %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white"><b>Message for you </b><%= @conversation_group.content if !@conversation_group.nil? %><b>...</b></font></marquee>
+ <% @conversation_group = ConversationGroup.where("from_groupid=? and to_groupid=?", @group_names.id, @group_names.id).last %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white">&nbsp;&nbsp;Message for you ...<b>" <%= @conversation_group.content if !@conversation_group.nil? %> "</b></font></marquee>
 
   </div>
-  <blink>
+
     <div class="chat-msg-box" id="<%=@group_names.name%>" >
       <div class="chat-msg" id="chat-msg">
         <p class="ch-date">
@@ -30,6 +30,7 @@
         <span class="in-box"><%= form_for ConversationGroup.new, :remote => true do |f| %>
             <%=f.hidden_field :from_groupid, :value=>@group_names.id%>
             <%=f.hidden_field :to_groupid, :value=>@group_names.id%>
+
             <div class="form-sec-row" id="form-sec-row">
               <%= f.text_area :content, :id => :content, :rows => 2, :cols => 30, :autofocus => true %> <%= f.submit raw("Send"), :id=>"btn4", :class=>"btn4"%>
             <% end %>
@@ -37,7 +38,7 @@
         </span>
       </div>
     </div>
-  </blink>
+
 </div>
 
 
