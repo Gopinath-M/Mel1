@@ -12,13 +12,13 @@
     <a  id="closelink" class="ch-close" title="Close"><%=t('labels.close')%></a>
     <a  id="restore" class="ch-square" title="Restore" ><%=t('labels.restore')%></a>
     <a  id="minimize" class="ch-minas" title="Minimize"><%=t('labels.minimize')%></a>
-    <% @conversation = Conversation.where("from_userid =? and to_userid =?", current_user.id, @user.id).last %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white"><b>Message for you </b><%= @conversation.content if !@conversation.nil? %><b>...</b></font></marquee>
+<% @conversation = Conversation.where("from_userid =? and to_userid =?", @user.id, current_user.id).last %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white" >&nbsp;&nbsp;Message for you...<b>" <%= @conversation.content if !@conversation.nil? %> "</b></font></marquee>
 
   </div>
-  <blink>
+  
     <div class="chat-msg-box" id="<%=@user.username%>" >
       <div class="chat-msg" id="chat-msg">
-        <p class="ch-date"><blink><%=render :partial=>"conversation"%></blink></p>
+        <p class="ch-date"><%=render :partial=>"conversation"%></p>
         <div class="clearfix"></div>
       </div>
       <div class="chat-tbox"> <span class="in-box"><%= form_for Conversation.new, :remote => true do |f| %>
@@ -28,7 +28,7 @@
             <% end %> </div> </span>
       </div>
     </div>
-  </blink>
+
 </div>
 
 

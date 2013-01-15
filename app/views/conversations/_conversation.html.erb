@@ -1,5 +1,5 @@
 <%@conversations.each do |convo|%>
-  <clink>
+
     <table width ="100%" cellpadding="0" cellspacing="5" align="center" >
       <tr>
         <td width="30%" align="left">
@@ -16,23 +16,6 @@
         <td align="left" width="45%" valign="top" style="vertical-align: top;"><%=convo.content %></td><td align="right" width="20%"><i><%= time_ago_in_words(convo.created_at).gsub(t('labels.about'),'') + t('labels.ago') %></i></td>
       </tr>
     </table>
-  </clink>
+
 <%end%>
 
-
-<script type="text/javascript">
-
-  function clink() {
-    var blinks = document.getElementsByTagName('clink');
-    for (var i = blinks.length - 1; i >= 0; i--) {
-      var s = blinks[i];
-      s.style.visibility = (s.style.visibility === 'visible') ? 'hidden' : 'visible';
-    }
-    window.setTimeout(clink, 100000);
-  }
-  if (document.addEventListener) document.addEventListener("DOMContentLoaded", clink, false);
-  else if (window.addEventListener) window.addEventListener("load", clink, false);
-  else if (window.attachEvent) window.attachEvent("onload", clink);
-  else window.onload = clink;
-
-</script>

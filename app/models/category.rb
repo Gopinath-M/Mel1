@@ -10,6 +10,9 @@ class Category < ActiveRecord::Base
   scope :get_category , lambda { |*args|
     {:conditions=>["is_active=true and deleted=false and name =? ", args[0]],:limit=>1}
   }
+  scope :get_list_category , lambda { |*args|
+    {:conditions=>["is_active=true and deleted=false and name not in (?)", [args[0],args[1],args[2]]],:limit=>1}
+  }
   #Association
   has_many :categories_departments
   has_many :sub_categories
