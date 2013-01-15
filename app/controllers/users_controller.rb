@@ -344,13 +344,13 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
   end
   def update
-      @user = User.find(current_user.id)
-      if @user.valid?
+    @user = User.find(current_user.id)
+    if @user.valid?
       @user.update_attributes(params[:user])
-        redirect_to :controller =>'user_services', :action => 'new'
-      else
-        render :action =>'user_profile'
-      end
+      redirect_to :controller =>'user_services', :action => 'new'
+    else
+      render :action =>'user_profile'
+    end
   end
   def emergency_reference
     @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
@@ -387,11 +387,13 @@ class UsersController < ApplicationController
   def show
     @users = User.find(current_user.id)
     @service = UserService.find_by_user_id(current_user.id)
-    @service_level = ServiceLevel.find(@service.service_level_id)
-    @classification = Classification.find(@service.classification_id)
-    @standard = ServiceStandard.find(@service.service_standard_id)
-    @appointment = Appointment.find(@service.appointment_id)
-    @state = State.find(@service.state)
+    if @service
+      @service_level = ServiceLevel.find(@service.service_level_id)
+      @classification = Classification.find(@service.classification_id)
+      @standard = ServiceStandard.find(@service.service_standard_id)
+      @appointment = Appointment.find(@service.appointment_id)
+      @state = State.find(@service.state)
+    end
     #    @grade = Grade.find(@service.grade_id)
     @emergency_references = EmergencyReference.find_by_user_id(current_user.id)
     @declaration_properties = DeclarationProperty.find_by_user_id(current_user.id)
