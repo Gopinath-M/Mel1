@@ -19,7 +19,6 @@
           <ul>
             <li>
               <%=link_to t('right_nav.res_booking'), "javascript:void(0);" , :title=>t('labels.approve_res_booking') ,:class=>"", :id=>"lnk_right_nav_resource_booking" ,:onclick=>"RightNavigation(this.id,'div_right_nav_resource_booking')"%>
-
               <div id ="div_right_nav_resource_booking" style="display:none;">
                 <ul>
                   <li><%=link_to t('labels.room_booking'),resource_room_bookings_path%></li>
@@ -28,16 +27,13 @@
                   <li><%=link_to t('labels.other_resource_booking'),resource_bookings_path%></li>
                 </ul>
               </div>
-
             </li>
             <!--li><a href="javascript:void(0);" title="<%#= t('right_nav.complaints')%>/<%#= t('right_nav.issue_log')%>"><%#= t('right_nav.complaints')%> / <%#= t('right_nav.issue_log')%></a></li-->
             <li><a href="/ict_network_points/selected_list_ict" title="<%=t('left_nav.resource_requisition')%>"><%=t('left_nav.resource_requisition')%> </a></li>
             <li><a href="/users/user_profile" title="Out-Station"><%=t('labels.outstation_request')%></a></li></ul>
         </div>
-
         <div class="recentEvents box"> <%@upcoming_event = Event.where("is_active =? and from_date >=?", true, Time.now).limit(3) %>
           <% if @upcoming_event.present? %>
-
             <h2><%= t('right_nav.up_event')%></h2>
             <ul><% @upcoming_event.each do |upcoming_event| %>
                 <li>
@@ -47,7 +43,6 @@
                         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
                           <span class="in-box">
                             <%=link_to image_tag(upcoming_event.event_attachment.url,:title=>upcoming_event.event_attachment,:alt=>"Image", :width=>"50", :height=>"50"), event_path(:id => upcoming_event.id)%>
-
                           </span>
                         <%end%>
                       <%end%></a></div>
@@ -64,10 +59,8 @@
             <ul><h2><%= t('right_nav.up_event')%></h2></ul>
             <%=t('labels.no_events_available')%>
           <%end%></div>
-
         <div class="rAds">
           <div id="slides"><br/>
-
             <div class="slides_container">
               <% @advertisements=Advertisement.where("is_active =? and to_date >=?", true, Time.now) %>
               <% @advertisements.each do |advertisement| %>
@@ -79,10 +72,9 @@
             </div>
           </div>
         </div>
-
       </div>
-
     <%end%>
-
-
+    <%if current_user && (current_user.sign_in_count ==1 && (controller_name.to_s != "users" && action_name.to_s=="privacy_setting") ||  (controller_name.to_s == "registrations" && action_name.to_s=="update") )%>
+    </div>
+  <%end%>
 

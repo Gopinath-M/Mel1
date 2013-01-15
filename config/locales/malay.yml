@@ -1092,6 +1092,7 @@ malay:
     list_of_groups: "Senarai Kumpulan"
     current_dept: "Jabatan Semasa"
     group_chat_room: "Kumpulan Chat - Bilik"
+    password: "Kata Laluan"
     room_name: "Nama bilik"
     
   activerecord:

@@ -373,7 +373,7 @@ h2.b-head-acc-set{ border-bottom:1px  solid #CCC; padding:10px 0 10px 0; margin-
 
 /* CHAT CSS */
 .chat{ width:325px; height:-350px; position:fixed; z-index:10000; right:5px; bottom:0px;}
-.chat-head{ min-height:25px; background: url(/images/chat_head_bg.jpg) #336699;}
+.chat-head{ min-height:50px; background: url(/images/chat_head_bg.jpg) #336699;}
 .ch-name{ float:left; font-size:11px; color:#fff; font-weight:bold; padding:3px 0 0 5px;}
 .ch-name:hover{ color:#ffe0dd;}
 .ch-close{ float:right; width:16px; height:16px; margin:5px 4px 0 0; background:url(/images/close.png) no-repeat 0px 0px; text-indent:-999px; font-size:0;}
