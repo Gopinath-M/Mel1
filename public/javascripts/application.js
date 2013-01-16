@@ -1866,8 +1866,8 @@ $().ready(function(){
                     $("#details_resource_id").show();
                     var content="";
                     content+=""
-                    content+= "<tr><td><b>Location</b></td><td><font color='#369'><b>"+data[0].resource.location+"</b></font></td></tr>"
-                    content+= "<tr><td><b>Capacity</b></td><td><font color='#369'><b>"+data[0].resource.capacity+"</b></font></td></tr>"
+                    content+= "<div class='form-sec-row'><label class='text'><b>Location</b></label><span class='in-box'><b>"+data[0].resource.location+"</b></span></div>"
+                    content+= "<div class='form-sec-row'><label class='text'><b>Capacity</b></label><span class='in-box'><b>"+data[0].resource.capacity+"</b></span></div>"
                     content+="</table>"
                     $('#resource_room_booking_room_capacity').val(data[0].resource.capacity);
                     $("#details_resource_id").html(content)

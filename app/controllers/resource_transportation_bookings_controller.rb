@@ -195,7 +195,7 @@ class ResourceTransportationBookingsController < ApplicationController
       agency = Department.find(@current_department).agency
       depts = agency.departments.collect(&:id).join(',')     
       @resource_transportation_bookings = ResourceTransportationBooking.where("department_id in (#{depts}) and status !=?", "New").page(params[:page]).per(5)      
-      #@resource_transportation_bookings = ResourceTransportationBooking.find(:all,:joins=>["inner join agency_stores on resource_transportation_bookings.agency_store_id = agency_stores.id inner join agencies on agencies.id = agency_stores.agency_id"],:conditions=>[("agencies.user_id=2")])   
+      #@resource_transportation_bookings = ResourceTransportationBooking.find(:all,:joins=>["inner join agency_stores on resource_transportation_bookings.agency_store_id = agency_stores.id inner join agencies on agencies.id = agency_stores.agency_id"],:conditions=>[("agencies.user_id = #{current_user.id}")]).page(params[:page]).per(5)   
     else
       @approve = Approver.active.find_all_by_department_id(@current_department).first
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last
@@ -227,6 +227,11 @@ class ResourceTransportationBookingsController < ApplicationController
     if params[:approve_status] == "Approved"
 
       approve_scenario(params[:id],params[:vehicle][:id])
+            
+      agency = Agency.find(@resource_transportation_booking.agency_store.agency_id)        
+        if !agency.user_id.nil?
+          UserMailer.send_mail_to_resource_manager_for_transport_booking(agency.user,@resource_transportation_booking).deliver #if agency && agency.user  #if resource_manager && resource_manager.user && !resource_manager.user.blank?
+        end
 
     elsif params[:approve_status] == "Processed"
 
@@ -235,11 +240,6 @@ class ResourceTransportationBookingsController < ApplicationController
       else
         @resource_transportation_booking.update_attribute(:status,"Processed")
       end
-      
-       agency = Agency.find(@resource_transportation_booking.agency_store.agency_id)        
-        if !agency.user_id.nil?
-          UserMailer.send_mail_to_resource_manager_for_transport_booking(agency.user,@resource_transportation_booking).deliver #if agency && agency.user  #if resource_manager && resource_manager.user && !resource_manager.user.blank?
-        end
 
     elsif params[:approve_status] == "Returned"
       return_scenario(params[:id])
