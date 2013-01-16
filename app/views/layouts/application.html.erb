@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
 
-    <title>Intranet Portal Melaka State Government&nbsp;&nbsp;-&nbsp;&nbsp;<% if !params[:id].nil? %><% @user_name = User.find(params[:id])  %><% @conversation = Conversation.where("from_userid=? and to_userid=?", current_user.id, params[:id]).last %><% if !@conversation.nil? %><%= @user_name.username  %>&nbsp;says...<%= @conversation.content if !@conversation.nil? %><%end%><%end%>&nbsp;&nbsp;<% if !params[:id].nil? %><% @group_member = GroupMember.find_all_by_user_id(current_user.id)%><% @group_member.each do |group_member|%><% @group_name = Group.find(group_member.group_id) %><% @conversation_group = ConversationGroup.where("from_groupid =? and to_groupid =?", group_member.group_id, group_member.group_id).last  %><% if @conversation_group.present? %>[&nbsp;<%= @group_name.name %> says...&nbsp;&nbsp;<%=@conversation_group.content if !@conversation_group.nil?%>&nbsp;&nbsp;]<%end%><%end%><%end%></title>
+    <title>Intranet Portal Melaka State Government<% if !params[:id].nil? %>&nbsp;&nbsp;-&nbsp;&nbsp;<% @user_name = User.find(params[:id])  %><% @conversation = Conversation.where("from_userid=? and to_userid=?", params[:id], current_user.id).last %><% if !@conversation.nil? %><%= @user_name.username  %>&nbsp;says...<%= @conversation.content if !@conversation.nil? %><%end%><%end%>&nbsp;&nbsp;<% if !params[:id].nil? %><% @group_member = GroupMember.find_all_by_user_id(current_user.id)%><% @group_member.each do |group_member|%><% @group_name = Group.find(group_member.group_id) %><% @conversation_group = ConversationGroup.where("from_groupid =? and to_groupid =?", group_member.group_id, group_member.group_id).last  %><% if @conversation_group.present? %>[&nbsp;<%= @group_name.name %> says...&nbsp;&nbsp;<%=@conversation_group.content if !@conversation_group.nil?%>&nbsp;&nbsp;]<%end%><%end%><%end%></title>
     <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
 <%#= javascript_include_tag :defaults %>
     <%= stylesheet_link_tag 'style' %>
@@ -11,13 +11,13 @@
      <!--[if IE 8]><%= stylesheet_link_tag 'ie8' %><![endif]-->
     <!--BANNER SLIDESHOW-->
     <%= stylesheet_link_tag 'global' %>
-    <%= javascript_include_tag 'jquery.min' %>    
+    <%= javascript_include_tag 'jquery.min' %>
     <%if controller_name.to_s!="sessions"%>
       <%= javascript_include_tag 'jquery_ui.js'%>
-      <%= stylesheet_link_tag 'jquery-ui' %>      
-      <%#= javascript_include_tag 'tabber.js'%>
-      <%#= stylesheet_link_tag 'tab.css' %>
-    <!-- Tab -->
+      <%= stylesheet_link_tag 'jquery-ui' %>
+  <%#= javascript_include_tag 'tabber.js'%>
+  <%#= stylesheet_link_tag 'tab.css' %>
+      <!-- Tab -->
 
     <%end%>
     <%= javascript_include_tag 'rails' %>

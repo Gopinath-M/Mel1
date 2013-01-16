@@ -30,7 +30,7 @@
       <%= f.text_area :note, :rows =>4%></span>
   </div>
   <div class="form-sec-row">
-    <label class="text"><%=t('labels.upload_file')%><span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.upload_file')%></label>
     <span class="in-box">
       <%= f.file_field :vpn_attachment%>
       <%= f.hidden_field :vpn_attachment_cache %>
@@ -49,7 +49,7 @@
     <div class="CenterNav">
       <label class="text">&nbsp;</label>
       <span class="in-box">
-        <%= f.submit :value=>t('labels.save'), :class=>"btn2"%>
+        <%= f.submit :value=>t('labels.submit'), :class=>"btn2"%>
       </span>
     </div>
   </div>
