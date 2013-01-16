@@ -51,6 +51,7 @@ Melaka::Application.routes.draw do
   resources :ict_hardware_bookings do
     collection do
       get 'requests'
+      get 'download_attachments'
       get 'approve'
       put 'update_request'
     end
@@ -75,6 +76,7 @@ Melaka::Application.routes.draw do
   resources :resource_ict_equipment_bookings do
     collection do
       get 'requests'
+      get 'download_attachments'
       get 'approve_request'
       put 'update_booking'
       post 'user_return'

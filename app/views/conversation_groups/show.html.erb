@@ -15,7 +15,7 @@
     <a  id="restore" class="ch-square" title="Restore" ><%=t('labels.restore')%></a>
     <a  id="minimize" class="ch-minas" title="Minimize"><%=t('labels.minimize')%></a>
 
- <% @conversation_group = ConversationGroup.where("from_groupid=? and to_groupid=?", @group_names.id, @group_names.id).last %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white">&nbsp;&nbsp;Message for you ...<b>" <%= @conversation_group.content if !@conversation_group.nil? %> "</b></font></marquee>
+ <% @conversation_group = ConversationGroup.where("from_groupid=? and to_groupid=?", @group_names.id, @group_names.id).last %><% if @conversation_group.present? %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white">&nbsp;&nbsp;Message for you ...<b>" <%= @conversation_group.content if !@conversation_group.nil? %> "</b></font></marquee><%end%>
 
   </div>
 

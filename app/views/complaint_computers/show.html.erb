@@ -5,7 +5,7 @@
     <div class="clearfix">&nbsp;</div>
     <div class="form-sec">
       <% if !current_user.is_super_admin? %>
-        <font color='#369'><b><u>User Details:-</u></b></font>
+        <font color='#369'><b><u><%=t('labels.user_details')%></u></b></font>
         <% @dept = Department.find_by_id(current_department) %>
         <% @agency = Agency.find_by_id(@dept.agency_id) %>
         <% @complaint_computer = ComplaintComputer.find_by_id(params[:id]) %>
@@ -39,7 +39,7 @@
         </div>
         <h2 class="b-head"></h2><br/>
       <%end%>
-      <font color='#369'><b><u>Complaint - Computers Details:-</u></b></font>
+      <font color='#369'><b><u><%=t('labels.complaint_computer_details')%></u></b></font>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.ticket_no')%></label>
         <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @complaint_computer.id %>/<%=Time.now.year%></b></font></span>
@@ -87,15 +87,15 @@
         <label class="text"><%=t('labels.act_to_be_taken')%></label>
         <span class="in-box">
           <% if @complaint_computer.action_taken == false %>
-            Internal <% else %>
-            External
+            <%=t('labels.internal')%> <% else %>
+           <%=t('labels.external')%>
           <%end%></span>
       </div>
 
 
       <% @vendor_name = Vendor.find_by_id(@complaint_computer.vendor_id) %>
       <% if @complaint_computer.action_taken == true && @complaint_computer.status == "Approved"%><br/>
-        <font color='#369'><b><u>Issue Log - Computers Details:-</u></b></font>
+        <font color='#369'><b><u><%=t('labels.issue_log_computer_details')%></u></b></font>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.vendor_name')%></label>
           <span class="in-box">
@@ -103,7 +103,7 @@
         </div>
       <%end%>
       <% if @complaint_computer.action_taken == true && @complaint_computer.status == "Processed"%><br/>
-        <font color='#369'><b><u>Issue Log - Computers Details:-</u></b></font>
+        <font color='#369'><b><u><%=t('labels.issue_log_computer_details')%></u></b></font>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.vendor_name')%></label>
           <span class="in-box">

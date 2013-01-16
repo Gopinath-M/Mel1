@@ -41,7 +41,7 @@
           </div>
           <h2 class="b-head"></h2><br/>
         <%end%>
-        <font color='#369'><b><u>ICT - VPN Details:-</u></b></font>
+        <font color='#369'><b><u><%= t('labels.ict_vpn_details') %></u></b></font>
 
         <div class="form-sec-row">
           <label class="text"><%=t('labels.ticket_no')%></label>
@@ -109,7 +109,7 @@
       </div>
 
       <h2 class="b-head"></h2>
-      <font color="#369" size="3"><br/><b><u><%=t('labels.off_action')%></u><br/><br/></b></font>
+      <font color="#369" size="3"><br/><b><u><%=t('labels.officer_action')%></u><br/><br/></b></font>
       <% if @ict_vpn.status == "New" %>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.status')%><span style=color:red>*</span></label>

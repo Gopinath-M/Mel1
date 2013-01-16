@@ -3,7 +3,7 @@
     <h2 class="b-head"><%=t('labels.complaint_building_assets')%></h2>
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
-      <div class="cu-c1"><a href="/complaint_building_assets/new" title=<%=t('left_nav.complaints_building')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('left_nav.complaints_building')%></a></div>
+      <div class="cu-c1"><a href="/complaint_building_assets/new" title=<%=t('labels.complaint_building')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.complaint_building')%></a></div>
     </div>
   <%end%>
   <div id="div_ajax" >
@@ -97,7 +97,7 @@
               &nbsp;<%= @type_name.name%>
             </div>
             <div class="m-c3">
-              <b><font color="#336699"><%= link_to "Show Info", complaint_building_asset_path(:id => complaint_building_asset.id), :method=>:get%></font></b>
+              <b><font color="#336699"><%= link_to t('labels.show_info'), complaint_building_asset_path(:id => complaint_building_asset.id), :method=>:get%></font></b>
             </div>
           </div>
           <div class="manage-user-rows box">

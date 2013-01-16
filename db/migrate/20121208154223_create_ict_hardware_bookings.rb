@@ -5,6 +5,7 @@ class CreateIctHardwareBookings < ActiveRecord::Migration
       t.references :department
       t.references :facility_ict
       t.string :application_category
+      t.string :ict_hardware_attachment
       t.timestamps
     end
   end

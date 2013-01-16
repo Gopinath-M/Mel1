@@ -2,6 +2,12 @@
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
   <%=f.hidden_field :facility_ict_id,:value=>"4" %>
+  <div class="form-sec-row">
+    <%= f.label :ict_hardware_attachment,t('labels.upload_file'), :class=>"text"%>
+    <span class="in-box">
+      <%= f.file_field :ict_hardware_attachment%>
+    </span>
+  </div>
   <div class="form-sec-row"><br/>
     <%= f.label :application_category,t('labels.app_category'), :class=>"text"%>
     <span class="in-box">

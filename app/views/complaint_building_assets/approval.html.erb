@@ -6,7 +6,7 @@
       <div class="clearfix">&nbsp;</div>
       <div class="form-sec">
         <% if !current_user.is_super_admin? %>
-          <font color='#369'><b><u>User Details:-</u></b></font>
+          <font color='#369'><b><u><%=t('labels.user_details')%></u></b></font>
 
           <% @dept = Department.find_by_id(current_department) %>
           <% @agency = Agency.find_by_id(@dept.agency_id) %>
@@ -41,7 +41,7 @@
           </div>
           <h2 class="b-head"></h2><br/>
         <%end%>
-        <font color='#369'><b><u>Complaint - Building Asset Details:-</u></b></font>
+        <font color='#369'><b><u><%=t('labels.complaint_building_asset_details')%></u></b></font>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.ticket_no')%></label>
           <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @complaint_building_asset.id %>/<%=Time.now.year%></b></font></span>

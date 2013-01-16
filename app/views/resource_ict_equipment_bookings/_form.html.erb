@@ -44,6 +44,12 @@
       </span>
     </div>
     <div class="form-sec-row">
+      <%= f.label :ict_equipment_attachment,t('labels.upload_file'), :class=>"text"%>
+      <span class="in-box">
+        <%= f.file_field :ict_equipment_attachment%>
+      </span>
+    </div>
+    <div class="form-sec-row">
       <label class="text"><%=t('labels.purpose')%><span style=color:red>*</span></label>
       <span class="in-box">
         <%= f.text_field :purpose, :value=>@resource_ict_equipment_booking.purpose,:rows=>2, :autofocus => true%>
