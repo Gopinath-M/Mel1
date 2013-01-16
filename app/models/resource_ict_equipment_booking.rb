@@ -12,6 +12,8 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
   after_create :send_notification
   after_save :send_user_notification
 
+  mount_uploader :ict_equipment_attachment, IctEquipmentAttachmentUploader
+
   def send_user_notification
     if self.status_changed?
       UserMailer.resource_booking_notification(self.user,self,nil).deliver
