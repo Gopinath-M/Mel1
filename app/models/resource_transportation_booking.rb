@@ -27,6 +27,6 @@ class ResourceTransportationBooking < ActiveRecord::Base
 
   def mail_to_user_regarding_transport_status_updates
     user = User.find(self.requester_id)
-    UserMailer.send_mail_to_user_for_transport_booking(user,self).deliver!
+    UserMailer.send_mail_to_user_for_transport_booking(user,self).deliver
   end
 end

@@ -313,13 +313,19 @@ class UserMailer < ActionMailer::Base
     @user=user
     @requisition= booking
     @department = dept
-    mail(:to=>@user.email,:subject =>"Details of Ict Equipment  Booking")
+    mail(:to=>@user.email,:subject =>"Details of Ict Equipment Booking")
   end
 
   def room_auto_return_status_mail_to_user(mail)
     @requisition = mail
     @user = User.find_by_id(@requisition.user_id)
     mail(:to=>@user.email,:subject =>"Your Room Booking Request has been Auto Returned to Agency Store")
+  end
+  
+  def send_mail_to_user_for_outstation_request(user,outstation)
+    @outstation = outstation
+    @user = user
+    mail(:to=>@user.email,:subject=>"Your Outstation Request Details")
   end
 
 end

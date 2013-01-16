@@ -6,6 +6,8 @@ class Outstation < ActiveRecord::Base
   validates :placename,:from_date,:to_date,:purpose, :presence => true
 
   validate :state_present_or_not
+  after_save :mail_to_user_regarding_outstation_details
+  after_update :mail_to_user_regarding_outstation_details
   #validate :validate_end_date_before_start_date
   #validate :validate_start_date
 
@@ -25,5 +27,10 @@ class Outstation < ActiveRecord::Base
     if self.is_out_of_state?
       errors.add(:Error,(I18n.translate!('errors_date.state_blank'))) if self.state == ''
     end
+  end
+  
+   def mail_to_user_regarding_outstation_details
+    user = User.find(self.user_id)
+    UserMailer.send_mail_to_user_for_outstation_request(user,self).deliver
   end
 end
