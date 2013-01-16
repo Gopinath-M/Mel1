@@ -48,6 +48,20 @@
           <label class="text"><%=t('labels.date_of_app')%></label>
           <span class="in-box"><%=@ict_hardware_booking.created_at.strftime("%d %b %Y, %I:%M:%S %p")%></span>
         </div>
+        <% if @ict_hardware_booking.ict_hardware_attachment.present? %>
+          <div class="form-sec-row">
+            <label class="text"><b><%=t('labels.attachment')%></b></label>
+            <% image = @ict_hardware_booking.ict_hardware_attachment.url(:profile).split(".").last %>
+            <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+              <span class="in-box">
+                <%=image_tag(@ict_hardware_booking.ict_hardware_attachment.url(:profile),:title=>@ict_hardware_booking.ict_hardware_attachment)%>
+              </span>
+            <%else%>
+              <% file = (@ict_hardware_booking.ict_hardware_attachment).url(:profile).split("/").last %>
+              <span class="in-box">&nbsp;<b><%= link_to file, download_attachments_ict_hardware_bookings_path(:id=>@ict_hardware_booking.id) if @ict_hardware_booking.ict_hardware_attachment?  %></b></span>
+            <%end%>
+          </div>
+        <%end%>
           <table>
             <tr>
               <td class="form-sec-row"><label class="text"><%=t('labels.name')%></label></td>

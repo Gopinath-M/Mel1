@@ -91,6 +91,18 @@
                     <td><b>    <%=@resource_ict_equipment_booking.updated_at.strftime("%a %B %d, %Y %I:%M:%S %p")%></b></td>
                   </tr>
                 <%end%>
+                <% if @resource_ict_equipment_booking.ict_equipment_attachment.present? %>
+                  <tr>
+                    <td><b><%=t('labels.attachment')%></b></td>
+                    <% image = @resource_ict_equipment_booking.ict_equipment_attachment.url(:profile).split(".").last %>
+                    <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+                      <td><%=image_tag(@resource_ict_equipment_booking.ict_equipment_attachment.url(:profile),:title=>@resource_ict_equipment_booking.ict_equipment_attachment)%></td>
+                    <%else%>
+                      <% file = (@resource_ict_equipment_booking.ict_equipment_attachment).url(:profile).split("/").last %>
+                      <td>&nbsp;<b><%= link_to file, download_attachments_resource_ict_equipment_bookings_path(:id=>@resource_ict_equipment_booking.id) if @resource_ict_equipment_booking.ict_equipment_attachment?  %></b></td>
+                    <%end%>
+                  </tr>
+                <%end%>
                 <tr>
                   <td><b><%=t('labels.need_off')%></b></td>
                   <td><b><%=@resource_ict_equipment_booking.need_officer ? "Yes" : "No"%></b></td>
