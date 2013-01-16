@@ -313,7 +313,7 @@ class UserMailer < ActionMailer::Base
     @user=user
     @requisition= booking
     @department = dept
-    mail(:to=>@user.email,:subject =>"Details of Ict Equipment  Booking")
+    mail(:to=>@user.email,:subject =>"Details of Ict Equipment Booking")
   end
 
   def room_auto_return_status_mail_to_user(mail)
