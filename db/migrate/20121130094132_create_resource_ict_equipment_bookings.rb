@@ -22,6 +22,7 @@ class CreateResourceIctEquipmentBookings < ActiveRecord::Migration
       t.boolean :user_returned_status
       t.datetime :acknowledged_date
       t.boolean :is_other_agency
+      t.string :ict_equipment_attachment
       t.text :notes
       t.string :status, :default => "New"
       t.timestamps
