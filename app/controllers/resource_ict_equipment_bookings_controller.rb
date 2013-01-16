@@ -52,15 +52,15 @@ class ResourceIctEquipmentBookingsController < ApplicationController
       @resource_ict_equipment_booking.status = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? "Processed" : ((session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN) ? "Approved" : "New")
       if @resource_ict_equipment_booking.valid?
         @resource_ict_equipment_booking.save
-#        if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN && session[:current_role] != DISP_USER_ROLE_DEPT_ADMIN
-#          first_approver = Approver.active.where(:department_id => @current_department).first
-#          if !first_approver.present?
-#            user = dept.users.where("role_id = 2").first
-#            UserMailer.send_mail_to_dept_admin_for_ict_equipment_booking(user,@resource_ict_equipment_booking,dept).deliver
-#          else
-#            UserMailer.send_mail_to_approver_for_ict_equipment_booking(first_approver.user,@resource_ict_equipment_booking, dept).deliver
-#          end
-#        end
+        #        if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN && session[:current_role] != DISP_USER_ROLE_DEPT_ADMIN
+        #          first_approver = Approver.active.where(:department_id => @current_department).first
+        #          if !first_approver.present?
+        #            user = dept.users.where("role_id = 2").first
+        #            UserMailer.send_mail_to_dept_admin_for_ict_equipment_booking(user,@resource_ict_equipment_booking,dept).deliver
+        #          else
+        #            UserMailer.send_mail_to_approver_for_ict_equipment_booking(first_approver.user,@resource_ict_equipment_booking, dept).deliver
+        #          end
+        #        end
         if !quantifiable
           agency_store.update_attribute(:booked, true)
         else
@@ -128,11 +128,10 @@ class ResourceIctEquipmentBookingsController < ApplicationController
       end
       if @resource_ict_equipment_booking.update_attributes(params[:resource_ict_equipment_booking].merge!({:approver_id => current_user.id}))
         agency = Agency.find(@resource_ict_equipment_booking.agency_store.agency_id)
-        p agency.inspect
         if !agency.user_id.nil?
           UserMailer.send_status_mail_for_ict_equipment_booking(agency.user, @resource_ict_equipment_booking.user, @resource_ict_equipment_booking).deliver #if agency && agency.user  #if resource_manager && resource_manager.user && !resource_manager.user.blank?
         end
-#        resource_manager = RoleMembership.find_by_user_id_and_role_id(agency.user_id, 05)
+        #        resource_manager = RoleMembership.find_by_user_id_and_role_id(agency.user_id, 05)
         #UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
         redirect_to(requests_resource_ict_equipment_bookings_path, :notice => 'Your ICT Equipment Status has been successfully updated.')
       else
@@ -142,6 +141,11 @@ class ResourceIctEquipmentBookingsController < ApplicationController
     end
   end
 
+  def download_attachments
+    @message = ResourceIctEquipmentBooking.find(params[:id])
+    send_file @message.ict_equipment_attachment.path
+  end
+  
   def user_return
     ict_equipment = ResourceIctEquipmentBooking.find(params[:ict_equipment_id])
     if params[:user_returned_status] == "true"

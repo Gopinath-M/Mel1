@@ -56,7 +56,6 @@ class IctHardwareBookingsController < ApplicationController
   def approve
     @ict_hardware_booking = IctHardwareBooking.find(params[:id]) #ict_hardware_booking
     @ict_hardware_booked_user = @ict_hardware_booking.ict_hardware_booked_users.first
-
   end
 
   def update_request
@@ -86,6 +85,11 @@ class IctHardwareBookingsController < ApplicationController
 
   def show
     @ict_hardware_booking = IctHardwareBooking.find(params[:id])
+  end
+
+  def download_attachments
+    @message = IctHardwareBooking.find(params[:id])
+    send_file @message.ict_hardware_attachment.path
   end
 
 end
