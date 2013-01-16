@@ -940,6 +940,21 @@ en:
     password: "Password"
     room_name: "Room Name"
     other_name: "Sorry... Other Resource Booking Facility is not Available for your Department..."
+    # Sheik changes
+    officer_action: "Officer Action:-"
+    ict_system_access_details: "ICT - System Access Details:-"
+    ict_vpn_details: "ICT - VPN Details:-"
+    complaint_building: "Complaint for Building Asset"
+    complaint_computer: "Complaint for Computer"
+    user_details: "User Details :-"
+    complaint_building_asset_details: "Complaint - Building Asset Details :-"
+    complaint_computer_details: "Complaint - Computer Details :-"
+    issue_log_computer_details: "Issue Log - Computer Details :-"
+    issue_log_building_asset_details: "Issue Log - Building Asset Details :-"
+    internal: "Internal"
+    external: "External"
+    yes: "Yes"
+    no: "No"
 
   
 

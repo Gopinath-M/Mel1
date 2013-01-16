@@ -12,7 +12,7 @@
     <a  id="closelink" class="ch-close" title="Close"><%=t('labels.close')%></a>
     <a  id="restore" class="ch-square" title="Restore" ><%=t('labels.restore')%></a>
     <a  id="minimize" class="ch-minas" title="Minimize"><%=t('labels.minimize')%></a>
-<% @conversation = Conversation.where("from_userid =? and to_userid =?", @user.id, current_user.id).last %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white" >&nbsp;&nbsp;Message for you...<b>" <%= @conversation.content if !@conversation.nil? %> "</b></font></marquee>
+<% @conversation = Conversation.where("from_userid =? and to_userid =?", @user.id, current_user.id).last %><% if @conversation.present? %><marquee direction="left" behavior="alternate" style="line-height: 25px;" ><font color="white" >&nbsp;&nbsp;Message for you...<b>" <%= @conversation.content if !@conversation.nil? %> "</b></font></marquee><%end%>
 
   </div>
   

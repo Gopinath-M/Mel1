@@ -7,7 +7,7 @@
     <div class="clearfix">&nbsp;</div>
     <div class="form-sec">
   <% if !current_user.is_super_admin? %>
-      <font color='#369'><b><u>User Details:-</u></b></font>
+      <font color='#369'><b><u><%=t('labels.user_details')%></u></b></font>
      
         <% @dept = Department.find_by_id(current_department) %>
         <% @agency = Agency.find_by_id(@dept.agency_id) %>
@@ -45,7 +45,7 @@
 
         <h2 class="b-head"></h2><br/>
       <%end%>
-      <font color='#369'><b><u>Complaint - Building Asset Details:-</u></b></font>
+      <font color='#369'><b><u><%=t('labels.complaint_building_asset_details')%></u></b></font>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.ticket_no')%></label>
         <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @complaint_building_asset.id %>/<%=Time.now.year%></b></font></span>
@@ -99,31 +99,31 @@
         <label class="text"><%=t('labels.repair_act')%></label>
         <span class="in-box">
           <% if @complaint_building_asset.repair_action == true %>
-            Yes <% else %>
-            No
+            <%=t('labels.yes')%> <% else %>
+           <%=t('labels.no')%>
           <%end%></span>
       </div>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.spare_parts_req')%></label>
         <span class="in-box">
           <% if @complaint_building_asset.spare_part_action == true %>
-            Yes <% else %>
-            No
+           <%=t('labels.yes')%> <% else %>
+           <%=t('labels.no')%>
           <%end%></span>
       </div>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.act_to_be_taken')%></label>
         <span class="in-box">
           <% if @complaint_building_asset.action_taken == false %>
-            Internal <% else %>
-            External
+            <%=t('labels.internal')%> <% else %>
+           <%=t('labels.external')%>
           <%end%></span>
       </div>
 
 
       <% @vendor_name = Vendor.find_by_id(@complaint_building_asset.vendor_id) %>
       <% if @complaint_building_asset.action_taken == true && @complaint_building_asset.status == "Approved"%>
-        <font color='#369'><b><u>Issue Log - Building Asset Details:-</u></b></font>
+        <font color='#369'><b><u><%=t('labels.user_details')%></u></b></font>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.vendor_name')%></label>
           <span class="in-box">
@@ -131,7 +131,7 @@
         </div>
       <%end%>
       <% if @complaint_building_asset.action_taken == true && @complaint_building_asset.status == "Processed"%><br/>
-        <font color='#369'><b><u>Issue Log - Building Asset Details:-</u></b></font>
+        <font color='#369'><b><u><%=t('labels.user_details')%></u></b></font>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.vendor_name')%></label>
           <span class="in-box">

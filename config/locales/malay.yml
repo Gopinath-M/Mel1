@@ -1095,6 +1095,21 @@ malay:
     password: "Kata Laluan"
     room_name: "Nama bilik"
     other_name: "Maaf ...Tempahan Kemudahan Sumber Lain-lain tidak Tersedia bagi Jabatan anda ..."
+    # Sheik Changes
+    officer_action: "Tindakan Pegawai:-"
+    ict_system_access_details: "Butiran - Akses Sistem ICT"
+    ict_vpn_details: "Butiran - VPN ICT:-"
+    complaint_building: "Aduan untuk Aset Bangunan"
+    complaint_computer: "Aduan untuk Komputer"
+    user_details: "Pengguna Butiran :-"
+    complaint_building_asset_details: "Aduan - Bangunan Aset Butiran :-"
+    computer_computer_details: "Aduan - Komputer Butiran :-"
+    issue_log_computer_details: "Log Isu - Komputer Butiran :-"
+    issue_log_building_asset_details: "Log Isu - Bangunan Aset Butiran :-"
+    internal: "Dalaman"
+    external: "Luar"
+    yes: "Ya"
+    no: "Tiada"
     
   activerecord:
     models:
