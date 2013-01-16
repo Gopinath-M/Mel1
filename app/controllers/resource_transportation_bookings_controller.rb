@@ -194,8 +194,8 @@ class ResourceTransportationBookingsController < ApplicationController
     if session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER      
       agency = Department.find(@current_department).agency
       depts = agency.departments.collect(&:id).join(',')     
-      #@resource_transportation_bookings = ResourceTransportationBooking.where("department_id in (#{depts}) and status !=?", "New").page(params[:page]).per(5)      
-      @resource_transportation_bookings = ResourceTransportationBooking.find(:all,:joins=>["inner join agency_stores on resource_transportation_bookings.agency_store_id = agency_stores.id inner join agencies on agencies.id = agency_stores.agency_id"],:conditions=>[("agencies.user_id = #{current_user.id}")]).page(params[:page]).per(5)   
+      @resource_transportation_bookings = ResourceTransportationBooking.where("department_id in (#{depts}) and status !=?", "New").page(params[:page]).per(5)      
+      #@resource_transportation_bookings = ResourceTransportationBooking.find(:all,:joins=>["inner join agency_stores on resource_transportation_bookings.agency_store_id = agency_stores.id inner join agencies on agencies.id = agency_stores.agency_id"],:conditions=>[("agencies.user_id = #{current_user.id}")]).page(params[:page]).per(5)   
     else
       @approve = Approver.active.find_all_by_department_id(@current_department).first
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last
