@@ -92,7 +92,7 @@
                       <b><font color="#336699"><%= link_to t('labels.approve_request'),approval_network_point_ict_network_points_path(:id => resource.id), :class=>"btn2 in-btn2"%></b>
                     <%end%>
                   </span>
-                <% elsif resource.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
+                <% elsif resource.status == "New" && session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN  &&  !@approve.present?%>
                   <span class="in-box">
                     <b><font color="#336699"><%= link_to t('labels.approve_request'),approval_network_point_ict_network_points_path(:id => resource.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                   </span>

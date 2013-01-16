@@ -97,7 +97,7 @@
                         <%end%>
                       <%end%>
                     </span>
-                  <% elsif requested_user.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
+                  <% elsif requested_user.status == "New" && session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN  &&  !@approve.present?%>
                     <label class="text">Action</label>
                     <span class="in-box">
                       <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
@@ -126,7 +126,7 @@
                         <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :class=>"btn2 in-btn2"%></b>
                       <%end%>
                     </span>
-                  <% elsif requested_user.status == "New" && current_user.is_department_admin? &&  !@approve.present?%>
+                  <% elsif requested_user.status == "New" && session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN  &&  !@approve.present?%>
                     <label class="text">Action</label>
                     <span class="in-box">
                       <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
