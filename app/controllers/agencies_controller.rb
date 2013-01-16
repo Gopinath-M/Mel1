@@ -61,7 +61,7 @@ class AgenciesController < ApplicationController
     if params[:role_membership][:user_id] != '' && params[:role_membership][:department_id] != ''
       user = User.find_by_ic_number(params[:role_membership][:user_id])
       role_member = RoleMembership.where("user_id = ?  and department_id = ? and role_id = 5 ",user.id,params[:role_membership][:department_id]) if user && user.present?
-      @role_membership = RoleMembership.create(params[:role_membership].merge!({:role_id => '5', :status => 'A'}))
+      @role_membership = RoleMembership.create(params[:role_membership].merge!({:user_id => user.id, :role_id => '5', :status => 'A'}))
       if role_member && !role_member.empty?
         flash[:alert] = "This user is already a resource manager"
         render :action => 'assign_resource_manager'
