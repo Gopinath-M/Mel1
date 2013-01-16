@@ -321,5 +321,11 @@ class UserMailer < ActionMailer::Base
     @user = User.find_by_id(@requisition.user_id)
     mail(:to=>@user.email,:subject =>"Your Room Booking Request has been Auto Returned to Agency Store")
   end
+  
+  def send_mail_to_user_for_outstation_request(user,outstation)
+    @outstation = outstation
+    @user = user
+    mail(:to=>@user.email,:subject=>"Your Outstation Request Details")
+  end
 
 end
