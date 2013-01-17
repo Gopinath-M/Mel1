@@ -1108,8 +1108,11 @@ malay:
     issue_log_building_asset_details: "Log Isu - Bangunan Aset Butiran :-"
     internal: "Dalaman"
     external: "Luar"
-    yes: "Ya"
-    no: "Tiada"
+    repair_act_yes: "Ya"
+    repair_act_no: "Tiada"
+    is_visible_yes: "Ya"
+    is_visible_no: "Tiada"
+   
     
   activerecord:
     models:
