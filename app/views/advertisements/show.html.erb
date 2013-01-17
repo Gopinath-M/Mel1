@@ -34,8 +34,8 @@
       <label class="text"><%=t('labels.is_visible')%></label>
       <span class="in-box">
         <% if @advertisements.is_active == true %>
-          Yes <% else %>
-          No
+          <%=t('labels.is_visible_yes')%> <% else %>
+          <%=t('labels.is_visible_no')%>
         <%end%></span>
     </div>
     <h2 class="b-head"></h2><br/>

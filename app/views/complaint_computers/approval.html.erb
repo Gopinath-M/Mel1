@@ -90,8 +90,8 @@
           <label class="text"><%=t('labels.act_to_be_taken')%><span style=color:red>*</span></label>
           <span class="in-box">
 
-            <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, "External" %>
-            <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, "Internal"  %>
+            <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, t('labels.external') %>
+            <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, t('labels.internal')  %>
           </span>
         </div>
         <div id="officer">
@@ -118,9 +118,9 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.remarks')%></label>
+          <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= @complaint_computer.remarks %></span>
+           <%= f.text_area :remarks, :rows =>4%></span>
         </div>
         <div class="form-sec-row">
           <div class="CenterNav">

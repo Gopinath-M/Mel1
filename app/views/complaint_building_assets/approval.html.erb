@@ -94,22 +94,22 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.repair_act')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.radio_button :repair_action, true %> <%= f.label :repair_action, "Yes" %>
-            <%= f.radio_button :repair_action, false %> <%= f.label :repair_action, "No" %>
+            <%= f.radio_button :repair_action, true %> <%= f.label :repair_action, t('labels.repair_act_yes') %>
+            <%= f.radio_button :repair_action, false %> <%= f.label :repair_action, t('labels.repair_act_no') %>
           </span>
         </div>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.spare_parts_req')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.radio_button :spare_part_action, true %> <%= f.label :spare_part_action, "Yes" %>
-            <%= f.radio_button :spare_part_action, false %> <%= f.label :spare_part_action, "No" %>
+            <%= f.radio_button :spare_part_action, true %> <%= f.label :spare_part_action, t('labels.repair_act_yes') %>
+            <%= f.radio_button :spare_part_action, false %> <%= f.label :spare_part_action, t('labels.repair_act_no') %>
           </span>
         </div>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.act_to_be_taken')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, "External" %>
-            <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, "Internal"  %>
+            <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, t('labels.external') %>
+            <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, t('labels.internal')  %>
           </span>
         </div>
         <div id="officer">
@@ -135,9 +135,9 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.remarks')%></label>
+          <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= @complaint_building_asset.remarks %></span>
+            <%= f.text_area :remarks, :rows =>4%></span>
         </div>
 
         <div class="form-sec-row">
@@ -153,22 +153,22 @@
           <div class="form-sec-row">
             <label class="text"><%=t('labels.repair_act')%><span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.radio_button :repair_action, true %> <%= f.label :repair_action, "Yes" %>
-              <%= f.radio_button :repair_action, false %> <%= f.label :repair_action, "No" %>
+              <%= f.radio_button :repair_action, true %> <%= f.label :repair_action, t('labels.repair_act_yes') %>
+              <%= f.radio_button :repair_action, false %> <%= f.label :repair_action, t('labels.repair_act_no') %>
             </span>
           </div>
           <div class="form-sec-row">
             <label class="text"><%=t('labels.spare_parts_req')%><span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.radio_button :spare_part_action, true %> <%= f.label :spare_part_action, "Yes" %>
-              <%= f.radio_button :spare_part_action, false %> <%= f.label :spare_part_action, "No" %>
+              <%= f.radio_button :spare_part_action, true %> <%= f.label :spare_part_action, t('labels.repair_act_yes') %>
+              <%= f.radio_button :spare_part_action, false %> <%= f.label :spare_part_action, t('labels.repair_act_no') %>
             </span>
           </div>
           <div class="form-sec-row">
             <label class="text"><%=t('labels.act_to_be_taken')%><span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, "External" %>
-              <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, "Internal"  %>
+              <%= f.radio_button :action_taken, true, {:id => "radio_click"} %> <%= f.label :action_taken, t('labels.external') %>
+              <%= f.radio_button :action_taken, false, {:id => "radio_click"} %> <%= f.label :action_taken, t('labels.internal')  %>
             </span>
           </div>
           <div id="officer">
@@ -230,16 +230,16 @@
           <label class="text"><%=t('labels.repair_act')%></label>
           <span class="in-box">
             <% if @complaint_building_asset.repair_action == true %>
-              Yes <% else %>
-              No
+              <%=t('labels.repair_act_yes')%> <% else %>
+              <%=t('labels.repair_act_no')%>
             <%end%></span>
         </div>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.spare_parts_req')%></label>
           <span class="in-box">
             <% if @complaint_building_asset.spare_part_action == true %>
-              Yes <% else %>
-              No
+              <%=t('labels.repair_act_yes')%> <% else %>
+              <%=t('labels.repair_act_no')%>
             <%end%></span>
         </div>
 
@@ -303,75 +303,75 @@
 </script>
 
 <script type="text/javascript">
-function complaints() {
-  var a = document.getElementById("radio_click");
-  var b = document.getElementById("complaint_building_asset_vendor_id");
-  var c = document.getElementById("complaint_building_asset_status");
-  var d = document.getElementById("complaint_building_asset_forward_to");
-  var e = document.getElementById("complaint_building_asset_remarks");
+  function complaints() {
+    var a = document.getElementById("radio_click");
+    var b = document.getElementById("complaint_building_asset_vendor_id");
+    var c = document.getElementById("complaint_building_asset_status");
+    var d = document.getElementById("complaint_building_asset_forward_to");
+    var e = document.getElementById("complaint_building_asset_remarks");
 
- if ((a.checked == true) && (b.value == "" ))
-  {
-    alert ("Select Vendor Name");
-   return false;
-  }
-  else if (c.value == "Select Status" )
-  {
-    alert ("Select Status");
-     return false;
-  }
-   else if (d.value == "" )
-  {
-    alert ("Select User");
-     return false;
-  }
-  else if (e.value == "" )
+    if ((a.checked == true) && (b.value == "" ))
+    {
+      alert ("Select Vendor Name");
+      return false;
+    }
+    else if (c.value == "Select Status" )
+    {
+      alert ("Select Status");
+      return false;
+    }
+    else if (d.value == "" )
+    {
+      alert ("Select User");
+      return false;
+    }
+    else if (e.value == "" )
     {
       alert("Enter Remarks");
-       return false;
+      return false;
     }
-     return true;
-}
-function approval_complaints()
-{
+    return true;
+  }
+  function approval_complaints()
+  {
 
-  var a = document.getElementById("radio_click");
-  var b = document.getElementById("complaint_building_asset_vendor_id");
-  var c = document.getElementById("complaint_building_asset_given_date");
-  var d = document.getElementById("complaint_building_asset_receipt_date");
-  var e = document.getElementById("complaint_building_asset_comments");
-  var f = document.getElementById("complaint_building_asset_status");
+    var a = document.getElementById("radio_click");
+    var b = document.getElementById("complaint_building_asset_vendor_id");
+    var c = document.getElementById("complaint_building_asset_given_date");
+    var d = document.getElementById("complaint_building_asset_receipt_date");
+    var e = document.getElementById("complaint_building_asset_comments");
+    var f = document.getElementById("complaint_building_asset_status");
 
-  if ((a.checked == true) && (b.value == "" ))
-  {
-    alert ("Select Vendor Name");
-    return false;
-  }
-  else  if ((a.checked == true) && (c.value == "" ))
-  {
-    alert ("Select Proper Given Date & Time");
-    return false;
-  }
-  else if ((a.checked == true) && (d.value == "" ))
-  {
-    alert ("Select Proper Receipt Date & Time");
-     return false;
-  }
-   else if ((a.checked == true) && (e.value == "" ))
-  {
-    alert ("Enter Comments");
-     return false;
-  }
-  else if (((a.checked == true) && (f.value == "Select Status" )))
+    if ((a.checked == true) && (b.value == "" ))
+    {
+      alert ("Select Vendor Name");
+      return false;
+    }
+    else  if ((a.checked == true) && (c.value == "" ))
+    {
+      alert ("Select Proper Given Date & Time");
+      return false;
+    }
+    else if ((a.checked == true) && (d.value == "" ))
+    {
+      alert ("Select Proper Receipt Date & Time");
+      return false;
+    }
+    else if ((a.checked == true) && (e.value == "" ))
+    {
+      alert ("Enter Comments");
+      return false;
+    }
+    else if (((a.checked == true) && (f.value == "Select Status" )))
     {
       alert("Select Status");
-       return false;
+      return false;
     }
     else if (((a.checked == false) && (f.value == "Select Status" )))
     {
       alert("Select Status");
-       return false;
+      return false;
     }
-     return true;
-}
+    return true;
+  }
 </script>

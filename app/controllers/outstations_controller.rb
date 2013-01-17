@@ -17,6 +17,9 @@ class OutstationsController < ApplicationController
     elsif current_user.is_chief_minister?
       users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
       @outstations = Outstation.find(:all,:conditions=>["((status='Recommended' or status='Approved') and user_id in (#{users}) and is_out_of_state = true)"])
+    elsif current_user.is_datuk_suk?
+      users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
+      @outstations = Outstation.find(:all,:conditions=>["(((status = 'Recommended' or status = 'Approved') and is_out_of_state = true) or ((status='New' or status='Verified') and user_id in (#{users}) and is_out_of_state = true))"])      
     end
   end
 
