@@ -118,9 +118,9 @@
           </span>
         </div>
         <div class="form-sec-row">
-          <label class="text"><%=t('labels.remarks')%></label>
+          <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%= @complaint_computer.remarks %></span>
+            <%= f.text_area :remarks, :rows =>4%></span>
         </div>
         <div class="form-sec-row">
           <div class="CenterNav">
