@@ -38,7 +38,7 @@ class ResourceIctEquipmentBookingsController < ApplicationController
         agency_store = AgencyStore.where(:resource_id => params[:resource_ict_equipment_booking][:resource_id], :sub_category_id => params[:resource_ict_equipment_booking][:sub_category_id]).first
       end
 
-      if agency_store && agency_store.quantity != agency_store.booked_quantity && agency_store.quantity > agency_store.booked_quantity
+      if agency_store && !agency_store.nil? && agency_store.quantity != agency_store.booked_quantity && agency_store.quantity > agency_store.booked_quantity
         create_flag = true
         quantifiable = true
       end
