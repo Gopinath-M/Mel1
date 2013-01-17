@@ -169,20 +169,25 @@
     <%end%>
 
 
-    <%if controller_name.to_s=="user_services" || controller_name.to_s == "outstations" %>
-      <%= javascript_include_tag 'jquery.ui.datepicker' %>
-      <%= stylesheet_link_tag 'jquery.ui.datepicker' %>
-      <script type="text/javascript">
-        $().ready(function(){
-          $("#user_service_first_appointment_to_public_service").datepicker();
-          $("#user_service_first_appointment_to_present_position").datepicker();
-          $("#user_service_promotion_to_present_grade").datepicker();
-          $("#user_service_confirmation_date").datepicker();
-          $("#outstation_from_date").datepicker();
-          $("#outstation_to_date").datepicker();
-        });
-      </script>
-    <%end%>
+		<% if controller_name.to_s=="user_services" || controller_name.to_s == "outstations" %>
+		<%#= javascript_include_tag 'jquery.ui.datepicker' %>
+		<%#= stylesheet_link_tag 'jquery.ui.datepicker' %>
+		<%= javascript_include_tag 'jquery.datepick' %>		
+		<%= stylesheet_link_tag 'jquery.datepick' %>
+		<%= stylesheet_link_tag 'ui.datepick' %>
+		
+		<script type="text/javascript">
+		
+			$().ready(function() {
+				 $("#user_service_first_appointment_to_public_service").datepick();
+				 $("#user_service_first_appointment_to_present_position").datepick();
+				 $("#user_service_promotion_to_present_grade").datepick();
+				 $("#user_service_confirmation_date").datepick();
+				 $("#outstation_from_date").datepick();
+				 $("#outstation_to_date").datepick();
+			});
+		</script>
+		<%end%>
 
 
     <!--WATERMARK--> <%= init_tinymce_hammer_if_required %>
