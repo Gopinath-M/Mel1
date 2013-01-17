@@ -1,6 +1,6 @@
 class AgenciesController < ApplicationController
   before_filter :authenticate_user!
-  
+
   def index
     @agencies = nil
     if params[:id].blank? || params[:id].nil?
@@ -28,7 +28,7 @@ class AgenciesController < ApplicationController
 
   def update
     @agency = Agency.find(params[:id]) if params[:id]
-    if @agency.update_attributes(params[:agency])
+    if @agency.present? && @agency.update_attributes(params[:agency])
       redirect_to(agencies_path, :notice => 'Agency has been successfully updated.')
     else
       render :action => 'new'
@@ -52,7 +52,7 @@ class AgenciesController < ApplicationController
       redirect_to(agencies_path, :notice => 'Agency has been Deleted.')
     end
   end
-  
+
   def assign_resource_manager
     @role_membership = RoleMembership.new
   end
@@ -62,49 +62,34 @@ class AgenciesController < ApplicationController
       user = User.find_by_ic_number(params[:role_membership][:user_id])
       role_member = RoleMembership.where("user_id = ?  and department_id = ? and role_id = 5 ",user.id,params[:role_membership][:department_id]) if user && user.present?
       @role_membership = RoleMembership.create(params[:role_membership].merge!({:role_id => '5', :status => 'A'}))
-      if role_member && !role_member.empty?
-        flash[:alert] = "This user is already a resource manager"
-        render :action => 'assign_resource_manager'
-      else
-        if @role_membership.valid?
-          agency = Agency.find(params[:role_membership][:agency])
-          if agency && agency.present?
-            @role_membership.save
-            agency.update_attribute(:user_id, params[:role_membership][:user_id])
-            redirect_to(role_memberships_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
+      if user.present?
+        if role_member && !role_member.empty?
+          flash[:alert] = "This user is already a resource manager"
+          render :action => 'assign_resource_manager'
+        else
+          if @role_membership.valid?
+            agency = Agency.find(params[:role_membership][:agency])
+            if agency && agency.present?
+              @role_membership.save
+              agency.update_attribute(:user_id, user.id)
+              redirect_to(role_memberships_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
+            else
+              flash[:alert] = "Agency is not present"
+              render :action => 'assign_resource_manager'
+            end
           else
-             flash[:alert] = "Agency is not present"
             render :action => 'assign_resource_manager'
           end
-        else
-          render :action => 'assign_resource_manager'
         end
+      else
+        flash[:alert] = "User is not found"
+        render :action => 'assign_resource_manager'
       end
     else
       @role_membership = RoleMembership.new
       flash[:alert] = "Please select all details"
-      render :action => 'assign_resource_manager' 
+      render :action => 'assign_resource_manager'
     end
-
-
-    #      @role_membership = RoleMembership.new
-    #      if params[:role_membership] && params[:role_membership]
-    #        agency = Agency.find(params[:role_membership][:agency])
-    #        if agency && agency.present?
-    #          @role_membership = RoleMembership.create(:department_id => params[:role_membership][:department_id],:user_id => params[:role_membership][:user_id], :role_id => '5', :status => 'A')
-    #          if @role_membership.valid?
-    #            @role_membership.save
-    #            agency.update_attribute(:user_id, params[:role_membership][:user_id])
-    #            redirect_to(role_memberships_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
-    #          else
-    #            render :action => 'assign_resource_manager'
-    #          end
-    #        else
-    #          render :action => 'assign_resource_manager'
-    #        end
-    #      else
-    #        render :action => 'assign_resource_manager', :alert =>"Please select all details"
-    #      end
   end
 
   def role_memberships
