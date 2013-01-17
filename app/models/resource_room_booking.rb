@@ -18,8 +18,7 @@ class ResourceRoomBooking < ActiveRecord::Base
 
   mount_uploader :room_attachment, RoomAttachmentUploader
 
-  def self.auto_return
-    puts "something"
+  def self.auto_return    
     @room = ResourceRoomBooking.all
     time = Time.now
     @room.each do |mail|
