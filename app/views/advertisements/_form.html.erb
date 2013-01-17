@@ -22,8 +22,8 @@
   <div class="form-sec-row">
     <label class="text"><%=t('labels.is_visible')%><span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.radio_button :is_active, true, {:id => "radio_click"} %> <%= f.label :is_active, "Yes" %>
-      <%= f.radio_button :is_active, false, {:id => "radio_click"} %> <%= f.label :is_active, "No"  %>
+      <%= f.radio_button :is_active, true, {:id => "radio_click"} %> <%= f.label :is_active, t('labels.is_visible_yes')  %>
+      <%= f.radio_button :is_active, false, {:id => "radio_click"} %> <%= f.label :is_active, t('labels.is_visible_no')  %>
     </span>
   </div>
   <div class="form-sec-row">

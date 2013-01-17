@@ -953,8 +953,10 @@ en:
     issue_log_building_asset_details: "Issue Log - Building Asset Details :-"
     internal: "Internal"
     external: "External"
-    yes: "Yes"
-    no: "No"
+    repair_act_yes: "Yes"
+    repair_act_no: "No"
+    is_visible_yes: "Yes"
+    is_visible_no: "No"
 
   
 
