@@ -181,6 +181,10 @@ malay:
     outstation_date_less: "Dari Tarikh Perlu Lesser daripada Dating"
     outstation_date_not_less: "Dari Tarikh tidak perlu menjadi kurang daripada Hari ini"
     state_blank: "Negeri tidak boleh menjadi kosong"
+    app_date_present_post: "Tarikh Lantikan Pertama Perkhidmatan Awam Perlu Lesser daripada Tarikh Lantikan Pertama Post Present"
+    present_post_present_grade: "Tarikh Lantikan Pertama Post Present Hendaklah Lesser daripada Tarikh Promosi Hadir Gred"
+    present_grade_confirm_date: "Kenaikan ke Gred Present Hendaklah Lesser daripada Tarikh Pengesahan"
+    
   welcome:
     title: "Tajuk"
     news: "Berita Hari Ini"

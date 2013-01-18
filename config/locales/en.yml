@@ -26,6 +26,9 @@ en:
     outstation_date_less: "From Date Should be Lesser than To Date"
     outstation_date_not_less: "From Date should not be lesser than Today"
     state_blank: "State Can't be Blank"
+    app_date_present_post: "Date of First Appointment of Public Service Should be Lesser than Date of First Appointment of the Present Post"
+    present_post_present_grade: "Date of First Appointment of the Present Post Should be Lesser than Date of Promotion to Present Grade"
+    present_grade_confirm_date: "Promotion to Present Grade Should be Lesser than Confirmation Date"
   welcome:
     title: "Title"
     news: "Today's News"
