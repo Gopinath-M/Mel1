@@ -42,10 +42,10 @@ module Melaka
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    scheduler = Rufus::Scheduler.start_new
-    scheduler.every("10s") do
-      ResourceRoomBooking.auto_return
-    end
+    #    scheduler = Rufus::Scheduler.start_new
+    #    scheduler.every("10s") do
+    #      ResourceRoomBooking.auto_return
+    #    end
 
   end
 end
