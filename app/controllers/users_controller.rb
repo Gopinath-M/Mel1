@@ -347,7 +347,12 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
     if @user.valid?
       @user.update_attributes(params[:user])
+      user_service = UserService.find_by_user_id(current_user.id)
+      if user_service.present?
+      redirect_to edit_user_service_path(user_service.id)
+      else
       redirect_to :controller =>'user_services', :action => 'new'
+      end
     else
       render :action =>'user_profile'
     end
