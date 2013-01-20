@@ -1,0 +1,7 @@
+# Logfile created on Sun Jan 20 22:55:05 +0530 2013 by logger.rb/1.2.6
+E, [2013-01-20T23:02:49.807799 #6404] ERROR -- : ERROR :: admin_email_sender :: send_newsletter :: uninitialized constant Emailer::AESSecurity
+E, [2013-01-20T23:04:24.783231 #6404] ERROR -- : ERROR :: admin_email_sender :: send_newsletter :: uninitialized constant Emailer::AESSecurity
+E, [2013-01-20T23:05:33.848182 #6404] ERROR -- : ERROR :: admin_email_sender :: send_newsletter :: uninitialized constant Emailer::AESSecurity
+E, [2013-01-20T23:06:09.270208 #4916] ERROR -- : ERROR :: admin_email_sender :: send_newsletter :: Invalid Data Source Name
+E, [2013-01-20T23:09:12.125666 #4916] ERROR -- : ERROR :: admin_email_sender :: send_newsletter :: Invalid Data Source Name
+E, [2013-01-20T23:09:44.509519 #3580] ERROR -- : ERROR :: admin_email_sender :: send_newsletter :: Invalid Data Source Name
