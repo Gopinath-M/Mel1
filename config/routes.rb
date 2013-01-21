@@ -89,6 +89,8 @@ Melaka::Application.routes.draw do
     collection do
       get 'approval_network_point'
       get 'list_to_select_ict'
+      get 'get_hardware_type'
+      get 'get_location_for_hardware'
       get 'selected_list_ict'
       put 'update_approval_network_point'
       get 'list_ict_network'

@@ -1,6 +1,7 @@
 class CreateFacilityIctWirings < ActiveRecord::Migration
   def self.up
     create_table :facility_ict_wirings do |t|
+      t.string :hardware_type
       t.string :name
       t.boolean :is_active, :default => false
       t.boolean :deleted, :default => false

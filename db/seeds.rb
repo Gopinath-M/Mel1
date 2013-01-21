@@ -420,7 +420,8 @@ begin
   file = File.open("public/Facility_Ict_Wirings.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      FacilityIctWiring.create(:name=>record,:is_active=>true)
+      record_split = record.split(",")
+      FacilityIctWiring.create(:name=>record_split[0],:facility_hardware_id=>record_split[1],:is_active=>true)
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
@@ -451,7 +452,8 @@ begin
   file = File.open("public/Facility_Ict_Hardwares.csv", "r")
   file.readlines.each_with_index do |record, i|
     begin
-      FacilityIctHardware.create(:name=>record,:is_active=>true)
+      record_split = record.split(",")
+      FacilityIctHardware.create(:name=>record_split[0],:hardware_type=>record_split[1],:is_active=>true)
     rescue Exception =>e
       p "Exception ocurred due to #{e.to_s} at #{i}"
     end
