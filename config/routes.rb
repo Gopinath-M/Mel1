@@ -255,6 +255,7 @@ Melaka::Application.routes.draw do
       get 'post_messages'
       get 'post_comments'
       get 'download_attachments'
+      get 'uploads'
     end
   end
     
