@@ -58,6 +58,16 @@ class IctNetworkPointsController < ApplicationController
     @type_name  = RequisitionType.find_by_id(@ict_network.requisition_type_id)
   end
 
+  def get_hardware_type
+    facility_ict_hardwares = FacilityIctHardware.find(params[:hardware_id])
+    render :json=>[facility_ict_hardwares] if facility_ict_hardwares
+  end
+
+  def get_location_for_hardware
+    facility_ict_wirings = FacilityIctWiring.find_all_by_facility_hardware_id(params[:facility_hardware_id])
+    render :json=>[facility_ict_wirings] if facility_ict_wirings
+  end
+
   def update_approval_network_point
     network = IctNetworkPoint.find_by_id(params[:id])
     network.update_attributes(params[:ict_network_point])

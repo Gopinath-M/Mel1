@@ -2568,7 +2568,46 @@ $().ready(function(){
             }
         }
     });
-/* Resource Requisition validation for ICT ends*/
+    /* Resource Requisition validation for ICT ends*/
+
+
+    $("#ict_network_point_hardware_id").live("click",function(){
+        if($("#ict_network_point_hardware_id").val()!="")
+        {
+            $.get("/ict_network_points/get_hardware_type",{
+                hardware_id : $("#ict_network_point_hardware_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#ict_network_point_type_id').find('option').remove().end()
+                    $('#ict_network_point_type_id').append($("<option></option>").attr("value","").text("Select Type"));
+                    $('#ict_network_point_type_id').append($("<option></option>").attr("value",data[0].facility_ict_hardware.id).text(data[0].facility_ict_hardware.hardware_type));
+                }
+            })
+        }
+    });
+
+
+    $("#ict_network_point_location_center_id").live("click",function(){
+        if($("#ict_network_point_location_center_id").val()!="")
+        {
+            $.get("/ict_network_points/get_location_for_hardware",{
+                facility_hardware_id : $("#ict_network_point_location_center_id").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#ict_network_point_ict_wiring_id').find('option').remove().end()
+                    $('#ict_network_point_ict_wiring_id').append($("<option></option>").attr("value","").text("Select ICT Wiring"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#ict_network_point_ict_wiring_id').append($("<option></option>").attr("value",data[0][i].facility_ict_wiring.id).text(data[0][i].facility_ict_wiring.name));
+                    }
+                }
+            })
+        }
+    });
+
+
 
 
 

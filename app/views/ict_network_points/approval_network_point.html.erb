@@ -262,7 +262,7 @@
                       </tr>
                       <tr>
                         <td><%= f.select(:hardware_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
-                        <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
+                        <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.hardware_type, p.id ] },:prompt => "Select Hardware") %></td>
                         <td><b>&nbsp;<%=f.text_field :hardware_quantity, :onkeypress=>"return isNumberKey(event);",:class=> "size-quan-box-ict-network"%></b></td>
                         <td id="req_type_network"><b style="color:red;"><%=t('labels.install')%></b></td>
                         <td id="req_type_purchase"style="display:none;"><b style="color:red;"><%=t('labels.purchase')%></b></td>
@@ -272,7 +272,7 @@
                   </div>
 
                   <div class="form-sec-row">
-                    <label class="text"><%=t('labels.notes')%><span style=color:red>*</span></label> 
+                    <label class="text"><%=t('labels.notes')%><span style=color:red>*</span></label>
                     <!--<label class="text"> <%= f.label :notes,t('labels.notes'), :class=>"text"%><span style=color:red>*</span></label>-->
                     <span class="in-box">
                       <%= f.text_area :notes, :cols => "20", :rows => "3"%>
@@ -280,9 +280,9 @@
                   </div>
 
                   <div class="form-sec-row-ict">
-                    <label class="text-ict"><%=t('labels.location_center')%><span style=color:red>*</span></label> 
+                    <label class="text-ict"><%=t('labels.location_center')%><span style=color:red>*</span></label>
                    <!-- <label class="text-ict"> <%= f.label :center_id,raw("<b>Location Center</b><span style=color:red>*</span>"), :class=>"text"%></label>-->
-                    <%= f.select(:location_center_id, FacilityIctAgency.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select Center")%> <%= f.select(:ict_wiring_id, FacilityIctWiring.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select ICT Wiring")%>
+                    <%= f.select(:location_center_id, FacilityIctAgency.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select Center")%> <%= f.select(:ict_wiring_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] } ,:prompt => "Select ICT Wiring")%>
                   </div>
                   <div class="form-sec-row">
                     <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
