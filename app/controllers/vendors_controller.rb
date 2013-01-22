@@ -1,6 +1,7 @@
 class VendorsController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
   before_filter :is_admin
+  load_and_authorize_resource
    def index
     @vendors=nil
     if params[:id].blank? || params[:id].nil?
