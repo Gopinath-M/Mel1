@@ -3104,4 +3104,23 @@ $("#resource_transportation_booking_sub_category_id").live("change", function(){
     }
 });
 /*Dynamic Chance for Resource Req ICT Ends */
+$('#newsletter_to_all').live("click",function()
+    {
+        if ($('#newsletter_to_all').is(':checked'))
+        {
+	    $("#textbox_all").show();
+            $("#textbox_specify").hide();
+        }
 
+    })
+$('#newsletter_to_specify').live("click",function()
+    {
+        if ($('#newsletter_to_specify').is(':checked'))
+        {
+            $("#textbox_specify").show();
+            $("#textbox_all").hide();          
+            
+        }
+
+    })
+    
