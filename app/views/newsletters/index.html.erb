@@ -1,42 +1,50 @@
 <div class="CenterNav">
-  <h2 class="b-head"><%=t('labels.list_resource_ict_equip')%></h2>
+  <h2 class="b-head"><%=t('labels.list_newsletter')%></h2>
+  <div class="create-user">
+    <div class="cu-c1"><a href="/newsletters/new" title="<%=t('labels.create_newsletter')%>"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.create_newsletter')%></a></div>
+  </div>
   <div id="div_ajax" >
     <%if @newsletters && !@newsletters.empty?%>
       <%  @newsletters.each do |newsletter|%>
-        <div class="form-sec">
-          <div class="clearfix">&nbsp;</div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.from')%></label>
-            <span class="in-box">
-              <%=  newsletter.from%>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.to')%></label>
-            <span class="in-box">
-              <%=  newsletter.to%>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.subject')%></label>
-            <span class="in-box">
-              <%=  newsletter.subject%>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.created_by')%></label>
-            <span class="in-box">
-              <%=  newsletter.creator.username%>
-            </span>
-          </div>
-          <div class="form-sec-row">
-            <label class="text"><%=t('labels.created_at')%></label>
-            <span class="in-box">
-              <%=  newsletter.created_at.strftime("%a %B %d, %Y %I:%M:%S %p")%>
-            </span>
+        <div class="manage-user box">
+          <div class="manage-user-row box">
+            <div class="form-sec">
+              <div class="clearfix">&nbsp;</div>
+              <div class="form-sec-row">
+                <label class="text"><%=t('labels.from')%></label>
+                <span class="in-box">
+                  <%=  newsletter.from%>
+                </span>
+              </div>
+              <div class="form-sec-row">
+                <label class="text"><%=t('labels.to')%></label>
+                <span class="in-box">
+                  <%=  newsletter.to%>
+                </span>
+              </div>
+              <div class="form-sec-row">
+                <label class="text"><%=t('labels.subject')%></label>
+                <span class="in-box">
+                  <%=  newsletter.subject%>
+                </span>
+              </div>
+              <div class="form-sec-row">
+                <label class="text"><%=t('labels.created_by')%></label>
+                <span class="in-box">
+                  <%=  newsletter.creator.username%>
+                </span>
+              </div>
+              <div class="form-sec-row">
+                <label class="text"><%=t('labels.created_at')%></label>
+                <span class="in-box">
+                  <%=  newsletter.created_at.strftime("%a %B %d, %Y %I:%M:%S %p")%>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       <%end%>
+
       <div class="manage-user-rows box"><br/><br/>
         <%= paginate @newsletters %>
       </div>
