@@ -150,4 +150,16 @@ class ResourceIctEquipmentBookingsController < ApplicationController
       end
     end
   end
+
+  def list_ict_equipment_booking
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @resource_ict_equipment_bookings = ResourceIctEquipmentBooking.where(:user_id => users.id).order.page(params[:page]).per(5)
+    else
+      @resource_ict_equipment_bookings = ResourceIctEquipmentBooking.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
+  end
 end
