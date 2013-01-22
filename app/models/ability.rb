@@ -7,9 +7,12 @@ class Ability
       can :manage, :all
 
     elsif user.is_department_admin?
-      can :create, User
+      can [:read,:create], User
       can :create, Approver
       can [:read,:create,:show,:approve_request,:request_view,:get_vehicles,:get_driver_details,:change_resource_status], ResourceTransportationBooking
+      can [:read,:create,:show,:list_resource_booking,:room_booking_approval],ResourceRoomBooking
+      can [:read,:create,:show,:approve_request,:requests],ResourceIctEquipmentBooking
+      can [:read,:create,:show,:list_resource_booking,:resource_booking_approval],ResourceBooking
       can [:read,:update,:list_ict_firewall],IctFirewall
       can [:read,:update,:approve_request,:approve_request_for_state],Outstation
 
