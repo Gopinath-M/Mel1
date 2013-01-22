@@ -181,7 +181,10 @@ en:
     category: "Category"
     sub_category: "Sub Categories"
     vehicle_brands: "Vehicle Brand"
-
+    newsletter: "Newsletters"
+    newsletter_images: "Newsletter Images"
+    newsletter_image: "Newsletter Image"
+    create_newsletter_image: "Create Newsletter Image"
   labels:
     template_name: "Name"
     template_subject: "Subject"
@@ -960,6 +963,12 @@ en:
     repair_act_no: "No"
     is_visible_yes: "Yes"
     is_visible_no: "No"
+    subject: "Subject"
+    create_newsletter: "Create Newsletter"
+    list_newsletter: "List Newsletter"
+    created_at: "Created At"
+    image : "Image"
+    list_newsletter_image: "List Newsletter Image"
 
   
 

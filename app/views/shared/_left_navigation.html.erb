@@ -823,6 +823,32 @@
                         </ul>
                       </div>
                     </li>
+                    <li class="menu-item">
+                      <%= link_to t('left_nav.newsletter'), "javascript:void(0);" , :title=>t('left_nav.newsletter') ,:class=>"", :id=>"lnk_newsletters" ,:onclick=>"leftNavigation(this.id,'div_newsletters')"%>
+                      <div id ="div_newsletters" style="display:none;">
+                        <ul>
+                          <li>
+                            <%= link_to t('left_nav.create'), new_newsletter_path%>
+                          </li>
+                          <li>
+                            <%= link_to t('left_nav.list'), newsletters_path%>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="menu-item">
+                      <%= link_to t('left_nav.newsletter_images'), "javascript:void(0);" , :title=>t('left_nav.newsletter_images') ,:class=>"", :id=>"lnk_newsletter_images" ,:onclick=>"leftNavigation(this.id,'div_newsletter_images')"%>
+                      <div id ="div_newsletter_images" style="display:none;">
+                        <ul>
+                          <li>
+                            <%= link_to t('left_nav.create'), new_newsletter_image_path%>
+                          </li>
+                          <li>
+                            <%= link_to t('left_nav.list'), newsletter_images_path%>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
                   <%end%>
                   <!--li>
                                 <a href="javascript:void(0);" title="<%#= t('left_nav.archives')%>"><%#= t('left_nav.archives')%></a>
