@@ -1,10 +1,13 @@
-class Ability
+class Ability < ActiveRecord::Base
+  cattr_accessor :current_department
   include CanCan::Ability
+  
   def initialize(user)
     user ||= User.new
-
+    
     if user.is_super_admin?
       can :manage, :all
+      #cannot :manage, [GroupMember, ComplaintComputer, ComplaintBuildingAsset]
 
     elsif user.is_department_admin?
       can [:read,:create], User
@@ -15,10 +18,19 @@ class Ability
       #can [:read,:create,:show,:list_resource_booking,:resource_booking_approval],ResourceBooking
       #can [:read,:update,:list_ict_firewall],IctFirewall
       #can [:read,:update,:approve_request,:approve_request_for_state],Outstation
-      can [:manage], [ResourceTransportationBooking,ResourceRoomBooking,ResourceIctEquipmentBooking,ResourceBooking,IctFirewall,Outstation]
+      can [:manage], [ResourceTransportationBooking,ResourceRoomBooking,ResourceIctEquipmentBooking,ResourceBooking,IctFirewall,IctNetworkPoint,IctHardwareBooking,IctSystemAccess,IctVpn,SoftwareInstallation,Outstation]
 
     elsif user.is_department_user?
-
+      
+      #Thread.current[:department]
+      
+      @approver_first = Approver.active.find_all_by_user_id_and_department_id(user.id,Thread.current[:department]).first
+      @approver_second = Approver.active.find_all_by_user_id_and_department_id(user.id,Thread.current[:department]).last
+      
+      if ( @approver_first.present? || @approver_second.present? )
+        can [:manage], [ResourceTransportationBooking,ResourceRoomBooking,ResourceIctEquipmentBooking,ResourceBooking,IctFirewall,IctNetworkPoint,IctHardwareBooking,IctSystemAccess,IctVpn,SoftwareInstallation]        
+      end
+            
       can [:read,:create,:show], ResourceTransportationBooking
       can [:read,:create,:show], ResourceRoomBooking
       can [:read,:create,:show], ResourceIctEquipmentBooking
@@ -32,7 +44,7 @@ class Ability
       can [:read,:create,:show], Outstation
       can [:read,:create,:show], ComplaintBuildingAsset
       can [:read,:create,:show], ComplaintComputer
-
+      
     elsif user.is_resource_manager?
 
       #can [:read,:create,:show,:approve_request,:request_view,:get_vehicles,:get_driver_details,:change_resource_status], ResourceTransportationBooking

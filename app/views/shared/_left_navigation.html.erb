@@ -287,6 +287,9 @@
                       <li>
                         <%= link_to t('labels.resource_manager'), assign_resource_manager_agencies_path%>
                       </li>
+                      <li>
+                        <%=  link_to t('labels.list_resource_manager'), list_resource_manager_agencies_path%>
+                      </li>
                     </ul>
                   </div>
                 </li>
@@ -777,7 +780,7 @@
       <li>
       %>
       <%# support_count = Outstation.where(:status=>"New").count  %>
-                                        <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+                                    <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
       <%#=link_to "Verify Request", approve_request_outstations_path%>
       <%#*
       </li>%>
@@ -1198,9 +1201,6 @@
                     <li>
                     <a href="javascript:void(0);" title="<%#= t('left_nav.email_temp')%>"><%#= t('left_nav.email_temp')%></a>
                     </li-->
-              <li>
-                <a href="/events" title="<%= t('left_nav.view_events')%>"><%= t('left_nav.view_events')%></a>
-              </li>
             </ul>
           <%end%>
         </div>

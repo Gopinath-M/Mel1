@@ -2772,9 +2772,12 @@ $().ready(function(){
         });
     })
 
-/* List of Resource Booking for Super Admin Ends */
+    /* List of Resource Booking for Super Admin Ends */
 
-
+    $(document).ready(function()
+    {
+        $("#user_ic_number").attr('maxlength','12');
+    });
 
 
 })
@@ -2785,6 +2788,13 @@ $().ready(function(){
 function isNumberKey(evt)   {
     var charCode = (evt.which) ? evt.which : evt.keyCode
     if ((charCode >= 48 &&  charCode <= 57) ||  charCode == 8  || charCode==9 || charCode==46)
+        return true;
+    return false;
+}
+
+function isModifiedNumberKey(evt)   {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if ((charCode >= 48 &&  charCode <= 57) || charCode >= 95  || charCode == 8  || charCode==9 || charCode==47)
         return true;
     return false;
 }
@@ -3310,22 +3320,22 @@ $("#resource_transportation_booking_sub_category_id").live("change", function(){
 });
 /*Dynamic Chance for Resource Req ICT Ends */
 $('#newsletter_to_all').live("click",function()
+{
+    if ($('#newsletter_to_all').is(':checked'))
     {
-        if ($('#newsletter_to_all').is(':checked'))
-        {
-	    $("#textbox_all").show();
-            $("#textbox_specify").hide();
-        }
+        $("#textbox_all").show();
+        $("#textbox_specify").hide();
+    }
 
-    })
+})
 $('#newsletter_to_specify').live("click",function()
+{
+    if ($('#newsletter_to_specify').is(':checked'))
     {
-        if ($('#newsletter_to_specify').is(':checked'))
-        {
-            $("#textbox_specify").show();
-            $("#textbox_all").hide();          
+        $("#textbox_specify").show();
+        $("#textbox_all").hide();
             
-        }
+    }
 
-    })
+})
     

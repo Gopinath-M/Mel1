@@ -9,14 +9,12 @@
 #       Choose the win32 build.
 #       Install PostgreSQL and put its /bin directory on your path.
 development:
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
-  database: melaka_development
+  database: melaka
   pool: 5
-  username: root
-  password: openwave
-
-  # Connect on a TCP socket. Omitted by default since the client uses a
+  username: postgres
+  password: Admin1234
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
   #host: localhost
@@ -35,17 +33,18 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
-  database: melaka_test
+  database: melaka
   pool: 5
-  username: root
-  password: root
+  username: postgres
+  password: Admin1234
 
 production:
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
-  database: melaka_production
+  database: melaka
   pool: 5
-  username: root
-  password: root
+  username: postgres
+  password: Admin1234
+
