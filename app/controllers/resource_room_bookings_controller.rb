@@ -255,4 +255,17 @@ class ResourceRoomBookingsController < ApplicationController
     end
   end
 
+  def list_room_booking
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @resource_room_bookings = ResourceRoomBooking.where(:user_id => users.id).order.page(params[:page]).per(5)
+    else
+      @resource_room_bookings = ResourceRoomBooking.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
+  end
+
+
 end

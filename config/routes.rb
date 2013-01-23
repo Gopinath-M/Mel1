@@ -31,6 +31,7 @@ Melaka::Application.routes.draw do
       get 'get_other_sub_categories'
       get 'get_booked'
       get 'get_resources'
+      get 'list_others_booking'
       get 'resource_booking_approval'
       get 'list_resource_booking'
       put 'update_resource_booking'
@@ -80,6 +81,7 @@ Melaka::Application.routes.draw do
   resources :resource_ict_equipment_bookings do
     collection do
       get 'requests'
+      get 'list_ict_equipment_booking'
       get 'download_attachments'
       get 'approve_request'
       put 'update_booking'
@@ -114,6 +116,7 @@ Melaka::Application.routes.draw do
       get 'get_driver_details'
       get 'get_vehicles'
       post 'change_resource_status'
+      get 'list_transport_booking'
       get 'user_return_status'
       get 'download_attachments'
       get 'get_vehicle_brands'
@@ -173,6 +176,7 @@ Melaka::Application.routes.draw do
       get 'list_resource_booking'
       get 'resource_room_booking_approval'
       get 'get_booked_rooms'
+      get 'list_room_booking'
       get 'room_booking_approval'
       put 'update_room_booking'
       get 'get_resources'

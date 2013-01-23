@@ -13,7 +13,7 @@ class ResourceTransportationBookingsController < ApplicationController
       @category = CategoriesDepartments.where(:category_id => 7,:department_id => @current_department)
       @sub_category = SubCategory.where(:category_id => 7,:is_available => true )
     end
-  #@if_inside_agency = AgencyStore.where(:category_id=> 7,:booked=> false,:agency_id => current_user.departments.collect(&:agency_id).join(','))
+    #@if_inside_agency = AgencyStore.where(:category_id=> 7,:booked=> false,:agency_id => current_user.departments.collect(&:agency_id).join(','))
   end
 
   def get_vehicle_brands
@@ -62,7 +62,7 @@ class ResourceTransportationBookingsController < ApplicationController
     end
     render :json=>[vehicles] if vehicles
 
-  # render :json =>{ :available => available_vehicles}
+    # render :json =>{ :available => available_vehicles}
   end
 
   def get_vehicles
@@ -196,7 +196,7 @@ class ResourceTransportationBookingsController < ApplicationController
       agency = Department.find(@current_department).agency
       depts = agency.departments.collect(&:id).join(',')
       @resource_transportation_bookings = ResourceTransportationBooking.where("department_id in (#{depts}) and status !=?", "New").page(params[:page]).per(5)
-    #@resource_transportation_bookings = ResourceTransportationBooking.find(:all,:joins=>["inner join agency_stores on resource_transportation_bookings.agency_store_id = agency_stores.id inner join agencies on agencies.id = agency_stores.agency_id"],:conditions=>[("agencies.user_id = #{current_user.id}")]).page(params[:page]).per(5)
+      #@resource_transportation_bookings = ResourceTransportationBooking.find(:all,:joins=>["inner join agency_stores on resource_transportation_bookings.agency_store_id = agency_stores.id inner join agencies on agencies.id = agency_stores.agency_id"],:conditions=>[("agencies.user_id = #{current_user.id}")]).page(params[:page]).per(5)
     else
       @approve = Approver.active.find_all_by_department_id(@current_department).first
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last
@@ -288,5 +288,18 @@ class ResourceTransportationBookingsController < ApplicationController
     @message = ResourceTransportationBooking.find(params[:id])
     send_file @message.attachment.path
   end
+
+  def list_transport_booking
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @resource_transportation_bookings = ResourceTransportationBooking.where(:requester_id => "#{users.id}").order.page(params[:page]).per(5)
+    else
+      @resource_transportation_bookings = ResourceTransportationBooking.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
+  end
+
 
 end
