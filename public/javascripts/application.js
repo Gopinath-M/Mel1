@@ -2698,7 +2698,7 @@ $().ready(function(){
 
     $("#list_transport_username").live("change",function(){
         $.get("/resource_transportation_bookings/list_transport_booking/",{
-            ic_number: $("#list_ict_equipment_username").val()
+            ic_number: $("#list_transport_username").val()
         }, function(data){
             $("#div_ajax").html(data)
         });

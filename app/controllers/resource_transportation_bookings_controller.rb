@@ -292,7 +292,7 @@ class ResourceTransportationBookingsController < ApplicationController
   def list_transport_booking
     if params[:ic_number].present?
       users = User.find_by_ic_number(params[:ic_number])
-      @resource_transportation_bookings = ResourceTransportationBooking.where(:requester_id => users.id).order.page(params[:page]).per(5)
+      @resource_transportation_bookings = ResourceTransportationBooking.where(:requester_id => "#{users.id}").order.page(params[:page]).per(5)
     else
       @resource_transportation_bookings = ResourceTransportationBooking.order.page(params[:page]).per(5)
     end
