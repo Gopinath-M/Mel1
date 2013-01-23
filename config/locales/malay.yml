@@ -1125,6 +1125,7 @@ malay:
     created_at: "Diwujudkan Pada"
     image : "Imej"
     list_newsletter_image: "Senarai Berita Imej Surat"
+    list_resource_manager: "Senarai Pengurus Sumber"
    
     
   activerecord:

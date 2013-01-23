@@ -268,6 +268,7 @@ Melaka::Application.routes.draw do
     collection do
       get 'for_agency'
       post 'update_status'
+      get 'list_resource_manager'
       get 'assign_resource_manager'
       post 'update_assign_resource_manager'
       get 'role_memberships'

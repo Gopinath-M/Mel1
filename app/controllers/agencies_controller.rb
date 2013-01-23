@@ -72,7 +72,7 @@ class AgenciesController < ApplicationController
             if agency && agency.present?
               @role_membership.save
               agency.update_attribute(:user_id, user.id)
-              redirect_to(role_memberships_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
+              redirect_to(list_resource_manager_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
             else
               flash[:alert] = "Agency is not present"
               render :action => 'assign_resource_manager'
@@ -94,6 +94,10 @@ class AgenciesController < ApplicationController
 
   def role_memberships
     @role_memberships = RoleMembership.where("department_id is not null and department_id != 0 ").order("department_id asc").page(params[:page]).per(10)
+  end
+
+  def list_resource_manager
+    @role_memberships = RoleMembership.where("role_id = 5 ").page(params[:page]).per(10)
   end
 
 end
