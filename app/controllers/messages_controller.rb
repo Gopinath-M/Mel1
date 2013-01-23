@@ -123,4 +123,9 @@ class MessagesController < ApplicationController
     send_file @message.attachment.path
   end
   
+  #For Retrieving Uploaded Files by SuperAdmin
+  def uploads
+    @messages = Message.where("sender = '1' and attachment is not null").page(params[:page]).per(10)    
+  end
+  
 end
