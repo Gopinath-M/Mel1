@@ -45,7 +45,7 @@
           <p class="formRow t-left">
             <%= f.label :ic_number, :class=>"ui-watermark-label-pass"%>
             <span class="shadow-input">
-              <%= f.text_field :ic_number,:onkeypress=>"return isNumberKey(event);" :class=>"pass"%>
+              <%= f.text_field :ic_number,:onkeypress=>"return isNumberKey(event);", :class=>"pass"%>
             </span>
           </p>
           <p class="formRow t-left">
