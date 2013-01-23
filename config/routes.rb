@@ -22,7 +22,9 @@ Melaka::Application.routes.draw do
 
   resources :feeds, :only=>[:index]
   resources :templates
-  resources :newsletters
+  resources :newsletters do
+    get :autocomplete_email, :on => :collection
+  end
   resources :newsletter_images
   resources :resource_bookings do
     collection do
