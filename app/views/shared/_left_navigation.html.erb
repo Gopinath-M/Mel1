@@ -27,7 +27,6 @@
         <% resource_other_returned_count = generic_model_status_count(ResourceBooking, "Returned")%>
         <% resource_other_process_count = generic_model_status_count(ResourceBooking, "Approved")%>
         <% resource_manager_other_count = resource_other_returned_count + resource_other_process_count%>
-
         <div id="control">
           <a id="controlbtn" class="open" href="javascript:void(0);" alt="Side Panel"><%= t('left_nav.side_panel')%></a>
         </div>
@@ -46,8 +45,8 @@
           </div>
           <ul>
             <!--li>
-                                          <a href="javascript:void(0);" title="<%#= t('left_nav.daily_updates')%>" class="selected"><%#= image_tag "icn_news.png" , :width=>"16", :height=>"16", :alt=>"Daily Updates"%><%#= t('left_nav.daily_updates')%></a>
-                                          </li-->
+                                      <a href="javascript:void(0);" title="<%#= t('left_nav.daily_updates')%>" class="selected"><%#= image_tag "icn_news.png" , :width=>"16", :height=>"16", :alt=>"Daily Updates"%><%#= t('left_nav.daily_updates')%></a>
+                                      </li-->
             <li>
               <a href="/messages/new" title="<%= t('left_nav.messages')%>"><%= image_tag "icn_email.png" , :width=>"16", :height=>"16", :alt=>"Email"%><span class="notifiNo"></span><%= t('left_nav.messages')%></a>
             </li>
@@ -64,11 +63,11 @@
             <!--li>
                                           <a href="/search/" title="<%#= t('left_nav.find_user')%>"><%#= image_tag "icn_user.png" , :width=>"16", :height=>"16", :alt=>"Find User"%><%#= t('left_nav.find_user')%></a>
                                           </li-->
-  <%#if session[:current_role] && session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN%>
-            <!--li>
-                                          <a href="javascript:void(0);" title="<%#= t('left_nav.uploaded_files')%>"><%#= image_tag "attach.png" , :width=>"16", :height=>"16", :alt=>"Upload Files"%><%#= t('left_nav.uploaded_files')%></a>
-                                          </li-->
-  <%#end%>
+            <%if session[:current_role] && session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN%>
+              <li>
+                <a href="/messages/uploads" title="<%= t('left_nav.uploaded_files')%>"><%= image_tag "attach.png" , :width=>"16", :height=>"16", :alt=>"Upload Files"%><%= t('left_nav.uploaded_files')%></a>
+              </li>
+            <%end%>
           </ul>
         </div>
         <div class="clear"></div>
@@ -97,6 +96,30 @@
                     <li>
                       <span class="notifiNo"><%= resource_manager_other_count > 0 ? resource_manager_other_count : '' %></span>
                       <%= link_to t('labels.others_booking'), list_resource_booking_resource_bookings_path%>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            <%elsif session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN %>
+              <li>
+                <%=link_to t('labels.approve_res_booking'), "javascript:void(0);" , :title=>t('labels.approve_res_booking') ,:class=>"", :id=>"lnk_approve_resource_booking" ,:onclick=>"leftNavigation(this.id,'div_approve_resource_booking')"%>
+                <div id ="div_approve_resource_booking" style="display:none;">
+                  <ul>
+                    <li>
+                      <span class="notifiNo"><%= resource_transport_new_count > 0 ? resource_transport_new_count : '' %></span>
+                      <%=link_to t('left_nav.travel_req'),list_transport_booking_resource_transportation_bookings_path%>
+                    </li>
+                    <li>
+                      <span class="notifiNo"><%= resource_room_new_count > 0 ? resource_room_new_count : '' %></span>
+                      <%=link_to t('labels.room_booking'), list_room_booking_resource_room_bookings_path%>
+                    </li>
+                    <li>
+                      <span class="notifiNo"><%= resource_ict_new_count > 0 ? resource_ict_new_count : '' %></span>
+                      <%=link_to t('left_nav.ict_equip_book'), list_ict_equipment_booking_resource_ict_equipment_bookings_path%>
+                    </li>
+                    <li>
+                      <span class="notifiNo"><%= resource_other_new_count > 0 ? resource_other_new_count : '' %></span>
+                      <%=link_to t('labels.others_booking'), list_others_booking_resource_bookings_path%>
                     </li>
                   </ul>
                 </div>
@@ -237,10 +260,10 @@
             </li>
   <%#if (session[:current_role]==DISP_USER_ROLE_SUPER_ADMIN || session[:current_role]==DISP_USER_ROLE_DEPT_ADMIN)%>
             <!--li><a href="javascript:void(0);" title="<%#=t('left_nav.complaints')%>"><span class="notifiNo"></span><%#=t('left_nav.complaints')%></a></li>
-                                          <li><a href="javascript:void(0);" title="<%#=t('left_nav.resource_requisition')%>"><%#=t('left_nav.resource_requisition')%></a></li>
-                                          <li><a href="javascript:void(0);" title="<%#=t('left_nav.issue_log')%>"><%#=t('left_nav.issue_log')%></a></li>
-                                          <li><a href="javascript:void(0);" title="<%#=t('left_nav.change_requests')%>"><%#=t('left_nav.change_requests')%></a></li>
-                                          <li><a href="javascript:void(0);" title="<%#=t('left_nav.canceled_requests')%>"><%#=t('left_nav.canceled_requests')%></a></li-->
+                                      <li><a href="javascript:void(0);" title="<%#=t('left_nav.resource_requisition')%>"><%#=t('left_nav.resource_requisition')%></a></li>
+                                      <li><a href="javascript:void(0);" title="<%#=t('left_nav.issue_log')%>"><%#=t('left_nav.issue_log')%></a></li>
+                                      <li><a href="javascript:void(0);" title="<%#=t('left_nav.change_requests')%>"><%#=t('left_nav.change_requests')%></a></li>
+                                      <li><a href="javascript:void(0);" title="<%#=t('left_nav.canceled_requests')%>"><%#=t('left_nav.canceled_requests')%></a></li-->
   <%#end%>
           </ul>
         </div>
@@ -484,7 +507,7 @@
                                                 </ul>
                                                 </div>
                                                 </li>
-                                                -->
+                  -->
                   <div class="clear"></div>
                 <%end%>
                 <%if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] == DISP_USER_ROLE_RESOURCE_MANAGER %>
@@ -754,7 +777,7 @@
       <li>
       %>
       <%# support_count = Outstation.where(:status=>"New").count  %>
-                                                <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+                                        <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
       <%#=link_to "Verify Request", approve_request_outstations_path%>
       <%#*
       </li>%>
@@ -779,13 +802,12 @@
                     <div id ="div_template" style="display:none;">
                       <ul>
                         <li>
-                        <li>
                           <%= link_to t('left_nav.create'), new_template_path%>
                         </li>
                         <li>
                           <%= link_to t('left_nav.list'), templates_path%>
                         </li>
-                        </li>
+
                       </ul>
                     </div>
                   </li>
@@ -819,6 +841,32 @@
                           </li>
                           <li>
                             <%= link_to t('left_nav.change_advertisement'), advertisement_index_advertisements_path%>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="menu-item">
+                      <%= link_to t('left_nav.newsletter'), "javascript:void(0);" , :title=>t('left_nav.newsletter') ,:class=>"", :id=>"lnk_newsletters" ,:onclick=>"leftNavigation(this.id,'div_newsletters')"%>
+                      <div id ="div_newsletters" style="display:none;">
+                        <ul>
+                          <li>
+                            <%= link_to t('left_nav.create'), new_newsletter_path%>
+                          </li>
+                          <li>
+                            <%= link_to t('left_nav.list'), newsletters_path%>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="menu-item">
+                      <%= link_to t('left_nav.newsletter_images'), "javascript:void(0);" , :title=>t('left_nav.newsletter_images') ,:class=>"", :id=>"lnk_newsletter_images" ,:onclick=>"leftNavigation(this.id,'div_newsletter_images')"%>
+                      <div id ="div_newsletter_images" style="display:none;">
+                        <ul>
+                          <li>
+                            <%= link_to t('left_nav.create'), new_newsletter_image_path%>
+                          </li>
+                          <li>
+                            <%= link_to t('left_nav.list'), newsletter_images_path%>
                           </li>
                         </ul>
                       </div>

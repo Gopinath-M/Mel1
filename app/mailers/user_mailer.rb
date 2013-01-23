@@ -328,4 +328,8 @@ class UserMailer < ActionMailer::Base
     mail(:to=>@user.email,:subject=>"Your Outstation Request Details")
   end
 
+  def newsletter(user_email,subject, content)
+    @content = content
+    mail(:to => user_email,:subject => subject)
+  end
 end

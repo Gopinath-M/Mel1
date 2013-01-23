@@ -1,4 +1,4 @@
-<%= form_for(@ict_hardware_booking) do |f| %>
+<%= form_for(@ict_hardware_booking, :html => { :method => :post, :multipart => true }) do |f| %>
   <%=f.error_messages%>
   <div class="clearfix">&nbsp;</div>
   <%=f.hidden_field :facility_ict_id,:value=>"4" %>

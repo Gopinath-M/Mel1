@@ -249,4 +249,17 @@ class ResourceBookingsController < ApplicationController
       render :json =>{ :booked => booked_rooms, :available => available_rooms}
     end
   end
+
+  def list_others_booking
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      p @resource_bookings = ResourceBooking.where(:user_id => users.id).order.page(params[:page]).per(5)
+    else
+      @resource_bookings = ResourceBooking.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
+  end
+
 end

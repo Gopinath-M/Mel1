@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :current_department, :current_role, :set_locale
-
+    
+  rescue_from CanCan::AccessDenied do |exception|  
+  redirect_to(dashboard_index_path,:alert =>"You are not authorized to access this page")
+  end
+  
   def set_locale
     session[:locale] = params[:locale] if params[:locale]!=nil && params[:locale]!=""
     I18n.locale = session[:locale]

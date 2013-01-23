@@ -1,5 +1,6 @@
 class VehicleModelTypesController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
   def index
     if params[:id].blank? || params[:id].nil?
       @vehicle_model_type = VehicleModelType.page(params[:page]).per(10).order('created_at DESC')
