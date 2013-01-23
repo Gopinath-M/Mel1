@@ -72,11 +72,11 @@
     <% if @resource_ict_equipment_booking.ict_equipment_attachment.present? %>
       <div class="form-sec-row">
         <label class="text"><b><%=t('labels.attachment')%></b></label>
-        <% image = @resource_ict_equipment_booking.ict_equipment_attachment.url(:profile).split(".").last %>
+        <% image = @resource_ict_equipment_booking.ict_equipment_attachment.url.split(".").last %>
         <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
           <span class="in-box"><%=image_tag(@resource_ict_equipment_booking.ict_equipment_attachment.url(:profile),:title=>@resource_ict_equipment_booking.ict_equipment_attachment)%>
           <%else%>
-            <% file = (@resource_ict_equipment_booking.ict_equipment_attachment).url(:profile).split("/").last %>
+            <% file = (@resource_ict_equipment_booking.ict_equipment_attachment).url.split("/").last %>
             &nbsp;<%= link_to file, download_attachments_resource_ict_equipment_bookings_path(:id=>@resource_ict_equipment_booking.id) if @resource_ict_equipment_booking.ict_equipment_attachment?  %>
           </span>
         <%end%>

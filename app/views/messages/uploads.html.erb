@@ -1,0 +1,48 @@
+<div class="CenterNav">
+	<h2 class="b-head"><%= 'Manage Uploaded Files' %></h2>
+
+	<div id="div_ajax" >
+		<%if @messages && !@messages.empty?%>
+		<%@messages.each do |message|%>
+		<div class="manage-user box">
+			<div class="manage-user-row box">
+				<div class="mu-c1">
+					<% image = message.attachment.url(:profile).split(".").last %>
+					<% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+					<span class="in-box"> <%= link_to image_tag(message.attachment.url(:thumb),:title=>message.attachment,:height=>60,:width=>60), download_attachments_messages_path(:id=>message.id) %>
+					<%elsif image == "txt" %> <td>&nbsp;<b> <%= link_to image_tag('/images/notepad.jpg'), download_attachments_messages_path(:id=>message.id) if message.attachment?  %></b></td> </span>
+					<%elsif image == "doc" %>
+					<td>&nbsp;<b><%= link_to image_tag('/images/img_document.jpg',:height=>60,:width=>60), download_attachments_messages_path(:id=>message.id) if message.attachment?  %></b></td> </span>
+					<%elsif image == "pdf" %>
+					<td>&nbsp;<b><%= link_to image_tag('/images/pdf.jpg',:height=>60,:width=>60), download_attachments_messages_path(:id=>message.id) if message.attachment?  %></b></td> </span>
+					<%elsif image == "xls" %>
+					<td>&nbsp;<b><%= link_to image_tag('/images/excel.jpg',:height=>60,:width=>60), download_attachments_messages_path(:id=>message.id) if message.attachment?  %></b></td> </span>
+					<%end%>
+				</div>
+				<div class="mu-c2">
+					<p class="head1">
+						<% image2 = message.attachment.url %>
+						<% image1 = message.attachment.url(:profile).split("/").last %>
+
+						<%#= message.attachment %>
+						<%= link_to image1, download_attachments_messages_path(:id=>message.id) if message.attachment?  %>
+					</p>
+				</div>
+				<div class="mu-c3">
+					<%= message.created_at.strftime("%d-%m-%Y %H:%M %p")%>
+				</div>
+			</div>
+		</div>
+		<%end%>
+		<div class="manage-user-rows box">
+			<br/>
+			<br/>
+			<%= paginate @messages %>
+		</div>
+		<%else%>
+		<%= t('labels.no_data_available')%>
+		<%end%>
+	</div>
+</div>
+</div>
+

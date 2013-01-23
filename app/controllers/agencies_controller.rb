@@ -1,11 +1,11 @@
-class AgenciesController < ApplicationController
+class AgenciesController < ApplicationController  
   before_filter :authenticate_user!
-
+  load_and_authorize_resource
   def index
     @agencies = nil
     if params[:id].blank? || params[:id].nil?
       @agencies = Agency.where(:deleted => false).order.page(params[:page]).per(10)
-    end
+    end    
   end
 
   def new

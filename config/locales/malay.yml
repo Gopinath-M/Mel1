@@ -337,7 +337,10 @@ malay:
     category: "Kategori"
     sub_category: "Sub Kategori"
     vehicle_brands: "Jenama kenderaan"
-
+    newsletter: "Berita Surat"
+    newsletter_images: "Berita Surat Imej"
+    newsletter_image: "Berita Surat Imej"
+    create_newsletter_image: "Mewujudkan Imej Surat Berita"
   labels:
     template_name: "Nama"
     template_subject: "Subjek"
@@ -1116,6 +1119,12 @@ malay:
     repair_act_no: "Tiada"
     is_visible_yes: "Ya"
     is_visible_no: "Tiada"
+    subject: "Tertakluk"
+    create_newsletter: "Daftar Surat Berita"
+    list_newsletter: "Senarai Surat Berita"
+    created_at: "Diwujudkan Pada"
+    image : "Imej"
+    list_newsletter_image: "Senarai Berita Imej Surat"
    
     
   activerecord:

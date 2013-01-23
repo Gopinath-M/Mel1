@@ -1,6 +1,7 @@
 class ResourceTransportationBookingsController < ApplicationController
   before_filter :authenticate_user!
   include ResourceTransportationBookingsHelper
+  load_and_authorize_resource 
   def index
     #approve_request
     @resource_transportation_bookings = ResourceTransportationBooking.where(:requester_id => "#{current_user.id}").order.page(params[:page]).per(5)
@@ -206,6 +207,8 @@ class ResourceTransportationBookingsController < ApplicationController
       elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
         @approver_second = Approver.active.find_all_by_department_id(@current_department).last
         @resource_transportation_bookings = ResourceTransportationBooking.where(:department_id => @current_department).order.page(params[:page]).per(5)
+      else
+        @resource_transportation_bookings = ResourceTransportationBooking.where(:requester_id => "#{current_user.id}").order.page(params[:page]).per(5)
       end
     end
   end

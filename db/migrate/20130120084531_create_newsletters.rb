@@ -3,7 +3,7 @@ class CreateNewsletters < ActiveRecord::Migration
     create_table :newsletters do |t|
       t.string :from
       t.string :to
-      t.references :created_by
+      t.integer :created_by
       t.string :subject
       t.text :content
       t.string :status

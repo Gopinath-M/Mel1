@@ -23,6 +23,7 @@ Melaka::Application.routes.draw do
   resources :feeds, :only=>[:index]
   resources :templates
   resources :newsletters
+  resources :newsletter_images
   resources :resource_bookings do
     collection do
       get 'get_other_sub_categories'
@@ -258,6 +259,7 @@ Melaka::Application.routes.draw do
       get 'post_messages'
       get 'post_comments'
       get 'download_attachments'
+      get 'uploads'
     end
   end
     

@@ -2,26 +2,34 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
   <div class="form-sec">
-    <% if (@category_department && !@category_department.blank?)  || session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN %>
-      <h2 class="b-head"><%=t('labels.resource_ict_equip_book')%></h2>
+    <%# if (@category_department && !@category_department.blank?)  || session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN %>
+      <h2 class="b-head"><%=t('left_nav.newsletter')%></h2>
       <%= form_for(@newsletter) do |f| %>
         <div class="form-sec">
           <%=f.error_messages%>
           <div class="clearfix">&nbsp;</div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.from')%><span style=color:red></span></label>
+            <label class="text"><%=t('labels.from')%><span style=color:red>*</span></label>
             <span class="in-box">
               <%= f.text_field :from, :value=>"", :autofocus => true%>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.to')%><span style=color:red></span></label>
+            <label class="text"><%=t('labels.to')%><span style=color:red>*</span></label>
             <span class="in-box">
-              <%= f.text_field :to, :value=>"All", :autofocus => true%>
+              <%#= f.text_field :to, :value=>@newsletter.to != nil ? @newsletter.to : "All", :autofocus => true%>
+              <%= f.radio_button :to, 'all' %> ALL
+              <%= f.radio_button :to,'specify' ,:checked=> true%> Specify
+              <div id="textbox_all" style="display:none">
+                <%= f.text_field :to, :value=>@newsletter.to != nil ? @newsletter.to : "All", :autofocus => true%>
+              </div>
+              <div id="textbox_specify" >
+                <%= f.text_field :to, :value=>"", :autofocus => true%>
+              </div>
             </span>
           </div>
           <div class="form-sec-row">
-            <label class="text"><%=t('labels.subject')%><span style=color:red></span></label>
+            <label class="text"><%=t('labels.subject')%><span style=color:red>*</span></label>
             <span class="in-box">
               <%= f.text_field :subject, :value=>"Newsletter", :autofocus => true%>
             </span>
@@ -43,11 +51,11 @@
           </div>
         </div>
       <%end%>
-    <%else%>
-      <div class="form-sec">
-        <h2><%=t('labels.denial_ict')%></h2>
-      </div>
-    <%end%>
+    <%#else%>
+      <%#*<div class="form-sec">%>
+        <!--h2><%#=t('labels.denial_ict')%></h2-->
+      <%#*</div>%>
+    <%#end%>
   </div>
 </div>
 <script>
