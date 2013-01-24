@@ -55,6 +55,7 @@ Melaka::Application.routes.draw do
     collection do
       get 'requests'
       get 'download_attachments'
+      get 'list_requisition_hardware'
       get 'approve'
       put 'update_request'
     end
@@ -64,6 +65,7 @@ Melaka::Application.routes.draw do
     collection do
       get 'add_select_boxes'
       get 'list_ict_firewall'
+      get 'list_requisition_firewall'
       get 'download_attachments'
     end
   end
@@ -94,6 +96,7 @@ Melaka::Application.routes.draw do
       get 'list_to_select_ict'
       get 'get_hardware_type'
       get 'get_location_for_hardware'
+      get 'list_requisition_network'
       get 'selected_list_ict'
       put 'update_approval_network_point'
       get 'list_ict_network'
@@ -370,6 +373,7 @@ Melaka::Application.routes.draw do
       get 'approval_software_installation'
       get 'resource_booking_approval'
       post 'resource_booking_approval'
+      get 'list_requisition_softwares'
       get 'add_select_boxes'
       get 'download_attachments'
     end
@@ -379,6 +383,7 @@ Melaka::Application.routes.draw do
     collection do
       get 'approval'
       put 'approval'
+      get 'list_requisition_vpn'
       get 'download_attachments'
       get 'list_vpn'
     end
@@ -388,6 +393,7 @@ Melaka::Application.routes.draw do
   resources :ict_system_accesses do
     collection do
       get 'approval'
+      get 'list_requisition_software'
       put 'approval'
       get 'download_attachments'
       get 'list_system_access'

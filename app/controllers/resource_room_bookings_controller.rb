@@ -154,7 +154,7 @@ class ResourceRoomBookingsController < ApplicationController
       agency_store.update_attribute(:booked, false)
     end
     if room.status == "Approved"
-      if params[:resource_val][:id] != ""
+      if params[:change_room] == "true" && params[:resource_val][:id] != ""
         agency_store = AgencyStore.find_by_resource_id(room.resource_id)
         agency_store.update_attribute(:booked, false)
         store = AgencyStore.find_by_resource_id(params[:resource_val][:id])
@@ -169,11 +169,10 @@ class ResourceRoomBookingsController < ApplicationController
       room.update_attributes(params[:resource_room_booking])
     end
     ordered_user = User.find_by_id(room.user_id)
-    resource_manager = RoleMembership.find_by_department_id(room.department_id, :conditions=>["role_id = ?", 5])
-    if resource_manager.present?
-      user = User.find_by_id(resource_manager.user_id)
-      UserMailer.send_status_mail_ordered_user_for_room_booking(user,ordered_user,room).deliver
-      UserMailer.send_status_mail_resource_manager_for_room_booking(user,ordered_user,room).deliver
+    agency = Agency.find(room.agency_store.agency_id)
+    if !agency.user_id.nil?
+      UserMailer.send_status_mail_ordered_user_for_room_booking(agency.user,ordered_user,room).deliver
+      UserMailer.send_status_mail_resource_manager_for_room_booking(agency.user,ordered_user,room).deliver
     end
     redirect_to(list_resource_booking_resource_room_bookings_path, :notice => 'Your Room Booking Status has been successfully updated.')
   end
@@ -266,6 +265,5 @@ class ResourceRoomBookingsController < ApplicationController
       render :layout=>false
     end
   end
-
 
 end

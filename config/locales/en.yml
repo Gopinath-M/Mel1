@@ -185,6 +185,8 @@ en:
     newsletter_images: "Newsletter Images"
     newsletter_image: "Newsletter Image"
     create_newsletter_image: "Create Newsletter Image"
+    details: "Details"
+
   labels:
     template_name: "Name"
     template_subject: "Subject"

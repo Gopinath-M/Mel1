@@ -92,4 +92,16 @@ class IctNetworkPointsController < ApplicationController
     send_file @message.ict_network_attachment.path
   end
 
+  def list_requisition_network
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @requisition = IctNetworkPoint.where(:user_id => users.id).order.page(params[:page]).per(5)
+    else
+      @requisition = IctNetworkPoint.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
+  end
+
 end

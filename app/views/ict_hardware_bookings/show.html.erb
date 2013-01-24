@@ -16,7 +16,7 @@
             <%= @ict_hardware_booking.booker.ic_number%>
           </span>
         </div>
-        <%department=Department.find(@current_department)%>
+        <%department=Department.find(@ict_hardware_booking.department_id)%>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.agency')%></label>
           <span class="in-box">
