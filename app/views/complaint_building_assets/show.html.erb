@@ -81,11 +81,13 @@
       <span class="in-box">
         <%= @complaint_building_asset.location %></span>
     </div>
+    <% if !@complaint_building_asset.reason.blank?%>
     <div class="form-sec-row">
       <label class="text"><%=t('labels.reason')%></label>
       <span class="in-box">
         <%= @complaint_building_asset.reason %></span>
     </div>
+    <%end%>
     <div class="form-sec-row">
       <label class="text"><%=t('labels.serial_no')%></label>
       <span class="in-box">

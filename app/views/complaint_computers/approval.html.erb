@@ -71,11 +71,13 @@
           <%= @system_model_name.name %></span>
       </div>
 
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.reason')%></label>
-        <span class="in-box">
-          <%= @complaint_computer.reason %></span>
-      </div>
+      <% if !@complaint_computer.reason.blank? %>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.reason')%></label>
+          <span class="in-box">
+            <%= @complaint_computer.reason %></span>
+        </div>
+      <%end%>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.serial_no')%></label>
         <span class="in-box">
@@ -120,7 +122,7 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
           <span class="in-box">
-           <%= f.text_area :remarks, :rows =>4%></span>
+            <%= f.text_area :remarks, :rows =>4%></span>
         </div>
         <div class="form-sec-row">
           <div class="CenterNav">
