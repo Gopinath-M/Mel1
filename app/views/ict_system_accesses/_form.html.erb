@@ -1,4 +1,4 @@
-<%= form_for(IctSystemAccess.new, :html => { :multipart => true }) do |f| %>
+<%= form_for(@ict_system_access, :html => { :multipart => true }) do |f| %>
   <%=f.error_messages%>
   <%= hidden_field_tag :requisition_type_id, 6 %>
   <div class="form-sec-row">

@@ -2780,6 +2780,292 @@ $().ready(function(){
     });
 
 
+    /* List of Requisition for Super Admin Starts*/
+
+    $("#transfer_from_agency_requisition").live("change", function(){
+        if($("#transfer_from_agency_requisition").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#transfer_from_agency_requisition").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#list_department_id_requisition').find('option').remove().end()
+                    $('#list_department_id_requisition').append($("<option></option>").attr("value","").text("Select Department"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#list_department_id_requisition').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $('#list_department_id_requisition').find('option').remove().end()
+            $('#list_username_requisition').find('option').remove().end()
+            $('#list_department_id_requisition').append($("<option></option>").attr("value","").text("Select Department"));
+            $('#list_username_requisition').append($("<option></option>").attr("value","").text("Select User"));
+        }
+    });
+
+    $("#list_department_id_requisition").live("change",function(){
+        if($("#list_department_id").val()!="")
+        {
+            $.get("/users/transfer/",{
+                department_id: $("#list_department_id_requisition").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#list_username_requisition').find('option').remove().end()
+                    $('#list_username_requisition').append($("<option></option>").attr("value","").text("Select User"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#list_username_requisition').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $("#div_dept_transfer").hide();
+            $("#value_assign").hide();
+            $('#transfer_role_id').find('option').remove().end()
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Department"));
+        }
+    });
+
+    $("#list_username_requisition").live("change",function(){
+        if($("#list_username_requisition").val()!="")
+        {
+            $.get("/ict_network_points/list_requisition_network/",{
+                ic_number: $("#list_username_requisition").val()
+            }, function(data){
+                $("#div_ajax").show();
+                $("#div_ajax").html(data)
+            });
+        }
+        else
+        {
+            $("#div_ajax").hide();
+        }
+    });
+
+
+    $("#list_department_id_requisition").live("change",function(){
+        if($("#list_department_id").val()!="")
+        {
+            $.get("/users/transfer/",{
+                department_id: $("#list_department_id_requisition").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#list_username_requisition1').find('option').remove().end()
+                    $('#list_username_requisition1').append($("<option></option>").attr("value","").text("Select User"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#list_username_requisition1').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $("#div_dept_transfer").hide();
+            $("#value_assign").hide();
+            $('#transfer_role_id').find('option').remove().end()
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Department"));
+        }
+    });
+
+    $("#list_username_requisition1").live("change",function(){
+        if($("#list_username_requisition1").val()!="")
+        {
+            $.get("/ict_system_accesses/list_requisition_software/",{
+                ic_number: $("#list_username_requisition1").val()
+            }, function(data){
+                $("#div_ajax").show();
+                $("#div_ajax").html(data)
+            });
+        }
+        else
+        {
+            $("#div_ajax").hide();
+        }
+    });
+
+    $("#list_department_id_requisition").live("change",function(){
+        if($("#list_department_id").val()!="")
+        {
+            $.get("/users/transfer/",{
+                department_id: $("#list_department_id_requisition").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#list_username_requisition2').find('option').remove().end()
+                    $('#list_username_requisition2').append($("<option></option>").attr("value","").text("Select User"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#list_username_requisition2').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $("#div_dept_transfer").hide();
+            $("#value_assign").hide();
+            $('#transfer_role_id').find('option').remove().end()
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Department"));
+        }
+    });
+
+    $("#list_username_requisition2").live("change",function(){
+        if($("#list_username_requisition2").val()!="")
+        {
+            $.get("/ict_vpns/list_requisition_vpn/",{
+                ic_number: $("#list_username_requisition2").val()
+            }, function(data){
+                $("#div_ajax").show();
+                $("#div_ajax").html(data)
+            });
+        }
+        else
+        {
+            $("#div_ajax").hide();
+        }
+    });
+
+
+    $("#list_department_id_requisition").live("change",function(){
+        if($("#list_department_id").val()!="")
+        {
+            $.get("/users/transfer/",{
+                department_id: $("#list_department_id_requisition").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#list_username_requisition3').find('option').remove().end()
+                    $('#list_username_requisition3').append($("<option></option>").attr("value","").text("Select User"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#list_username_requisition3').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $("#div_dept_transfer").hide();
+            $("#value_assign").hide();
+            $('#transfer_role_id').find('option').remove().end()
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Department"));
+        }
+    });
+
+    $("#list_username_requisition3").live("change",function(){
+        if($("#list_username_requisition3").val()!="")
+        {
+            $.get("/ict_hardware_bookings/list_requisition_hardware/",{
+                ic_number: $("#list_username_requisition3").val()
+            }, function(data){
+                $("#div_ajax").show();
+                $("#div_ajax").html(data)
+            });
+        }
+        else
+        {
+            $("#div_ajax").hide();
+        }
+    });
+
+    $("#list_department_id_requisition").live("change",function(){
+        if($("#list_department_id").val()!="")
+        {
+            $.get("/users/transfer/",{
+                department_id: $("#list_department_id_requisition").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#list_username_requisition4').find('option').remove().end()
+                    $('#list_username_requisition4').append($("<option></option>").attr("value","").text("Select User"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#list_username_requisition4').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $("#div_dept_transfer").hide();
+            $("#value_assign").hide();
+            $('#transfer_role_id').find('option').remove().end()
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Department"));
+        }
+    });
+
+    $("#list_username_requisition4").live("change",function(){
+        if($("#list_username_requisition4").val()!="")
+        {
+            $.get("/ict_firewalls/list_requisition_firewall/",{
+                ic_number: $("#list_username_requisition4").val()
+            }, function(data){
+                $("#div_ajax").show();
+                $("#div_ajax").html(data)
+            });
+        }
+        else
+        {
+            $("#div_ajax").hide();
+        }
+    });
+
+
+    $("#list_department_id_requisition").live("change",function(){
+        if($("#list_department_id").val()!="")
+        {
+            $.get("/users/transfer/",{
+                department_id: $("#list_department_id_requisition").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#list_username_requisition5').find('option').remove().end()
+                    $('#list_username_requisition5').append($("<option></option>").attr("value","").text("Select User"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+
+                        $('#list_username_requisition5').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+        else
+        {
+            $("#div_dept_transfer").hide();
+            $("#value_assign").hide();
+            $('#transfer_role_id').find('option').remove().end()
+            $('#transfer_role_id').append($("<option></option>").attr("value","").text("Select Department"));
+        }
+    });
+
+    $("#list_username_requisition5").live("change",function(){
+        if($("#list_username_requisition5").val()!="")
+        {
+            $.get("/software_installations/list_requisition_softwares/",{
+                ic_number: $("#list_username_requisition5").val()
+            }, function(data){
+                $("#div_ajax").show();
+                $("#div_ajax").html(data)
+            });
+        }
+        else
+        {
+            $("#div_ajax").hide();
+        }
+    });
+/* List of Requisition for Super Admin Ends*/
+
+
 })
 /* resource room booking validation ends */
 /*Javascripts Starts*/

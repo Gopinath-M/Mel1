@@ -92,4 +92,16 @@ class IctHardwareBookingsController < ApplicationController
     send_file @message.ict_hardware_attachment.path
   end
 
+  def list_requisition_hardware
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @ict_hardware_bookings = IctHardwareBooking.where(:booker_id => users.id).order.page(params[:page]).per(5)
+    else
+      @ict_hardware_bookings = IctHardwareBooking.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
+  end
+
 end

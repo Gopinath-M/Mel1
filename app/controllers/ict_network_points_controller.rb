@@ -82,6 +82,8 @@ class IctNetworkPointsController < ApplicationController
   def list_to_select_ict
     @ict_hardware_booking=IctHardwareBooking.new
     @ict_hardware_booked_user=@ict_hardware_booking.ict_hardware_booked_users.build
+    @ict_vpn=IctVpn.new
+    @ict_system_access=IctSystemAccess.new
   end
 
   def selected_list_ict
@@ -90,6 +92,18 @@ class IctNetworkPointsController < ApplicationController
   def download_attachments
     @message = IctNetworkPoint.find(params[:id])
     send_file @message.ict_network_attachment.path
+  end
+
+  def list_requisition_network
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @requisition = IctNetworkPoint.where(:user_id => users.id).order.page(params[:page]).per(5)
+    else
+      @requisition = IctNetworkPoint.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
   end
 
 end

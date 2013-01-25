@@ -113,9 +113,10 @@
       </tr>
 
       <% if current_user.is_resource_manager? && @resource_room_booking.status== "Approved" %>
-        <% @val = Resource.find_by_sql "SELECT * FROM resources INNER JOIN agency_stores ON resources.id = agency_stores.resource_id
+        <% @val = Resource.find_by_sql "SELECT * FROM agency_stores INNER JOIN resources ON resources.id = agency_stores.resource_id
     WHERE agency_stores.booked =false AND agency_stores.resource_type ='Room' AND agency_stores.sub_category_id = #{@resource_room_booking.sub_category_id}" %>
         <% if @val.present? %>
+          <%= hidden_field_tag :change_room, "true" %>
           <div class="form-sec-row">
             <label class="text"><b><%=t('labels.change_room')%></b></label>
             <span class="in-box">
@@ -127,7 +128,7 @@
       <div class="form-sec-row">
         <div id="dis_col" style="display:none;"><font color="#369"><b><u><%=t('labels.details')%></u></b></font></div>
         <div id="details_resource_id" style="display:none;">
-          
+
         </div>
       </div>
 
