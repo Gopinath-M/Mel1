@@ -57,7 +57,7 @@
       </div>
       <div class="form-sec-row">
         <label class="text"><b><%=t('labels.ticket_no')%></b></label>
-        <span class="in-box">&nbsp;<b><%=@resource_room_booking.id%>/<%=Time.now.year%></b></span>
+        <span class="in-box">&nbsp;<b><font color='red'><%=@resource_room_booking.id%>/<%=Time.now.year%></font></b></span>
       </div>
       <div class="form-sec-row">
         <label class="text"><b><%=t('labels.date_of_app')%></b></label>
@@ -88,12 +88,12 @@
       <% if @resource_room_booking.room_attachment.present? %>
         <div class="form-sec-row">
           <label class="text"><b><%=t('labels.attachment')%></b></label>
-          <% image = @resource_room_booking.room_attachment.url(:profile).split(".").last %>
+          <% image = @resource_room_booking.room_attachment.url.split(".").last %>
           <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
             <span class="in-box">
               <%=image_tag(@resource_room_booking.room_attachment.url(:profile),:title=>@resource_room_booking.room_attachment)%>
             <%else%>
-              <% file = (@resource_room_booking.room_attachment).url(:profile).split("/").last %>
+              <% file = (@resource_room_booking.room_attachment).url.split("/").last %>
               &nbsp;<b><%= link_to file, download_attachments_resource_room_bookings_path(:id=>@resource_room_booking.id) if @resource_room_booking.room_attachment?  %></b>
             </span>
           <%end%>

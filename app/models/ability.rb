@@ -31,8 +31,8 @@ class Ability < ActiveRecord::Base
         can [:manage], [ResourceTransportationBooking,ResourceRoomBooking,ResourceIctEquipmentBooking,ResourceBooking,IctFirewall,IctNetworkPoint,IctHardwareBooking,IctSystemAccess,IctVpn,SoftwareInstallation]        
       end
             
-      can [:read,:create,:show], ResourceTransportationBooking
-      can [:read,:create,:show], ResourceRoomBooking
+      can [:read,:create,:show,:user_return_status], ResourceTransportationBooking
+      can [:read,:create,:show,:user_return,:get_list_of_facility,:get_resources,:get_details_for_resource], ResourceRoomBooking
       can [:read,:create,:show], ResourceIctEquipmentBooking
       can [:read,:create,:show], ResourceBooking
       can [:read,:create,:show], IctFirewall

@@ -1,6 +1,7 @@
 class ResourceRoomBookingsController < ApplicationController
   before_filter :authenticate_user!
   #  before_filter :is_admin
+  load_and_authorize_resource
   def index
     if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
       @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id).order.page(params[:page]).per(5)
@@ -160,6 +161,7 @@ class ResourceRoomBookingsController < ApplicationController
         store = AgencyStore.find_by_resource_id(params[:resource_val][:id])
         store.update_attribute(:booked, true)
         room.update_attribute(:resource_id, params[:resource_val][:id])
+        room.update_attribute(:agency_store_id, store.id)
       end
     end
     @user = User.find(room.user_id)

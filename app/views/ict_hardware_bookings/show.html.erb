@@ -57,7 +57,7 @@
                 <%=image_tag(@ict_hardware_booking.ict_hardware_attachment.url(:profile),:title=>@ict_hardware_booking.ict_hardware_attachment)%>
               </span>
             <%else%>
-              <% file = (@ict_hardware_booking.ict_hardware_attachment).url(:profile).split("/").last %>
+              <% file = (@ict_hardware_booking.ict_hardware_attachment).url.split("/").last %>
               <span class="in-box">&nbsp;<b><%= link_to file, download_attachments_ict_hardware_bookings_path(:id=>@ict_hardware_booking.id) if @ict_hardware_booking.ict_hardware_attachment?  %></b></span>
             <%end%>
           </div>
