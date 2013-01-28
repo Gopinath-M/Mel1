@@ -275,6 +275,7 @@ Melaka::Application.routes.draw do
       post 'update_status'
       get 'list_resource_manager'
       get 'assign_resource_manager'
+      put 'update_assign_resource_manager'
       post 'update_assign_resource_manager'
       get 'role_memberships'
     end

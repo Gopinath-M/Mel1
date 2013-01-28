@@ -61,23 +61,20 @@ class AgenciesController < ApplicationController
     if params[:role_membership][:user_id] != '' && params[:role_membership][:department_id] != ''
       user = User.find_by_ic_number(params[:role_membership][:user_id])
       if user.present?
-        role_member = RoleMembership.where("user_id = ?  and department_id = ? and role_id = 5 ",user.id,params[:role_membership][:department_id])
-        @role_membership = RoleMembership.create(params[:role_membership].merge!({:user_id => user.id, :role_id => '5', :status => 'A'}))
+        p role_member = RoleMembership.where("user_id = ?  and department_id = ? and role_id = 5 ",user.id,params[:role_membership][:department_id])
         if role_member && !role_member.empty?
           flash[:alert] = "This user is already a resource manager"
           render :action => 'assign_resource_manager'
         else
-          if @role_membership.valid?
-            agency = Agency.find(params[:role_membership][:agency])
-            if agency && agency.present?
-              @role_membership.save
-              agency.update_attribute(:user_id, user.id)
-              redirect_to(list_resource_manager_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
-            else
-              flash[:alert] = "Agency is not present"
-              render :action => 'assign_resource_manager'
-            end
+          @role_membership = RoleMembership.new
+          agency = Agency.find(params[:role_membership][:agency])
+          if agency && !agency.user_id.present?
+            @role_membership = RoleMembership.create(params[:role_membership].merge!({:user_id => user.id, :role_id => '5', :status => 'A'}))
+            @role_membership.save
+            agency.update_attribute(:user_id, user.id)
+            redirect_to(list_resource_manager_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
           else
+            flash[:alert] = "User has already assigned for this Agency."
             render :action => 'assign_resource_manager'
           end
         end

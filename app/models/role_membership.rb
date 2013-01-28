@@ -33,8 +33,11 @@ class RoleMembership < ActiveRecord::Base
       if department && department!=nil
         members = RoleMembership.where("department_id in (?) and role_id = 5", departments)
         p members.inspect
-        if members && !members.empty?
-          errors.add(:user, (I18n.translate!('errors_date.res_man_already_exist')))
+        agency = Agency.find(self.agency)
+        if agency.user_id.present?
+          if members && !members.empty?
+            errors.add(:user, (I18n.translate!('errors_date.res_man_already_exist')))
+          end
         end
       else
         user_roles=RoleMembership.where(:user_id => self.user_id, :role_id => 5)

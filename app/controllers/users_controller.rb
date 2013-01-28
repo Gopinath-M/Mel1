@@ -104,7 +104,9 @@ class UsersController < ApplicationController
           rol = RoleMembership.find_by_user_id(use.id)
           rol.update_attribute(:role_id, '2')
           chan = RoleMembership.find_by_department_id_and_role_id(params[:to_department][:id], 2)
-          chan.update_attribute(:role_id, '3')
+          if !chan.nil?
+            chan.update_attribute(:role_id, '3')
+          end
         end
         role = RoleMembership.find_by_user_id(user.id)
         role.update_attribute(:department_id, params[:to_department][:id])
@@ -156,7 +158,9 @@ class UsersController < ApplicationController
       else
         if params[:transfer][:role_id] == '2'
           role_id = RoleMembership.find_by_department_id_and_role_id(params[:to_department][:id], '2')
-          role_id.update_attribute(:role_id, 3)
+          if !role_id.nil?
+            role_id.update_attribute(:role_id, 3)
+          end
           from_user =  User.find_by_ic_number(params[:transfer][:username])
           rol = RoleMembership.new(:department_id => params[:to_department][:id], :user_id=> from_user.id, :role_id => '2', :status => 'A')
           rol.save
@@ -325,7 +329,7 @@ class UsersController < ApplicationController
       #@users = department.users.joins(:roles).where("users.deleted = false and roles.name= 'Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
       @users = User.joins(:roles).where("role_id = 2").page(params[:page]).per(10)
     else
-    #@users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
+      #@users = User.joins(:roles).where("users.deleted = false and roles.name ='Department Admin' || roles.name ='Unit Admin'").page(params[:page]).per(10) # Issue when Postgres sql is Used - Mathew
       @users = User.joins(:roles).where("role_id = 2").page(params[:page]).per(10)
       @department_id=params[:department_id]
     end
@@ -349,9 +353,9 @@ class UsersController < ApplicationController
       @user.update_attributes(params[:user])
       user_service = UserService.find_by_user_id(current_user.id)
       if user_service.present?
-      redirect_to edit_user_service_path(user_service.id)
+        redirect_to edit_user_service_path(user_service.id)
       else
-      redirect_to :controller =>'user_services', :action => 'new'
+        redirect_to :controller =>'user_services', :action => 'new'
       end
     else
       render :action =>'user_profile'
@@ -379,8 +383,8 @@ class UsersController < ApplicationController
       @property_file.property_year = params[:date][:year]
       @property_file.user_id = current_user.id
       if @property_file.valid?
-      @property_file.save
-      #      redirect_to :controller =>'outstations', :action=>'new'
+        @property_file.save
+        #      redirect_to :controller =>'outstations', :action=>'new'
       end
       @property_file = DeclarationProperty.new(params[:declaration_property])
     end
@@ -412,6 +416,6 @@ class UsersController < ApplicationController
     @emergency_reference = EmergencyReference.find(current_user.id)
     @property_file = DeclarationProperty.find_all_by_user_id(current_user.id)
   end
-# out station module methods ends here
+  # out station module methods ends here
 
 end
