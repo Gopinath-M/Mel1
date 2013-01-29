@@ -4,9 +4,9 @@
     <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
     <div class="create-user">
       <div class="cu-c1"><a href="/categories/assign_category" title=<%=t('labels.map_category')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.map_category')%></a></div>
-       <div class="cu-c2"><%=t('labels.select_dept')%>:
-      <%= select("cat_department","id",  Department.active.collect {|dept| [dept.name, dept.id]},:prompt=>"Select Department") %>
-    </div>
+      <div class="cu-c2"><%=t('labels.select_dept')%>:
+        <%= select("cat_department","id",  Department.active.collect {|dept| [dept.name, dept.id]},:prompt=>"Select Department") %>
+      </div>
 
     </div>
   <%end%>
@@ -29,7 +29,7 @@
             <div class="manage-user box">
               <div class="manage-user-row box">
                 <div class="mu-c1">
-                   <% if category.id == 6%><%=image_tag("/images/icon_room.png", :alt=>"Room", :title=> "Room")%><% elsif category.id == 7 %>  <%=image_tag("/images/icon_transportation.png", :alt=>"Transport", :title=> "Transport")%><% elsif category.id == 8  %> <%=image_tag("/images/icon_ICT.png", :alt=>"ICT", :title=> "ICT")%> <% else %> <%=image_tag("/images/icon_othercategories.png", :alt=>"Others", :title=> "Others")%> <%end%>
+                  <% if category.id == 6%><%=image_tag("/images/icon_room.png", :alt=>"Room", :title=> "Room")%><% elsif category.id == 7 %>  <%=image_tag("/images/icon_transportation.png", :alt=>"Transport", :title=> "Transport")%><% elsif category.id == 8  %> <%=image_tag("/images/icon_ICT.png", :alt=>"ICT", :title=> "ICT")%> <% else %> <%=image_tag("/images/icon_othercategories.png", :alt=>"Others", :title=> "Others")%> <%end%>
 
                 </div>
                 <div class="mu-c2-map">
@@ -57,35 +57,38 @@
       <%end%>
     <%else%>
       <% if current_user.is_super_admin? %>
-        <%category_mapping = CategoriesDepartments.find_by_department_id(@department)%>
+        <%@category_mapping = CategoriesDepartments.find_all_by_department_id(@department)%>
       <%else%>
-        <%category_mapping = CategoriesDepartments.find_by_department_id(@department)%>
+        <%@category_mapping = CategoriesDepartments.find_all_by_department_id(@department)%>
       <%end%>
-      <%if category_mapping != nil%>
-        <%categories = Category.find_all_by_id(category_mapping.category_id)%>
-        <%dept = Department.find_all_by_id(category_mapping.department_id)%>
-        <%dept.each do |department|%>
-          <%categories.each do |category|%>
-            <div class="manage-user box">
-              <div class="manage-user-row box">
-                <div class="mu-c1">
-                  <%=category.name%>
-                </div>
-                <div class="mu-c2">
-                  <p class="head1"><%=department.name%></p>
-                </div>
-                <div class="mu-c3">
+      <%if @category_mapping.present?%>
+        <% @category_mapping.each do |category_mapping| %>
+          <%categories = Category.find_all_by_id(category_mapping.category_id)%>
+          <%dept = Department.find_all_by_id(category_mapping.department_id)%>
+          <%dept.each do |department|%>
+            <%categories.each do |category|%>
+              <div class="manage-user box">
+                <div class="manage-user-row box">
+                  <div class="mu-c1">
+          <%#=category.name%>
+                    <% if category.id == 6%><%=image_tag("/images/icon_room.png", :alt=>"Room", :title=> "Room")%><% elsif category.id == 7 %>  <%=image_tag("/images/icon_transportation.png", :alt=>"Transport", :title=> "Transport")%><% elsif category.id == 8  %> <%=image_tag("/images/icon_ICT.png", :alt=>"ICT", :title=> "ICT")%> <% else %> <%=image_tag("/images/icon_othercategories.png", :alt=>"Others", :title=> "Others")%> <%end%>
+                  </div>
+                  <div class="mu-c2">
+                    <p class="head1"><%=department.name%></p>
+                  </div>
+                  <div class="mu-c3">
 
-                  <%if category_mapping.is_active %>
-                    <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.deactivate'), update_category_mapping_categories_path(:id=>category_mapping.id, :status=>"Deactivate"), :confirm => t('labels.category_deact_confirm'), :method=>:post, :title=>t('labels.deactivate')%>
-                  <%else%>
-                    <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.activate'),  update_category_mapping_categories_path(:id=>category_mapping.id,:status=>"Activate"), :confirm => t('labels.category_act_confirm'), :method=>:post, :title=>t('labels.activate')%>
-                  <%end%>
+                    <%if category_mapping.is_active %>
+                      <%= link_to image_tag("../images/deactive.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.deactivate'), update_category_mapping_categories_path(:id=>category_mapping.id, :status=>"Deactivate"), :confirm => t('labels.category_deact_confirm'), :method=>:post, :title=>t('labels.deactivate')%>
+                    <%else%>
+                      <%= link_to  image_tag("../images/active.jpg",:width=>"14",:height=>"14",:alt=>"img") +t('labels.activate'),  update_category_mapping_categories_path(:id=>category_mapping.id,:status=>"Activate"), :confirm => t('labels.category_act_confirm'), :method=>:post, :title=>t('labels.activate')%>
+                    <%end%>
 
+                  </div>
                 </div>
+                <div class="clear"></div>
               </div>
-              <div class="clear"></div>
-            </div>
+            <%end%>
           <%end%>
         <%end%>
       <%else%>
@@ -102,3 +105,4 @@
   </div>
 
 </div>
+

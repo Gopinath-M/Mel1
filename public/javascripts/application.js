@@ -2474,10 +2474,6 @@ $().ready(function(){
             alert("Enter Name");
             return false;
         }
-        else if ($("#resource_description").val() == ""){
-            alert("Enter Description");
-            return false;
-        }
         else if ($("#resource_brand_model").val() == ""){
             alert("Enter Brand Model");
             return false;
@@ -2494,10 +2490,6 @@ $().ready(function(){
         }
         else if ($("#resource_name_others").val() == ""){
             alert("Enter Name");
-            return false;
-        }
-        else if ($("#resource_description_others").val() == ""){
-            alert("Enter Description");
             return false;
         }
     })

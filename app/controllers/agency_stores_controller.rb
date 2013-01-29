@@ -192,11 +192,11 @@ class AgencyStoresController < ApplicationController
       end
       resources = []
       if resource && !resource.empty?
-        resources = Resource.find(resource)
+        resources = Resource.active.find_all_by_id(resource)
       end
       #      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
     else
-      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
+      resources = Resource.active.where("sub_category_id = ? ", params[:sub_category_id])
     end
     render :json=>[resources] if resources
     #    end

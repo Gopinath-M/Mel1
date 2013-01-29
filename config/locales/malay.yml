@@ -1128,6 +1128,8 @@ malay:
     image : "Imej"
     list_newsletter_image: "Senarai Berita Imej Surat"
     list_resource_manager: "Senarai Pengurus Sumber"
+    room_new: "Bilik nama & Ext.no"
+
    
     
   activerecord:

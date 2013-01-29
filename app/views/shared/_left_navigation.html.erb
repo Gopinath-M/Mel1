@@ -134,19 +134,19 @@
                 <div id ="div_approve_resource_booking" style="display:none;">
                   <ul>
                     <li>
-                      <span class="notifiNo"><%= resource_transport_new_count > 0 ? resource_transport_new_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || first_approver.present? && second_approver.present? && first_approver.user_id == current_user.id || second_approver.user_id == current_user.id%><span class="notifiNo"><%= resource_transport_new_count > 0 ? resource_transport_new_count : '' %></span><%end%>
                       <%= link_to t('left_nav.travel_req'),approve_request_resource_transportation_bookings_path%>
                     </li>
                     <li>
-                      <span class="notifiNo"><%= resource_room_new_count > 0 ? resource_room_new_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || first_approver.present? && second_approver.present? && first_approver.user_id == current_user.id || second_approver.user_id == current_user.id%><span class="notifiNo"><%= resource_room_new_count > 0 ? resource_room_new_count : '' %></span><%end%>
                       <%= link_to t('labels.room_booking'), list_resource_booking_resource_room_bookings_path%>
                     </li>
                     <li>
-                      <span class="notifiNo"><%= resource_ict_new_count > 0 ? resource_ict_new_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || first_approver.present? && second_approver.present? && first_approver.user_id == current_user.id || second_approver.user_id == current_user.id%><span class="notifiNo"><%= resource_ict_new_count > 0 ? resource_ict_new_count : '' %></span><%end%>
                       <%= link_to t('left_nav.ict_equip_book'), requests_resource_ict_equipment_bookings_path%>
                     </li>
                     <li>
-                      <span class="notifiNo"><%= resource_other_new_count > 0 ? resource_other_new_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || first_approver.present? && second_approver.present? && first_approver.user_id == current_user.id || second_approver.user_id == current_user.id%><span class="notifiNo"><%= resource_other_new_count > 0 ? resource_other_new_count : '' %></span><%end%>
                       <%= link_to t('labels.others_booking'), list_resource_booking_resource_bookings_path%>
                     </li>
                   </ul>
@@ -826,7 +826,7 @@
       <li>
       %>
       <%# support_count = Outstation.where(:status=>"New").count  %>
-                              <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+                            <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
       <%#=link_to "Verify Request", approve_request_outstations_path%>
       <%#*
       </li>%>
