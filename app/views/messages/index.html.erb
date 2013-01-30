@@ -67,7 +67,7 @@
 		<div id="post_message_<%= message.id %>" class="postedMsg-row box">
 			<div class="postedMsg-img">
 				<% if message.user.avatar.blank?%>
-				<a href="#" title="<%= message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="60" height="60" /></a>
+				<a title="<%= message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="60" height="60" /></a>
 				<%else%>
 				<%= image_tag(message.user.avatar.url(:profile),:height=>60,:width=>60) %>
 				<%end%>
@@ -84,29 +84,28 @@
 
 				<p class="PM-des">
 					<%= t('labels.by')%>  <%= message.user.first_name %> &nbsp; - &nbsp; <%= time_ago_in_words(message.created_at) %> <%= t('labels.ago')%>
-					<% if message.message_comments.count == 0 %>
+					<% if message.message_comments.active.count == 0 %>
 					&nbsp; - &nbsp;
 					<a value="<%= message.id %>" id ="message_<%= message.id %>" title="Comment" onclick= "insert_text_field(id)"><%= t('labels.comment')%> </a>
+					<%end%>
 
 					<% if message.user.id == current_user.id %>
 					&nbsp; - &nbsp;
 					<%= link_to t('labels.delete'), message_path(:id => message.id),:method=>"delete",:confirm=>t('labels.delete_confirmation') %>
 					<%end%>
-					<%end%>
 				</p>
-
 				<div id ="comments_section_message_<%= message.id %>">
 
 				</div>
-				<% if message.message_comments.count > 0 %>
+				<% if message.message_comments.active.count > 0 %>
 				<div class="PM-cmts box">
 					<h4><%= t('labels.comments')%></h4>
-					<% message.message_comments.each do |comment| %>
+					<% message.message_comments.active.each do |comment| %>
 					<div class="clear"></div>
 					<div class="PM-cmts-row box">
 						<div class="PM-cmts-img">
 							<% if comment.user.avatar.blank?%>
-							<a href="#" title="<%= message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="60" height="60" /></a>
+							<a title="<%= message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="30" height="30" /></a>
 							<%else%>
 							<%= image_tag(comment.user.avatar.url(:profile),:height=>30,:width=>30) %>
 							<%end%>
@@ -116,7 +115,11 @@
 								<%= comment.comments %>
 							</p>
 							<p class="PM-des">
-								<%= t('labels.by')%> <a href="#" title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%= t('labels.ago')%>
+								<%= t('labels.by')%> <a title="<%= comment.user.first_name %>"> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%= t('labels.ago')%>
+								<% if comment.user.id == current_user.id %>
+								&nbsp; - &nbsp;
+								<%= link_to t('labels.delete'), message_path(:id =>comment.id,:comment=>true),:method=>"delete",:confirm=>t('labels.delete_confirmation') %>
+								<%end%>
 							</p>
 						</div>
 					</div>
@@ -137,7 +140,7 @@
 		<div id="post_message_<%= message.id %>" class="postedMsg-row box">
 			<div class="postedMsg-img">
 				<% if message.user.avatar.blank?%>
-				<a href="#" title="<%= message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="60" height="60" /></a>
+				<a title="<%= message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="60" height="60" /></a>
 				<%else%>
 				<%= image_tag(message.user.avatar.url(:profile),:height=>60,:width=>60) %>
 				<%end%>
@@ -145,9 +148,9 @@
 			<div class="postedMsg-txt">
 				<p class="head1">
 					<% if message.user.avatar.blank?%>
-					<a href="#" title="<%= message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="60" height="60" /></a>
+					<a title="<%= message.user.first_name.capitalize %>"><img src="/images/small_no_image.jpg" alt="Image" width="60" height="60" /></a>
 					<%else%>
-					<%= image_tag(message.user.avatar.url(:profile),:height=>30,:width=>30) %>
+					<%= image_tag(message.user.avatar.url(:profile),:height=>60,:width=>60) %>
 					<%end%>
 				</p>
 				<div class="PM-shared">
@@ -180,20 +183,21 @@
 					<% if message.message_comments.count == 0 %>
 					&nbsp; - &nbsp;
 					<a value="<%= message.id %>" id ="message_<%= message.id %>" title="Comment" onclick= "insert_text_field(id)"><%= t('labels.comment')%> </a>
+					<%end%>
 					<% if message.user.id == current_user.id %>
 					&nbsp; - &nbsp;
 					<%= link_to t('labels.delete'), message_path(:id => message.id),:method=>"delete",:confirm=>t('labels.delete_confirmation') %>
-					<%end%>
+
 					<%end%>
 				</p>
 				<div id ="comments_section_message_<%= message.id %>">
 
 				</div>
 				<div class="clear"></div>
-				<% if message.message_comments.count > 0 %>
+				<% if message.message_comments.active.count > 0 %>
 				<div class="PM-cmts box">
 					<h4><%= t('labels.comments')%></h4>
-					<% message.message_comments.each do |comment| %>
+					<% message.message_comments.active.each do |comment| %>
 					<div class="clear"></div>
 					<div class="PM-cmts-row box">
 						<div class="PM-cmts-img">
@@ -207,7 +211,7 @@
 								<%= comment.comments %>
 							</p>
 							<p class="PM-des">
-								<%= t('labels.by')%> <a href="#" title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%= t('labels.ago')%>
+								<%= t('labels.by')%> <a title="Melaka "> <%= comment.user.first_name %> </a> &nbsp; - &nbsp; <%= time_ago_in_words(comment.created_at) %> <%= t('labels.ago')%>
 							</p>
 						</div>
 					</div>

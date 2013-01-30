@@ -1,7 +1,7 @@
 class DepartmentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :is_admin#, :except=>'depart_user_list'
-
+  load_and_authorize_resource :only=>[:new,:index,:create,:update,:edit,:destroy]
   #List all Department
     def index
       @departments=nil

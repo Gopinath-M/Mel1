@@ -1,7 +1,7 @@
 class AgencyStoresController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
   before_filter :is_admin, :except=>[:get_resource,:get_agency_resource,:get_other_resource]
-
+  load_and_authorize_resource :only=>[:new,:index,:create,:update,:edit,:destroy]
   def index
     if params[:resource_id] && params[:resource_id] != '' && params[:resource_id]!=0
       @resource_id = params[:resource_id].to_i

@@ -4,6 +4,7 @@ class CreateMessageComments < ActiveRecord::Migration
       t.text :comments
       t.references :message
       t.string :commenter_id
+      t.boolean :deleted, :default => false
       t.timestamps
     end
   end
