@@ -61,5 +61,37 @@ module MessagesHelper
       end      
     end
   end
-  
+
+  def collect_messages_count
+
+    if !current_user.is_super_admin?
+      dept_id = current_user.departments.collect(&:id).join(',')
+      agency_id = current_user.departments.collect(&:agency_id).join(',')
+      unit_id = current_user.units.collect(&:id).join(',')
+      group = GroupMember.find_all_by_user_id("#{current_user.id}").collect(&:group_id).join(',')
+    end
+
+    case
+    when current_user.is_super_admin?
+      @messages = Message.where(:sender=>"#{current_user.id}",:deleted=>false).order("is_sticky_message desc,updated_at desc").count
+    when current_user.is_department_admin?
+      if !group.blank?
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and group_id = 0 and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (department_id in (#{dept_id}) and message_type = 'DeptAdmin' and send_to_dept_admins = true) or (message_type='Group' and (group_id in (#{group}))) or (agency_id in (#{agency_id})) ))"],:order => "is_sticky_message desc,updated_at desc").count
+      else
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (department_id in (#{dept_id}) and message_type = 'DeptAdmin' and send_to_dept_admins = true) or (agency_id in (#{agency_id})) ))"],:order => "is_sticky_message desc,updated_at desc").count
+      end   
+    when current_user.is_department_user? 
+      if !group.blank?      
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and group_id = 0 and send_to_dept_admins = false and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (agency_id in (#{agency_id}) and send_to_dept_admins = false) or (message_type='Group' and (group_id in (#{group})) )))"],:order => "is_sticky_message desc,updated_at desc").count
+      else
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (agency_id in (#{agency_id})) ))"],:order => "is_sticky_message desc,updated_at desc").count
+      end
+    when current_user.is_resource_manager? 
+      if !group.blank?      
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and group_id = 0 and send_to_dept_admins = false and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (agency_id in (#{agency_id}) and send_to_dept_admins = false) or (message_type='Group' and (group_id in (#{group})) )))"],:order => "is_sticky_message desc,updated_at desc").count
+      else
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (agency_id in (#{agency_id})) ))"],:order => "is_sticky_message desc,updated_at desc").count
+      end      
+    end
+  end  
 end
