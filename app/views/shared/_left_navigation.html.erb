@@ -132,21 +132,23 @@
               <li>
                 <%= link_to t('labels.approve_res_booking'), "javascript:void(0);" , :title=>t('labels.approve_res_booking') ,:class=>"", :id=>"lnk_approve_resource_booking" ,:onclick=>"leftNavigation(this.id,'div_approve_resource_booking')"%>
                 <div id ="div_approve_resource_booking" style="display:none;">
+                	<% first_approver = Approver.where(:department_id => @current_department).first %>
+    				<% second_approver = Approver.where(:department_id => @current_department).last %>
                   <ul>
                     <li>
-                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || first_approver.present? && second_approver.present? && first_approver.user_id == current_user.id || second_approver.user_id == current_user.id%><span class="notifiNo"><%= resource_transport_new_count > 0 ? resource_transport_new_count : '' %></span><%end%>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= resource_transport_new_count > 0 ? resource_transport_new_count : '' %></span><%end%>
                       <%= link_to t('left_nav.travel_req'),approve_request_resource_transportation_bookings_path%>
                     </li>
                     <li>
-                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || first_approver.present? && second_approver.present? && first_approver.user_id == current_user.id || second_approver.user_id == current_user.id%><span class="notifiNo"><%= resource_room_new_count > 0 ? resource_room_new_count : '' %></span><%end%>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= resource_room_new_count > 0 ? resource_room_new_count : '' %></span><%end%>
                       <%= link_to t('labels.room_booking'), list_resource_booking_resource_room_bookings_path%>
                     </li>
                     <li>
-                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || first_approver.present? && second_approver.present? && first_approver.user_id == current_user.id || second_approver.user_id == current_user.id%><span class="notifiNo"><%= resource_ict_new_count > 0 ? resource_ict_new_count : '' %></span><%end%>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= resource_ict_new_count > 0 ? resource_ict_new_count : '' %></span><%end%>
                       <%= link_to t('left_nav.ict_equip_book'), requests_resource_ict_equipment_bookings_path%>
                     </li>
                     <li>
-                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || first_approver.present? && second_approver.present? && first_approver.user_id == current_user.id || second_approver.user_id == current_user.id%><span class="notifiNo"><%= resource_other_new_count > 0 ? resource_other_new_count : '' %></span><%end%>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= resource_other_new_count > 0 ? resource_other_new_count : '' %></span><%end%>
                       <%= link_to t('labels.others_booking'), list_resource_booking_resource_bookings_path%>
                     </li>
                   </ul>
