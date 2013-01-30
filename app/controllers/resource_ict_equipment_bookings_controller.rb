@@ -1,6 +1,6 @@
 class ResourceIctEquipmentBookingsController < ApplicationController
   before_filter :authenticate_user!
-
+  load_and_authorize_resource
   def index
     if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
       @resource_ict_equipment_bookings=ResourceIctEquipmentBooking.where(:user_id=>current_user.id).order.page(params[:page]).per(10)
@@ -131,6 +131,12 @@ class ResourceIctEquipmentBookingsController < ApplicationController
       else
         approval_details(@resource_ict_equipment_booking)
         render :action=>'approve_request', :id => params[:id]
+      end
+      if !@resource_ict_equipment_booking.officer_id.nil?
+        @name = SubCategory.find(@resource_ict_equipment_booking.sub_category_id)
+        resource_name= @name.resources.first.name
+        user = User.find(@resource_ict_equipment_booking.officer_id)
+        UserMailer.resource_ict_equipment_approval_request_officer_need_mail(user,resource_name).deliver
       end
     end
   end

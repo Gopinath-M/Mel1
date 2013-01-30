@@ -332,4 +332,11 @@ class UserMailer < ActionMailer::Base
     @content = content
     mail(:to => user_email,:subject => subject)
   end
+
+  def resource_ict_equipment_approval_request_officer_need_mail(user,resource_name)
+    @user=user
+    @resource_name = resource_name
+    mail(:to=>@user.email,:subject =>"Resource ICT Equipment Approval Request Officer Need")
+  end
+
 end

@@ -75,12 +75,12 @@
                 <div class="form-sec-row">
                   <% if @ict_network.ict_network_attachment.present? %>
                     <label class="text"><%=t('labels.attachment')%></label>
-                    <% image = @ict_network.ict_network_attachment.url(:profile).split(".").last %>
+                    <% image = @ict_network.ict_network_attachment.url.split(".").last %>
                     <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
                       <span class="in-box">
                         <%=image_tag(@ict_network.ict_network_attachment.url(:profile),:title=>@ict_network.ict_network_attachment)%>
                       <%else%>
-                        <% file = (@ict_network.ict_network_attachment).url(:profile).split("/").last %>
+                        <% file = (@ict_network.ict_network_attachment).url.split("/").last %>
                         <td>&nbsp;<b><%= link_to file, download_attachments_ict_network_points_path(:id=>@ict_network.id) if @ict_network.ict_network_attachment?  %></b></td>
                       </span>
                     <%end%>
@@ -191,12 +191,14 @@
                     </span>
                   </div>
 
-                  <div class="form-sec-row">
-                    <label class="text"><%=t('labels.remarks')%></label>
-                    <span class="in-box">
-                      <%= @ict_network.remarks %>
-                    </span>
-                  </div>
+                  <% if @ict_network.remarks.present? %>
+                    <div class="form-sec-row">
+                      <label class="text"><%=t('labels.remarks')%></label>
+                      <span class="in-box">
+                        <%= @ict_network.remarks %>
+                      </span>
+                    </div>
+                  <%end%>
 
                   <div class="form-sec-row">
                     <label class="text"><%=t('labels.notes')%></label>
@@ -262,7 +264,7 @@
                       </tr>
                       <tr>
                         <td><%= f.select(:hardware_id, FacilityIctHardware.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Hardware") %></td>
-                        <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.hardware_type, p.id ] },:prompt => "Select Hardware") %></td>
+                        <td><%= f.select(:type_id, FacilityIctHardware.all.collect {|p| [ p.hardware_type, p.id ] },:prompt => "Select Type") %></td>
                         <td><b>&nbsp;<%=f.text_field :hardware_quantity, :onkeypress=>"return isNumberKey(event);",:class=> "size-quan-box-ict-network"%></b></td>
                         <td id="req_type_network"><b style="color:red;"><%=t('labels.install')%></b></td>
                         <td id="req_type_purchase"style="display:none;"><b style="color:red;"><%=t('labels.purchase')%></b></td>
@@ -285,7 +287,7 @@
                     <%= f.select(:location_center_id, FacilityIctAgency.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select Center")%> <%= f.select(:ict_wiring_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] } ,:prompt => "Select ICT Wiring")%>
                   </div>
                   <div class="form-sec-row">
-                    <label class="text"><%=t('labels.remarks')%><span style=color:red>*</span></label>
+                    <label class="text"><%=t('labels.remarks')%></label>
                     <span class="in-box">
                       <%= f.text_area :remarks, :cols => "20", :rows => "3"%>
                     </span>

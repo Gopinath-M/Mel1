@@ -2541,10 +2541,6 @@ $().ready(function(){
             alert("Select ICT Wiring");
             return false;
         }
-        else if ($("#ict_network_point_remarks").val() == ""){
-            alert("Enter Remarks");
-            return false;
-        }
         if(( $('#check_box_network').is(':checked') ==true) || ( $('#check_box_purchase').is(':checked') ==true)){
             if ($("#ict_network_point_hardware_id").val() == ""){
                 alert("Select Hardware Type");

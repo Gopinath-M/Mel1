@@ -109,7 +109,7 @@
         <span class="in-box"><%=@resource_ict_equipment_booking.need_officer ? "Yes" : "No"%></span>
       </div>
       <%  officers=get_officers(@resource_ict_equipment_booking.user_id)%>
-      <%  if @resource_ict_equipment_booking.need_officer && officers && !officers.blank?%>
+      <%  if @resource_ict_equipment_booking.need_officer && @resource_ict_equipment_booking.status == "New" && officers && !officers.blank?%>
         <div class="form-sec-row">
           <label class="text"><b><%=t('labels.assign_officer')%></b></label>
           <span class="in-box"><%=f.select :officer_id,  options_from_collection_for_select(officers, 'id','username'),{:prompt=>"Select a officer"}%></span>
@@ -127,6 +127,7 @@
       <tr>
         <td  colspan="2"><b style="color:#369"><u><%=t('labels.status_details')%></u></b></td>
       </tr>
+      <%@approve = Approver.active.find_all_by_department_id(@current_department).first%>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.status')%></label>
         <% if (@approve.present?  && @approve.user_id == current_user.id)  %>

@@ -70,8 +70,7 @@
               <div class="manage-user box">
                 <div class="manage-user-row box">
                   <div class="mu-c1">
-          <%#=category.name%>
-                    <% if category.id == 6%><%=image_tag("/images/icon_room.png", :alt=>"Room", :title=> "Room")%><% elsif category.id == 7 %>  <%=image_tag("/images/icon_transportation.png", :alt=>"Transport", :title=> "Transport")%><% elsif category.id == 8  %> <%=image_tag("/images/icon_ICT.png", :alt=>"ICT", :title=> "ICT")%> <% else %> <%=image_tag("/images/icon_othercategories.png", :alt=>"Others", :title=> "Others")%> <%end%>
+                    <%=category.name%>
                   </div>
                   <div class="mu-c2">
                     <p class="head1"><%=department.name%></p>

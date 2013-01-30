@@ -315,6 +315,62 @@
         </div>
   <%#end%>
         <div class="clear"></div>
+
+
+        <div class="leftNav-links box">
+          <%if (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) %>
+            <h2><%= t('left_nav.masters')%></h2>
+            <ul>
+              <li class="menu-item">
+                <%=link_to t('left_nav.facility_ict_softwares'), "javascript:void(0);" , :title=>"Facility Ict Softwares" ,:class=>"", :id=>"lnk_facility_ict_softwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_softwares')"%>
+                <div id ="div_facility_ict_softwares" style="display:none;">
+                  <ul>
+                    <li><%=link_to t('left_nav.create'), new_facility_ict_software_path%></li>
+                    <li><%=link_to t('left_nav.list'), facility_ict_softwares_path%></li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="menu-item">
+                <%=link_to t('left_nav.facility_ict_servers'), "javascript:void(0);" , :title=>"Facility Ict Servers" ,:class=>"", :id=>"lnk_facility_ict_servers" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_servers')"%>
+                <div id ="div_facility_ict_servers" style="display:none;">
+                  <ul>
+                    <li><%=link_to t('left_nav.create'), new_facility_ict_server_path%></li>
+                    <li><%=link_to t('left_nav.list'), facility_ict_servers_path%></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="menu-item">
+                <%=link_to t('left_nav.facility_ict_services'), "javascript:void(0);" , :title=>"Facility Ict Services" ,:class=>"", :id=>"lnk_facility_ict_services" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_services')"%>
+                <div id ="div_facility_ict_services" style="display:none;">
+                  <ul>
+                    <li><%=link_to t('left_nav.create'), new_facility_ict_service_path%></li>
+                    <li><%=link_to t('left_nav.list'), facility_ict_services_path%></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="menu-item">
+                <%=link_to t('left_nav.facility_ict_hardwares'), "javascript:void(0);" , :title=>"Facility Ict Hardwares" ,:class=>"", :id=>"lnk_facility_ict_hardwares" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_hardwares')"%>
+                <div id ="div_facility_ict_hardwares" style="display:none;">
+                  <ul>
+                    <li><%=link_to t('left_nav.create'), new_facility_ict_hardware_path%></li>
+                    <li><%=link_to t('left_nav.list'), facility_ict_hardwares_path%></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="menu-item">
+                <%=link_to t('left_nav.facility_ict_wirings'), "javascript:void(0);" , :title=>"Facility Ict Wirings" ,:class=>"", :id=>"lnk_facility_ict_wirings" ,:onclick=>"leftNavigation(this.id,'div_facility_ict_wirings')"%>
+                <div id ="div_facility_ict_wirings" style="display:none;">
+                  <ul>
+                    <li><%=link_to t('left_nav.create'), new_facility_ict_wiring_path%></li>
+                    <li><%=link_to t('left_nav.list'), facility_ict_wirings_path%></li>
+                  </ul>
+                </div>
+              </li></ul>
+          <%end%>
+        </div>
+
+
         <div class="leftNav-links box">
           <%if (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN || session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN )%>
             <h2><%= t('left_nav.management_tools')%></h2>
@@ -826,7 +882,7 @@
       <li>
       %>
       <%# support_count = Outstation.where(:status=>"New").count  %>
-                            <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
+                          <!--span class="notifiNo"><%#=  support_count > 0 ? support_count : ''%> </span-->
       <%#=link_to "Verify Request", approve_request_outstations_path%>
       <%#*
       </li>%>

@@ -1,6 +1,6 @@
 class ResourceBookingsController < ApplicationController
   before_filter :authenticate_user!
-  
+  load_and_authorize_resource
   def new
     @resource_booking=ResourceBooking.new
     category
@@ -9,7 +9,8 @@ class ResourceBookingsController < ApplicationController
   def category
     if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
       @category = Category.get_list_category("Room", "Transporation", "ICT Equipment")
-      @booking = CategoriesDepartments.where(:department_id => @current_department) if @category and !@category.empty?
+      args = ["6", "7", "8"]
+      @booking = CategoriesDepartments.find(:all, :conditions=>["department_id=#{@current_department} and category_id not in (?)", [args[0],args[1],args[2]]])
     end
   end
 
@@ -39,17 +40,17 @@ class ResourceBookingsController < ApplicationController
         if @resource_booking.valid?
           agency.update_attribute(:booked, true)
           @resource_booking.save
-          if current_user.is_department_admin? && current_user.is_super_admin?
-            @approve = Approver.active.find_all_by_department_id(current_user.departments).first
-            dept = Department.find_by_id(params[:department_id])
-            if !@approve.present?
-              user = dept.users.where("role_id = 2").first
-              UserMailer.send_mail_to_dept_admin_for_others_booking(user,@resource_booking,dept).deliver
-            else
-              user = User.find_by_id(@approve.user_id)
-              UserMailer.send_mail_to_approver_others_for_booking(user,@resource_booking,dept).deliver
-            end
+          #          if current_user.is_department_admin? && current_user.is_super_admin?
+          @approve = Approver.active.find_all_by_department_id(current_user.departments).first
+          dept = Department.find_by_id(params[:department_id])
+          if !@approve.present?
+            user = dept.users.where("role_id = 2").first
+            UserMailer.send_mail_to_dept_admin_for_others_booking(user,@resource_booking,dept).deliver
+          else
+            user = User.find_by_id(@approve.user_id)
+            UserMailer.send_mail_to_approver_others_for_booking(user,@resource_booking,dept).deliver
           end
+          #          end
           redirect_to(resource_bookings_path, :notice => "Resource booking has been created sucessfully.")
         else
           render :action=>'new'
@@ -181,6 +182,13 @@ class ResourceBookingsController < ApplicationController
     agency_store = AgencyStore.find_by_resource_id(params[:resource_id])
     if params[:resource_booking][:status] == "Returned" ||  params[:resource_booking][:status] == "Declined"
       agency_store.update_attribute(:booked, false)
+    end
+    if others.status == "Approved"
+      agency_store = AgencyStore.find_by_resource_id(params[:resource_id])
+      agency_store.update_attribute(:booked, false)
+      store = AgencyStore.find_by_resource_id(params[:resource_booking][:resource_id])
+      store.update_attribute(:booked, true)
+      others.update_attribute(:agency_store_id, store.id)
     end
     @resource_booking = ResourceBooking.find_by_id(params[:resource_book_id])
     @resource_booking.update_attributes(params[:resource_booking])
