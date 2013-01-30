@@ -42,7 +42,7 @@
 
 			<div id="user_type_select_group_div"></div>
 
-			<%elsif current_user.is_department_user? %>
+			<%elsif (current_user.is_department_user? || current_user.is_resource_manager?) %>
 
 			<div class="form-sec-row">
 				<span class="in-box"> <%= select_tag :message_user_select,"<option>Please Select</option><option>Select Group</option>".html_safe %> </span>
