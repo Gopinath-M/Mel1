@@ -24,11 +24,10 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.string   "web_link"
     t.datetime "from_date"
     t.datetime "to_date"
-    t.integer  "created_by"
-    t.integer  "updated_by"
     t.string   "advertisement_attachment"
-    t.boolean  "is_active",                :default => true
-    t.boolean  "deleted",                  :default => false
+    t.string   "advertisement_attachment_cache"
+    t.boolean  "is_active",                      :default => true
+    t.boolean  "deleted",                        :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -295,11 +294,10 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.string   "venue"
     t.string   "organizer"
     t.text     "description"
-    t.integer  "created_by"
-    t.integer  "updated_by"
     t.string   "event_attachment"
-    t.boolean  "is_active",        :default => true
-    t.boolean  "deleted",          :default => false
+    t.string   "event_attachment_cache"
+    t.boolean  "is_active",              :default => true
+    t.boolean  "deleted",                :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -393,7 +391,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
 
   create_table "group_members", :force => true do |t|
     t.integer  "group_id"
-    t.string   "user_id"
+    t.integer  "user_id"
     t.boolean  "is_active",  :default => true
     t.boolean  "deleted",    :default => false
     t.datetime "created_at"
@@ -403,7 +401,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.string   "department_id"
+    t.integer  "department_id"
     t.boolean  "is_active",     :default => true
     t.boolean  "deleted",       :default => false
     t.datetime "created_at"
@@ -467,6 +465,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.integer  "department_id"
     t.integer  "facility_ict_id"
     t.string   "application_category"
+    t.string   "ict_hardware_attachment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -502,7 +501,8 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.integer  "department_id"
     t.integer  "system_access_id"
     t.string   "system_access_attachment"
-    t.string   "status",                   :default => "New"
+    t.string   "system_access_attachment_cache"
+    t.string   "status",                         :default => "New"
     t.integer  "forward_to"
     t.text     "remarks"
     t.datetime "created_at"
@@ -518,8 +518,9 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.text     "justification"
     t.integer  "system_access_id"
     t.string   "vpn_attachment"
+    t.string   "vpn_attachment_cache"
     t.text     "note"
-    t.string   "status",              :default => "New"
+    t.string   "status",               :default => "New"
     t.integer  "forward_to"
     t.text     "remarks"
     t.datetime "created_at"
@@ -542,6 +543,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.integer  "agency_id"
     t.integer  "department_id"
     t.integer  "unit_id"
+    t.integer  "group_id"
     t.string   "attachment"
     t.string   "file_content_type"
     t.integer  "file_size"
@@ -618,7 +620,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.text     "location"
     t.datetime "requested_from_date"
     t.datetime "requested_to_date"
-    t.boolean  "need_officer",         :default => false
+    t.boolean  "need_officer",             :default => false
     t.integer  "user_id"
     t.integer  "officer_id"
     t.integer  "approver_id"
@@ -631,21 +633,12 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.boolean  "user_returned_status"
     t.datetime "acknowledged_date"
     t.boolean  "is_other_agency"
+    t.string   "ict_equipment_attachment"
     t.text     "notes"
-    t.string   "status",               :default => "New"
+    t.string   "status",                   :default => "New"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "resource_ict_equipment_bookings", ["agency_store_id"], :name => "index_resource_ict_equipment_bookings_on_agency_store_id"
-  add_index "resource_ict_equipment_bookings", ["approver_id"], :name => "index_resource_ict_equipment_bookings_on_approver_id"
-  add_index "resource_ict_equipment_bookings", ["created_at"], :name => "index_resource_ict_equipment_bookings_on_created_at"
-  add_index "resource_ict_equipment_bookings", ["department_id"], :name => "index_resource_ict_equipment_bookings_on_department_id"
-  add_index "resource_ict_equipment_bookings", ["id", "status"], :name => "index_resource_ict_equipment_bookings_on_id_and_status"
-  add_index "resource_ict_equipment_bookings", ["officer_id"], :name => "index_resource_ict_equipment_bookings_on_officer_id"
-  add_index "resource_ict_equipment_bookings", ["sub_category_id"], :name => "index_resource_ict_equipment_bookings_on_sub_category_id"
-  add_index "resource_ict_equipment_bookings", ["updated_at"], :name => "index_resource_ict_equipment_bookings_on_updated_at"
-  add_index "resource_ict_equipment_bookings", ["user_id"], :name => "index_resource_ict_equipment_bookings_on_user_id"
 
   create_table "resource_managers", :force => true do |t|
     t.integer  "agency_id"
@@ -684,6 +677,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.datetime "requested_from_date"
     t.datetime "requested_to_date"
     t.boolean  "user_returned_status"
+    t.boolean  "user_notification_mail", :default => false
     t.integer  "room_capacity"
     t.string   "purpose"
     t.text     "remarks"
@@ -827,6 +821,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
   end
 
   create_table "software_installation_details", :force => true do |t|
+    t.integer  "facility_ict_software_id"
     t.integer  "software_installation_id"
     t.integer  "user_id"
     t.integer  "department_id"
@@ -840,11 +835,11 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
   end
 
   create_table "software_installations", :force => true do |t|
-    t.integer  "facility_ict_software_id"
     t.integer  "requisition_type_id"
     t.string   "status"
     t.string   "software_attachment"
     t.integer  "user_id"
+    t.integer  "person_incharge"
     t.integer  "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"

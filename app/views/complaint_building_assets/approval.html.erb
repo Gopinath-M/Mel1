@@ -77,11 +77,13 @@
         <span class="in-box">
           <%= @complaint_building_asset.location %></span>
       </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.reason')%></label>
-        <span class="in-box">
-          <%= @complaint_building_asset.reason %></span>
-      </div>
+      <% if !@complaint_building_asset.reason.blank? %>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.reason')%></label>
+          <span class="in-box">
+            <%= @complaint_building_asset.reason %></span>
+        </div>
+      <%end%>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.serial_no')%></label>
         <span class="in-box">
@@ -184,7 +186,7 @@
                 <%=f.text_field :given_date, :value=>@complaint_building_asset && @complaint_building_asset.given_date!=nil ? @complaint_building_asset.given_date : nil ,:readonly=>true%></span>
             </div>
             <div class="form-sec-row">
-              <label class="text"><%=t('labels.receipt_date')%><span style=color:red>*</span></label>
+              <label class="text"><%=t('labels.receipt_date')%><span style=color:red></span></label>
               <span class="in-box">
                 <%=f.text_field :receipt_date, :value=>@complaint_building_asset && @complaint_building_asset.receipt_date!=nil ? @complaint_building_asset.receipt_date : nil ,:readonly=>true%>
               </span>
@@ -350,11 +352,6 @@
     else  if ((a.checked == true) && (c.value == "" ))
     {
       alert ("Select Proper Given Date & Time");
-      return false;
-    }
-    else if ((a.checked == true) && (d.value == "" ))
-    {
-      alert ("Select Proper Receipt Date & Time");
       return false;
     }
     else if ((a.checked == true) && (e.value == "" ))

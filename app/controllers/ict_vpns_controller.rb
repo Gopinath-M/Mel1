@@ -95,4 +95,17 @@ class IctVpnsController < ApplicationController
       @list_vpn = IctVpn.where(:department_id => @approve.department_id).order.page(params[:page]).per(4)
     end
   end
+
+  def list_requisition_vpn
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @ict_vpn = IctVpn.where(:user_id => users.id).order.page(params[:page]).per(5)
+    else
+      @ict_vpn = IctVpn.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
+  end
+
 end

@@ -22,11 +22,16 @@ Melaka::Application.routes.draw do
 
   resources :feeds, :only=>[:index]
   resources :templates
+  resources :newsletters do
+    get :autocomplete_email, :on => :collection
+  end
+  resources :newsletter_images
   resources :resource_bookings do
     collection do
       get 'get_other_sub_categories'
       get 'get_booked'
       get 'get_resources'
+      get 'list_others_booking'
       get 'resource_booking_approval'
       get 'list_resource_booking'
       put 'update_resource_booking'
@@ -52,6 +57,7 @@ Melaka::Application.routes.draw do
     collection do
       get 'requests'
       get 'download_attachments'
+      get 'list_requisition_hardware'
       get 'approve'
       put 'update_request'
     end
@@ -61,6 +67,7 @@ Melaka::Application.routes.draw do
     collection do
       get 'add_select_boxes'
       get 'list_ict_firewall'
+      get 'list_requisition_firewall'
       get 'download_attachments'
     end
   end
@@ -76,6 +83,7 @@ Melaka::Application.routes.draw do
   resources :resource_ict_equipment_bookings do
     collection do
       get 'requests'
+      get 'list_ict_equipment_booking'
       get 'download_attachments'
       get 'approve_request'
       put 'update_booking'
@@ -88,6 +96,9 @@ Melaka::Application.routes.draw do
     collection do
       get 'approval_network_point'
       get 'list_to_select_ict'
+      get 'get_hardware_type'
+      get 'get_location_for_hardware'
+      get 'list_requisition_network'
       get 'selected_list_ict'
       put 'update_approval_network_point'
       get 'list_ict_network'
@@ -108,6 +119,7 @@ Melaka::Application.routes.draw do
       get 'get_driver_details'
       get 'get_vehicles'
       post 'change_resource_status'
+      get 'list_transport_booking'
       get 'user_return_status'
       get 'download_attachments'
       get 'get_vehicle_brands'
@@ -167,6 +179,7 @@ Melaka::Application.routes.draw do
       get 'list_resource_booking'
       get 'resource_room_booking_approval'
       get 'get_booked_rooms'
+      get 'list_room_booking'
       get 'room_booking_approval'
       put 'update_room_booking'
       get 'get_resources'
@@ -251,6 +264,7 @@ Melaka::Application.routes.draw do
       get 'post_messages'
       get 'post_comments'
       get 'download_attachments'
+      get 'uploads'
     end
   end
     
@@ -259,7 +273,9 @@ Melaka::Application.routes.draw do
     collection do
       get 'for_agency'
       post 'update_status'
+      get 'list_resource_manager'
       get 'assign_resource_manager'
+      put 'update_assign_resource_manager'
       post 'update_assign_resource_manager'
       get 'role_memberships'
     end
@@ -360,6 +376,7 @@ Melaka::Application.routes.draw do
       get 'approval_software_installation'
       get 'resource_booking_approval'
       post 'resource_booking_approval'
+      get 'list_requisition_softwares'
       get 'add_select_boxes'
       get 'download_attachments'
     end
@@ -369,6 +386,7 @@ Melaka::Application.routes.draw do
     collection do
       get 'approval'
       put 'approval'
+      get 'list_requisition_vpn'
       get 'download_attachments'
       get 'list_vpn'
     end
@@ -378,6 +396,7 @@ Melaka::Application.routes.draw do
   resources :ict_system_accesses do
     collection do
       get 'approval'
+      get 'list_requisition_software'
       put 'approval'
       get 'download_attachments'
       get 'list_system_access'

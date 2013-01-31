@@ -8,162 +8,150 @@
     <%end%>
     <%= hidden_field_tag :resource_book_id,(@resource_booking.id)  %>
     <%= hidden_field_tag :resource_id,(@resource_booking.resource_id)  %>
+
+    <td><font color='#369'><b><u><%=t('labels.user_details')%>:-</u></b></font></td>
+
     <div class="form-sec">
-  <%# if @manager.present? %>
-      <div class="form-sec-row form-sec-row1">
-        <td><table width="500" border="0" cellspacing="0" cellpadding="0" align="center">
-            <tr>
-              <td style=" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333; border-bottom:1px solid #CCC;border-top:1px solid #CCC; padding:10px 0;">
-                <table width="750" border="2" cellspacing="3" cellpadding="3" align="center"><br/>
-                  <tr>
-                    <td><font color='#369'><b><u><%=t('labels.user_details')%>:-</u></b></font></td>
-                    <td></td>
-                  </tr>
 
-                  <% if @agency.present? %>
-                    <tr>
-                      <td><b><%=t('labels.agency_name')%></b></td>
-                      <td><b>&nbsp;<%= @agency.name  %></b></td>
-                    </tr>
-                  <%end%><% if @dept.present? %>
-                    <tr>
-                      <td><b><%=t('labels.department_name')%></b></td>
-                      <td><b>&nbsp;<%= @dept.name  %></b></td>
-                    </tr><%end%>
-                  <% if @manager.present? %>
-                    <tr>
-                      <td><b><%=t('labels.res_manager')%></b></td>
-                      <td><b>&nbsp;<%= @manager.first_name  %></b></td>
-                    </tr>
-                  <%end%>
-                  <tr>
-                    <td><b><%=t('labels.first_name')%></b></td>
-                    <td><b>&nbsp;<%= @user.first_name %></b></td>
-                  </tr>
-                  <tr>
-                    <td><b><%=t('labels.last_name')%></b></td>
-                    <td><b>&nbsp;<%= @user.last_name %></b></td>
-                  </tr>
-                  <tr>
-                    <td><b><%=t('labels.ic_no')%>IC Number</b></td>
-                    <td><b>&nbsp;<%= @user.ic_number %></b></td>
-                  </tr>
-                  <tr>
-                    <td><b><%=t('labels.email')%></b></td>
-                    <td><b>&nbsp;<%= @user.email %></b></td>
-                  </tr>
-
-                  <tr>
-                  <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
-            </tr>
-
-            <tr>
-              <td><font color="#369"><b><u><%=t('labels.res_det')%>:-</u></b></font></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><b><%=t('labels.ticket_no')%></b></td>
-            <b><td style="color:#BB0802;">&nbsp;<%=@resource_booking.id%>/<%=Time.now.year%></td></b>
-            </tr>
-            <tr>
-              <td><b><%=t('labels.date_of_app')%></b></td>
-              <td><b>&nbsp;<%=@resource_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
-            </tr>
-            <tr>
-              <td><b><%=t('labels.resource_name')%></b></td>
-              <td><b>&nbsp;<%=@resource.name%></b></td>
-            </tr>
-            <tr>
-              <td><b><%=t('labels.from_date')%></b></td>
-              <td><b>&nbsp;<%=@resource_booking.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
-            </tr>
-            <tr>
-              <td><b><%=t('labels.to_date')%></b></td>
-              <td><b>&nbsp;<%=@resource_booking.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
-            </tr>
-            <% if @resource_booking.status == "Returned" %>
-              <tr>
-                <td><b><%=t('labels.ret_date')%></b></td>
-                <td><b>&nbsp;<%=@resource_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></b></td>
-              </tr>
-            <%end%>
-            <tr>
-              <td><b><%=t('labels.purpose')%></b></td>
-              <td><b>&nbsp;<%=@resource_booking.purpose%></b></td>
-            </tr><% if @resource_booking.attachment.present? %>
-              <tr>
-                <td><b><%=t('labels.upload_file')%></b></td>
-                <% image = @resource_booking.attachment.url(:profile).split(".").last %>
-                <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-                  <td><%=image_tag(@resource_booking.attachment.url(:profile),:title=>@resource_booking.attachment)%></td>
-                <%else%>
-                  <% file = (@resource_booking.attachment).url(:profile).split("/").last %>
-                  <td>&nbsp;<b><%= link_to file, download_attachments_resource_bookings_path(:id=>@resource_booking.id) if @resource_booking.attachment?  %></b></td>
-                <%end%>
-              </tr>
-            <%end%>
-            <% if @resource_booking.description.present? %>
-              <tr>
-                <td><b><%=t('labels.remarks')%></b></td>
-                <td><b>&nbsp;<%=  @resource_booking.description%></b></td>
-              </tr>
-            <%end%>
-            <tr>
-              <td><b><%=t('labels.quantity')%></b></td>
-              <td><b>&nbsp;<%=@resource_booking.quantity%></b></td>
-            </tr>
-            <% if @facility.present? %>
-
-              <tr>
-              <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
-              </tr>
-
-              <tr>
-                <td><font color="#369"><b><u><%=t('labels.facility_details')%>:-</u></b></font></td>
-                <td></td>
-              </tr>
-              <% @facility.each do |facility| %>
-                <tr>
-                  <td><b> <%=t('labels.facility_name')%></b></td>
-                  <td><b>&nbsp;<%=facility.name%></b></td>
-                </tr>
-                <tr>
-                  <td><b><%=t('labels.quantity')%></b></td>
-                  <td><b>&nbsp;<%=facility.total_qty%></b></td>
-                </tr>
-              <%end%>
-            <%end%>
+      <% if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
+        <% if @agency.present? %>
+          <div class="form-sec-row">
+            <label class="text"><b><%=t('labels.agency_name')%></b></label>
+            <span class="in-box">&nbsp;<%= @agency.name  %></span>
+          </div>
+        <%end%>
+        <% if @dept.present? %>
+          <div class="form-sec-row">
+            <label class="text"><b><%=t('labels.department_name')%></b></label>
+            <span class="in-box">&nbsp;<%= @dept.name  %></span>
+          </div>
+        <%end%>
+      <%end%>
+      <% if @manager.present? %>
+        <div class="form-sec-row">
+          <label class="text"><b><%=t('labels.res_manager')%></b></label>
+          <span class="in-box">&nbsp;<%= @manager.first_name  %></span>
+        </div>
+      <%end%>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.first_name')%></b></label>
+        <span class="in-box">&nbsp;<%= @user.first_name %></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.last_name')%></b></label>
+        <span class="in-box">&nbsp;<%= @user.last_name %></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.ic_no')%></b></label>
+        <span class="in-box">&nbsp;<%= @user.ic_number %></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.email')%></b></label>
+        <span class="in-box">&nbsp;<%= @user.email %></span>
       </div>
 
       <tr>
       <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
       </tr>
 
-      <tr>
-        <td><font color="#369"><b><u><%=t('labels.status_details')%>:-</u></b></font></td>
+      <div class="form-sec-row">
+        <td><font color="#369"><b><u><%=t('labels.res_det')%>:-</u></b></font></td>
         <td></td>
-      </tr>
-      <tr>
-        <td><label class="text"> <%= f.label :location,t('labels.status'), :class=>"text"%></label></td>
-      <span class="in-box" style="color :<%= (@resource_booking.status == 'New') ? '#FFA500' : ((@resource_booking.status == 'Approved' || @resource_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
+      </div>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.ticket_no')%></b></label>
+        <span class="in-box"><td style="color:#BB0802;">&nbsp;<%=@resource_booking.id%>/<%=Time.now.year%></td></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.date_of_app')%></b></label>
+        <span class="in-box">&nbsp;<%=@resource_booking.created_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.resource_name')%></b></label>
+        <span class="in-box">&nbsp;<%=@resource.name%></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.from_date')%></b></label>
+        <span class="in-box">&nbsp;<%=@resource_booking.requested_from_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.to_date')%></b></label>
+        <span class="in-box">&nbsp;<%=@resource_booking.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%></span>
+      </div>
+      <% if @resource_booking.status == "Returned" %>
+        <div class="form-sec-row">
+          <label class="text"><b><%=t('labels.ret_date')%></b></label>
+          <span class="in-box">&nbsp;<%=@resource_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></span>
+        </div>
+      <%end%>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.purpose')%></b></label>
+        <span class="in-box">&nbsp;<%=@resource_booking.purpose%></span>
+      </div>
+      <% if @resource_booking.attachment.present? %>
+        <div class="form-sec-row">
+          <label class="text"><b><%=t('labels.upload_file')%></b></label>
+          <% image = @resource_booking.attachment.url(:profile).split(".").last %>
+          <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+            <span class="in-box">
+              <%=image_tag(@resource_booking.attachment.url(:profile),:title=>@resource_booking.attachment)%>
+            <%else%>
+              <% file = (@resource_booking.attachment).url(:profile).split("/").last %>
+              <%= link_to file, download_attachments_resource_bookings_path(:id=>@resource_booking.id) if @resource_booking.attachment?  %>
+            </span>
+          <%end%>
+        </div>
+      <%end%>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.remarks')%></b></label>
+        <span class="in-box">&nbsp;<%=  @resource_booking.description%> </span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text"><b><%=t('labels.quantity')%></b></label>
+        <span class="in-box">&nbsp;<%=@resource_booking.quantity%> </span>
+      </div>
+      <% if @facility.present? %>
 
-        <td>&nbsp;<b><%= @resource_booking.status %></b></span></td>
-      </tr>
-      </table>
-      </td>
-      </tr>
-      </table>
-      </td>
+        <tr>
+        <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+        </tr>
+
+        <div class="form-sec-row">
+          <td><font color="#369"><b><u><%=t('labels.facility_details')%>:-</u></b></font></td>
+          <td></td>
+        </div>
+        <% @facility.each do |facility| %>
+          <div class="form-sec-row">
+            <label class="text"><b> <%=t('labels.facility_name')%></b></label>
+            <span class="in-box">&nbsp;<%=facility.name%> </span>
+          </div>
+          <div class="form-sec-row">
+            <label class="text"><b><%=t('labels.quantity')%></b></label>
+            <span class="in-box">&nbsp;<%=facility.total_qty%></span>
+          </div>
+        <%end%>
+      <%end%>
     </div>
-    <div class="form-sec-row2">
-      <label class="text">&nbsp;</label>
-      <span class="in-box2">
-        <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
-      </span>
-    </div>
-  <%#else%>
-  <%#= "No Resource Available" %>
-  <%#end%>
+
+    <tr>
+    <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+  </tr>
+
+  <div class="form-sec-row">
+    <td><font color="#369"><b><u><%=t('labels.status_details')%>:-</u></b></font></td>
+    <td></td>
+  </div>
+  <div class="form-sec-row">
+    <label class="text"> <%= f.label :location,t('labels.status'), :class=>"text"%></label>
+    <span class="in-box" style="color :<%= (@resource_booking.status == 'New') ? '#FFA500' : ((@resource_booking.status == 'Approved' || @resource_booking.status == 'Processed') ? '#329C20' : 'red' )%>">
+      &nbsp;<b><%= @resource_booking.status %></b></span>
+  </div>
+  <div class="form-sec-row2">
+    <label class="text">&nbsp;</label>
+    <span class="in-box2">
+      <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
+    </span>
   </div>
   </div>
+
 <%end%>

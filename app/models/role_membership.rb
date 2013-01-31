@@ -10,13 +10,11 @@ class RoleMembership < ActiveRecord::Base
   validates :role_id, :presence => true
   validates :user_id, :presence => true
   validates :department_id, :presence => true, :if => Proc.new{|u| u.role_id!=1}
-  validate :roles 
+  before_update :roles 
 
   def roles
     #    if self.role_id == 1
     #      errors.add(:user, "cannot create Super Admin")
-    p self.inspect
-    p self.role_id
     if self.role_id == 2
       departments = RoleMembership.where(:department_id => self.department_id, :role_id => 2)
       if departments && !departments.empty?
@@ -33,8 +31,11 @@ class RoleMembership < ActiveRecord::Base
       if department && department!=nil
         members = RoleMembership.where("department_id in (?) and role_id = 5", departments)
         p members.inspect
-        if members && !members.empty?
-          errors.add(:user, (I18n.translate!('errors_date.res_man_already_exist')))
+        agency = Agency.find(self.agency)
+        if agency.user_id.present?
+          if members && !members.empty?
+            errors.add(:user, (I18n.translate!('errors_date.res_man_already_exist')))
+          end
         end
       else
         user_roles=RoleMembership.where(:user_id => self.user_id, :role_id => 5)

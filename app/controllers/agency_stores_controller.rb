@@ -1,7 +1,7 @@
 class AgencyStoresController < ApplicationController
   before_filter :authenticate_user!, :except=>[:activate]
   before_filter :is_admin, :except=>[:get_resource,:get_agency_resource,:get_other_resource]
-
+  load_and_authorize_resource :only=>[:new,:index,:create,:update,:edit,:destroy]
   def index
     if params[:resource_id] && params[:resource_id] != '' && params[:resource_id]!=0
       @resource_id = params[:resource_id].to_i
@@ -192,11 +192,11 @@ class AgencyStoresController < ApplicationController
       end
       resources = []
       if resource && !resource.empty?
-        resources = Resource.find(resource)
+        resources = Resource.active.find_all_by_id(resource)
       end
       #      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
     else
-      resources = Resource.where("sub_category_id = ? ", params[:sub_category_id])
+      resources = Resource.active.where("sub_category_id = ? ", params[:sub_category_id])
     end
     render :json=>[resources] if resources
     #    end

@@ -83,6 +83,14 @@
                       <b>Sub Category Type</b>
                     </td><td>&nbsp;<%= @resource_ict_equipment_booking.sub_category.name %></td>
                   </tr>
+                  <% if @resource_ict_equipment_booking.resource_id.present? %>
+                    <tr>
+                      <td>
+                        <b>Resource</b>
+                        <% resource = Resource.find(@resource_ict_equipment_booking.resource_id) %>
+                      </td><td>&nbsp;<%= resource.name %></td>
+                    </tr>
+                  <%end%>
                   <tr>
                     <td>
                       <b>Requested From Date</b>
@@ -97,23 +105,26 @@
                     <td>&nbsp;<%= @resource_ict_equipment_booking.requested_to_date.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
                     </td>
                   </tr>
+                  <% if @resource_ict_equipment_booking.officer_id.present? %>
+                    <% name = User.find(@resource_ict_equipment_booking.officer_id) %>
+                    <tr>
+                      <td>
+                        <b>Officer Name</b>
+                      </td>
+                      <td>&nbsp;<%= name.username%>
+                      </td>
+                    </tr>
+                  <%end%>
                   <tr>
                     <td>
-                      <b>Officer Need</b>
-                    </td>
-                    <td>&nbsp;<%= @resource_ict_equipment_booking.need_officer%>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <b>Requested From Date</b>
+                      <b>Meeting Start Date</b>
                     </td>
                     <td>&nbsp;<%= @resource_ict_equipment_booking.meeting_start_time.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <b>Requested From Date</b>
+                      <b>Meeting End Date</b>
                     </td>
                     <td>&nbsp;<%= @resource_ict_equipment_booking.meeting_end_time.to_datetime.strftime("%d-%m-%Y %H:%M %p")%>
                     </td>

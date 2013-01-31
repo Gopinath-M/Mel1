@@ -102,4 +102,16 @@ class IctSystemAccessesController < ApplicationController
     end
   end
 
+  def list_requisition_software
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @ict_system_access = IctSystemAccess.where(:user_id => users.id).order.page(params[:page]).per(5)
+    else
+      @ict_system_access = IctSystemAccess.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
+    end
+  end
+
 end

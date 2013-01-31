@@ -29,6 +29,9 @@ en:
     app_date_present_post: "Date of First Appointment of Public Service Should be Lesser than Date of First Appointment of the Present Post"
     present_post_present_grade: "Date of First Appointment of the Present Post Should be Lesser than Date of Promotion to Present Grade"
     present_grade_confirm_date: "Promotion to Present Grade Should be Lesser than Confirmation Date"
+    invalid_tel: "Telephone number must be less than or equal to 10"
+    invalid_fax: "Fax number must be less than or equal to 10"
+    invalid_contact: "Contact number must be less than or equal to 10"
   welcome:
     title: "Title"
     news: "Today's News"
@@ -181,6 +184,11 @@ en:
     category: "Category"
     sub_category: "Sub Categories"
     vehicle_brands: "Vehicle Brand"
+    newsletter: "Newsletters"
+    newsletter_images: "Newsletter Images"
+    newsletter_image: "Newsletter Image"
+    create_newsletter_image: "Create Newsletter Image"
+    details: "Details"
 
   labels:
     template_name: "Name"
@@ -960,6 +968,14 @@ en:
     repair_act_no: "No"
     is_visible_yes: "Yes"
     is_visible_no: "No"
+    subject: "Subject"
+    create_newsletter: "Create Newsletter"
+    list_newsletter: "List Newsletter"
+    created_at: "Created At"
+    image : "Image"
+    list_newsletter_image: "List Newsletter Image"
+    list_resource_manager: "List Resource Manager"
+    room_new: "Room Name & Ext.no"
 
   
 

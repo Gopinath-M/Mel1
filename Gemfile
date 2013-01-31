@@ -22,6 +22,8 @@ gem 'rdoc'
 gem 'mongrel', '1.2.0.pre2'
 gem 'rake', '0.9.2.2'
 gem 'rufus-scheduler'
+gem "rails3-jquery-autocomplete"
+gem 'cancan'
 
 #gem 'postgres', '~>0.8.1'
 #gem 'postgres-pr', '~>0.6.3'

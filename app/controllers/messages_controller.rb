@@ -113,14 +113,23 @@ class MessagesController < ApplicationController
 
   #Deleting Messages
   def destroy
-    @message = Message.find(params[:id]).update_attribute(:deleted,true)    
-    redirect_to messages_path
+    if params[:comment] && params[:comment].to_s == 'true'
+    @message = MessageComment.find(params[:id]).update_attribute(:deleted,true)
+    else
+    @message = Message.find(params[:id]).update_attribute(:deleted,true)
+    end    
+    redirect_to new_message_path
   end
   
   #Download Attachments
   def download_attachments
     @message = Message.find(params[:id])
     send_file @message.attachment.path
+  end
+  
+  #For Retrieving Uploaded Files by SuperAdmin
+  def uploads
+    @messages = Message.where("sender = '1' and attachment is not null").page(params[:page]).per(10)    
   end
   
 end

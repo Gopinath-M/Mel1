@@ -282,7 +282,7 @@ class UserMailer < ActionMailer::Base
     @user=user
     @ordered_user=ordered_user
     @resource_ict_equipment_booking =ict_booking
-    mail(:to=>@user.email,:subject =>"Ict Equipment Booking Update",:bcc=>@ordered_user.email)
+    mail(:to=>@user.email,:subject =>"Ict Equipment Booking Update")
   end
 
   def timeline_expire_mail_to_approver(user)
@@ -326,6 +326,17 @@ class UserMailer < ActionMailer::Base
     @outstation = outstation
     @user = user
     mail(:to=>@user.email,:subject=>"Your Outstation Request Details")
+  end
+
+  def newsletter(user_email,subject, content)
+    @content = content
+    mail(:to => user_email,:subject => subject)
+  end
+
+  def resource_ict_equipment_approval_request_officer_need_mail(user,resource_name)
+    @user=user
+    @resource_name = resource_name
+    mail(:to=>@user.email,:subject =>"Resource ICT Equipment Approval Request Officer Need")
   end
 
 end

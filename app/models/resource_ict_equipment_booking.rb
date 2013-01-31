@@ -22,17 +22,18 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
   
   def send_notification
     department = Department.find(Department.current_department) if User.current_role != DISP_USER_ROLE_SUPER_ADMIN
-   if User.current_role != DISP_USER_ROLE_SUPER_ADMIN && User.current_role != DISP_USER_ROLE_DEPT_ADMIN
+    if User.current_role != DISP_USER_ROLE_SUPER_ADMIN && User.current_role != DISP_USER_ROLE_DEPT_ADMIN
       first_approver = Approver.active.where(:department_id => department.id).first
       if !first_approver.present?
-      role = Role.find_by_name(DISP_USER_ROLE_DEPT_ADMIN)
+        role = Role.find_by_name(DISP_USER_ROLE_DEPT_ADMIN)
         admin_user = role.role_memberships.where(:department_id => Department.current_department).first.user
         UserMailer.resource_booking_notification(admin_user,self,department).deliver
+        User.current_role != DISP_USER_ROLE_SUPER_ADMIN ? UserMailer.resource_booking_notification(self.user,self,department).deliver : UserMailer.resource_booking_notification(self.user,self,nil).deliver
       else
         UserMailer.resource_booking_notification(first_approver.user,self, department).deliver
+        User.current_role != DISP_USER_ROLE_SUPER_ADMIN ? UserMailer.resource_booking_notification(self.user,self,department).deliver : UserMailer.resource_booking_notification(self.user,self,nil).deliver
       end
     end
-    User.current_role != DISP_USER_ROLE_SUPER_ADMIN ? UserMailer.resource_booking_notification(self.user,self,department).deliver : UserMailer.resource_booking_notification(self.user,self,nil).deliver
   end
 
   def validate_booking_time

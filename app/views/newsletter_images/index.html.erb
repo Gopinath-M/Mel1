@@ -1,0 +1,36 @@
+<div class="CenterNav">
+  <h2 class="b-head"><%=t('labels.list_newsletter_image')%></h2>
+  <div class="create-user">
+    <div class="cu-c1"><a href="/newsletter_images/new" title="<%=t('left_nav.create_newsletter_image')%>"><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('left_nav.create_newsletter_image')%></a></div>
+  </div>
+  <div id="div_ajax" >
+    <%if @newsletter_images && !@newsletter_images.empty?%>
+      <%  @newsletter_images.each do |newsletter_image|%>
+        <div class="manage-user box">
+          <div class="manage-user-row box">
+            <div class="form-sec">
+              <div class="clearfix">&nbsp;</div>
+              <div class="form-sec-row">
+                <label class="text"><%=t('labels.image')%></label>
+                <span class="in-box">
+                  <%= image_tag newsletter_image.image.url(:thumb), :alt=>newsletter_image.image.filename%>
+              </span>
+            </div>
+            <div class="form-sec-row">
+              <label class="text"><%=t('labels.created_at')%></label>
+              <span class="in-box">
+                <%=  newsletter_image.created_at.strftime("%a %B %d, %Y %I:%M:%S %p")%>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>
+    <div class="manage-user-rows box"><br/><br/>
+      <%= paginate @newsletter_images %>
+    </div>
+  <%else%>
+    <%=t('labels.no_data_available')%>
+  <%end%>
+  </div>
+</div>

@@ -139,7 +139,7 @@
 
                 <% if @ict_network.status == "Approved" || @ict_network.status == "Processed" || @ict_network.status == "Declined"%>
                   <h2 class="b-head"></h2>
-                  <font color="#369" size="2"><br/><b><u><%=t('labels.approval_info')%>-</u><br/><br/></b></font>
+                  <font color="#369" size="3"><br/><b><u><%=t('labels.approval_info')%>-</u><br/><br/></b></font>
 
                   <% name = User.find_by_id(@ict_network.person_incharge) %>
                   <div class="form-sec-row">
@@ -188,12 +188,14 @@
                     </span>
                   </div>
 
-                  <div class="form-sec-row">
-                    <label class="text"><%=t('labels.remarks')%></label>
-                    <span class="in-box">
-                      <%= @ict_network.remarks %>
-                    </span>
-                  </div>
+                  <% if @ict_network.remarks.present? %>
+                    <div class="form-sec-row">
+                      <label class="text"><%=t('labels.remarks')%></label>
+                      <span class="in-box">
+                        <%= @ict_network.remarks %>
+                      </span>
+                    </div>
+                  <%end%>
 
                   <div class="form-sec-row">
                     <label class="text"><%=t('labels.notes')%></label>

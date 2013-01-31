@@ -1,0 +1,33 @@
+<%if !request.xhr?%>
+  <div class="CenterNav">
+    <h2 class="b-head"><%=t('labels.list_resource_manager')%></h2>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+    <div class="create-user">
+      <div class="cu-c1"><a href="/agencies/assign_resource_manager" title=t('labels.assign_resource_manager')><img src="../images/add_user.jpg" width="17" height="16" alt="img" /> <%=t('labels.assign_resource_manager')%></a></div>
+
+    </div>
+  <%end%>
+  <div id="div_ajax" >
+    <%if @role_memberships && !@role_memberships.empty?%>
+      <%@role_memberships.each do |resource_manager|%>
+        <div class="manage-user-row box">
+          <div class="mu-c1">
+          </div>
+          <div class="mu-c2">
+            <% @user = User.find_by_id(resource_manager.user_id) %>
+            <p class="head1">
+              <% @dept = Department.find(resource_manager.department_id) %>
+              <font color='#329C20'><u><%= @dept.name %></u><br/></font>
+              <%=link_to content_tag(:b, @user.full_name), "javascript:void(0);"%><br/>
+              <%=@user.ic_number%><br/>
+              <%=link_to content_tag(:b, @user.email), "javascript:void(0);", :title=>@user.email%><br/>
+            </p>
+          </div>
+        </div>
+      <%end%>
+      <%= paginate @role_memberships %>
+    <%else%>
+      <%=t('labels.no_data_available')%>
+    <%end%>
+  </div>
+</div>

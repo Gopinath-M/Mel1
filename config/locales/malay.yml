@@ -184,6 +184,9 @@ malay:
     app_date_present_post: "Tarikh Lantikan Pertama Perkhidmatan Awam Perlu Lesser daripada Tarikh Lantikan Pertama Post Present"
     present_post_present_grade: "Tarikh Lantikan Pertama Post Present Hendaklah Lesser daripada Tarikh Promosi Hadir Gred"
     present_grade_confirm_date: "Kenaikan ke Gred Present Hendaklah Lesser daripada Tarikh Pengesahan"
+    invalid_tel: "Nombor telefon mesti kurang daripada atau sama dengan 10"
+    invalid_fax: "Nombor faks mesti kurang daripada atau sama dengan 10"
+    invalid_contact: "Hubungi nombor mesti kurang daripada atau sama dengan 10"
     
   welcome:
     title: "Tajuk"
@@ -337,6 +340,15 @@ malay:
     category: "Kategori"
     sub_category: "Sub Kategori"
     vehicle_brands: "Jenama kenderaan"
+    newsletter: "Berita Surat"
+    newsletter_images: "Berita Surat Imej"
+    newsletter_image: "Berita Surat Imej"
+    create_newsletter_image: "Mewujudkan Imej Surat Berita"
+    details: "Details"
+#    facility_ict_softwares: "Kemudahan ICT Perisian"
+#    facility_ict_servers: "Kemudahan ICT Pelayan"
+#    facility_ict_services: "Kemudahan perkhidmatan ICT"
+#    facility_ict_hardwares: "Kemudahan ICT perkakasan"
 
   labels:
     template_name: "Nama"
@@ -1116,6 +1128,15 @@ malay:
     repair_act_no: "Tiada"
     is_visible_yes: "Ya"
     is_visible_no: "Tiada"
+    subject: "Tertakluk"
+    create_newsletter: "Daftar Surat Berita"
+    list_newsletter: "Senarai Surat Berita"
+    created_at: "Diwujudkan Pada"
+    image : "Imej"
+    list_newsletter_image: "Senarai Berita Imej Surat"
+    list_resource_manager: "Senarai Pengurus Sumber"
+    room_new: "Bilik nama & Ext.no"
+
    
     
   activerecord:
@@ -1554,6 +1575,7 @@ malay:
             contact_mobile:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid"
+              not_a_number: "Tidak adalah nombor"
         emergency_reference:
           attributes:
             name:
@@ -1611,9 +1633,11 @@ malay:
             telephone_number:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid"
+              not_a_number: "Tidak adalah nombor"
             fax_number:
               blank: "Tidak Boleh kosong"           
               invalid: "Invalid"
+              not_a_number: "Tidak adalah nombor"
         vehicle:
           model_name:
             blank: "Tidak Boleh kosong"
@@ -1675,6 +1699,7 @@ malay:
             contact_no:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid"
+              not_a_number: "Tidak adalah nombor"
         unit:
           attributes:
             agency:
@@ -1704,9 +1729,11 @@ malay:
             telephone_number:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid"
+              not_a_number: "Tidak adalah nombor"
             fax_number:
               blank: "Tidak Boleh kosong"
-              invalid: "Invalid" 
+              invalid: "Invalid"
+              not_a_number: "Tidak adalah nombor"
         driver:
           attributes:
             name:
@@ -1715,6 +1742,7 @@ malay:
             telephone_number:
               blank: "Tidak Boleh kosong"
               invalid: "Invalid"
+              not_a_number: "Tidak adalah nombor"
         complaint_building_asset:
           attributes:
             building_asset_type_id:

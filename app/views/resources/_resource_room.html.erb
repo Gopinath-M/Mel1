@@ -11,9 +11,9 @@
   <%= hidden_field_tag :resource_type, ("room_booking") %>
 
   <div class="form-sec-row">
-    <label class="text"><%=t('labels.room_name')%><span style=color:red>*</span></label>
+    <label class="text"><%=t('labels.room_new')%><span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.text_field :resource_no, :size => 10%>
+      <%= f.text_field :resource_no,:size => 10%>
     </span>
   </div>
   <div class="form-sec-row">

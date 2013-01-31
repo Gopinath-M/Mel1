@@ -70,11 +70,13 @@
         <%= @system_model_name.name %></span>
     </div>
 
+   <% if !@complaint_computer.reason.blank?%>
     <div class="form-sec-row">
       <label class="text"><%=t('labels.reason')%></label>
       <span class="in-box">
         <%= @complaint_computer.reason %></span>
     </div>
+    <%end%>
     <div class="form-sec-row">
       <label class="text"><%=t('labels.serial_no')%></label>
       <span class="in-box">

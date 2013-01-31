@@ -34,15 +34,18 @@
               </div>
               <div class="m-c3">
                 <div class="form-sec-row">
-                  <% if resource.status == "Processed" && resource.user_id = current_user.id%>
-                    <div id="hide_check_box_<%= resource.id %>">
-                      <% if !resource.user_returned_status? %>
-                        <label class="text"> <%=t('labels.has_returned')%></label>
-                        <span class="in-box">
-                          <%= check_box_tag "user_returned_status[#{resource.id}]","",false,:onchange=>"toreturnresource(this.id,#{resource.id})" %>
-                        </span>
-                      <%end%>
-                    </div>
+                  <% @val = Resource.find_by_id(resource.resource_id) %>
+                  <% if @val.is_returnable? %>
+                    <% if resource.status == "Processed" && resource.user_id = current_user.id%>
+                      <div id="hide_check_box_<%= resource.id %>">
+                        <% if !resource.user_returned_status? %>
+                          <label class="text"> <%=t('labels.has_returned')%></label>
+                          <span class="in-box">
+                            <%= check_box_tag "user_returned_status[#{resource.id}]","",false,:onchange=>"toreturnresource(this.id,#{resource.id})" %>
+                          </span>
+                        <%end%>
+                      </div>
+                    <%end%>
                   <%end%>
                 </div>
               </div>

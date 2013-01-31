@@ -1,6 +1,6 @@
 class ResourceIctEquipmentBookingsController < ApplicationController
   before_filter :authenticate_user!
-
+  load_and_authorize_resource
   def index
     if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
       @resource_ict_equipment_bookings=ResourceIctEquipmentBooking.where(:user_id=>current_user.id).order.page(params[:page]).per(10)
@@ -125,12 +125,19 @@ class ResourceIctEquipmentBookingsController < ApplicationController
         if !agency.user_id.nil?
           UserMailer.send_status_mail_for_ict_equipment_booking(agency.user, @resource_ict_equipment_booking.user, @resource_ict_equipment_booking).deliver #if agency && agency.user  #if resource_manager && resource_manager.user && !resource_manager.user.blank?
         end
+        UserMailer.send_status_mail_for_ict_equipment_booking(@resource_ict_equipment_booking.user, @resource_ict_equipment_booking.user, @resource_ict_equipment_booking).deliver #if agency && agency.user  #if resource_manager && resource_manager.user && !resource_manager.user.blank?
         #        resource_manager = RoleMembership.find_by_user_id_and_role_id(agency.user_id, 05)
         #UserMailer.send_status_mail_for_ict_equipment_booking(resource_manager.user,@resource_ict_equipment_booking.user,@resource_ict_equipment_booking).deliver if resource_manager && resource_manager.user && !resource_manager.user.blank?
         redirect_to(requests_resource_ict_equipment_bookings_path, :notice => 'Your ICT Equipment Status has been successfully updated.')
       else
         approval_details(@resource_ict_equipment_booking)
         render :action=>'approve_request', :id => params[:id]
+      end
+      if !@resource_ict_equipment_booking.officer_id.nil?
+        @name = SubCategory.find(@resource_ict_equipment_booking.sub_category_id)
+        resource_name= @name.resources.first.name
+        user = User.find(@resource_ict_equipment_booking.officer_id)
+        UserMailer.resource_ict_equipment_approval_request_officer_need_mail(user,resource_name).deliver
       end
     end
   end
@@ -148,6 +155,18 @@ class ResourceIctEquipmentBookingsController < ApplicationController
       else
         render :json=>["Error"]
       end
+    end
+  end
+
+  def list_ict_equipment_booking
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @resource_ict_equipment_bookings = ResourceIctEquipmentBooking.where(:user_id => users.id).order.page(params[:page]).per(5)
+    else
+      @resource_ict_equipment_bookings = ResourceIctEquipmentBooking.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
     end
   end
 end

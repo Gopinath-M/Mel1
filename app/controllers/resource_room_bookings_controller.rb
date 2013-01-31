@@ -1,6 +1,7 @@
 class ResourceRoomBookingsController < ApplicationController
   before_filter :authenticate_user!
   #  before_filter :is_admin
+  load_and_authorize_resource
   def index
     if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
       @resource_room_bookings = ResourceRoomBooking.where(:user_id => current_user.id).order.page(params[:page]).per(5)
@@ -154,12 +155,13 @@ class ResourceRoomBookingsController < ApplicationController
       agency_store.update_attribute(:booked, false)
     end
     if room.status == "Approved"
-      if params[:resource_val][:id] != ""
+      if params[:change_room] == "true" && params[:resource_val][:id] != ""
         agency_store = AgencyStore.find_by_resource_id(room.resource_id)
         agency_store.update_attribute(:booked, false)
         store = AgencyStore.find_by_resource_id(params[:resource_val][:id])
         store.update_attribute(:booked, true)
         room.update_attribute(:resource_id, params[:resource_val][:id])
+        room.update_attribute(:agency_store_id, store.id)
       end
     end
     @user = User.find(room.user_id)
@@ -169,11 +171,10 @@ class ResourceRoomBookingsController < ApplicationController
       room.update_attributes(params[:resource_room_booking])
     end
     ordered_user = User.find_by_id(room.user_id)
-    resource_manager = RoleMembership.find_by_department_id(room.department_id, :conditions=>["role_id = ?", 5])
-    if resource_manager.present?
-      user = User.find_by_id(resource_manager.user_id)
-      UserMailer.send_status_mail_ordered_user_for_room_booking(user,ordered_user,room).deliver
-      UserMailer.send_status_mail_resource_manager_for_room_booking(user,ordered_user,room).deliver
+    agency = Agency.find(room.agency_store.agency_id)
+    if !agency.user_id.nil?
+      UserMailer.send_status_mail_ordered_user_for_room_booking(agency.user,ordered_user,room).deliver
+      UserMailer.send_status_mail_resource_manager_for_room_booking(agency.user,ordered_user,room).deliver
     end
     redirect_to(list_resource_booking_resource_room_bookings_path, :notice => 'Your Room Booking Status has been successfully updated.')
   end
@@ -252,6 +253,18 @@ class ResourceRoomBookingsController < ApplicationController
                                                resources.sub_category_id=#{params[:sub_category_id]}"
 
       render :json =>{ :booked => booked_rooms, :available => available_rooms}
+    end
+  end
+
+  def list_room_booking
+    if params[:ic_number].present?
+      users = User.find_by_ic_number(params[:ic_number])
+      @resource_room_bookings = ResourceRoomBooking.where(:user_id => users.id).order.page(params[:page]).per(5)
+    else
+      @resource_room_bookings = ResourceRoomBooking.order.page(params[:page]).per(5)
+    end
+    if request.xhr?
+      render :layout=>false
     end
   end
 

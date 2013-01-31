@@ -1,7 +1,7 @@
 class UnitsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :is_admin
-
+  load_and_authorize_resource
   def index
     @units=nil
     if params[:department_id].blank? || params[:department_id].nil?
