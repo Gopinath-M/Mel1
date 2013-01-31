@@ -43,7 +43,7 @@ class ResourceBookingsController < ApplicationController
           #          if current_user.is_department_admin? && current_user.is_super_admin?
           @approve = Approver.active.find_all_by_department_id(current_user.departments).first
           dept = Department.find_by_id(params[:department_id])
-          if !@approve.present?
+          if !@approve.present? && !current_user.is_super_admin?
             user = dept.users.where("role_id = 2").first
             UserMailer.send_mail_to_dept_admin_for_others_booking(user,@resource_booking,dept).deliver
           else
