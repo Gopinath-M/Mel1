@@ -59,7 +59,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :ic_number , :if=>Proc.new {|u| !u.ic_number.blank?}
   validates_numericality_of :ic_number, :if=>Proc.new {|u| !u.ic_number.blank?}
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>Proc.new {|u| !u.email.blank?}
-  validates_format_of :contact_mobile, :with=>/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+  #  validates_format_of :contact_mobile, :with=>/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+  validates_numericality_of :contact_mobile, :presence=> true
+  # validates_numericality_of :fax_number, :allow_blank=>true
+  validate :tel_number
   validate :validate_date_of_birth, :if=>Proc.new {|u| u.date_of_birth!=nil }
 
   def validate_date_of_birth
@@ -235,6 +238,12 @@ class User < ActiveRecord::Base
 
   def make_activation_code
     self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+  end
+
+  def tel_number
+    if self.contact_mobile.length > 10
+      errors.add(:base, (I18n.translate!('errors_date.invalid_tel')))
+    end
   end
 
   #I dont think so this method is needed. Becaz, if we are going to do authentication based on two fields we can use this method. Since we are doing authentication based on IC number only, it is not needed. I checked the sign in and sign up. It's working good. Nirmala, IF u think My suggestion is ok, Please remove it. while you are seeing this msg.

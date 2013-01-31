@@ -3301,61 +3301,61 @@ $("#ict_network_point_submit").live("click",function(){
 /* Requisition for Network Validation Ends*/
 
 
-$("#agency_submit").live("click",function(data){
-    if ($("#agency_name").val()=="")
-    {
-        alert("Enter Agency Name");
-        return false;
-    }
-    else if ($("#agency_address").val()=="")
-    {
-        alert("Enter the Address");
-        return false;
-    }
-    else if($("#agency_telephone_number").val()=="")
-    {
-        alert("Enter the Telephone Number");
-    //        #return false;
-    }
-    else if($("#agency_fax_number").val()=="")
-    {
-        alert("Enter the Fax Number");
-        return false;
-    }
-    var regEx = new RegExp("/[0-9]/");
-    if ($("#agency_telephone_number").val().length !=10 && !$("#agency_telephone_number").val().match(regEx)) {
-        alert("Invalid TelePhone Number");
-        return false;
-    }
-    if ($("#agency_fax_number").val().length !=10 && !$("#agency_fax_number").val().match(regEx)) {
-        alert("Invalid Fax Number");
-        return false;
-    }
-    if ($("#agency_name").val()!="" && $("#agency_address").val()!="" && $("#agency_telephone_number").val()!="" && $("#agency_fax_number").val()!="")
-    {
-        $.get("/agencies/for_agency",{
-            name: $("#agency_name").val(),
-            address: $("#agency_address").val(),
-            telephone_number: $("#agency_telephone_number").val(),
-            fax_number: $("#agency_fax_number").val(),
-            is_active: $("#agency_is_active").val()
-        }, function(data){
-            if(data && data[0]=="Success")
-            {
-                alert("success");
-            //                $("#agency_name").val("");
-            //                $("#agency_address").val("");
-            //                $("#agency_telephone_number").val("");
-            //                $("#agency_fax_number").val("");
-            //                $("#agency_is_active").val("");
-            }
-            else if(data && data[0]=="Failure")
-            {
-                alert("Failure")
-            }
-        });
-    }
-});
+//$("#agency_submit").live("click",function(data){
+//    if ($("#agency_name").val()=="")
+//    {
+//        alert("Enter Agency Name");
+//        return false;
+//    }
+//    else if ($("#agency_address").val()=="")
+//    {
+//        alert("Enter the Address");
+//        return false;
+//    }
+//    else if($("#agency_telephone_number").val()=="")
+//    {
+//        alert("Enter the Telephone Number");
+//    //        #return false;
+//    }
+//    else if($("#agency_fax_number").val()=="")
+//    {
+//        alert("Enter the Fax Number");
+//        return false;
+//    }
+//    var regEx = new RegExp("/[0-9]/");
+//    if ($("#agency_telephone_number").val().length !=10 && !$("#agency_telephone_number").val().match(regEx)) {
+//        alert("Invalid TelePhone Number");
+//        return false;
+//    }
+//    if ($("#agency_fax_number").val().length !=10 && !$("#agency_fax_number").val().match(regEx)) {
+//        alert("Invalid Fax Number");
+//        return false;
+//    }
+//    if ($("#agency_name").val()!="" && $("#agency_address").val()!="" && $("#agency_telephone_number").val()!="" && $("#agency_fax_number").val()!="")
+//    {
+//        $.get("/agencies/for_agency",{
+//            name: $("#agency_name").val(),
+//            address: $("#agency_address").val(),
+//            telephone_number: $("#agency_telephone_number").val(),
+//            fax_number: $("#agency_fax_number").val(),
+//            is_active: $("#agency_is_active").val()
+//        }, function(data){
+//            if(data && data[0]=="Success")
+//            {
+//                alert("success");
+//            //                $("#agency_name").val("");
+//            //                $("#agency_address").val("");
+//            //                $("#agency_telephone_number").val("");
+//            //                $("#agency_fax_number").val("");
+//            //                $("#agency_is_active").val("");
+//            }
+//            else if(data && data[0]=="Failure")
+//            {
+//                alert("Failure")
+//            }
+//        });
+//    }
+//});
 $("#resource_type").live("change",function(){
     $.get("/agency_stores/",{
         resource_type: $("#resource_type").val()

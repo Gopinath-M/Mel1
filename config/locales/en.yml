@@ -29,6 +29,9 @@ en:
     app_date_present_post: "Date of First Appointment of Public Service Should be Lesser than Date of First Appointment of the Present Post"
     present_post_present_grade: "Date of First Appointment of the Present Post Should be Lesser than Date of Promotion to Present Grade"
     present_grade_confirm_date: "Promotion to Present Grade Should be Lesser than Confirmation Date"
+    invalid_tel: "Telephone number must be less than or equal to 10"
+    invalid_fax: "Fax number must be less than or equal to 10"
+    invalid_contact: "Contact number must be less than or equal to 10"
   welcome:
     title: "Title"
     news: "Today's News"
