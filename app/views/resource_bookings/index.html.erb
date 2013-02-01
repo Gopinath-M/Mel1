@@ -106,6 +106,8 @@
 
           </div>
         <%end%>
+        <div class="manage-user-rows box"><br/><br/>
+  		<%= paginate @resource_bookings %></div>
       <%else%>
         <%=t('labels.no_resource_available')%>
       <%end%>
