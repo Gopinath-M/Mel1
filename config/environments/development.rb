@@ -40,6 +40,7 @@ Melaka::Application.configure do
     :enable_starttls_auto => true  }
 
   SPREFIX = YAML::load(File.open(Rails.root.join("config", "stalker.yml")))[Rails.env]["stalker_prefix"]
-  
+  APP_URL="http://202.188.126.23"
+  MAIN_SITE_URL="http://202.188.126.23"
 end
 
