@@ -15,6 +15,7 @@ development:
   pool: 5
   username: postgres
   password: Admin1234
+
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
   #host: localhost
@@ -47,4 +48,5 @@ production:
   pool: 5
   username: postgres
   password: Admin1234
+
 
