@@ -27,9 +27,13 @@ Melaka::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
   require 'yaml'
   @mailer_config = YAML::load(File.open(Rails.root.join("config/mailer.yml")))[Rails.env]
+<<<<<<< Updated upstream
  # config.action_mailer.default_url_options = { :host => @mailer_config['host'] }
 
   config.action_mailer.default_url_options = { :host => '182.151.62.29:3003'}
+=======
+  config.action_mailer.default_url_options = { :host => '202.188.126.23' }
+>>>>>>> Stashed changes
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
@@ -40,6 +44,11 @@ Melaka::Application.configure do
     :password             => @mailer_config['password'],
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
+<<<<<<< Updated upstream
+=======
+  APP_URL="http://202.188.126.23"
+  MAIN_SITE_URL="http://202.188.126.23"
+>>>>>>> Stashed changes
   SPREFIX = YAML::load(File.open(Rails.root.join("config", "stalker.yml")))[Rails.env]["stalker_prefix"]
   
   APP_URL="http://182.151.62.29:3003"
