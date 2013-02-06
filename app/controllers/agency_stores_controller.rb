@@ -47,6 +47,7 @@ class AgencyStoresController < ApplicationController
       @store.agency_id = params[:room][:agency_id]
       @store.sub_category_id = params[:room_agency][:sub_category_id]
       @store.resource_id = params[:room_agency][:resource_id]
+      resource = Resource.find(params[:room_agency][:resource_id]).update_attribute(:alloted,true)
       #      @store.save
     elsif params[:transport_agency]
       @store = AgencyStore.new(params[:agency_store])
@@ -55,6 +56,7 @@ class AgencyStoresController < ApplicationController
       @store.driver_id = params[:transport][:driver_id]
       @store.sub_category_id = params[:transport_agency][:sub_category_id]
       @store.resource_id = params[:transport_agency][:resource_id]
+      resource = Resource.find(params[:transport_agency][:resource_id]).update_attribute(:alloted,true)
       #      SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
       #      @store.save
     elsif params[:ict_agency]
@@ -79,6 +81,7 @@ class AgencyStoresController < ApplicationController
           flash[:alert] = stock_flag_errors.to_s
           render :action => 'new'
         else
+          resource = Resource.find(params[:ict_agency][:resource_id]).update_attribute(:alloted,true)
           stocks.each do |stock|
             stock.save
           end
@@ -87,6 +90,7 @@ class AgencyStoresController < ApplicationController
         end
       else
         @store = AgencyStore.create(:resource_type=>"ICT", :agency_id => params[:ict][:agency_id], :sub_category_id =>  params[:ict_agency][:sub_category_id], :resource_id => params[:ict_agency][:resource_id], :quantity=>params[:ict_agency][:quantity] )
+        resource = Resource.find(params[:ict_agency][:resource_id]).update_attribute(:alloted,true)
       end
 
 
