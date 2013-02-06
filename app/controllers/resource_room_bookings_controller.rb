@@ -40,16 +40,16 @@ class ResourceRoomBookingsController < ApplicationController
     end
   end
 
-  def create
+  def create   
     category
     from_date = params[:resource_room_booking][:requested_from_date].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
     to_date = params[:resource_room_booking][:requested_to_date].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
     agency = AgencyStore.find_by_resource_id(params[:resource_room_booking][:resource_id])
     if !agency.nil?
       if agency.booked == false
-        val = ResourceIctEquipmentBooking.find(:all,:conditions => [" resource_id = ? and status != ? and '#{from_date}' BETWEEN requested_from_date and requested_to_date", params[:resource_ict_equipment_booking][:resource_id], 'Returned'] )
-        val1 = ResourceIctEquipmentBooking.find(:all,:conditions => [" resource_id = ? and status != ? and '#{to_date}' BETWEEN requested_from_date and requested_to_date", params[:resource_ict_equipment_booking][:resource_id], 'Returned'] )
-        if !val.present? && !val1.present?
+        val = ResourceRoomBooking.find(:all,:conditions => [" resource_id = ? and status != ? and '#{from_date}' BETWEEN requested_from_date and requested_to_date", params[:resource_room_booking][:resource_id], 'Returned'] )
+        val1 = ResourceRoomBooking.find(:all,:conditions => [" resource_id = ? and status != ? and '#{to_date}' BETWEEN requested_from_date and requested_to_date", params[:resource_room_booking][:resource_id], 'Returned'] )
+        if !val.present? && !val1.present?          
           @approve = Approver.active.find_all_by_department_id(@current_department).first
           @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
           @resource_room_booking.agency_store_id = agency.id
@@ -69,7 +69,7 @@ class ResourceRoomBookingsController < ApplicationController
           end
           if @resource_room_booking.valid?
             @resource_room_booking.save
-#            agency.update_attribute(:booked, true)
+            #            agency.update_attribute(:booked, true)
             if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
               @booking = CategoriesDepartments.where(:category_id=> "6", :department_id=> @current_department)
               @approve = Approver.active.find_all_by_department_id(@current_department).first
@@ -89,7 +89,8 @@ class ResourceRoomBookingsController < ApplicationController
             render :action => 'new'
           end
         else
-          redirect_to(new_resource_room_booking_path, :alert => "The Room you have selected is already booked by Other User for this particular timing.")
+          flash[:alert] = "The TimeSlot for this Room has already booked. Please, Try other timeslot."
+          render :action => 'new'
         end
       else
         redirect_to(new_resource_room_booking_path, :alert => "You cant book the Already Reserved Room, Please try other.")
@@ -118,6 +119,7 @@ class ResourceRoomBookingsController < ApplicationController
       redirect_to(new_resource_room_booking_path, :alert => "Resource selected is not available in your Store.")
     end
   end
+
 
   def update
     @resource_room_booking = ResourceRoomBooking.find(params[:id]) if params[:id]
