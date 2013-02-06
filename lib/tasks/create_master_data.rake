@@ -21,6 +21,48 @@ namespace :tap do
 
 end
 
+
+namespace :test do
+  task :ict_hardware => :environment do
+    begin
+      p ActiveRecord::Base.connection.execute("TRUNCATE Facility_Ict_Hardwares")
+      #     p ActiveRecord::Base.connection.execute("drop table Facility_Ict_Hardwares")
+      #     ActiveRecord::Base.connection.execute "CREATE TABLE Facility_Ict_Hardwares (id integer, name varchar(256), hardware_type integer, is_active boolean)"
+      file = File.open("public/Facility_Ict_Hardwares.csv", "r")
+      file.readlines.each_with_index do |record, i|
+        begin
+          record_split = record.split(",")
+          FacilityIctHardware.create(:name=>record_split[0],:hardware_type=>record_split[1],:is_active=>true)
+        rescue Exception =>e
+          p "Exception ocurred due to #{e.to_s} at #{i}"
+        end
+      end
+    rescue Exception=>e
+      p "Exception due to : #{e.to_s}"
+    end
+  end
+end
+
+
+namespace :db do
+  task :ict_wiring => :environment do
+    begin
+      p ActiveRecord::Base.connection.execute("TRUNCATE Facility_Ict_Wirings")
+      file = File.open("public/Facility_Ict_Wirings.csv", "r")
+      file.readlines.each_with_index do |record, i|
+        begin
+          record_split = record.split(",")
+          FacilityIctWiring.create(:name=>record_split[0],:facility_hardware_id=>record_split[1],:is_active=>true)
+        rescue Exception =>e
+          p "Exception ocurred due to #{e.to_s} at #{i}"
+        end
+      end
+    rescue Exception=>e
+      p "Exception due to : #{e.to_s}"
+    end
+  end
+end
+
 		
 	     
 	   

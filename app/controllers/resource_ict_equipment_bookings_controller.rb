@@ -22,57 +22,66 @@ class ResourceIctEquipmentBookingsController < ApplicationController
   def create
     category
     @resource=params[:resource_ict_equipment_booking][:resource_id]
-    department_id = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? 0 : @current_department
-    dept = Department.find(@current_department) if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
-    create_flag = false
-    quantifiable = false
-    if !params[:resource_ict_equipment_booking][:agency_store_id].blank?
-      agency_store = AgencyStore.find(params[:resource_ict_equipment_booking][:agency_store_id])
-      if agency_store.booked == false
-        create_flag = true
-      end
-    else
-      if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
-        agency_store = AgencyStore.where(:resource_id => params[:resource_ict_equipment_booking][:resource_id], :sub_category_id => params[:resource_ict_equipment_booking][:sub_category_id], :agency_id => dept.agency_id).first
-      else
-        agency_store = AgencyStore.where(:resource_id => params[:resource_ict_equipment_booking][:resource_id], :sub_category_id => params[:resource_ict_equipment_booking][:sub_category_id]).first
-      end
-      # to be removed after moving to client server after resetting the db
-      if agency_store.quantity.nil?
-        agency_store.quantity=1
-      end
-      ######end
-
-      if agency_store && !agency_store.nil? && !agency_store.quantity.nil? && agency_store.quantity != agency_store.booked_quantity && agency_store.quantity > agency_store.booked_quantity
-        create_flag = true
-        quantifiable = true
-      end
-    end
-    if agency_store.nil?
-      @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id}))
-    else
-      @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id, :agency_store_id => agency_store.id}))
-    end
-    if create_flag
-      @resource_ict_equipment_booking.status = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? "Processed" : ((session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN) ? "Approved" : "New")
-      if @resource_ict_equipment_booking.valid?
-        @resource_ict_equipment_booking.save
-        if !quantifiable
-          agency_store.update_attribute(:booked, true)
-        else
-          if (agency_store.quantity - agency_store.booked_quantity) > 1
-            agency_store.update_attribute(:booked_quantity, agency_store.booked_quantity+1)
-          else
-            agency_store.update_attributes(:booked_quantity => agency_store.booked_quantity+1, :booked => true)
-          end
+    from_date = params[:resource_ict_equipment_booking][:requested_from_date].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    to_date = params[:resource_ict_equipment_booking][:requested_to_date].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    val = ResourceIctEquipmentBooking.find(:all,:conditions => [" resource_id = ? and status != ? and '#{from_date}' BETWEEN requested_from_date and requested_to_date", params[:resource_ict_equipment_booking][:resource_id], 'Returned'] )
+    val1 = ResourceIctEquipmentBooking.find(:all,:conditions => [" resource_id = ? and status != ? and '#{to_date}' BETWEEN requested_from_date and requested_to_date", params[:resource_ict_equipment_booking][:resource_id], 'Returned'] )
+    if !val.present? && !val1.present?
+      department_id = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? 0 : @current_department
+      dept = Department.find(@current_department) if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
+      create_flag = false
+      quantifiable = false
+      if !params[:resource_ict_equipment_booking][:agency_store_id].blank?
+        agency_store = AgencyStore.find(params[:resource_ict_equipment_booking][:agency_store_id])
+        if agency_store.booked == false
+          create_flag = true
         end
-        redirect_to resource_ict_equipment_bookings_path, :notice => "Your ICT Equipment booking has been created sucessfully."
       else
+        if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN
+          agency_store = AgencyStore.where(:resource_id => params[:resource_ict_equipment_booking][:resource_id], :sub_category_id => params[:resource_ict_equipment_booking][:sub_category_id], :agency_id => dept.agency_id).first
+        else
+          agency_store = AgencyStore.where(:resource_id => params[:resource_ict_equipment_booking][:resource_id], :sub_category_id => params[:resource_ict_equipment_booking][:sub_category_id]).first
+        end
+        # to be removed after moving to client server after resetting the db
+        if agency_store.quantity.nil?
+          agency_store.quantity=1
+        end
+        ######end
+
+        if agency_store && !agency_store.nil? && !agency_store.quantity.nil? && agency_store.quantity != agency_store.booked_quantity && agency_store.quantity > agency_store.booked_quantity
+          create_flag = true
+          quantifiable = true
+        end
+      end
+      if agency_store.nil?
+        @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id}))
+      else
+        @resource_ict_equipment_booking = ResourceIctEquipmentBooking.new(params[:resource_ict_equipment_booking].merge!({:department_id => department_id,:user_id => current_user.id, :agency_store_id => agency_store.id}))
+      end
+      if create_flag
+        @resource_ict_equipment_booking.status = (session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN) ? "Processed" : ((session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN) ? "Approved" : "New")
+        if @resource_ict_equipment_booking.valid?
+          @resource_ict_equipment_booking.save
+          if !quantifiable
+            agency_store.update_attribute(:booked, true)
+          else
+            if (agency_store.quantity - agency_store.booked_quantity) > 1
+              agency_store.update_attribute(:booked_quantity, agency_store.booked_quantity+1)
+            else
+              agency_store.update_attributes(:booked_quantity => agency_store.booked_quantity+1, :booked => true)
+            end
+          end
+          redirect_to resource_ict_equipment_bookings_path, :notice => "Your ICT Equipment booking has been created sucessfully."
+        else
+          render :action=>'new'
+        end
+      else
+        flash[:alert] = "You can't book already booked ICT Equipment, Please try other."
         render :action=>'new'
       end
     else
-      flash[:alert] = "You can't book already booked ICT Equipment, Please try other."
-      render :action=>'new' 
+      flash[:alert] = "The TimeSlot for this Resource has already booked. Please, try other timeslot."
+      render :action=>'new'
     end
   end
 
