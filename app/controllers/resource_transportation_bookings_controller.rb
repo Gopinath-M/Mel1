@@ -1,7 +1,7 @@
 class ResourceTransportationBookingsController < ApplicationController
   before_filter :authenticate_user!
   include ResourceTransportationBookingsHelper
-  load_and_authorize_resource 
+  #load_and_authorize_resource :except => [:change_resource_status,:user_return_status,:download_attachments] 
   def index
     #approve_request
     @resource_transportation_bookings = ResourceTransportationBooking.where(:requester_id => "#{current_user.id}").order.page(params[:page]).per(5)
