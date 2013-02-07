@@ -16,5 +16,16 @@ job "#{SPREFIX}.send.welcome" do |args|
   puts "sending welcome mail to #{user.email}"
   WelcomeMailer.for_user(user, password).deliver!
 end
- 
+
+job "#{SPREFIX}.send.newsletter" do |args|
+  puts "sending welcome mail to #{args[:user_email]}"
+  Newsletter.newsletter(args[:user_email], args[:subject],args[:content]).deliver!
+end
+#
+#job "#{SPREFIX}.send.approved_notification" do |args|
+#  resource = ResourceIctEquipmentBooking.find(args["id"])
+#  puts "sending Approved notification to #{resource.user.email}"
+#  UserNotification.resource_approved(resource.user, resource, args["updated_by"]).deliver!
+#end
+
 Stalker.work nil
