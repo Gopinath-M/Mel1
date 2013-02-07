@@ -11,7 +11,7 @@
   <div id="div_ajax" >
     <%if @list_system_access && !@list_system_access.empty?%>
       <%@list_system_access.each do |ict_system_access|%>
-        <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || ict_system_access.user_id == current_user.id || ict_system_access.forward_to == current_user.id || @approve == current_user.id%>
+        <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || ict_system_access.user_id == current_user.id || ict_system_access.forward_to == current_user.id || @approve.user_id == current_user.id || @approver_second.user_id == current_user.id %>
           <div class="manage-user box">
             <div class="manage-user-rows box">
               <% @sys_name = SystemAccess.find_by_id(ict_system_access.system_access_id)%>

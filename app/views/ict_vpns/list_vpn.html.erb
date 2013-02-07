@@ -11,7 +11,7 @@
   <div id="div_ajax" >
     <%if @list_vpn && !@list_vpn.empty?%>
       <%@list_vpn.each do |ict_vpn|%>
-        <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || ict_vpn.user_id == current_user.id || ict_vpn.forward_to == current_user.id || @approve == current_user.id%>
+        <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || ict_vpn.user_id == current_user.id || ict_vpn.forward_to == current_user.id || @approve.user_id == current_user.id || @approver_second.user_id == current_user.id %>
           <div class="manage-user box">
             <div class="manage-user-rows box">
               <% @name = RequisitionType.find_by_id(ict_vpn.requisition_type_id)%>

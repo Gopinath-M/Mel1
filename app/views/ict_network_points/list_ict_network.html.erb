@@ -4,7 +4,7 @@
   <div id="div_ajax" >
     <%if @list_network_point && !@list_network_point.empty?%>
       <%@list_network_point.each do |resource|%>
-        <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || resource.user_id == current_user.id || resource.person_incharge == current_user.id || @approve == current_user.id%>
+        <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || resource.user_id == current_user.id || resource.person_incharge == current_user.id || @approve.user_id == current_user.id || @approver_second.user_id == current_user.id %>
           <div class="manage-user box">
             <div class="manage-user-rows box">
               <div class="m-c1"><b><%=t('labels.name')%></b>
