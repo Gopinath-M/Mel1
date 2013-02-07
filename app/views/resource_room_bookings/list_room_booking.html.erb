@@ -118,6 +118,8 @@
             <h2 class="b-head"></h2>
           </div>
         <%end%>
+        <div class="manage-user-rows box"><br/><br/>
+          <%= paginate @resource_room_bookings %></div>
       <%else%>
         <%=t('labels.no_data_available')%>
       <%end%>

@@ -115,6 +115,26 @@ module ApplicationHelper
     return count
   end
 
+  def generic_model_status_network_count(model_name, status)
+    count=model_name.where("department_id = ? and status =? and person_incharge = ?",@current_department, status, current_user.id).count
+    return count
+  end
+
+  def generic_model_status_firewall_count(model_name, status)
+    count=model_name.where("department_id = ? and status =? and incharge_person = ?",@current_department, status, current_user.id).count
+    return count
+  end
+
+  def generic_model_status_vpn_count(model_name, status)
+    count=model_name.where("department_id = ? and status = ? and forward_to = ?",@current_department, status, current_user.id).count
+    return count
+  end
+
+  def generic_model_status_system_count(model_name, status)
+    count=model_name.where("department_id = ? and status = ? and forward_to = ?",@current_department, status, current_user.id).count
+    return count
+  end
+
   def generic_model_status_counts(model_name, status1, status2)
     count=model_name.where("department_id = ? and ( status = ? or status = ?) ",@current_department, status1, status2).count
     return count

@@ -159,34 +159,64 @@
                 <div id="div_process_ict_facility" style="display:none;">
                   <ul>
                     <li>
-                      <% software_count = approve_software_request('Approved')%>
-                      <span class="notifiNo"><%= software_count > 0 ? software_count : '' %></span>
-                      <%= link_to t('left_nav.software_req'), software_installations_path%>
+                      <% @software = SoftwareInstallation.all %>
+                      <% @software.each do |software| %>
+                        <% if software.person_incharge == current_user.id %>
+                          <% software_count = approve_software_request('Approved')%>
+                          <span class="notifiNo"><%= software_count > 0 ? software_count : '' %></span>
+                          <%= link_to t('left_nav.software_req'), software_installations_path%>
+                        <%end%>
+                      <%end%>
                     </li>
                     <li>
-                      <% firewall_count = generic_model_status_count(IctFirewall,'Approved')%>
-                      <span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
-                      <%= link_to t('labels.firewall_request'), list_ict_firewall_ict_firewalls_path %>
+                      <% @firewall = IctFirewall.all %>
+                      <% @firewall.each do |firewall| %>
+                        <% if firewall.incharge_person == current_user.id %>
+                          <% firewall_count = generic_model_status_firewall_count(IctFirewall,'Approved')%>
+                          <span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
+                          <%= link_to t('labels.firewall_request'), list_ict_firewall_ict_firewalls_path %>
+                        <%end%>
+                      <%end%>
                     </li>
                     <li>
-                      <% ict_network_new_approved_count = generic_model_status_count(IctNetworkPoint,'Approved')%>
-                      <span class="notifiNo"><%= ict_network_new_approved_count > 0 ? ict_network_new_approved_count : '' %></span>
-                      <%= link_to t('left_nav.network_req'), list_ict_network_ict_network_points_path %>
+                      <% @network = IctNetworkPoint.all %>
+                      <% @network.each do |network| %>
+                        <% if network.person_incharge == current_user.id %>
+                          <% ict_network_new_approved_count = generic_model_status_network_count(IctNetworkPoint,'Approved')%>
+                          <span class="notifiNo"><%= ict_network_new_approved_count > 0 ? ict_network_new_approved_count : '' %></span>
+                          <%= link_to t('left_nav.network_req'), list_ict_network_ict_network_points_path %>
+                        <%end%>
+                      <%end%>
                     </li>
                     <li>
-                      <% ict_hardware_count = ict_hardware_status_count('Approved')%>
-                      <span class="notifiNo"> <%= ict_hardware_count > 0 ? ict_hardware_count : ''%></span>
-                      <%= link_to t('left_nav.hardware_req'), requests_ict_hardware_bookings_path%>
+                      <% @hardware = IctHardwareBookedUser.all %>
+                      <% @hardware.each do |hardware| %>
+                        <% if hardware.forward_to == current_user.id %>
+                          <% ict_hardware_count = ict_hardware_status_count('Approved')%>
+                          <span class="notifiNo"> <%= ict_hardware_count > 0 ? ict_hardware_count : ''%></span>
+                          <%= link_to t('left_nav.hardware_req'), requests_ict_hardware_bookings_path%>
+                        <%end%>
+                      <%end%>
                     </li>
                     <li>
-                      <% ict_vpn_count = generic_model_status_count(IctVpn,'Approved') %>
-                      <span class="notifiNo"> <%= ict_vpn_count > 0 ? ict_vpn_count : ''%></span>
-                      <%= link_to t('left_nav.vpn_req'), list_vpn_ict_vpns_path %>
+                      <% @vpn = IctVpn.all %>
+                      <% @vpn.each do |vpn| %>
+                        <% if vpn.forward_to == current_user.id %>
+                          <% ict_vpn_count = generic_model_status_vpn_count(IctVpn,'Approved') %>
+                          <span class="notifiNo"> <%= ict_vpn_count > 0 ? ict_vpn_count : ''%></span>
+                          <%= link_to t('left_nav.vpn_req'), list_vpn_ict_vpns_path %>
+                        <%end%>
+                      <%end%>
                     </li>
                     <li>
-                      <% ict_system_access_count = generic_model_status_count(IctSystemAccess,'Approved') %>
-                      <span class="notifiNo"> <%= ict_system_access_count > 0 ? ict_system_access_count : ''%></span>
-                      <%= link_to t('left_nav.sys_access_req'), list_system_access_ict_system_accesses_path %>
+                      <% @system = IctSystemAccess.all %>
+                      <% @system.each do |system| %>
+                        <% if system.forward_to == current_user.id %>
+                          <% ict_system_access_count = generic_model_status_system_count(IctSystemAccess,'Approved') %>
+                          <span class="notifiNo"> <%= ict_system_access_count > 0 ? ict_system_access_count : ''%></span>
+                          <%= link_to t('left_nav.sys_access_req'), list_system_access_ict_system_accesses_path %>
+                        <%end%>
+                      <%end%>
                     </li>
                   </ul>
                 </div>
@@ -197,34 +227,36 @@
               <li>
                 <%= link_to t('labels.ict_facility'), "javascript:void(0);" , :title=>t('labels.ict_facility') ,:class=>"", :id=>"lnk_approve_ict_facility" ,:onclick=>"leftNavigation(this.id,'div_approve_ict_facility')"%>
                 <div id="div_approve_ict_facility" style="display:none;">
+                  <% first_approver = Approver.where(:department_id => @current_department).first %>
+                  <% second_approver = Approver.where(:department_id => @current_department).last %>
                   <ul>
                     <li>
                       <% software_count = approve_software_request('New')%>
-                      <span class="notifiNo"><%= software_count > 0 ? software_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= software_count > 0 ? software_count : '' %></span><%end%>
                       <%= link_to t('left_nav.software_req'), list_requisition_softwares_software_installations_path%>
                     </li>
                     <li>
                       <% firewall_count = generic_model_status_count(IctFirewall,'New')%>
-                      <span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span><%end%>
                       <%= link_to t('labels.firewall_request'), list_requisition_firewall_ict_firewalls_path %>
                     </li>
                     <li>
-                      <span class="notifiNo"><%= ict_network_new_count > 0 ? ict_network_new_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= ict_network_new_count > 0 ? ict_network_new_count : '' %></span><%end%>
                       <%= link_to t('left_nav.network_req'), list_requisition_network_ict_network_points_path %>
                     </li>
                     <li>
                       <% ict_hardware_count = ict_hardware_status_count('New')%>
-                      <span class="notifiNo"> <%= ict_hardware_count > 0 ? ict_hardware_count : ''%></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"> <%= ict_hardware_count > 0 ? ict_hardware_count : ''%></span><%end%>
                       <%= link_to t('left_nav.hardware_req'), list_requisition_hardware_ict_hardware_bookings_path%>
                     </li>
                     <li>
                       <% ict_vpn_count = generic_model_status_count(IctVpn,'New') %>
-                      <span class="notifiNo"> <%= ict_vpn_count > 0 ? ict_vpn_count : ''%></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"> <%= ict_vpn_count > 0 ? ict_vpn_count : ''%></span><%end%>
                       <%= link_to t('left_nav.vpn_req'), list_requisition_vpn_ict_vpns_path %>
                     </li>
                     <li>
                       <% ict_system_access_count = generic_model_status_count(IctSystemAccess,'New') %>
-                      <span class="notifiNo"> <%= ict_system_access_count > 0 ? ict_system_access_count : ''%></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"> <%= ict_system_access_count > 0 ? ict_system_access_count : ''%></span><%end%>
                       <%= link_to t('left_nav.sys_access_req'), list_requisition_software_ict_system_accesses_path %>
                     </li>
                   </ul>
@@ -234,34 +266,36 @@
               <li>
                 <%= link_to t('labels.ict_facility'), "javascript:void(0);" , :title=>t('labels.ict_facility') ,:class=>"", :id=>"lnk_approve_ict_facility" ,:onclick=>"leftNavigation(this.id,'div_approve_ict_facility')"%>
                 <div id="div_approve_ict_facility" style="display:none;">
+                  <% first_approver = Approver.where(:department_id => @current_department).first %>
+                  <% second_approver = Approver.where(:department_id => @current_department).last %>
                   <ul>
                     <li>
                       <% software_count = approve_software_request('New')%>
-                      <span class="notifiNo"><%= software_count > 0 ? software_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= software_count > 0 ? software_count : '' %></span><%end%>
                       <%= link_to t('left_nav.software_req'), software_installations_path%>
                     </li>
                     <li>
                       <% firewall_count = generic_model_status_count(IctFirewall,'New')%>
-                      <span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span><%end%>
                       <%= link_to t('labels.firewall_request'), list_ict_firewall_ict_firewalls_path %>
                     </li>
                     <li>
-                      <span class="notifiNo"><%= ict_network_new_count > 0 ? ict_network_new_count : '' %></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= ict_network_new_count > 0 ? ict_network_new_count : '' %></span><%end%>
                       <%= link_to t('left_nav.network_req'), list_ict_network_ict_network_points_path %>
                     </li>
                     <li>
                       <% ict_hardware_count = ict_hardware_status_count('New')%>
-                      <span class="notifiNo"> <%= ict_hardware_count > 0 ? ict_hardware_count : ''%></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"> <%= ict_hardware_count > 0 ? ict_hardware_count : ''%></span><%end%>
                       <%= link_to t('left_nav.hardware_req'), requests_ict_hardware_bookings_path%>
                     </li>
                     <li>
                       <% ict_vpn_count = generic_model_status_count(IctVpn,'New') %>
-                      <span class="notifiNo"> <%= ict_vpn_count > 0 ? ict_vpn_count : ''%></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"> <%= ict_vpn_count > 0 ? ict_vpn_count : ''%></span><%end%>
                       <%= link_to t('left_nav.vpn_req'), list_vpn_ict_vpns_path %>
                     </li>
                     <li>
                       <% ict_system_access_count = generic_model_status_count(IctSystemAccess,'New') %>
-                      <span class="notifiNo"> <%= ict_system_access_count > 0 ? ict_system_access_count : ''%></span>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"> <%= ict_system_access_count > 0 ? ict_system_access_count : ''%></span><%end%>
                       <%= link_to t('left_nav.sys_access_req'), list_system_access_ict_system_accesses_path %>
                     </li>
                   </ul>
@@ -815,14 +849,14 @@
                 <%end%>
                 <%if session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER %>
                   <!--li class="menu-item">
-                    <%#= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
+        <%#= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
                     <div id ="div_template" style="display:none;">
                       <ul>
                         <li>
-                          <%#= link_to t('left_nav.create'), new_template_path%>
+        <%#= link_to t('left_nav.create'), new_template_path%>
                         </li>
                         <li>
-                          <%#= link_to t('left_nav.list'), templates_path%>
+        <%#= link_to t('left_nav.list'), templates_path%>
                         </li>
                       </ul>
                     </div>
@@ -863,27 +897,27 @@
                       </div>
                     </li>
                     <!--li class="menu-item">
-                      <%#= link_to t('left_nav.newsletter'), "javascript:void(0);" , :title=>t('left_nav.newsletter') ,:class=>"", :id=>"lnk_newsletters" ,:onclick=>"leftNavigation(this.id,'div_newsletters')"%>
+          <%#= link_to t('left_nav.newsletter'), "javascript:void(0);" , :title=>t('left_nav.newsletter') ,:class=>"", :id=>"lnk_newsletters" ,:onclick=>"leftNavigation(this.id,'div_newsletters')"%>
                       <div id ="div_newsletters" style="display:none;">
                         <ul>
                           <li>
-                            <%#= link_to t('left_nav.create'), new_newsletter_path%>
+          <%#= link_to t('left_nav.create'), new_newsletter_path%>
                           </li>
                           <li>
-                            <%#= link_to t('left_nav.list'), newsletters_path%>
+          <%#= link_to t('left_nav.list'), newsletters_path%>
                           </li>
                         </ul>
                       </div>
                     </li>
                     <li class="menu-item">
-                      <%#= link_to t('left_nav.newsletter_images'), "javascript:void(0);" , :title=>t('left_nav.newsletter_images') ,:class=>"", :id=>"lnk_newsletter_images" ,:onclick=>"leftNavigation(this.id,'div_newsletter_images')"%>
+          <%#= link_to t('left_nav.newsletter_images'), "javascript:void(0);" , :title=>t('left_nav.newsletter_images') ,:class=>"", :id=>"lnk_newsletter_images" ,:onclick=>"leftNavigation(this.id,'div_newsletter_images')"%>
                       <div id ="div_newsletter_images" style="display:none;">
                         <ul>
                           <li>
-                            <%#= link_to t('left_nav.create'), new_newsletter_image_path%>
+          <%#= link_to t('left_nav.create'), new_newsletter_image_path%>
                           </li>
                           <li>
-                            <%#= link_to t('left_nav.list'), newsletter_images_path%>
+          <%#= link_to t('left_nav.list'), newsletter_images_path%>
                           </li>
                         </ul>
                       </div>
@@ -1192,14 +1226,14 @@
                 <%end%>
               <%end%>
               <!--li>
-                <%#= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
+    <%#= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
                 <div id ="div_template" style="display:none;">
                   <ul>
                     <li>
-                      <%#= link_to t('left_nav.create'), new_template_path%>
+    <%#= link_to t('left_nav.create'), new_template_path%>
                     </li>
                     <li>
-                      <%#= link_to t('left_nav.list'), templates_path%>
+    <%#= link_to t('left_nav.list'), templates_path%>
                     </li>
                   </ul>
                 </div>
