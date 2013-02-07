@@ -1,112 +1,104 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
-  <div class="form-sec">
-    <%= form_for(@user, :url => user_profile_users_path(:id=>@user.id), :html => { :method => :put, :multipart => true }) do |f| %>
-      <%=f.error_messages%>
-      <div class="clearfix">&nbsp;</div>
-      <div class="form-sec-row">
-      <div class="stepsblock">
-                    	<ul>
-                            <li class="step1 active" title="Step 1">Step 1</li>
-                            <li class="divider"></li>
-                            <li class="step2" title="Step 2">Step 2</li>
-                            <li class="divider"></li>
-                            <li class="step3" title="Step 3">Step 3</li>
-                            <li class="divider"></li>
-                            <li class="step4" title="Step 4">Step 4</li>
-                            <li class="divider"></li>
-                            <li class="step5" title="Step 5">Step 5</li>
-                        </ul>
-                    </div>
- </div>
-     <div class="clearfix">&nbsp;</div>
-      <h2><%=t('labels.update_user_profile')%></h2>
-      <div class="form-sec-row">
-     <label class="text"><%=t('labels.name')%><span style=color:red>*</span></label>
-        <span class="in-box">
-          <%= f.text_field :username, :size => 30, :autofocus => true%>
-        </span>
-      </div>
-     <div class="form-sec-row">
-      <label class="text"><%=t('labels.ic_no')%><span style=color:red>*</span></label>
-         <span class="in-box">
-          <%= @user.ic_number%>
-        </span>
-      </div>
-      <div class="form-sec-row">
-<label class="text"><%=t('labels.marital_status')%><span style=color:red>*</span></label>
-        <span class="in-box">
-          <%= f.radio_button :marital_status, 'Single', :checked=>@user && @user.marital_status=='Single' ? true : false%> <%= f.label :marital_status, "Single" %>
-           <%= f.radio_button :marital_status, 'Married', :checked=>@user && @user.marital_status=='Married' ? true : false%> <%= f.label :marital_status, "Married" %>
-           <%= f.radio_button :marital_status, 'Widow', :checked=>@user && @user.marital_status=='Widow' ? true : false%> <%= f.label :marital_status, "Widow/Widower" %></span>
-      </div>
-      <div class="form-sec-row">
-<label class="text"><%=t('labels.gender')%><span style=color:red>*</span></label>
-        <span class="in-box">
-      <%= f.radio_button :gender, 'Male', :checked=>@user && (@user.gender=='Male' || @user.gender.blank?) ? true : false%> <%= f.label :gender, "Male" %>
-      <%= f.radio_button :gender, 'Female', :checked=>@user && @user.gender=='Female' ? true : false%> <%= f.label :gender, "Female" %>
-</span>
-      </div>
-      <div class="form-sec-row">
-<label class="text"><%=t('labels.address')%><span style=color:red>*</span></label>
-      
-        <span class="in-box">
-          <%= f.text_field :address, :size => 30, :autofocus => true%>
-        </span>
-      </div>
-       <div class="form-sec-row">
-<label class="text"><%=t('labels.zipcode')%><span style=color:red>*</span></label>
-        
-        <span class="in-box">
-          <%= f.text_field :zipcode, :autofocus => true, :onkeypress=>"return isNumberKey(event);"%></span>
-       </div>
-       <div class="form-sec-row">
-<label class="text"><%=t('labels.city')%><span style=color:red>*</span></label>
-          
-          <span class="in-box"> <%= f.text_field :city, :size => 30, :autofocus => true%>
-        </span>
+	<div class="form-sec">
+		<%= form_for(@user, :url => user_profile_users_path(:id=>@user.id), :html => { :method => :put, :multipart => true }) do |f| %>
+		<%= f.error_messages%>
+		<div class="clearfix">
+			&nbsp;
+		</div>
+		<div class="form-sec-row">
+			<div class="stepsblock">
+				<ul>
+					<li class="step1 active" title="Step 1">
+						Step 1
+					</li>
+					<li class="divider"></li>
+					<li class="step2" title="Step 2">
+						Step 2
+					</li>
+					<li class="divider"></li>
+					<li class="step3" title="Step 3">
+						Step 3
+					</li>
+					<li class="divider"></li>
+					<li class="step4" title="Step 4">
+						Step 4
+					</li>
+					<li class="divider"></li>
+					<li class="step5" title="Step 5">
+						Step 5
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="clearfix">
+			&nbsp;
+		</div>
+		<h2><%= t('labels.update_user_profile')%></h2>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.name')%><span style=color:red>*</span></label>
+			<span class="in-box"> <%= f.text_field :username, :size => 30, :autofocus => true%> </span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.ic_no')%><span style=color:red>*</span></label>
+			<span class="in-box"> <%= @user.ic_number%> </span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.marital_status')%><span style=color:red>*</span></label>
+			<span class="in-box"> <%= f.radio_button :marital_status, 'Single', :checked=>@user && @user.marital_status=='Single' ? true : false%> <%= f.label :marital_status, "Single" %>
+				<%= f.radio_button :marital_status, 'Married', :checked=>@user && @user.marital_status=='Married' ? true : false%> <%= f.label :marital_status, "Married" %>
+				<%= f.radio_button :marital_status, 'Widow', :checked=>@user && @user.marital_status=='Widow' ? true : false%> <%= f.label :marital_status, "Widow/Widower" %></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.gender')%><span style=color:red>*</span></label>
+			<span class="in-box"> <%= f.radio_button :gender, 'Male', :checked=>@user && (@user.gender=='Male' || @user.gender.blank?) ? true : false%> <%= f.label :gender, "Male" %>
+				<%= f.radio_button :gender, 'Female', :checked=>@user && @user.gender=='Female' ? true : false%> <%= f.label :gender, "Female" %> </span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.address')%><span style=color:red>*</span></label>
 
-      </div>
-           <div class="form-sec-row">
-<label class="text"><%=t('labels.state')%><span style=color:red>*</span></label>
-       
-        <span class="in-box">
-          <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select State")%>
-        </span>
-      </div>
-      <div class="form-sec-row">
-<label class="text"><%=t('labels.hp_num')%><span style=color:red>*</span></label>
-      
-      <span class="in-box">
-        <%= f.text_field :hp_number, :onkeypress=>"return isNumberKey(event);", :size => 30, :autofocus => true%>
-      </span>
-    </div>
- <div class="form-sec-row">
-        <label class="text"><%=t('labels.dob')%><span style=color:red>*</span></label>
-        <span class="in-box">
-          <%=f.text_field :date_of_birth ,:value=>@user && @user.date_of_birth!=nil ? @user.date_of_birth.strftime("%d-%m-%Y") : nil ,:readonly=>true%>
-        </span>
-      </div>
-      <h2><%=t('labels.dependent')%></h2>
-       <div class="form-sec-row-out">
- <label class="text"><%=t('labels.total_children_dependent')%><span style=color:red>*</span></label>
-        
-        <span class="in-boxx">
-          <%= f.text_field :child, :autofocus => true, :onkeypress=>"return isNumberKey(event);", :class=>'size-quan-box-ict' %>persons
-        </span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text">&nbsp;</label>
-        <span class="in-box">
-          <%= f.submit t('labels.update_profile') ,:class=>"btn2"%>
-        </span>
-      </div>
-    </div>
-  </div>
-  <%#*</div>%>
-  <div class="clear"></div>
-  <!--BODY END-->
+			<span class="in-box"> <%= f.text_field :address, :size => 30, :autofocus => true%> </span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.zipcode')%><span style=color:red>*</span></label>
+
+			<span class="in-box"> <%= f.text_field :zipcode, :autofocus => true, :onkeypress=>"return isNumberKey(event);"%></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.city')%><span style=color:red>*</span></label>
+
+			<span class="in-box"> <%= f.text_field :city, :size => 30, :autofocus => true%> </span>
+
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.state')%><span style=color:red>*</span></label>
+
+			<span class="in-box"> <%= f.select(:state, State.all.collect {|p| [p.name.upcase, p.id]} ,:prompt => "Select State")%> </span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.hp_num')%><span style=color:red>*</span></label>
+
+			<span class="in-box"> <%= f.text_field :hp_number, :onkeypress=>"return isNumberKey(event);", :size => 30, :autofocus => true%> </span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.dob')%><span style=color:red>*</span></label>
+			<span class="in-box"> <%= f.text_field :date_of_birth ,:value=>@user && @user.date_of_birth!=nil ? @user.date_of_birth.strftime("%d-%m-%Y") : nil ,:readonly=>true%> </span>
+		</div>
+		<h2><%= t('labels.dependent')%></h2>
+		<div class="form-sec-row-out">
+			<label class="text"><%= t('labels.total_children_dependent')%><span style=color:red>*</span></label>
+
+			<span class="in-boxx"> <%= f.text_field :child, :autofocus => true, :onkeypress=>"return isNumberKey(event);", :class=>'size-quan-box-ict' %>persons </span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text">&nbsp;</label>
+			<span class="in-box"> <%= f.submit t('labels.update_profile') ,:class=>"btn2"%> </span>
+		</div>
+	</div>
+</div>
+<%#*</div>%>
+<div class="clear"></div>
+<!--BODY END-->
 <%end%>
-
 
 <div class="clearfix"></div>

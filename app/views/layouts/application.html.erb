@@ -152,12 +152,7 @@
             controlType: 'select',
             dateFormat: "D MM d, yy",
             timeFormat: 'HH:mm:ss'
-          });
-          $('#user_date_of_birth').datetimepicker({
-            controlType: 'select',
-            dateFormat: "D MM d, yy",
-            timeFormat: 'HH:mm:ss'
-          });
+          });         
           $("#complaint_building_asset_given_date").datetimepicker({
             controlType: 'select',
             dateFormat: "D MM d, yy",
@@ -169,7 +164,6 @@
             dateFormat: "D MM d, yy",
             timeFormat: 'HH:mm:ss'
           });
-
 
           $("#complaint_computer_given_date").datetimepicker({
             controlType: 'select',
@@ -187,7 +181,7 @@
     <%end%>
 
 
-    <% if controller_name.to_s=="user_services" || controller_name.to_s == "outstations" %>
+    <% if (controller_name.to_s=="user_services" || controller_name.to_s == "outstations" || controller_name.to_s == "users") %>
   <%#= javascript_include_tag 'jquery.ui.datepicker' %>
   <%#= stylesheet_link_tag 'jquery.ui.datepicker' %>
       <%= javascript_include_tag 'jquery.datepick' %>
@@ -203,6 +197,7 @@
           $("#user_service_confirmation_date").datepick();
           $("#outstation_from_date").datepick();
           $("#outstation_to_date").datepick();
+          $("#user_date_of_birth").datepick();
         });
       </script>
     <%end%>
