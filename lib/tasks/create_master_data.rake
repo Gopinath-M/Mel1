@@ -5,10 +5,10 @@ namespace :tap do
 	desc "Creating roles"
 	task :roles  => :environment do
 		roles = ["Super Admin", "Department Admin", "Department User", "Unit Admin"]
-	        roles.each do | role |
-                   role = Role.new(:name => role)
-                   role.save
-          end
+    roles.each do | role |
+      role = Role.new(:name => role)
+      role.save
+    end
   end
    
   desc "Creating Super Admin User"
@@ -19,9 +19,30 @@ namespace :tap do
     end
   end
 
+
+
+
 end
 
+namespace :pg do
+  desc "Archiving Tables"
+  task :archive_tables => :environment do
+    db_config = Rails.application.config.database_configuration[Rails.env]
+    
+    #stamp the filename
+    datestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
+    # add to array the tables to be archived
+    tables = ['resource_ict_equipment_bookings','resource_bookings','resource_room_bookings','resource_transportation_bookings']
+    tables.each do |table|
+#      sh "pg_dump --format=c --compress=0 -h localhost -U #{db_config['username']} -W #{db_config['password']} #{db_config['database']} -t #{table} > #{datestamp}_#{table}_file.dmp"
 
+      puts "-u#{db_config['username']} -p#{db_config['password']} #{db_config['database']}"
+      sh "mysqldump -u -p #{db_config['database']} #{table} > #{datestamp}_#{table}_file.sql"
+      #      sh "pg_dump -h localhost -U joe_user super_whammadyne | gzip -c > # {backup_file}"
+      #      sh pg_dump --format=c --compress=0  -h localhost  mydatabasename "#{table}" > mydump.dmp
+    end
+  end
+end
 namespace :test do
   task :ict_hardware => :environment do
     begin
