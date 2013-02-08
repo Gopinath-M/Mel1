@@ -28,21 +28,42 @@ namespace :pg do
   desc "Archiving Tables"
   task :archive_tables => :environment do
     db_config = Rails.application.config.database_configuration[Rails.env]
-    
     #stamp the filename
     datestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
-    # add to array the tables to be archived
-    tables = ['resource_ict_equipment_bookings','resource_bookings','resource_room_bookings','resource_transportation_bookings']
-    tables.each do |table|
-#      sh "pg_dump --format=c --compress=0 -h localhost -U #{db_config['username']} -W #{db_config['password']} #{db_config['database']} -t #{table} > #{datestamp}_#{table}_file.dmp"
+    path = "db_backup/#{datestamp}/"
+    if File.exists?(path)
+      d = Dir.new(path)
+      d.each  {|filename|
+      }
+    else
+      #      FileUtils.mkdir_p(File.dirname(path(path)))
+      @dirName = Dir.mkdir(path,0777) #Create a new directory
+    end
 
-      puts "-u#{db_config['username']} -p#{db_config['password']} #{db_config['database']}"
-      sh "mysqldump -u -p #{db_config['database']} #{table} > #{datestamp}_#{table}_file.sql"
-      #      sh "pg_dump -h localhost -U joe_user super_whammadyne | gzip -c > # {backup_file}"
-      #      sh pg_dump --format=c --compress=0  -h localhost  mydatabasename "#{table}" > mydump.dmp
+    # add to array the tables to be archived
+    tables = [ 'departments','users', 'agencies']
+    tables1 = ['resource_ict_equipment_bookings','resource_bookings','resource_room_bookings','resource_transportation_bookings']
+    tables.each do |table|
+      sh "pg_dump -h localhost -U #{db_config['username']}  #{db_config['database']} -t #{table} > #{path}#{datestamp}_#{table}_file.dmp"
+      sleep(10)
+    end
+    tables.each do |t1|
+      ActiveRecord::Base.connection.tables.each do |table1|
+        ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table1};")
+      end
+    end
+  end
+
+  task :sql_dump  => :environment do
+    path = Dir.glob("db_backup/*").max_by {|f| File.mtime(f)}
+    db_config = Rails.application.config.database_configuration[Rails.env]
+    tables = ['users', 'departments', 'units']
+    Dir.glob("#{path}/*.dmp") do |dmp_file|
+      sh "psql -h localhost -U #{db_config['username']}  -a  #{db_config['database']}  < #{dmp_file}"
     end
   end
 end
+
 namespace :test do
   task :ict_hardware => :environment do
     begin
