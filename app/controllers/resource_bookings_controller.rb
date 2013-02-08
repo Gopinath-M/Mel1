@@ -132,12 +132,16 @@ class ResourceBookingsController < ApplicationController
 
   def list_resource_booking
     if current_user.is_resource_manager?
-      @booking = ResourceBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
+      #@booking = ResourceBooking.find_all_by_department_id(current_user.departments, :conditions => ["status != 'New'"])
+      agency = Department.find(@current_department).agency
+      depts = agency.departments.collect(&:id).join(',')
+      @booking = ResourceBooking.where("department_id in (#{depts}) and status !=?", "New").page(params[:page]).per(5)     
     else
       @approve = Approver.active.find_all_by_department_id(current_user.departments).first
       @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
       if @approve.present?
-        @booking = ResourceBooking.find_all_by_department_id(@approve.department_id)
+        #@booking = ResourceBooking.find_all_by_department_id(@approve.department_id)
+        @booking = ResourceBooking.where(:department_id => @approve.department_id).order.page(params[:page]).per(5)
       elsif @approver_second.present?
         @booking = ResourceBooking.where(:department_id => @approver_second.department_id)
       else
