@@ -687,7 +687,7 @@
                     <div id ="div_outstation_request1" style="display:none;">
                       <ul>
                         <li>
-                          <%= link_to t('labels.create_request'), new_outstation_path%>
+                          <%= link_to t('labels.create_request'), user_profile_users_path %>
                         </li>
                         <%if !user_service.blank? && !declaration_property.blank? && !emergency_reference.blank? && !outstation.blank? %>
                           <li>

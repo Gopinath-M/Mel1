@@ -9,7 +9,8 @@ class OutstationsController < ApplicationController
     if current_user.is_department_user?
       @outstations = Outstation.find_all_by_user_id_and_is_out_of_state(current_user.id,true)
     elsif current_user.is_department_admin?
-      @outstations = Outstation.where(:department_id=>@current_department,:is_out_of_state=>true)
+      #@outstations = Outstation.where(:department_id=>@current_department,:is_out_of_state=>true)
+      @outstations = Outstation.find(:all,:conditions=>["user_id != ? and department_id = ? and is_out_of_state = ?",current_user.id,current_department,true])
     elsif current_user.is_human_resource_manager?
       @outstations = Outstation.find(:all,:conditions=>["status != 'New' and is_out_of_state = true"])
     elsif current_user.is_suk_deputy?
@@ -28,7 +29,8 @@ class OutstationsController < ApplicationController
     if current_user.is_department_user?
       @outstations = Outstation.find_all_by_user_id_and_is_out_of_state(current_user.id,false)
     elsif current_user.is_department_admin?
-      @outstations = Outstation.where(:department_id=>@current_department,:is_out_of_state=>false)
+      #@outstations = Outstation.where(:department_id=>@current_department,:is_out_of_state=>false)
+      @outstations = Outstation.find(:all,:conditions=>["user_id != ? and department_id = ? and is_out_of_state = ?",current_user.id,current_department,false])
     elsif current_user.is_human_resource_manager?
       @outstations = Outstation.find(:all,:conditions=>["status != 'New' and is_out_of_state = false"])
     elsif current_user.is_datuk_suk?
