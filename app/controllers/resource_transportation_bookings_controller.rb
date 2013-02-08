@@ -271,7 +271,7 @@ class ResourceTransportationBookingsController < ApplicationController
 
   # Returning the resource once used
   def user_return_status
-    rtb = ResourceTransportationBooking.find(params[:id])
+    rtb = @rtb = ResourceTransportationBooking.find(params[:id])
     user = User.find(rtb.requester_id)
     if (user.is_super_admin? || user.roles.first.name == "Resource Manager")
       rtb.update_attributes(:resource_returned_from_user=>true,:status=>"Returned")
