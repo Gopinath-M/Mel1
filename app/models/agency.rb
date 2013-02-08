@@ -27,9 +27,10 @@ class Agency < ActiveRecord::Base
     if self.telephone_number.length > 10
       errors.add(:base, (I18n.translate!('errors_date.invalid_tel')))
     end
-    if self.fax_number.length > 10
+    if !self.fax_number.blank? && self.fax_number.length > 10
       errors.add(:base, (I18n.translate!('errors_date.invalid_fax')))
     end
   end
    
 end
+

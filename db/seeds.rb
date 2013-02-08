@@ -10,10 +10,10 @@ puts "All right! I have started seeding, now please be patient."
 
 puts "Creating Vendor"
 vendors = [
-  ['Vendor_one',  'PERANAKAN', '012-112-1111', true],
-  [ 'Vendor_two',  'ST.PAUL HILL', '012-112-1112',  true],
-  [ 'Vendor_three',  'PULAU UPEH',  '012-112-1113', true],
-  [ 'Vendor_four','HARI MERDEKA',  '012-112-1114',  true]
+  ['Vendor_one',  'PERANAKAN', '0121121111', true],
+  [ 'Vendor_two',  'ST.PAUL HILL', '0121121112',  true],
+  [ 'Vendor_three',  'PULAU UPEH',  '0121121113', true],
+  [ 'Vendor_four','HARI MERDEKA',  '0121121114',  true]
 ]
 vendors.each do |vendor|
   Vendor.create!(:name => vendor[0],:address=>vendor[1],:contact_no=>vendor[2], :is_active =>vendor[3])
@@ -27,14 +27,14 @@ end
 
 puts "Creating Agencies"
 agencies = [
-  ['Agency_one', 'Adress Agency One', '012-345-1111', true],
-  ['Agency_two', 'Adress Agency Two', '012-345-2222', true],
-  ['Agency_three', 'Adress Agency Three', '012-345-3333', true],
-  ['Prakash_Agency_One', 'Test Address1', '012-345-1110', true],
-  ['Prakash_Agency_Two', 'Test Address2', '012-345-2202', true],
-  ['Prakash_Agency_Three', 'Test Address3', '012-345-3033', true],
-  ['Prakash_Agency_Four', 'Test Address4', '012-345-0111', true],
-  ['Prakash_Agency_Five', 'Test Address5', '012-345-2022', true]
+  ['Agency_one', 'Adress Agency One', '0123451111', true],
+  ['Agency_two', 'Adress Agency Two', '0123452222', true],
+  ['Agency_three', 'Adress Agency Three', '0123453333', true],
+  ['Prakash_Agency_One', 'Test Address1', '0123451110', true],
+  ['Prakash_Agency_Two', 'Test Address2', '0123452202', true],
+  ['Prakash_Agency_Three', 'Test Address3', '0123453033', true],
+  ['Prakash_Agency_Four', 'Test Address4', '0123450111', true],
+  ['Prakash_Agency_Five', 'Test Address5', '0123452022', true]
 ]
 agencies.each do | agency |
   Agency.create!(:name => agency[0], :address=>agency[1], :telephone_number=>agency[2], :is_active => agency[3])
@@ -43,23 +43,23 @@ end
 puts "Creating Departments"
 
 departments = [
-  ['Jabatan Ketua Menteri Melaka', 'Dept One','012-345-4444',1,true],
-  ['Jabatan Mufti Negeri Melaka', 'Dept Two','012-345-5555',1,true],
-  ['Jabatan Agama Islam Melaka' 'Dept Three','012-345-6666',2,true],
-  ['Jabatan Kerja Raya Melaka','Dept Four','012-345-7777',2,true],
-  ['Jabatan Pertanian Negeri Melaka','Dept Five','012-345-8888',3,true],
-  ['Jabatan Kebajikan Masyarakat','Dept Six','012-345-9999',3,true],
-  ['Test Department1 of Prakash_Agency_One','Dept One','012-345-4446',4,true],
-  ['Test Department2 of Prakash_Agency_One','Dept Two','012-345-5557',4,true],
-  ['Test Department3 of Prakash_Agency_One','Dept Three','012-345-6668',4,true],
-  ['Test Department1 of Prakash_Agency_Two','Dept Four','012-345-7779',5,true],
-  ['Test Department2 of Prakash_Agency_Two','Dept Five','012-345-8882',5,true],
-  ['Test Department3 of Prakash_Agency_Two','Dept Six','012-345-9995',5,true],
-  ['Test Department1 of Prakash_Agency_Three','Dept One','012-345-4446',6,true],
-  ['Test Department2 of Prakash_Agency_Three','Dept Two','012-345-5558',6,true],
-  ['Test Department3 of Prakash_Agency_Three','Dept Three','012-345-6665',6,true],
-  ['Test Department1 of Prakash_Agency_Four','Dept Four','012-345-7775',7,true],
-  ['Test Department2 of Prakash_Agency_Four','Dept Five','012-345-8885',7,true]
+  ['Jabatan Ketua Menteri Melaka', 'Dept One','0123454444',1,true],
+  ['Jabatan Mufti Negeri Melaka', 'Dept Two','0123455555',1,true],
+  ['Jabatan Agama Islam Melaka', 'Dept Three','0123456666',2,true],
+  ['Jabatan Kerja Raya Melaka','Dept Four','0123457777',2,true],
+  ['Jabatan Pertanian Negeri Melaka','Dept Five','0123458888',3,true],
+  ['Jabatan Kebajikan Masyarakat','Dept Six','0123459999',3,true],
+  ['Test Department1 of Prakash_Agency_One','Dept One','0123454446',4,true],
+  ['Test Department2 of Prakash_Agency_One','Dept Two','0123455557',4,true],
+  ['Test Department3 of Prakash_Agency_One','Dept Three','0123456668',4,true],
+  ['Test Department1 of Prakash_Agency_Two','Dept Four','0123457779',5,true],
+  ['Test Department2 of Prakash_Agency_Two','Dept Five','0123458882',5,true],
+  ['Test Department3 of Prakash_Agency_Two','Dept Six','0123459995',5,true],
+  ['Test Department1 of Prakash_Agency_Three','Dept One','0123454446',6,true],
+  ['Test Department2 of Prakash_Agency_Three','Dept Two','0123455558',6,true],
+  ['Test Department3 of Prakash_Agency_Three','Dept Three','0123456665',6,true],
+  ['Test Department1 of Prakash_Agency_Four','Dept Four','0123457775',7,true],
+  ['Test Department2 of Prakash_Agency_Four','Dept Five','0123458885',7,true]
 ]
 
 departments.each do |department|
