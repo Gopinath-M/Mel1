@@ -1185,7 +1185,7 @@
                         <%end%>
                         <% if (session[:current_role] == DISP_USER_ROLE_DATUK_SUK || session[:current_role] == DISP_USER_ROLE_CHIEF_MINISTER) %>
                           <li>
-                            <% approve_count = Outstation.where("status = ? and is_out_of_state = ?","Reviewed",false).count  %>
+                            <% approve_count = Outstation.where("status = ? and is_out_of_state = ?","Recommended",false).count  %>
                             <span class="notifiNo"><%= approve_count > 0 ? approve_count : ''%> </span>
                             <%= link_to t('labels.approve_req'), approve_request_outstations_path%>
                           </li>
@@ -1215,7 +1215,7 @@
                         <%end%>
                         <% if (session[:current_role] == DISP_USER_ROLE_DATUK_SUK) %>
                           <li>
-                            <% approve_count = Outstation.where("status = ? and is_out_of_state = ?","Reviewed",true).count  %>
+                            <% approve_count = Outstation.where("status = ? and is_out_of_state = ?","Recommended",true).count  %>
                             <span class="notifiNo"><%= approve_count>0 ? approve_count : ''%> </span>
                             <%= link_to t('left_nav.approve_req'), approve_request_for_state_outstations_path%>
                           </li>
