@@ -21,7 +21,12 @@ Melaka::Application.routes.draw do
   match '/activate/:activation_code'=>'users#activate',:activation_code => nil,:as => :activate
 
   resources :feeds, :only=>[:index]
-  resources :templates
+  resources :templates do
+    collection do
+      get 'use_template'
+      post 'send_mail'
+    end
+  end
   resources :newsletters do
     get :autocomplete_email, :on => :collection
   end

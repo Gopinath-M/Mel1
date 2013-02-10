@@ -21,6 +21,13 @@ job "#{SPREFIX}.send.newsletter" do |args|
   puts "sending welcome mail to #{args[:user_email]}"
   Newsletter.newsletter(args[:user_email], args[:subject],args[:content]).deliver!
 end
+
+job "#{SPREFIX}.send.template" do |args|
+  user = User.find(args["id"])
+  puts "sending welcome mail to #{args[:email]}"
+  Newsletter.template(args[:user_email],args[:subject],args[:content]).deliver!
+end
+
 #
 #job "#{SPREFIX}.send.approved_notification" do |args|
 #  resource = ResourceIctEquipmentBooking.find(args["id"])
