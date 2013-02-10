@@ -1,0 +1,34 @@
+<div class="clearfix"></div>
+<div class="CenterNav">
+  <div class="form-sec">
+    <h2 class="b-head"><%=t('labels.template_edit')%></h2>
+    <%= form_tag(send_mail_templates_path) do  %>
+    <%=hidden_field_tag :id,@template.id%>
+    <div class="form-sec-row">
+      <label class="text"><%=t('left_nav.agency')%></label>
+      <span class="in-box">
+        <%= select(:template,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"Select Agency") %>
+        <br/><br/>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text"><%=t('labels.department')%></label>
+      <span class="in-box">
+        <%= select(:template,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
+      </span>
+    </div>
+    <div class="form-sec-row">
+      <label class="text"><%=t('labels.user')%></label>
+      <span class="in-box">
+        <%= select(:template,:user_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
+      </span>
+    </div>
+        <div class="form-sec-row">
+      <label class="text">&nbsp;</label>
+      <span class="in-box">
+          <%= submit_tag t('labels.send_request'), :class=>"btn2"%>
+      </span>
+    </div>
+  <%end%>
+  </div>
+</div>
