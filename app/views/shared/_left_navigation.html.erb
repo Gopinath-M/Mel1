@@ -848,19 +848,19 @@
                   </li>
                 <%end%>
                 <%if session[:current_role] != DISP_USER_ROLE_RESOURCE_MANAGER %>
-                  <!--li class="menu-item">
-        <%#= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
+                  <li class="menu-item">
+                    <%= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
                     <div id ="div_template" style="display:none;">
                       <ul>
                         <li>
-        <%#= link_to t('left_nav.create'), new_template_path%>
+                          <%= link_to t('left_nav.create'), new_template_path%>
                         </li>
                         <li>
-        <%#= link_to t('left_nav.list'), templates_path%>
+                          <%= link_to t('left_nav.list'), templates_path%>
                         </li>
                       </ul>
                     </div>
-                  </li-->
+                  </li>
                   <%if current_user && (current_role==DISP_USER_ROLE_SUPER_ADMIN)%>
 
 
@@ -896,32 +896,32 @@
                         </ul>
                       </div>
                     </li>
-                    <!--li class="menu-item">
-          <%#= link_to t('left_nav.newsletter'), "javascript:void(0);" , :title=>t('left_nav.newsletter') ,:class=>"", :id=>"lnk_newsletters" ,:onclick=>"leftNavigation(this.id,'div_newsletters')"%>
+                    <li class="menu-item">
+                      <%= link_to t('left_nav.newsletter'), "javascript:void(0);" , :title=>t('left_nav.newsletter') ,:class=>"", :id=>"lnk_newsletters" ,:onclick=>"leftNavigation(this.id,'div_newsletters')"%>
                       <div id ="div_newsletters" style="display:none;">
                         <ul>
                           <li>
-          <%#= link_to t('left_nav.create'), new_newsletter_path%>
+                            <%= link_to t('left_nav.create'), new_newsletter_path%>
                           </li>
                           <li>
-          <%#= link_to t('left_nav.list'), newsletters_path%>
+                            <%= link_to t('left_nav.list'), newsletters_path%>
                           </li>
                         </ul>
                       </div>
                     </li>
                     <li class="menu-item">
-          <%#= link_to t('left_nav.newsletter_images'), "javascript:void(0);" , :title=>t('left_nav.newsletter_images') ,:class=>"", :id=>"lnk_newsletter_images" ,:onclick=>"leftNavigation(this.id,'div_newsletter_images')"%>
+                      <%= link_to t('left_nav.newsletter_images'), "javascript:void(0);" , :title=>t('left_nav.newsletter_images') ,:class=>"", :id=>"lnk_newsletter_images" ,:onclick=>"leftNavigation(this.id,'div_newsletter_images')"%>
                       <div id ="div_newsletter_images" style="display:none;">
                         <ul>
                           <li>
-          <%#= link_to t('left_nav.create'), new_newsletter_image_path%>
+                            <%= link_to t('left_nav.create'), new_newsletter_image_path%>
                           </li>
                           <li>
-          <%#= link_to t('left_nav.list'), newsletter_images_path%>
+                            <%= link_to t('left_nav.list'), newsletter_images_path%>
                           </li>
                         </ul>
                       </div>
-                    </li-->
+                    </li>
                   <%end%>
                 <%end%>
               <%end%>
@@ -1225,19 +1225,19 @@
                   </li>
                 <%end%>
               <%end%>
-              <!--li>
-    <%#= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
+              <li>
+                <%= link_to t('left_nav.email_temp'), "javascript:void(0);" , :title=>t('left_nav.email_temp') ,:class=>"", :id=>"lnk_template", :onclick=>"leftNavigation(this.id,'div_template')"%>
                 <div id ="div_template" style="display:none;">
                   <ul>
                     <li>
-    <%#= link_to t('left_nav.create'), new_template_path%>
+                      <%= link_to t('left_nav.create'), new_template_path%>
                     </li>
                     <li>
-    <%#= link_to t('left_nav.list'), templates_path%>
+                      <%= link_to t('left_nav.list'), templates_path%>
                     </li>
                   </ul>
                 </div>
-              </li-->
+              </li>
               <!--li>
                       <a href="javascript:void(0);" title="<%#= t('left_nav.my_new_letter')%>"><%#= t('left_nav.my_new_letter')%></a>
                       </li>
