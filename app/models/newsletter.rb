@@ -18,10 +18,16 @@ class Newsletter < ActiveRecord::Base
         end
       end
     else
-      users = self.to.split(",")
+p "================comes to else #{self.to}"
+      if self.to!=nil && self.to.include?(",")
+        users = self.to.split(",")
+      else
+        users =[self.to]
+      end
+      p "=========users #{users.inspect}"
       users.each do |user_email|
         begin
-          Stalker.enqueue("#{SPREFIX}.send.newsletter", :id => self.id)
+          Stalker.enqueue("#{SPREFIX}.send.newsletter", :id => self.id, :user_email => user_email, :subject => self.subject, :content => self.content)
           #UserMailer.newsletter(user_email,self.subject, self.content).deliver
         rescue Exception=>e
           p "======Exceptgion #{e.to_s}"

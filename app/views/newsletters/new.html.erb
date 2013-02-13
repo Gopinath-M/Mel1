@@ -1,4 +1,5 @@
 <%=javascript_include_tag 'ckeditor/ckeditor.js','ckeditor/adapters/jquery.js' %>
+
 <%=javascript_include_tag "autocomplete-rails.js"%>
 <div class="clearfix"></div>
 <div class="CenterNav">
@@ -19,8 +20,8 @@
           <label class="text"><%=t('labels.to')%><span style=color:red>*</span></label>
           <span class="in-box">
   <%#= f.text_field :to, :value=>@newsletter.to != nil ? @newsletter.to : "All", :autofocus => true%>
-            <%= f.radio_button :to, 'all' %> ALL
-            <%= f.radio_button :to,'specify' ,:checked=> true%> Specify
+            <%= f.radio_button :to, 'all' ,:checked=> true%> ALL
+            <%= f.radio_button :to,'specify' %> Specify
             <div id="textbox_all" style="display:none">
               <%= f.hidden_field :to, :value=>@newsletter.to != nil ? @newsletter.to : "All", :autofocus => true%>
             </div>

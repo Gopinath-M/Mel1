@@ -7,7 +7,11 @@ class NewslettersController < ApplicationController
   end
 
   def create
-    @newsletter = Newsletter.create(params[:newsletter].merge!({:created_by => current_user.id, :status => "New"}))
+    if params[:newsletter_to]!=''
+      @newsletter = Newsletter.create(params[:newsletter].merge!({:created_by => current_user.id, :status => "New",:to=>params[:newsletter_to]}))
+    else
+      @newsletter = Newsletter.create(params[:newsletter].merge!({:created_by => current_user.id, :status => "New",:to=>"All"}))
+    end
     if @newsletter.valid?
       @newsletter.save!
       redirect_to :action => 'index'
