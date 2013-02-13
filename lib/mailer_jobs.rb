@@ -3,10 +3,10 @@ include Stalker
 
 error do |e,job,args|
   puts "something bad happened"
-  pp e
+  p e
   puts e.backtrace.join("\n")
-  pp job
-  pp args
+  p job
+  p args
   puts "happy debugging"
 end
 
@@ -18,8 +18,8 @@ job "#{SPREFIX}.send.welcome" do |args|
 end
 
 job "#{SPREFIX}.send.newsletter" do |args|
-  puts "sending welcome mail to #{args[:user_email]}"
-  Newsletter.newsletter(args[:user_email], args[:subject],args[:content]).deliver!
+  puts "sending welcome mail to #{args['user_email']}"
+  NewsletterMailer.send_newsletter(args['user_email'], args['subject'],args['content']).deliver!
 end
 #
 #job "#{SPREFIX}.send.approved_notification" do |args|
