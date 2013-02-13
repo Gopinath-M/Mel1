@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource
+  #load_and_authorize_resource
   def index
     @events = Event.where("is_active =? and from_date >=?", true, Time.now).page(params[:page]).per(5)
   end
