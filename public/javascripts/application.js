@@ -3614,3 +3614,43 @@ $('#newsletter_to_specify').live("click",function()
 
 })
     
+ $("#template_agency").live("change", function(){
+        if($("#template_agency").val()!="")
+        {
+            $.get("/department_users/get_departments",{
+                agency_id : $("#template_agency").val()
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#template_department_id').find('option').remove().end()
+                    $('#template_department_id').append($("<option></option>").attr("value","").text("Select Department"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#template_department_id').append($("<option></option>").attr("value",data[0][i].department.id).text(data[0][i].department.name));
+                    }
+                }
+            })
+        }
+    });
+
+
+ $("#template_department_id").live("change",function(){
+        if($("#template_department_id").val()!="")
+        {
+            $.get("/users/transfer/",{
+                department_id: $("#template_department_id").val(),
+                department_users : true
+
+            }, function(data){
+                if (data[0]!=null)
+                {
+                    $('#template_user_id').find('option').remove().end()
+                    $('#template_user_id').append($("<option></option>").attr("value","").text("Select User"));
+                    for(var i=0; i<data[0].length;i++)
+                    {
+                        $('#template_user_id').append($("<option></option>").attr("value",data[0][i].user.ic_number).text(data[0][i].user.first_name));
+                    }
+                }
+            })
+        }
+    });

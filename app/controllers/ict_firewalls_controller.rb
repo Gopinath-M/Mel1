@@ -105,12 +105,6 @@ class IctFirewallsController < ApplicationController
       @ict_firewall.update_attributes(:remarks=>params[:remarks],:status=>params[:approve_status],
         :incharge_person => params[:forward][:to])
          
-      #UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall).deliver
-    else
-      @ict_firewall.update_attributes(:status=> params[:approve_status])
-    end
-      
-      
     @count = IctFirewallService.find_all_by_ict_firewall_id(@ict_firewall.id)
            
     @count.each_with_index do |count,index|
@@ -121,7 +115,12 @@ class IctFirewallsController < ApplicationController
       end
       count.update_attribute(:approved,t)
     end
-      
+    
+      #UserMailer.send_mail_to_user_for_ict_firewall(current_user,user,ict_firewall).deliver
+    else
+      @ict_firewall.update_attributes(:status=> params[:approve_status])
+    end
+          
     #@ict_firewall_service = IctFirewallService.find_by_ict_firewall_id(params[:id])
     #@ict_firewall_service.update_attribute(:approved,t)
       

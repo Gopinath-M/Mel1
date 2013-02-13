@@ -6,7 +6,7 @@
     <div class="form-sec-row">
       <label class="text"><%=t('labels.template_type')%> <span style=color:red>*</span></label>
       <span class="in-box">
-        <%= f.select(:template_type, options_for_select( ["APPROVER", "PROCESSED","RETURNED"] ) ,:prompt=>"Select Category") %>
+        <%= f.select(:template_type, options_for_select( ["BIRTHDAY", "FESTIVAL","ANNOUNCEMENT"] ) ,:prompt=>"Select Category") %>
       </span>
     </div>
     <div class="form-sec-row">

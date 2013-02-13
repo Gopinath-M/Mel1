@@ -3,6 +3,7 @@ class TemplatesController < ApplicationController
   def new
     @template = Template.new
   end
+  
   def create   
     @template = Template.create(params[:template])
     @template.user_id = current_user.id
@@ -34,6 +35,18 @@ class TemplatesController < ApplicationController
     @template = Template.find(params[:id])
     if @template.destroy
       redirect_to templates_path
+    end
+  end
+
+  def use_template
+    @template = Template.find(params[:id])
+  end
+
+  def send_mail
+    @template = Template.find(params[:id])
+    user= User.find(params[:template][:user])
+    if user.present?
+       Stalker.enqueue("#{SPREFIX}.send.template", :user_email => user.email, :subject => @template.subject, :content => @template.content)
     end
   end
 
