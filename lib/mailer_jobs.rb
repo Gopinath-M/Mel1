@@ -23,9 +23,9 @@ job "#{SPREFIX}.send.newsletter" do |args|
 end
 
 job "#{SPREFIX}.send.template" do |args|
-  user = User.find(args["id"])
-  puts "sending welcome mail to #{args[:email]}"
-  Newsletter.template(args[:user_email],args[:subject],args[:content]).deliver!
+  user = User.find(args["user_id"])
+  puts "sending template mail to #{args['user_email']}"
+  NewsletterMailer.send_template(args['user_email'], args['subject'],args['content'],user).deliver!
 end
 
 #
