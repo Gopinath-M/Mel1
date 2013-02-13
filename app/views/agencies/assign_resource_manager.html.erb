@@ -2,13 +2,13 @@
 <div class="CenterNav">
   <div class="form-sec">
     <h2 class="b-head"><%=t('labels.assign_resource_manager')%></h2>
-    <%= form_for(@role_membership, :url => update_assign_resource_manager_agencies_path) do |f| %>
+    <%= form_for(RoleMembership.new, :url => update_assign_resource_manager_agencies_path) do |f| %>
      <%=f.error_messages%>
       <div class="create-user">
         <div class="form-sec-row">
           <label class="text"><%=t('labels.agency')%><span style=color:red>*</span></label>
           <span class="in-box">
-            <%=f.select(:agency,  options_from_collection_for_select(Agency.active, 'id','name', @role_membership.agency),:prompt=>"Select Agency") %>
+            <%=f.select(:agency,  options_from_collection_for_select(Agency.active, 'id','name'),:prompt=>"Select Agency") %>
           </span>
         </div>
         <div class="form-sec-row">
