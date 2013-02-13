@@ -44,10 +44,11 @@ class TemplatesController < ApplicationController
 
   def send_mail
     @template = Template.find(params[:id])
-    user= User.find(params[:template][:user])
+    user= User.find_by_ic_number(params[:template][:user_id])
     if user.present?
-       Stalker.enqueue("#{SPREFIX}.send.template", :user_email => user.email, :subject => @template.subject, :content => @template.content)
+      Stalker.enqueue("#{SPREFIX}.send.template",:user_id=>user.id, :user_email => user.email, :subject => @template.subject, :content => @template.content)
     end
+    redirect_to templates_path
   end
 
 end
