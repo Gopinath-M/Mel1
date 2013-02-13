@@ -11,7 +11,7 @@ Melaka::Application.configure do
 
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
-
+  config.action_mailer.raise_delivery_errors = true
   # For nginx:
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
@@ -47,17 +47,21 @@ Melaka::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => '202.188.126.23'}
+  require 'yaml'
+  @mailer_config = YAML::load(File.open(Rails.root.join("config/mailer.yml")))[Rails.env]
+  config.action_mailer.default_url_options = { :host =>  @mailer_config['host']}
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'gmail.com',
-    :user_name            => 'edvinjoy',
-    :password             => 'testtest',
+    :user_name            => @mailer_config['user_name'],
+    :password             => @mailer_config['password'],
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
+
+  SPREFIX = YAML::load(File.open(Rails.root.join("config", "stalker.yml")))[Rails.env]["stalker_prefix"]
   APP_URL="http://202.188.126.23"
   MAIN_SITE_URL="http://202.188.126.23"
   
