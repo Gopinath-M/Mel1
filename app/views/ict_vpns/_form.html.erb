@@ -15,7 +15,7 @@
 </div>
 <div class="form-sec-row">
 	<label class="text"><%= t('labels.vpn_access')%><span style=color:red>*</span></label>
-	<span class="in-box"> <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => "Select VPN Access", :style=> "width:132%;") %> </span>
+	<span class="in-box">  <%= f.select(:system_access_id, SystemAccess.where("complaint_type_id = ?", 2).collect {|p| [ p.name, p.id ] },:prompt => "Select VPN Access", :style=> "width:132%;") %> </span>
 </div>
 <div class="form-sec-row">
 	<label class="text"><%= t('labels.notes')%><span style=color:red>*</span></label>

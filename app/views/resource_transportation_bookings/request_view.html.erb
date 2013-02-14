@@ -140,7 +140,7 @@
 		<div class="form-sec-row">
 			<label class="text"><%= t('labels.attachment')%></label>
 			<% file = (@resource_transportation_booking.attachment).url(:profile).split("/").last %>
-			<span class="in-box"><%= link_to file, download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></span>
+			<span class="in-box"><%= link_to image_tag(@resource_transportation_booking.attachment.url(:profile),:title=>@resource_transportation_booking.attachment), download_attachments_resource_transportation_bookings_path(:id=>@resource_transportation_booking.id) if @resource_transportation_booking.attachment?  %></span>
 		</div>
 		<% end %>
 

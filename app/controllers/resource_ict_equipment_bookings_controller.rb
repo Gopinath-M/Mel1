@@ -63,7 +63,7 @@ class ResourceIctEquipmentBookingsController < ApplicationController
         if @resource_ict_equipment_booking.valid?
           @resource_ict_equipment_booking.save
           if !quantifiable
-            agency_store.update_attribute(:booked, true)
+            #agency_store.update_attribute(:booked, true)
           else
             if (agency_store.quantity - agency_store.booked_quantity) > 1
               agency_store.update_attribute(:booked_quantity, agency_store.booked_quantity+1)
