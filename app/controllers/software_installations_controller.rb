@@ -64,21 +64,40 @@ class SoftwareInstallationsController < ApplicationController
     end
     redirect_to(software_installations_path, :notice => 'Requisition for Software Installation created sucessfully')
   end
+  
   def update
     @software_installation=SoftwareInstallation.find(params[:id])
+    if @software_installation.status == "New"
+      #if params[:ict_firewall][:status].to_s == 'Approve'
+      if params[:status][:id].to_s == 'Approved'
+        t = true
+      else
+        t = false
+      end
+    end
     @software_installation_detail=SoftwareInstallationDetail.find_all_by_software_installation_id(@software_installation.id)
+    @software_installation_detail.each_with_index do |count,index|
+      if params[:"status_#{count.id}"].to_s == 'Approve'
+        t = true
+      else
+        t = false
+      end
+      count.update_attribute(:approve_status,t)
+    end
+
     @requisition=RequisitionType.find(@software_installation.requisition_type_id)
+
     if params[:status][:id] == 'Approved'
       @software_installation.person_incharge = params[:software][:person_incharge]
       @software_installation.status == 'New'
       @software_installation.status = 'Approved'
-      if params[:software_installation_detail][:approve_status] == "Approve"
-        @software_installation_detail[0].approve_status = 1
-        @software_installation_detail[0].save
-      else
-        @software_installation_detail[0].approve_status = 0
-        @software_installation_detail[0].save
-      end
+#      if params[:software_installation_detail][:approve_status] == "Approve"
+#        @software_installation_detail[0].approve_status = 1
+#        @software_installation_detail[0].save
+#      else
+#        @software_installation_detail[0].approve_status = 0
+#        @software_installation_detail[0].save
+#      end
     else
       @software_installation.status = 'Processed'
     end

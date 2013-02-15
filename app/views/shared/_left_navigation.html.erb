@@ -158,66 +158,97 @@
                 <%= link_to t('labels.process_ict_facility'), "javascript:void(0);" , :title=>t('labels.ict_facility') ,:class=>"", :id=>"lnk_process_ict_facility" ,:onclick=>"leftNavigation(this.id,'div_process_ict_facility')"%>
                 <div id="div_process_ict_facility" style="display:none;">
                   <ul>
+                    
+                      <% booking = SoftwareInstallation.all %>
+                      <% test = [] %>
+                      <% booking.each do |book| %>
+                        <% if book.person_incharge == current_user.id %>
+                          <% test = true %>
+                        <% end %>
+                      <% end %>
+                      <% software_count = approve_software_request('Approved')%>
+                      <% if test == true %>
                     <li>
-                      <% @software = SoftwareInstallation.all %>
-                      <% @software.each do |software| %>
-                        <% if software.person_incharge == current_user.id %>
-                          <% software_count = approve_software_request('Approved')%>
-                          <span class="notifiNo"><%= software_count > 0 ? software_count : '' %></span>
-                          <%= link_to t('left_nav.software_req'), software_installations_path%>
+                        <%booking_count = SoftwareInstallation.where("status=?",'Approved').count%>
+                        <span class="notifiNo"><%= booking_count > 0 ? booking_count : '' %></span>
+                        <%= link_to t('left_nav.software_req'), software_installations_path%>
+                        </li>
+                      <%end%>
+                    
+                      <% firewall = IctFirewall.all %>
+                      <% test = [] %>
+                      <% firewall.each do |count| %>
+                        <% if count.incharge_person == current_user.id %>
+                          <% test = true %>
                         <%end%>
                       <%end%>
-                    </li>
-                    <li>
-                      <% @firewall = IctFirewall.all %>
-                      <% @firewall.each do |firewall| %>
-                        <% if firewall.incharge_person == current_user.id %>
-                          <% firewall_count = generic_model_status_firewall_count(IctFirewall,'Approved')%>
-                          <span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
-                          <%= link_to t('labels.firewall_request'), list_ict_firewall_ict_firewalls_path %>
+                      <% firewall_count = generic_model_status_count(IctFirewall,'Approved')%>
+                      <% if test == true %>
+                        <li>
+                        <span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
+                        <%= link_to t('labels.firewall_request'), list_ict_firewall_ict_firewalls_path %>
+                        </li>
+                      <%end%>
+
+                      <% network = IctNetworkPoint.all %>
+                      <% test = [] %>
+                      <% network.each do |count| %>
+                        <% if count.person_incharge == current_user.id %>
+                          <% test = true %>
                         <%end%>
                       <%end%>
-                    </li>
-                    <li>
-                      <% @network = IctNetworkPoint.all %>
-                      <% @network.each do |network| %>
-                        <% if network.person_incharge == current_user.id %>
-                          <% ict_network_new_approved_count = generic_model_status_network_count(IctNetworkPoint,'Approved')%>
-                          <span class="notifiNo"><%= ict_network_new_approved_count > 0 ? ict_network_new_approved_count : '' %></span>
-                          <%= link_to t('left_nav.network_req'), list_ict_network_ict_network_points_path %>
+                      <% ict_network_new_approved_count = generic_model_status_count(IctNetworkPoint,'Approved')%>
+                      <% if test == true %>
+                        <li>
+                        <span class="notifiNo"><%= ict_network_new_approved_count > 0 ? ict_network_new_approved_count : '' %></span>
+                        <%= link_to t('left_nav.network_req'), list_ict_network_ict_network_points_path %>
+                        </li>
+                      <%end%>
+
+                      <% hardware = IctHardwareBookedUser.all %>
+                      <% test = [] %>
+                      <% hardware.each do |count| %>
+                        <% if count.forward_to == current_user.id %>
+                          <% test =true %>
                         <%end%>
                       <%end%>
-                    </li>
-                    <li>
-                      <% @hardware = IctHardwareBookedUser.all %>
-                      <% @hardware.each do |hardware| %>
-                        <% if hardware.forward_to == current_user.id %>
-                          <% ict_hardware_count = ict_hardware_status_count('Approved')%>
-                          <span class="notifiNo"> <%= ict_hardware_count > 0 ? ict_hardware_count : ''%></span>
-                          <%= link_to t('left_nav.hardware_req'), requests_ict_hardware_bookings_path%>
+                      <% ict_hardware_count = ict_hardware_status_count('Approved')%>
+                      <% if test == true %>
+                        <li>
+                        <span class="notifiNo"> <%= ict_hardware_count > 0 ? ict_hardware_count : ''%></span>
+                        <%= link_to t('left_nav.hardware_req'), requests_ict_hardware_bookings_path%>
+                        </li>
+                      <%end%>
+
+                      <% vpn = IctVpn.all %>
+                      <% test = [] %>
+                      <%vpn.each do |count|%>
+                        <% if count.forward_to == current_user.id %>
+                          <% test = true %>
                         <%end%>
                       <%end%>
-                    </li>
-                    <li>
-                      <% @vpn = IctVpn.all %>
-                      <% @vpn.each do |vpn| %>
-                        <% if vpn.forward_to == current_user.id %>
-                          <% ict_vpn_count = generic_model_status_vpn_count(IctVpn,'Approved') %>
-                          <span class="notifiNo"> <%= ict_vpn_count > 0 ? ict_vpn_count : ''%></span>
-                          <%= link_to t('left_nav.vpn_req'), list_vpn_ict_vpns_path %>
+                      <% ict_vpn_count = generic_model_status_count(IctVpn,'Approved') %>
+                      <% if test == true %>
+                        <li>
+                        <span class="notifiNo"> <%= ict_vpn_count > 0 ? ict_vpn_count : ''%></span>
+                        <%= link_to t('left_nav.vpn_req'), list_vpn_ict_vpns_path %>
+                        </li>
+                      <%end%>
+
+                     <% system = IctSystemAccess.all %>
+                      <% test = [] %>
+                      <%system.each do |count|%>
+                        <%if count.forward_to == current_user.id%>
+                          <% test =true %>
                         <%end%>
                       <%end%>
-                    </li>
-                    <li>
-                      <% @system = IctSystemAccess.all %>
-                      <% @system.each do |system| %>
-                        <% if system.forward_to == current_user.id %>
-                          <% ict_system_access_count = generic_model_status_system_count(IctSystemAccess,'Approved') %>
-                          <span class="notifiNo"> <%= ict_system_access_count > 0 ? ict_system_access_count : ''%></span>
-                          <%= link_to t('left_nav.sys_access_req'), list_system_access_ict_system_accesses_path %>
-                        <%end%>
-                      <%end%>
-                    </li>
+                      <% ict_system_access_count = generic_model_status_count(IctSystemAccess,'Approved') %>
+                      <% if test == true %>
+                        <li>
+                        <span class="notifiNo"> <%= ict_system_access_count > 0 ? ict_system_access_count : ''%></span>
+                        <%= link_to t('left_nav.sys_access_req'), list_system_access_ict_system_accesses_path %>
+                        </li>
+                      <%end%>                    
                   </ul>
                 </div>
               </li>
@@ -270,8 +301,9 @@
                   <% second_approver = Approver.where(:department_id => @current_department).last %>
                   <ul>
                     <li>
+                      <%  booking_status = SoftwareInstallation.where("status=?",'New').count %>
                       <% software_count = approve_software_request('New')%>
-                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= software_count > 0 ? software_count : '' %></span><%end%>
+                      <% if session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN || (first_approver.present? && first_approver.user_id == current_user.id) || (second_approver.present? && second_approver.user_id == current_user.id) %><span class="notifiNo"><%= booking_status > 0 ? booking_status : '' %></span><%end%>
                       <%= link_to t('left_nav.software_req'), software_installations_path%>
                     </li>
                     <li>
