@@ -2,8 +2,8 @@ class SoftwareInstallationsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @software_installation = SoftwareInstallation.all
-    @software_installation_detail = SoftwareInstallationDetail.all
+    @software_installation = SoftwareInstallation.order.page(params[:page]).per(4)
+    @software_installation_detail = SoftwareInstallationDetail.order.page(params[:page]).per(4)
     @approve = Approver.active.find_all_by_department_id(current_user.departments).first
     @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
     if !@approve.present? && !@approver_second.present?
