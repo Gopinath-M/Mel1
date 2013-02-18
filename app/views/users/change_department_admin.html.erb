@@ -1,0 +1,43 @@
+<%= form_for(@user, :as => :user,  :url => update_department_admin_users_path(:id => @department_id), :method=>:post) do |f| %>
+<%if !request.xhr?%>
+
+<div class="CenterNav">
+	<h2 class="b-head"><%= t('left_nav.change_department_admin')%></h2>
+	<div class="create-user">
+		<h2 class="b-head"><%= t('labels.from')%></h2>
+		<div class="form-sec-row">
+			<label class="text"><%= t('left_nav.agency')%></label>
+			<%#= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+			<span class="in-box"> <%= select(:transfer_from,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %> </span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.department')%></label>
+			<%#= label_tag :department_id, raw("Department"), :class=>"text"%>
+			<span class="in-box"> <%= select(:change_department,:id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %> </span>
+		</div>
+	</div>
+
+	<div id="div_change_admin" style="display:none;">
+			
+	</div>
+
+	<div class="create-user">
+		<div class="form-sec-row">
+			<%= t('labels.list_of_existing_users')%> :
+			<br/>
+			<br/>
+			<%= hidden_field_tag :username %>
+			<span class="in-box"> <%= select(:transfer, :username_admin, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select User") %> </span>
+		</div>
+	</div>
+
+	<div class="form-sec-row">
+		<label class="text">&nbsp;</label>
+		<span class="in-box">
+			<br/>
+			<%= f.submit t('labels.submit'), :class=>"btn2"%> </span>
+	</div>
+</div>
+
+<%end%>
+<%end%>

@@ -490,6 +490,12 @@
                       <li>
                         <%= link_to t('left_nav.list'), units_path%>
                       </li>
+                      <li>
+                        <%= link_to t('left_nav.transfer_unit'), transfer_unit_users_path%>
+                      </li>
+                      <li>
+                        <%= link_to t('left_nav.assign_unit'), assign_unit_users_path%>
+                      </li>
                     </ul>
                   </div>
                 </li>
@@ -524,6 +530,9 @@
                         </li>
                         <li>
                           <%= link_to t('left_nav.assign_dept'), assign_department_users_path , :title=>t('left_nav.assign_dept') ,:class=>""%>
+                        </li>
+                        <li>
+                          <%= link_to t('left_nav.change_department_admin'), change_department_admin_users_path , :title=>t('left_nav.change_department_admin') ,:class=>""%>
                         </li>
                         <!--li><%#=link_to t('left_nav.transfer_unit'), transfer_unit_users_path , :title=>t('left_nav.transfer_unit') ,:class=>""%></li>
                                                                         <li><%#=link_to t('left_nav.assign_unit'), assign_unit_users_path , :title=>t('left_nav.assign_unit') ,:class=>""%></li-->
