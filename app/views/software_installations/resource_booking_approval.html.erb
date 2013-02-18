@@ -10,7 +10,7 @@
 
         <% @dept = Department.find_by_id(current_department) %>
         <% @agency = Agency.find_by_id(@dept.agency_id) %>
-        <% @user = User.find_by_id(current_user) %>
+        <% @user = User.find(@software_installation.user_id) %>
         <div class="form-sec-row">
           <label class="text"><%=t('labels.agency_name')%></label>
           <span class="in-box"><%= @agency.name  %></span>

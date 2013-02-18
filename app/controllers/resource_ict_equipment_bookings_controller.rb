@@ -178,4 +178,10 @@ class ResourceIctEquipmentBookingsController < ApplicationController
       render :layout=>false
     end
   end
+  
+    def get_value_of_resource
+    resources = Resource.active.find(params[:resource_id])
+    render :json=>[resources] if resources 
+  end
+  
 end
