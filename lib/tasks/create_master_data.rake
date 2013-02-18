@@ -41,8 +41,8 @@ namespace :pg do
     end
 
     # add to array the tables to be archived
-    tables = [ 'departments','users', 'agencies']
-    tables1 = ['resource_ict_equipment_bookings','resource_bookings','resource_room_bookings','resource_transportation_bookings']
+    #    tables1 = [ 'departments','users', 'agencies']
+    tables = ['resource_ict_equipment_bookings','resource_bookings','resource_room_bookings','resource_transportation_bookings', 'messages', 'message_comments','conversations', 'conversation_groups','ict_firewalls','ict_firewall_services','ict_hardware_booked_statuses','ict_hardware_booked_users','ict_hardware_bookings','ict_network_points','ict_system_accesses','ict_vpns']
     tables.each do |table|
       sh "pg_dump -h localhost -U #{db_config['username']}  #{db_config['database']} -t #{table} > #{path}#{datestamp}_#{table}_file.dmp"
       sleep(10)
