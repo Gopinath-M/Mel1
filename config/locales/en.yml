@@ -189,6 +189,7 @@ en:
     newsletter_image: "Newsletter Image"
     create_newsletter_image: "Create Newsletter Image"
     details: "Details"
+    change_department_admin: "Change Department Admin"
 
   labels:
     template_name: "Name"

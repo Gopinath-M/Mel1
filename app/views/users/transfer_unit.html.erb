@@ -1,7 +1,7 @@
 <%= form_for(@user, :as => :user,  :url => transfer_update_unit_users_path(:id => @department_id), :method=>:post) do |f| %>
   <%if !request.xhr?%>
     <div class="CenterNav">
-      <h2 class="b-head"><%=t('labels.transfer_unit')%></h2>
+      <h2 class="b-head"><%=t('left_nav.transfer_unit')%></h2>
       <div class="create-user">
         <h2 class="b-head"><%=t('labels.from')%></h2>
         <div class="form-sec-row">

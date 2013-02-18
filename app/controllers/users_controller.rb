@@ -381,8 +381,8 @@ class UsersController < ApplicationController
       @property_file.property_year = params[:date][:year]
       @property_file.user_id = current_user.id
       if @property_file.valid?
-        @property_file.save
-        #      redirect_to :controller =>'outstations', :action=>'new'
+      @property_file.save
+      #      redirect_to :controller =>'outstations', :action=>'new'
       end
       @property_file = DeclarationProperty.new(params[:declaration_property])
     end
@@ -416,4 +416,31 @@ class UsersController < ApplicationController
   end
   # out station module methods ends here
 
+  # Change Department Admin Function starts here
+  def change_department_admin
+
+  end
+
+  def get_dept_admin
+    dept = Department.find(params[:department_id])
+    p users=dept.users.where("role_id = ?", 2)
+    render :json=>[users] if users
+  end
+
+  def update_department_admin    
+    if params[:change_department][:id] != "" && params[:transfer][:username_admin] != "" && params[:transfer_from][:agency]!= ""
+      val = params[:change_department][:id]
+      department = Department.find(params[:change_department][:id])
+      admin = User.find_by_ic_number(params[:transfer][:username_admin])
+      role = RoleMembership.find_by_department_id_and_role_id(params[:change_department][:id], 2)
+      user = department.users.where("role_id = ?", 2)
+      role_update = RoleMembership.find_by_user_id_and_role_id(admin.id, 3)
+      role.update_attribute(:user_id,admin.id)
+      role_update.update_attribute(:user_id,user.first.id)
+      redirect_to(users_path, :notice => "#{admin.first_name} has been changed as Department Admin to #{department.name} Department.")
+    else
+      redirect_to(change_department_admin_users_path, :alert => "Please Select the Drop box listed")
+    end
+  end
+# Change Department Admin Function ends here
 end

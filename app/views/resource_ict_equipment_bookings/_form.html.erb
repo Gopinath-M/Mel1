@@ -1,116 +1,92 @@
 <%= form_for(@resource_ict_equipment_booking, :html => { :method => :post, :multipart => true }) do |f| %>
-  <div class="form-sec">
-    <%=f.error_messages%>
-    <div class="clearfix">&nbsp;</div>
-    <%if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
-      <div class="form-sec-row">
-        <label class="text"> <%=t('labels.agency')%><span style=color:red></span></label>
-        <span class="in-box">
-          <b><%= current_user.departments.first.agency.name.upcase if current_user.departments && !current_user.departments.empty? %></b>
-        </span>
-      </div>
-   <%department = Department.find(@current_department)%>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.department')%><span style=color:red></span></label>
-        <span class="in-box">
-          <b><%= department.name if department && department.present?%></b>
-        </span>
-      </div>
-    <%end%>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.sub_category_name')%> <span style=color:red>*</span></label>
-      <span class="in-box">
-        <%= f.select(:sub_category_id,  SubCategory.where(:category_id => @category).active.collect {|category| [category.name, category.id]},:prompt=>"Select Sub Category") %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text" id="lb_resource"><%=t('labels.resource_type')%>  <span style=color:red>*</span></label>
-      <span class="in-box">
-        <%if @resource%>
-          <%= f.select(:resource_id,  options_from_collection_for_select(Resource.where("sub_category_id = ? and resource_type = 'ict'",@resource_ict_equipment_booking.sub_category_id), 'id','name',@resource ),{:prompt=>"Select Resource",:onchange=>"alert('testq')"}) %>
-        <%else%>
-          <%= f.select(:resource_id,  options_from_collection_for_select([], 'id','name',@resource ),{:prompt=>"Select Resource"}) %>
-        <%end%>
-      </span>
-    </div>
-    <div class="form-sec-row" id="div_ict_resource_serial_no" style="display:none;">
-      <label class="text"><%=t('labels.serial_number')%><span style=color:red>*</span></label>
-      <span class="in-box">
-        <%if @resource%>
-          <%= f.select(:agency_store_id, options_from_collection_for_select(AgencyStore.where(:id=>@resource_ict_equipment_booking.agency_store_id), 'id','serial_no',@resource_ict_equipment_booking.agency_store_id ),:prompt=>"Select a Equipment Category Type") %>
-        <%else%>
-          <%= f.select(:agency_store_id, options_from_collection_for_select([], 'id','serial_no' ),:prompt=>"Select Serial Number") %>
-        <%end%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= f.label :ict_equipment_attachment,t('labels.upload_file'), :class=>"text"%>
-      <span class="in-box">
-        <%= f.file_field :ict_equipment_attachment%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.purpose')%><span style=color:red>*</span></label>
-      <span class="in-box">
-        <%= f.text_field :purpose, :value=>@resource_ict_equipment_booking.purpose,:rows=>2, :autofocus => true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.location')%><span style=color:red>*</span></label>
-      <span class="in-box">
-        <%= f.text_area :location,:value=>@resource_ict_equipment_booking.location, :rows=>4, :autofocus => true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.req_from_date')%><span style=color:red>*</span></label>
-      <span class="in-box">
-        <%=f.text_field :requested_from_date, :value=>@resource_ict_equipment_booking.requested_from_date!=nil ? @resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.req_to_date')%><span style=color:red>*</span></label>
-      <span class="in-box">
-        <%=f.text_field :requested_to_date, :value=>@resource_ict_equipment_booking.requested_to_date!=nil ? @resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.need_off')%><span style=color:red>*</span></label>
-      <span class="in-box">
-        <%if @resource_ict_equipment_booking.need_officer %>
-          Yes <%= f.radio_button :need_officer,1,:checked=>true %>
-          No <%= f.radio_button :need_officer,0 %>
-        <%else%>
-          Yes <%= f.radio_button :need_officer,1%>
-          No <%= f.radio_button :need_officer,0,:checked=>true  %>
-        <%end%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.meeting_from_date')%><span style=color:red>*</span></label>
-      <span class="in-box">
-        <%=f.text_field :meeting_start_time, :value=>@resource_ict_equipment_booking.meeting_start_time!=nil ? @resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.meeting_to_date')%><span style=color:red>*</span></label>
-      <span class="in-box">
-        <%=f.text_field :meeting_end_time, :value=>@resource_ict_equipment_booking.meeting_end_time!=nil ? @resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <%= f.label :notes,t('labels.notes'), :class=>"text"%>
-      <span class="in-box">
-        <%= f.text_area :notes,:value=>@resource_ict_equipment_booking.notes, :rows=>2, :autofocus => true%>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text">&nbsp;</label>
-      <span class="in-box">
-        <%= f.submit :class=>"btn2", :value=>@resource_ict_equipment_booking.new_record? ? t('labels.create') : t('labels.update')%>
-      </span>
-    </div>
-  </div>
-  <div class="clear"></div>
-<%end%>
+<div class="form-sec">
+	<%= f.error_messages%>
+	<div class="clearfix">
+		&nbsp;
+	</div>
+	<%if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
+	<div class="form-sec-row">
+		<label class="text"> <%= t('labels.agency')%><span style=color:red></span></label>
+		<span class="in-box"> <b><%= current_user.departments.first.agency.name.upcase if current_user.departments && !current_user.departments.empty? %></b> </span>
+	</div>
+	<% department = Department.find(@current_department)%>
+	<div class="form-sec-row">
+		<label class="text"><%= t('labels.department')%><span style=color:red></span></label>
+		<span class="in-box"> <b><%= department.name if department && department.present?%></b> </span>
+	</div>
+	<%end%>
+	<div class="form-sec-row">
+		<label class="text"><%= t('labels.sub_category_name')%> <span style=color:red>*</span></label>
+		<span class="in-box"> <%= f.select(:sub_category_id,  SubCategory.where(:category_id => @category).active.collect {|category| [category.name, category.id]},:prompt=>"Select Sub Category") %> </span>
+	</div>
+	<div class="form-sec-row">
+		<label class="text" id="lb_resource"><%= t('labels.resource_type')%> <span style=color:red>*</span></label>
+		<span class="in-box"> <%if @resource%>
+			<%= f.select(:resource_id,  options_from_collection_for_select(Resource.where("sub_category_id = ? and resource_type = 'ict'",@resource_ict_equipment_booking.sub_category_id), 'id','name',@resource ),{:prompt=>"Select Resource",:onchange=>"alert('testq')"}) %>
+			<%else%>
+			<%= f.select(:resource_id,  options_from_collection_for_select([], 'id','name',@resource ),{:prompt=>"Select Resource"}) %>
+			<%end%> </span>
+	</div>
 
+	<div id = "list_resource">
+		
+	</div>
+
+	<div class="form-sec-row" id="div_ict_resource_serial_no" style="display:none;">
+		<label class="text"><%= t('labels.serial_number')%><span style=color:red>*</span></label>
+		<span class="in-box"> <%if @resource%>
+			<%= f.select(:agency_store_id, options_from_collection_for_select(AgencyStore.where(:id=>@resource_ict_equipment_booking.agency_store_id), 'id','serial_no',@resource_ict_equipment_booking.agency_store_id ),:prompt=>"Select a Equipment Category Type") %>
+			<%else%>
+			<%= f.select(:agency_store_id, options_from_collection_for_select([], 'id','serial_no' ),:prompt=>"Select Serial Number") %>
+			<%end%> </span>
+	</div>
+	<div class="form-sec-row">
+		<%= f.label :ict_equipment_attachment,t('labels.upload_file'), :class=>"text"%>
+		<span class="in-box"> <%= f.file_field :ict_equipment_attachment%> </span>
+	</div>
+	<div class="form-sec-row">
+		<label class="text"><%= t('labels.purpose')%><span style=color:red>*</span></label>
+		<span class="in-box"> <%= f.text_field :purpose, :value=>@resource_ict_equipment_booking.purpose,:rows=>2, :autofocus => true%> </span>
+	</div>
+	<div class="form-sec-row">
+		<label class="text"><%= t('labels.location')%><span style=color:red>*</span></label>
+		<span class="in-box"> <%= f.text_area :location,:value=>@resource_ict_equipment_booking.location, :rows=>4, :autofocus => true%> </span>
+	</div>
+	<div class="form-sec-row">
+		<label class="text"><%= t('labels.req_from_date')%><span style=color:red>*</span></label>
+		<span class="in-box"> <%= f.text_field :requested_from_date, :value=>@resource_ict_equipment_booking.requested_from_date!=nil ? @resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true %> </span>
+	</div>
+	<div class="form-sec-row">
+		<label class="text"><%= t('labels.req_to_date')%><span style=color:red>*</span></label>
+		<span class="in-box"> <%= f.text_field :requested_to_date, :value=>@resource_ict_equipment_booking.requested_to_date!=nil ? @resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%> </span>
+	</div>
+	<div class="form-sec-row">
+		<label class="text"><%= t('labels.need_off')%><span style=color:red>*</span></label>
+		<span class="in-box"> <%if @resource_ict_equipment_booking.need_officer %>
+			Yes <%= f.radio_button :need_officer,1,:checked=>true %>
+			No <%= f.radio_button :need_officer,0 %>
+			<%else%>
+			Yes <%= f.radio_button :need_officer,1%>
+			No <%= f.radio_button :need_officer,0,:checked=>true  %>
+			<%end%> </span>
+	</div>
+	<div class="form-sec-row">
+		<label class="text"><%= t('labels.meeting_from_date')%><span style=color:red>*</span></label>
+		<span class="in-box"> <%= f.text_field :meeting_start_time, :value=>@resource_ict_equipment_booking.meeting_start_time!=nil ? @resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%> </span>
+	</div>
+	<div class="form-sec-row">
+		<label class="text"><%= t('labels.meeting_to_date')%><span style=color:red>*</span></label>
+		<span class="in-box"> <%= f.text_field :meeting_end_time, :value=>@resource_ict_equipment_booking.meeting_end_time!=nil ? @resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%> </span>
+	</div>
+	<div class="form-sec-row">
+		<%= f.label :notes,t('labels.notes'), :class=>"text"%>
+		<span class="in-box"> <%= f.text_area :notes,:value=>@resource_ict_equipment_booking.notes, :rows=>2, :autofocus => true%> </span>
+	</div>
+	<div class="form-sec-row">
+		<label class="text">&nbsp;</label>
+		<span class="in-box"> <%= f.submit :class=>"btn2", :value=>@resource_ict_equipment_booking.new_record? ? t('labels.create') : t('labels.update')%> </span>
+	</div>
+</div>
+<div class="clear"></div>
+<%end%>
 

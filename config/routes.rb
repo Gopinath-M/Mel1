@@ -90,6 +90,7 @@ Melaka::Application.routes.draw do
       get 'requests'
       get 'list_ict_equipment_booking'
       get 'download_attachments'
+      get 'get_value_of_resource'
       get 'approve_request'
       put 'update_booking'
       post 'user_return'
@@ -231,6 +232,9 @@ Melaka::Application.routes.draw do
       get 'get_approvers'
       get 'user_activation'
       post 'activate_department_admin'
+      get 'change_department_admin'
+      get 'get_dept_admin'
+      post 'update_department_admin'
       post 'activate_department_user'
       get 'get_dept_for_users' #transfer dept to get users for selected dept
       get 'account_setting'
