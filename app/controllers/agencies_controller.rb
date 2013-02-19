@@ -1,11 +1,11 @@
-class AgenciesController < ApplicationController  
+class AgenciesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   def index
     @agencies = nil
     if params[:id].blank? || params[:id].nil?
       @agencies = Agency.where(:deleted => false).order.page(params[:page]).per(10)
-    end    
+    end
   end
 
   def new
@@ -61,7 +61,7 @@ class AgenciesController < ApplicationController
     if params[:role_membership][:user_id] != '' && params[:role_membership][:department_id] != ''
       user = User.find_by_ic_number(params[:role_membership][:user_id])
       if user.present?
-        role_member = RoleMembership.where("user_id = ?  and department_id = ? and role_id = 5 ",user.id,params[:role_membership][:department_id]) 
+        role_member = RoleMembership.where("user_id = ?  and department_id = ? and role_id = 5 ",user.id,params[:role_membership][:department_id])
         @role_membership = RoleMembership.new
         agency = Agency.find(params[:role_membership][:agency])
         if agency && !agency.user_id.present?
@@ -70,13 +70,17 @@ class AgenciesController < ApplicationController
           agency.update_attribute(:user_id, user.id)
           redirect_to(list_resource_manager_agencies_path, :notice  =>  'Resource Manager has been Successfully Assigned.')
         else
-          dept = agency.departments
-          dept.each do |department|
-            role = RoleMembership.find_by_department_id(department.id)
-            role.update_attribute(:user_id, user.id)
-            role.update_attribute(:department_id, params[:role_membership][:department_id])
-            agency.update_attribute(:user_id, user.id)
+          val = agency.departments
+          val.each do |manager|
+            resource_manager =  RoleMembership.find_by_department_id_and_role_id(manager.id, 5)
+            if !resource_manager.nil?
+              p resource_manager
+              p resource_manager.update_attribute(:role_id, 3)
+            end
           end
+          role = RoleMembership.find_by_user_id_and_role_id(user.id,3)
+          p role.update_attribute(:role_id, 5)
+          agency.update_attribute(:user_id, user.id)
           redirect_to(list_resource_manager_agencies_path, :notice  =>  'Resource Manager for this Agency has been Successfully Changed.')
         end
       else

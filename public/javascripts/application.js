@@ -500,7 +500,7 @@ $().ready(function() {
 	$("#role_membership_department_id").live("change", function() {
 		if ($("#role_membership_department_id").val() != "") {
 			$.get("/users/transfer/", {
-				department_id : $("#role_membership_department_id").val(),
+				department_id1 : $("#role_membership_department_id").val(),
 				department_users : true
 
 			}, function(data) {
