@@ -28,8 +28,11 @@
 			<%end%> </span>
 	</div>
 
-	<div id = "list_resource">
-		
+	<div id = "list_resource" style="display:none;">
+		<div class="form-sec-row">
+		<label class="text"><%= t('labels.description')%></label>
+		<span class="in-box"> <%= text_field "description","ict_booking",:readonly=>true,:rows=>2, :autofocus => true%> </span>
+		</div>
 	</div>
 
 	<div class="form-sec-row" id="div_ict_resource_serial_no" style="display:none;">

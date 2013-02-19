@@ -39,8 +39,10 @@
 					<span class="in-box"> <% if resource_transportation_booking.status == "New" %>
 						<% val = (resource_transportation_booking.created_at > (Time.now-seconds))  %>
 						<% if !val.present? %>
+						<% if @approve.present? %>
 						<% user = User.find(@approve.user_id) %>
 						<% UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+						<%end%>
 						<%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
 						<%end%>
 						<%end%> </span>
@@ -49,8 +51,10 @@
 						<% val = (resource_transportation_booking.created_at > (Time.now-seconds)) %>
 						<% val1 = (resource_transportation_booking.created_at > (Time.now-2*seconds)) %>
 						<% if !val.present? && !val1.present? %>
+						<% if @approver_second.present? %>
 						<% user = User.find(@approver_second.user_id) %>
-						<%  UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+						<% UserMailer.timeline_expire_mail_to_approver(user).deliver %>
+						<%end%>
 						<%= link_to "Approve",request_view_resource_transportation_bookings_path(:id => resource_transportation_booking.id), :class=>"btn2 in-btn2"%>
 						<%end%>
 						<%end%> </span>
@@ -137,10 +141,13 @@
 		<div class="clear"></div>
 		<h2 class="b-head"></h2>
 		<%end%>
-		<div class="manage-user-rows box"><br/><br/>
-        <%= paginate @resource_transportation_bookings %></div>
-        <%else%>
-        <%=t('labels.no_data_available')%>
+		<div class="manage-user-rows box">
+			<br/>
+			<br/>
+			<%= paginate @resource_transportation_bookings %>
+		</div>
+		<%else%>
+		<%= t('labels.no_data_available')%>
 		<%end%>
 	</div>
 </div>

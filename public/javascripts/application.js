@@ -3177,10 +3177,12 @@ $("#change_department_id").live("change", function() {
 			}, function(data) {
 				if (data[0] != "") {
 					$("#list_resource").show();
-					var content = "<table><tr><td><font color='#369'><u><b>Description :</b></font></u></td></tr><tr><td></td></tr>";
-					content += ""
-						content += "<tr><td><font color='#369'><b>" + data[0].resource.description + "</b></font></td></tr>"
-					content += "</table>"
+					//r content = "<table><tr><td><font color='#369'><u><b>Description :</b></font></u></td></tr><tr><td></td></tr>";
+					//content += ""
+						//content += "<tr><td><font color='#369'><b>" + data[0].resource.description + "</b></font></td></tr>"
+						//content += "<tr><td><label class='text'><b>Description</b></label></td><td><span class='in-box5'><b>" + data[0].resource.description + "</b></span></td></tr>"
+						$('#description_ict_booking').val(data[0].resource.description);
+					//content += "</table>"
 					$("#list_resource").html(content)
 				} else {
 					$("#list_resource").hide();
@@ -3197,11 +3199,12 @@ $("#change_department_id").live("change", function() {
 			}, function(data) {
 				if (data[0] != "") {
 					$("#list_facility_for_others").show();
-					var content = "<table><tr><td><font color='#369'><u><b>Description :</b></font></u></td></tr><tr><td></td></tr>";
-					content += ""
-						content += "<tr><td><font color='#369'><b>" + data[0].resource.description + "</b></font></td></tr>"
+					//var content = "<table><tr><td><font color='#369'><u><b>Description :</b></font></u></td></tr><tr><td></td></tr>";
+					//content += ""
+						//content += "<tr><td><font color='#369'><b>" + data[0].resource.description + "</b></font></td></tr>"
+						$('#description_others_booking').val(data[0].resource.description);
 						//content += "<b>Description</b></td><td><font color='#369'><b>" + data[0].resource.location + "</b></font></td></tr>"
-					content += "</table>"
+					//content += "</table>"
 					$("#list_facility_for_others").html(content)
 				} else {
 					$("#list_facility_for_others").hide();
