@@ -234,6 +234,7 @@ malay:
     message_list: "Tiada Mesej Baru"
 
   left_nav:
+    type_of_user: "Jenis Pengguna"
     group_chat: "Kumpulan Chat"
     approve_req: "Meluluskan Permintaan"
     list_building_asset: "Senarai Bangunan Aset"
@@ -502,6 +503,8 @@ malay:
     denial_other: "Maaf ...Lain-lain Tempahan Kemudahan Bilik Tidak Sesuai Untuk Jabatan anda ..."
     denial_ict: "Maaf ...Peralatan Tempahan Kemudahan ICT Tidak Sesuai Untuk Jabatan anda ..."
     denial_transport: "Maaf ...Pengangkutan Kemudahan Tempahan tidak Tersedia untuk Jabatan anda ..."
+    change_assign_resource_manager: "Tukar/Berikan Pengurus Sumber"
+    template_use: "Gunakan Templat"
 
     select_an_agency: "Pilih agensi"
     select_agency: "Pilih agensi"

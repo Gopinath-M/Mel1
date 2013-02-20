@@ -32,9 +32,9 @@ class Ability < ActiveRecord::Base
       end
             
       can [:read,:create,:show,:user_return_status], ResourceTransportationBooking
-      can [:read,:create,:show,:user_return,:get_list_of_facility,:get_resources,:get_details_for_resource,:list_resource_booking], ResourceRoomBooking
-      can [:read,:create,:show,:download_attachments,:get_value_of_resource,:requests], ResourceIctEquipmentBooking
-      can [:read,:create,:show,:get_other_sub_categories,:get_value_of_resource,:list_resource_booking], ResourceBooking
+      can [:read,:create,:show,:user_return,:get_list_of_facility,:get_resources,:get_details_for_resource,:list_resource_booking,:room_booking_approval], ResourceRoomBooking
+      can [:read,:create,:show,:download_attachments,:get_value_of_resource,:requests,:approve_request], ResourceIctEquipmentBooking
+      can [:read,:create,:show,:get_other_sub_categories,:get_value_of_resource,:list_resource_booking,:resource_booking_approval], ResourceBooking
       can [:read,:create,:show], IctFirewall
       can [:read,:create,:show], IctNetworkPoint
       can [:read,:create,:show], IctVpn
