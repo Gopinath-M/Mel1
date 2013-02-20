@@ -1,4 +1,5 @@
 require 'securerandom'
+
 class DepartmentUsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:get_departments,:get_units]
   def new
@@ -10,36 +11,70 @@ class DepartmentUsersController < ApplicationController
 
   #Create new Department User
   def create
-    password_token=password_friendly_token
-    @user = User.create(params[:user].merge!({:password => password_token}))
-    @user.ic_number = params[:num1] + params[:num2] + params[:num3]  # to get ic number as 3 parts
-    if params[:user_role]=="admin"
-      @admin='admin'
-    end
-    if @user.valid?
-      role_member = @user.role_memberships.new(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
-      if role_member.valid?
-        @user.save
-        role_member.save
-        if role_member.role_id == 5
-          department = Department.find(role_member.department_id)
-          department.agency.update_attribute(:user_id, @user.id) if department
+    if params[:user_role] == "admin"
+      dept = Department.find(params[:users][:department])
+      p user = dept.users.active.where("role_id = 2")
+      if !user.present?
+        password_token=password_friendly_token
+        @user = User.create(params[:user].merge!({:password => password_token}))
+        @user.ic_number = params[:num1] + params[:num2] + params[:num3]  # to get ic number as 3 parts
+        if params[:user_role]=="admin"
+          @admin='admin'
         end
-        @user.activate_user
-        #UserMailer.welcomemail_department_user(@user,password_token).deliver
-        Stalker.enqueue("#{SPREFIX}.send.welcome", :id => @user.id, :password=> password_token)
-        if @user.roles && !@user.roles.empty? && @user.roles.first.name == DISP_USER_ROLE_DEPT_ADMIN
-          redirect_to(admin_users_path, :notice => 'Department Admin was added successfully.')
+        if @user.valid?
+          role_member = @user.role_memberships.new(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
+          if role_member.valid?
+            @user.save
+            role_member.save
+            if role_member.role_id == 5
+              department = Department.find(role_member.department_id)
+              department.agency.update_attribute(:user_id, @user.id) if department
+            end
+            @user.activate_user
+            #UserMailer.welcomemail_department_user(@user,password_token).deliver
+            Stalker.enqueue("#{SPREFIX}.send.welcome", :id => @user.id, :password=> password_token)
+            if @user.roles && !@user.roles.empty? && @user.roles.first.name == DISP_USER_ROLE_DEPT_ADMIN
+              redirect_to(admin_users_path, :notice => 'Department Admin was added successfully.')
+            end
+          else
+            User.destroy(@user.id)
+            @errors = role_member.errors.full_messages.to_sentence
+            render :action=>'new',:admin=>'admin'
+          end
         else
-          redirect_to(users_path, :notice => 'User was added successfully.')
+          render :action=>'new',:admin=>'admin'
         end
       else
-        User.destroy(@user.id)
-        @errors = role_member.errors.full_messages.to_sentence
-        render :action=>'new',:admin=>'admin'
+        redirect_to(new_department_user_path(:admin=>'admin'), :alert => "Sorry... Department Admin has already created for #{dept.name}.")
       end
     else
-      render :action=>'new',:admin=>'admin'
+      password_token=password_friendly_token
+      @user = User.create(params[:user].merge!({:password => password_token}))
+      @user.ic_number = params[:num1] + params[:num2] + params[:num3]  # to get ic number as 3 parts
+      if params[:user_role]=="admin"
+        @admin='admin'
+      end
+      if @user.valid?
+        role_member = @user.role_memberships.new(:role_id=> params[:role][:id], :department_id=>params[:users][:department],:unit_id=>params[:users][:unit], :default_dept=>true,:status=>STATUS_ACTIVE)
+        if role_member.valid?
+          @user.save
+          role_member.save
+          if role_member.role_id == 5
+            department = Department.find(role_member.department_id)
+            department.agency.update_attribute(:user_id, @user.id) if department
+          end
+          @user.activate_user
+          #UserMailer.welcomemail_department_user(@user,password_token).deliver
+          Stalker.enqueue("#{SPREFIX}.send.welcome", :id => @user.id, :password=> password_token)
+          redirect_to(users_path, :notice => 'User was added successfully.')
+        else
+          User.destroy(@user.id)
+          @errors = role_member.errors.full_messages.to_sentence
+          render :action=>'new',:admin=>'admin'
+        end
+      else
+        render :action=>'new',:admin=>'admin'
+      end
     end
   end
 
@@ -55,7 +90,7 @@ class DepartmentUsersController < ApplicationController
       render :layout=>false
     end
   end
-  
+
   def transfer
     if !params[:users].nil? && !params[:department_id].nil?
       users=params[:users].join(",").to_s
@@ -91,11 +126,11 @@ class DepartmentUsersController < ApplicationController
     units = params[:department_id] ? Unit.active.where("department_id =?",params[:department_id]) : nil
     render :json=>[units] if units
   end
-  
+
   private
+
   def password_friendly_token
     SecureRandom.base64(8).tr('+/=lIO0', 'pqrsxyz')
   end
-
 
 end
