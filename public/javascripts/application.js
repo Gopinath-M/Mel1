@@ -3151,8 +3151,17 @@ $("#change_department_id").live("change", function() {
 			$("#user_id").val($("#change_department_id").val())
 			var content = "<table><tr><td><u><b>Department Admin:</b></u></td></tr><tr><td><br/></td></tr>";
 			content += ""
+			if (data[0] != "")
+			{
 			for (var i = 0; i < data[0].length; i++) {
 				content += "<tr><td><font color='#369'><b>" + data[0][i].user.first_name + "</b></font></td></tr>"
+				$("#hide_for_admin").show();
+			}
+			}
+			else
+			{
+				content = "<table><tr><td><br/><br/><b>Sorry.. Selected Department has no Depart Admin..</b></td></tr><tr><td><br/></td></tr>"
+				$("#hide_for_admin").hide();
 			}
 			$("#div_admin_transfer").hide();
 			$("#div_change_admin").show();

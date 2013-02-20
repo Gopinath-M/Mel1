@@ -18,7 +18,7 @@
 	</div>
 
 	<div id="div_change_admin" style="display:none;">
-			
+
 	</div>
 
 	<div class="create-user">
@@ -31,11 +31,13 @@
 		</div>
 	</div>
 
-	<div class="form-sec-row">
-		<label class="text">&nbsp;</label>
-		<span class="in-box">
-			<br/>
-			<%= f.submit t('labels.submit'), :class=>"btn2"%> </span>
+	<div id="hide_for_admin">
+		<div class="form-sec-row">
+			<label class="text">&nbsp;</label>
+			<span class="in-box">
+				<br/>
+				<%= f.submit t('labels.submit'), :class=>"btn2"%> </span>
+		</div>
 	</div>
 </div>
 

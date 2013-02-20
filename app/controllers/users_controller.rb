@@ -439,7 +439,7 @@ class UsersController < ApplicationController
       p role_val.update_attribute(:user_id,role.user_id)
       user = department.users.where("role_id = ?", 2)      
       p role.update_attribute(:user_id,admin.id)      
-      redirect_to(users_path, :notice => "#{admin.first_name} has been changed as Department Admin to #{department.name} Department.")
+      redirect_to(admin_users_path(:admin=>'admin'), :notice => "#{admin.first_name} has been changed as Department Admin to #{department.name} Department.")
     else
       redirect_to(change_department_admin_users_path, :alert => "Please Select the Drop box listed")
     end
