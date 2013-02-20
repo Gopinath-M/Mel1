@@ -190,6 +190,7 @@ en:
     create_newsletter_image: "Create Newsletter Image"
     details: "Details"
     change_department_admin: "Change Department Admin"
+    type_of_user: "Type Of User"
 
   labels:
     template_name: "Name"
@@ -342,6 +343,8 @@ en:
     denial_other: "Sorry... Other Room booking Facility Not Available For your Department..."
     denial_ict: "Sorry... ICT Equipment booking Facility Not Available For your Department..."
     denial_transport: "Sorry... Transport Booking Facility is not Available for your Department..."
+    change_assign_resource_manager: "Change/Assign Resource Manager"
+    template_use: "Use Template"
 
 
     select_an_agency: "Select an agency"
