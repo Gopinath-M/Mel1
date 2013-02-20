@@ -1,96 +1,86 @@
+<div class="CenterNav">
+	<% @requisition = IctNetworkPoint.where(:user_id => current_user.id, :department_id => @current_department).order.page(params[:page]).per(5)%>
+	<% if @requisition.present? %>
+	<div id="div_ajax" >
+		<%if @requisition && !@requisition.empty?%>
+		<%@requisition.each do |resource|%>
+		<div class="manage-user box">
+			<div class="manage-user-rows box">
+				<div class="m-c1">
+					<b><%= t('labels.user')%></b>
+				</div>
+				<div class="m-c2">
+					<% @user = User.find_by_id(resource.user_id) %>
+					<%= @user.username %>
+				</div>
+				<div class="m-c3">
+					<% if resource.status == "New"%><b><font color='#FFA500'><%= "#{resource.status}" %></font></b><% elsif resource.status == "Approved" || resource.status == "Processed"  %> <b><font color='#329C20'><%= "#{resource.status}" %> </font></b><% elsif resource.status == "Declined" || resource.status == "Returned"  %> <b><font color='red'><%= "#{resource.status}" %> </font></b><% end %>
+				</div>
+			</div>
+			<div class="clear"></div>
 
+			<div class="manage-user-rows box">
+				<div class="m-c1">
+					<b><%= t('labels.type_of_facility')%></b>
+				</div>
+				<div class="m-c2">
+					<% name = RequisitionType.find_by_id(resource.requisition_type_id) %>
+					<%= name.name%>
+				</div>
+				<div class="m-c3"></div>
+			</div>
+			<div class="clear"></div>
 
-  <%@requisition = IctNetworkPoint.where(:user_id => current_user.id, :department_id => @current_department).order.page(params[:page]).per(5)%>
-<% if @requisition.present? %>
-  <div id="div_ajax" >
-    <%if @requisition && !@requisition.empty?%>
-      <%@requisition.each do |resource|%>
-        <div class="manage-user box">
-          <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.user')%></b>
-            </div>
-            <div class="m-c2">
-              <% @user = User.find_by_id(resource.user_id) %>
-              <%= @user.username %>
-            </div>
-            <div class="m-c3">
-              <% if resource.status == "New"%><b><font color='#FFA500'><%= "#{resource.status}" %></font></b><% elsif resource.status == "Approved" || resource.status == "Processed"  %>  <b><font color='#329C20'><%= "#{resource.status}" %> </font></b><% elsif resource.status == "Declined" || resource.status == "Returned"  %>  <b><font color='red'><%= "#{resource.status}" %> </font></b><% end %>
-            </div>
-          </div>
-          <div class="clear"></div>
+			<div class="manage-user-rows box">
+				<div class="m-c1">
+					<b><%= t('labels.ticket_no')%></b>
+				</div>
+				<div class="m-c2">
+					<font color="red"><b>&nbsp;<%= resource.id%>/<%= Time.now.year%></b></font>
+				</div>
+				<div class="m-c3">
+					<b><font color="#336699"><%= link_to t('labels.show_info'),ict_network_point_path(:id => resource.id), :method=>:get%></font></b>
+				</div>
+			</div>
+			<div class="clear"></div>
 
-          <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.type_of_facility')%></b>
-            </div>
-            <div class="m-c2">
-              <% name = RequisitionType.find_by_id(resource.requisition_type_id) %>
-              <%=name.name%>
-            </div>
-            <div class="m-c3">
-            </div>
-          </div>
-          <div class="clear"></div>
+			<div class="manage-user-rows box">
+				<div class="m-c1">
+					<b><%= t('labels.location')%></b>
+				</div>
+				<div class="m-c2">
+					<%= resource.location%>
+				</div>
+				<div class="m-c3"></div>
+			</div>
+			<div class="clear"></div>
 
-          <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.ticket_no')%></b>
-            </div>
-            <div class="m-c2">
-              <font color="red"><b>&nbsp;<%=resource.id%>/<%=Time.now.year%></b></font>
-            </div>
-            <div class="m-c3">
-              <b><font color="#336699"><%= link_to t('labels.show_info'),ict_network_point_path(:id => resource.id), :method=>:get%></font></b>
-            </div>
-          </div>
-          <div class="clear"></div>
+			<div class="manage-user-rows box">
+				<div class="m-c1">
+					<b><%= t('labels.date_of_app')%></b>
+				</div>
+				<div class="m-c2">
+					&nbsp;<%= resource.created_at.strftime("%a %d %b %Y %I:%M %p")%></font>
+				</div>
+				<div class="m-c3"></div>
+			</div>
+			<div class="clear"></div>
 
-          <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.location')%></b>
-            </div>
-            <div class="m-c2">
-              <%=resource.location%>
-            </div>
-            <div class="m-c3">
-            </div>
-          </div>
-          <div class="clear"></div>
+		</div>
+		<h2 class="b-head"></h2>
 
-          <div class="manage-user-rows box">
-            <div class="m-c1"><b><%=t('labels.date_of_app')%></b>
-            </div>
-            <div class="m-c2">
-              &nbsp;<%= resource.created_at.strftime("%a %d %b %Y %I:%M %p")%></font>
-            </div>
-            <div class="m-c3">
-            </div>
-          </div>
-          <div class="clear"></div>
-
-        </div>
-        <h2 class="b-head"></h2>
-
-      <%end%> <div class="manage-user-rows box"><br/><br/>
-        <%= paginate @requisition %></div>
-      <%else%>
-      <%=t('labels.no_data_available')%>
-    <%end%>
-  </div>
-<%else%>
-<b><%= " Sorry Requisition Facility for your Department User is not Available" %></b>
-<%end%>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		<%end%>
+		<div class="manage-user-rows box">
+			<br/>
+			<br/>
+			<%= paginate @requisition %>
+		</div>
+		<%else%>
+		<%= t('labels.no_data_available')%>
+		<%end%>
+	</div>
+	<%else%>
+	<b><%= " Sorry Requisition Facility for your Department User is not Available" %></b>
+	<%end%>
+</div>
 

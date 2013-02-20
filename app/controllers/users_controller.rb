@@ -71,7 +71,7 @@ class UsersController < ApplicationController
         users= Department.find_by_id(params[:department_id]).users.active.where("role_id = 3 or role_id = 2")
       end
       else
-       users= Department.find_by_id(params[:department_id1]).users.active.where("role_id = 3")
+       users= Department.find_by_id(params[:department_id1]).users.active.where("role_id = 3").uniq
     end
     if !params[:unit_id].nil?
       users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2")

@@ -1,7 +1,7 @@
 <%if !request.xhr?%>
   <div class="CenterNav">
   <%end%>
-  <%@ict_system_access = IctSystemAccess.where(:user_id => current_user.id).order.page(params[:page]).per(5)%>
+  <%@ict_system_access = IctSystemAccess.where(:user_id => current_user.id,:department_id => @current_department).order.page(params[:page]).per(5)%>
   <div id="div_ajax" >
     <%if @ict_system_access && !@ict_system_access.empty?%>
       <%@ict_system_access.each do |ict_system_access|%>
@@ -119,7 +119,7 @@
       <div class="manage-user-rows box"><br/><br/>
         <%= paginate @ict_system_access %></div>
       <%else%>
-        <%=t('labels.no_data_available')%>
+        <b><%= " Sorry Requisition Facility for your Department User is not Available" %></b>
       <%end%>
   </div>
 </div>

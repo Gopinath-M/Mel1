@@ -11,7 +11,7 @@
 <%#end%>
 <%#end%>
   <%if !current_user.is_super_admin?%>
-    <%departments=current_user.departments%>
+    <%departments=current_user.departments.uniq%>
     <%if departments.length>1%>
       <div class="wallPost-con">
         <div class="selectRole">
