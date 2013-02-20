@@ -248,6 +248,7 @@ Melaka::Application.routes.draw do
       get 'declaration_property'
       post 'declaration_property'
       get 'download_attachments'
+      get 'get_dept_admin'
     end
   end
 

@@ -3,32 +3,41 @@
   <div class="form-sec">
     <h2 class="b-head"><%=t('labels.template_use')%></h2>
     <%= form_tag(send_mail_templates_path) do  %>
-    <%=hidden_field_tag :id,@template.id%>
-    <div class="form-sec-row">
-      <label class="text"><%=t('left_nav.agency')%></label>
-      <span class="in-box">
-        <%= select(:template,:agency,  Agency.active.collect {|agency| [agency.name, agency.id]},:selected=>@user,:prompt=>"Select Agency") %>
-        <br/><br/>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.department')%></label>
-      <span class="in-box">
-        <%= select(:template,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
-      </span>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.user')%></label>
-      <span class="in-box">
-        <%= select(:template,:user_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
-      </span>
-    </div>
-        <div class="form-sec-row">
-      <label class="text">&nbsp;</label>
-      <span class="in-box">
+      <%=hidden_field_tag :id,@template.id%>
+      <div class="form-sec-row">
+        <label class="text"><%=t('left_nav.type_of_user')%></label>
+        <span class="in-box">
+          <%= select(:template,:type,  options_for_select( ["All Users", "All Dept Admins", "Select Agency", "Select Department", "Select Dept Admin"]),:prompt=>"Please Select") %>
+          <br/><br/>
+        </span>
+      </div>
+      <div class="form-sec-row" id="div_template_agency" style="display:none">
+        <label class="text"><%=t('left_nav.agency')%></label>
+        <span class="in-box">
+          <%= select(:template,:agency,  Agency.active.collect {|agency| [agency.name,agency.id]},:selected=>@user,:prompt=>"Select Agency") %>
+          <br/><br/>
+        </span>
+      </div>
+      <div class="form-sec-row" id="div_template_department" style="display:none">
+        <label class="text"><%=t('labels.department')%></label>
+        <span class="in-box">
+          <%= select(:template,:department_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
+          <br/><br/>
+        </span>
+      </div>
+      <div class="form-sec-row" id="div_template_department_admins" style="display:none">
+        <label class="text"><%=t('labels.user')%></label>
+        <span class="in-box">
+          <%= select(:template,:user_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
+          <br/><br/>
+        </span>
+      </div>
+      <div class="form-sec-row">
+        <label class="text">&nbsp;</label>
+        <span class="in-box">
           <%= submit_tag t('labels.send_request'), :class=>"btn2"%>
-      </span>
-    </div>
-  <%end%>
+        </span>
+      </div>
+    <%end%>
   </div>
 </div>
