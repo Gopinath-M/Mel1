@@ -61,7 +61,8 @@ class TemplatesController < ApplicationController
       if params[:template][:agency]!=nil
         departments = Department.active.joins(:agency).where(:agency_id=>params[:template][:agency]).collect(&:id)
         users = User.active.joins(:role_memberships).where("role_memberships.department_id in (?)", departments)
-      flash[:alert] = 'Please select Agency'
+      else
+        flash[:alert] = 'Please select Agency'
       end
     elsif params[:template][:type]=="Select Department"
       if params[:template][:agency]!=nil && params[:template][:department_id]!=nil
