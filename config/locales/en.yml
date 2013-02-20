@@ -345,6 +345,7 @@ en:
     denial_transport: "Sorry... Transport Booking Facility is not Available for your Department..."
     change_assign_resource_manager: "Change/Assign Resource Manager"
     template_use: "Use Template"
+    designation: "Designation"
 
 
     select_an_agency: "Select an agency"

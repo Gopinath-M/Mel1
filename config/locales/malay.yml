@@ -505,6 +505,7 @@ malay:
     denial_transport: "Maaf ...Pengangkutan Kemudahan Tempahan tidak Tersedia untuk Jabatan anda ..."
     change_assign_resource_manager: "Tukar/Berikan Pengurus Sumber"
     template_use: "Gunakan Templat"
+    designation: "Jawatan"
 
     select_an_agency: "Pilih agensi"
     select_agency: "Pilih agensi"
