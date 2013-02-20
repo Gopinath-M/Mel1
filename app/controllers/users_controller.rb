@@ -80,6 +80,14 @@ class UsersController < ApplicationController
 
   end
 
+   def get_dept_admin
+    if !params[:department_id].nil? || !params[:department_id].blank?
+        users= User.active.join(:role_memberships).where(:department_id=>params[:department_id], :role_id=>2)
+    end
+    render :json=>[users] if users
+  end
+
+
   def list_of_user
     if !params[:department_id].nil? || !params[:department_id].blank?
       users= Department.find_by_id(params[:department_id]).users.active.where("role_id != 2 and role_id = 3")
