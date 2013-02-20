@@ -222,6 +222,7 @@ class User < ActiveRecord::Base
     indexes :first_name
     indexes :last_name
     indexes :ic_number
+    indexes :designation
   end
 
   
