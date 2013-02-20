@@ -71,7 +71,7 @@ class UsersController < ApplicationController
         users= Department.find_by_id(params[:department_id]).users.active.where("role_id = 3 or role_id = 2")
       end
       else
-       users= Department.find_by_id(params[:department_id1]).users.active.where("role_id = 3")
+       users= Department.find_by_id(params[:department_id1]).users.active.where("role_id = 3").uniq
     end
     if !params[:unit_id].nil?
       users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2")
@@ -447,7 +447,7 @@ class UsersController < ApplicationController
       p role_val.update_attribute(:user_id,role.user_id)
       user = department.users.where("role_id = ?", 2)      
       p role.update_attribute(:user_id,admin.id)      
-      redirect_to(users_path, :notice => "#{admin.first_name} has been changed as Department Admin to #{department.name} Department.")
+      redirect_to(admin_users_path(:admin=>'admin'), :notice => "#{admin.first_name} has been changed as Department Admin to #{department.name} Department.")
     else
       redirect_to(change_department_admin_users_path, :alert => "Please Select the Drop box listed")
     end

@@ -1,42 +1,49 @@
 <div class="CenterNav">
-        <%@ict_firewalls = IctFirewall.find(:all,:conditions=>["user_id = ? or incharge_person = ?",current_user.id,current_user.id])%>
-  <div id="div_ajax" >
-    <%if @ict_firewalls && !@ict_firewalls.empty?%>
-      <%  @ict_firewalls.each do |ict_firewall|%>
-        <div class="manage-user box">
-          <div id="user_box_<%= ict_firewall.id %>" class="manage-user-row box">
-            <div class="mu-c1">
-            </div>
-            <div class="mu-c2">
-              <p class="head1"><b><%=t('labels.user_name')%> : <%= ict_firewall.user.first_name %><b/></p>
-              <p class="head1"><b><%=t('labels.ticket_no')%> : <%= ict_firewall.id.to_s+'/'+ict_firewall.created_at.strftime("%Y") %><b/></p>
-              <p class="head1"><b><%=t('labels.justification')%> : <%= ict_firewall.justification %><b/></p>
-              <p class="head1"><b><%=t('labels.from_date')%> : <%= ict_firewall.requested_from_date.strftime("%d - %m - %Y") %><b/></p>
-              <p class="head1"><b><%=t('labels.to_date')%> : <%= ict_firewall.requested_to_date.strftime("%d - %m - %Y") %><b/></p>
-            </div>
-            <div class="form-sec-row">
-              <b><font color='#329C20'><%= "#{ict_firewall.status}" %></font></b>
-            </div>
+	<% @firewalls = IctFirewall.where(:user_id=> current_user.id, :department_id => @current_department).order.page(params[:page]).per(5)%>
+	<% @ict_firewalls = IctFirewall.find(:all,:conditions=>["user_id = ? or incharge_person = ?",current_user.id,current_user.id])%>
+	<% if @firewalls.present? %>
+	<div id="div_ajax" >
+		<%if @ict_firewalls && !@ict_firewalls.empty?%>
+		<%  @ict_firewalls.each do |ict_firewall|%>
+		<div class="manage-user box">
+			<div id="user_box_<%= ict_firewall.id %>" class="manage-user-row box">
+				<div class="mu-c1"></div>
+				<div class="mu-c2">
+					<p class="head1"><b><%= t('labels.user_name')%> : <%= ict_firewall.user.first_name %><b/>
+					</p>
+					<p class="head1"><b><%= t('labels.ticket_no')%> : <%= ict_firewall.id.to_s+'/'+ict_firewall.created_at.strftime("%Y") %><b/>
+					</p>
+					<p class="head1"><b><%= t('labels.justification')%> : <%= ict_firewall.justification %><b/>
+					</p>
+					<p class="head1"><b><%= t('labels.from_date')%> : <%= ict_firewall.requested_from_date.strftime("%d - %m - %Y") %><b/>
+					</p>
+					<p class="head1"><b><%= t('labels.to_date')%> : <%= ict_firewall.requested_to_date.strftime("%d - %m - %Y") %><b/>
+					</p>
+				</div>
+				<div class="form-sec-row">
+					<b><font color='#329C20'><%= "#{ict_firewall.status}" %></font></b>
+				</div>
 
-            <% if current_user.is_department_admin? && ict_firewall.status == "New" %>
-              <div class="form-sec-row">
-                <span class="in-box">
-                  <%= link_to t('labels.approve_request'), edit_ict_firewall_path(ict_firewall) %>
-                </span>
-              </div>
-            <% elsif (ict_firewall.incharge_person.to_i == current_user.id.to_i) && ict_firewall.status == "Approved" %>
-              <div class="form-sec-row">
-                <span class="in-box">
-                  <%= link_to  t('labels.process_request'), edit_ict_firewall_path(ict_firewall) %>
-                </span>
-              </div>
-            <%end%>
-            <%= link_to t('labels.request_details'), ict_firewall_path(ict_firewall) %>
-          </div>
-        </div>
-      <%end%>
-    <%end%>
-    <div class="manage-user-rows box"><br/><br/>
-    </div>
-  </div>
+				<% if current_user.is_department_admin? && ict_firewall.status == "New" %>
+				<div class="form-sec-row">
+					<span class="in-box"> <%= link_to t('labels.approve_request'), edit_ict_firewall_path(ict_firewall) %> </span>
+				</div>
+				<% elsif (ict_firewall.incharge_person.to_i == current_user.id.to_i) && ict_firewall.status == "Approved" %>
+				<div class="form-sec-row">
+					<span class="in-box"> <%= link_to  t('labels.process_request'), edit_ict_firewall_path(ict_firewall) %> </span>
+				</div>
+				<%end%>
+				<%= link_to t('labels.request_details'), ict_firewall_path(ict_firewall) %>
+			</div>
+		</div>
+		<%end%>
+		<%end%>
+		<div class="manage-user-rows box">
+			<br/>
+			<br/>
+		</div>
+	</div>
+	<%else%>
+	<b><%= " Sorry Requisition Facility for your Department User is not Available" %></b>
+	<%end%>
 </div>
