@@ -40,7 +40,7 @@ class NewslettersController < ApplicationController
       flash[:alert] = 'Please select a user type'
     end
     if users && !users.empty?
-      newsletter_to.uniq!
+      newsletter_to.uniq! if is_array?(newsletter_to)
       @newsletter = Newsletter.create!(params[:newsletter].merge!({:created_by => current_user.id,:from=>current_user.email, :status => "New",:to=>newsletter_to.join(",").to_s}))
     if @newsletter.valid?
       @newsletter.save!
