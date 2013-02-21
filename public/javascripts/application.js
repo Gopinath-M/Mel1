@@ -187,32 +187,25 @@ function getAgencyforResource(resource_id, agency_id) {
 
 $().ready(function() {
 
-    $("#template_type").live("change", function(){
-        if($("#template_type").val()=="All Users" || $("#template_type").val()=="All Dept Admins")
-        {
-            $("#div_template_agency").hide()
-            $("#div_template_department").hide()
-            $("#div_template_department_admins").hide()
-        }
-        else if($("#template_type").val()=="Select Agency")
-        {
-            $("#div_template_agency").show()
-            $("#div_template_department").hide()
-            $("#div_template_department_admins").hide()
-        }
-        else if($("#template_type").val()=="Select Department")
-        {
-            $("#div_template_agency").show()
-            $("#div_template_department").show()
-            $("#div_template_department_admins").hide()
-        }
-        else if($("#template_type").val()=="Select Dept Admin")
-        {
-            $("#div_template_agency").show()
-            $("#div_template_department").show()
-            $("#div_template_department_admins").show()
-        }
-    })
+	$("#template_type").live("change", function() {
+		if ($("#template_type").val() == "All Users" || $("#template_type").val() == "All Dept Admins") {
+			$("#div_template_agency").hide()
+			$("#div_template_department").hide()
+			$("#div_template_department_admins").hide()
+		} else if ($("#template_type").val() == "Select Agency") {
+			$("#div_template_agency").show()
+			$("#div_template_department").hide()
+			$("#div_template_department_admins").hide()
+		} else if ($("#template_type").val() == "Select Department") {
+			$("#div_template_agency").show()
+			$("#div_template_department").show()
+			$("#div_template_department_admins").hide()
+		} else if ($("#template_type").val() == "Select Dept Admin") {
+			$("#div_template_agency").show()
+			$("#div_template_department").show()
+			$("#div_template_department_admins").show()
+		}
+	})
 
 	$("#ict_agency_resource_id").live('change', function() {
 		if ($("#ict_agency_resource_id").val() != '') {
@@ -3107,21 +3100,21 @@ $("#template_agency").live("change", function() {
 });
 
 $("#template_department_id").live("change", function() {
-    if ($("#template_department_id").val() != "") {
-        $.get("/users/get_dept_admin/", {
-            department_id : $("#template_department_id").val(),
-            department_users : true
+	if ($("#template_department_id").val() != "") {
+		$.get("/users/get_dept_admin/", {
+			department_id : $("#template_department_id").val(),
+			department_users : true
 
-        }, function(data) {
-            if (data[0] != null) {
-                $('#template_user_id').find('option').remove().end()
-                $('#template_user_id').append($("<option></option>").attr("value", "").text("Select User"));
-                for (var i = 0; i < data[0].length; i++) {
-                    $('#template_user_id').append($("<option></option>").attr("value", data[0][i].user.ic_number).text(data[0][i].user.first_name));
-                }
-            }
-        })
-    }
+		}, function(data) {
+			if (data[0] != null) {
+				$('#template_user_id').find('option').remove().end()
+				$('#template_user_id').append($("<option></option>").attr("value", "").text("Select User"));
+				for (var i = 0; i < data[0].length; i++) {
+					$('#template_user_id').append($("<option></option>").attr("value", data[0][i].user.ic_number).text(data[0][i].user.first_name));
+				}
+			}
+		})
+	}
 });
 
 /*Change Department Admin Function starts here*/
@@ -3179,8 +3172,14 @@ $("#change_department_id").live("change", function() {
 			$("#user_id").val($("#change_department_id").val())
 			var content = "<table><tr><td><u><b>Department Admin:</b></u></td></tr><tr><td><br/></td></tr>";
 			content += ""
-			for (var i = 0; i < data[0].length; i++) {
-				content += "<tr><td><font color='#369'><b>" + data[0][i].user.first_name + "</b></font></td></tr>"
+			if (data[0] != "") {
+				for (var i = 0; i < data[0].length; i++) {
+					$("#hide_for_admin").show();
+					content += "<tr><td><font color='#369'><b>" + data[0][i].user.first_name + "</b></font></td></tr>"
+				}
+			} else {
+				$("#hide_for_admin").hide();
+				content = "<table><tr><td><br/><br/><b>Sorry... Selected Department has no Department Admin.</b></td></tr><tr><td><br/></td></tr>";
 			}
 			$("#div_admin_transfer").hide();
 			$("#div_change_admin").show();
@@ -3195,56 +3194,45 @@ $("#change_department_id").live("change", function() {
 })
 /* Change Department Admin Function ends here*/
 
+$("#resource_ict_equipment_booking_resource_id").live("change", function() {
+	if ($("#resource_ict_equipment_booking_resource_id").val() != "") {
+		$.get("/resource_ict_equipment_bookings/get_value_of_resource/", {
+			resource_id : $("#resource_ict_equipment_booking_resource_id").val()
+		}, function(data) {
+			if (data[0] != "") {
+				$("#list_resource").show();
+				//r content = "<table><tr><td><font color='#369'><u><b>Description :</b></font></u></td></tr><tr><td></td></tr>";
+				//content += ""
+				//content += "<tr><td><font color='#369'><b>" + data[0].resource.description + "</b></font></td></tr>"
+				//content += "<tr><td><label class='text'><b>Description</b></label></td><td><span class='in-box5'><b>" + data[0].resource.description + "</b></span></td></tr>"
+				$('#description_ict_booking').val(data[0].resource.description);
+				//content += "</table>"
+				$("#list_resource").html(content)
+			} else {
+				$("#list_resource").hide();
+			}
+		})
+	}
+});
 
-
-
-	$("#resource_ict_equipment_booking_resource_id").live("change", function() {
-		if ($("#resource_ict_equipment_booking_resource_id").val() != "") {
-			$.get("/resource_ict_equipment_bookings/get_value_of_resource/", {
-				resource_id : $("#resource_ict_equipment_booking_resource_id").val()
-			}, function(data) {
-				if (data[0] != "") {
-					$("#list_resource").show();
-					//r content = "<table><tr><td><font color='#369'><u><b>Description :</b></font></u></td></tr><tr><td></td></tr>";
-					//content += ""
-						//content += "<tr><td><font color='#369'><b>" + data[0].resource.description + "</b></font></td></tr>"
-						//content += "<tr><td><label class='text'><b>Description</b></label></td><td><span class='in-box5'><b>" + data[0].resource.description + "</b></span></td></tr>"
-						$('#description_ict_booking').val(data[0].resource.description);
-					//content += "</table>"
-					$("#list_resource").html(content)
-				} else {
-					$("#list_resource").hide();
-				}
-			})
-		}
-	});
-
-
-	$("#resource_booking_resource_id").live("change", function() {
-		if ($("#resource_booking_resource_id").val() != "") {
-			$.get("/resource_ict_equipment_bookings/get_value_of_resource/", {
-				resource_id : $("#resource_booking_resource_id").val()
-			}, function(data) {
-				if (data[0] != "") {
-					$("#list_facility_for_others").show();
-					//var content = "<table><tr><td><font color='#369'><u><b>Description :</b></font></u></td></tr><tr><td></td></tr>";
-					//content += ""
-						//content += "<tr><td><font color='#369'><b>" + data[0].resource.description + "</b></font></td></tr>"
-						$('#description_others_booking').val(data[0].resource.description);
-						//content += "<b>Description</b></td><td><font color='#369'><b>" + data[0].resource.location + "</b></font></td></tr>"
-					//content += "</table>"
-					$("#list_facility_for_others").html(content)
-				} else {
-					$("#list_facility_for_others").hide();
-				}
-			})
-		}
-	});
-
-
-
-
-
-
-
+$("#resource_booking_resource_id").live("change", function() {
+	if ($("#resource_booking_resource_id").val() != "") {
+		$.get("/resource_ict_equipment_bookings/get_value_of_resource/", {
+			resource_id : $("#resource_booking_resource_id").val()
+		}, function(data) {
+			if (data[0] != "") {
+				$("#list_facility_for_others").show();
+				//var content = "<table><tr><td><font color='#369'><u><b>Description :</b></font></u></td></tr><tr><td></td></tr>";
+				//content += ""
+				//content += "<tr><td><font color='#369'><b>" + data[0].resource.description + "</b></font></td></tr>"
+				$('#description_others_booking').val(data[0].resource.description);
+				//content += "<b>Description</b></td><td><font color='#369'><b>" + data[0].resource.location + "</b></font></td></tr>"
+				//content += "</table>"
+				$("#list_facility_for_others").html(content)
+			} else {
+				$("#list_facility_for_others").hide();
+			}
+		})
+	}
+});
 
