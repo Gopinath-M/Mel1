@@ -7,25 +7,35 @@ class Newsletter < ActiveRecord::Base
   validates :from, :to, :subject, :presence => true
 
   def send_newsletters
-    if self.to == "All Users" || "All Dept Admins"
-      users = self.to == "All Users" ? User.active : User.active.joins(:role_memberships).where("role_memberships.role_id=2")
+    users=[]
+    if self.to == "All Users"
+      users = User.active
+    elsif self.to=="All Dept Admins"
+      users =  User.active.joins(:role_memberships).where("role_memberships.role_id=2")
+    elsif self.to=="Select Agency"
+      if self.agency!=nil
+        departments = Department.active.joins(:agency).where(:agency_id=>self.agency).collect(&:id)
+        users = User.active.joins(:role_memberships).where("role_memberships.department_id in (?)", departments)
+        agency= Agency.find(self.agency)
+        self.to = agency.name.to_s + " Agency"
+      end
+    elsif self.to=="Select Department"
+      if self.agency!=nil && self.department!=nil
+        department = Department.find_by_agency_id_and_id(self.agency, self.department)
+        users = User.active.joins(:role_memberships).where("role_memberships.department_id = ?", department.id)
+        self.to = department.name.to_s + " Department"
+      end
+    elsif  self.to=="Select Dept Admin"
+      if self.user!=nil
+        users= User.where(:ic_number => self.user)
+        self.to = users.first.email
+      end
+    end
+    self.update_attribute(:to, self.to)
+    if users && !users.empty?
       users.each do |user|
         begin
           Stalker.enqueue("#{SPREFIX}.send.newsletter", :id => self.id, :user_email => user.email, :subject => self.subject, :content => self.content)
-          #UserMailer.newsletter(user.email,self.subject, self.content).deliver
-        rescue Exception=>e
-          p "Exception occurred due to : #{e.to_s}"
-        end
-      end
-    else
-      if self.to!=nil && self.to.include?(",")
-        users = self.to.split(",")
-      else
-        users =[self.to]
-      end
-      users.each do |user_email|
-        begin
-          Stalker.enqueue("#{SPREFIX}.send.newsletter", :id => self.id, :user_email => user_email, :subject => self.subject, :content => self.content)
           #UserMailer.newsletter(user_email,self.subject, self.content).deliver
         rescue Exception=>e
           p "Exception occurred due to : #{e.to_s}"
