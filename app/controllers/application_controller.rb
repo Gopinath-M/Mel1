@@ -3,13 +3,15 @@ class ApplicationController < ActionController::Base
   before_filter :current_department, :current_role, :set_locale
     
   rescue_from CanCan::AccessDenied do |exception|  
-    redirect_to(dashboard_index_path,:alert =>"You are not authorized to access this page")
+  redirect_to(dashboard_index_path,:alert =>"You are not authorized to access this page")
   end
   
   def set_locale
-    session[:locale] = params[:locale]!=nil && params[:locale]!="" ? params[:locale] : I18n.default_locale
+    session[:locale] = params[:locale] if params[:locale]!=nil && params[:locale]!=""
     I18n.locale = session[:locale]
-    redirect_to :back
+    if params[:locale]!=nil && params[:locale]!=""
+      redirect_to :back
+    end
   end
 
   #redirect user based on sign in count and force user to change password if logged in first time
@@ -35,7 +37,7 @@ class ApplicationController < ActionController::Base
       else
         @current_department ||= default_department
       end
-      Department.current_department = @current_department
+              Department.current_department = @current_department
     end
   end
   
