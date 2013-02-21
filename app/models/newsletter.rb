@@ -3,7 +3,7 @@ class Newsletter < ActiveRecord::Base
   after_create :send_newsletters
   attr_accessor :agency, :department, :user, :type
   #  validates_format_of :from, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>Proc.new {|u| !u.from.blank?}
-#  validates_format_of :to, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,:if=>Proc.new {|u| (u.to!="All Users" && u.to!="All Dept Admins")  && !u.to.blank? }
+  #  validates_format_of :to, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,:if=>Proc.new {|u| (u.to!="All Users" && u.to!="All Dept Admins")  && !u.to.blank? }
   validates :from, :to, :subject, :presence => true
 
   def send_newsletters
@@ -11,29 +11,24 @@ class Newsletter < ActiveRecord::Base
       users = self.to == "All Users" ? User.active : User.active.joins(:role_memberships).where("role_memberships.role_id=2")
       users.each do |user|
         begin
-          #Stalker.enqueue("#{SPREFIX}.send.newsletter", :id => self.id, :user_email => user.email, :subject => self.subject, :content => self.content)
-          UserMailer.newsletter(user.email,self.subject, self.content).deliver
+          Stalker.enqueue("#{SPREFIX}.send.newsletter", :id => self.id, :user_email => user.email, :subject => self.subject, :content => self.content)
+          #UserMailer.newsletter(user.email,self.subject, self.content).deliver
         rescue Exception=>e
-          #          NewsletterUserActivity.create(:newsletter_id => self.id, :email_id => user.email)
-          p "======Exceptgion #{e.to_s}"
+          p "Exception occurred due to : #{e.to_s}"
         end
       end
     else
-p "================comes to else #{self.to}"
       if self.to!=nil && self.to.include?(",")
         users = self.to.split(",")
       else
         users =[self.to]
       end
-      p "=========users #{users.inspect}"
       users.each do |user_email|
         begin
-          
-	  #Stalker.enqueue("#{SPREFIX}.send.newsletter", :id => self.id, :user_email => user_email, :subject => self.subject, :content => self.content)
-          UserMailer.newsletter(user_email,self.subject, self.content).deliver
+          Stalker.enqueue("#{SPREFIX}.send.newsletter", :id => self.id, :user_email => user_email, :subject => self.subject, :content => self.content)
+          #UserMailer.newsletter(user_email,self.subject, self.content).deliver
         rescue Exception=>e
-          p "======Exceptgion #{e.to_s}"
-          #          NewsletterUserActivity.create(:newsletter_id => self.id, :email_id => user_email)
+          p "Exception occurred due to : #{e.to_s}"
         end
       end
     end
