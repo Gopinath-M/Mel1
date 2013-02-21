@@ -30,14 +30,14 @@ class SoftwareInstallationsController < ApplicationController
     @software_installation_details.software_installation_id = @software_installation.id
     @software_installation_details.facility_ict_software_id = params[:name][:service_detail]
     @software_installation_details.user_id = current_user.id
-    @software_installation_details.department_id = current_user.departments
+    @software_installation_details.department_id = params[:department_id]
     @software_installation_details.save
     if params[:service_detail]
       @software_installation_details = SoftwareInstallationDetail.new
       @software_installation_details.software_installation_id = @software_installation.id
       @software_installation_details.facility_ict_software_id = params[:service_detail][:software]
       @software_installation_details.user_id = current_user.id
-      @software_installation_details.department_id = current_user.departments
+      @software_installation_details.department_id = params[:department_id]
       @software_installation_details.name = params[:service_detail][:name]
       @software_installation_details.position = params[:service_detail][:position]
       @software_installation_details.grade = params[:service_detail][:grade]
