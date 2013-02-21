@@ -28,7 +28,7 @@
       <div class="form-sec-row" id="div_template_department_admins" style="display:none">
         <label class="text"><%=t('labels.user')%></label>
         <span class="in-box">
-          <%= select(:template,:user_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select Department") %>
+          <%= select(:template,:user_id, Department.active.where("agency_id =?", params[:agency]).collect {|p| [ p.name, p.id ] },:prompt => "Select User") %>
           <br/><br/>
         </span>
       </div>
