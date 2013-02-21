@@ -47,8 +47,11 @@ class DepartmentUsersController < ApplicationController
       else
         redirect_to(new_department_user_path(:admin=>'admin'), :alert => "Sorry... Department Admin has already created for #{dept.name}.")
       end
-    else
-      password_token=password_friendly_token
+    else      
+      dept = Department.find(params[:users][:department])
+      user = dept.users.active.where("role_id = 2")
+      if user.present?
+      password_token=password_friendly_token      
       @user = User.create(params[:user].merge!({:password => password_token}))
       @user.ic_number = params[:num1] + params[:num2] + params[:num3]  # to get ic number as 3 parts
       if params[:user_role]=="admin"
@@ -74,6 +77,9 @@ class DepartmentUsersController < ApplicationController
         end
       else
         render :action=>'new',:admin=>'admin'
+      end
+      else
+        redirect_to(new_department_user_path, :alert => "Please create Department Admin for #{dept.name}. Then only you can create User for #{dept.name}")
       end
     end
   end

@@ -104,9 +104,9 @@ class ResourceBookingsController < ApplicationController
   def index
     category
     if current_user && current_user.is_super_admin?
-      @resource_bookings = ResourceBooking.all
+      @resource_bookings = ResourceBooking.order.page(params[:page]).per(5)
     elsif current_user && current_user.is_resource_manager?
-      @resource_bookings = ResourceBooking.find_all_by_status("Approved")
+      @resource_bookings = ResourceBooking.where(:status => 'Approved').order.page(params[:page]).per(5)
     else
       @resource_bookings = ResourceBooking.where(:user_id => current_user.id).order.page(params[:page]).per(5)
     end

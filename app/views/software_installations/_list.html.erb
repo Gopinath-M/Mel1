@@ -3,7 +3,7 @@
 <div class="CenterNav">
 	<% @software = SoftwareInstallationDetail.where(:user_id=>current_user.id, :department_id => @current_department).page(params[:page]).per(5)%>
 	<% if @software.present? %>
-	<% @software_installation = SoftwareInstallation.all%>
+	<% @software_installation = SoftwareInstallation.joins(:software_installation_details).where("department_id = ?", @current_department).uniq%>
 	<% @software_installation_detail = SoftwareInstallationDetail.all%>
 	<div id="div_ajax" >
 		<%if @software_installation && !@software_installation.empty?%>

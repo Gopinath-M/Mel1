@@ -3,7 +3,7 @@
 
   <div class="form-sec">
   </div>
-
+  <%= hidden_field_tag :department_id, (current_department) %>
   <%= hidden_field_tag :requisition_type_id, 5 %>
   <div class="form-sec-row">
         <%= f.label :software_attachment,t('labels.upload_file'), :class=>"text"%>
