@@ -190,7 +190,7 @@ en:
     create_newsletter_image: "Create Newsletter Image"
     details: "Details"
     change_department_admin: "Change Department Admin"
-    type_of_user: "Type Of User"
+    type_of_user: "Type of User"
 
   labels:
     template_name: "Name"
