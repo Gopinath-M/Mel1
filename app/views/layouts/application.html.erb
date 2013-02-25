@@ -152,7 +152,7 @@
             controlType: 'select',
             dateFormat: "D MM d, yy",
             timeFormat: 'HH:mm:ss'
-          });         
+          });
           $("#complaint_building_asset_given_date").datetimepicker({
             controlType: 'select',
             dateFormat: "D MM d, yy",
@@ -191,13 +191,27 @@
       <script type="text/javascript">
 		
         $().ready(function() {
-          $("#user_service_first_appointment_to_public_service").datepick();
-          $("#user_service_first_appointment_to_present_position").datepick();
-          $("#user_service_promotion_to_present_grade").datepick();
-          $("#user_service_confirmation_date").datepick();
-          $("#outstation_from_date").datepick();
-          $("#outstation_to_date").datepick();
-          $("#user_date_of_birth").datepick();
+          $("#user_service_first_appointment_to_public_service").datepick({
+            dateFormat: 'dd-mm-yyyy'
+          });
+          $("#user_service_first_appointment_to_present_position").datepick({
+            dateFormat: 'dd-mm-yyyy'
+          });
+          $("#user_service_promotion_to_present_grade").datepick({
+            dateFormat: 'dd-mm-yyyy'
+          });
+          $("#user_service_confirmation_date").datepick({
+            dateFormat: 'dd-mm-yyyy'
+          });
+          $("#outstation_from_date").datepick({
+            dateFormat: 'dd-mm-yyyy'
+          });
+          $("#outstation_to_date").datepick({
+            dateFormat: 'dd-mm-yyyy'
+          });
+          $("#user_date_of_birth").datepick({
+            dateFormat: 'dd-mm-yyyy'
+          });
         });
       </script>
     <%end%>
