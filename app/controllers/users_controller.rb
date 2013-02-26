@@ -70,8 +70,8 @@ class UsersController < ApplicationController
       else
         users= Department.find_by_id(params[:department_id]).users.active.where("role_id = 3 or role_id = 2")
       end
-      else
-       users= Department.find_by_id(params[:department_id1]).users.active.where("role_id = 3").uniq
+    elsif !params[:department_id1].nil?
+      users= Department.find_by_id(params[:department_id1]).users.active.where("role_id = 3").uniq
     end
     if !params[:unit_id].nil?
       users = Unit.find_by_id(params[:unit_id]).users.where("role_id !=2")
@@ -80,13 +80,12 @@ class UsersController < ApplicationController
 
   end
 
-   def get_dept_admin
+  def get_dept_admin
     if !params[:department_id].nil? || !params[:department_id].blank?
-        users= User.active.join(:role_memberships).where(:department_id=>params[:department_id], :role_id=>2)
+      users= User.active.join(:role_memberships).where(:department_id=>params[:department_id], :role_id=>2)
     end
     render :json=>[users] if users
   end
-
 
   def list_of_user
     if !params[:department_id].nil? || !params[:department_id].blank?
@@ -437,7 +436,7 @@ class UsersController < ApplicationController
     render :json=>[users] if users
   end
 
-  def update_department_admin    
+  def update_department_admin
     if params[:change_department][:id] != "" && params[:transfer][:username_admin] != "" && params[:transfer_from][:agency]!= ""
       val = params[:change_department][:id]
       department = Department.find(params[:change_department][:id])
@@ -445,8 +444,8 @@ class UsersController < ApplicationController
       role_val = RoleMembership.find_by_user_id_and_role_id(admin.id, 3)
       role = RoleMembership.find_by_department_id_and_role_id(params[:change_department][:id], 2)
       p role_val.update_attribute(:user_id,role.user_id)
-      user = department.users.where("role_id = ?", 2)      
-      p role.update_attribute(:user_id,admin.id)      
+      user = department.users.where("role_id = ?", 2)
+      p role.update_attribute(:user_id,admin.id)
       redirect_to(admin_users_path(:admin=>'admin'), :notice => "#{admin.first_name} has been changed as Department Admin to #{department.name} Department.")
     else
       redirect_to(change_department_admin_users_path, :alert => "Please Select the Drop box listed")
