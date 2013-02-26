@@ -443,10 +443,14 @@ class UsersController < ApplicationController
       admin = User.find_by_ic_number(params[:transfer][:username_admin])
       role_val = RoleMembership.find_by_user_id_and_role_id(admin.id, 3)
       role = RoleMembership.find_by_department_id_and_role_id(params[:change_department][:id], 2)
-      p role_val.update_attribute(:user_id,role.user_id)
       user = department.users.where("role_id = ?", 2)
-      p role.update_attribute(:user_id,admin.id)
-      redirect_to(admin_users_path(:admin=>'admin'), :notice => "#{admin.first_name} has been changed as Department Admin to #{department.name} Department.")
+      if role_val.present? && role.present?
+        role_val.update_attribute(:user_id, role.user_id)
+        role.update_attribute(:user_id,admin.id)
+        redirect_to(admin_users_path(:admin=>'admin'), :notice => "#{admin.first_name} has been changed as Department Admin to #{department.name} Department.")
+      else
+        redirect_to(change_department_admin_users_path, :alert => "Sorry. The Selected User cant change as Department Admin")
+      end
     else
       redirect_to(change_department_admin_users_path, :alert => "Please Select the Drop box listed")
     end
