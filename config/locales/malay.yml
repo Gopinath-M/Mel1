@@ -157,11 +157,12 @@ malay:
       unlock_instructions:
         subject: 'Buka Arahan'
   login:
-    wel: "Dialu-Alukan Untuk Melaka Intranet Portal"
-    corridor: "Koridor Untuk Komunikasi Yang Berkesan"
-    keep_me_login_in: "Menjaga saya kekal dilog masuk"
-    forget_pass: "Terlupa kata laluan anda?"
+    wel: "Selamat Datang ke Portal Intranet Melaka"
+    corridor: "Koridor Bagi Komunikasi Efektif"
+    keep_me_login_in: "Kekalkan saya di log masuk"
+    forget_pass: "Lupa Kata Laluan"
     login: "Log Masuk Dalam"
+    copyright: "Hakmilik@2012 Melaka"
   errors_date:
     date_greater: "Dari Tarikh Perlu lebih besar daripada tarikh dan waktu semasa"
     from_date_greater: "Ke Tarikh Perlu lebih besar daripada tarikh dan waktu semasa"

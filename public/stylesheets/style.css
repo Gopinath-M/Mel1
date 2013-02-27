@@ -19,7 +19,7 @@
 #Header{ min-height:95px;width:980px; margin:0 auto;}
 #Header .logo{ float:left; width:500px; height:95px;}
 #Header .logo a{ float:left; width:500px; height:95px; background:url(../images/logo.png) no-repeat 0 0; text-indent:-999px; text-align:left; overflow:hidden;}
-#Header .logo1 a{ float:left; width:500px; height:95px; background:url(../images/logo_malay.png) no-repeat 0 0; text-indent:-999px; text-align:left; overflow:hidden;}
+#Header .logo1 a{ float:left; width:500px; height:95px; background:url(../images/logo_melaka_new.png) no-repeat 0 0; text-indent:-999px; text-align:left; overflow:hidden;}
 #Header .header-right{ float:right; width:480px;}
 #Header .header-right .language,#Header .iHeader .language{ float:right; margin-top:35px; margin-left:5px;}
 #Header .header-right .language a,#Header .header-right .language span,#Header .iHeader .language a,#Header .iHeader .language span{ float:right; margin-left:3px; width:16px; height:16px; padding:2px;}
@@ -453,7 +453,7 @@ span.in-box2  { padding: 5px; width: 132%;}
 .form-sec-row2 span.in-box2{ float:right; width:60%;}
 
 .manage-user-rows {padding: 5px 0 5px;}
-.manage-user-rows .m-c1{ float:left; width:28%;}
+.manage-user-rows .m-c1{ float:left; width:29%;}
 .manage-user-rows .m-c2{ float:left; width:56%; margin-left:10px; }
 .manage-user-rows .m-c-second{ float:left; width:55%; margin-left:10px; }
 .manage-user-rows .m-c3{ float:right; width:14%; }
@@ -482,3 +482,8 @@ span.in-box2  { padding: 5px; width: 132%;}
 .manage-user-row .mu-c2-map {float: left;margin-left: 10px; width: 38%; margin-top:13px}
 .manage-user-row .mu-c3-map {float: right; width: 39%; margin-top:13px}
 .manage-user-rows .m-c3-third {float: right;width: 61px;}
+/* Dashboard Style Starts
+.kudos_style {background-color: #FEC2C0; float: right; margin-bottom: 10px;}
+.tex-design {background-color: #FEC2C0;float: left;font-size: 160px;margin-top: -25px;padding: 9px 105px;}
+Dashboard Style Ends */
+

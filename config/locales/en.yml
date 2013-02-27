@@ -6,7 +6,8 @@ en:
     corridor: "The Corridor for Effective Communication"
     keep_me_login_in: "Keep me logged in"
     forget_pass: "Forgot your password?"
-    login : "Login"
+    login: "Login"
+    copyright: "Copyright © 2012 Melaka" 
   errors_date:
     date_greater: "From Date Should be greater than current date and time"
     from_date_greater: "To Date Should be greater than current date and time"
