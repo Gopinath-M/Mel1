@@ -119,7 +119,7 @@ class ResourceTransportationBookingsController < ApplicationController
             redirect_to(new_resource_transportation_booking_path, :alert => "You can't book the Vehicle which is already Processed.")
           end
         end
-      elsif (current_user.is_department_admin? || (@approver.present? and @approver.user_id.to_i == current_user.id) || (@approve_second.present? and @approve_second.user_id.to_i == current_user.id))
+      elsif (current_user.is_department_admin? || (@approver.present? and @approver.user_id.to_i == current_user.id) || (@approve_second.present? and @approve_second.user_id.to_i == current_user.id)) && (params[:vehicle][:model_type_id_available].present?)
 
         agency_store = AgencyStore.find_by_resource_id(params[:vehicle][:model_type_id_available])
         @resource_transportation_booking.agency_store_id = agency_store.id
