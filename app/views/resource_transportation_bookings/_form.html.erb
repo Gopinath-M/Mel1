@@ -43,7 +43,7 @@
       <%end%> </span>
     </div>
 
-    <% if ((!current_user.is_department_user? && !current_user.is_resource_manager?) || (@approver.present? and @approver.user_id == current_user.id || @approver_second.present? and  @approver_second.user_id == current_user.id) ) %>
+    <% if ((!current_user.is_department_user? && !current_user.is_resource_manager?) || (@approver.present? and @approver.user_id == current_user.id) || (@approver_second.present? and  @approver_second.user_id == current_user.id) ) %>
     <div id="vehicle_model_type_div" style="display:block">
       <div class="form-sec-row" >
         <label class="text"><%=t('labels.vehicle_brand')%><span style=color:red>*</span></label>
@@ -248,7 +248,7 @@
     });
 
     $("#vehicle_model_type_id").live("change", function(){
-      if($("#is_super_admin").val() == 1) {
+      //if($("#is_super_admin").val() == 1) {
         if($("#vehicle_model_type_id").val() != "")
         {
 
@@ -281,7 +281,7 @@
             $("#booked_or_available").show();
           });
         }
-      }
+      //}
 });
 
      $("#vehicle_model_type_id").live("change", function(){

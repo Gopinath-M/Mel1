@@ -3050,7 +3050,7 @@ $("#vehicle_model_type_id").live("change", function() {
 });
 
 $("#resource_transportation_booking_sub_category_id").live("change", function() {
-	if ($("#is_department_admin").val() == 1) {
+	//if ($("#is_department_admin").val() == 1) {
 		if ($("#resource_transportation_booking_sub_category_id").val() != "") {
 			$.get("/resource_transportation_bookings/get_vehicle_brands", {
 				sub_category_id : $("#resource_transportation_booking_sub_category_id").val()
@@ -3065,7 +3065,7 @@ $("#resource_transportation_booking_sub_category_id").live("change", function() 
 				}
 			});
 		}
-	}
+	//}
 });
 /*Dynamic Chance for Resource Req ICT Ends */
 $('#newsletter_to_all').live("click", function() {
