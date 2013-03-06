@@ -36,10 +36,9 @@
 					<%if store.resource_type == 'ICT' %>
 					<p class="head1">
 						<%= t('labels.resource_name')%>:&nbsp;<%= store.resource.name!=nil ? store.resource.name : '' %>
-					</p>
-					<% elsif store.resource.has_serial_no? %>
-					<p class="head1">
+						<% if store.serial_no.present? %>
 						<%= t('labels.serial_no')%>:&nbsp;<%= store.serial_no!=nil ?  store.serial_no : ''%>
+						<%end%>
 					</p>
 					<%end%>
 					<%if store.resource_type == 'Transport'%>
