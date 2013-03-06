@@ -1,60 +1,97 @@
 <%if !request.xhr?%>
-  <div class="CenterNav">
-    <h2 class="b-head"><%=t('labels.manage_agency_store')%></h2>
-    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-    <div class="create-user">
-      <div class="cu-c1"><a href="/agency_stores/new" title=<%=t('labels.create_agency_store')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%=t('labels.create_agency_store')%></a></div>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('left_nav.agency')%><span style=color:red>*</span></label>
-  <%#= label_tag :agency_id, raw("Agency"), :class=>"text" %>
-      <span class="in-box">
-        <%= select("list","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %>
-      </span>
-    </div>
-  <%end%>
-  <div id="div_ajax" >
-    <%if @stores && !@stores.empty?%>
-      <%@stores.each do |store|%>
-        <div class="manage-user box">
-          <div class="manage-user-row box">
-            <div class="mu-c2" width="45%">
-              <p class="head1"><%=t('labels.resource_type')%> :&nbsp;<%=store.resource_type%></p>
-              <%if store.category_id!=nil%><p class="head1"><%=t('left_nav.category')%>:&nbsp;<%= store.category.name.camelize %></p><%end%>
-              <%if store.sub_category_id!=nil%><p class="head1"><%=t('left_nav.sub_category')%>:&nbsp;<%=store.sub_category.name%></p><%end%>
-              <%if store.resource_type == 'ICT' && store.resource.has_serial_no?%>
-                <p class="head1"><%=t('labels.serial_no')%>:&nbsp;<%=store.serial_no!=nil ?  store.serial_no : ''%></p>
-                <p class="head1"><%=t('labels.resource_name')%>:&nbsp;<%= store.resource.name %></p>
-              <%end%>
-               <%if store.resource_type == 'Transport'%>
-                <p class="head1"><%=t('labels.vehicle_brand')%>:&nbsp;<%= VehicleModelType.find(store.resource.vehicle_model_type_id).name %></p>
-                <p class="head1"><%=t('labels.resource_no')%>:&nbsp;<%=  (store.resource && store.resource.resource_no!=nil) ? store.resource.resource_no : ''%></p>
-              <%end%>
-              <%if store.resource_type == 'Room'%>
-                <p class="head1"><%=t('labels.room_name')%>:&nbsp;<%=  (store.resource && store.resource.resource_no!=nil) ? store.resource.resource_no : ''%></p>                
-              <%end%>
-              <%if store.resource.capacity?%>
-                <p class="head1"><%=t('labels.quantity')%>:&nbsp;<%=  store.resource.capacity%></p>
-              <%end%>
-              <%if store.uom?%>
-                <p class="head1">UOM:&nbsp;<%=store.uom%></p>
-              <%end%>
-              <%if store.driver_id!=nil%><p class="head1"><%=t('left_nav.driver_name')%>:&nbsp;<%=store.driver.name.camelize%></p><%end%>
-              <p class="head1">Status:&nbsp;<%if store.booked%><span style=color:red>Booked</span><%else%><span style=color:green>Available</span><%end%></p>    <%#end%>
-            </div>
-            <div class="mu-c3">
-                <% if store.resource_type == "Room"%><%=image_tag("/images/icon_room.png", :alt=>"Room", :title=> "Room")%><% elsif store.resource_type == "Transport" %>  <%=image_tag("/images/icon_transportation.png", :alt=>"Transport", :title=> "Transport")%><% elsif store.resource_type == "ICT"  %> <%=image_tag("/images/icon_ICT.png", :alt=>"ICT", :title=> "ICT")%> <% elsif store.resource_type == "Others"  %> <%=image_tag("/images/icon_othercategories.png", :alt=>"Others", :title=> "Others")%> <%end%>
-            </div>
-          </div>
-          <div class="clear"></div>
-        </div>
-      <%end%>
-      <div class="manage-user-rows box">
-        <br/><br/>
-        <%= paginate @stores %></div>
-    <%else%>
-      No Resources Available in selected Agency Store.
-    <%end%>
-<%#*<div><%= paginate @units %>
-  </div>
-</div>
+<div class="CenterNav">
+	<h2 class="b-head"><%= t('labels.manage_agency_store')%></h2>
+	<p>
+		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+	</p>
+	<div class="create-user">
+		<div class="cu-c1">
+			<a href="/agency_stores/new" title=<%= t('labels.create_agency_store')%>><img src="../images/add_user.jpg" width="17" height="16" alt="img" /><%= t('labels.create_agency_store')%></a>
+		</div>
+	</div>
+	<div class="form-sec-row">
+		<label class="text"><%= t('left_nav.agency')%><span style=color:red>*</span></label>
+		<%#= label_tag :agency_id, raw("Agency"), :class=>"text" %>
+		<span class="in-box"> <%= select("list","agency",  Agency.active.collect {|agency| [agency.name, agency.id]},:prompt=>"Select Agency") %> </span>
+	</div>
+	<%end%>
+	<div id="div_ajax" >
+		<%if @stores && !@stores.empty?%>
+		<%@stores.each do |store|%>
+		<div class="manage-user box">
+			<div class="manage-user-row box">
+				<div class="mu-c2" width="45%">
+					<p class="head1">
+						<%= t('labels.resource_type')%> :&nbsp;<%= store.resource_type%>
+					</p>
+					<%if store.category_id!=nil%>
+					<p class="head1">
+						<%= t('left_nav.category')%>:&nbsp;<%= store.category.name.camelize %>
+					</p>
+					<%end%>
+					<%if store.sub_category_id!=nil%>
+					<p class="head1">
+						<%= t('left_nav.sub_category')%>:&nbsp;<%= store.sub_category.name%>
+					</p><%end%>
+					<%if store.resource_type == 'ICT' %>
+					<p class="head1">
+						<%= t('labels.resource_name')%>:&nbsp;<%= store.resource.name!=nil ? store.resource.name : '' %>
+					</p>
+					<% elsif store.resource.has_serial_no? %>
+					<p class="head1">
+						<%= t('labels.serial_no')%>:&nbsp;<%= store.serial_no!=nil ?  store.serial_no : ''%>
+					</p>
+					<%end%>
+					<%if store.resource_type == 'Transport'%>
+					<p class="head1">
+						<%= t('labels.vehicle_brand')%>:&nbsp;<%= VehicleModelType.find(store.resource.vehicle_model_type_id).name %>
+					</p>
+					<p class="head1">
+						<%= t('labels.resource_no')%>:&nbsp;<%= (store.resource && store.resource.resource_no!=nil) ? store.resource.resource_no : ''%>
+					</p>
+					<%end%>
+					<%if store.resource_type == 'Room'%>
+					<p class="head1">
+						<%= t('labels.room_name')%>:&nbsp;<%= (store.resource && store.resource.resource_no!=nil) ? store.resource.resource_no : ''%>
+					</p>
+					<%end%>
+					<%if store.resource.capacity?%>
+					<p class="head1">
+						<%= t('labels.quantity')%>:&nbsp;<%= store.resource.capacity%>
+					</p>
+					<%end%>
+					<%if store.uom?%>
+					<p class="head1">
+						UOM:&nbsp;<%= store.uom%>
+					</p>
+					<%end%>
+					<%if store.driver_id!=nil%>
+					<p class="head1">
+						<%= t('left_nav.driver_name')%>:&nbsp;<%= store.driver.name.camelize%>
+					</p>
+					<%end%>
+					<p class="head1">
+						Status:&nbsp;<%if store.booked%><span style=color:red>Booked</span><%else%><span style=color:green>Available</span><%end%>
+					</p>
+					<%#end%>
+				</div>
+				<div class="mu-c3">
+					<% if store.resource_type == "Room"%><%= image_tag("/images/icon_room.png", :alt=>"Room", :title=> "Room")%><% elsif store.resource_type == "Transport" %>  <%= image_tag("/images/icon_transportation.png", :alt=>"Transport", :title=> "Transport")%><% elsif store.resource_type == "ICT"  %> <%= image_tag("/images/icon_ICT.png", :alt=>"ICT", :title=> "ICT")%> <% elsif store.resource_type == "Others"  %> <%= image_tag("/images/icon_othercategories.png", :alt=>"Others", :title=> "Others")%> <%end%>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<%end%>
+		<div class="manage-user-rows box">
+			<br/>
+			<br/>
+			<%= paginate @stores %>
+		</div>
+		<%else%>
+		No Resources Available in selected Agency Store.
+		<%end%>
+		<%#*
+		<div>
+			<%= paginate @units %>
+		</div>
+	</div>
