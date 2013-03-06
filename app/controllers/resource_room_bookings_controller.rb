@@ -33,14 +33,16 @@ class ResourceRoomBookingsController < ApplicationController
       @facility = Facility.active.find_all_by_resource_id(@resource_room_booking.resource_id)
       @user = User.find_by_id(@resource_room_booking.user_id)
       @agencystore = AgencyStore.find_by_sub_category_id(@resource_room_booking.sub_category_id)
-      if @agencystore.present?
-        @agency= Agency.find_by_id(@agencystore.agency_id)
+      @val = RoleMembership.find_by_user_id(@resource_room_booking.user_id)
+      if @val.present?
+        @dept = Department.find(@val.department_id)
+        @agency= Agency.find_by_id(@dept.agency_id)
         @manager= User.find_by_id(@agency.user_id)
       end
     end
   end
 
-  def create   
+  def create
     category
     from_date = params[:resource_room_booking][:requested_from_date].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
     to_date = params[:resource_room_booking][:requested_to_date].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
@@ -49,7 +51,7 @@ class ResourceRoomBookingsController < ApplicationController
       if agency.booked == false
         val = ResourceRoomBooking.find(:all,:conditions => [" resource_id = ? and status != ? and '#{from_date}' BETWEEN requested_from_date and requested_to_date", params[:resource_room_booking][:resource_id], 'Returned'] )
         val1 = ResourceRoomBooking.find(:all,:conditions => [" resource_id = ? and status != ? and '#{to_date}' BETWEEN requested_from_date and requested_to_date", params[:resource_room_booking][:resource_id], 'Returned'] )
-        if !val.present? && !val1.present?          
+        if !val.present? && !val1.present?
           @approve = Approver.active.find_all_by_department_id(@current_department).first
           @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
           @resource_room_booking.agency_store_id = agency.id
@@ -120,7 +122,6 @@ class ResourceRoomBookingsController < ApplicationController
     end
   end
 
-
   def update
     @resource_room_booking = ResourceRoomBooking.find(params[:id]) if params[:id]
     if @resource_room_booking.update_attributes(params[:resource_room_booking])
@@ -146,7 +147,7 @@ class ResourceRoomBookingsController < ApplicationController
       @approver_second = Approver.active.find_all_by_department_id(@current_department).last
       if @approve.present?
         @booking = ResourceRoomBooking.where(:department_id => @approve.department_id).page(params[:page]).per(5)
-        #          @booking = ResourceRoomBooking.find(:all, :conditions=>["department_id = ? and created_at >= ?",@approve.department_id,Time.now-seconds])
+      #          @booking = ResourceRoomBooking.find(:all, :conditions=>["department_id = ? and created_at >= ?",@approve.department_id,Time.now-seconds])
       elsif @approver_second.present?
         @booking = ResourceRoomBooking.where(:department_id => @approver_second.department_id).page(params[:page]).per(5)
       elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
@@ -169,7 +170,7 @@ class ResourceRoomBookingsController < ApplicationController
         agency_store = AgencyStore.find_by_resource_id(room.resource_id)
         agency_store.update_attribute(:booked, false)
         store = AgencyStore.find_by_resource_id(params[:resource_val][:id])
-#        store.update_attribute(:booked, true)
+        #        store.update_attribute(:booked, true)
         room.update_attribute(:resource_id, params[:resource_val][:id])
         room.update_attribute(:agency_store_id, store.id)
       end
