@@ -6,7 +6,8 @@ class IctVpnsController < ApplicationController
     elsif current_user && current_user.is_department_admin?
       @ict_vpn = IctVpn.page(params[:page]).per(5)
     else
-      @ict_vpn = IctVpn.where("user_id = ? or forward_to = ?", current_user.id, current_user.id).order.page(params[:page]).per(5)
+      p @ict_vpn = IctVpn.where(:user_id => current_user.id, :department_id => @current_department).order.page(params[:page]).per(5)
+      p @current_department
        
     end
   end

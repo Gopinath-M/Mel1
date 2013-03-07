@@ -11,7 +11,7 @@ class IctFirewallsController < ApplicationController
     #else
     #   @ict_firewalls = IctFirewall.find(:all,:conditions=>["user_id = ? or incharge_person = ?",current_user.id,current_user.id])
     #end
-    @ict_firewalls = IctFirewall.where(:user_id => current_user.id).order.page(params[:page]).per(4)
+    @ict_firewalls = IctFirewall.where(:user_id => current_user.id,:department_id => @current_department).order.page(params[:page]).per(4)
   end
 
   def add_select_boxes

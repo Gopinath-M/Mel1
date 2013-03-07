@@ -1,7 +1,7 @@
 class IctNetworkPointsController < ApplicationController
   before_filter :authenticate_user!
   def index
-    @requisition = IctNetworkPoint.where(:user_id => current_user.id).order.page(params[:page]).per(4)
+    @requisition = IctNetworkPoint.where(:user_id => current_user.id, :department_id => @current_department).order.page(params[:page]).per(4)
   end
 
   def new
