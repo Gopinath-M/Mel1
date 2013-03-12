@@ -4,7 +4,7 @@
   <div class="form-sec-row">
     <label class="text"><%=t('labels.required_sys')%><span style=color:red>*</span></label>
     <span class="in-box">
-      <%= f.select(:system_access_id, SystemAccess.all.collect {|p| [ p.name, p.id ] },:prompt => t('labels.select_required_sys'), :style=> "width:132%;") %>
+      <%= f.select(:system_access_id, SystemAccess.where(:complaint_type_id => 2).collect {|p| [ p.name, p.id ] },:prompt => t('labels.select_required_sys'), :style=> "width:132%;") %>
     </span>
   </div>
   <div class="form-sec-row">

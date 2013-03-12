@@ -817,63 +817,6 @@
 						</div>
 					</li>
 					<li>
-						<%= link_to t('left_nav.approve_book_req'), "javascript:void(0);" , :title=>t('left_nav.approve_book_req') ,:class=>"", :id=>"lnk_approve_requests" ,:onclick=>"leftNavigation(this.id,'div_approve_requests')"%>
-						<div id ="div_approve_requests" style="display:none;">
-							<ul>
-								<li>
-									<span class="notifiNo"><%= resource_transport_new_count > 0 ? resource_transport_new_count : '' %></span>
-									<%= link_to t('left_nav.travel_req'),approve_request_resource_transportation_bookings_path%>
-								</li>
-								<li>
-									<span class="notifiNo"><%= resource_room_new_count > 0 ? resource_room_new_count : '' %></span>
-									<%= link_to t('labels.room_booking'), list_resource_booking_resource_room_bookings_path%>
-								</li>
-								<li>
-									<span class="notifiNo"><%= resource_ict_new_count > 0 ? resource_ict_new_count : '' %></span>
-									<%= link_to t('left_nav.ict_equip_book'), requests_resource_ict_equipment_bookings_path%>
-								</li>
-								<li>
-									<span class="notifiNo"><%= resource_other_new_count > 0 ? resource_other_new_count : '' %></span>
-									<%= link_to t('labels.others_booking'), list_resource_booking_resource_bookings_path%>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<%= link_to t('left_nav.approve_requisition'), "javascript:void(0);" , :title=>t('left_nav.approve_requisition') ,:class=>"", :id=>"lnk_approve_requisition" ,:onclick=>"leftNavigation(this.id,'div_approve_requisition')"%>
-						<div id ="div_approve_requisition" style="display:none;">
-							<ul>
-								<li>
-									<%= link_to t('left_nav.software_req'), software_installations_path%>
-								</li>
-								<li>
-									<% firewall_count = generic_model_status_count(IctFirewall,'New')%>
-									<span class="notifiNo"><%= firewall_count > 0 ? firewall_count : '' %></span>
-									<%= link_to t('labels.firewall_request'), list_ict_firewall_ict_firewalls_path %>
-								</li>
-								<li>
-									<span class="notifiNo"><%= ict_network_new_count > 0 ? ict_network_new_count : '' %></span>
-									<%= link_to t('left_nav.network_req'), list_ict_network_ict_network_points_path %>
-								</li>
-								<li>
-									<% ict_hardware_count = ict_hardware_status_count('New')%>
-									<span class="notifiNo"> <%= ict_hardware_count > 0 ? ict_hardware_count : ''%></span>
-									<%= link_to t('left_nav.hardware_req'), requests_ict_hardware_bookings_path%>
-								</li>
-								<li>
-									<% ict_vpn_count = generic_model_status_count(IctVpn,'New') %>
-									<span class="notifiNo"> <%= ict_vpn_count > 0 ? ict_vpn_count : ''%></span>
-									<%= link_to t('left_nav.vpn_req'), ict_vpns_path %>
-								</li>
-								<li>
-									<% ict_system_access_count = generic_model_status_count(IctSystemAccess,'New') %>
-									<span class="notifiNo"> <%= ict_system_access_count > 0 ? ict_system_access_count : ''%></span>
-									<%= link_to t('left_nav.sys_access_req'), ict_system_accesses_path %>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li>
 						<%= link_to t('left_nav.assign_approver'), "javascript:void(0);" , :title=>t('left_nav.assign_approver') ,:class=>"", :id=>"lnk_assign_approver" ,:onclick=>"leftNavigation(this.id,'div_assign_approver')"%>
 						<div id ="div_assign_approver" style="display:none;">
 							<ul>
