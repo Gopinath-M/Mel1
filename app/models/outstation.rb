@@ -13,7 +13,7 @@ class Outstation < ActiveRecord::Base
 
   def validate_end_date_before_start_date
     if self.from_date.present? && self.to_date.present?
-      errors.add(:Error,(I18n.translate!('errors_date.outstation_date_less'))) if self.from_date.to_date > self.to_date.to_date
+      errors.add(:Error,(I18n.translate!('errors_date.outstation_date_less'))) if self.from_date > self.to_date
     end
   end
 

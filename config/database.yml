@@ -15,6 +15,7 @@ development:
   pool: 5
   username: postgres
   password: Admin1234
+  host: 192.168.2.23
 
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
@@ -40,6 +41,7 @@ test:
   pool: 5
   username: postgres
   password: Admin1234
+  host: 192.168.2.23
 
 production:
   adapter: postgresql
@@ -48,5 +50,4 @@ production:
   pool: 5
   username: postgres
   password: Admin1234
-
-
+  host: 192.168.2.23

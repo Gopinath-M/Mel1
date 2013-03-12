@@ -2,3 +2,8 @@ development:
   host: "localhost:3000"
   user_name: "edvinjoy"
   password: "testtest"
+
+production:
+  host: "1.9.133.28"
+  user_name: "edvinjoy"
+  password: "testtest"  
