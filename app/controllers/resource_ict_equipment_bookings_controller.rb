@@ -123,10 +123,12 @@ class ResourceIctEquipmentBookingsController < ApplicationController
       status = params[:resource_ict_equipment_booking][:status].downcase
       params[:resource_ict_equipment_booking]["#{status}_date"] = Time.now
       if params[:resource_ict_equipment_booking][:status] == "Returned"
-        if @resource_ict_equipment_booking.agency_store.quantity > 1
-          @resource_ict_equipment_booking.agency_store.update_attributes(:booked => false, :booked_quantity => @resource_ict_equipment_booking.agency_store.booked_quantity-1)
-        else
-          @resource_ict_equipment_booking.agency_store.update_attribute(:booked , false)
+        if @resource_ict_equipment_booking.agency_store.quantity.present?
+          if @resource_ict_equipment_booking.agency_store.quantity > 1
+            @resource_ict_equipment_booking.agency_store.update_attributes(:booked => false, :booked_quantity => @resource_ict_equipment_booking.agency_store.booked_quantity-1)
+          else
+            @resource_ict_equipment_booking.agency_store.update_attribute(:booked , false)
+          end
         end
       end
       if @resource_ict_equipment_booking.update_attributes(params[:resource_ict_equipment_booking].merge!({:approver_id => current_user.id}))
