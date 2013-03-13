@@ -1,127 +1,127 @@
 <div class="clearfix"></div>
 <div class="CenterNav">
-  <div class="form-sec">
-    <h2 class="b-head"><%=t('labels.req_sotf_install_det')%>:-</h2>
+	<div class="form-sec">
+		<h2 class="b-head"><%= t('labels.req_sotf_install_det')%>:-</h2>
 
+		<%#=error_messages%>
+		<div class="clearfix">
+			&nbsp;
+		</div>
+		<%#*
+		<div class="CenterNav">
+			%>
 
-<%#=error_messages%>
-    <div class="clearfix">&nbsp;</div>
-<%#*<div class="CenterNav">%>
+			<div class="form-sec">
+				<%# if @manager.present? %>
+				<font color="#369" size="3">
+					<br/>
+					<b><u><%=t('labels.app_info')%> :-</u>
+					<br/>
+					<br/>
+					</b></font>
 
-    <div class="form-sec">
-<%# if @manager.present? %>
-      <font color="#369" size="3"><br/><b><u><%=t('labels.app_info')%> :-</u><br/><br/></b></font>
+				<% @software = SoftwareInstallationDetail.find_by_software_installation_id(@software_installation.id) %>
+				<% @dept = Department.find_by_id(@software.department_id) %>
+				<% @agency = Agency.find_by_id(@dept.agency_id) %>
 
-      <% @software = SoftwareInstallationDetail.find_by_software_installation_id(@software_installation.id) %>
-      <% @dept = Department.find_by_id(@software.department_id) %>
-      <% @agency = Agency.find_by_id(@dept.agency_id) %>
+				<% @user = User.find_by_id(@software_installation.user_id) %>
+				<div class="form-sec-row">
+					<label class="text"><%= t('labels.agency_name')%></label>
+					<span class="in-box"><%= @agency.name  %></span>
+				</div>
+				<div class="form-sec-row">
+					<label class="text"><%= t('labels.department_name')%></label>
+					<span class="in-box"> <%= @dept.name  %></span>
+				</div>
+				<div class="form-sec-row">
+					<label class="text"><%= t('labels.user_name')%></label>
+					<span class="in-box"><%= @user.username %></span>
+				</div>
+				<div class="form-sec-row">
+					<label class="text"><%= t('labels.contact_number')%></label>
+					<span class="in-box"><%= @user.contact_mobile  %></span>
+				</div>
 
-      <% @user = User.find_by_id(@software_installation.user_id) %>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.agency_name')%></label>
-        <span class="in-box"><%= @agency.name  %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.department_name')%></label>
-        <span class="in-box">
-          <%= @dept.name  %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.user_name')%></label>
-        <span class="in-box"><%= @user.username %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.contact_number')%></label>
-        <span class="in-box"><%= @user.contact_mobile  %></span>
-      </div>
+				<div class="form-sec-row">
+					<label class="text"><%= t('labels.ic_no')%></label>
+					<span class="in-box"> <%= @user.ic_number %></span>
+				</div>
 
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.ic_no')%></label>
-        <span class="in-box">
-          <%= @user.ic_number %></span>
-      </div>
+				<div class="form-sec-row">
+					<label class="text"><%= t('labels.email')%></label>
+					<span class="in-box"> <%= @user.email %></span>
+				</div>
 
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.email')%></label>
-        <span class="in-box">
-          <%= @user.email %></span>
-      </div>
+				<h2 class="b-head"></h2>
 
-      <h2 class="b-head"></h2>
+				<div class="form-sec-row">
+					<label class="text"><%= t('labels.ticket_no')%></label>
+					<span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @software_installation.id %>/<%= Time.now.year%></b></font></span>
+				</div>
 
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.ticket_no')%></label>
-        <span class="in-box"><font color="red" size="3"><b>&nbsp;<%= @software_installation.id %>/<%=Time.now.year%></b></font></span>
-      </div>
+				<div class="form-sec-row">
+					<label class="text"><%= t('labels.date_of_app')%></label>
+					<span class="in-box"><%= @software_installation.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
+				</div>
 
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.date_of_app')%></label>
-        <span class="in-box"><%= @software_installation.created_at.strftime("%a %d %b %Y %I:%M %p")%></span>
-      </div>
+			</div>
+			<div class="form-sec-row">
+				<% if @software_installation.software_attachment.present? %>
+				<label class="text"><%= t('labels.attachment')%></label>
+				<% image = @software_installation.software_attachment.url(:profile).split(".").last %>
+				<% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+				<span class="in-box"> <%= image_tag(@software_installation.software_attachment.url(:profile),:title=>@software_installation.software_attachment)%>
+					<%else%> <b><%= link_to t('labels.download_file'), download_attachments_software_installations_path(:id=>@software_installation.id) if @software_installation.software_attachment  %></b> </span>
+				<%end%>
+				<%end%>
+			</div>
+			<div class="form-sec-row">
+				<label class="text"><%= t('labels.type_of_facility')%></label>
+				<span class="in-box"> <% requisition_name = RequisitionType.find(@software_installation.requisition_type_id)%>
+					<%= requisition_name.name %> </span>
+			</div>
+			<% @software_installation_detail = SoftwareInstallationDetail.find_all_by_software_installation_id(@software_installation.id) %>			
+			<% @software_installation_detail.each do |detail|%>
+			<%	 if detail.facility_ict_software_id.present?  %>
+			<% software_name = FacilityIctSoftware.find(detail.facility_ict_software_id)%>
+			<div class="form-sec-row">
+				<label class="text"><%= t('labels.name')%></label>
+				<span class="in-box"> <%= software_name.name %></span>
+			</div>
+			<%end%>
+			<div class="form-sec-row">
+				<label class="text"><%= t('labels.position')%></label>
+				<span class="in-box"> <%= detail.position %></span>
+			</div>
+			<div class="form-sec-row">
+				<label class="text"><%= t('labels.grade')%></label>
+				<span class="in-box"> <%= detail.grade %></span>
+			</div>
+			<%end%> <font color="#369" size="3">
+				<br/>
+				<b><u><%= t('labels.off_action')%> :-</u>
+				<br/>
+				<br/>
+				</b></font>
+			<div class="form-sec-row">
+				<label class="text"><%= t('labels.booking_status')%></label>
+				<span class="in-box"> <%= @software_installation.status %></span>
+			</div>
+			<% @dept = Department.find(@software.department_id)%>
+			<% @users = @dept.users%>
+			<%#*
+			<div class="form-sec-row">
+				%>
+				<%#*<label class="text">Forward To</label>%>
+				<%#*<span class="in-box">%>
+					<%#= @software_installation.forward_to %></span>
+				<%#*
+			</div>%>
 
-    </div>
-    <div class="form-sec-row">
-      <% if @software_installation.software_attachment.present? %>
-        <label class="text"><%=t('labels.attachment')%></label>
-        <% image = @software_installation.software_attachment.url(:profile).split(".").last %>
-        <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-          <span class="in-box">
-            <%=image_tag(@software_installation.software_attachment.url(:profile),:title=>@software_installation.software_attachment)%>
-          <%else%>
-            <b><%= link_to t('labels.download_file'), download_attachments_software_installations_path(:id=>@software_installation.id) if @software_installation.software_attachment  %></b>
-
-          </span>
-        <%end%>
-      <%end%>
-    </div>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.type_of_facility')%></label>
-      <span class="in-box">
-
-        <%requisition_name = RequisitionType.find(@software_installation.requisition_type_id)%>
-        <%= requisition_name.name %>
-      </span>
-    </div>
-    <% @software_installation_detail = SoftwareInstallationDetail.find_all_by_software_installation_id(@software_installation.id) %>
-    <% @software_installation_detail.each do |detail|%>
-      <%software_name = FacilityIctSoftware.find(detail.facility_ict_software_id)%>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.name')%></label>
-        <span class="in-box">
-          <%= software_name.name %></span>
-      </div>
-
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.position')%></label>
-        <span class="in-box">
-          <%= detail.position %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.grade')%></label>
-        <span class="in-box">
-          <%= detail.grade %></span>
-      </div><%end%>
-    <font color="#369" size="3"><br/><b><u><%=t('labels.off_action')%> :-</u><br/><br/></b></font>
-    <div class="form-sec-row">
-      <label class="text"><%=t('labels.booking_status')%></label>
-      <span class="in-box">
-        <%= @software_installation.status %></span>
-    </div>
-    <%@dept = Department.find(@software.department_id)%>
-    <%@users = @dept.users%>
-<%#*<div class="form-sec-row">%>
-<%#*<label class="text">Forward To</label>%>
-<%#*<span class="in-box">%>
-<%#= @software_installation.forward_to %></span>
-<%#*</div>%>
-
-
-    <h2 class="b-head"></h2>
-    <div class="form-sec-row2">
-      <label class="text">&nbsp;</label>
-      <span class="in-box2">
-        <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
-      </span>
-    </div>
-  </div>
-</div>
+			<h2 class="b-head"></h2>
+			<div class="form-sec-row2">
+				<label class="text">&nbsp;</label>
+				<span class="in-box2"> <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%> </span>
+			</div>
+		</div>
+	</div>
