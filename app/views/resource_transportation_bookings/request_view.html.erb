@@ -220,15 +220,21 @@
 		</div>
 
 		<div class="form-sec-row">
+			
 			<label class="text"><%= t('left_nav.driver_name')%></label>
 			<div id="normal" >
-				<% driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
-
-				<span class="in-box"><%= driver.name %>
-					<input type="button" id="driver_change_button" name="Change" value="Change" />
+				<%# driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
+				<span class="in-box"><%#= driver.name %>
+					<% drivers = Driver.where("already_assigned = ?", false)%>
+					<% if drivers.present?%>
+					<input type="button" id="driver_change_button" name="Change" value="Assign Driver" />
+					<%else%>
+						
+						<b><%= "Sorry. Right now all the Drivers is Booked..."%></b>
+					<%end%>
 				</span>
-
 			</div>
+			
 			<div id="alternate">
 				<span class="in-box"><%= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"Select Driver"})%>
 					<input type="button" id="driver_cancel_button" name="Cancel" value="Cancel" />
@@ -296,13 +302,13 @@
 				<%= submit_tag t('labels.submit'), :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
 				<% elsif @resource_transportation_booking.status == "Approved" %>
 				<%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
-				<%= submit_tag t('labels.submit'), :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
+				<%= submit_tag t('labels.submit'), :class=>"btn1",:id => "driver_value", :onclick=>"return validate_request_approval_form();" %>
 				<% elsif @resource_transportation_booking.status == "Processed" %>
 				<%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
 				<%= submit_tag t('labels.ack'), :class=>"btn1",:onclick=>"return validate_request_approval_form();" %>
 				<%end%> </span>
 		</div>
-		
+
 	</div>
 </div>
 
@@ -331,7 +337,6 @@
 			}
 		} else if ($("#approve_status").val() == "Processed") {
 			if ($('#alternate').css('display') == 'block') {
-
 				if ($("#driver_name").val() == "") {
 					alert("Please Select Driver");
 					return false;
@@ -346,5 +351,13 @@
 			}
 		}
 	}
+	
+	
+	$("#driver_value").live("click", function() {
+	if ($("#approve_status").val() == "Processed" &&  $("#driver_name").val() == "") {
+		alert("Please Select Driver");
+		return false;
+	} 
+});
 
 </script>
