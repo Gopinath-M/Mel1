@@ -56,7 +56,9 @@ class AgencyStoresController < ApplicationController
       @store.driver_id = params[:transport][:driver_id]
       @store.sub_category_id = params[:transport_agency][:sub_category_id]
       @store.resource_id = params[:transport_agency][:resource_id]
+      if @store.valid?
       resource = Resource.find(params[:transport_agency][:resource_id]).update_attribute(:alloted,true)
+      end
       #      SubCategory.find(@store.sub_category_id).update_attribute(:is_available,true)
       #      @store.save
     elsif params[:ict_agency]

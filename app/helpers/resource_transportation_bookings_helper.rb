@@ -1,40 +1,44 @@
 module ResourceTransportationBookingsHelper
-
   # This method is for status 'Approved' alone
   def approve_scenario(id,vehicle_id)
-
+    w
     rtb = ResourceTransportationBooking.find(id)
     agency_store = AgencyStore.find_by_resource_id(vehicle_id)
-    driver = Driver.find(agency_store.driver_id)
-    
+    if agency_store.driver_id.present?
+      driver = Driver.find(agency_store.driver_id)
+      driver.update_attribute(:already_assigned,true)      
+    end
     #vehicle = Vehicle.find(vehicle_id)
     #driver = Driver.find(vehicle.driver_id)
-      
+
     user = User.find(rtb.requester_id)
     if !user.is_resource_manager?
-    rtb.update_attributes(:status=>'Approved',:agency_store_id => agency_store.id,:driver_id => driver.id)
-    else
-    rtb.update_attributes(:status=>'Processed',:agency_store_id => agency_store.id,:driver_id => driver.id)
+      #Mathew Code
+      #rtb.update_attributes(:status=>'Approved',:agency_store_id => agency_store.id,:driver_id => driver.id)
+      #Sasi Changed the Mathew code 
+      rtb.update_attributes(:status=>'Approved',:agency_store_id => agency_store.id)
+    else      
+      rtb.update_attributes(:status=>'Processed',:agency_store_id => agency_store.id,:driver_id => driver.id)
     end
     agency_store.update_attribute(:booked,true)
-    driver.update_attribute(:already_assigned,true)
+    
 
     disable_the_sub_category_when_that_sub_category_is_fully_reserved(agency_store.sub_category_id)
-      
+
   end
 
   # This method is for status 'Returned' alone
   def return_scenario(id)
 
     rtb = ResourceTransportationBooking.find(id)
-    agency_store = AgencyStore.find(rtb.agency_store_id)    
+    agency_store = AgencyStore.find(rtb.agency_store_id)
     driver = Driver.find(agency_store.driver_id)
 
     if rtb.driver_id != agency_store.driver_id
       new_agency_store = AgencyStore.find_by_driver_id(rtb.driver_id)
       new_driver = Driver.find(new_agency_store.driver_id)
       new_driver.update_attribute(:already_assigned,false)
-      new_agency_store.update_attribute(:booked,false)      
+      new_agency_store.update_attribute(:booked,false)
     end
 
     #    vehicle = Vehicle.find(agency_store.resource_id)
@@ -47,7 +51,7 @@ module ResourceTransportationBookingsHelper
     driver.update_attribute(:already_assigned,false)
     agency_store.update_attribute(:booked,false)
     rtb.update_attributes(:status=>'Returned',:request_returned_date=>Time.now)
-    
+
     #driver.update_attribute(:already_assigned,false)
 
     disable_the_sub_category_when_that_sub_category_is_fully_reserved(agency_store.sub_category_id)
@@ -63,22 +67,24 @@ module ResourceTransportationBookingsHelper
     end
   end
 
-  def process_scenario_alternate_driver(id,driver_name)
+  def process_scenario_alternate_driver(id,driver_name)  
+      
     rtb = ResourceTransportationBooking.find(id)
     driver = Driver.find_by_name(driver_name)
-    
-    as = AgencyStore.find(rtb.agency_store_id)
-    as1 = AgencyStore.find_by_driver_id(driver.id)
 
+    as = AgencyStore.find(rtb.agency_store_id)
+    as.update_attribute(:driver_id, driver.id)
+    as1 = AgencyStore.find_by_driver_id(driver.id)
+    
     #vehicle_driver = Driver.find(as.driver_id)
 
     rtb.update_attributes(:status=>'Processed',:request_processed_date=>Time.now,:driver_id=>driver.id)
     #vehicle_driver.update_attribute(:already_assigned,false)
     if !as1.blank?
-    as1.update_attribute(:booked,true)
+      as1.update_attribute(:booked,true)
     end
     driver.update_attribute(:already_assigned,true)
-    disable_the_sub_category_when_that_sub_category_is_fully_reserved(as.sub_category_id)    
+    disable_the_sub_category_when_that_sub_category_is_fully_reserved(as.sub_category_id)
   end
 
   def decline_scenario(id)
@@ -97,8 +103,8 @@ module ResourceTransportationBookingsHelper
     else
       last_rtb = ResourceTransportationBooking.where(:sub_category_id=>"#{sub_category_id}").last
       last_rtb.update_attributes(:status => 'Cancelled')
-      rtb.agency_store_id = last_rtb.agency_store_id
-      rtb.driver_id = last_rtb.driver_id
+    rtb.agency_store_id = last_rtb.agency_store_id
+    rtb.driver_id = last_rtb.driver_id
     end
     rtb.save
     disable_the_sub_category_when_that_sub_category_is_fully_reserved(sub_category_id)
@@ -107,10 +113,10 @@ module ResourceTransportationBookingsHelper
   def disable_the_sub_category_when_that_sub_category_is_fully_reserved(id)
     ag = AgencyStore.find(:all,:conditions=>["booked = false and sub_category_id = ?",id])
     sc = SubCategory.find(id)
-    if ag.count > 0      
+    if ag.count > 0
       sc.update_attribute(:is_available,true)
     else
       sc.update_attribute(:is_available,false)
     end
-  end 
+  end
 end
