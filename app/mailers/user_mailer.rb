@@ -34,12 +34,23 @@ class UserMailer < ActionMailer::Base
     mail(:from=>@resource_user.email,:to=>@user.email,:subject =>"#{@resource_user.username}! has been sent request to join for chat ")
   end
 
-  def ict_software(ict_email, ict_vpn, requisition_ict_software, requisition_user)
+  def ict_software(ict_email, software_installation_detail, software_installation, requisition_user)   
     @user = ict_email
-    @ict_vpn = ict_vpn
-    @requisition_ict_vpn = requisition_ict_software
+    @software_installation_detail = software_installation_detail
+    @requisition = software_installation
     @requisition_user = requisition_user
-    mail(:from=>@requisition_user.email,:to=>@user.email,:subject =>"#{@requisition_user.username}! has been forwarded request for ICT - #{@requisition_ict_vpn.name} Booking")
+    @requisition.requisition_type_id
+    @requisition_ict_software = RequisitionType.find_by_id(@requisition.requisition_type_id)
+    mail(:to=>@user.email,:subject =>"#{@user.username}! has been forwarded request for ICT - #{@requisition_ict_software.name} Booking")
+  end
+
+  def send_status_mail_to_person_incharge_for_ict_software(ict_email, software_installation_detail, software_installation, person_incharge)
+    @user = ict_email
+    @software_installation_detail = software_installation_detail
+    @requisition = software_installation
+    @requisition_user = person_incharge
+    @requisition_ict_software = RequisitionType.find_by_id(@requisition.requisition_type_id)
+    mail(:to=>@requisition_user.email,:subject =>"#{@user.username}! has been forwarded request for ICT - #{@requisition_ict_software.name} Booking")
   end
 
   def send_mail_to_ict_vpn(ict_email, ict_vpn, requisition_ict_vpn, system_access_ict_vpn, requisition_user)

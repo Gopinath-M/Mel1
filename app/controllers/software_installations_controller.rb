@@ -1,8 +1,7 @@
 class SoftwareInstallationsController < ApplicationController
   before_filter :authenticate_user!
-
   def index
-    @software_installation = SoftwareInstallation.order.page(params[:page]).per(4)
+    @software_installation = SoftwareInstallation.joins(:software_installation_details).where("department_id = ?", @current_department).uniq!
     @software_installation_detail = SoftwareInstallationDetail.order.page(params[:page]).per(4)
     @approve = Approver.active.find_all_by_department_id(current_user.departments).first
     @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last
@@ -46,7 +45,7 @@ class SoftwareInstallationsController < ApplicationController
       i = 0
       if !n.blank?
         for i in 0..n
-          #          @software_installation_details = SoftwareInstallationDetail.create(params[:"service_#{n}"])
+        #          @software_installation_details = SoftwareInstallationDetail.create(params[:"service_#{n}"])
         end
       end
     end
@@ -60,27 +59,27 @@ class SoftwareInstallationsController < ApplicationController
       UserMailer.send_mail_to_approver_for_ict_software(user,@software_installation_details,@software_installation,dept).deliver
     end
     if @software_installation_details.valid?
-      # new code ends
+    # new code ends
     end
     redirect_to(software_installations_path, :notice => 'Requisition for Software Installation created sucessfully')
   end
-  
+
   def update
     @software_installation=SoftwareInstallation.find(params[:id])
     if @software_installation.status == "New"
       #if params[:ict_firewall][:status].to_s == 'Approve'
       if params[:status][:id].to_s == 'Approved'
-        t = true
+      t = true
       else
-        t = false
+      t = false
       end
     end
     @software_installation_detail=SoftwareInstallationDetail.find_all_by_software_installation_id(@software_installation.id)
     @software_installation_detail.each_with_index do |count,index|
       if params[:"status_#{count.id}"].to_s == 'Approve'
-        t = true
+      t = true
       else
-        t = false
+      t = false
       end
       count.update_attribute(:approve_status,t)
     end
@@ -91,20 +90,24 @@ class SoftwareInstallationsController < ApplicationController
       @software_installation.person_incharge = params[:software][:person_incharge]
       @software_installation.status == 'New'
       @software_installation.status = 'Approved'
-#      if params[:software_installation_detail][:approve_status] == "Approve"
-#        @software_installation_detail[0].approve_status = 1
-#        @software_installation_detail[0].save
-#      else
-#        @software_installation_detail[0].approve_status = 0
-#        @software_installation_detail[0].save
-#      end
+    #      if params[:software_installation_detail][:approve_status] == "Approve"
+    #        @software_installation_detail[0].approve_status = 1
+    #        @software_installation_detail[0].save
+    #      else
+    #        @software_installation_detail[0].approve_status = 0
+    #        @software_installation_detail[0].save
+    #      end
     else
       @software_installation.status = 'Processed'
     end
     if @software_installation.valid?
       @software_installation.save
       software_email = User.find_by_id(@software_installation.user_id)
-      UserMailer.ict_software(software_email, @software_installation_detail, @requisition, current_user).deliver
+      UserMailer.ict_software(software_email, @software_installation_detail, @software_installation, current_user).deliver
+      if @software_installation.person_incharge.present?
+        person_incharge = User.find(@software_installation.person_incharge)
+        UserMailer.send_status_mail_to_person_incharge_for_ict_software(software_email, @software_installation_detail, @software_installation, person_incharge).deliver
+      end
       redirect_to(software_installations_path, :notice => 'Requisition for Software Installation has been updated and Mail has been sent successfully')
     else
       render :action=>'new'
@@ -114,6 +117,7 @@ class SoftwareInstallationsController < ApplicationController
   def approval_software_installation
     @software_installation = SoftwareInstallation.all
   end
+
   def show
     if !params[:id].nil?
       @software_installation=SoftwareInstallation.find(params[:id])
@@ -127,8 +131,8 @@ class SoftwareInstallationsController < ApplicationController
     #    if @software_installation_detail.update_attributes(params[:software_installation])
     if @software_installation.update_attributes(params[:software_installation])
       software_email = User.find(@software_installation.user_id)
-      UserMailer.ict_software(software_email, @software_installation, @requisition, current_user).deliver
-      #      redirect_to(software_installations_path, :notice => 'Booked Requisition Software Installation has been updated and Mail has been sent successfully')
+      UserMailer.ict_software(software_email, @software_installation_detail, @software_installation, current_user).deliver
+    #      redirect_to(software_installations_path, :notice => 'Booked Requisition Software Installation has been updated and Mail has been sent successfully')
     else
       render :action=>'new'
     end
@@ -138,6 +142,7 @@ class SoftwareInstallationsController < ApplicationController
     @download = SoftwareInstallation.find(params[:id])
     send_file @download.software_attachment.path
   end
+
   def add_select_boxes
     @val = params[:incre]
   end
@@ -153,6 +158,5 @@ class SoftwareInstallationsController < ApplicationController
       render :layout=>false
     end
   end
-
 
 end
