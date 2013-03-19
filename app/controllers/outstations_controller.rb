@@ -6,37 +6,37 @@ class OutstationsController < ApplicationController
   end
 
   def approve_request_for_state
-    if current_user.is_department_user?
+    if session[:current_role] == DISP_USER_ROLE_DEPT_USER
       @outstations = Outstation.find_all_by_user_id_and_is_out_of_state(current_user.id,true)
-    elsif current_user.is_department_admin?
+    elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
       #@outstations = Outstation.where(:department_id=>@current_department,:is_out_of_state=>true)
       @outstations = Outstation.find(:all,:conditions=>["user_id != ? and department_id = ? and is_out_of_state = ?",current_user.id,current_department,true])
-    elsif current_user.is_human_resource_manager?
+    elsif session[:current_role] == DISP_USER_ROLE_HUMAN_RESOURCE
       @outstations = Outstation.find(:all,:conditions=>["status != 'New' and is_out_of_state = true"])
-    elsif current_user.is_suk_deputy?
+    elsif session[:current_role] == DISP_USER_ROLE_SUK_DEPUTY
       users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
       @outstations = Outstation.find(:all,:conditions=>["(((status = 'Recommended' or status = 'Approved') and is_out_of_state = true) or ((status='New' or status='Verified') and user_id in (#{users}) and is_out_of_state = true)) "])
-    elsif current_user.is_chief_minister?
+    elsif session[:current_role] == DISP_USER_ROLE_CHIEF_MINISTER
       users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
       @outstations = Outstation.find(:all,:conditions=>["((status='Recommended' or status='Approved') and user_id in (#{users}) and is_out_of_state = true)"])
-    elsif current_user.is_datuk_suk?
+    elsif session[:current_role] == DISP_USER_ROLE_DATUK_SUK
       users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
       @outstations = Outstation.find(:all,:conditions=>["(((status = 'Recommended' or status = 'Approved') and is_out_of_state = true) or ((status='New' or status='Verified') and user_id in (#{users}) and is_out_of_state = true))"])      
     end
   end
 
   def approve_request
-    if current_user.is_department_user?
+    if  session[:current_role] == DISP_USER_ROLE_DEPT_USER
       @outstations = Outstation.find_all_by_user_id_and_is_out_of_state(current_user.id,false)
-    elsif current_user.is_department_admin?
+    elsif session[:current_role] == DISP_USER_ROLE_DEPT_ADMIN
       #@outstations = Outstation.where(:department_id=>@current_department,:is_out_of_state=>false)
       @outstations = Outstation.find(:all,:conditions=>["user_id != ? and department_id = ? and is_out_of_state = ?",current_user.id,current_department,false])
-    elsif current_user.is_human_resource_manager?
+    elsif session[:current_role] == DISP_USER_ROLE_HUMAN_RESOURCE
       @outstations = Outstation.find(:all,:conditions=>["status != 'New' and is_out_of_state = false"])
-    elsif current_user.is_datuk_suk?
+    elsif session[:current_role] == DISP_USER_ROLE_DATUK_SUK
       users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
       @outstations = Outstation.find(:all,:conditions=>["(((status = 'Recommended' or status = 'Approved') and is_out_of_state = false) or ((status='New' or status='Verified') and user_id in (#{users}) and is_out_of_state = false)) "])
-    elsif current_user.is_chief_minister?
+    elsif session[:current_role] == DISP_USER_ROLE_CHIEF_MINISTER
       users = RoleMembership.where(:role_id=>2).collect(&:user_id).compact.join(',')
       @outstations = Outstation.find(:all,:conditions=>["((status='Recommended' or status='Approved') and user_id in (#{users}) and is_out_of_state = false)"])
     end
