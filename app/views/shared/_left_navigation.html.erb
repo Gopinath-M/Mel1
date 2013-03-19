@@ -481,20 +481,7 @@
 								</li>
 							</ul>
 						</div>
-					</li>
-					<li class="menu-item">
-						<%= link_to t('left_nav.agency_store'), "javascript:void(0);" , :title=>t('left_nav.agency_store') ,:class=>"", :id=>"lnk_agency_store" ,:onclick=>"leftNavigation(this.id,'div_agency_store')"%>
-						<div id ="div_agency_store" style="display:none;">
-							<ul>
-								<li>
-									<%= link_to t('left_nav.create'), new_agency_store_path%>
-								</li>
-								<li>
-									<%= link_to t('left_nav.list'), agency_stores_path%>
-								</li>
-							</ul>
-						</div>
-					</li>
+					</li>					
 					<li class="menu-item">
 						<%= link_to t('left_nav.department'), "javascript:void(0);" , :title=>t('left_nav.department') ,:class=>"", :id=>"lnk_department", :onclick=>"leftNavigation(this.id,'div_department')"%>
 						<div id ="div_department" style="<%= controller_name.to_s=="departments" ? 'display:block' : 'display:none'%> ">
@@ -617,6 +604,19 @@
 								</li>
 								<li>
 									<%= link_to t('left_nav.list'), resources_path %>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="menu-item">
+						<%= link_to t('left_nav.agency_store'), "javascript:void(0);" , :title=>t('left_nav.agency_store') ,:class=>"", :id=>"lnk_agency_store" ,:onclick=>"leftNavigation(this.id,'div_agency_store')"%>
+						<div id ="div_agency_store" style="display:none;">
+							<ul>
+								<li>
+									<%= link_to t('left_nav.create'), new_agency_store_path%>
+								</li>
+								<li>
+									<%= link_to t('left_nav.list'), agency_stores_path%>
 								</li>
 							</ul>
 						</div>

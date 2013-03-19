@@ -103,7 +103,7 @@
                       <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                     </span>
                   <%end%>
-                  <%if requested_user.status == "Approved" && requested_user.forward_to == current_user.id %>
+                  <%if (requested_user.status == "Approved" && requested_user.forward_to == current_user.id) || (requested_user.status == "Declined" && requested_user.forward_to == current_user.id) %>
                     <label class="text">Action</label>
                     <span class="in-box">
                       <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
@@ -132,7 +132,7 @@
                       <b><font color="#336699"><%= link_to t('labels.approve_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>
                     </span>
                   <%end%>
-                  <%if requested_user.status == "Approved" && requested_user.forward_to == current_user.id %>
+                  <%if (requested_user.status == "Approved" && requested_user.forward_to == current_user.id) || (requested_user.status == "Declined" && requested_user.forward_to == current_user.id) %>
                     <label class="text">Action</label>
                     <span class="in-box">
                       <b><font color="#336699"><%= link_to t('labels.process_request'),approve_ict_hardware_bookings_path(:id => booking.id), :method=>:get, :class=>"btn2 in-btn2"%></font></b>

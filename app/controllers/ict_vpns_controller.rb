@@ -60,7 +60,7 @@ class IctVpnsController < ApplicationController
       ict_email = User.find_by_id(@ict_vpn.user_id)
       UserMailer.send_mail_to_ict_vpn(ict_email, @ict_vpn, @requisition_ict_vpn, @system_access_ict_vpn, current_user).deliver
 
-      redirect_to(ict_vpns_path, :notice => 'Booked Requisition ICT VPN has been updated and Mail has been sent successfully')
+      redirect_to(list_vpn_ict_vpns_path, :notice => 'Booked Requisition ICT VPN has been updated and Mail has been sent successfully')
     else
       render :action=>'new'
     end

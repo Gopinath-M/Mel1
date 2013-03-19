@@ -118,11 +118,11 @@
       <label class="text"><b><%=t('labels.category_name')%></b></label>
       <span class="in-box"><%=@resource_ict_equipment_booking.sub_category.name%></span>
     </div>
-    <% @name = SubCategory.find(@resource_ict_equipment_booking.sub_category_id)%>
-    <%if @name%>
+    
+    <%if @resource_ict_equipment_booking.resource.name.present? %>
       <div class="form-sec-row">
         <label class="text"><b><%=t('labels.resource_name')%></b></label>
-        <span class="in-box"><%=@name.resources.first.name%></span>
+        <span class="in-box"><%=@resource_ict_equipment_booking.resource.name%></span>
       </div>
     <%end%>
 
