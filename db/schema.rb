@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130107090222) do
+ActiveRecord::Schema.define(:version => 20130220144033) do
 
   create_table "activity_feeds", :force => true do |t|
     t.string   "for"
@@ -24,10 +24,11 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.string   "web_link"
     t.datetime "from_date"
     t.datetime "to_date"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.string   "advertisement_attachment"
-    t.string   "advertisement_attachment_cache"
-    t.boolean  "is_active",                      :default => true
-    t.boolean  "deleted",                        :default => false
+    t.boolean  "is_active",                :default => true
+    t.boolean  "deleted",                  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -294,10 +295,11 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.string   "venue"
     t.string   "organizer"
     t.text     "description"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.string   "event_attachment"
-    t.string   "event_attachment_cache"
-    t.boolean  "is_active",              :default => true
-    t.boolean  "deleted",                :default => false
+    t.boolean  "is_active",        :default => true
+    t.boolean  "deleted",          :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -325,10 +327,11 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
 
   create_table "facility_ict_hardwares", :force => true do |t|
     t.string   "name"
-    t.boolean  "is_active",  :default => false
-    t.boolean  "deleted",    :default => false
+    t.boolean  "is_active",     :default => false
+    t.boolean  "deleted",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "hardware_type"
   end
 
   create_table "facility_ict_servers", :force => true do |t|
@@ -359,10 +362,11 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
 
   create_table "facility_ict_wirings", :force => true do |t|
     t.string   "name"
-    t.boolean  "is_active",  :default => false
-    t.boolean  "deleted",    :default => false
+    t.boolean  "is_active",            :default => false
+    t.boolean  "deleted",              :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "facility_hardware_id"
   end
 
   create_table "facility_icts", :force => true do |t|
@@ -501,8 +505,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.integer  "department_id"
     t.integer  "system_access_id"
     t.string   "system_access_attachment"
-    t.string   "system_access_attachment_cache"
-    t.string   "status",                         :default => "New"
+    t.string   "status",                   :default => "New"
     t.integer  "forward_to"
     t.text     "remarks"
     t.datetime "created_at"
@@ -518,9 +521,8 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.text     "justification"
     t.integer  "system_access_id"
     t.string   "vpn_attachment"
-    t.string   "vpn_attachment_cache"
     t.text     "note"
-    t.string   "status",               :default => "New"
+    t.string   "status",              :default => "New"
     t.integer  "forward_to"
     t.text     "remarks"
     t.datetime "created_at"
@@ -533,6 +535,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.string   "commenter_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted",      :default => false
   end
 
   create_table "messages", :force => true do |t|
@@ -554,6 +557,23 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "sent_to_all_dept_admins", :default => false
+  end
+
+  create_table "newsletter_images", :force => true do |t|
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "newsletters", :force => true do |t|
+    t.string   "from"
+    t.string   "to"
+    t.integer  "created_by"
+    t.string   "subject"
+    t.text     "content"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "outstations", :force => true do |t|
@@ -743,6 +763,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.boolean  "deleted",               :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "alloted",               :default => false
   end
 
   add_index "resources", ["category_id"], :name => "index_resources_on_category_id"
@@ -975,6 +996,7 @@ ActiveRecord::Schema.define(:version => 20130107090222) do
     t.integer  "child"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "designation"
   end
 
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
