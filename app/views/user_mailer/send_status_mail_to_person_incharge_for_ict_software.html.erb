@@ -48,7 +48,7 @@
 
 							<tr>
 								<td><b>Date of Application</b></td>
-								<td>&nbsp;<%= value.created_at.strftime("%a %d %b %Y %I:%M %p")%></td>
+								<td>&nbsp;<%= @requisition.created_at.strftime("%a %d %b %Y %I:%M %p")%></td>
 							</tr>
 							<tr>
 								<td><b>Type of Facility</b></td><td>&nbsp;<%= @req_type.name %></td>

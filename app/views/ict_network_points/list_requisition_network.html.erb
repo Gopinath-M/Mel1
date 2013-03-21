@@ -38,7 +38,7 @@
               <%= @user.username %>
             </div>
             <div class="m-c3">
-              <% if resource.status == "New"%><b><font color='#FFA500'><%= "#{resource.status}" %></font></b><% elsif resource.status == "Approved" || resource.status == "Processed"  %>  <b><font color='#329C20'><%= "#{resource.status}" %> </font></b><% elsif resource.status == "Declined" || resource.status == "Returned"  %>  <b><font color='red'><%= "#{resource.status}" %> </font></b><% end %>
+              <% if resource.status == "New"%><b><font color='#FFA500'><%= "#{resource.status}" %></font></b><% elsif resource.status == "Approved" %><b><font color='#329C20'><%= "#{resource.status}" %> </font></b><% elsif resource.status == "Processed"  %><b><font color='#329C20'><%= "Completed" %> </font></b><% elsif resource.status == "Declined" || resource.status == "Returned"  %> <b><font color='red'><%= "#{resource.status}" %> </font></b><% end %>
             </div>
           </div>
           <div class="clear"></div>

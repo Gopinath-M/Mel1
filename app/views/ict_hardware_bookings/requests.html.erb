@@ -66,7 +66,7 @@
                 </td>
                 <td>
                   <span class="in-box">
-                    <b style="color : <%=requested_user.status=='New' ? '#FFA500' : (requested_user.status == "Approved" || requested_user.status == "Processed" ? '#329C20' : 'red')%>"><%= requested_user.status%></b>
+                    <% if requested_user.status == "New"%><b><font color='#FFA500'><%= "#{requested_user.status}" %></font></b><% elsif requested_user.status == "Approved" %><b><font color='#329C20'><%= "#{requested_user.status}" %> </font></b><% elsif requested_user.status == "Processed"  %><b><font color='#329C20'><%= "Completed" %> </font></b><% elsif requested_user.status == "Declined" || requested_user.status == "Returned"  %> <b><font color='red'><%= "#{requested_user.status}" %> </font></b><% end %>
                   </span>
                 </td>
               </tr>

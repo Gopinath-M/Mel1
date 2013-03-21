@@ -20,8 +20,8 @@
 					<% @user = User.find_all_by_id(software.user_id) %>
 					<%= @user[0].username%>
 				</div>
-				<div class="m-c3">
-					<% if software.status == "New"%><b><font color='#FFA500'><%= "#{software.status}" %></font></b><% elsif software.status == "Approved" || software.status == "Processed"  %> <b><font color='#329C20'><%= "#{software.status}" %> </font></b><% elsif software.status == "Declined" || software.status == "Returned"  %> <b><font color='red'><%= "#{software.status}" %> </font></b><% end %>
+				<div class="m-c3">					
+					<% if software.status == "New"%><b><font color='#FFA500'><%= "#{software.status}" %></font></b><% elsif software.status == "Approved" %><b><font color='#329C20'><%= "#{software.status}" %> </font></b><% elsif software.status == "Processed"  %><b><font color='#329C20'><%= "Completed" %> </font></b><% elsif software.status == "Declined" || software.status == "Returned"  %> <b><font color='red'><%= "#{software.status}" %> </font></b><% end %>
 				</div>
 			</div>
 			<div class="clear"></div>

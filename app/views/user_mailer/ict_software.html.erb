@@ -55,7 +55,7 @@
                     <td>
                       <b>Date of Application</b>
                     </td>
-                    <td>&nbsp;<%= value.created_at.strftime("%a %d %b %Y %I:%M %p")%></td>
+                    <td>&nbsp;<%= @requisition.created_at.strftime("%a %d %b %Y %I:%M %p")%></td>
                   </tr>      
                   <%= @software_installation_detail.each do |value|%>            
                   <tr>
