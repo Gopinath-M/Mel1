@@ -158,6 +158,7 @@ class ResourceRoomBookingsController < ApplicationController
   end
 
   def update_room_booking
+    
     @resource_room_booking = ResourceRoomBooking.find_by_id(params[:resource_book_id])
     agency_store = AgencyStore.find_by_resource_id(params[:resource_id])
     room = ResourceRoomBooking.find_by_id(params[:resource_book_id])
@@ -277,6 +278,12 @@ class ResourceRoomBookingsController < ApplicationController
     if request.xhr?
       render :layout=>false
     end
+  end
+  
+  def cancel_room_request
+      cancel_request = ResourceRoomBooking.find(params[:resource_book_id])
+      cancel_request.update_attribute(:status, "Cancelled")
+      redirect_to(resource_room_bookings_path, :notice => "Your Room booking has been cancelled sucessfully.")
   end
 
 end

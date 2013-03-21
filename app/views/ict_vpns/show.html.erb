@@ -106,8 +106,8 @@
       <font color="#369" size="3"><br/><b><u><%=t('labels.off_action')%></u><br/><br/></b></font>
       <div class="form-sec-row">
         <label class="text"><%=t('labels.status')%></label>
-        <span class="in-box">
-          <% if @ict_vpn.status == "New"%><b><font color='#FFA500'><%= @ict_vpn.status %></b></font><% elsif @ict_vpn.status == "Approved" || @ict_vpn.status == "Processed"  %>  <b><font color='#329C20'><%= @ict_vpn.status %></b></font><% elsif @ict_vpn.status == "Declined" || @ict_vpn.status == "Returned"  %>  <b><font color='red'><%= @ict_vpn.status %></b></font><%end%></span>
+        <span class="in-box">          
+          <% if @ict_vpn.status == "New"%><b><font color='#FFA500'><%= "#{@ict_vpn.status}" %></font></b><% elsif @ict_vpn.status == "Approved" %><b><font color='#329C20'><%= "#{@ict_vpn.status}" %> </font></b><% elsif @ict_vpn.status == "Processed"  %><b><font color='#329C20'><%= "Completed" %> </font></b><% elsif @ict_vpn.status == "Declined" || @ict_vpn.status == "Returned"  %> <b><font color='red'><%= "#{@ict_vpn.status}" %> </font></b><% end %>
       </div>
       <% name = User.find_by_id(@ict_vpn.forward_to) %>
       <div class="form-sec-row">

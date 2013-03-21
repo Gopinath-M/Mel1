@@ -17,6 +17,7 @@ class CreateResources < ActiveRecord::Migration
       t.boolean :has_serial_no, :default => false
       t.boolean :is_returnable, :default => false
       t.boolean :is_facilty_avail, :default => false
+      t.boolean :alloted, :default=>false
       t.boolean :is_active, :default => true
       t.boolean :deleted, :default => false
       t.timestamps

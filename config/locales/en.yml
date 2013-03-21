@@ -346,7 +346,7 @@ en:
     denial_transport: "Sorry... Transport Booking Facility is not Available for your Department..."
     change_assign_resource_manager: "Change/Assign Resource Manager"
     template_use: "Use Template"
-    designation: "Designation"
+    designation: "Designation"    
 
 
     select_an_agency: "Select an agency"
@@ -656,7 +656,7 @@ en:
     property_declar: "Declaration Property"
     year: "Year"
     go_to_step: "Go to Step 5"
-    head_of_dept: "Head of Department Name"
+    head_of_dept: "Head of Department"
     head_dept_position_title: "Head of Department Position Title"
     head_dept_email: "Head Department Email"
     relation_ship: "Relationship"

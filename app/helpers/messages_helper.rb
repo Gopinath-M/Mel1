@@ -51,7 +51,7 @@ module MessagesHelper
       if !group.blank?      
       @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and group_id = 0 and send_to_dept_admins = false and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (agency_id in (#{agency_id}) and send_to_dept_admins = false) or (message_type='Group' and (group_id in (#{group})) )))"],:order => "is_sticky_message desc,updated_at desc")
       else
-      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and send_to_dept_admins = false and send_to_unit_admins = false) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false) or (agency_id in (#{agency_id})) ))"],:order => "is_sticky_message desc,updated_at desc")
+      @messages = Message.find(:all,:conditions=>["(deleted = false and ((agency_id = 0 and department_id = 0 and unit_id = 0 and send_to_dept_admins = false and send_to_unit_admins = false and group_id = 0) or (department_id in (#{dept_id}) and message_type = 'Department' and send_to_dept_admins = false and group_id = 0) or (agency_id in (#{agency_id})) ))"],:order => "is_sticky_message desc,updated_at desc")
       end
     when current_user.is_resource_manager? 
       if !group.blank?      

@@ -1,7 +1,8 @@
 class SoftwareInstallationsController < ApplicationController
   before_filter :authenticate_user!
   def index
-    @software_installation = SoftwareInstallation.joins(:software_installation_details).where("department_id = ?", @current_department).uniq!
+    @software_installation = SoftwareInstallation.joins(:software_installation_details).where("department_id = ?", @current_department).uniq
+    p @software_installation
     @software_installation_detail = SoftwareInstallationDetail.order.page(params[:page]).per(4)
     @approve = Approver.active.find_all_by_department_id(current_user.departments).first
     @approver_second = Approver.active.find_all_by_department_id(current_user.departments).last

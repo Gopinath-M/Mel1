@@ -16,6 +16,7 @@ class CreateMessages < ActiveRecord::Migration
       t.boolean :deleted, :default => false
       t.boolean :send_to_dept_admins, :default => false
       t.boolean :send_to_unit_admins, :default => false
+      t.boolean :sent_to_all_dept_admins, :default => false
       t.timestamps
     end
   end

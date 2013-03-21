@@ -21,7 +21,7 @@
               <div class="m-c2">&nbsp;<%= @user.username%>
               </div>
               <div class="m-c3">
-                <% if ict_vpn.status == "New"%><b><font color='#FFA500'><%= "#{ict_vpn.status}" %></font></b><% elsif ict_vpn.status == "Approved" || ict_vpn.status == "Processed"  %>  <b><font color='#329C20'><%= "#{ict_vpn.status}" %> </font></b><% elsif ict_vpn.status == "Declined" || ict_vpn.status == "Returned"  %>  <b><font color='red'><%= "#{ict_vpn.status}" %> </font></b><% end %>
+                <% if ict_vpn.status == "New"%><b><font color='#FFA500'><%= "#{ict_vpn.status}" %></font></b><% elsif ict_vpn.status == "Approved" %><b><font color='#329C20'><%= "#{ict_vpn.status}" %> </font></b><% elsif ict_vpn.status == "Processed"  %><b><font color='#329C20'><%= "Completed" %> </font></b><% elsif ict_vpn.status == "Declined" || ict_vpn.status == "Returned"  %> <b><font color='red'><%= "#{ict_vpn.status}" %> </font></b><% end %>
               </div>
             </div>
 
@@ -31,7 +31,7 @@
               <div class="m-c2">&nbsp;<%= @name.name%>
               </div>
               <% time = Setting.find_by_id(1) %>
-              <%if time.present?%>
+              <%if time.present? && (@approve.present? || @approver_second.present?)%>
                 <% temp = time.timeline.strftime("%H:%M:%S")%>
                 <%dt = DateTime.parse(temp)%>
                 <% seconds = dt.hour * 3600 + dt.min * 60 %>

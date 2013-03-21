@@ -113,7 +113,7 @@
         <div class="form-sec-row">
           <label class="text"><%=t('labels.status')%></label>
           <span class="in-box">
-            <b style="color : <%=@ict_hardware_booked_user.status=='New' ? '#FFA500' : (@ict_hardware_booked_user.status == "Approved" || @ict_hardware_booked_user.status == "Processed" ? '#329C20' : 'red')%>"><%= @ict_hardware_booked_user.status%></b>
+            <% if @ict_hardware_booked_user.status == "New"%><b><font color='#FFA500'><%= "#{@ict_hardware_booked_user.status}" %></font></b><% elsif @ict_hardware_booked_user.status == "Approved" %><b><font color='#329C20'><%= "#{@ict_hardware_booked_user.status}" %> </font></b><% elsif @ict_hardware_booked_user.status == "Processed"  %><b><font color='#329C20'><%= "Completed" %> </font></b><% elsif @ict_hardware_booked_user.status == "Declined" || @ict_hardware_booked_user.status == "Returned"  %> <b><font color='red'><%= "#{@ict_hardware_booked_user.status}" %> </font></b><% end %>
           </span>
         </div>
         <div class="form-sec-row">

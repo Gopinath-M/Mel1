@@ -152,6 +152,14 @@
         <%=f.text_field :confirmation_date ,:readonly=>true %>
       </span>
     </div>
+    
+    <% dept = Department.find(@current_department) %>
+    <div class="form-sec-row">
+      <label class="text"><%=t('labels.head_of_dept')%><span style=color:red></span></label>
+      <span class="in-box">
+        <%= f.select(:head_of_dept, dept.users.where("role_id = ?", 3).collect {|p| [ p.first_name, p.id ] },:prompt => "Select Head of Department")%>      </span>
+      </span>
+    </div>
 
     <% if @user_service.new_record? %>
     <div class="form-sec-row">

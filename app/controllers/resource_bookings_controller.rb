@@ -274,4 +274,10 @@ class ResourceBookingsController < ApplicationController
     end
   end
 
+ def cancel_other_request
+      cancel_request = ResourceBooking.find(params[:resource_book_id])
+      cancel_request.update_attribute(:status, "Cancelled")
+      redirect_to(resource_bookings_path, :notice => "Your Other booking has been cancelled sucessfully.")
+  end
+
 end

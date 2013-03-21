@@ -88,11 +88,13 @@
         <%= @complaint_building_asset.reason %></span>
     </div>
     <%end%>
+    <% if @complaint_building_asset.serial_no.present? %>
     <div class="form-sec-row">
       <label class="text"><%=t('labels.serial_no')%></label>
       <span class="in-box">
         <%= @complaint_building_asset.serial_no %></span>
     </div>
+    <%end%>
     <h2 class="b-head"></h2>
     <% if @complaint_building_asset.status == "Approved" || @complaint_building_asset.status == "Processed" || @complaint_building_asset.status == "Declined"%>
 
@@ -130,6 +132,11 @@
           <label class="text"><%=t('labels.vendor_name')%></label>
           <span class="in-box">
             <%= @vendor_name.name if @complaint_building_asset.vendor_id %></span>
+        </div>
+        <div class="form-sec-row">
+          <label class="text"><%=t('labels.given_date')%></label>
+          <span class="in-box">
+            <%= @complaint_building_asset.given_date.to_datetime.strftime("%a %d %b %Y %I:%M %p") if @complaint_building_asset.given_date %></span>
         </div>
       <%end%>
       <% if @complaint_building_asset.action_taken == true && @complaint_building_asset.status == "Processed"%><br/>

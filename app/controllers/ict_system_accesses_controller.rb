@@ -65,7 +65,7 @@ class IctSystemAccessesController < ApplicationController
       UserMailer.send_mail_to_ict_system_access(ict_email, @ict_system_access, @requisition_ict_system_access, @system_access_ict_system_access, current_user).deliver
 
 
-      redirect_to(ict_system_accesses_path, :notice => 'Booked Resource ICT System Access has been updated and Mail has been sent successfully')
+      redirect_to(list_system_access_ict_system_accesses_path, :notice => 'Booked Resource ICT System Access has been updated and Mail has been sent successfully')
     else
       render :action=>'new'
     end

@@ -2,7 +2,7 @@ class CreateNewsletters < ActiveRecord::Migration
   def self.up
     create_table :newsletters do |t|
       t.string :from
-      t.string :to
+      t.text :to
       t.integer :created_by
       t.string :subject
       t.text :content

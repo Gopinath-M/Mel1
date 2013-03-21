@@ -210,7 +210,7 @@
                   <div class="form-sec-row">
                     <label class="text"><%=t('labels.current_status')%></label>
                     <span class="in-box">
-                      <% if @ict_network.status == "New"%><b><font color='#FFA500'><%= "#{@ict_network.status}" %></font></b><% elsif @ict_network.status == "Approved" || @ict_network.status == "Processed"  %>  <b><font color='#329C20'><%= "#{@ict_network.status}" %> </font></b><% elsif @ict_network.status == "Declined" || @ict_network.status == "Returned"  %>  <b><font color='red'><%= "#{@ict_network.status}" %> </font></b><% end %>
+                      <% if @ict_network.status == "New"%><b><font color='#FFA500'><%= "#{@ict_network.status}" %></font></b><% elsif @ict_network.status == "Approved" %><b><font color='#329C20'><%= "#{@ict_network.status}" %> </font></b><% elsif @ict_network.status == "Processed"  %><b><font color='#329C20'><%= "Completed" %> </font></b><% elsif @ict_network.status == "Declined" || @ict_network.status == "Returned"  %> <b><font color='red'><%= "#{@ict_network.status}" %> </font></b><% end %>
                     </span>
                   </div>
 
