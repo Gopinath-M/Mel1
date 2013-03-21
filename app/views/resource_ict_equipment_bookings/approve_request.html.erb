@@ -1,169 +1,163 @@
 <%= form_for(@resource_ict_equipment_booking, :url=>update_booking_resource_ict_equipment_bookings_path(:id=>@resource_ict_equipment_booking.id), :method=>:put) do |f| %>
-  <%=f.error_messages%>
-  <div class="clearfix">&nbsp;</div>
-  <div class="CenterNav">
-    <% if current_user.is_department_admin? %>
-      <h2 class="b-head"><%=t('labels.resource_ict_app_req')%></h2>
-    <%else%>
-      <h2 class="b-head"><%=t('labels.resource_ict_pro_req')%></h2>
-    <%end%>
-    <!--    <div class="manage-user box">-->
+<%= f.error_messages%>
+<div class="clearfix">
+	&nbsp;
+</div>
+<div class="CenterNav">
+	<% if current_user.is_department_admin? %>
+	<h2 class="b-head"><%= t('labels.resource_ict_app_req')%></h2>
+	<%else%>
+	<h2 class="b-head"><%= t('labels.resource_ict_pro_req')%></h2>
+	<%end%>
+	<!--    <div class="manage-user box">-->
 
-    <tr>
-      <td  colspan="2"><b style="color:#369"><u><%=t('labels.user_details')%></u></b></td>
-    </tr>
-    <div class="form-sec">
+	<tr>
+		<td  colspan="2"><b style="color:#369"><u><%= t('labels.user_details')%></u></b></td>
+	</tr>
+	<div class="form-sec">
 
-      <%if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
-        <div class="form-sec-row">
-          <label class="text"><b>Agency Name</b></label>
-          <span class="in-box">&nbsp;<%= @resource_ict_equipment_booking.agency_store.agency.name%></span>
-        </div>
-        <div class="form-sec-row">
-          <label class="text"><b><%=t('labels.department_name')%></b></label>
-          <span class="in-box"><%= @resource_ict_equipment_booking.department.name  %></span>
-        </div>
-      <%end%>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.first_name')%></b></label>
-        <span class="in-box"><%= @resource_ict_equipment_booking.user.first_name %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.last_name')%></b></label>
-        <span class="in-box"><%= @resource_ict_equipment_booking.user.last_name %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b> <%=t('labels.ic_no')%></b></label>
-        <span class="in-box"><%= @resource_ict_equipment_booking.user.ic_number %></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.email')%></b></label>
-        <span class="in-box"><%= @resource_ict_equipment_booking.user.email %></span>
-      </div>
+		<%if session[:current_role] != DISP_USER_ROLE_SUPER_ADMIN %>
+		<div class="form-sec-row">
+			<label class="text"><b>Agency Name</b></label>
+			<span class="in-box">&nbsp;<%= @resource_ict_equipment_booking.agency_store.agency.name%></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.department_name')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.department.name  %></span>
+		</div>
+		<%end%>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.first_name')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.user.first_name %></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.last_name')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.user.last_name %></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b> <%= t('labels.ic_no')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.user.ic_number %></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.email')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.user.email %></span>
+		</div>
 
+		<tr>
+			<td colspan="2"><b style="color:#369"><u><%= t('labels.ict_eqi_details')%></u></b></td>
+		</tr>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.ticket_no')%></label>
+			<span class="in-box"><b style="color:red;"><%= @resource_ict_equipment_booking.id%>/<%= Time.now.year%></b></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b> <%= t('labels.date_of_app')%></b></label>
+			<span class="in-box"> <%= @resource_ict_equipment_booking.created_at.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.category_name')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.sub_category.name%></span>
+		</div>
 
-      <tr>
-        <td colspan="2"><b style="color:#369"><u><%=t('labels.ict_eqi_details')%></u></b></td>
-      </tr>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.ticket_no')%></label>
-        <span class="in-box"><b style="color:red;"><%=@resource_ict_equipment_booking.id%>/<%=Time.now.year%></b></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b> <%=t('labels.date_of_app')%></b></label>
-        <span class="in-box"> <%=@resource_ict_equipment_booking.created_at.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.category_name')%></b></label>
-        <span class="in-box"><%=@resource_ict_equipment_booking.sub_category.name%></span>
-      </div>
-     
-      <%if @resource_ict_equipment_booking.resource.name.present? %>
-        <div class="form-sec-row">
-          <label class="text"><b><%=t('labels.resource_name')%></b></label>
-          <span class="in-box"><%=@resource_ict_equipment_booking.resource.name%></span>
-        </div>
-      <%end%>
+		<%if @resource_ict_equipment_booking.resource.name.present? %>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.resource_name')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.resource.name%></span>
+		</div>
+		<%end%>
 
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.serial_number')%></b></label>
-        <span class="in-box">  <%=@resource_ict_equipment_booking.agency_store.serial_no%></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.req_from_date')%></b></label>
-        <span class="in-box"><%=@resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.req_to_date')%></b></label>
-        <span class="in-box"><%=@resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.meeting_from_date')%></b></label>
-        <span class="in-box"><%=@resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.meeting_to_date')%></b></label>
-        <span class="in-box"><%=@resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
-      </div>
-      <% if @resource_ict_equipment_booking.status == "Returned" %>
-        <div class="form-sec-row">
-          <label class="text"><b><%=t('labels.return_date')%></b></label>
-          <span class="in-box"><%=@resource_ict_equipment_booking.updated_at.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
-        </div>
-      <%end%>
-      <% if @resource_ict_equipment_booking.ict_equipment_attachment.present? %>
-        <div class="form-sec-row">
-          <label class="text"><b><%=t('labels.attachment')%></b></label>
-          <% image = @resource_ict_equipment_booking.ict_equipment_attachment.url(:profile).split(".").last %>
-          <% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
-            <span class="in-box"><%=image_tag(@resource_ict_equipment_booking.ict_equipment_attachment.url(:profile),:title=>@resource_ict_equipment_booking.ict_equipment_attachment)%>
-            <%else%>
-              <% file = (@resource_ict_equipment_booking.ict_equipment_attachment).url(:profile).split("/").last %>
-              &nbsp;<%= link_to file, download_attachments_resource_ict_equipment_bookings_path(:id=>@resource_ict_equipment_booking.id) if @resource_ict_equipment_booking.ict_equipment_attachment?  %>
-            </span>
-          <%end%>
-        </div>
-      <%end%>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.need_off')%></b></label>
-        <span class="in-box"><%=@resource_ict_equipment_booking.need_officer ? "Yes" : "No"%></span>
-      </div>
-      <%  officers=get_officers(@resource_ict_equipment_booking.user_id)%>
-      <%  if @resource_ict_equipment_booking.need_officer && @resource_ict_equipment_booking.status == "New" && officers && !officers.blank?%>
-        <div class="form-sec-row">
-          <label class="text"><b><%=t('labels.assign_officer')%></b></label>
-          <span class="in-box"><%=f.select :officer_id,  options_from_collection_for_select(officers, 'id','username'),{:prompt=>"Select a officer"}%></span>
-        </div>
-      <%end%>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.purpose')%></b></label>
-        <span class="in-box"><%=@resource_ict_equipment_booking.purpose%></span>
-      </div>
-      <div class="form-sec-row">
-        <label class="text"><b><%=t('labels.remarks')%></b></label>
-        <span class="in-box"><%=@resource_ict_equipment_booking.notes%></span>
-      </div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.serial_number')%></b></label>
+			<span class="in-box"> <%= @resource_ict_equipment_booking.agency_store.serial_no%></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.req_from_date')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.requested_from_date.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.req_to_date')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.requested_to_date.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.meeting_from_date')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.meeting_start_time.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.meeting_to_date')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
+		</div>
+		<% if @resource_ict_equipment_booking.status == "Returned" %>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.return_date')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.updated_at.strftime("%a %B %d, %Y %I:%M:%S %p")%></span>
+		</div>
+		<%end%>
+		<% if @resource_ict_equipment_booking.ict_equipment_attachment.present? %>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.attachment')%></b></label>
+			<% image = @resource_ict_equipment_booking.ict_equipment_attachment.url(:profile).split(".").last %>
+			<% if image == "gif" || image == "jpg" || image == "jpeg" || image == "png" %>
+			<span class="in-box"><%= image_tag(@resource_ict_equipment_booking.ict_equipment_attachment.url(:profile),:title=>@resource_ict_equipment_booking.ict_equipment_attachment)%>
+				<%else%>
+				<% file = (@resource_ict_equipment_booking.ict_equipment_attachment).url(:profile).split("/").last %>
+				&nbsp;<%= link_to file, download_attachments_resource_ict_equipment_bookings_path(:id=>@resource_ict_equipment_booking.id) if @resource_ict_equipment_booking.ict_equipment_attachment?  %> </span>
+			<%end%>
+		</div>
+		<%end%>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.need_off')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.need_officer ? "Yes" : "No"%></span>
+		</div>
+		<% officers=get_officers(@resource_ict_equipment_booking.user_id)%>
+		<%  if @resource_ict_equipment_booking.need_officer && @resource_ict_equipment_booking.status == "New" && officers && !officers.blank?%>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.assign_officer')%></b></label>
+			<span class="in-box"><%= f.select :officer_id,  options_from_collection_for_select(officers, 'id','username'),{:prompt=>"Select a officer"}%></span>
+		</div>
+		<%end%>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.purpose')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.purpose%></span>
+		</div>
+		<div class="form-sec-row">
+			<label class="text"><b><%= t('labels.remarks')%></b></label>
+			<span class="in-box"><%= @resource_ict_equipment_booking.notes%></span>
+		</div>
 
-      <tr>
-        <td  colspan="2"><b style="color:#369"><u><%=t('labels.status_details')%></u></b></td>
-      </tr>
-      <%@approve = Approver.active.find_all_by_department_id(@current_department).first%>
-      <div class="form-sec-row">
-        <label class="text"><%=t('labels.status')%></label>
-        <% if (@approve.present?  && @approve.user_id == current_user.id)  %>
-          <span class="in-box">
-            <%select_options=["Approved","Declined"]%>
-            <%=f.select(:status, options_for_select(select_options))%>
-          </span>
-        <%elsif (current_user.is_department_admin? && !@approve.present?)%>
-          <span class="in-box">
-            <%select_options=["Approved","Declined"]%>
-            <%=f.select(:status, options_for_select(select_options))%>
-          </span>
-        <%elsif current_user.is_resource_manager? && @resource_ict_equipment_booking.user_returned_status?%>
-          <span class="in-box">
-            <%select_options=["Returned"]%>
-            <%=f.select(:status, options_for_select(select_options))%>
-          </span>
-        <%else%>
-          <span class="in-box">
-            <%select_options=["Processed", "Declined"]%>
-            <%=f.select(:status, options_for_select(select_options))%>
-          </span>
-        <%end%>
-      </div>
-    </div>
-    <div class="form-sec-row">
-      <label class="text">&nbsp;</label>
-      <span class="in-box">
-        <%= link_to "Back", :back, :class=>"btn1 mr2"%>
-        <% if @resource_ict_equipment_booking.status == "Processed" && @resource_ict_equipment_booking.user_returned_status? %>
-          <%= f.submit t('labels.ack'), :class=>"btn2"%>
-        <%else%>
-          <%= f.submit t('labels.submit'), :class=>"btn2"%>
-        <%end%>
-      </span>
-    </div>
-  </div>
+		<tr>
+			<td  colspan="2"><b style="color:#369"><u><%= t('labels.status_details')%></u></b></td>
+		</tr>
+		<% @approve = Approver.active.find_all_by_department_id(@current_department).first%>
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.status')%></label>
+			<% if (@approve.present?  && @approve.user_id == current_user.id)  %>
+			<span class="in-box"> <% select_options=["Approved","Declined"]%>
+				<%= f.select(:status, options_for_select(select_options))%> </span>
+			<%elsif (current_user.is_department_admin? && !@approve.present?)%>
+			<span class="in-box"> <% select_options=["Approved","Declined"]%>
+				<%= f.select(:status, options_for_select(select_options))%> </span>
+			<%elsif current_user.is_resource_manager? && @resource_ict_equipment_booking.user_returned_status?%>
+			<span class="in-box"> <% select_options=["Returned"]%>
+				<%= f.select(:status, options_for_select(select_options))%> </span>
+			<%else%>
+			<span class="in-box"> <% select_options=["Processed", "Declined"]%>
+				<%= f.select(:status, options_for_select(select_options))%> </span>
+			<%end%>
+		</div>
+		<div class="form-sec-row">
+			<%= f.label :notes,t('labels.remarks'), :class=>"text"%>
+			<span class="in-box"> <%= f.text_area :notes,:value=>@resource_ict_equipment_booking.notes, :rows=>2, :autofocus => true%> </span>
+		</div>
+	</div>
+	<div class="form-sec-row">
+		<label class="text">&nbsp;</label>
+		<span class="in-box"> <%= link_to "Back", :back, :class=>"btn1 mr2"%>
+			<% if @resource_ict_equipment_booking.status == "Processed" && @resource_ict_equipment_booking.user_returned_status? %>
+			<%= f.submit t('labels.ack'), :class=>"btn2"%>
+			<%else%>
+			<%= f.submit t('labels.submit'), :class=>"btn2"%>
+			<%end%> </span>
+	</div>
+</div>
 <%end%>
 

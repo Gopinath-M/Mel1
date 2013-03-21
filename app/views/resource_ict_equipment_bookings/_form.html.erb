@@ -82,7 +82,7 @@
 		<span class="in-box"> <%= f.text_field :meeting_end_time, :value=>@resource_ict_equipment_booking.meeting_end_time!=nil ? @resource_ict_equipment_booking.meeting_end_time.strftime("%a %B %d, %Y %H:%M:%S %p") : nil, :readonly=>true%> </span>
 	</div>
 	<div class="form-sec-row">
-		<%= f.label :notes,t('labels.notes'), :class=>"text"%>
+		<%= f.label :notes,t('labels.remarks'), :class=>"text"%>
 		<span class="in-box"> <%= f.text_area :notes,:value=>@resource_ict_equipment_booking.notes, :rows=>2, :autofocus => true%> </span>
 	</div>
 	<div class="form-sec-row">
