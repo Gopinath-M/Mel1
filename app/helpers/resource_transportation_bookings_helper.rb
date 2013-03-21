@@ -1,7 +1,6 @@
 module ResourceTransportationBookingsHelper
   # This method is for status 'Approved' alone
   def approve_scenario(id,vehicle_id)
-    w
     rtb = ResourceTransportationBooking.find(id)
     agency_store = AgencyStore.find_by_resource_id(vehicle_id)
     if agency_store.driver_id.present?
