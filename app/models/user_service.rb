@@ -1,6 +1,6 @@
 class UserService < ActiveRecord::Base
 
-  attr_accessible :service_level_id,:classification_id,:grade_id,:service_standard_id,:appointment_id,:salary_scale1,:salary_scale2,:email,:position,:office_address,:office_number,:office_fax,:postal_code,:city,:state,:recent_salary,:user_id,:first_appointment_to_public_service,:first_appointment_to_present_position,:promotion_to_present_grade,:confirmation_date
+  attr_accessible :service_level_id,:classification_id,:grade_id,:service_standard_id,:appointment_id,:salary_scale1,:salary_scale2,:email,:position,:office_address,:office_number,:office_fax,:postal_code,:city,:state,:recent_salary,:user_id,:first_appointment_to_public_service,:first_appointment_to_present_position,:promotion_to_present_grade,:confirmation_date,:head_of_dept
 
   validates :service_level_id,:classification_id,:grade_id,:service_standard_id,:appointment_id,:salary_scale1,:salary_scale2,:office_address,:office_number,:office_fax,:postal_code,:city,:state,:recent_salary,:first_appointment_to_public_service,:first_appointment_to_present_position,:promotion_to_present_grade,:confirmation_date, :presence => true
 

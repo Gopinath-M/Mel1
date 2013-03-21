@@ -23,6 +23,7 @@ class CreateUserServices < ActiveRecord::Migration
       t.string :first_appointment_to_present_position
       t.string :promotion_to_present_grade
       t.string :confirmation_date
+      t.integer :head_of_dept
       t.timestamps
     end
   end

@@ -133,6 +133,13 @@
 				<label class="text"> <%= t('labels.confirmation_date')%> </label>
 				<span class="in-box"> <%= @service.confirmation_date if !@service.blank? %></span>
 			</div>
+			<%if @service.head_of_dept.present?%>
+			<% user = User.find(@service.head_of_dept)%>
+			<div class="form-sec-row-out">
+				<label class="text"> <%= t('labels.head_of_dept')%> </label>
+				<span class="in-box"> <%= user.first_name  %></span>
+			</div>
+			<%end%>
 		</div>
 		<h2 class="b-head"></h2>
 		<br/>
