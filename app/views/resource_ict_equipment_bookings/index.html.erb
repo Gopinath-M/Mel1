@@ -4,7 +4,6 @@
     <%if @resource_ict_equipment_bookings && !@resource_ict_equipment_bookings.empty?%>
       <%  @resource_ict_equipment_bookings.each do |resource_ict_equipment_booking|%>
 
-
         <div class="manage-user box">
           <div class="manage-user-rows box">
             <div class="m-c1"><b><%=t('labels.name')%></b></div>
@@ -51,7 +50,7 @@
             <div class="form-sec-row">
               <% if resource_ict_equipment_booking.status == "Processed" && resource_ict_equipment_booking.user_id = current_user.id%>
                 <div id="div_ict_chk_<%= resource_ict_equipment_booking.id %>" style="display:block;">
-                  <% if !resource_ict_equipment_booking.user_returned_status? %>
+                  <% if !resource_ict_equipment_booking.user_returned_status? && resource_ict_equipment_booking.resource.is_returnable? %>
                     <label class="text"><%=t('labels.is_return')%></label>
                     <span class="in-box">
                       <%= check_box_tag "user_returned_status[#{resource_ict_equipment_booking.id}]","",false,:onchange=>"returnIctEquipment(this.id,#{resource_ict_equipment_booking.id})" %>

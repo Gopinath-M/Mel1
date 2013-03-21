@@ -1,4 +1,4 @@
-<%= form_for(@resource_booking, :url=>update_resource_booking_resource_bookings_path) do |f| %>
+<%= form_for(@resource_booking, :url=>cancel_other_request_resource_bookings_path) do |f| %>
   <div class="clearfix">&nbsp;</div>
   <div class="CenterNav">
     <% if current_user.is_department_admin? %>
@@ -147,11 +147,12 @@
       &nbsp;<b><%= @resource_booking.status %></b></span>
   </div>
   <div class="form-sec-row2">
-    <label class="text">&nbsp;</label>
-    <span class="in-box2">
-      <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
-    </span>
-  </div>
+		<label class="text">&nbsp;</label>
+		<span class="in-box2"> <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
+		<% if @resource_booking.status == 'New'%>
+			<%= f.submit :value=> "Cancel", :class=>"btn2", :confirm => 'Do you want to cancel the Request?'%> 
+		<%end%></span>
+	</div>
   </div>
 
 <%end%>

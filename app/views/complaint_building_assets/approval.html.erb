@@ -113,7 +113,12 @@
 				<label class="text"><%= t('labels.vendor_name')%><span style=color:red>*</span></label>
 				<span class="in-box"> <%= f.select(:vendor_id, Vendor.all.collect {|p| [ p.name, p.id ] },:prompt => "Select Vendor Name", :style=> "width:132%;") %> </span>
 			</div>
+			<div class="form-sec-row">
+				<label class="text"><%= t('labels.given_date')%><span style=color:red>*</span></label>
+				<span class="in-box"> <%= f.text_field :given_date, :value=>@complaint_building_asset && @complaint_building_asset.given_date!=nil ? @complaint_building_asset.given_date : nil ,:readonly=>true%></span>
+			</div>
 		</div>
+		
 		<div class="form-sec-row">
 			<label class="text"><%= t('labels.status')%><span style=color:red>*</span></label>
 			<span class="in-box"> <%= f.select :status,  options_for_select([["Select Status"], ["Approved", "Approved"], ["Declined", "Declined"]], @complaint_building_asset.status) %> </span>

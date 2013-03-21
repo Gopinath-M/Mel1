@@ -1,15 +1,16 @@
+<%= form_for(@resource_transportation_booking, :url=>cancel_transport_request_resource_transportation_bookings_path) do |f| %>
 <div class="CenterNav">
 	<div class="form-sec">
-		<h2 class="b-head"><%=t('labels.trans_req_details')%></h2>
-		
+		<h2 class="b-head"><%= t('labels.trans_req_details')%></h2>
+
 		<font color="#369" size="3">
 			<br/>
 			<b><u><%= t('labels.user_details') %>:-</u>
 			<br/>
 			<br/>
 			</b></font>
-		
-		<% if !@requester.is_super_admin? %>	
+		<%= hidden_field_tag :resource_transport_id,(@resource_transportation_booking.id)  %>
+		<% if !@requester.is_super_admin? %>
 		<div class="form-sec-row">
 			<label class="text"><%= t('labels.agency_name')%></label>
 			<span class="in-box"><%= Department.find_by_id(current_department).agency.name.upcase %></span>
@@ -146,13 +147,17 @@
 		<div class="form-sec-row">
 			<label class="text"><%= t('labels.driver_telephone')%></label>
 			<span class="in-box"><%= driver.telephone_number %></span>
-		</div>	
+		</div>
 		<%end%>
-		
+
 		<div class="form-sec-row2">
-		<label class="text">&nbsp;</label>
-		<span class="in-box2"> <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%> </span>
-	</div>
+			<label class="text">&nbsp;</label>
+			<span class="in-box2"> <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
+				<% if @resource_transportation_booking.status == 'New'%>
+				<%= f.submit :value=> "Cancel", :class=>"btn2", :confirm => 'Do you want to cancel the Request?'%>
+				<%end%></span>
+		</div>
 
 	</div>
 </div>
+<%end%>

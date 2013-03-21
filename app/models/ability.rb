@@ -31,10 +31,10 @@ class Ability < ActiveRecord::Base
         can [:manage], [ResourceTransportationBooking,ResourceRoomBooking,ResourceIctEquipmentBooking,ResourceBooking,IctFirewall,IctNetworkPoint,IctHardwareBooking,IctSystemAccess,IctVpn,SoftwareInstallation]        
       end
             
-      can [:read,:create,:show,:user_return_status], ResourceTransportationBooking
-      can [:read,:create,:show,:user_return,:get_list_of_facility,:get_resources,:get_details_for_resource,:list_resource_booking,:room_booking_approval], ResourceRoomBooking
-      can [:read,:create,:show,:download_attachments,:get_value_of_resource,:requests,:approve_request,:update_booking,:user_return], ResourceIctEquipmentBooking
-      can [:read,:create,:show,:get_other_sub_categories,:get_value_of_resource,:list_resource_booking,:resource_booking_approval], ResourceBooking
+      can [:read,:create,:show,:user_return_status,:cancel_transport_request], ResourceTransportationBooking
+      can [:read,:create,:show,:user_return,:get_list_of_facility,:get_resources,:get_details_for_resource,:list_resource_booking,:room_booking_approval,:cancel_room_request], ResourceRoomBooking
+      can [:read,:create,:show,:download_attachments,:get_value_of_resource,:requests,:approve_request,:update_booking,:user_return,:cancel_ict_equipment_request], ResourceIctEquipmentBooking
+      can [:read,:create,:show,:get_other_sub_categories,:get_value_of_resource,:list_resource_booking,:resource_booking_approval,:cancel_other_request], ResourceBooking
       can [:read,:create,:show], IctFirewall
       can [:read,:create,:show], IctNetworkPoint
       can [:read,:create,:show], IctVpn

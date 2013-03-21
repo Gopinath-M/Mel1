@@ -301,5 +301,10 @@ class ResourceTransportationBookingsController < ApplicationController
     end
   end
 
+  def cancel_transport_request
+      cancel_request = ResourceTransportationBooking.find(params[:resource_transport_id])
+      cancel_request.update_attribute(:status, "Cancelled")
+      redirect_to(resource_transportation_bookings_path, :notice => "Your Transport booking has been cancelled sucessfully.")
+  end
 
 end

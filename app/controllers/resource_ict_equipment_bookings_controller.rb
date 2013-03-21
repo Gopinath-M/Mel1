@@ -90,7 +90,7 @@ class ResourceIctEquipmentBookingsController < ApplicationController
   #  end
   
   def show
-    @resource_ict_equipment_booking = ResourceIctEquipmentBooking.find(params[:id]) if params[:id]
+     @resource_ict_equipment_booking = ResourceIctEquipmentBooking.find(params[:id]) if params[:id]
     #    approval_details(@resource_ict_equipment_booking)
   end
 
@@ -184,6 +184,12 @@ class ResourceIctEquipmentBookingsController < ApplicationController
     def get_value_of_resource
     resources = Resource.active.find(params[:resource_id])
     render :json=>[resources] if resources 
+  end
+  
+    def cancel_ict_equipment_request
+      cancel_request = ResourceIctEquipmentBooking.find(params[:resource_ict_equipment_id])
+      cancel_request.update_attribute(:status, "Cancelled")
+      redirect_to(resource_ict_equipment_bookings_path, :notice => "Your Ict Equipment booking has been cancelled sucessfully.")
   end
   
 end
