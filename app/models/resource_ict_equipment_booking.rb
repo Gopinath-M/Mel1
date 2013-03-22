@@ -1,4 +1,5 @@
 class ResourceIctEquipmentBooking < ActiveRecord::Base
+  has_many :remarks, :as=>:remarkable
   belongs_to :sub_category
   belongs_to :agency_store
   belongs_to :department
@@ -9,9 +10,13 @@ class ResourceIctEquipmentBooking < ActiveRecord::Base
   validates :sub_category_id,:agency_store_id,:purpose,:location, :requested_from_date, :requested_to_date,:meeting_start_time,:meeting_end_time, :presence=>true
   validates :purpose,:location, :length => { :minimum => 4 }, :if=>Proc.new {|u| !u.location.blank? || !u.purpose.blank? }
   validate :validate_booking_time, :on=>:create
-  after_create :send_notification
-  after_save :send_user_notification
+  after_create :send_notification,:add_remarks
+  after_save :send_user_notification,:add_remarks
 
+  def add_remarks
+    Remark.create(:user_id=>self.approver_id.nil? ? self.user_id : self.approver_id, :department_id=>Department.current_department, :remarkable_id=>self.id, :remarkable_type=>self.class,:text=>self.notes)
+  end
+  
   mount_uploader :ict_equipment_attachment, IctEquipmentAttachmentUploader
 
   def send_user_notification

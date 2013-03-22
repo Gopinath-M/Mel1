@@ -1,12 +1,22 @@
 class ResourceRoomBooking < ActiveRecord::Base
-
+  has_many :remarks, :as=>:remarkable
+  attr_accessor :notes
   belongs_to :sub_category
   belongs_to :resource
   belongs_to :agency_store
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   belongs_to :department
   belongs_to :user , :class_name => "User", :foreign_key => "updated_by"
+  after_create :add_remarks
+  after_update :add_remarks
+  
+#  validate :add_remarks, :on => :save
+#  validate :add_remarks, :on => :update
 
+  def add_remarks
+    Remark.create(:user_id=>self.updated_by.nil? ? self.user_id : self.updated_by, :department_id=>Department.current_department, :remarkable_id=>self.id, :remarkable_type=>self.class,:text=>self.notes)
+  end
+  
   validates :purpose,:requested_from_date,:requested_to_date,:sub_category_id,:room_capacity, :presence => true
   validate :validate_booking_time, :on=>:create
 

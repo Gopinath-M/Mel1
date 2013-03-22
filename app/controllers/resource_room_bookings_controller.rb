@@ -53,9 +53,7 @@ class ResourceRoomBookingsController < ApplicationController
         val1 = ResourceRoomBooking.find(:all,:conditions => [" resource_id = ? and status != ? and '#{to_date}' BETWEEN requested_from_date and requested_to_date", params[:resource_room_booking][:resource_id], 'Returned'] )
         if !val.present? && !val1.present?
           @approve = Approver.active.find_all_by_department_id(@current_department).first
-          @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
-          @resource_room_booking.agency_store_id = agency.id
-          @resource_room_booking.user_id = params[:user_id]
+          @resource_room_booking = ResourceRoomBooking.new(params[:resource_room_booking].merge!(:agency_store_id => agency.id, :user_id => params[:user_id]))
           if session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
             @resource_room_booking.status = "Processed"
             @resource_room_booking.department_id = '0'
@@ -99,7 +97,7 @@ class ResourceRoomBookingsController < ApplicationController
       end
     elsif session[:current_role] == DISP_USER_ROLE_SUPER_ADMIN
       val = AgencyStore.find_by_resource_id(params[:room][:type_id_booked])
-      @resource_room_booking = ResourceRoomBooking.create(params[:resource_room_booking])
+      @resource_room_booking = ResourceRoomBooking.new(params[:resource_room_booking])
       if @resource_room_booking.valid?
         @room = ResourceRoomBooking.find_all_by_resource_id(params[:room][:type_id_booked], :conditions=>["(status = 'New' or status = 'Approved') and agency_store_id=#{val.id} and user_id != ?", 1]).last
         if @room.present?
