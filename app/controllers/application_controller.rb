@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
   
   #This method will work if the user himself change his default department. For Future use #Manivannan
   def default_department
-    default_department ||= current_user.role_memberships.where(:default_dept => true).first.department.id
+    default_department ||= current_user.role_memberships.first.department.id
   end
 
 end
