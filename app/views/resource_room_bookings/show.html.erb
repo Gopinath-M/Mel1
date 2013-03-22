@@ -98,12 +98,13 @@
 			<%end%>
 		</div>
 		<%end%>
-		<% if @resource_room_booking.remarks.present? %>
+		<% val = Remark.find_by_remarkable_id_and_remarkable_type_and_status(@resource_room_booking.id,'ResourceRoomBooking', 'New')%>
 		<div class="form-sec-row">
+			<% if val.present? %>
 			<label class="text"><b><%= t('labels.remarks')%></b></label>
-			<span class="in-box">&nbsp;<%= @resource_room_booking.remarks%></span>
+			<span class="in-box">&nbsp;<%= val.text%></span>
+			<%end%>
 		</div>
-		<%end%>
 
 		<tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
 		</tr>
@@ -206,6 +207,23 @@
 			<span class="in-box">&nbsp;<%= @resource_room_booking.updated_at.localtime.strftime("%d-%m-%Y %H:%M %p")%></span>
 		</div>
 		<%end%>
+		<% if @resource_room_booking.status == "Approved"%>
+		<% val = Remark.find_by_remarkable_id_and_status(@resource_room_booking.id, 'Approved')%>
+		<div class="form-sec-row">
+			<% if val.present?%>
+			<label class="text"><b><%= t('labels.remarks')%></b></label>
+			<span class="in-box">&nbsp;<%= val.text%></span>
+			<%end%>
+		</div>
+		<%elsif @resource_room_booking.status == "Processed"%>
+		<% val = Remark.find_by_remarkable_id_and_status(@resource_room_booking.id, 'Processed')%>
+		<div class="form-sec-row">
+			<% if val.present?%>
+			<label class="text"><b><%= t('labels.remarks')%></b></label>
+			<span class="in-box">&nbsp;<%= val.text%></span>
+			<%end%>
+		</div>
+		<%end%>
 		<tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
 		</tr>
 
@@ -264,9 +282,9 @@
 	<div class="form-sec-row2">
 		<label class="text">&nbsp;</label>
 		<span class="in-box2"> <%= link_to t('labels.back'), :back, :class=>"btn1 mr2"%>
-		<% if @resource_room_booking.status == 'New'%>
-			<%= f.submit :value=> "Cancel", :class=>"btn2", :confirm => 'Do you want to cancel the Request?'%> 
-		<%end%></span>
+			<% if @resource_room_booking.status == 'New'%>
+			<%= f.submit :value=> "Cancel", :class=>"btn2", :confirm => 'Do you want to cancel the Request?'%>
+			<%end%></span>
 	</div>
 
 </div>

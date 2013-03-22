@@ -14,7 +14,7 @@ class ResourceRoomBooking < ActiveRecord::Base
 #  validate :add_remarks, :on => :update
 
   def add_remarks
-    Remark.create(:user_id=>self.updated_by.nil? ? self.user_id : self.updated_by, :department_id=>Department.current_department, :remarkable_id=>self.id, :remarkable_type=>self.class,:text=>self.notes)
+    Remark.create(:user_id=>self.updated_by.nil? ? self.user_id : self.updated_by, :status => self.status, :department_id=>Department.current_department, :remarkable_id=>self.id, :remarkable_type=>self.class,:text=>self.notes)
   end
   
   validates :purpose,:requested_from_date,:requested_to_date,:sub_category_id,:room_capacity, :presence => true
