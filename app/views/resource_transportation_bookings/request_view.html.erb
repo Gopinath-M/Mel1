@@ -220,7 +220,7 @@
 		</div>
 
 		<div class="form-sec-row">
-			
+
 			<label class="text"><%= t('left_nav.driver_name')%></label>
 			<div id="normal" >
 				<%# driver = Driver.find(@resource_transportation_booking.agency_store.driver_id) %>
@@ -228,19 +228,19 @@
 					<% drivers = Driver.where("already_assigned = ?", false)%>
 					<% if drivers.present?%>
 					<input type="button" id="driver_change_button" name="Change" value="Assign Driver" />
-					<%else%>
-						
-						<b><%= "Sorry. Right now all the Drivers is Booked..."%></b>
-					<%end%>
-				</span>
+					<%else%> <b><%= "Sorry. Right now all the Drivers is Booked..."%></b> <%end%> </span>
 			</div>
-			
+
 			<div id="alternate">
 				<span class="in-box"><%= select("driver","name", options_from_collection_for_select(Driver.find(:all,:conditions=>["already_assigned = false"]),'name',"name"),{:prompt=>"Select Driver"})%>
 					<input type="button" id="driver_cancel_button" name="Cancel" value="Cancel" />
 				</span>
 			</div><div id="changed_driver"></div>
 			<%= hidden_field_tag "alternate_driver"  %>
+
+				<label class="text"><%= t('labels.remarks')%></label>
+				<span class="in-box"> <%= text_field_tag "remarks_approver"%> </span>
+
 		</div>
 
 		<%else%>
@@ -251,7 +251,8 @@
 			<span class="in-box"><%= vehicle.vehicle_model+' : '+vehicle.resource_no %></span>
 		</div>
 
-		<% driver = Driver.find(@resource_transportation_booking.driver_id) %>
+		<% if @resource_transportation_booking.driver_id.present? %>
+		<% driver = Driver.find(@resource_transportation_booking.driver_id) %>		
 		<div class="form-sec-row">
 			<label class="text"><%= t('left_nav.driver_name')%></label>
 			<span class="in-box"><%= driver.name %></span>
@@ -260,7 +261,7 @@
 			<label class="text"><%= t('labels.driver_telephone')%></label>
 			<span class="in-box"><%= driver.telephone_number %></span>
 		</div>
-
+		<%end%>
 		<%end%>
 		<%else%>
 		<div class="form-sec-row">
@@ -292,7 +293,10 @@
 				<%= select("vehicle","id", options_from_collection_for_select(VehicleModelType.where("sub_category_id = ?",params[:sub_category_id]).active, 'id','name'),{:prompt=>"Select Vehicle"})%> </td> </span>
 			<%end%>
 		</div>
-
+		<div class="form-sec-row">
+			<label class="text"><%= t('labels.remarks')%></label>
+			<span class="in-box"> <%= text_field_tag "remarks_approver"%> </span>
+		</div>
 		<div id="driver_details"></div>
 		<%end%>
 		<div class="form-sec-row">
@@ -351,13 +355,13 @@
 			}
 		}
 	}
-	
-	
+
+
 	$("#driver_value").live("click", function() {
-	if ($("#approve_status").val() == "Processed" &&  $("#driver_name").val() == "") {
-		alert("Please Select Driver");
-		return false;
-	} 
-});
+		if ($("#approve_status").val() == "Processed" && $("#driver_name").val() == "") {
+			alert("Please Select Driver");
+			return false;
+		}
+	});
 
 </script>

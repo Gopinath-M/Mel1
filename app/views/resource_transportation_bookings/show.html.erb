@@ -139,6 +139,7 @@
 			<span class="in-box"><%= vehicle.resource_no %></span>
 		</div>
 
+		<% if @resource_transportation_booking.driver_id.present? %>
 		<% driver = Driver.find(@resource_transportation_booking.driver_id) %>
 		<div class="form-sec-row">
 			<label class="text"><%= t('left_nav.driver_name')%></label>
@@ -148,6 +149,7 @@
 			<label class="text"><%= t('labels.driver_telephone')%></label>
 			<span class="in-box"><%= driver.telephone_number %></span>
 		</div>
+		<%end%>
 		<%end%>
 
 		<div class="form-sec-row2">
